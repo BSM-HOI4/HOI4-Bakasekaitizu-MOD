@@ -1,0 +1,121 @@
+focus_tree = {
+	id = AMERICA
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC}
+		}
+	}
+	default = yes
+
+
+	focus = {
+		id = USAB_1
+		text =  USAB_1
+		icon = GFX_focus_RAJ_lions_of_the_great_war
+		cost = 50
+		x = 7
+		y = 0
+        select_effect={set_country_flag=USAC
+		set_country_flag=USABB
+		army_experience =10
+		add_timed_idea={idea=USAB_N days=200}
+		add_equipment_to_stockpile = {
+									type = infantry_equipment
+									amount = 10000
+								}
+		ROOT={limit={tag=HRZ} 
+		add_equipment_to_stockpile = {
+									type = infantry_equipment
+									amount = 10000
+								}}
+
+		 ROOT={limit={tag=MEX}
+				HRZ={add_timed_idea={idea=USAB_S days=400 }}
+
+				 random_country={
+			limit={
+				AND={
+					NOT={has_country_flag=nemui}
+					is_ai=no
+				OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC}
+				}}		
+				
+				
+						country_event={id=USAB.1}
+						set_country_flag=nemui
+						}
+		random_country={
+			limit={
+					AND={is_ai=no  
+					NOT={has_country_flag=nemui}
+					OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC}}
+				}
+					
+						country_event={id=USAB.1 days=5}
+						set_country_flag=nemui
+						
+						}
+		KOS={limit={is_ai=yes} clr_country_flag=nemui  country_event={id=USAB.1 days=12 set_country_flag=nemui}}
+		HRZ={limit={is_ai=yes} clr_country_flag=nemui country_event={id=USAB.1 days=11 set_country_flag=nemui}  }
+		random_country={limit={AND={is_ai=yes NOT={has_country_flag=nemui} OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC}}}
+						clr_country_flag=nemui
+						country_event={id=USAB.1 days=13}
+						
+						}				
+		random_country={limit={AND={is_ai=yes NOT={has_country_flag=nemui} OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC}} }
+						clr_country_flag=nemui
+						country_event={id=USAB.1 days=14}
+						
+						}
+				}
+
+			
+								
+ 
+                             
+						
+                        }
+			completion_reward = {
+				clr_country_flag=USAC
+					add_war_support = 0.3
+					every_country={limit={has_country_flag=SATO2} 
+									add_timed_idea={idea=USAB_M days=150 }
+				}
+				ROOT={limit={NOT={OR={has_country_flag=NATO1 has_country_flag=NATO2 has_country_flag=SATO1 has_country_flag=SATO2}}}} country_event={id=USAB.4}
+			every_country={limit={OR={has_country_flag=SATO1 has_country_flag=SATO2}} 
+							
+							every_country={limit={OR={has_country_flag=NATO1 has_country_flag=NATO2}} 
+							 declare_war_on={target = PREV
+									type = annex_everything}}}}
+	}
+	
+	
+	focus = {
+		id = USAB_2
+		text =  USAB_2
+		icon = GFX_focus_RAJ_lions_of_the_great_war
+		cost = 10
+		available={has_war=no}
+		
+		prerequisite = {
+			focus = USAB_1
+		}
+		x = 7
+		y = 2
+       
+
+		 completion_reward={ 
+			 
+			 dismantle_faction=yes
+	every_country={limit={OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC}}
+		clr_country_flag=USABB
+		ROOT={ create_wargoal = {
+					target =PREV
+					type = annex_everything}}}
+					load_focus_tree = generic11111111
+								}}
+
+
+}
