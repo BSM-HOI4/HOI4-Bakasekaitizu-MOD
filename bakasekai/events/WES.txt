@@ -6,9 +6,23 @@ country_event = {
 	title = WES.1.t
 	desc = WES.1.d
 
-	fire_only_once = yes
+	fire_only_once = false
+	major = no
+	is_triggered_only = yes
 
 	trigger = {
+		OR={
+			tag=EGY
+			tag=MOR
+			tag=TUN
+			tag=KEN
+			tag=CAM
+			tag=ANG
+			tag=SAU
+			tag=IRQ
+			tag=PER
+			tag=TUR
+		}
 	}
 
 	mean_time_to_happen = {
@@ -40,19 +54,31 @@ country_event = {
 	title = WES.2.t
 	desc = WES.2.d
 
-	fire_only_once = yes	
+	fire_only_once = false	
+
+	major = no
+	is_triggered_only = yes
 
 	trigger = {
+		OR={
+			tag=EGY
+			tag=MOR
+			tag=TUN
+			tag=KEN
+			tag=CAM
+			tag=ANG
+			tag=SAU
+			tag=IRQ
+			tag=PER
+			tag=TUR
+		}
 	}
 
 	mean_time_to_happen = {
 		days = 1
 	}
 
-	if = {
-		limit = {
-			has_country_flag=SGC
-			}
+	
 			option = {
 				name = WES.2.a	#"さらに結束を強める"
 				ai_chance = {
@@ -75,35 +101,40 @@ country_event = {
 				}
 				clr_country_flag = SGC
 			}
-
-			else = {
-				option = {
-					name = WES.2.c	#"我々には関係ない"
-				}
-			}
 	}
 	
-}
+
 
 country_event = {
 	id = WES.3
 	title = WES.3.t
 	desc = WES.3.d
 
-	fire_only_once = yes	
+	fire_only_once = false	
+
+	major = no
+	is_triggered_only = yes
 
 	trigger = {
+		OR={
+			tag=EGY
+			tag=MOR
+			tag=TUN
+			tag=KEN
+			tag=CAM
+			tag=ANG
+			tag=SAU
+			tag=IRQ
+			tag=PER
+			tag=TUR
+		}
 	}
 
 	mean_time_to_happen = {
 		days = 1
 	}
 
-	if = {
-		limit = {
-			has_country_flag=SGC
-			}
-			option = {
+	option = {
 				name = WES.3.a	#"さらに結束を強める"
 				ai_chance = {
 					factor = 100
@@ -116,23 +147,18 @@ country_event = {
       	   		 	remove_idea = WES_trade_at_SGC_2
       	   		 	add_idea = WES_trade_at_SGC_3
      	   		}
-			}
+	}
 	
 
-			option = {
+	option = {
 				name = WES.3.b	#"断る"
 				ai_chance = {
 					factor = 0
 				}
 				clr_country_flag = SGC
-			}	
+	}	
 
-			else = {
-				option = {
-					name = WES.3.c	#"我々には関係ない"
-				}
-			}
-	}
+	
 }
 
 country_event = {
@@ -140,21 +166,32 @@ country_event = {
 	title = WES.4.t
 	desc = WES.4.d
 
-	fire_only_once = yes	
+	fire_only_once = false	
+
+	major = no
+	is_triggered_only = yes
 
 	trigger = {
+		OR={
+			tag=EGY
+			tag=MOR
+			tag=TUN
+			tag=KEN
+			tag=CAM
+			tag=ANG
+			tag=SAU
+			tag=IRQ
+			tag=PER
+			tag=TUR
+		}
 	}
 
 	mean_time_to_happen = {
 		days = 1
 	}
 
-	if = {
-		limit = {
-			has_country_flag=SGC
-			}
 
-			option = {
+	option = {
 				name = WES.4.a	#"連合化を受け入れる"
 				ai_chance = {
 					factor = 100
@@ -167,23 +204,21 @@ country_event = {
         		    remove_idea = WES_trade_at_SGC_3
        	   	 	add_idea = WES_trade_at_SGC_4
        			}
-				WES = { country_event = WES.9 }
-			}
+				WES = { country_event = { id = WES.9 } }
+				effect_tooltip = {
+				WES = {puppet = ROOT}
+				}
+	}
 
-			option = {
+	option = {
 				name = WES.4.b	#"断る"
 				ai_chance = {
 					factor = 0
 				}
 				clr_country_flag = SGC
-			}
-
-			else = {
-				option = {
-					name = WES.4.c	#"我々には関係ない"
-				}
-			}	
 	}
+
+	
 }
 
 country_event = {
@@ -191,41 +226,49 @@ country_event = {
 	title = WES.5.t
 	desc = WES.5.d
 
-	fire_only_once = yes	
+	fire_only_once = false	
+
+	major = no
+	is_triggered_only = yes
 
 	trigger = {
+		OR={
+			tag=EGY
+			tag=MOR
+			tag=TUN
+			tag=KEN
+			tag=CAM
+			tag=ANG
+			tag=SAU
+			tag=IRQ
+			tag=PER
+			tag=TUR
+		}
 	}
 
 	mean_time_to_happen = {
 		days = 1
 	}
 
-	if = {
-		limit = {
-			has_country_flag=SGC_2
-			}
-			option = {
+	
+	option = {
 				name = WES.5.a	#"投資を受け入れる"
 				ai_chance = {
 					factor = 100
 				}
 				set_country_flag = Invest
 				add_ideas = WES_investment_in_resource_development_1
-			}
+	}
 
-			option = {
+	option = {
 				name = WES.5.b	#"断る"
 				ai_chance = {
 					factor = 0
 				}
-			}
-
-			else = {
-			option = {
-				name = WES.5.c	#"我々には関係ない"
-			}
-		}
 	}
+
+		
+	
 }
 
 
@@ -234,19 +277,31 @@ country_event = {
 	title = WES.6.t
 	desc = WES.6.d
 
-	fire_only_once = yes
+	fire_only_once = false
+
+	major = no
+	is_triggered_only = yes
 
 	trigger = {
+		OR={
+			tag=EGY
+			tag=MOR
+			tag=TUN
+			tag=KEN
+			tag=CAM
+			tag=ANG
+			tag=SAU
+			tag=IRQ
+			tag=PER
+			tag=TUR
+		}
 	}
 
 	mean_time_to_happen = {
 		days = 1
 	}
 
-	if = {
-		limit = {
-			has_country_flag=Invest
-		}
+	
 		option = {
 			name = WES.6.a	#"さらに投資を受け入れる"
 			ai_chance = {
@@ -266,12 +321,8 @@ country_event = {
 			clr_country_flag =Invest
 		}
 
-		else = {
-			option = {
-				name = WES.6.c	#"我々には関係ない"
-			}
-		}
-	}
+		
+	
 }
 
 country_event = {
@@ -279,19 +330,30 @@ country_event = {
 	title = WES.7.t
 	desc = WES.7.d
 
-	fire_only_once = yes
+	fire_only_once = false
+
+	major = no
+	is_triggered_only = yes
 
 	trigger = {
+		OR={
+			tag=EGY
+			tag=MOR
+			tag=TUN
+			tag=KEN
+			tag=CAM
+			tag=ANG
+			tag=SAU
+			tag=IRQ
+			tag=PER
+			tag=TUR
+		}
 	}
 
 	mean_time_to_happen = {
 		days = 1
 	}
 
-	if = {
-		limit = {
-			has_country_flag=Invest
-		}
 		option = {
 			name = WES.7.a	#"さらなる投資を受け入れる"
 			ai_chance = {
@@ -311,12 +373,8 @@ country_event = {
 			clr_country_flag =Invest
 		}
 
-		else = {
-			option = {
-				name = WES.7.c	#"我々には関係ない"
-			}
-		}
-	}
+		
+	
 }
 
 country_event = {
@@ -324,19 +382,31 @@ country_event = {
 	title = WES.8.t
 	desc = WES.8.d
 
-	fire_only_once = yes
+	fire_only_once = false
+
+	major = no
+	is_triggered_only = yes
 
 	trigger = {
+		OR={
+			tag=EGY
+			tag=MOR
+			tag=TUN
+			tag=KEN
+			tag=CAM
+			tag=ANG
+			tag=SAU
+			tag=IRQ
+			tag=PER
+			tag=TUR
+		}
 	}
 
 	mean_time_to_happen = {
 		days = 1
 	}
 
-	if = {
-		limit = {
-			has_country_flag=Invest
-		}
+	
 		option = {
 			name = WES.8.a	#"彼らの管理下になる"
 			ai_chance = {
@@ -346,7 +416,7 @@ country_event = {
 				remove_idea = WES_investment_in_resource_development_3
 				add_idea = WES_investment_in_resource_development_4
       		}
-			give_resource_rights = { receiver = WES state = every_state #={limit={is_owned_by=ROOT} }	}#TAG_TAG
+			#give_resource_rights = { receiver = WES state = every_state ={limit={is_owned_by=ROOT} }	}#TAG_TAG
 			#WES = { country_event = WES.9 }
 			#傀儡化
 		}
@@ -357,7 +427,7 @@ country_event = {
 				factor = 0
 			}
 			clr_country_flag =Invest
-			WES = { country_event = WES.10 }
+			WES = { country_event = { id = WES.10 } }
 			effect_tooltip = {
 				create_wargoal = {
 				type = puppet_wargoal_focus
@@ -366,12 +436,7 @@ country_event = {
 			}
 		}
 
-		else = {
-			option = {
-				name = WES.8.c	#"我々には関係ない"
-			}
-		}
-	}
+		
 }
 
 country_event = {
@@ -381,7 +446,11 @@ country_event = {
 
 	fire_only_once = false
 
+	major = no
+	is_triggered_only = yes
+
 	trigger = {
+		tag = WES
 	}
 
 	mean_time_to_happen = {
@@ -393,7 +462,7 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
-		puppet = ROOT	#TAG_TAG
+		puppet = FROM	#TAG_TAG
 	}
 }
 
@@ -404,7 +473,11 @@ country_event = {
 
 	fire_only_once = false
 
+	major = no
+	is_triggered_only = yes
+
 	trigger = {
+		tag = WES
 	}
 
 	mean_time_to_happen = {
@@ -418,8 +491,8 @@ country_event = {
 		}
 		create_wargoal = {
 		type = puppet_wargoal_focus
-		target = ROOT	#TAG_TAG
+		target = FROM	#TAG_TAG
 		}
 	}
 }
-}
+
