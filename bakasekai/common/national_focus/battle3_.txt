@@ -62,10 +62,11 @@ focus_tree = {
 		x = 4
 		y = 2
 			ai_will_do = {
-					factor = -1
+					factor = 10
 				}
 				bypass = {AND={has_idea = battle3_kodoku NOT={has_country_flag="内戦準備"}}}
 			select_effect = {
+				set_country_flag="国内問題に対処"
 					LIT = {
 						set_country_flag="内戦準備"
 							set_country_flag=naisennbattle
@@ -517,8 +518,11 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 		x = 12
 		y = 2
 			ai_will_do = {
-					factor = 1
+					factor = -1
 				}
+			select_effect={
+				set_country_flag="国内問題に対処"
+			}
 			completion_reward = {
 					add_stability = 0.1
 					
@@ -986,7 +990,9 @@ completion_reward = {add_ideas=battle3_toushi}
 		x = 22
 		y = 0
 		cost = 10
-		
+		available={
+			has_country_flag="国内問題に対処"
+		}
 		search_filters = {   FOCUS_FILTER_RESEARCH }
 
 		available_if_capitulated = yes
@@ -1274,6 +1280,9 @@ completion_reward = {add_ideas=battle3_toushi}
 		cost = 10.00
 		x = 17
 		y = 0
+			available={
+				has_country_flag="国内問題に対処"
+			}
 			search_filters = { FOCUS_FILTER_RESEARCH }
 			completion_reward = {
 					army_experience = 5
@@ -1675,13 +1684,15 @@ completion_reward = {add_ideas=battle3_toushi}
 				}
 
 	}
-				focus = {
+	focus = {
 		id = battle3n_1
 		icon = GFX_goal_generic_construct_naval_dockyard
 		x = 26
 		y = 0
 		cost = 10
-
+		available={
+			has_country_flag="国内問題に対処"
+		}
 		search_filters = {  FOCUS_FILTER_INDUSTRY }
 		
 		available_if_capitulated = yes
@@ -2158,7 +2169,7 @@ completion_reward = {add_ideas=battle3_toushi}
 	}
 	focus = {
 		id = newfocus_40
-		icon = GFX_focus_YUG_dissolve_serbia
+		icon = GFX_focus_YUG_issolve_serbia
 		cost = 10.00
 		prerequisite = {
 			focus = battle3_12_2
