@@ -1,5 +1,5 @@
 version="Alpha 0.1"
-picture="icon_01.png"
+picture="thumbnail.png"
 tags={
 	"Map"
 	"Alternative History"
