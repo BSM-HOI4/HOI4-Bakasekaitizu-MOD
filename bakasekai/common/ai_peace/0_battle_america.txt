@@ -24,10 +24,14 @@
 #   liberate_countries@TAG : an array where each element contains the country that is liberated by country TAG
 # A trigger named "build_temp_vars" will be called before any evaluation so further temp variables can be calculated
 
-default_peace = {
+battle_america_peace = {
 	enable = {
-		OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC}
-	}
+		AND={
+			FROM={OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC tag=CRI tag=RGA tag=LIT tag=UKR tag=BLR
+		}}
+		ROOT={OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC tag=CRI tag=RGA tag=LIT tag=UKR tag=BLR
+		}}
+	}}
 	annex_randomness = 0 #350
 	liberate_randomness = 0 #100
 	puppet_randomness = 0 #200
@@ -41,51 +45,39 @@ default_peace = {
 	# ROOT = Taker, FROM = Giver
 	annex = {
 		factor = 500
-	modifier={
-		factor=100
-		FROM={is_neighbor_of= ROOT}
-	}
-	
 	}
 
 	# ROOT = Taker, FROM = Liberated
 	liberate = {
-		base =-1  #100
-
+		base = 0 #100
+		
 	}
 
 	# ROOT = Taker, FROM = Giver
 	puppet = {
-		base =-1  #200
-		
-			}
-		
-	
+		base = 0
+	}
 	
 	# ROOT = Taker, FROM = Giver
 	puppet_all = {
-		base =-1
+		base = 0 
 	}
 	
 	# ROOT = STATE, FROM = Taker, FROM.FROM = Giver
 	puppet_state = {
-		base = -1
-	
-		}
-	
+	base = 0
+	}
 
 	# ROOT = Taker, FROM = State
 	take_states = {
 		factor = 50
-	FROM={owner={num_owned_neighbour_states={
-		  owner=ROOT
-		  count=0
-	}}}
-	
-	}
 
+		
+		}
+
+		
 	# ROOT = Taker, FROM = Giver
 	force_government = {
-		base =-1  #10 - neutrals should never do this
+		factor = 0 #10 - neutrals should never do this
 	}
 }
