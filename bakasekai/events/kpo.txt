@@ -93,7 +93,7 @@ country_event={
 			every_country={limit={has_war_with=SOV}
 							white_peace=PRC}
 			SOV={add_national_unity = -1}
-			SOV={add_ideas=kohukus}
+			SOV={add_timed_idea={idea=kohukus days=30}}
 			
 
 
@@ -150,7 +150,25 @@ country_event = {
 							CRI={has_war_with=SOV}
 							UKR={has_war_with=SOV}
 						}
-						
+						OR={
+							BLR={
+								has_capitulated=no
+							}
+							LIT={
+								has_capitulated=no
+							}
+							RGA={
+								has_capitulated=no
+							}
+							CRI={
+								has_capitulated=no
+							}
+							UKR={
+								has_capitulated=no
+							}
+
+
+						}
 						OR={
 							tag=LIT
 							tag=RGA
@@ -228,6 +246,84 @@ country_event = {
 		}
 		}
 
+
+country_event = {
+	id = kpo.6
+	title = kpo.6.t
+	desc = kpo.6.d
+	timeout_days=10
+	hidden=no
+	major = no
+	is_triggered_only=yes
+	fire_only_once=no
+	option={
+		name=kpo.6.a
+		ai_chance={
+			base=FROM.num_divisions
+			factor=1
+			}
+		FROM={
+			
+			puppet=PREV
+			country_event={id=kpo.7 }
+		}}
+
+		option={
+			name=kpo.6.b
+			ai_chance={
+				base=num_divisions
+				factor=2
+				}
+			FROM={country_event={id=kpo.8 }}
+		}
+
+	}
+	country_event = {
+	id = kpo.7
+	title = kpo.7.t
+	desc = kpo.7.d
+	timeout_days=10
+	hidden=no
+	major = no
+	is_triggered_only=yes
+	fire_only_once=no
+	option={
+		name=kpo.7.a
+			}}
+	country_event = {
+	id = kpo.8
+	title = kpo.8.t
+	desc = kpo.8.d
+	timeout_days=10
+	hidden=no
+	major = no
+	is_triggered_only=yes
+	fire_only_once=no
+	option={
+		name=kpo.8.a
+		create_wargoal={
+			target=FROM
+			type=puppet_wargoal_focus
+		}
+			}}
+
+	country_event={
+		id=kpo.8
+		title=kpo.8.t
+		desc=kpo.9.d
+		fire_only_once=yes
+		trigger={
+			AND={
+				NOT={
+					has_country_flag="国内問題に対処"
+				}
+				date>1937.1.1
+			}
+		}
+	option={
+		name=kpo.1.a
+	}
+	}
 
 
     

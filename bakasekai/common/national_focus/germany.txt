@@ -13,7 +13,9 @@ focus_tree = {
 		factor = 0
 		
 		modifier = {
-			add = 10
+
+			add = 15
+
 			tag = GER
 		}
 	}
@@ -2487,54 +2489,15 @@ focus_tree = {
 		}
 	}
 	
-	focus = { #should already be signed in 39
-		id = GER_mol_rib_pact
-		icon = GFX_goal_molotov_ribbentrop_pact
-		prerequisite = { focus = GER_soviet_treaty }
-		mutually_exclusive = { focus = GER_anti_soviet_pact }
-		available = {
-			is_puppet = no
-			has_government = fascism
-			has_army_manpower = { size > 849999 } #ca 90 div
-			SOV = {
-				NOT = { has_war_with = GER }
-				country_exists = SOV
-			}
-			NOT = { has_completed_focus = GER_bulwark_against_bolshevism }
-			NOT = { has_completed_focus = GER_the_great_red_menace }
-		}
-		cancel = {
-			OR = {
-				has_war_with = SOV
-				NOT = { country_exists = SOV }
-			}
-		}
-		cancel_if_invalid = no
-		x = 1
-		y = 3
-		relative_position_id = GER_soviet_treaty
-		cost = 10
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				factor = 0
-				NOT = { has_completed_focus = GER_anti_comitern_pact }
-			}
-		}	
-		completion_reward = {
-			
-			SOV = {
-				country_event = { id = germany.11 days = 1 }
-				custom_effect_tooltip = GER_mol_rib_pact_tt
-				custom_effect_tooltip = needs_approval
-			}
-		}
-	}
+
 	
 	focus = {
 		id = GER_soviet_ally
 		icon = GFX_goal_generic_dangerous_deal
-		prerequisite = { focus = GER_mol_rib_pact }
+
+		prerequisite = { focus = GER_anti_comitern_pact }
+
+		prerequisite = { focus = GER_soviet_treaty }
 		mutually_exclusive = { focus = GER_ussr_war_goal }
 		available = {
 			is_puppet = no
@@ -2551,9 +2514,11 @@ focus_tree = {
 				is_in_faction_with = GER
 			}
 		}
-		x = 1
-		y = 1
-		relative_position_id = GER_mol_rib_pact
+
+		x = 21
+		y = 6
+		
+
 		cost = 10
 		ai_will_do = {
 			factor = 0.01
@@ -3239,6 +3204,7 @@ focus_tree = {
 
 		bypass = {
 			OR = {
+				POL={exists=no}
 				has_war_with = POL
 				is_in_faction_with = POL
 				NOT = {
