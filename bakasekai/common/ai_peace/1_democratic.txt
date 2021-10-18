@@ -10,8 +10,7 @@
 democratic_peace = {
 	enable = { AND={
 		has_government = democratic
-		NOT={OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC}
-		NOT={OR={tag=LIT tag=UKR tag=RGA tag=CRI tag=BLR}}}
+		
 	}}
 
 	annex_randomness = 0 #100
@@ -30,14 +29,12 @@ democratic_peace = {
 		#	}
 		#}
 
-		modifier = {
-			factor = -1
-			FROM = {
-				OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC}
 
-			}
-		}
-
+				modifier={
+		factor=5000
+		ROOT={OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC tag=CRI tag=RGA tag=LIT tag=UKR tag=BLR
+		}}
+	}
 
 		modifier = { #
 			factor = 0
@@ -63,7 +60,11 @@ democratic_peace = {
 
 	liberate = {
 		factor = 1000 #200
-
+		modifier={
+		factor=0
+		ROOT={OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC tag=CRI tag=RGA tag=LIT tag=UKR tag=BLR
+		}}
+	}
 		modifier = {
 			factor = 10
 
@@ -161,7 +162,11 @@ democratic_peace = {
 				any_owned_state = { NOT = { is_core_of = FROM } }
 			}
 		}
-		
+		modifier={
+		factor=0
+		ROOT={OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC tag=CRI tag=RGA tag=LIT tag=UKR tag=BLR
+		}}
+	}
 		modifier = {
 			factor = 5
 
@@ -342,16 +347,9 @@ democratic_peace = {
 	take_states = {
 		factor = 400 #50
 		
-		modifier = {
-			factor = 9999999 #5
-			
-			FROM = {
-				OR = {
-					
-				}
-			}
-		}	
-			
+	
+		
+
 		
 		modifier = {
 			factor = 9999999 #5
@@ -616,7 +614,11 @@ democratic_peace = {
 
 	force_government = {
 		factor = 800 #9001 - DEMOCRACY! FUCK YEAH!
-
+		modifier={
+		factor=0
+		ROOT={OR={tag=MEX tag=SER tag=CRO tag=SLV tag=KOS tag=BOS tag=HRZ tag=MNT tag=MAC tag=CRI tag=RGA tag=LIT tag=UKR tag=BLR
+		}}
+	}
 		modifier = { #Strip colonies first...
 			factor = 0.1
 			FROM = {
