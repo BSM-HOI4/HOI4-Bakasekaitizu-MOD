@@ -1,0 +1,579 @@
+focus_tree = {
+	id = nazo_kari
+	continuous_focus_position = { x = 40 y = 1750 } 
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = MYS
+		}
+	}
+	#未来主義的謎
+	focus = {
+		id = YUG_weilaizhuyidemi
+		icon = GFX_YUG_weilaizhuyidemi-85118
+		x = 3
+		y = 0
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 50
+
+			
+		}
+	}
+
+	#謎国家の工業化
+	focus = {
+		id = YUG_miguojianogongyehua
+		icon = GFX_goal_continuous_non_factory_construct
+		x = 1
+		y = 1
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_weilaizhuyidemi  }
+		completion_reward = {
+			bonus = 1
+			uses = 1
+			category = industry
+
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+			random_owned_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+
+	#科学崇拝
+	focus = {
+		id = YUG_kexuechongbai
+		icon = GFX_YUG_kexuechongbai-85099
+		x = 3
+		y = 7
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_kirisutojiaowofeizhi  }
+		completion_reward = {
+			add_ideas = science_god
+		}
+	}
+
+	#トランスヒューマニスト国家の幕開け
+	focus = {
+		id = YUG_toransuhiyumanisutoguojianomukaike
+		icon = GFX_YUG_toransuhiyumanisutoguojianomukaike-84477
+		x = 5
+		y = 4
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_tongyisuraburen  }
+		completion_reward = {
+			add_stability = 1
+
+			
+
+			add_political_power = 1000
+
+			
+
+			add_manpower = 500000
+
+			
+		}
+	}
+
+	#インフラを拡大
+	focus = {
+		id = YUG_inhurawokuoda
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 0
+		y = 2
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_miguojianogongyehua  }
+		completion_reward = {
+			107 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 3
+				}
+			}
+		}
+	}
+
+	#資源を増加
+	focus = {
+		id = YUG_ziyuanwozengjia
+		icon = GFX_YUG_ziyuanwozengjia-82812
+		x = 2
+		y = 2
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_miguojianogongyehua  }
+		completion_reward = {
+			add_resource = { 
+
+			type = oil 
+
+			amount = 50
+
+			state = 107
+
+			}
+
+			add_resource = { 
+
+			type = aluminum
+
+			amount = 50
+
+			state = 107
+
+			}
+
+			add_resource = { 
+
+			type = rubber
+
+			amount = 50
+
+			state = 107
+
+			}
+
+			add_resource = { 
+
+			type = wolfram
+
+			amount = 50
+
+			state = 107
+
+			}
+
+			add_resource = { 
+
+			type = steel
+
+			amount = 50
+
+			state = 107
+
+			}
+
+			add_resource = { 
+
+			type = chromium
+
+			amount = 50
+
+			state = 107
+
+			}
+
+			
+		}
+	}
+
+	#工業大国
+	focus = {
+		id = YUG_gongyedaguo
+		icon = GFX_YUG_gongyedaguo-84470
+		x = 1
+		y = 3
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_inhurawokuoda  } prerequisite = { focus = YUG_ziyuanwozengjia  }
+		completion_reward = {
+			add_ideas = factory_major
+		}
+	}
+
+	#新たな研究枠
+	focus = {
+		id = YUG_xintanayanjiuwaku
+		icon = GFX_focus_research2
+		x = 1
+		y = 4
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_gongyedaguo  }
+		completion_reward = {
+			add_research_slot = 6
+
+			
+		}
+	}
+
+	#キリスト教を廃止
+	focus = {
+		id = YUG_kirisutojiaowofeizhi
+		icon = GFX_YUG_kirisutojiaowofeizhi-84489
+		x = 3
+		y = 6
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_weilaidejianzaowu  }
+		completion_reward = {
+			add_stability = -0.05
+
+			
+		}
+	}
+
+	#謎国家の安定強化
+	focus = {
+		id = YUG_miguojianoandingqianghua
+		icon = GFX_YUG_miguojianoandingqianghua-84471
+		x = 5
+		y = 1
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_weilaizhuyidemi  }
+		completion_reward = {
+			add_stability = 0.5
+
+			
+		}
+	}
+
+	#少数民族の粛清
+	focus = {
+		id = YUG_shaoshuminzunosuqing
+		icon = GFX_YUG_shaoshuminzunosuqing-84474
+		x = 4
+		y = 2
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_miguojianoandingqianghua  }
+		completion_reward = {
+			add_manpower = -50000
+			
+		}
+	}
+
+	#統一スラブ人
+	focus = {
+		id = YUG_tongyisuraburen
+		icon = GFX_focus_BUL_free_balkan_states
+		x = 5
+		y = 3
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_shaoshuminzunosuqing  } prerequisite = { focus = YUG_fanluanfenziwoshourong  }
+		completion_reward = {
+			remove_idea = multiethnic_country
+		}
+	}
+
+	#反乱分子を収容
+	focus = {
+		id = YUG_fanluanfenziwoshourong
+		icon = GFX_YUG_fanluanfenziwoshourong-84475
+		x = 6
+		y = 2
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_miguojianoandingqianghua  }
+		completion_reward = {
+			add_manpower = -50000
+		}
+	}
+
+	#未来的建造物
+	focus = {
+		id = YUG_weilaidejianzaowu
+		icon = GFX_YUG_weilaidejianzaowu-84482
+		x = 3
+		y = 5
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_xintanayanjiuwaku  } prerequisite = { focus = YUG_toransuhiyumanisutoguojianomukaike  }
+		completion_reward = {
+			random_owned_controlled_state ={
+
+			 limit = {
+
+			 free_building_slots = {
+
+			 building = industrial_complex
+
+			 size > 0
+
+			 include_locked = yes
+
+			 }
+
+			 }
+
+			 add_extra_state_shared_building_slots = 1
+
+			 add_building_construction = {
+
+			 type = industrial_complex
+
+			 level = 1
+
+			 instant_build = yes
+
+			 }
+
+			 set_state_flag = REPLACE_ME_WITH_UNIQUE_IDENTIFIER
+
+			 }
+
+			random_owned_controlled_state ={
+
+			 limit = {
+
+			 free_building_slots = {
+
+			 building = arms_factory
+
+			 size > 0
+
+			 include_locked = yes
+
+			 }
+
+			 }
+
+			 add_extra_state_shared_building_slots = 1
+
+			 add_building_construction = {
+
+			 type = arms_factory
+
+			 level = 1
+
+			 instant_build = yes
+
+			 }
+
+			 set_state_flag = REPLACE_ME_WITH_UNIQUE_IDENTIFIER
+
+			 }
+
+			
+		}
+	}
+
+	#§R過去に囚われた人間を消去§!
+	focus = {
+		id = YUG_ssrguoquniqiuwaretarenjianwoxiaoquss
+		icon = GFX_YUG_ssrguoquniqiuwaretarenjianwoxiaoquss-85103
+		x = 3
+		y = 10
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_chaoyuewuqi  }
+		add_ideas = extermination
+	}
+
+	#ギリシャを未来に導く
+	focus = {
+		id = YUG_girisiyawoweilainidaoku
+		icon = GFX_YUG_girisiyawoweilainidaoku-85105
+		x = 1
+		y = 11
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_ssrguoquniqiuwaretarenjianwoxiaoquss  }
+		completion_reward = {
+			create_wargoal = { 
+
+			type = annex_everything 
+
+			target = GRE
+
+			}
+
+			
+		}
+	}
+
+	#バトルを未来に導く
+	focus = {
+		id = YUG_batoruwoweilainidaoku
+		icon = GFX_YUG_batoruwoweilainidaoku-85106
+		x = 5
+		y = 11
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_ssrguoquniqiuwaretarenjianwoxiaoquss  }
+		completion_reward = {
+			create_wargoal = { 
+
+			type = annex_everything 
+
+			target = BLR
+
+			}
+
+			create_wargoal = { 
+
+			type = annex_everything 
+
+			target = CRI
+
+			}
+
+			create_wargoal = { 
+
+			type = annex_everything 
+
+			target = UKR
+
+			}
+
+			create_wargoal = { 
+
+			type = annex_everything 
+
+			target = LAT
+
+			}
+
+			create_wargoal = { 
+
+			type = annex_everything 
+
+			target = LIT
+
+			}
+
+			
+		}
+	}
+
+	#オージーを未来に導く
+	focus = {
+		id = YUG_oziwoweilainidaoku
+		icon = GFX_YUG_oziwoweilainidaoku-85111
+		x = 3
+		y = 11
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_ssrguoquniqiuwaretarenjianwoxiaoquss  }
+		completion_reward = {
+			create_wargoal = { 
+
+			type = annex_everything 
+
+			target = AUS
+
+			}
+
+			
+		}
+	}
+
+	#超越武器
+	focus = {
+		id = YUG_chaoyuewuqi
+		icon = GFX_YUG_chaoyuewuqi-85102
+		x = 3
+		y = 9
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_weilainojundui  }
+		completion_reward = {
+			add_tech_bonus = {
+
+			 bonus = 0.5 
+
+			uses = 1
+
+			category = nuclear
+
+			}
+
+			
+		}
+	}
+
+	#未来の軍隊
+	focus = {
+		id = YUG_weilainojundui
+		icon = GFX_YUG_weilainojundui-85100
+		x = 3
+		y = 8
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_kexuechongbai  }
+		completion_reward = {
+			add_ideas = futurist_army
+
+			
+		}
+	}
+
+	#汎スラヴ主義の実現
+	focus = {
+		id = YUG_fansuravuzhuyinoshixian
+		icon = GFX_YUG_fansuravuzhuyinoshixian-85112
+		x = 3
+		y = 12
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = YUG_oziwoweilainidaoku  } prerequisite = { focus = YUG_girisiyawoweilainidaoku  } prerequisite = { focus = YUG_batoruwoweilainidaoku  }
+		completion_reward = {
+			set_cosmetic_tag = MYS_slav_nation
+		}
+	}
+
+}
