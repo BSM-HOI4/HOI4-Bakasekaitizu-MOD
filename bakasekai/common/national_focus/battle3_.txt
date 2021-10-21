@@ -62,7 +62,9 @@ focus_tree = {
 		x = 4
 		y = 2
 			ai_will_do = {
-					factor = 200
+
+					factor = 20
+
 				}
 				bypass = {AND={has_idea = battle3_kodoku NOT={has_country_flag="内戦準備"}}}
 			select_effect = {
@@ -110,7 +112,7 @@ focus_tree = {
 							add_state_core = 94
 							add_state_core = 95
 							add_state_core = 96
-							add_state_core =234
+							
 							set_state_owner = 13
 							set_state_owner = 191
 							set_state_owner = 12
@@ -188,12 +190,12 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							add_state_core = 94
 							add_state_core = 95
 							add_state_core = 96
-							add_state_core =234
+							
 							set_state_owner =228
 							set_state_owner =227
 							set_state_owner =200
 							set_state_owner =221
-							set_state_owner =234
+							
 							set_state_owner =137
 							set_state_owner =196
 							
@@ -202,7 +204,7 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							set_state_controller =227
 							set_state_controller =200
 							set_state_controller =221
-							set_state_controller =234
+							
 							set_state_controller =137
 							set_state_controller =196
 					
@@ -256,7 +258,7 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							add_state_core = 94
 							add_state_core = 95
 							add_state_core = 96
-							add_state_core =234
+							
 							set_state_owner = 13
 							set_state_owner = 191
 							set_state_owner = 12
@@ -314,7 +316,7 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							add_state_core = 94
 							add_state_core = 95
 							add_state_core = 96
-							add_state_core =234
+							
 							set_state_owner = 93
 							set_state_owner = 199
 							set_state_owner = 91
@@ -353,7 +355,12 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							type = industrial_complex
 							level = 5
 						}
-				UKR={ country_event={id=kpo.2 days=3}}
+				
+					country_event={
+						id=kpo.2 
+						days=3
+						}
+					
 					add_ideas = war_economy
 					CRI={
 									add_ideas=battle3_kodoku
@@ -506,7 +513,7 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
     focus = {
 		id = battle3_4
 		text = battle3_4
-		icon = GFX_focus_generic_diplomatic_treaty
+		icon = GFX_BAT_aut
 		cost = 10.00
 		prerequisite = {
 			focus = battle3_2
@@ -629,7 +636,7 @@ focus = {
 		icon = GFX_focus_mex_privatisation
 		cost = 10.00
 		prerequisite={focus=battle3_4 focus=battle3_s}
-		
+		ai_will_do={factor=100}
 		x = 12
 		y = 4
 			completion_reward = {
@@ -656,7 +663,7 @@ focus = {
 		x = 10
 		y = 6
 			ai_will_do = {
-					factor = 90
+					factor = 0
 				}
 			completion_reward = {
 					add_ideas = fascist_influence
@@ -735,7 +742,7 @@ focus = {
 		x = 14
 		y = 6
 			ai_will_do = {
-					factor = 5
+					factor = 90
 				}
 			completion_reward = {
 					add_ideas = communist_influence
@@ -2087,13 +2094,14 @@ completion_reward = {add_ideas=battle3_toushi}
 	focus = {
 		id = battle3_13
 		text = battle3_13
-		icon = GFX_focus_spa_eliminate_the_carlists
+		icon = GFX_focus_BAT_army
 		cost = 10.00
 		prerequisite = {
 			focus = battle3_4_10
 			focus = battle3_4_9
 			focus = battle3_4_8
 		}
+		available={has_war=no}
 		x = 12
 		y = 11
 			completion_reward = {
@@ -2178,7 +2186,7 @@ completion_reward = {add_ideas=battle3_toushi}
 		x = 22
 		y = 13
 		bypass={
-			YUG={
+			MYS={
 				OR={
 					exixts=no
 					is_puppet=yes
@@ -2186,7 +2194,7 @@ completion_reward = {add_ideas=battle3_toushi}
 			}
 		}
 		completion_reward={
-			YUG={
+			MYS={
 				country_event={id=kpo.6 days=1}
 			}
 
@@ -2195,7 +2203,7 @@ completion_reward = {add_ideas=battle3_toushi}
 	}
 	focus = {
 		id = newfocus_41
-		icon = GFX_focus_hol_the_fourth_ally
+		icon = GFX_BAT_navy_focus
 		cost = 10.00
 		prerequisite = {
 			focus = battle3_13
