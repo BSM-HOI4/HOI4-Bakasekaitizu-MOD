@@ -14,7 +14,7 @@ focus_tree = {
 		text = CHL_start_discuss
 		icon = GFX_goal_generic_propaganda
 		cost = 2
-		x = 22
+		x = 24
 		y = 0
 		completion_reward = {
 			add_political_power = 100
@@ -27,7 +27,7 @@ focus_tree = {
 		id = CHL_adopt_longer_country
 		text = CHL_adopt_longer_country
 		icon = GFX_focus_generic_support_the_left_right
-		cost = 5
+		cost = 10
 		relative_position_id = CHL_start_discuss
 		x = -5
 		y = 1
@@ -74,7 +74,7 @@ focus_tree = {
 		id = CHL_adopt_larger_country
 		text = CHL_adopt_larger_country
 		icon = GFX_focus_prc_agrarian_socialism
-		cost = 5
+		cost = 10
 		relative_position_id = CHL_start_discuss
 		x = 5
 		y = 1
@@ -166,7 +166,7 @@ focus_tree = {
 		id = CHL_additional_factory_space_0
 		text = CHL_additional_factory_space_0
 		icon = GFX_goal_generic_construct_civilian
-		cost = 3
+		cost = 5
 		relative_position_id = CHL_start_pioneer
 		x = 1
 		y = 1
@@ -203,7 +203,7 @@ focus_tree = {
 		id = CHL_additional_factory_space_1
 		text = CHL_additional_factory_space_1
 		icon = GFX_goal_generic_construct_civilian
-		cost = 3
+		cost = 5
 		relative_position_id = CHL_additional_factory_space_0
 		x = 0
 		y = 1
@@ -291,7 +291,7 @@ focus_tree = {
 		id = CHL_add_infra_0
 		text = CHL_add_infra_0
 		icon = GFX_goal_generic_construct_infrastructure
-		cost = 3
+		cost = 5
 		relative_position_id = CHL_start_pioneer
 		x = -1
 		y = 1
@@ -350,7 +350,7 @@ focus_tree = {
 		id = CHL_add_infra_1
 		text = CHL_add_infra_1
 		icon = GFX_goal_generic_construct_infrastructure
-		cost = 3
+		cost = 5
 		relative_position_id = CHL_add_infra_0
 		x = 0
 		y = 1
@@ -473,7 +473,7 @@ focus_tree = {
 		id = CHL_add_minju_0
 		text = CHL_add_minju_0
 		icon = GFX_goal_generic_construct_civ_factory
-		cost = 5
+		cost = 7
 		relative_position_id = CHL_start_pioneer
 		x = -3
 		y = 1
@@ -549,7 +549,7 @@ focus_tree = {
 		id = CHL_add_minju_1
 		text = CHL_add_minju_1
 		icon = GFX_goal_generic_construct_civ_factory
-		cost = 5
+		cost = 7
 		relative_position_id = CHL_add_minju_0
 		x = 0
 		y = 1
@@ -707,7 +707,7 @@ focus_tree = {
 		id = CHL_add_gunju_0
 		text = CHL_add_gunju_0
 		icon = GFX_goal_generic_construct_mil_factory
-		cost = 5
+		cost = 7
 		relative_position_id = CHL_start_pioneer
 		x = 3
 		y = 1
@@ -784,7 +784,7 @@ focus_tree = {
 		id = CHL_add_gunju_1
 		text = CHL_add_gunju_1
 		icon = GFX_goal_generic_construct_mil_factory
-		cost = 5
+		cost = 7
 		relative_position_id = CHL_add_gunju_0
 		x = 0
 		y = 1
@@ -938,14 +938,981 @@ focus_tree = {
 		}
 	}
 	
+	# Industry part 2
+	focus = {
+		id = CHL_build_research_base
+		text = CHL_build_research_base
+		icon = GFX_focus_research
+		
+		cost = 11
+		relative_position_id = CHL_start_pioneer
+		x = 0
+		y = 5
+		prerequisite = {
+			focus = CHL_additional_factory_space_2
+			focus = CHL_add_infra_2
+			focus = CHL_add_minju_2
+			focus = CHL_add_gunju_2
+		}
+		available = {
+			has_idea = CHL_too_late_industrial_6
+			OR = {
+				has_idea = CHL_focus_to_space
+				has_idea = CHL_focus_to_infra
+				has_idea = CHL_focus_to_minju
+				has_idea = CHL_focus_to_gunju
+			}
+		}
+		completion_reward = {
+			add_research_slot = 1
+			swap_ideas = {
+				remove_idea = CHL_too_late_industrial_6
+				add_idea = CHL_weak_research_0
+			}
+		}
+	}
+	focus = {
+		id = CHL_industrial_company
+		text = CHL_industrial_company
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_build_research_base
+		x = -8
+		y = 1
+		prerequisite = {
+			focus = CHL_build_research_base
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_industrial_company
+				bonus = 1.0
+				uses = 2
+				category = industry
+			}
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = CHL_national_industry
+		}
+	}
+	focus = {
+		id = CHL_industrial_construction
+		text = CHL_industrial_construction
+		icon = todo
+		cost = 5
+		relative_position_id = CHL_industrial_company
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = CHL_industrial_company
+		}
+		mutually_exclusive = { focus = CHL_industrial_production }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_industrial_construction
+				bonus = 1.0
+				uses = 2
+				category = construction_tech
+			}
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = CHL_national_construction
+		}
+	}
+	focus = {
+		id = CHL_industrial_production
+		text = CHL_industrial_production
+		icon = todo
+		cost = 5
+		relative_position_id = CHL_industrial_company
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = CHL_industrial_company
+		}
+		mutually_exclusive = { focus = CHL_industrial_construction }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_industrial_production
+				bonus = 1.0
+				uses = 2
+				category = industry
+			}
+			custom_effect_tooltip = available_industrial_concern
+			show_ideas_tooltip = CHL_national_production
+		}
+	}
+	focus = {
+		id = CHL_construction_invest
+		text = CHL_construction_invest
+		icon = todo
+		cost = 5
+		relative_position_id = CHL_industrial_construction
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_industrial_construction
+		}
+		mutually_exclusive = { focus = CHL_mining_invest }
+		select_effect = {
+			add_timed_idea = {
+				idea = CHL_invest_cost
+				days = 365
+			}
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_construction_invest
+				bonus = 0.5
+				uses = 2
+				ahead_reduction = 1
+				category = construction_tech
+			}
+			add_ideas = CHL_great_construction
+		}
+	}
+	focus = {
+		id = CHL_mining_invest
+		text = CHL_mining_invest
+		icon = todo
+		cost = 5
+		relative_position_id = CHL_industrial_construction
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = CHL_industrial_construction
+		}
+		mutually_exclusive = { focus = CHL_construction_invest }
+		select_effect = {
+			add_timed_idea = {
+				idea = CHL_invest_cost
+				days = 365
+			}
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_mining_invest
+				bonus = 1.0
+				uses = 2
+				category = excavation_tech
+			}
+			add_ideas = CHL_great_resource
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = CHL
+				}
+				add_resource = {
+					type = steel
+					amount = 32
+					state = THIS
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = CHL
+				}
+				add_resource = {
+					type = rubber
+					amount = 8
+					state = THIS
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_core_of = CHL
+				}
+				add_resource = {
+					type = aluminium
+					amount = 8
+					state = THIS
+				}
+			}
+		}
+	}
+	focus = {
+		id = CHL_production_invest
+		text = CHL_production_invest
+		icon = todo
+		cost = 5
+		relative_position_id = CHL_industrial_production
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_industrial_production
+		}
+		select_effect = {
+			add_timed_idea = {
+				idea = CHL_invest_cost
+				days = 365
+			}
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_production_invest
+				bonus = 1.0
+				uses = 2
+				category = industry
+			}
+			add_ideas = CHL_great_production
+		}
+	}
+	
+	focus = {
+		id = CHL_war_company
+		text = CHL_war_company
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_build_research_base
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = CHL_build_research_base
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_war_company
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+			}
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = CHL_war_industrialist
+		}
+	}
+	focus = {
+		id = CHL_superior_power
+		text = CHL_superior_power
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_war_company
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = CHL_war_company
+		}
+		mutually_exclusive = { focus = CHL_superior_mass }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_war_company
+				bonus = 1.0
+				uses = 1
+				category = artillery
+			}
+			add_tech_bonus = {
+				name = CHL_war_company
+				bonus = 1.0
+				uses = 1
+				category = cat_anti_tank
+			}
+			add_tech_bonus = {
+				name = CHL_armored_power
+				bonus = 3.0
+				uses = 1
+				category = armor
+			}
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = CHL_artillery_manufacture
+		}
+	}
+	focus = {
+		id = CHL_superior_mass
+		text = CHL_superior_mass
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_war_company
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = CHL_war_company
+		}
+		mutually_exclusive = { focus = CHL_superior_power }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_war_company
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+			}
+			add_tech_bonus = {
+				name = CHL_war_company
+				bonus = 1.0
+				uses = 1
+				category = support_tech
+			}
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = CHL_mass_production_manufacture
+		}
+	}
+	focus = {
+		id = CHL_armored_power
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_superior_power
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = CHL_superior_power
+		}
+		mutually_exclusive = { focus = CHL_artillery_power }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_armored_power
+				bonus = 2.0
+				uses = 1
+				category = armor
+			}
+			add_tech_bonus = {
+				name = CHL_armored_power
+				bonus = 1.0
+				uses = 1
+				category = armor
+			}
+			add_tech_bonus = {
+				name = CHL_armored_power
+				bonus = 1.0
+				uses = 1
+				category = cat_mobile_warfare
+			}
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = CHL_mobile_theorist
+		}
+	}
+	focus = {
+		id = CHL_artillery_power
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_superior_power
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_superior_power
+		}
+		mutually_exclusive = { focus = CHL_armored_power }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_artillery_power
+				bonus = 1.0
+				uses = 1
+				category = artillery
+			}
+			add_tech_bonus = {
+				name = CHL_artillery_power
+				bonus = 1.0
+				uses = 1
+				category = cat_superior_firepower
+			}
+			custom_effect_tooltip = available_theorist
+			show_ideas_tooltip = CHL_power_theorist
+		}
+	}
+	focus = {
+		id = CHL_enemy_is_not_only_infantry
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_artillery_power
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_artillery_power
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_artillery_power
+				bonus = 1.0
+				uses = 1
+				category = cat_anti_tank
+			}
+			add_tech_bonus = {
+				name = CHL_artillery_power
+				bonus = 1.0
+				uses = 1
+				technology = antiair1
+				technology = antiair2
+				technology = antiair3
+			}
+			add_tech_bonus = {
+				name = CHL_artillery_power
+				bonus = 1.0
+				uses = 1
+				category = cat_superior_firepower
+			}
+		}
+	}
+	focus = {
+		id = CHL_high_quality_tank
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_armored_power
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_armored_power
+		}
+		mutually_exclusive = { focus = CHL_produce_cheap_tank }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				ahead_reduction = 1
+				category = armor
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_mobile_warfare
+			}
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = CHL_tank_power
+		}
+	}
+	focus = {
+		id = CHL_produce_cheap_tank
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_armored_power
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = CHL_armored_power
+		}
+		mutually_exclusive = { focus = CHL_high_quality_tank }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				ahead_reduction = 1
+				category = armor
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_mobile_warfare
+			}
+			custom_effect_tooltip = available_designer
+			show_ideas_tooltip = CHL_tank_cheap
+		}
+	}
+	focus = {
+		id = CHL_true_power
+		icon = todo
+		
+		cost = 20
+		relative_position_id = CHL_high_quality_tank
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_high_quality_tank
+			focus = CHL_enemy_is_not_only_infantry
+		}
+		available = {
+			date > 1939.7.1
+			num_of_factories > 100
+		}
+		mutually_exclusive = { focus = CHL_believe_artillery }
+		mutually_exclusive = { focus = CHL_armor_is_not_only_power }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_mobile_warfare
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_superior_firepower
+			}
+			custom_effect_tooltip = CHL_tooltip_true_power_reward
+			hidden_effect = {
+				add_ideas = CHL_internal_true_power
+				set_technology = {
+					advanced_light_art = 1
+					improved_medium_art = 1
+					improved_heavy_art = 1
+					popup = no
+				}
+				remove_ideas = CHL_internal_true_power
+			}
+		}
+	}
+	focus = {
+		id = CHL_believe_artillery
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_enemy_is_not_only_infantry
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_enemy_is_not_only_infantry
+		}
+		mutually_exclusive = { focus = CHL_true_power }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 4
+				ahead_reduction = 1
+				category = artillery
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = cat_superior_firepower
+			}
+		}
+	}
+	focus = {
+		id = CHL_armor_is_not_only_power
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_high_quality_tank
+		x = -2
+		y = 1
+		prerequisite = {
+			focus = CHL_high_quality_tank
+			focus = CHL_produce_cheap_tank
+		}
+		mutually_exclusive = { focus = CHL_true_power }
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = armor
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = cat_mobile_warfare
+			}
+			add_ideas = CHL_high_armor_tank
+		}
+	}
+	focus = {
+		id = CHL_mass_recruit
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_superior_mass
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_superior_mass
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_mass_assault
+			}
+			add_ideas = CHL_mass_recruit_0
+		}
+	}
+	focus = {
+		id = CHL_mass_army
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_mass_recruit
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_mass_recruit
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = support_tech
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_mass_assault
+			}
+			add_ideas = CHL_weapon_mass_production
+		}
+	}
+	focus = {
+		id = CHL_mass_mass_mass
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_mass_army
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_mass_army
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				ahead_reduction = 2
+				category = infantry_weapons
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = cat_mass_assault
+			}
+			swap_ideas = {
+				remove_idea = CHL_mass_recruit_0
+				add_idea = CHL_mass_recruit_1
+			}
+		}
+	}
+	
+	focus = {
+		id = CHL_air_company
+		text = CHL_air_company
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_build_research_base
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = CHL_build_research_base
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = light_air
+			}
+			custom_effect_tooltip = remove_chief_of_airforce
+			show_ideas_tooltip = CHL_night_fighter
+		}
+	}
+	focus = {
+		id = CHL_air_support_land
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_air_company
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = CHL_air_company
+		}
+		mutually_exclusive = {
+			focus = CHL_air_strategy_bomb
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cas_bomber
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_battlefield_support
+			}
+		}
+	}
+	focus = {
+		id = CHL_air_strategy_bomb
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_air_company
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = CHL_air_company
+		}
+		mutually_exclusive = {
+			focus = CHL_air_support_land
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = tactical_bomber
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = cat_strategic_bomber
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_strategic_destruction
+			}
+		}
+	}
+	focus = {
+		id = CHL_coop_with_naval
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_air_support_land
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_air_support_land
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = naval_air
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_battlefield_support
+			}
+		}
+	}
+	focus = {
+		id = CHL_see_bomb
+		icon = todo
+		
+		cost = 5
+		relative_position_id = CHL_air_strategy_bomb
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_air_strategy_bomb
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = naval_bomber
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_battlefield_support
+			}
+		}
+	}
+	focus = {
+		id = CHL_air_focus_to_doctrine
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_see_bomb
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_see_bomb
+			focus = CHL_coop_with_naval
+		}
+		mutually_exclusive = {
+			focus = CHL_air_focus_to_equipment
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 4
+				category = air_doctrine
+			}
+		}
+	}
+	focus = {
+		id = CHL_air_focus_to_equipment
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_see_bomb
+		x = 2
+		y = 1
+		prerequisite = {
+			focus = CHL_see_bomb
+			focus = CHL_coop_with_naval
+		}
+		mutually_exclusive = {
+			focus = CHL_air_focus_to_doctrine
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 2
+				ahead_reduction = 1
+				category = air_equipment
+			}
+		}
+	}
+	
+	focus = {
+		id = CHL_naval_company
+		text = CHL_naval_company
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_build_research_base
+		x = 6
+		y = 1
+		prerequisite = {
+			focus = CHL_build_research_base
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_air_company
+				bonus = 1.0
+				uses = 2
+				category = naval_equipment
+			}
+			custom_effect_tooltip = available_chief_of_navy
+			show_ideas_tooltip = CHL_commerce_raider
+		}
+	}
+	focus = {
+		id = CHL_naval_doctrine
+		text = CHL_naval_doctrine
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_naval_company
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_naval_company
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_air_company
+				bonus = 1.0
+				uses = 4
+				category = naval_doctrine
+			}
+		}
+	}
+	focus = {
+		id = CHL_naval_air
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_naval_doctrine
+		x = -1
+		y = 1
+		prerequisite = {
+			focus = CHL_naval_doctrine
+		}
+		mutually_exclusive = {
+			focus = CHL_naval_equip
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_air_company
+				bonus = 1.0
+				uses = 2
+				category = naval_air
+			}
+			add_tech_bonus = {
+				name = CHL_air_company
+				bonus = 1.0
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+	focus = {
+		id = CHL_naval_equip
+		icon = todo
+		
+		cost = 10
+		relative_position_id = CHL_naval_doctrine
+		x = 1
+		y = 1
+		prerequisite = {
+			focus = CHL_naval_doctrine
+		}
+		mutually_exclusive = {
+			focus = CHL_naval_air
+		}
+		completion_reward = {
+			CHL_research_debuff_level_down = yes
+			add_tech_bonus = {
+				name = CHL_air_company
+				bonus = 1.0
+				uses = 2
+				category = naval_equipment
+			}
+			add_tech_bonus = {
+				name = CHL_air_company
+				bonus = 1.0
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+	
+	focus = {
+		id = CHL_additional_research_slot
+		icon = GFX_focus_research
+		
+		cost = 10
+		relative_position_id = CHL_build_research_base
+		x = 0
+		y = 6
+		prerequisite = {
+			focus = CHL_build_research_base
+		}
+		available = {
+			has_idea = CHL_enough_research_power
+			num_of_factories > 120
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	
 	# Naval
 	focus = {
 		id = CHL_invest_to_naval
 		text = CHL_invest_to_naval
-		icon = todo
+		icon = GFX_focus_generic_navy_battleship2
 		cost = 5
 		relative_position_id = CHL_start_discuss
-		x = -18
+		x = -20
 		y = 0
 		
 		available = {
@@ -1007,10 +1974,10 @@ focus_tree = {
 	focus = {
 		id = CHL_superior_tech_0
 		text = CHL_superior_tech_0
-		icon = todo
+		icon = GFX_goal_generic_navy_doctrines_tactics
 		cost = 5
 		relative_position_id = CHL_invest_to_naval
-		x = -1
+		x = -2
 		y = 1
 		prerequisite = {
 			focus = CHL_invest_to_naval
@@ -1029,10 +1996,10 @@ focus_tree = {
 	focus = {
 		id = CHL_superior_tech_1
 		text = CHL_superior_tech_1
-		icon = todo
+		icon = GFX_goal_generic_navy_doctrines_tactics
 		cost = 5
 		relative_position_id = CHL_superior_tech_0
-		x = -1
+		x = 0
 		y = 1
 		prerequisite = {
 			focus = CHL_superior_tech_0
@@ -1053,10 +2020,10 @@ focus_tree = {
 	focus = {
 		id = CHL_superior_mass_0
 		text = CHL_superior_mass_0
-		icon = todo
+		icon = GFX_goal_generic_construct_naval_dockyard
 		cost = 5
 		relative_position_id = CHL_invest_to_naval
-		x = 1
+		x = 2
 		y = 1
 		prerequisite = {
 			focus = CHL_invest_to_naval
@@ -1105,10 +2072,10 @@ focus_tree = {
 	focus = {
 		id = CHL_superior_mass_1
 		text = CHL_superior_mass_1
-		icon = todo
+		icon = GFX_goal_generic_construct_naval_dockyard
 		cost = 5
 		relative_position_id = CHL_superior_mass_0
-		x = 1
+		x = 0
 		y = 1
 		prerequisite = {
 			focus = CHL_superior_mass_0
@@ -1160,11 +2127,11 @@ focus_tree = {
 	focus = {
 		id = CHL_capital_naval_base
 		text = CHL_capital_naval_base
-		icon = todo
+		icon = GFX_goal_generic_construction2
 		cost = 5
-		relative_position_id = CHL_superior_mass_0
-		x = -1
-		y = 1
+		relative_position_id = CHL_invest_to_naval
+		x = 0
+		y = 2
 		prerequisite = {
 			focus = CHL_superior_mass_0
 			focus = CHL_superior_tech_0
@@ -1200,7 +2167,7 @@ focus_tree = {
 	focus = {
 		id = CHL_empire_naval
 		text = CHL_empire_naval
-		icon = todo
+		icon = GFX_goal_generic_navy_battleship
 		cost = 10
 		relative_position_id = CHL_capital_naval_base
 		x = -2
@@ -1239,7 +2206,7 @@ focus_tree = {
 	focus = {
 		id = CHL_strongest_naval
 		text = CHL_strongest_naval
-		icon = todo
+		icon = GFX_goal_generic_navy_carrier
 		cost = 6
 		relative_position_id = CHL_empire_naval
 		x = 0
@@ -1263,7 +2230,7 @@ focus_tree = {
 	focus = {
 		id = CHL_last_naval
 		text = CHL_last_naval
-		icon = todo
+		icon = GFX_goal_generic_navy_anti_submarine
 		cost = 7
 		relative_position_id = CHL_strongest_naval
 		x = 0
@@ -1336,298 +2303,6 @@ focus_tree = {
 		}
 	}
 	
-	# Industry part 2
-	focus = {
-		id = CHL_build_research_base
-		text = CHL_build_research_base
-		icon = GFX_focus_research
-		
-		cost = 10
-		relative_position_id = CHL_start_pioneer
-		x = 0
-		y = 5
-		prerequisite = {
-			focus = CHL_additional_factory_space_2
-			focus = CHL_add_infra_2
-			focus = CHL_add_minju_2
-			focus = CHL_add_gunju_2
-		}
-		available = {
-			has_idea = CHL_too_late_industrial_6
-			OR = {
-				has_idea = CHL_focus_to_space
-				has_idea = CHL_focus_to_infra
-				has_idea = CHL_focus_to_minju
-				has_idea = CHL_focus_to_gunju
-			}
-		}
-		completion_reward = {
-			add_research_slot = 1
-			swap_ideas = {
-				remove_idea = CHL_too_late_industrial_6
-				add_idea = CHL_weak_research_0
-			}
-		}
-	}
-	focus = {
-		id = CHL_research_industry_0
-		text = CHL_research_industry_0
-		icon = todo
-		
-		cost = 5
-		relative_position_id = CHL_build_research_base
-		x = -4
-		y = 1
-		
-		prerequisite = {
-			focus = CHL_build_research_base
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = CHL_research_industry_0
-				bonus = 1.0
-				uses = 2
-				category = industry
-			}
-			CHL_research_debuff_level_down = yes
-		}
-	}
-	focus = {
-		id = CHL_research_industry_1
-		text = CHL_research_industry_1
-		icon = todo
-		
-		cost = 10
-		relative_position_id = CHL_research_industry_0
-		x = -1
-		y = 1
-		
-		prerequisite = {
-			focus = CHL_research_industry_0
-		}
-		completion_reward = {
-			CHL_research_debuff_level_down = yes
-			add_tech_bonus = {
-				name = CHL_research_industry_1
-				bonus = 1.0
-				uses = 3
-				category = industry
-			}
-			add_tech_bonus = {
-				name = CHL_research_industry_1
-				bonus = 2.0
-				uses = 1
-				category = electronics
-			}
-			
-		}
-	}
-	focus = {
-		id = CHL_research_army_0
-		text = CHL_research_army_0
-		icon = todo
-		
-		cost = 5
-		relative_position_id = CHL_build_research_base
-		x = -2
-		y = 1
-		
-		prerequisite = {
-			focus = CHL_build_research_base
-		}
-		completion_reward = {
-			CHL_research_debuff_level_down = yes
-			add_tech_bonus = {
-				name = CHL_research_industry_0
-				bonus = 1.0
-				uses = 2
-				category = infantry_weapons
-			}
-		}
-	}
-	focus = {
-		id = CHL_research_army_1
-		text = CHL_research_army_1
-		icon = todo
-		
-		cost = 10
-		relative_position_id = CHL_research_army_0
-		x = 1
-		y = 1
-		
-		prerequisite = {
-			focus = CHL_research_army_0
-		}
-		completion_reward = {
-			CHL_research_debuff_level_down = yes
-			add_tech_bonus = {
-				name = CHL_research_industry_0
-				bonus = 1.0
-				uses = 2
-				category = artillery
-			}
-			add_tech_bonus = {
-				name = CHL_research_industry_0
-				bonus = 1.0
-				uses = 2
-				category = support_tech
-			}
-		}
-	}
-	focus = {
-		id = CHL_research_construction
-		text = CHL_research_construction
-		icon = todo
-		
-		cost = 5
-		relative_position_id = CHL_research_industry_0
-		x = 1
-		y = 1
-		
-		prerequisite = {
-			focus = CHL_research_industry_0
-		}
-		prerequisite = {
-			focus = CHL_research_army_0
-		}
-		completion_reward = {
-			CHL_research_debuff_level_down = yes
-			add_tech_bonus = {
-				name = CHL_research_industry_1
-				bonus = 1.0
-				uses = 1
-				category = construction_tech
-			}
-			random_owned_controlled_state = {
-				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = industrial_complex
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-	}
-	focus = {
-		id = CHL_research_air_0
-		text = CHL_research_air_0
-		icon = todo
-		
-		cost = 5
-		relative_position_id = CHL_build_research_base
-		x = 2
-		y = 1
-		
-		prerequisite = {
-			focus = CHL_build_research_base
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = CHL_research_industry_0
-				bonus = 1.0
-				uses = 2
-				category = air_equipment
-			}
-			CHL_research_debuff_level_down = yes
-		}
-	}
-	focus = {
-		id = CHL_research_air_fighter
-		text = CHL_research_air_fighter
-		icon = todo
-		
-		cost = 10
-		relative_position_id = CHL_research_air_0
-		x = -1
-		y = 1
-		
-		prerequisite = {
-			focus = CHL_research_air_0
-		}
-		mutually_exclusive = {
-			focus = CHL_research_bomber
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = CHL_research_industry_0
-				bonus = 1.0
-				uses = 1
-				ahead_reduction = 2
-				category = light_fighter
-			}
-			add_tech_bonus = {
-				name = CHL_research_industry_0
-				bonus = 1.0
-				uses = 1
-				ahead_reduction = 2
-				category = cat_heavy_fighter
-			}
-			CHL_research_debuff_level_down = yes
-		}
-	}
-	focus = {
-		id = CHL_research_bomber
-		text = CHL_research_bomber
-		icon = todo
-		
-		cost = 10
-		relative_position_id = CHL_research_air_0
-		x = 1
-		y = 1
-		
-		prerequisite = {
-			focus = CHL_research_air_0
-		}
-		mutually_exclusive = {
-			focus = CHL_research_air_fighter
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = CHL_research_industry_0
-				bonus = 1.0
-				uses = 1
-				ahead_reduction = 2
-				category = cas_bomber
-			}
-			add_tech_bonus = {
-				name = CHL_research_industry_0
-				bonus = 1.0
-				uses = 1
-				ahead_reduction = 2
-				category = naval_bomber
-			}
-			CHL_research_debuff_level_down = yes
-		}
-	}
-	focus = {
-		id = CHL_research_naval_0
-		text = CHL_research_naval_0
-		icon = todo
-		
-		cost = 5
-		relative_position_id = CHL_build_research_base
-		x = 6
-		y = 1
-		prerequisite = {
-			focus = CHL_build_research_base
-		}
-		completion_reward = {
-			add_tech_bonus = {
-				name = CHL_research_naval_0
-				bonus = 1.0
-				uses = 10
-				category = naval_equipment
-			}
-			CHL_research_debuff_level_down = yes
-		}
-	}
 	# longer route
 	focus = {
 		id = CHL_treat_with_inka
@@ -1691,11 +2366,11 @@ focus_tree = {
 						original_tag = PRU
 						has_civil_war = yes
 						OR = {
-							own_state = 303
-							own_state = 305
-							own_state = 306
-							own_state = 492
-							own_state = 493
+							owns_state = 303
+							owns_state = 305
+							owns_state = 306
+							owns_state = 492
+							owns_state = 493
 						}
 					}
 				}
@@ -1704,7 +2379,7 @@ focus_tree = {
 						original_tag = PRU
 					}
 					country_event = {
-						id = chile.inka
+						id = chile.1
 						days = 1
 					}
 				}
@@ -1790,7 +2465,7 @@ focus_tree = {
 	focus = {
 		id = CHL_summon_pioneer
 		text = CHL_summon_pioneer
-		icon = todo
+		icon = GFX_focus_generic_treaty
 		
 		cost = 5
 		relative_position_id = CHL_treat_with_inka
@@ -1811,7 +2486,7 @@ focus_tree = {
 	focus = {
 		id = CHL_advise_of_pioneer
 		text = CHL_advise_of_pioneer
-		icon = todo
+		icon = GFX_focus_generic_military_academy
 		
 		cost = 5
 		relative_position_id = CHL_summon_pioneer
@@ -1842,8 +2517,8 @@ focus_tree = {
 					infantry = { x = 1 y = 4 }
 				}
 				support = {
-					engineer = { x = 0 y = 0}
-					artillery = { x = 0 y = 1}
+					engineer = { x = 0 y = 0 }
+					artillery = { x = 0 y = 1 }
 				}
 			}
 			division_template = {
@@ -1858,13 +2533,13 @@ focus_tree = {
 					infantry = { x = 0 y = 4 }
 					infantry = { x = 1 y = 0 }
 					infantry = { x = 1 y = 1 }
-					artillery_brigade  = { x = 2 y = 0 }
-					artillery_brigade  = { x = 2 y = 1 }
+					artillery_brigade = { x = 2 y = 0 }
+					artillery_brigade = { x = 2 y = 1 }
 				}
 				support = {
-					engineer = { x = 0 y = 0}
-					artillery = { x = 0 y = 1}
-					recon = { x = 0 y = 2}
+					engineer = { x = 0 y = 0 }
+					artillery = { x = 0 y = 1 }
+					recon = { x = 0 y = 2 }
 				}
 			}
 			division_template = {
@@ -1880,13 +2555,13 @@ focus_tree = {
 					infantry = { x = 1 y = 0 }
 					infantry = { x = 1 y = 1 }
 					infantry = { x = 1 y = 2 }
-					artillery_brigade  = { x = 2 y = 0 }
-					heavy_sp_anti_air_brigade   = { x = 3 y = 0 }
+					artillery_brigade = { x = 2 y = 0 }
+					heavy_sp_anti_air_brigade = { x = 3 y = 0 }
 				}
 				support = {
-					engineer = { x = 0 y = 0}
-					artillery = { x = 0 y = 1}
-					recon = { x = 0 y = 2}
+					engineer = { x = 0 y = 0 }
+					artillery = { x = 0 y = 1 }
+					recon = { x = 0 y = 2 }
 				}
 			}
 			division_template = {
@@ -1918,9 +2593,9 @@ focus_tree = {
 					marine = { x = 1 y = 4 }
 				}
 				support = {
-					engineer = { x = 0 y = 0}
-					artillery = { x = 0 y = 1}
-					recon = { x = 0 y = 2}
+					engineer = { x = 0 y = 0 }
+					artillery = { x = 0 y = 1 }
+					recon = { x = 0 y = 2 }
 				}
 			}
 			division_template = {
@@ -1940,10 +2615,10 @@ focus_tree = {
 					motorized = { x = 2 y = 3 }
 				}
 				support = {
-					engineer = { x = 0 y = 0}
-					artillery = { x = 0 y = 1}
-					mot_recon = { x = 0 y = 2}
-					logistics_company = { x = 0 y = 3}
+					engineer = { x = 0 y = 0 }
+					artillery = { x = 0 y = 1 }
+					mot_recon = { x = 0 y = 2 }
+					logistics_company = { x = 0 y = 3 }
 				}
 			}
 			division_template = {
@@ -1963,10 +2638,10 @@ focus_tree = {
 					motorized = { x = 2 y = 3 }
 				}
 				support = {
-					engineer = { x = 0 y = 0}
-					artillery = { x = 0 y = 1}
-					mot_recon = { x = 0 y = 2}
-					logistics_company = { x = 0 y = 3}
+					engineer = { x = 0 y = 0 }
+					artillery = { x = 0 y = 1 }
+					mot_recon = { x = 0 y = 2 }
+					logistics_company = { x = 0 y = 3 }
 				}
 			}
 			division_template = {
@@ -1974,37 +2649,37 @@ focus_tree = {
 				division_names_group = JAP_ARM_01
 				priority = 1
 				regiments = {
-					heavy_sp_artillery_brigade = { x = 0 y = 0}
-					heavy_sp_artillery_brigade = { x = 0 y = 1}
-					heavy_sp_artillery_brigade = { x = 0 y = 2}
-					heavy_sp_artillery_brigade = { x = 0 y = 3}
-					heavy_sp_artillery_brigade = { x = 0 y = 4}
-					heavy_sp_artillery_brigade = { x = 1 y = 0}
-					heavy_sp_artillery_brigade = { x = 1 y = 1}
-					heavy_sp_artillery_brigade = { x = 1 y = 2}
-					heavy_sp_artillery_brigade = { x = 1 y = 3}
-					heavy_sp_artillery_brigade = { x = 1 y = 4}
-					heavy_sp_artillery_brigade = { x = 2 y = 0}
-					heavy_sp_artillery_brigade = { x = 2 y = 1}
-					heavy_sp_artillery_brigade = { x = 2 y = 2}
-					heavy_sp_artillery_brigade = { x = 2 y = 3}
-					heavy_sp_artillery_brigade = { x = 2 y = 4}
-					heavy_sp_artillery_brigade = { x = 3 y = 0}
-					heavy_sp_artillery_brigade = { x = 3 y = 1}
-					heavy_sp_artillery_brigade = { x = 3 y = 2}
-					heavy_sp_artillery_brigade = { x = 3 y = 3}
-					heavy_sp_artillery_brigade = { x = 3 y = 4}
-					heavy_sp_artillery_brigade = { x = 4 y = 0}
-					heavy_sp_artillery_brigade = { x = 4 y = 1}
-					heavy_sp_artillery_brigade = { x = 4 y = 2}
-					heavy_sp_artillery_brigade = { x = 4 y = 3}
-					heavy_sp_artillery_brigade = { x = 4 y = 4}
+					heavy_sp_artillery_brigade = { x = 0 y = 0 }
+					heavy_sp_artillery_brigade = { x = 0 y = 1 }
+					heavy_sp_artillery_brigade = { x = 0 y = 2 }
+					heavy_sp_artillery_brigade = { x = 0 y = 3 }
+					heavy_sp_artillery_brigade = { x = 0 y = 4 }
+					heavy_sp_artillery_brigade = { x = 1 y = 0 }
+					heavy_sp_artillery_brigade = { x = 1 y = 1 }
+					heavy_sp_artillery_brigade = { x = 1 y = 2 }
+					heavy_sp_artillery_brigade = { x = 1 y = 3 }
+					heavy_sp_artillery_brigade = { x = 1 y = 4 }
+					heavy_sp_artillery_brigade = { x = 2 y = 0 }
+					heavy_sp_artillery_brigade = { x = 2 y = 1 }
+					heavy_sp_artillery_brigade = { x = 2 y = 2 }
+					heavy_sp_artillery_brigade = { x = 2 y = 3 }
+					heavy_sp_artillery_brigade = { x = 2 y = 4 }
+					heavy_sp_artillery_brigade = { x = 3 y = 0 }
+					heavy_sp_artillery_brigade = { x = 3 y = 1 }
+					heavy_sp_artillery_brigade = { x = 3 y = 2 }
+					heavy_sp_artillery_brigade = { x = 3 y = 3 }
+					heavy_sp_artillery_brigade = { x = 3 y = 4 }
+					heavy_sp_artillery_brigade = { x = 4 y = 0 }
+					heavy_sp_artillery_brigade = { x = 4 y = 1 }
+					heavy_sp_artillery_brigade = { x = 4 y = 2 }
+					heavy_sp_artillery_brigade = { x = 4 y = 3 }
+					heavy_sp_artillery_brigade = { x = 4 y = 4 }
 				}
 				support = {
-					engineer = { x = 0 y = 0}
-					artillery = { x = 0 y = 1}
-					mot_recon = { x = 0 y = 2}
-					logistics_company = { x = 0 y = 3}
+					engineer = { x = 0 y = 0 }
+					artillery = { x = 0 y = 1 }
+					mot_recon = { x = 0 y = 2 }
+					logistics_company = { x = 0 y = 3 }
 				}
 			}
 		}
@@ -2012,7 +2687,7 @@ focus_tree = {
 	focus = {
 		id = CHL_alli_with_pioneer
 		text = CHL_alli_with_pioneer
-		icon = todo
+		icon = GFX_goal_generic_army_doctrines
 		
 		cost = 5
 		relative_position_id = CHL_advise_of_pioneer
@@ -2120,7 +2795,7 @@ focus_tree = {
 			focus = CHL_treat_with_inka
 		}
 		
-		mutually_exclusive ={
+		mutually_exclusive = {
 			focus = CHL_won_inka
 			focus = CHL_buy_inka
 		}
@@ -2151,7 +2826,7 @@ focus_tree = {
 			focus = CHL_treat_with_inka
 		}
 		
-		mutually_exclusive ={
+		mutually_exclusive = {
 			focus = CHL_get_inka
 			focus = CHL_buy_inka
 		}
@@ -2224,7 +2899,7 @@ focus_tree = {
 			focus = CHL_treat_with_inka
 		}
 		
-		mutually_exclusive ={
+		mutually_exclusive = {
 			focus = CHL_won_inka
 			focus = CHL_get_inka
 		}
@@ -2484,7 +3159,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 508
+							owns_state = 508
 						}
 						PRU = {
 							transfer_state = 508
@@ -2492,7 +3167,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 509
+							owns_state = 509
 						}
 						PRU = {
 							transfer_state = 509
@@ -2500,7 +3175,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 511
+							owns_state = 511
 						}
 						PRU = {
 							transfer_state = 511
@@ -2508,7 +3183,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 301
+							owns_state = 301
 						}
 						PRU = {
 							transfer_state = 301
@@ -2516,7 +3191,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 302
+							owns_state = 302
 						}
 						PRU = {
 							transfer_state = 302
@@ -2524,7 +3199,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 688
+							owns_state = 688
 						}
 						PRU = {
 							transfer_state = 688
@@ -2532,7 +3207,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 504
+							owns_state = 504
 						}
 						PRU = {
 							transfer_state = 504
@@ -2540,7 +3215,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 505
+							owns_state = 505
 						}
 						PRU = {
 							transfer_state = 505
@@ -2548,7 +3223,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 280
+							owns_state = 280
 						}
 						PRU = {
 							transfer_state = 280
@@ -2556,7 +3231,7 @@ focus_tree = {
 					}
 					if = {
 						limit = {
-							own_state = 487
+							owns_state = 487
 						}
 						PRU = {
 							transfer_state = 487
@@ -2582,7 +3257,7 @@ focus_tree = {
 	focus = {
 		id = CHL_go_north_america
 		text = CHL_go_north_america
-		icon = todo
+		icon = GFX_goal_generic_major_war
 		
 		cost = 5
 		relative_position_id = CHL_won_in_south_america
@@ -2606,7 +3281,7 @@ focus_tree = {
 	focus = {
 		id = CHL_won_north_america
 		text = CHL_won_north_america
-		icon = todo
+		icon = GFX_focus_eng_special_air_service
 		
 		cost = 5
 		relative_position_id = CHL_go_north_america
@@ -2690,7 +3365,7 @@ focus_tree = {
 	focus = {
 		id = CHL_go_africa
 		text = CHL_go_africa
-		icon = todo
+		icon = GFX_goal_generic_major_war
 		
 		cost = 5
 		relative_position_id = CHL_won_in_south_america
@@ -2699,11 +3374,61 @@ focus_tree = {
 		prerequisite = {
 			focus = CHL_won_in_south_america
 		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_coastal = yes
+					is_on_continent = africa
+					is_island_state = no
+				}
+				add_claim_by = CHL
+			}
+		}
 	}
 	focus = {
-		id = CHL_east_south_asia
-		text = CHL_east_south_asia
-		icon = todo
+		id = CHL_won_africa
+		text = CHL_won_africa
+		icon = GFX_focus_focus_fra_national_resistance_council
+		cost = 5
+		relative_position_id = CHL_go_africa
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_go_africa
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHL_tooltip_trigger_get_all_africa
+				all_state = {
+					OR = {
+						is_coastal = no
+						NOT = { is_on_continent = africa }
+						NOT = { is_claimed_by = CHL }
+						is_owned_by = ROOT
+					}
+				}
+			}
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					OR = {
+						AND = {
+							is_coastal = yes
+							is_on_continent = africa
+							is_island_state = no
+						}
+					}
+				}
+				add_core_of = CHL
+			}
+		}
+	}
+	
+	focus = {
+		id = CHL_asia
+		text = CHL_asia
+		icon = GFX_focus_usa_focus_on_asia
 		
 		cost = 5
 		relative_position_id = CHL_won_in_south_america
@@ -2712,11 +3437,72 @@ focus_tree = {
 		prerequisite = {
 			focus = CHL_won_in_south_america
 		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_coastal = yes
+					OR = {
+						is_on_continent = asia
+						is_on_continent = australia
+					}
+					is_island_state = no
+				}
+				add_claim_by = CHL
+			}
+		}
 	}
+	focus = {
+		id = CHL_won_asia
+		text = CHL_won_asia
+		icon = GFX_focus_generic_strike_at_democracy1
+		cost = 5
+		relative_position_id = CHL_asia
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_asia
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHL_tooltip_trigger_get_all_asia
+				all_state = {
+					OR = {
+						is_coastal = no
+						NOT = {
+							OR = {
+								is_on_continent = asia
+								is_on_continent = australia
+							}
+						}
+						NOT = { is_claimed_by = CHL }
+						is_owned_by = ROOT
+					}
+				}
+			}
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					OR = {
+						AND = {
+							is_coastal = yes
+							OR = {
+								is_on_continent = asia
+								is_on_continent = australia
+							}
+							is_island_state = no
+						}
+					}
+				}
+				add_core_of = CHL
+			}
+		}
+	}
+	
 	focus = {
 		id = CHL_revenge_europe
 		text = CHL_revenge_europe
-		icon = todo
+		icon = GFX_focus_usa_focus_on_europe
 		
 		cost = 5
 		relative_position_id = CHL_won_in_south_america
@@ -2724,6 +3510,147 @@ focus_tree = {
 		y = 1
 		prerequisite = {
 			focus = CHL_won_in_south_america
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_coastal = yes
+					is_on_continent = europe
+					is_island_state = no
+				}
+				add_claim_by = CHL
+			}
+		}
+	}
+	focus = {
+		id = CHL_won_europe
+		text = CHL_won_europe
+		icon = GFX_focus_rom_royal_dictatorship
+		cost = 5
+		relative_position_id = CHL_revenge_europe
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_revenge_europe
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHL_tooltip_trigger_get_all_africa
+				all_state = {
+					OR = {
+						is_coastal = no
+						NOT = { is_on_continent = europe }
+						NOT = { is_claimed_by = CHL }
+						is_owned_by = ROOT
+					}
+				}
+			}
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					OR = {
+						AND = {
+							is_coastal = yes
+							is_on_continent = europe
+							is_island_state = no
+						}
+					}
+				}
+				add_core_of = CHL
+			}
+		}
+	}
+	
+	focus = {
+		id = CHL_go_mid_east
+		text = CHL_go_mid_east
+		icon = GFX_goal_generic_major_war
+		
+		cost = 5
+		relative_position_id = CHL_won_in_south_america
+		x = -6
+		y = 1
+		prerequisite = {
+			focus = CHL_won_in_south_america
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_coastal = yes
+					is_on_continent = middle_east
+					is_island_state = no
+				}
+				add_claim_by = CHL
+			}
+		}
+	}
+	focus = {
+		id = CHL_won_mid_east
+		text = CHL_won_mid_east
+		icon = GFX_focus_TUR_misak_i_milli
+		cost = 5
+		relative_position_id = CHL_go_mid_east
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_go_mid_east
+		}
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = CHL_tooltip_trigger_get_all_africa
+				all_state = {
+					OR = {
+						is_coastal = no
+						NOT = { is_on_continent = middle_east }
+						NOT = { is_claimed_by = CHL }
+						is_owned_by = ROOT
+					}
+				}
+			}
+		}
+		completion_reward = {
+			every_state = {
+				limit = {
+					OR = {
+						AND = {
+							is_coastal = yes
+							is_on_continent = middle_east
+							is_island_state = no
+						}
+					}
+				}
+				add_core_of = CHL
+			}
+		}
+	}
+	
+	focus = {
+		id = CHL_get_all_coast
+		text = CHL_get_all_coast
+		icon = GFX_focus_GRE_reviving_the_double_headed_eagle
+		cost = 5
+		relative_position_id = CHL_won_north_america
+		x = 0
+		y = 1
+		prerequisite = {
+			focus = CHL_won_north_america
+		}
+		prerequisite = {
+			focus = CHL_won_mid_east
+		}
+		prerequisite = {
+			focus = CHL_won_europe
+		}
+		prerequisite = {
+			focus = CHL_won_asia
+		}
+		prerequisite = {
+			focus = CHL_won_africa
+		}
+		completion_reward = {
+			set_cosmetic_tag = the_coast
+			add_ideas = CHL_the_coast
 		}
 	}
 }
