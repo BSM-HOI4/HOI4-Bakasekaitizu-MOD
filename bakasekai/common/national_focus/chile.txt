@@ -2941,7 +2941,8 @@ focus_tree = {
 		}
 	}
 	
-	focus = { # 南アメリカ国と戦争し、そのまま北進する中道ルート
+	# 南アメリカ国と戦争し、そのまま北進する中道ルート
+	focus = {
 		id = CHL_fate_of_south_america
 		text = CHL_fate_of_south_america
 		icon = GFX_goal_generic_major_war
@@ -2962,7 +2963,28 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-		
+			add_political_power = 50
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.10
+			}
+			if = {
+				limit = {
+					OR = {
+						has_government = fascism
+						has_government = democratic
+						has_government = communism
+					}
+				}
+				set_politics = {
+					ruling_party = neutrality
+				}
+			}
+			swap_ideas = {
+				remove_idea = CHL_go_north
+				add_idea = CHL_get_longer
+			}
+			
 		}
 	}
 	
