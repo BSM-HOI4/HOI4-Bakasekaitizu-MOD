@@ -21,6 +21,7 @@ focus_tree = {
 		focus = industrial_effort
 	}
 	
+	# Army Tree
 	focus = {
 		id = army_effort
 		icon = GFX_goal_generic_allies_build_infantry
@@ -32,7 +33,13 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 		completion_reward = {
-			army_experience = 5
+			army_experience = 100
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = land_doctrine
+			}
 			add_tech_bonus = {
 				name = land_doc_bonus
 				bonus = 1.0
@@ -59,7 +66,56 @@ focus_tree = {
 			add_tech_bonus = {
 				name = infantry_artillery_bonus
 				bonus = 1.0
-				uses = 1
+				uses = 2
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = equipment_effort_2
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus = equipment_effort }
+		mutually_exclusive = { focus = armor_effort }
+		x = 0
+		y = 2
+		relative_position_id = equipment_effort
+		cost = 10
+		
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 2
+				ahead_reduction = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = equipment_effort_3
+		icon = GFX_goal_generic_army_artillery2
+		prerequisite = { focus = equipment_effort_2 }
+		x = 0
+		y = 2
+		relative_position_id = equipment_effort_2
+		cost = 10
+		
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 2
+				ahead_reduction = 1
 				category = infantry_weapons
 				category = artillery
 			}
@@ -81,10 +137,66 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 		completion_reward = {
+			set_technology = {
+				motorised_infantry = 1
+			}
 			add_tech_bonus = {
 				name = motorized_bonus
-				bonus = 3.0
-				technology = motorised_infantry
+				bonus = 1.0
+				uses = 2
+				technology = tech_field_hospital
+				technology = tech_field_hospital2
+				technology = tech_logistics_company
+				technology = tech_logistics_company2
+				technology = tech_signal_company
+				technology = tech_signal_company2
+			}
+		}
+	}
+	focus = {
+		id = armor_effort
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = motorization_effort }
+		mutually_exclusive = { focus = equipment_effort_2 }
+		x = 0
+		y = 2
+		relative_position_id = motorization_effort
+		cost = 10
+		
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				ahead_reduction = 1.0
+				uses = 2
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = mechanization_effort
+		icon = GFX_goal_generic_build_tank
+		prerequisite = { focus = armor_effort }
+		x = 0
+		y = 2
+		relative_position_id = armor_effort
+		cost = 10
+		
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				ahead_reduction = 1
+				bonus = 1.0
+				uses = 2
+				category = motorized_equipment
 			}
 		}
 	}
@@ -103,63 +215,15 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 		completion_reward = {
-			army_experience = 5
+			army_experience = 20
 			add_tech_bonus = {
 				name = land_doc_bonus
 				bonus = 1.0
-				uses = 1
+				uses = 2
 				category = land_doctrine
 			}
 		}
 	}
-	
-	focus = {
-		id = equipment_effort_2
-		icon = GFX_goal_generic_army_artillery
-		prerequisite = { focus = equipment_effort }
-		x = 0
-		y = 2
-		relative_position_id = equipment_effort
-		cost = 10
-		
-		search_filters = {  FOCUS_FILTER_RESEARCH }
-		
-		available_if_capitulated = yes
-		
-		completion_reward = {
-			add_tech_bonus = {
-				name = infantry_artillery_bonus
-				bonus = 1.0
-				uses = 1
-				category = infantry_weapons
-				category = artillery
-			}
-		}
-	}
-	
-	focus = {
-		id = mechanization_effort
-		icon = GFX_goal_generic_build_tank
-		prerequisite = { focus = motorization_effort }
-		x = 0
-		y = 2
-		relative_position_id = motorization_effort
-		cost = 10
-		
-		search_filters = {  FOCUS_FILTER_RESEARCH }
-		
-		available_if_capitulated = yes
-		
-		completion_reward = {
-			add_tech_bonus = {
-				name = motorized_bonus
-				ahead_reduction = 2
-				uses = 1
-				category = motorized_equipment
-			}
-		}
-	}
-	
 	focus = {
 		id = doctrine_effort_2
 		icon = GFX_goal_generic_army_doctrines
@@ -174,10 +238,10 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 		completion_reward = {
-			army_experience = 5
+			army_experience = 30
 			add_tech_bonus = {
 				name = land_doc_bonus
-				bonus = 1.0
+				bonus = 3.0
 				uses = 1
 				category = land_doctrine
 			}
@@ -185,58 +249,13 @@ focus_tree = {
 	}
 	
 	focus = {
-		id = equipment_effort_3
-		icon = GFX_goal_generic_army_artillery2
-		prerequisite = { focus = equipment_effort_2 }
-		x = 0
-		y = 2
-		relative_position_id = equipment_effort_2
-		cost = 10
-		
-		search_filters = {  FOCUS_FILTER_RESEARCH }
-		
-		available_if_capitulated = yes
-		
-		completion_reward = {
-			add_tech_bonus = {
-				name = infantry_artillery_bonus
-				ahead_reduction = 2
-				uses = 1
-				category = infantry_weapons
-				category = artillery
-			}
-		}
-	}
-	
-	focus = {
-		id = armor_effort
-		icon = GFX_goal_generic_army_tanks
-		prerequisite = { focus = mechanization_effort }
-		x = 0
-		y = 2
-		relative_position_id = mechanization_effort
-		cost = 10
-		
-		search_filters = {  FOCUS_FILTER_RESEARCH }
-		
-		available_if_capitulated = yes
-		
-		completion_reward = {
-			add_tech_bonus = {
-				name = armor_bonus
-				bonus = 1.0
-				uses = 2
-				category = armor
-			}
-		}
-	}
-	
-	focus = {
 		id = special_forces
 		icon = GFX_goal_generic_special_forces
-		prerequisite = { focus = equipment_effort_3 }
+		prerequisite = {
+			focus = equipment_effort_3
+			focus = mechanization_effort
+		}
 		prerequisite = { focus = doctrine_effort_2 }
-		prerequisite = { focus = armor_effort }
 		x = 1
 		y = 1
 		relative_position_id = equipment_effort_3
@@ -248,20 +267,23 @@ focus_tree = {
 		
 		completion_reward = {
 			add_ideas = special_forces
+			set_technology = {
+				paratroopers = 1
+				marines = 1
+				tech_mountaineers = 1
+			}
 			add_tech_bonus = {
 				name = special_forces_bonus
 				bonus = 1.0
-				uses = 1
-				technology = paratroopers
-				technology = paratroopers2
-				technology = marines
-				technology = marines2
-				technology = tech_mountaineers
-				technology = tech_mountaineers2
+				uses = 2
+				category = mountaineers_tech
+				category = marine_tech
+				category = para_tech
 			}
 		}
 	}
 	
+	# Air Tree
 	focus = {
 		id = aviation_effort
 		icon = GFX_goal_generic_build_airforce
@@ -279,14 +301,14 @@ focus_tree = {
 			if = { limit = { has_country_flag = aviation_effort_AB }
 				add_building_construction = {
 					type = air_base
-					level = 2
+					level = 3
 					instant_build = yes
 				}
 			}
 			add_tech_bonus = {
 				name = air_doc_bonus
 				bonus = 1.0
-				uses = 1
+				uses = 2
 				category = air_doctrine
 			}
 		}
@@ -314,7 +336,7 @@ focus_tree = {
 					}
 					add_building_construction = {
 						type = air_base
-						level = 2
+						level = 3
 						instant_build = yes
 					}
 					ROOT = { set_country_flag = aviation_effort_AB }
@@ -332,7 +354,7 @@ focus_tree = {
 				capital_scope = {
 					add_building_construction = {
 						type = air_base
-						level = 2
+						level = 3
 						instant_build = yes
 					}
 					ROOT = { set_country_flag = aviation_effort_AB }
@@ -341,7 +363,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name = air_doc_bonus
 				bonus = 1.0
-				uses = 1
+				uses = 2
 				category = air_doctrine
 			}
 		}
@@ -363,10 +385,18 @@ focus_tree = {
 		
 		completion_reward = {
 			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+			set_technology = {
+				early_fighter = 1
+			}
+			add_tech_bonus = {
 				name = fighter_bonus
 				bonus = 1.0
 				uses = 2
-				technology = early_fighter
 				technology = fighter1
 				technology = fighter2
 				technology = fighter3
@@ -376,7 +406,6 @@ focus_tree = {
 			}
 		}
 	}
-	
 	focus = {
 		id = bomber_focus
 		icon = GFX_goal_generic_air_bomber
@@ -392,6 +421,12 @@ focus_tree = {
 		available_if_capitulated = yes
 		
 		completion_reward = {
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = air_doctrine
+			}
 			add_tech_bonus = {
 				name = bomber_bonus
 				bonus = 1.0
@@ -417,25 +452,24 @@ focus_tree = {
 		
 		available_if_capitulated = yes
 		
-		
 		complete_tooltip = {
-			air_experience = 25
+			air_experience = 50
 			if = { limit = { has_country_flag = aviation_effort_2_AB }
 				add_building_construction = {
 					type = air_base
-					level = 2
+					level = 3
 					instant_build = yes
 				}
 			}
 			add_tech_bonus = {
 				name =  air_doc_bonus
 				bonus = 1.0
-				uses = 1
+				uses = 2
 				category = air_doctrine
 			}
 		}
 		completion_reward = {
-			air_experience = 25
+			air_experience = 50
 			if = {
 				limit = {
 					capital_scope = {
@@ -459,7 +493,7 @@ focus_tree = {
 					}
 					add_building_construction = {
 						type = air_base
-						level = 2
+						level = 3
 						instant_build = yes
 					}
 					ROOT = { set_country_flag = aviation_effort_2_AB }
@@ -478,7 +512,7 @@ focus_tree = {
 				capital_scope = {
 					add_building_construction = {
 						type = air_base
-						level = 2
+						level = 3
 						instant_build = yes
 					}
 					ROOT = { set_country_flag = aviation_effort_2_AB }
@@ -487,7 +521,7 @@ focus_tree = {
 			add_tech_bonus = {
 				name =  air_doc_bonus
 				bonus = 1.0
-				uses = 1
+				uses = 2
 				category = air_doctrine
 			}
 		}
@@ -497,7 +531,6 @@ focus_tree = {
 		id = CAS_effort
 		icon = GFX_goal_generic_CAS
 		prerequisite = { focus = aviation_effort_2 }
-		prerequisite = { focus = motorization_effort }
 		x = -1
 		y = 1
 		relative_position_id = aviation_effort_2
@@ -511,18 +544,16 @@ focus_tree = {
 			add_tech_bonus = {
 				name = CAS_bonus
 				bonus = 1.0
-				ahead_reduction = 2
-				uses = 1
+				ahead_reduction = 1
+				uses = 2
 				category = cas_bomber
 			}
 		}
 	}
-	
 	focus = {
 		id = rocket_effort
 		icon = GFX_focus_rocketry
 		prerequisite = { focus = aviation_effort_2 }
-		prerequisite = { focus = infrastructure_effort }
 		x = 0
 		y = 2
 		relative_position_id = aviation_effort_2
@@ -550,12 +581,10 @@ focus_tree = {
 			}
 		}
 	}
-	
 	focus = {
 		id = NAV_effort
 		icon = GFX_goal_generic_air_naval_bomber
 		prerequisite = { focus = aviation_effort_2 }
-		prerequisite = { focus = flexible_navy }
 		x = 1
 		y = 1
 		relative_position_id = aviation_effort_2
@@ -569,13 +598,14 @@ focus_tree = {
 			add_tech_bonus = {
 				name = nav_bomber_bonus
 				bonus = 1.0
-				ahead_reduction = 2
-				uses = 1
+				ahead_reduction = 1
+				uses = 2
 				category = naval_bomber
 			}
 		}
 	}
 	
+	# Naval Tree
 	focus = {
 		id = naval_effort
 		icon = GFX_goal_generic_construct_naval_dockyard
@@ -606,7 +636,13 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			navy_experience = 25
+			navy_experience = 50
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
 			if = {
 				limit = {
 					NOT = {
@@ -734,9 +770,15 @@ focus_tree = {
 		
 		completion_reward = {
 			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+			add_tech_bonus = {
 				name = sub_op_bonus
 				bonus = 1.0
-				uses = 2
+				uses = 3
 				technology = convoy_interdiction_ti
 				technology = unrestricted_submarine_warfare
 				technology = wolfpacks
@@ -776,9 +818,15 @@ focus_tree = {
 		
 		completion_reward = {
 			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+			add_tech_bonus = {
 				name = fleet_in_being_bonus
 				bonus = 1.0
-				uses = 2
+				uses = 4
 				category = fleet_in_being_tree
 			}
 		}
@@ -812,12 +860,62 @@ focus_tree = {
 		}
 		
 		completion_reward = {
+			
 			add_tech_bonus = {
 				name = ss_bonus
 				bonus = 1.0
 				ahead_reduction = 2
 				uses = 1
 				category = ss_tech
+			}
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+	focus = {
+		id = destroyer_effort
+		icon = GFX_goal_generic_wolf_pack
+		prerequisite = { focus = submarine_effort }
+		x = 0
+		y = 1
+		relative_position_id = submarine_effort
+		cost = 10
+		
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+		
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = dd_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = dd_tech
+			}
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
 			}
 		}
 	}
@@ -858,47 +956,14 @@ focus_tree = {
 				category = cl_tech
 				category = ca_tech
 			}
-		}
-	}
-	
-	focus = {
-		id = destroyer_effort
-		icon = GFX_goal_generic_wolf_pack
-		prerequisite = { focus = submarine_effort }
-		x = 0
-		y = 1
-		relative_position_id = submarine_effort
-		cost = 10
-		
-		search_filters = {  FOCUS_FILTER_RESEARCH }
-		
-		available_if_capitulated = yes
-		
-		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				all_owned_state = {
-					OR = {
-						is_coastal = no
-						dockyard < 1
-					}
-				}
-			}
-		}
-		
-		completion_reward = {
 			add_tech_bonus = {
-				name = dd_bonus
+				name =  naval_doc_bonus
 				bonus = 1.0
-				ahead_reduction = 2
 				uses = 1
-				category = dd_tech
+				category = naval_doctrine
 			}
 		}
 	}
-	
 	focus = {
 		id = capital_ships_effort
 		icon = GFX_goal_generic_navy_battleship
@@ -935,6 +1000,12 @@ focus_tree = {
 				category = bc_tech
 				category = bb_tech
 				category = cv_tech
+			}
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
 			}
 		}
 	}
@@ -2509,7 +2580,7 @@ focus_tree = {
 		}
 	}
 	
-	# Political Tree: generic_industry.txt
+	# Political Tree
 	focus = {
 		id = political_effort
 		icon = GFX_goal_generic_demand_territory
