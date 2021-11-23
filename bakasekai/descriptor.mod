@@ -6,7 +6,10 @@ tags={
 	"Gameplay"
 }
 replace_path="common/ai_peace"
+replace_path="common/bookmarks"
 name="+バカ世界地図(α版)"
+dependencies={
+	"Japanese Language mod"
+}
 supported_version="1.10.7"
 remote_file_id="2537929285"
-dependencies = { "Japanese Language mod" }
