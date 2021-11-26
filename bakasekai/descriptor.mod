@@ -5,7 +5,7 @@ tags={
 	"Alternative History"
 	"Gameplay"
 }
-
+replace_path = "map"
 name="+バカ世界地図(α版)"
 supported_version="1.10.7"
 remote_file_id="2537929285"
