@@ -1,0 +1,688 @@
+focus_tree = {
+	id = wes_sahara
+	continuous_focus_position = { x = 0 y = 1000 } 
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = WES
+		}
+	}
+	default = no
+	
+
+	
+		#Welcoming the Sands of the Middle East
+	focus = {
+		id = WES_welcoming_the_sands_of_the_middle_east
+		icon = GFX_focus_TUR_taking_over_defense_of_the_gulf
+		relative_position_id = WES_gone_with_the_sand
+		prerequisite = { focus = WES_African_unification  }
+		x = -2
+		y = 5
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available = {
+			OR = {
+				NOT = { SAU = { is_in_faction_with = WES } }
+				NOT = { IRQ = { is_in_faction_with = WES } }
+				NOT = { PER = { is_in_faction_with = WES } }
+				NOT = { TUR = { is_in_faction_with = WES } }
+			}
+		}
+
+		bypass = {
+			SAU = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			IRQ = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			PER = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			TUR = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			#limit wargoals to when it makes sense to give them. No faction, war or non exist
+			if = { 
+				limit = {
+					country_exists = SAU
+					NOT = { SAU = { is_in_faction_with = WES } }
+					NOT = { has_war_with = SAU }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = SAU
+				}
+			}
+			if =  {
+				limit = {
+					country_exists = IRQ
+					NOT = {IRQ = { is_in_faction_with = WES } }
+					NOT = { has_war_with = SAF }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = IRQ
+				}
+			}
+			if = {
+				limit = {
+					country_exists = PER
+					NOT = { PER = { is_in_faction_with = WES } }
+					NOT = { has_war_with = PER }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = PER
+				}			
+			}
+			if = { 
+				limit = {
+					country_exists = TUR
+					NOT = { TUR = { is_in_faction_with = WES } }
+					NOT = { has_war_with = TUR }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = TUR
+				}
+			}
+			#Saudi Arabia
+			add_state_core = 292
+			add_state_core = 293
+			add_state_core = 294
+			add_state_core = 658
+			add_state_core = 659
+			add_state_core = 678
+			add_state_core = 679
+			add_state_core = 765
+			#Iraq
+			add_state_core = 291
+			add_state_core = 454
+			add_state_core = 455
+			add_state_core = 553
+			add_state_core = 554
+			add_state_core = 656
+			add_state_core = 675
+			add_state_core = 676
+			add_state_core = 677
+			add_state_core = 680
+			#Iran
+			add_state_core = 266
+			add_state_core = 410
+			add_state_core = 411
+			add_state_core = 412
+			add_state_core = 413
+			add_state_core = 414
+			add_state_core = 416
+			add_state_core = 417
+			add_state_core = 418
+			add_state_core = 419
+			add_state_core = 420
+			add_state_core = 421
+			#Turkey
+			341 = { add_core_of = ROOT }
+			340 = { add_core_of = ROOT }
+			339 = { add_core_of = ROOT }
+			342 = { add_core_of = ROOT }
+			343 = { add_core_of = ROOT }
+			347 = { add_core_of = ROOT }
+			49 = { add_core_of = ROOT }
+			346 = { add_core_of = ROOT }
+			345 = { add_core_of = ROOT }
+			356 = { add_core_of = ROOT }
+			348 = { add_core_of = ROOT }
+			344 = { add_core_of = ROOT }
+			355 = { add_core_of = ROOT }
+			349 = { add_core_of = ROOT }
+			350 = { add_core_of = ROOT }
+			354 = { add_core_of = ROOT }
+			353 = { add_core_of = ROOT }
+			352 = { add_core_of = ROOT }
+			add_state_core = 797
+			add_state_core = 798
+			add_state_core = 799
+			add_state_core = 800
+		}
+	}
+
+		#Desertification in neighboring countries
+	focus = {
+		id = WES_progress_of_desertification
+		icon = GFX_focus_generic_air_defense
+
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 1
+		cost = 20
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_gone_with_the_sand  }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = WES_Gone_with_the_sand
+				add_idea = WES_Gone_with_the_sand_2
+			}
+		}
+	}
+
+		#Rule by sand
+	focus = {
+		id = WES_rule_by_sand
+		icon = GFX_focus_generic_support_the_left_right
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 2
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_progress_of_desertification  }
+		completion_reward = {
+			add_ideas = WES_3S_Policy
+		}
+	}
+
+		#Desertification of the Nile and Suez
+	focus = {
+		id = WES_desertification_of_the_nile_and_suez
+		icon = GFX_goal_generic_major_war
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 3
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_rule_by_sand  }
+		available = {
+			OR = {
+				NOT = { EGY = { is_in_faction_with =  WES } }
+			}
+		}
+
+		bypass = {
+			 EGY = {
+				OR = {
+					exists = no
+					is_in_faction_with =  WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			#limit wargoals to when it makes sense to give them. No faction, war or non exist
+			if = { 
+				limit = {
+					country_exists = EGY
+					NOT = { EGY = { is_in_faction_with = WES } }
+					NOT = { has_war_with = EGY }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = EGY
+				}
+			}
+			add_state_core = 446
+			add_state_core = 447
+			add_state_core = 452
+			add_state_core = 453
+			add_state_core = 456
+			add_state_core = 457
+			add_state_core = 552
+		}
+	}
+
+		#African unification
+	focus = {
+		id = WES_African_unification
+		icon = GFX_focus_generic_africa_factory
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 4
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_desertification_of_the_nile_and_suez  }
+		available = {
+			OR = {
+				NOT = { KEN = { is_in_faction_with = WES } }
+				NOT = { SAF = { is_in_faction_with = WES } }
+				NOT = { MOR = { is_in_faction_with = WES } }
+				NOT = { TUN = { is_in_faction_with = WES } }
+				NOT = { CAM = { is_in_faction_with = WES } }
+				NOT = { ANG = { is_in_faction_with = WES } }
+			}
+		}
+
+		bypass = {
+			KEN = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			SAF = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			MOR = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			TUN = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			CAM = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			ANG = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			if = { 
+				limit = {
+					country_exists = KEN
+					NOT = { KEN = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KEN }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = KEN
+				}
+			}
+			if =  {
+				limit = {
+					country_exists = SAF
+					NOT = { SAF = { is_in_faction_with = WES } }
+					NOT = { has_war_with = SAF }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = SAF
+				}
+			}
+			if = {
+				limit = {
+					country_exists = MOR
+					NOT = { MOR = { is_in_faction_with = WES } }
+					NOT = { has_war_with = MOR }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = MOR
+				}			
+			}
+			if = { 
+				limit = {
+					country_exists = TUN
+					NOT = { TUN = { is_in_faction_with = WES } }
+					NOT = { has_war_with = TUN }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = TUN
+				}
+			}
+			if =  {
+				limit = {
+					country_exists = CAM
+					NOT = { CAM = { is_in_faction_with = WES } }
+					NOT = { has_war_with = CAM }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = CAM
+				}
+			}
+			if = {
+				limit = {
+					country_exists = ANG
+					NOT = { ANG = { is_in_faction_with = WES } }
+					NOT = { has_war_with = ANG }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = ANG
+				}			
+			}
+			#Kenya
+			add_state_core = 544
+			add_state_core = 545
+			add_state_core = 770
+			add_state_core = 771
+			#South Africa
+			add_state_core = 275
+			add_state_core = 681
+			add_state_core = 719
+			#Morocco
+			add_state_core = 273
+			add_state_core = 448
+			add_state_core = 449
+			add_state_core = 450
+			add_state_core = 451
+			add_state_core = 661
+			add_state_core = 662
+			add_state_core = 663
+			#Tunisia
+			add_state_core = 458
+			add_state_core = 459
+			add_state_core = 460
+			add_state_core = 513
+			add_state_core = 665
+			#Cambodia
+			add_state_core = 290
+			add_state_core = 461
+			add_state_core = 462
+			add_state_core = 557
+			add_state_core = 699
+			add_state_core = 783
+			add_state_core = 786
+			#Amazon(Angola)
+			add_state_core = 540
+			add_state_core = 541
+			add_state_core = 542
+			add_state_core = 796
+
+		}
+	}
+
+
+
+		#Founding of Sandsand Stan
+	focus = {
+		id = WES_founding_of_sandsand_stan
+		icon = GFX_focus_TUR_treaty_of_saadabad
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 6
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_welcoming_the_sands_of_the_middle_east  }
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = AFG
+			}
+		}
+	}
+	
+
+
+	#March of the Sand Division
+	focus = {
+		id = WES_march_of_the_sand_division
+		icon = GFX_focus_generic_little_entente
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_gone_with_the_sand  }
+		completion_reward = {
+			set_technology = { sand = 1 }
+			division_template = {
+    			name = "Sand"
+   				regiments = {
+   				sand = { x = 0 y = 0 }
+    		    sand = { x = 0 y = 1 }
+				sand = { x = 0 y = 2 }
+        		sand = { x = 0 y = 3 }
+        		sand = { x = 0 y = 4 }
+        		sand = { x = 1 y = 0 }
+        		sand = { x = 1 y = 1 }
+        		sand = { x = 1 y = 2 }
+		        sand = { x = 1 y = 3 }
+		        sand = { x = 1 y = 4 }
+		        sand = { x = 2 y = 0 }
+		        sand = { x = 2 y = 1 }
+		        sand = { x = 2 y = 2 }
+		        sand = { x = 2 y = 3 }
+		        sand = { x = 2 y = 4 }
+		        sand = { x = 3 y = 0 }
+		        sand = { x = 3 y = 1 }
+		        sand = { x = 3 y = 2 }
+		        sand = { x = 3 y = 3 }
+		        sand = { x = 3 y = 4 }
+		    	}
+		    	support = {
+		    	}
+			}
+			army_experience = 100
+			add_ideas = WES_sand_war
+		}
+	}
+
+
+
+		#sand rifle
+	focus = {
+		id = WES_sand_rifle
+		icon = GFX_goal_continuous_reduce_training_time
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 2
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		prerequisite = { focus = WES_march_of_the_sand_division  }
+		completion_reward = {
+			set_technology = { tech_support = 1 }
+		}
+	}
+
+		#sand car
+	focus = {
+		id = WES_sand_car
+		icon = GFX_goal_generic_army_motorized
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 3
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = { focus = WES_sand_rifle  }
+		completion_reward = {
+			set_technology = { motorised_infantry = 1 }
+			set_technology = { gwtank = 1 }
+			set_technology = { basic_light_tank = 1 }
+			set_technology = { basic_heavy_tank = 1 }
+		}
+	}
+
+		#sand boat
+	focus = {
+		id = WES_sand_boat
+		icon = GFX_focus_generic_africa_naval
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 4
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = { focus = WES_sand_car  }
+	}
+
+		#sand plane
+	focus = {
+		id = WES_sand_plane
+		icon = GFX_goal_continuous_air_production
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 5
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = { focus = WES_sand_boat  }
+		completion_reward = {
+			set_technology = { early_fighter = 1 }
+			set_technology = { fighter1 = 1 }
+			set_technology = { CAS1 = 1 }
+		}
+	}
+
+		#Desert_Research_Lab
+	focus = {
+		id = WES_desert_research_lab
+		icon = GFX_focus_research
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 6
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		prerequisite = { focus = WES_sand_plane  }
+
+		completion_reward = {
+			add_research_slot = 1
+			add_ideas = {
+				WES_desert_research_lab
+			}
+		}
+	}
+
+		#War of Sands
+	focus = {
+		id = WES_war_of_sands
+		icon = GFX_goal_generic_special_forces
+		relative_position_id = WES_gone_with_the_sand
+		x = 0
+		y = 7
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_founding_of_sandsand_stan  } 
+		prerequisite = { focus = WES_desert_research_lab  }
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = WES_sand_war
+				add_idea = WES_sand_war_2
+			}
+		}
+	}
+
+
+		#Establishment of the SGC
+	focus = {
+		id = WES_establishment_of_the_sgc
+		icon = GFX_focus_generic_africa_production
+		x = 2
+		y = 0
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		ai_will_do = {
+			factor = 20
+		}
+		mutually_exclusive = { focus = WES_gone_with_the_sand  }
+		completion_reward ={
+			load_focus_tree = wes_2
+			set_rule = { can_create_factions = yes }
+			create_faction = WES_SGC
+			add_ideas = WES_greening_1
+		}
+	}
+
+		#Gone with the sand
+	focus = {
+		id = WES_gone_with_the_sand
+		icon = GFX_focus_AST_squander_bug
+		x = 8
+		y = 0
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		mutually_exclusive = { focus = WES_establishment_of_the_sgc  }
+		completion_reward = {
+			set_politics = { ruling_party = fascism elections_allowed = no }
+			add_popularity = { ideology = fascism popularity = 0.75 }
+			create_country_leader = {
+				name = "Sands"
+				desc = "Sand is all. All is sand."
+				picture = "gfx/leaders/WES/Sands.dds"
+				ideology = fascism_ideology
+				traits = {
+					charisma
+				}
+			}
+			add_ideas = WES_Gone_with_the_sand
+			set_rule = { can_create_factions = yes }
+			create_faction = WES_Sand
+			hidden_effect = {
+				news_event = { 
+					id = news.400 
+					days = 1
+				}
+			}
+			#set_party_name = { 
+			#    ideology = fascism
+			 #   long_name = WES_fascism_party_Sand Party_long 
+			  #  name = WES_fascism_party_Sand Party 
+			#}
+			
+		}
+	}
+
+	
+
+
+
+}

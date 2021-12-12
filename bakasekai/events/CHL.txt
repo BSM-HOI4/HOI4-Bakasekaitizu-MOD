@@ -1,0 +1,601 @@
+add_namespace = chile
+
+# インカ帝国に対するアンシュルス
+country_event = {
+	id = chile.1
+	title = chile.1.t
+	desc = chile.1.d
+	picture = GFX_report_event_hitler_parade
+	
+	is_triggered_only = yes
+	
+	option = { #Accept
+		name = chile.1.a
+		ai_chance = {
+			base = 10
+			# 軍事力依存
+			modifier = {
+				add = 50
+				CHL = {
+					has_army_size = {
+						size > 20
+					}
+				}
+			}
+			modifier = {
+				add = 20
+				CHL = {
+					has_army_size = {
+						size > 15
+					}
+				}
+			}
+			modifier = {
+				add = -20
+				CHL = {
+					has_army_size = {
+						size < 10
+					}
+				}
+			}
+			modifier = {
+				add = -50
+				CHL = {
+					has_army_size = {
+						size < 5
+					}
+				}
+			}
+		}
+		CHL = {
+			country_event = {
+				hours = 1
+				id = chile.2
+			}
+			puppet = PRU
+		}
+	}
+	option = { # Refuse
+		name = chile.1.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				any_other_country = {
+					has_guaranteed = PRU
+				}
+				factor = 10
+			}
+			modifier = {
+				any_other_country = {
+					is_major = yes
+					has_guaranteed = PRU
+				}
+				factor = 10
+			}
+			modifier = {
+				add = -10
+				CHL = {
+					has_army_size = {
+						size > 10
+					}
+				}
+			}
+		}
+		CHL = {
+			country_event = {
+				hours = 1
+				id = chile.3
+			}
+		}
+	}
+	option = { # Sell
+		name = chile.1.c
+		ai_chance = {
+			base = 10
+			# 工業力比依存
+			modifier = {
+				CHL = {
+					ic_ratio = {
+						tag = PRU
+						ration > 1.5
+					}
+				}
+				add = 50
+			}
+			modifier = {
+				CHL = {
+					ic_ratio = {
+						tag = PRU
+						ratio < 1
+					}
+				}
+				add = -10
+			}
+			modifier = {
+				CHL = {
+					ic_ratio = {
+						tag = PRU
+						ratio < 0.6
+					}
+				}
+				add = -30
+			}
+		}
+		# チリ側でイベント発生 & 独立保証
+		CHL = {
+			country_event = {
+				hours = 1
+				id = chile.4
+			}
+			give_guarantee = PRU
+		}
+		# バフ国民精神
+		add_ideas = PRU_sold_to_chl
+		add_offsite_building = {
+			type = industrial_complex
+			level = 30
+		}
+		489 = {
+			if = {
+				limit = {
+					is_controlled_by = PRU
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		490 = {
+			if = {
+				limit = {
+					is_controlled_by = PRU
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		491 = {
+			if = {
+				limit = {
+					is_controlled_by = PRU
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		494 = {
+			if = {
+				limit = {
+					is_controlled_by = PRU
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+		# チリ側の産業ツリーに応じたバフを付与
+		if = {
+			limit = {
+				CHL = {
+					has_idea = CHL_focus_to_space
+				}
+			}
+			add_ideas = PRU_sold_to_chl_space
+			489 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_extra_state_shared_building_slots = 5
+				}
+			}
+			490 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_extra_state_shared_building_slots = 5
+				}
+			}
+			491 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_extra_state_shared_building_slots = 5
+				}
+			}
+			494 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_extra_state_shared_building_slots = 5
+				}
+			}
+		}
+		if = {
+			add_ideas = PRU_sold_to_chl_infra
+			limit = {
+				CHL = {
+					has_idea = CHL_focus_to_infra
+				}
+			}
+			489 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 10
+						instant_build = yes
+					}
+				}
+			}
+			490 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 10
+						instant_build = yes
+					}
+				}
+			}
+			491 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 10
+						instant_build = yes
+					}
+				}
+			}
+			494 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 10
+						instant_build = yes
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				CHL = {
+					has_idea = CHL_focus_to_minju
+				}
+			}
+			add_ideas = PRU_sold_to_chl_minju
+			489 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 2
+				}
+			}
+			490 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			491 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			494 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = industrial_complex
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				CHL = {
+					has_idea = CHL_focus_to_gunju
+				}
+			}
+			add_ideas = PRU_sold_to_chl_gunju
+			489 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 2
+				}
+			}
+			490 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			491 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+			494 = {
+				if = {
+					limit = {
+						is_controlled_by = PRU
+					}
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+						instant_build = yes
+					}
+					add_extra_state_shared_building_slots = 1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = chile.2
+	title = chile.2.t
+	desc = chile.2.d
+	picture = GFX_report_event_german_speech
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = chile.2.a
+		add_political_power = 50
+		add_war_support = 0.1
+		add_stability = 0.05
+		303 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		305 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		306 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		492 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		493 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		transfer_state = 303
+		transfer_state = 305
+		transfer_state = 306
+		transfer_state = 492
+		transfer_state = 493
+		
+		set_variable = {
+			inka_result_accept@CHL = 1
+		}
+	}
+}
+
+country_event = {
+	id = chile.3
+	title = chile.3.t
+	desc = chile.3.d
+	picture = GFX_report_event_german_troops
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = chile.3.a
+		add_state_claim = 303
+		add_state_claim = 305
+		add_state_claim = 306
+		add_state_claim = 492
+		add_state_claim = 493
+		
+		create_wargoal = {
+			type = take_state_focus
+			target = PRU
+			generator = { 303 305 306 492 493 }
+		}
+		
+		set_variable = {
+			inka_result_refuse@CHL = 1
+		}
+	}
+}
+
+country_event = {
+	id = chile.4
+	title = chile.4.t
+	desc = chile.4.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = chile.4.a
+		
+		add_stability = 0.10
+		
+		303 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		305 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		306 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		492 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		493 = {
+			if = {
+				limit = {
+					is_owned_by = PRU
+				}
+				add_core_of = CHL
+			}
+		}
+		transfer_state = 303
+		transfer_state = 305
+		transfer_state = 306
+		transfer_state = 492
+		transfer_state = 493
+		
+		add_timed_idea = {
+			idea = CHL_buy_inka
+			days = 365
+		}
+		
+		set_variable = {
+			inka_result_sell@CHL = 1
+		}
+	}
+}
+
+country_event = {
+	id = chile.5
+	title = chile.5.t
+	desc = chile.5.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = chile.5.a
+		add_war_support = 0.2
+		add_political_power = 50
+		
+		ai_chance = {
+			base = 100
+			modifier = {
+				add = -200
+				any_other_country = {
+					is_major = yes
+					is_ally_with = ROOT
+				}
+			}
+		}
+		
+		BRA = {
+			add_to_faction = ROOT
+		}
+	}
+	
+	option = {
+		name = chile.5.b
+		add_war_support = 0.5
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = 5000
+			producer = ROOT
+		}
+		
+		ai_chance = {
+			base = 1
+		}
+	}
+}
+
+# 南ア国の運命
+country_event = {
+	id = chile.6
+	title = chile.6.t
+	desc = chile.6.d
+	is_triggered_only = yes
+}

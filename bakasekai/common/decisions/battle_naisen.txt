@@ -55,7 +55,10 @@ USAB_AI={
                                 NOT={OR={has_war_with=MEX has_war_with=SER has_war_with=CRO has_war_with=SLV has_war_with=KOS has_war_with=BOS has_war_with=HRZ has_war_with=MNT has_war_with=MAC}}}}
                 ai_will_do={factor=100}
                    complete_effect={ 
-                        random_country={limit={OR={ 
+                        random_country={limit={
+                        AND={
+                        NOT={is_puppet=yes}
+                        OR={ 
                         controls_state = 367
                         
 			controls_state = 377
@@ -106,7 +109,7 @@ USAB_AI={
                         controls_state = 386
                         controls_state = 394
                         controls_state = 381
-                   }}
+                   }}}
                    
                    ROOT={declare_war_on={
                            type= annex_everything
@@ -123,7 +126,12 @@ USAB_civil_3={
         visible={NOT={has_global_flag=United_states}}
         ai_will_do={factor=200}
         available={  
-              
+                        ROOT={
+                                limit={
+                                        tag=SLV
+                                }
+                        load_focus_tree =　McDonald
+                        }
                         
                         
                         AND={
@@ -236,6 +244,7 @@ complete_effect = {
                         add_state_core = 394
                         add_state_core = 381
                         remove_ideas=kokudo_touitu
+                        puppet=PHI
                         }
                         
 
