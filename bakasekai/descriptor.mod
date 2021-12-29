@@ -7,7 +7,6 @@ tags={
 }
 replace_path="common/ai_peace"
 replace_path="common/bookmarks"
-replace_path="history/states"
 name="+バカ世界地図(α版)"
 dependencies={
 	"Japanese Language mod"
