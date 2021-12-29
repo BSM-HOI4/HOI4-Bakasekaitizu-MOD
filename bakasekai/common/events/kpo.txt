@@ -1,0 +1,158 @@
+add_namespace = kpo
+
+#KPO
+country_event = {
+	id = kpo.1
+	title = kpo.1.t
+	desc = kpo.1.d
+	timeout_days = 10
+	major = no
+	fire_only_once=yes
+			trigger = {
+				AND={
+						NOT={has_global_flag=kpohossoku}
+						OR={
+							BLR={has_war_with=SOV}
+							LIT={has_war_with=SOV}
+							RGA={has_war_with=SOV}
+							CRI={has_war_with=SOV}
+							UKR={has_war_with=SOV}
+						}
+						
+						OR={
+							tag=LIT
+							tag=RGA
+							tag=CRI
+							tag=BLR
+							tag=UKR
+						}
+						controls_state=194
+
+						
+						exist=yes
+
+						NOT={has_idea=flag_1}
+				}
+		}
+		mean_time_to_happen={
+							days=1
+							}
+		immediate={
+					add_ideas=flag_1
+					set_global_flag=kpohossoku
+					}
+	
+	option = {
+		name = kpo.1.a
+		trigger={
+					NOT={
+						controls_state=194
+						}
+
+				}
+
+		ai_chance = {
+					 factor = 10 
+					 }
+				 
+									
+								}
+		
+	
+
+
+	option={
+		
+		name=kpo.1.c
+		trigger={AND={controls_state=194 }}
+		ai_chance={factor=10}
+		set_rule={can_create_factions=yes}
+
+					
+					white_peace={tag=UKR}
+					white_peace={tag=BLR}
+					white_peace={tag=LIT}
+					white_peace={tag=RGA}
+					white_peace={tag=CRI}
+					declare_war_on = {
+									target = SOV
+									type = annex_everything
+									
+								}
+					create_faction=Kiev_Pact_Organization	
+					
+					every_country={
+						limit={AND={
+								OR={tag=UKR tag=BLR tag=LIT tag=RGA tag=CRI}
+								NOT={tag=ROOT}
+								}}
+						country_event={id=kpo.3}
+					}}
+	
+
+	option = {
+		name = kpo.1.b
+		trigger = {is_ai=no}
+		}
+		}
+		
+		
+
+
+country_event={
+	id = kpo.2
+	title = kpo.2.t
+	desc = kpo.2.t.d
+	timeout_days = 10
+	major = no
+	mean_time_to_happen={days=0}
+	is_triggered_only=yes
+	option={ name=kpo.2.a
+			RGA={change_tag_from=UKR}}
+	option={ name=kpo.2.b
+			LIT={change_tag_from=UKR}
+			}
+	
+	option={ name=kpo.2.c
+			BLR={change_tag_from=UKR}
+			}
+		option={ name=kpo.2.d
+			ai_chance={factor=999}
+			}
+	option={ name=kpo.2.e
+			CRI={change_tag_from=UKR}
+			}
+	}
+
+	country_event={
+	id = kpo.3
+	title = kpo.3.t
+	desc = kpo.3.t.d
+	timeout_days = 10
+	major = no
+	mean_time_to_happen={days=0}
+	is_triggered_only=yes
+	option={ name=kpo.2.a
+				white_peace={tag=UKR}
+				 white_peace={tag=BLR}
+				 white_peace={tag=LIT}
+				 white_peace={tag=RGA}
+				 white_peace={tag=CRI}
+				 declare_war_on = {
+									target = SOV
+									type = annex_everything
+			}
+			add_to_faction=FROM}
+
+	option={ name=kpo.3.b
+			trigger={is_ai=no}
+			}
+	
+	
+	}
+
+    
+	
+
+
+

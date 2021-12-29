@@ -1,0 +1,271 @@
+focus_tree = {
+	id = wes-sahara_anarchy
+	continuous_focus_position = { x = 0 y = 1000 } 
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = WES
+		}
+	}
+	default = yes
+	
+
+	
+		#Welcoming the Sands of the Middle East
+	focus = {
+		id = WES_civil_struggle #市民闘争
+		icon = GFX_focus_TUR_taking_over_defense_of_the_gulf
+		relative_position_id = WES_destruction_of_the_government
+		prerequisite = { focus = WES_anarchic_struggle  }
+		x = 0
+		y = 5
+		cost = 4
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = WES_anarchy_idea_5
+				add_idea = WES_anarchy_idea_6
+			}
+			add_ideas = WES_civil_struggle
+			every_state={limit={is_owned_by=WES} remove_core_of = ROOT }
+			add_state_core = 271
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.6}}
+			}
+		}
+	}
+
+		#Desertification in neighboring countries
+	focus = {
+		id = WES_destruction_of_local_politics #地方政治の破壊
+		icon = GFX_focus_generic_air_defense
+
+		relative_position_id = WES_destruction_of_the_government
+		x = 0
+		y = 1
+		cost = 1
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_destruction_of_the_government  }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = WES_anarchy_idea
+				add_idea = WES_anarchy_idea_2
+			}
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.2}}
+			}
+		}
+	}
+
+		#Rule by sand
+	focus = {
+		id = WES_destruction_of_authority #権威の破壊
+		icon = GFX_focus_generic_support_the_left_right
+		relative_position_id = WES_destruction_of_the_government
+		x = 0
+		y = 2
+		cost = 1
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_destruction_of_local_politics  }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = WES_anarchy_idea_2
+				add_idea = WES_anarchy_idea_3
+			}
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.3}}
+			}
+		}
+	}
+
+		#Desertification of the Nile and Suez
+	focus = {
+		id = WES_military_destruction #軍の破壊
+		icon = GFX_goal_generic_major_war
+		relative_position_id = WES_destruction_of_the_government
+		x = 0
+		y = 3
+		cost = 1
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_destruction_of_authority  }
+		completion_reward = {
+			#limit wargoals to when it makes sense to give them. No faction, war or non exist
+			swap_ideas = {
+				remove_idea = WES_anarchy_idea_3
+				add_idea = WES_anarchy_idea_4
+			}
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.4}}
+			}
+		}
+	}
+
+		#African unification
+	focus = {
+		id = WES_anarchic_struggle #無政府闘争
+		icon = GFX_focus_generic_africa_factory
+		relative_position_id = WES_destruction_of_the_government
+		x = 0
+		y = 4
+		cost = 2
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_military_destruction  }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = WES_anarchy_idea_4
+				add_idea = WES_anarchy_idea_5
+			}
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.5}}
+			}
+		}
+	}
+
+
+
+		#Founding of Sandsand Stan
+	focus = {
+		id = WES_dismantling_the_state
+		icon = GFX_focus_TUR_treaty_of_saadabad
+		relative_position_id = WES_destruction_of_the_government
+		x = 0
+		y = 6
+		cost = 30
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_civil_struggle  }
+		prerequisite = { focus = WES_anarchic_consolidation  }
+		completion_reward = {
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.9}}
+			}
+		}
+	}
+	
+
+
+
+		#sand boat
+	focus = {
+		id = WES_spread_of_anarchy #無政府の広がり
+		icon = GFX_focus_generic_africa_naval
+		relative_position_id = WES_destruction_of_the_government
+		x = 2
+		y = 4
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = { focus = WES_military_destruction  }
+		completion_reward = {
+			EGY = {
+				set_politics = { ruling_party = anarchism elections_allowed = no }
+				add_popularity = { ideology = anarchism popularity = 0.75 }
+			}
+			MOR = {
+				set_politics = { ruling_party = anarchism elections_allowed = no }
+				add_popularity = { ideology = anarchism popularity = 0.75 }
+			}
+			CAM = {
+				set_politics = { ruling_party = anarchism elections_allowed = no }
+				add_popularity = { ideology = anarchism popularity = 0.75 }
+			}
+			TUN = {
+				set_politics = { ruling_party = anarchism elections_allowed = no }
+				add_popularity = { ideology = anarchism popularity = 0.75 }
+			}
+			KEN = {
+				set_politics = { ruling_party = anarchism elections_allowed = no }
+				add_popularity = { ideology = anarchism popularity = 0.75 }
+			}
+			ANG = {
+				set_politics = { ruling_party = anarchism elections_allowed = no }
+				add_popularity = { ideology = anarchism popularity = 0.75 }
+			}
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.7}}
+			}
+		}
+	}
+
+		#sand plane
+	focus = {
+		id = WES_anarchic_consolidation #無政府の広がり
+		icon = GFX_goal_continuous_air_production
+		relative_position_id = WES_destruction_of_the_government
+		x = 2
+		y = 5
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = { focus = WES_spread_of_anarchy  }
+		completion_reward = {
+			annex_country = {
+				target = EGY
+			}
+			annex_country = {
+				target = MOR
+			}
+			annex_country = {
+				target = CAM
+			}
+			annex_country = {
+				target = TUN
+			}
+			annex_country = {
+				target = KEN
+			}
+			annex_country = {
+				target = ANG
+			}
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.8}}
+			}
+		}
+	}
+
+
+		#Gone with the sand
+	focus = {
+		id = WES_destruction_of_the_government #政府の破壊
+		icon = GFX_focus_AST_squander_bug
+		x = 3
+		y = 0
+		cost = 1
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		mutually_exclusive = { focus = WES_establishment_of_the_sgc  }
+		completion_reward = {
+			add_ideas = WES_anarchy_idea
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.1}}
+			}
+			#set_party_name = { 
+			#    ideology = fascism
+			 #   long_name = WES_fascism_party_Sand Party_long 
+			  #  name = WES_fascism_party_Sand Party 
+			#}
+			
+		}
+	}
+
+	
+
+
+
+}
