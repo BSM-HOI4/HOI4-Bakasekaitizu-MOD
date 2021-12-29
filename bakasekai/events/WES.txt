@@ -570,7 +570,6 @@ country_event = {
 	}
 }
 
-
 country_event = {
 	id = WES.13	#国家元首の旅行
 	title = WES.13.t#我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
@@ -604,15 +603,26 @@ country_event = {
 	}
 
 	option = {
-		name = WES.13.b  #別に良いだろう
+		name = WES.13.b  #日本政府を正式に訪問すべきだ
+		ai_chance = {
+			factor = 0
+		}
+		add_political_power = -10
+		add_stability = 0.03
+		hidden_effect = {
+			WES = { country_event = { days = 3 id = WES.22 } }
+		}
+	}
+
+	option = {
+		name = WES.13.c  #彼にも休養が必要だ
 		ai_chance = {
 			factor = 0
 		}
 		add_political_power = -150
 		add_stability = -0.02
 		hidden_effect = {
-			WES = { country_event = { id = WES.14 } }
-			WES = { set_country_flag = WES_travel_Japan }
+			WES = { country_event = { id = WES.21 } }
 		}
 	}
 }
@@ -625,11 +635,10 @@ country_event = {
 	fire_only_once = yes
 
 	major = no
-	is_triggered_only = no
+	is_triggered_only = yes
 
 	trigger = {
 		tag = WES
-		WES = {has_country_flag = WES_travel_Japan }
 	}
 
 	mean_time_to_happen = {
@@ -690,3 +699,601 @@ country_event = {
 		#}
 	}
 }
+
+
+
+country_event = {
+	id = WES.16	#南アフリカとの講和交渉
+	title = WES.16.t#南アフリカの大部分を我々は占領した。これ以上の不毛な争いはやめるべきだ
+	desc = WES.16.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = no
+
+	trigger = {
+		tag = WES
+		SAF = {
+			surrender_progress > 0.99
+		}
+		WES = { has_war_with = SAF }
+		OR = {
+			WES = {has_idea = WES_Gone_with_the_sand }
+			WES = {has_idea = WES_Gone_with_the_sand_2 }
+			WES = {has_country_flag = WES_sahara_africa }
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.16.a  #講和するべきだ
+		ai_chance = {
+			factor = 100
+		}
+		if = {
+			limit = {
+				WES = { has_war_with = ENG }
+				SAF = { is_in_faction_with = ENG }
+			}
+			ENG = { country_event = { id = WES.17 } }
+		}
+		else = {
+			SAF = { country_event = { id = WES.17 } }
+		}
+
+		#hidden_effect = {
+		#	news_event = { id = news.193 }
+		#}
+	}
+
+	option = {
+		name = WES.16.b  #いや、戦い続けるべきだ！
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = WES.17	#サハラからの講和交渉
+	title = WES.17.t#サハラ政府はこれ以上の戦闘は不毛になると我々に降伏勧告を送ってきた。どう返すべきだろうか？
+	desc = WES.17.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.17.a  #抵抗することは損害を大きくするだけだ
+		ai_chance = {
+			factor = 100
+		}
+		white_peace = WES
+		WES = { country_event = { id = WES.18 } }
+		#hidden_effect = {
+		#	news_event = { id = news.193 }
+		#}
+	}
+
+	option = {
+		name = WES.17.b  #We shall never surrender!
+		ai_chance = {
+			factor = 0
+		}
+		WES = { country_event = { id = WES.19 } }
+	}
+}
+
+country_event = {
+	id = WES.18	#講和の成立
+	title = WES.18.t#南アフリカの領土は我が国が併合することとなった
+	desc = WES.18.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.18.a  #やったぞ！
+		transfer_state = 275
+		transfer_state = 681
+		transfer_state = 719
+		if = {
+			limit = {
+				WES = { has_war_with = ENG }
+				SAF = { is_in_faction_with = ENG }
+			}
+			white_peace = { 
+				every_country = { 
+					limit = {
+						is_in_faction_with = ENG
+					}
+				}
+			}
+			
+		}
+	}
+}
+
+country_event = {
+	id = WES.19	#講和の拒否
+	title = WES.19.t#我々は講和するべきだと考えたが彼らは違うようだ、彼らを徹底的に攻撃しよう。
+	desc = WES.19.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.19.a  #戦いは続く…
+		
+	}
+
+}
+
+country_event = {
+	id = WES.20	#大統領による公費の私的利用？
+	title = WES.20.t#大統領は公費を度々私的に利用しているみたいだ。我々はどうすべきだろうか？
+	desc = WES.20.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.20.a  #民衆に公開し、裁かせるべきだ！
+		ai_chance = {
+			factor = 20
+		}
+		add_political_power = -300
+		add_stability = -0.1
+		add_war_support = -0.1
+		add_ideas = WES_the_absentee_presidency
+		create_country_leader = {
+			name = "No President"
+			picture = "gfx/leaders/operative_unknown.dds"
+			ideology = liberalism
+		}
+		hidden_effect = {
+			WES = { country_event = { id = WES.24}}
+		}
+	}
+
+	option = {
+		name = WES.20.b  #秘密裏に止めさせよう
+		ai_chance = {
+			factor = 80
+		}
+		add_political_power = -15
+	}
+
+	option = {
+		name = WES.20.c #彼の好きにさせるべきだ
+		ai_chance = {
+			factor = 0
+		}
+		add_ideas = WES_private_use_of_public_funds
+
+	}
+
+}
+
+
+
+
+country_event = {
+	id = WES.21	#旅行期間の決定
+	title = WES.21.t#大統領の日本旅行の期間を設定するべきだ。できる限り、短くなるように…
+	desc = WES.21.desc
+
+	fire_only_once = no
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.21.a  #2日にすべきだ
+		ai_chance = {
+			factor = 20
+		}
+		hidden_effect = {
+			WES = { country_event = { days = 2 id = WES.23 } }
+		}
+
+	}
+
+	option = {
+		name = WES.21.b  #5日にすべきだ
+		ai_chance = {
+			factor = 80
+		}
+		hidden_effect = {
+			WES = { country_event = { days = 5 id = WES.23 } }
+		}
+	}
+
+	option = {
+		name = WES.21.c #7日にすべきだ
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			WES = { country_event = { days = 7 id = WES.23 } }
+		}
+		
+	}
+
+	option = {
+		name = WES.21.d #いくらでもいいだろう
+		ai_chance = {
+			factor = 0
+		}
+		trigger = {
+			WES = { has_idea = WES_private_use_of_public_funds}
+		}
+		hidden_effect = {
+			WES = { country_event = { days = 10 id = WES.23 } }
+			WES = { country_event = { days = 11 id = WES.14 } }
+		}
+		
+	}
+
+}
+
+country_event = {
+	id = WES.22	#訪問の結果
+	title = WES.22.t#日本政府を訪問したが特に大きな成果は得られなかった。ただ、知見を広めることはできたようだ。
+	desc = WES.22.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = WES
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.22.a  #少しは成果があったようだ
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 10
+		add_stability = 0.01
+		
+
+		#hidden_effect = {
+		#	news_event = { id = news.193 }
+		#}
+	}
+}
+
+country_event = {
+	id = WES.23	#大統領の帰国
+	title = WES.23.t#大統領が日本からの旅行から帰国した。一日でも早く公務に復帰してもらおう
+	desc = WES.23.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.23.a  #これで満足しただろう
+		
+	}
+
+}
+
+country_event = {
+	id = WES.24	#大統領の改選
+	title = WES.24.t#大統領は政治資金の流用によって解任された。そのため国中が混乱し、暴動やデモが多発している。我々はその影響を大きく受けているが選挙を急いで行わなければならない。どの候補者が当選したのだろうか…
+	desc = WES.24.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.24.a  #フェネックが大統領選に出ている！かわいい！
+		#set_politics = { ruling_party = neutrality_democracy elections_allowed = no }
+		#add_popularity = { ideology = neutrality_democracy popularity = 0.75 }
+		create_country_leader = {
+			name = "Fennec"
+			picture = "gfx/leaders/WES/fennec_2.dds"
+			ideology = liberalism
+			traits = {
+				cute_head_of_state
+			}
+		}
+		remove_ideas = WES_the_absentee_presidency
+		add_war_support = -0.5
+		add_stability = 0.5
+		load_focus_tree = WES_generic_focus
+		set_country_flag = WES_fennec_flag
+		promote_character  = WES_fennec
+		set_party_name = {
+			ideology = democratic
+			long_name = WES_fennec_party_long
+			name = WES_fennec_party
+		}
+		
+		
+	}
+
+	option = {
+		name = WES.24.b  #Isaac Ali 氏が当選した！
+		remove_ideas = WES_the_absentee_presidency
+		set_country_flag = Isaac_Ali
+		create_country_leader = {
+			name = "Isaac Ali"
+			picture = "gfx/leaders/Portrait_Arabia_Generic_navy_2.dds"
+			ideology = liberalism
+		}
+		set_party_name = {
+			ideology = democratic
+			long_name = WES_issac_party_long
+			name = WES_issac_party
+		}
+	}
+
+	option = {
+		name = WES.24.c  #いや、このまま大統領を決定しなければ…我々の目的が達成できるのでは…？
+		WES = {country_event = { days = 55 id = WES.25 } }
+	}
+
+}
+
+country_event = {
+	id = WES.25	#政府の崩壊
+	title = WES.25.t#大統領不在の期間が長く続き、国民は政府の存在にも疑問視してきている。機は熟した、我々の理想を達成するために、行動を開始しよう。
+	desc = WES.25.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.25.a  #民衆の支持は取り付けた！
+		set_politics = { ruling_party = communism elections_allowed = no }
+		add_popularity = { ideology = communism popularity = 0.75 }
+		load_focus_tree = wes-sahara_anarchy
+		WES_anarchy = {
+			promote_character = {
+				Ideology = anarchist_communism
+			}
+		}
+		create_country_leader = {
+			name = "Anarchy"
+			picture = "gfx/leaders/MYS/Anarchy.dds"
+			ideology = anarchist_communism
+			traits = {
+				anarchy
+			}
+		}
+		set_party_name = {
+			ideology = communism
+			long_name = WES_anarchy_long
+			name = WES_anarchy
+		}
+		#promote_character = WES_anarchy
+		
+	}
+
+}
+
+country_event = {
+	id = WES.26	#安定度の修正
+	title = WES.26.t#我が国の安定度は低下し続けている。国民の目を不安定から逸らそう。…根本的な解決にはならないが…
+	desc = WES.26.d
+
+	fire_only_once = no
+
+	major = no
+	is_triggered_only = no
+
+	trigger = {
+		WES = {
+			has_stability < 0.25
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.26.a  #やったぞ！！！安定度が回復しているように見える！
+		add_stability = 0.5
+		if = {
+			limit = {
+				OR = {
+					NOT = { WES = { has_idea = WES_stability_minus } }
+					NOT = { WES = { has_idea = WES_stability_minus_2 } }
+					NOT = { WES = { has_idea = WES_stability_minus_3 } }
+					NOT = { WES = { has_idea = WES_stability_minus_4 } }
+					NOT = { WES = { has_idea = WES_stability_minus_5 } }
+					NOT = { WES = { has_idea = WES_stability_minus_6 } }
+					NOT = { WES = { has_idea = WES_stability_minus_7 } }
+				}
+			}
+			add_ideas = WES_stability_minus
+		}
+		else = {
+			if = {
+				limit = {
+					WES = { has_idea = WES_stability_minus }
+				}
+				swap_ideas = {
+					remove_idea = WES_stability_minus
+					add_idea = WES_stability_minus_2
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						WES = { has_idea = WES_stability_minus_2 }
+					}
+					swap_ideas = {
+						remove_idea = WES_stability_minus_2
+						add_idea = WES_stability_minus_3
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							WES = { has_idea = WES_stability_minus_3 }
+						}
+						swap_ideas ={
+							remove_idea = WES_stability_minus_3
+							add_idea = WES_stability_minus_4
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								WES = { has_idea = WES_stability_minus_4 }
+							}
+							swap_ideas ={
+								remove_idea = WES_stability_minus_4
+								add_idea = WES_stability_minus_5
+							}
+						}
+						else = {
+							if = {
+								limit = {
+									WES = { has_idea = WES_stability_minus_5 }
+								}
+								swap_ideas ={
+									remove_idea = WES_stability_minus_5
+									add_idea = WES_stability_minus_6
+								}
+							}
+							else = {
+								if = {
+									limit = {
+										WES = { has_idea = WES_stability_minus_6 }
+									}
+									swap_ideas ={
+										remove_idea = WES_stability_minus_6
+										add_idea = WES_stability_minus_7
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+	}
+
+}
+
+country_event = {
+	id = WES.27	#政府の崩壊
+	title = WES.27.t#大統領不在の期間が長く続き、国民は政府の存在にも疑問視してきている。機は熟した、我々の理想を達成するために、行動を開始しよう。
+	desc = WES.27.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.27.a  #民衆の支持は取り付けた！
+		add_ideas = WES_construction_of_the_transcontinental_railroad_2
+	}
+
+}
+
+
+
+		
