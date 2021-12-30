@@ -6,6 +6,7 @@ tags={
 	"Gameplay"
 }
 replace_path="common/ai_peace"
+replace_path="history/states"
 replace_path="common/bookmarks"
 name="+バカ世界地図(α版)"
 dependencies={
