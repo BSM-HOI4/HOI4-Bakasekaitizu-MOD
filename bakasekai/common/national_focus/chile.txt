@@ -36,7 +36,20 @@ focus_tree = {
             focus = CHL_start_discuss
         }
         mutually_exclusive = {
-            focus = CHL_adopt_larger_country
+            focus = CHL_adopt_to_revolution
+        }
+        allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+                NOT = {
+                    has_completed_focus = CHL_adopt_to_revolution
+                }
+            }
         }
         completion_reward = {
             swap_ideas = {
@@ -66,7 +79,7 @@ focus_tree = {
     }
     
     focus = {
-        id = CHL_adopt_to_kyonu
+        id = CHL_adopt_to_revolution
         icon = GFX_focus_AST_squander_bug
         cost = 10
         relative_position_id = CHL_start_discuss
@@ -104,6 +117,19 @@ focus_tree = {
                 }
             }
         }
+        allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+                NOT = {
+                    has_completed_focus = CHL_adopt_longer_country
+                }
+            }
+        }
     }
     
     # Industry part 1
@@ -121,9 +147,6 @@ focus_tree = {
             AND = {
                 NOT = {
                     has_idea = CHL_politic_discuss_before
-                }
-                NOT = {
-                    has_idea = CHL_politic_discussing
                 }
                 has_full_control_of_state = 279
                 has_full_control_of_state = 506
@@ -1228,9 +1251,9 @@ focus_tree = {
                 uses = 1
                 category = armor
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_armored_power
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mobile_warfare
             }
@@ -1258,9 +1281,9 @@ focus_tree = {
                 uses = 1
                 category = artillery
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_artillery_power
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_superior_firepower
             }
@@ -1282,22 +1305,19 @@ focus_tree = {
         completion_reward = {
             CHL_research_debuff_level_down = yes
             add_tech_bonus = {
-                name = CHL_artillery_power
                 bonus = 1.0
                 uses = 1
                 category = cat_anti_tank
             }
             add_tech_bonus = {
-                name = CHL_artillery_power
                 bonus = 1.0
                 uses = 1
                 technology = antiair1
                 technology = antiair2
                 technology = antiair3
             }
-            add_tech_bonus = {
-                name = CHL_artillery_power
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_superior_firepower
             }
@@ -1323,8 +1343,8 @@ focus_tree = {
                 ahead_reduction = 1
                 category = armor
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mobile_warfare
             }
@@ -1352,8 +1372,8 @@ focus_tree = {
                 ahead_reduction = 1
                 category = armor
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mobile_warfare
             }
@@ -1381,56 +1401,26 @@ focus_tree = {
         mutually_exclusive = { focus = CHL_armor_is_not_only_power }
         completion_reward = {
             CHL_research_debuff_level_down = yes
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mobile_warfare
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_superior_firepower
             }
             custom_effect_tooltip = CHL_tooltip_true_power_reward
             hidden_effect = {
-                if = {
-                    limit = {
-                        has_dlc = "No Step Back"
-                    }
-                    create_equipment_variant = {
-                        name = "超火力中自走砲"
-                        type = true_power_medium_tank_chassis
-                        parent_version = 0
-                        modules = {
-                            main_armament_slot = tank_true_power_medium_howitzer
-                            turret_type_slot = tank_true_power_medium_fixed_superstructure_turret
-                            suspension_type_slot = tank_christie_suspension
-                            armor_type_slot = tank_welded_armor
-                            engine_type_slot = tank_gasoline_engine
-                            special_type_slot_1 = true_power_squeezebore_adaptor
-                            special_type_slot_2 = additional_machine_guns
-                            special_type_slot_3 = additional_machine_guns
-                            special_type_slot_4 = additional_machine_guns
-                        }
-                        upgrades = {
-                            tank_nsb_engine_upgrade = 9
-                            tank_nsb_armor_upgrade = 9
-                        }
-                    }
-                    set_technology = {
-                        engine_tech_1 = 1
-                        armor_tech_1 = 1
-                    }
-                } else = {
-                    add_ideas = CHL_internal_true_power
-                    set_technology = {
-                        advanced_light_art = 1
-                        improved_medium_art = 1
-                        improved_heavy_art = 1
-                        popup = no
-                    }
-                    remove_ideas = CHL_internal_true_power
+                add_ideas = CHL_internal_true_power
+                set_technology = {
+                    advanced_light_art = 1
+                    improved_medium_art = 1
+                    improved_heavy_art = 1
+                    popup = no
                 }
+                remove_ideas = CHL_internal_true_power
             }
         }
     }
@@ -1454,8 +1444,8 @@ focus_tree = {
                 ahead_reduction = 1
                 category = artillery
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 2
                 category = cat_superior_firepower
             }
@@ -1482,8 +1472,8 @@ focus_tree = {
                 uses = 1
                 category = armor
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 2
                 category = cat_mobile_warfare
             }
@@ -1508,8 +1498,8 @@ focus_tree = {
                 uses = 1
                 category = infantry_weapons
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mass_assault
             }
@@ -1534,8 +1524,8 @@ focus_tree = {
                 uses = 2
                 category = support_tech
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mass_assault
             }
@@ -1561,10 +1551,10 @@ focus_tree = {
                 ahead_reduction = 2
                 category = infantry_weapons
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 bonus = 1.0
                 uses = 2
-                category = cat_mass_assault
+                cost_reduction = 0.5
             }
             swap_ideas = {
                 remove_idea = CHL_mass_recruit_0
@@ -1724,8 +1714,8 @@ focus_tree = {
         }
         completion_reward = {
             CHL_research_debuff_level_down = yes
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 4
                 category = air_doctrine
             }
@@ -1795,10 +1785,10 @@ focus_tree = {
         }
         completion_reward = {
             CHL_research_debuff_level_down = yes
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_air_company
-                bonus = 1.0
-                uses = 4
+                cost_reduction = 1.0
+                uses = 0.5
                 category = naval_doctrine
             }
         }
@@ -1825,9 +1815,9 @@ focus_tree = {
                 uses = 2
                 category = naval_air
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_air_company
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 2
                 category = naval_doctrine
             }
@@ -1855,9 +1845,9 @@ focus_tree = {
                 uses = 2
                 category = naval_equipment
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_air_company
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 2
                 category = naval_doctrine
             }
@@ -1877,10 +1867,32 @@ focus_tree = {
         }
         available = {
             has_idea = CHL_enough_research_power
+            num_of_factories > 80
+        }
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+    focus = {
+        id = CHL_additional_research_slot_2
+        icon = GFX_focus_research
+        
+        cost = 10
+        relative_position_id = CHL_additional_research_slot
+        x = 0
+        y = 1
+        prerequisite = {
+            focus = CHL_additional_research_slot
+        }
+        available = {
             num_of_factories > 120
         }
         completion_reward = {
             add_research_slot = 1
+            swap_ideas = {
+                remove_idea = CHL_enough_research_power
+                add_idea = CHL_high_research_power
+            }
         }
     }
     
@@ -1895,13 +1907,8 @@ focus_tree = {
         y = 0
         
         available = {
-            AND = {
-                NOT = {
-                    has_idea = CHL_politic_discuss_before
-                }
-                NOT = {
-                    has_idea = CHL_politic_discussing
-                }
+            NOT = {
+                has_idea = CHL_politic_discuss_before
             }
         }
         completion_reward = {
@@ -2198,9 +2205,9 @@ focus_tree = {
         }
         completion_reward = {
             add_ideas = CHL_coast_emperor_naval
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_empire_naval
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 2
                 category = naval_doctrine
             }
