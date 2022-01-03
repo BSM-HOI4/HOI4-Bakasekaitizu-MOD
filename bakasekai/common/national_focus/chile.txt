@@ -1393,14 +1393,44 @@ focus_tree = {
             }
             custom_effect_tooltip = CHL_tooltip_true_power_reward
             hidden_effect = {
-                add_ideas = CHL_internal_true_power
-                set_technology = {
-                    advanced_light_art = 1
-                    improved_medium_art = 1
-                    improved_heavy_art = 1
-                    popup = no
+                if = {
+                    limit = {
+                        has_dlc = "No Step Back"
+                    }
+                    create_equipment_variant = {
+                        name = "超火力中自走砲"
+                        type = true_power_medium_tank_chassis
+                        parent_version = 0
+                        modules = {
+                            main_armament_slot = tank_true_power_medium_howitzer
+                            turret_type_slot = tank_true_power_medium_fixed_superstructure_turret
+                            suspension_type_slot = tank_christie_suspension
+                            armor_type_slot = tank_welded_armor
+                            engine_type_slot = tank_gasoline_engine
+                            special_type_slot_1 = true_power_squeezebore_adaptor
+                            special_type_slot_2 = additional_machine_guns
+                            special_type_slot_3 = additional_machine_guns
+                            special_type_slot_4 = additional_machine_guns
+                        }
+                        upgrades = {
+                            tank_nsb_engine_upgrade = 9
+                            tank_nsb_armor_upgrade = 9
+                        }
+                    }
+                    set_technology = {
+                        engine_tech_1 = 1
+                        armor_tech_1 = 1
+                    }
+                } else = {
+                    add_ideas = CHL_internal_true_power
+                    set_technology = {
+                        advanced_light_art = 1
+                        improved_medium_art = 1
+                        improved_heavy_art = 1
+                        popup = no
+                    }
+                    remove_ideas = CHL_internal_true_power
                 }
-                remove_ideas = CHL_internal_true_power
             }
         }
     }
@@ -3565,63 +3595,4 @@ focus_tree = {
             add_ideas = CHL_the_coast
         }
     }
-    
-    # きょぬー神崇拝ルート
-    focus = {
-        id = CHL_adopt_to_god
-        icon = todo
-        cost = 5
-        relative_position_id = CHL_adopt_to_kyonu
-        x = -1
-        y = 1
-        prerequisite = {
-            focus = CHL_adopt_to_kyonu
-        }
-        mutually_exclusive = {
-            focus = CHL_kyonu_revolution
-        }
-        completion_reward = {
-            swap_ideas = {
-                remove_idea = CHL_politic_discussing
-                add_idea = CHL_take_heathenism
-            }
-            CHL = {
-                add_popularity = {
-                    ideology = mythologicalism
-                    popularity = 0.3
-                }
-                if = {
-                    limit = {
-                        NOT = {
-                            has_government = mythologicalism
-                        }
-                    }
-                    set_politics = {
-                        ruling_party = mythologicalism
-                    }
-                }
-            }
-        }
-    }
-    
-    # 巨乳革命ルート
-    focus = {
-        id = CHL_kyonu_revolution
-        icon = todo
-        cost = 5
-        relative_position_id = CHL_adopt_to_kyonu
-        x = 1
-        y = 1
-        prerequisite = {
-            focus = CHL_adopt_to_kyonu
-        }
-        mutually_exclusive = {
-            focus = CHL_adopt_to_god
-        }
-        completion_reward = {
-            add_political_power = 50
-            add_ideas = CHL_spread_kyonu
-        }
-    }
-
 }
