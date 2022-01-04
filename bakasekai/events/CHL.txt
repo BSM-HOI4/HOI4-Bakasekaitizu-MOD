@@ -592,10 +592,51 @@ country_event = {
 	}
 }
 
-# 南ア国の運命
+# 南アとの提携 - 南アメリカ側
 country_event = {
 	id = chile.6
 	title = chile.6.t
 	desc = chile.6.d
 	is_triggered_only=yes
+	
+	# 受諾
+	option = {
+		name = chile.6.a
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = 50
+				CHL = {
+					num_of_factories > 100
+				}
+			}
+		}
+		add_political_power = 50
+		CHL = {
+			add_to_faction = GUA
+		}
+		custom_effect_tooltip = CHL_tooltip_give_states_and_promise_north_america
+	}
+	# 条件付き
+	option = {
+		name = chile.6.b
+		ai_chance = {
+			base = 100
+			modifier = {
+				add = -50
+				CHL = {
+					num_of_factories > 100
+				}
+			}
+		}
+	}
+	# 拒否
+	option = {
+		name = chile.6.c
+		trigger = {
+			is_ai = no
+		}
+	}
 }
+
+# 南アメリカとの連携 -
