@@ -1,11 +1,14 @@
 focus_tree = {
     id = AMERICA
     country = {
-        factor = 0
+        factor = 1
         modifier = {
             add = 10
-            OR = { tag = MEX tag = SER tag = CRO tag = SLV tag = KOS tag = BOS tag = HRZ tag = MNT tag = MAC }
-        }
+            AND={
+                date < 1937.1.1
+                OR = { tag = MEX tag = SER tag = CRO tag = SLV tag = KOS tag = BOS tag = HRZ tag = MNT tag = MAC }
+                }
+            }
     }
     default = no
     
@@ -150,8 +153,14 @@ focus_tree = {
         id = USAB_2
         text = USAB_2
         icon = GFX_focus_RAJ_lions_of_the_great_war
-        cost = 10
-        available = { has_war = no }
+        cost = 1
+        available = { OR={
+                        has_war = no 
+                        NOT={
+                            is_in_faction=yes
+                        }
+                    } 
+                }
         
         prerequisite = {
             focus = USAB_1
@@ -161,22 +170,39 @@ focus_tree = {
         
         
         completion_reward = {
-            country_event = { id = MCD.6 }
-            dismantle_faction = yes
+            SLV={
+               
+                country_event = { id = MCD.6 }
+            }   
+            select_effect={
+                 dismantle_faction = yes
+                 set_rule = {
+                     can_create_factions = no
+                 }
+            }
             every_country = {
                 limit = {
-                    OR = { tag = MEX tag = SER tag = CRO tag = SLV tag = KOS tag = BOS tag = HRZ tag = MNT tag = MAC }
+                    OR = { 
+                        tag = MEX 
+                        tag = SER 
+                        tag = CRO 
+                        tag = SLV 
+                        tag = KOS 
+                        tag = BOS 
+                        tag = HRZ 
+                        tag = MNT 
+                        tag = MAC 
+                    }
                 }
                 clr_country_flag = USABB
                 load_focus_tree = generic_focus
-                ROOT = {
                     create_wargoal = {
-                        target = PREV
+                        target = ROOT
                         type = annex_everything
                     }
                 }
             }
         }
-    }
 }
+    
 							
