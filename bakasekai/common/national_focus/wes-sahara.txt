@@ -4,11 +4,11 @@ focus_tree = {
 	country = {
 		factor = 0
 		modifier = {
-			add = 10
+			add = 30
 			tag = WES
 		}
 	}
-	default = yes
+	default = no
 	
 
 	
@@ -614,6 +614,9 @@ focus_tree = {
 				remove_idea = WES_sand_war
 				add_idea = WES_sand_war_2
 			}
+			hidden_effect = {
+                WES = { country_event = { days = 1 id = baka_super.2 } }
+            }
 		}
 	}
 
@@ -637,6 +640,12 @@ focus_tree = {
 			set_rule = { can_create_factions = yes }
 			create_faction = WES_SGC
 			add_ideas = WES_greening_1
+			hidden_effect = {
+				news_event = { 
+					id = baka_news.2
+					days = 1
+				}
+			}
 		}
 	}
 
@@ -654,21 +663,24 @@ focus_tree = {
 		completion_reward = {
 			set_politics = { ruling_party = fascism elections_allowed = no }
 			add_popularity = { ideology = fascism popularity = 0.75 }
-			promote_character = WES_Sands
+			create_country_leader = {
+				name = "Sands"
+				desc = "Sand is all. All is sand."
+				picture = "gfx/leaders/WES/Sands.dds"
+				ideology = fascism_ideology
+				traits = {
+					charisma
+				}
+			}
 			add_ideas = WES_Gone_with_the_sand
 			set_rule = { can_create_factions = yes }
 			create_faction = WES_sands
 			hidden_effect = {
 				news_event = { 
-					id = news.400 
+					id = baka_news.1
 					days = 1
 				}
 			}
-			#set_party_name = { 
-			#    ideology = fascism
-			 #   long_name = WES_fascism_party_Sand Party_long 
-			  #  name = WES_fascism_party_Sand Party 
-			#}
 			
 		}
 	}
