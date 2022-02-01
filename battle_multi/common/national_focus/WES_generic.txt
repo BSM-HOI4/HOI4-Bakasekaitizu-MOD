@@ -1,0 +1,50 @@
+search_filter_prios = {
+	FOCUS_FILTER_POLITICAL = 1010
+	
+	FOCUS_FILTER_RESEARCH = 522
+	
+	FOCUS_FILTER_INDUSTRY = 509
+	
+}
+
+focus_tree = {
+	id = WESg_WES_generic_focus
+	
+	country = {
+		factor = 0
+		modifier = {
+			add = 30
+			tag = LUX
+		}
+	}
+	
+	default = no
+	reset_on_civilwar = no
+	
+	initial_show_position = {
+		focus = industrial_effort
+	}
+	
+	# Political Tree
+	focus = {
+		id = WESg_political_effort
+		icon = GFX_goal_generic_demand_territory
+		x = 2
+		y = 0
+		cost = 10
+		
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		
+		available_if_capitulated = yes
+
+		bypass = {
+			WES = {
+				has_country_flag = WES_fennec_flag
+			}
+		}
+		
+		completion_reward = {
+			add_political_power = 120
+		}
+	}
+}
