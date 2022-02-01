@@ -1,0 +1,65 @@
+focus_tree = {
+	id = McDonald
+	continuous_focus_position = { x = 0 y = 1000 } 
+	country = {
+		factor = 0
+	}
+	default = no
+
+
+		#Establishment of the SGC
+	focus = {
+		id = SLV_sales_start_in_the_USA
+		icon = GFX_focus_AST_squander_bug 
+		x =5
+		y = 0
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		completion_reward ={
+			add_offsite_building = { type = industrial_complex level = 5 }
+			add_ideas = Management_by_McDonald
+			add_ideas = Obesity_1
+			hidden_effect = {
+				activate_mission = SLV_mefo_bills_mission
+			}
+			#set_rule = { can_create_factions = yes }
+			#create_faction = WES_Sand
+		}
+	}
+
+		#Gone with the sand
+	focus = {
+		id = SLV_Overseas_shop_openings
+		icon = GFX_focus_AST_squander_bug
+		x = 5
+		y = 1
+		cost = 30
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = SLV_sales_start_in_the_USA  }
+		completion_reward = {
+			add_offsite_building = { type = industrial_complex level = 5 }
+			#set_politics = { ruling_party = fascism elections_allowed = no }
+			#add_popularity = { ideology = fascism popularity = 0.75 }
+			add_ideas = Overseas_shop_openings
+			load_focus_tree = generic_focus
+			#set_party_name = { 
+			#    ideology = fascism
+			 #   long_name = WES_fascism_party_Sand Party_long 
+			  #  name = WES_fascism_party_Sand Party 
+			#}
+			
+		}
+	}
+
+	
+
+
+
+}
