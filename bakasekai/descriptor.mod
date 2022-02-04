@@ -22,7 +22,7 @@ replace_path="common/ai_strategy"
 replace_path="common/ai_focuses"
 replace_path="common/national_focus"
 replace_path="map"
-
+replace_path="map/strategicregions"
 name="+バカ世界地図(α版)"
 dependencies={
 	"Japanese Language mod"
