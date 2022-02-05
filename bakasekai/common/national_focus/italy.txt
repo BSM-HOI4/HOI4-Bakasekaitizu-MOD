@@ -1630,7 +1630,7 @@
 		icon = GFX_goal_generic_improve_relations
 		
 		mutually_exclusive = { focus = ITA_rule_by_Mussolini }
-		x = 29
+		x = 30
 		y = 0
 		cost = 10
 		ai_will_do = {
@@ -1643,7 +1643,7 @@
 			
 		}
 		completion_reward = {
-			
+			remove_ideas = vittoria_mutilata
 		}
 	}
 
@@ -1677,7 +1677,7 @@
 		prerequisite = { focus = ITA_restoration_of_the_Senate }
 		prerequisite = { focus = ITA_capital_ships_R focus = ITA_carrier_effort_R }
 		x = 0
-		y = 5
+		y = 6
 		relative_position_id = ITA_restoration_of_the_Senate
 		cost = 10
 		ai_will_do = {
@@ -1699,7 +1699,7 @@
 		icon = GFX_goal_generic_improve_relations
 		prerequisite = { focus = ITA_buy_Iberian_Peninsula}
 		x = 0
-		y = 6
+		y = 7
 		relative_position_id = ITA_restoration_of_the_Senate
 		cost = 10
 		ai_will_do = {
@@ -1736,6 +1736,44 @@
 		}
 	}
 
+	focus = { #通商による発展
+		id = ITA_development_through_trade
+		icon = GFX_goal_generic_trade
+		relative_position_id = ITA_research_Lab
+		x = 0
+		y = 1
+		cost = 10
+		prerequisite = { focus = ITA_research_Lab  }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+        completion_reward = {
+            
+        }
+
+	}
+
+	focus = {
+		id = ITA_extra_tech_slot_R
+		icon = GFX_focus_research
+		text = extra_tech_slot
+		prerequisite = { focus = ITA_development_through_trade }
+		x = 0
+		y = 2
+		relative_position_id = ITA_research_Lab
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
 	focus = {
 		id = ITA_air_innovation_R
 		icon = GFX_goal_generic_build_airforce
@@ -1744,7 +1782,7 @@
 		x = 2
 		y = 1
 		relative_position_id = ITA_restoration_of_the_Senate 
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -1777,7 +1815,7 @@
 		x = -4
 		y = 1
 		relative_position_id = ITA_air_innovation_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -1813,9 +1851,9 @@
 		prerequisite = { focus = ITA_air_innovation_R }
 		prerequisite = { focus = ITA_carrier_effort_R }
 		x = 0
-		y = 4
+		y = 5
 		relative_position_id = ITA_air_innovation_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -1846,7 +1884,7 @@
 		x = -4
 		y = 2
 		relative_position_id = ITA_air_innovation_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -1877,7 +1915,7 @@
 		x = -4
 		y = 3
 		relative_position_id = ITA_air_innovation_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -1903,7 +1941,7 @@
 		icon = GFX_goal_generic_axis_build_infantry
 		x = -3
 		y = 2
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 0.25
 		}
@@ -2009,7 +2047,7 @@
 		x = 0
 		y = 1
 		relative_position_id = ITA_army_primacy_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2044,7 +2082,7 @@
 		x = 0
 		y = 2
 		relative_position_id = ITA_army_primacy_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2078,7 +2116,7 @@
 		relative_position_id = ITA_Rome_again
 		x = 0
 		y = 2
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 5
 		}
@@ -2198,7 +2236,7 @@
 		icon = GFX_goal_generic_navy_cruiser
 		x = 1
 		y = 2
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2237,7 +2275,7 @@
 		x = -1
 		y = 2
 		relative_position_id = ITA_mare_nostrum_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2266,13 +2304,118 @@
 	}
 
 	focus = {
+		id = ITA_mare_nostrum_R_2
+		icon = GFX_goal_generic_build_navy
+		relative_position_id = ITA_mare_nostrum_R
+		x = 0
+		y = 3
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = { focus = ITA_submarine_effort_R focus = ITA_light_ship_effort_R}
+		prerequisite = { focus = ITA_development_in_marine_transportation}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			navy_experience = 50
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							dockyard > 0
+							free_building_slots = {
+								building = dockyard
+								size > 0
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}				
+			}
+
+			add_doctrine_cost_reduction = {
+				name = naval_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+
+	focus = {
 		id = ITA_capital_ships_R
 		icon = GFX_goal_generic_navy_battleship
 		prerequisite = { focus = ITA_light_ship_effort_R focus = ITA_submarine_effort_R}
 		x = 1
-		y = 3
+		y = 4
 		relative_position_id = ITA_mare_nostrum_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2304,9 +2447,9 @@
 		icon = GFX_goal_generic_navy_carrier
 		prerequisite = { focus = ITA_submarine_effort_R focus = ITA_light_ship_effort_R }
 		x = -1
-		y = 3
+		y = 4
 		relative_position_id = ITA_mare_nostrum_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2324,15 +2467,119 @@
 		}
 	}
 
+	focus = {
+		id = ITA_mare_nostrum_R_3
+		icon = GFX_goal_generic_build_navy
+		relative_position_id = ITA_mare_nostrum_R
+		x = 0
+		y = 5
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = { focus = ITA_carrier_effort_R focus = ITA_capital_ships_R }
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			navy_experience = 50
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							dockyard > 0
+							free_building_slots = {
+								building = dockyard
+								size > 0
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}				
+			}
+
+			add_doctrine_cost_reduction = {
+				name = naval_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+
 
 	focus = {
 		id = ITA_marines_and_landing_craft_R
 		icon = GFX_goal_generic_amphibious_assault
-		prerequisite = { focus = ITA_carrier_effort_R focus = ITA_capital_ships_R }
+		prerequisite = { focus = ITA_mare_nostrum_R_3}
 		x = 0
-		y = 4
+		y = 6
 		relative_position_id = ITA_mare_nostrum_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2360,6 +2607,7 @@
 			}
 		}
 	}
+	
 
 	focus = {
 		id = ITA_industrial_effort_R
@@ -2369,7 +2617,7 @@
 		x = 3
 		y = 2
 		relative_position_id = ITA_Rome_again
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2512,7 +2760,7 @@
 		x = 0
 		y = 1
 		relative_position_id = ITA_industrial_effort_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2655,7 +2903,7 @@
 		x = 0
 		y = 2
 		relative_position_id = ITA_industrial_effort_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -2867,7 +3115,7 @@
 		x = 0
 		y = 3
 		relative_position_id = ITA_industrial_effort_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -3079,7 +3327,7 @@
 		x = 2
 		y = 1
 		relative_position_id = ITA_industrial_effort_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}	
@@ -3188,7 +3436,7 @@
 		x = 2
 		y = 2
 		relative_position_id = ITA_industrial_effort_R
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -3355,7 +3603,7 @@
 		prerequisite = { focus = ITA_the_glory_of_empire }
 		prerequisite = { focus = ITA_capital_ships_R focus = ITA_carrier_effort_R }
 		x = 0
-		y = 5
+		y = 6
 		relative_position_id = ITA_the_glory_of_empire
 		cost = 10
 		ai_will_do = {
@@ -3384,7 +3632,7 @@
 		}
 		will_lead_to_war_with = GRE
 		x = 0
-		y = 6
+		y = 7
 		relative_position_id = ITA_the_glory_of_empire
 		cost = 10
 		ai_will_do = {
@@ -3404,12 +3652,171 @@
 		}
 	}
 
+	focus = { #アナトリアの制圧
+		id = ITA_conquest_in_Anatolia
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = ITA_demands_on_Greece focus =ITA_securing_Greece }
+		prerequisite = { focus = ITA_marines_and_landing_craft_R }
+		available = {
+			NOT = { is_in_faction_with = GRE }
+			NOT = { has_war_with = GRE }
+			GRE = { NOT = { is_puppet_of = ITA } }
+			country_exists = GRE
+		}
+		will_lead_to_war_with = GRE
+		x = 0
+		y = 9
+		relative_position_id = ITA_Rome_again
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}	
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = GRE
+				expire = 0
+				generator = { 47 } # Athens
+			}
+
+			hidden_effect = {
+				news_event = { hours = 6 id = news.186 } 
+			}
+		}
+	}
+
+	focus = { #ローマの完成
+		id = ITA_completion_of_Rome
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = ITA_conquest_in_Anatolia }
+		available = {
+			NOT = { is_in_faction_with = GRE }
+			NOT = { has_war_with = GRE }
+			GRE = { NOT = { is_puppet_of = ITA } }
+			country_exists = GRE
+		}
+		will_lead_to_war_with = GRE
+		x = 0
+		y = 10
+		relative_position_id = ITA_Rome_again
+		cost = 10
+		ai_will_do = {
+			factor = 10
+		}	
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = GRE
+				expire = 0
+				generator = { 47 } # Athens
+			}
+
+			hidden_effect = {
+				news_event = { hours = 6 id = news.186 } 
+			}
+		}
+	}
+
+	focus = { #地中海を内海に
+		id = ITA_turning_the_Mediterranean_into_an_inland_sea
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = ITA_completion_of_Rome }	
+		available = {
+			NOT = { is_in_faction_with = ENG }
+		}	
+		bypass = {
+			OR = {
+				has_war_with = ENG
+				is_in_faction_with = GER
+				NOT = { country_exists = ENG }
+			}
+		}
+		will_lead_to_war_with = ENG
+		x = 0
+		y = 11
+		relative_position_id = ITA_Rome_again
+		cost = 10
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 1.5
+				ai_irrationality > 25
+			}
+
+			modifier = {
+				factor = 1.5
+				ai_irrationality > 30
+			}
+
+			modifier = {
+				factor = 2
+				ai_irrationality > 35
+			}
+		}	
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = ENG
+				expire = 0
+				generator = { 118 453 116 183 } # Gibraltar, Suez, Malta, Cyprus
+			}
+		}
+	}
+
+	focus = { #航路を外へ！
+		id = ITA_Out_of_the_way
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = ITA_turning_the_Mediterranean_into_an_inland_sea }	
+		available = {
+			NOT = { is_in_faction_with = ENG }
+		}	
+		bypass = {
+			OR = {
+				has_war_with = ENG
+				is_in_faction_with = GER
+				NOT = { country_exists = ENG }
+			}
+		}
+		will_lead_to_war_with = ENG
+		x = 0
+		y = 12
+		relative_position_id = ITA_Rome_again
+		cost = 10
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 1.5
+				ai_irrationality > 25
+			}
+
+			modifier = {
+				factor = 1.5
+				ai_irrationality > 30
+			}
+
+			modifier = {
+				factor = 2
+				ai_irrationality > 35
+			}
+		}	
+		completion_reward = {
+			create_wargoal = {
+				type = take_state_focus
+				target = ENG
+				expire = 0
+				generator = { 118 453 116 183 } # Gibraltar, Suez, Malta, Cyprus
+			}
+		}
+	}
+
 	focus = {
 		id = ITA_army_primacy_R_E
 		icon = GFX_goal_generic_axis_build_infantry
 		x = 2
 		y = 1
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 0.25
 		}
@@ -3515,7 +3922,7 @@
 		x = 0
 		y = 1
 		relative_position_id = ITA_army_primacy_R_E
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -3540,7 +3947,7 @@
 		x = -1
 		y = 2
 		relative_position_id = ITA_army_primacy_R_E
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -3567,7 +3974,7 @@
 		x = 1
 		y = 2
 		relative_position_id = ITA_army_primacy_R_E
-		cost = 10
+		cost = 5
 		ai_will_do = {
 			factor = 1
 		}
@@ -3591,6 +3998,180 @@
 				uses = 1
 				category = mountaineers_tech
 				#technology = tech_mountaineers2
+			}
+		}
+	}
+
+	focus = {
+		id = ITA_mare_nostrum_R_E
+		icon = GFX_goal_generic_build_navy
+		relative_position_id = ITA_the_glory_of_empire
+		x = 5
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		prerequisite = { focus = ITA_the_glory_of_empire}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			navy_experience = 50
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							dockyard > 0
+							free_building_slots = {
+								building = dockyard
+								size > 0
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = dockyard
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}				
+			}
+
+			add_doctrine_cost_reduction = {
+				name = naval_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = ITA_light_ship_effort_R_E
+		icon = GFX_goal_generic_navy_cruiser
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+		relative_position_id = ITA_mare_nostrum_R_E
+		prerequisite = { focus = ITA_mare_nostrum_R_E}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = ITA_escort_effort
+				bonus = 1.0
+				uses = 1
+				category = dd_tech
+			}
+			add_doctrine_cost_reduction = {
+				name = ITA_escort_effort
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+
+				#technology = convoy_escorts
+				#technology = convoy_escorts_bs
+				#technology = escort_carriers
+			}
+		}
+
+	}
+
+	focus = {
+		id = ITA_capital_ships_R_E
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = ITA_light_ship_effort_R_E }
+		x = 0
+		y = 2
+		relative_position_id = ITA_mare_nostrum_R_E
+		cost = 5
+		ai_will_do = {
+			factor = 1
+		}
+
+		available_if_capitulated = yes
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = bb_bonus
+				bonus = 1.0
+				uses = 2
+				category = bb_tech
+				category = bc_tech
+			}
+			add_tech_bonus = {
+				name = cr_bonus
+				bonus = 1.0
+				uses = 2
+				category = cl_tech
+				category = ca_tech
 			}
 		}
 	}
