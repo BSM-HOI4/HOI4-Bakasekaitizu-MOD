@@ -4,159 +4,140 @@
 
 add_namespace = italy
 
-# Albania Yields
+#イベリア半島の購入
 country_event = {
 	id = italy.1
 	title = italy.1.t
 	desc = italy.1.d
-	picture = GFX_report_event_royal_parade
 	
 	is_triggered_only = yes
 	
 	option = {
 		name = italy.1.a
-		annex_country = { target = ALB }
-		add_named_threat = { threat = 2 name = ITA_albania_war_goal }
-		USA = {
-			set_country_flag = { flag = USA_albania_window days = 60 value = 1 }
+
+		ai_chance = {
+			factor = 100
+		}
+
+		add_ideas = ITA_bought_Iberian_Peninsula_idea
+
+		hidden_effect = {
+			ITA = { country_event = { id = italy.2 } }
+		}
+
+		custom_effect_tooltip = ITA_buy_Iberia_tt
+	}
+
+	option = {
+		name = italy.1.a
+		ai_chance = {
+			factor = 0
 		}
 		hidden_effect = {
-			country_event = { days = 1 id = news.22 }
+			ITA = { country_event = { id = italy.3 } }
 		}
+		
 	}
 }
 
-# Zog Rejects Ultimatum
 country_event = {
 	id = italy.2
 	title = italy.2.t
 	desc = italy.2.d
-	picture = GFX_report_event_albanian_partisans
 	
 	is_triggered_only = yes
 	
 	option = {
 		name = italy.2.a
-		create_wargoal = {
-			type = take_state_focus
-			target = ALB
-			generator = { 44 }
+		add_ideas = ITA_buy_Iberian_Peninsula_idea
+
+		custom_effect_tooltip = form_spqr_spain_coring_states_tt
+		hidden_effect = {
+			165 = { add_core_of = ROOT }
+			166 = { add_core_of = ROOT }
+			167 = { add_core_of = ROOT }
+			177 = { add_core_of = ROOT }
+			171 = { add_core_of = ROOT }
+			174 = { add_core_of = ROOT }
+			172 = { add_core_of = ROOT }
+			176 = { add_core_of = ROOT }
+			170 = { add_core_of = ROOT }
+			41 = { add_core_of = ROOT }
+			175 = { add_core_of = ROOT }
+			169 = { add_core_of = ROOT }
+			173 = { add_core_of = ROOT }
+			168 = { add_core_of = ROOT }
+			290 = { add_core_of = ROOT }
+			788 = { add_core_of = ROOT }
+			789 = { add_core_of = ROOT }
+			790 = { add_core_of = ROOT }
+			791 = { add_core_of = ROOT }
+			792 = { add_core_of = ROOT }
+			793 = { add_core_of = ROOT }
+			794 = { add_core_of = ROOT }
+		}
+		custom_effect_tooltip = form_eu_portugal_coring_states_tt
+		hidden_effect = {
+			118 = { add_core_of = ROOT }
+			180 = { add_core_of = ROOT }
+			181 = { add_core_of = ROOT }
+			112 = { add_core_of = ROOT }
+			179 = { add_core_of = ROOT }
+			795 = { add_core_of = ROOT }
+		}
+
+		custom_effect_tooltip = ITA_get_iberiatt
+		hidden_effect = {
+			165 = { transfer_state = ROOT }
+			166 = { transfer_state = ROOT }
+			167 = { transfer_state = ROOT }
+			177 = { transfer_state = ROOT }
+			171 = { transfer_state = ROOT }
+			174 = { transfer_state = ROOT }
+			172 = { transfer_state = ROOT }
+			176 = { transfer_state = ROOT }
+			170 = { transfer_state = ROOT }
+			41 = { transfer_state = ROOT }
+			175 = { transfer_state = ROOT }
+			169 = { transfer_state = ROOT }
+			173 = { transfer_state = ROOT }
+			168 = { transfer_state = ROOT }
+			290 = { transfer_state = ROOT }
+			788 = { transfer_state = ROOT }
+			789 = { transfer_state = ROOT }
+			790 = { transfer_state = ROOT }
+			791 = { transfer_state = ROOT }
+			792 = { transfer_state = ROOT }
+			793 = { transfer_state = ROOT }
+			794 = { transfer_state = ROOT }
+			118 = { transfer_state = ROOT }
 		}
 		hidden_effect = {
-			country_event = { days = 1 id = news.23 }
+			180 = { transfer_state = ROOT }
+			181 = { transfer_state = ROOT }
+			112 = { transfer_state = ROOT }
+			179 = { transfer_state = ROOT }
+			795 = { transfer_state = ROOT }
 		}
+		
+
 	}
 }
 
-# Albania Receives Ultimatum
 country_event = {
 	id = italy.3
 	title = italy.3.t
 	desc = italy.3.d
-	picture = GFX_report_event_albanian_king_zog
 	
 	is_triggered_only = yes
 	
-	option = { # Yield
+	option = {
 		name = italy.3.a
-		ai_chance = {
-			base = 40
-			modifier = {
-				factor = 0
-				OR = {			
-					any_other_country = {
-						OR = {
-							is_major = yes
-							tag = YUG
-						}
-						NOT = { tag = ITA }
-						OR = {
-							has_guaranteed = ROOT
-							is_in_faction_with = ROOT
-						}
-					}
-					AND = {
-						is_subject = yes
-						NOT = { is_subject_of = ITA }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				OR = {
-					has_government = communism
-					has_government = fascism #glorious Albania will never yield!
-				}
-			}
-			modifier = {
-				factor = 5
-				is_subject_of = ITA
-			}
-		}
-		ITA = {
-			country_event = { days = 1 id = italy.1 }
-		}
-		custom_effect_tooltip = GAME_OVER_TT
-	}
-	option = { # Resist
-		name = italy.3.b
-		ai_chance = {
-			factor = 20 
-			modifier = {
-				factor = 0
-				OR = {
-					AND = {
-						is_in_faction_with = ITA
-						ITA = { is_faction_leader = yes }
-					}
-					AND = {
-						any_other_country = {
-							OR = {
-								is_major = yes
-								tag = YUG
-							}
-							NOT = { tag = ITA }
-							OR = {
-								has_guaranteed = ROOT
-								is_in_faction_with = ROOT
-							}
-						}
-						is_historical_focus_on = yes
-					}
-					AND = {
-						is_in_faction = no 
-						NOT = {
-							any_other_country = {
-								NOT = { tag = ITA }
-								has_guaranteed = ROOT
-							} 
-						}
-					}
-				}
-			}
-			modifier = {
-				add = 100
-				is_in_faction = yes
-				NOT = { is_in_faction_with = ITA }
-			}
-			modifier = {
-				add = 100
-				is_subject = yes
-				NOT = { is_subject_of = ITA }
-			}
-		}
-		ITA = {
-			effect_tooltip = {
-				create_wargoal = {
-					type = take_state_focus
-					target = ALB
-					generator = { 44 }
-				}
-			}
-			country_event = { days = 1 id = italy.2 }
-		}
+
 	}
 }
+
+
 
 # Extension of the Vallo Alpino
 country_event = {
@@ -292,116 +273,75 @@ country_event = {
 	}
 }
 
-# French national focus - French asks Italy to join french faction
 country_event = {
 	id = italy.8
 	title = italy.8.t
 	desc = italy.8.d
-	picture = GFX_report_event_german_parade_paris
-
+	
 	is_triggered_only = yes
 	
 	option = {
 		name = italy.8.a
-		FRA = {
-			if = {
-				limit = { is_in_faction = no }
-				set_rule = { can_create_factions = yes }
-				create_faction = "domination_francaise"
-			}
+
+		ai_chance = {
+			factor = 100
 		}
-		FRA = {	add_to_faction = ITA }
-		ITA = {
-			add_ai_strategy = {
-				type = alliance
-				id = "FRA"
-				value = 200
-			}
+
+		effect_tooltip = {
+			WES = {annex_country = ROOT}
 		}
-		FRA = {
-			add_ai_strategy = {
-				type = alliance
-				id = "ITA"
-				value = 200
-			}
-		}
-		hidden_effect = {
-			news_event = { hours = 6 id = news.181 }
-		}
+
+		
+
+		ITA = { country_event = { id = italy.9 } }
 	}
+
 	option = {
-		name = italy.8.b
-		ai_chance = { factor = 0 }
-		FRA = {
-			add_opinion_modifier = { target = ITA modifier = ITA_FRA_woo_italy_reject }
-		}	
-		hidden_effect = {
-			news_event = { hours = 6 id = news.183 }
+		name = italy.8.a
+		ai_chance = {
+			factor = 0
 		}
+
+		ITA = { country_event = { id = italy.10 } }
 	}
 }
 
-# Request Balearic Islands from Spain
 country_event = {
 	id = italy.9
 	title = italy.9.t
 	desc = italy.9.d
-	picture = GFX_report_event_merchant_ship_01
-
+	
 	is_triggered_only = yes
 	
 	option = {
 		name = italy.9.a
-		ITA = { country_event = { id = italy.10 } }
-		effect_tooltip = {
-			ITA = { transfer_state = 177 }
-			remove_opinion_modifier = { target = ITA modifier = ita_supported_spain_civil_war }
-		}
+		add_ideas = ITA_buy_Iberian_Peninsula_idea
+		ITA = {annex_country = GRE}
 
-		hidden_effect = {
-			news_event = { id = news.190 }
-		}
-	}
-	option = {
-		name = italy.9.b
-		ai_chance = { factor = 0 }
-		ITA = { country_event = { id = italy.11 } }
-		effect_tooltip = {
-			ITA = { add_state_claim = 177 }
-		}
+        47 = { add_core_of = ROOT }
+		182 = { add_core_of = ROOT }
+        184 = { add_core_of = ROOT }
+        185 = { add_core_of = ROOT }
+		186 = { add_core_of = ROOT }
+		187 = { add_core_of = ROOT }
+		731 = { add_core_of = ROOT }
 	}
 }
 
-# Spain Gives Up Balearic Islands
 country_event = {
 	id = italy.10
 	title = italy.10.t
 	desc = italy.10.d
-	picture = GFX_report_event_merchant_ship_01
-
+	
 	is_triggered_only = yes
 	
 	option = {
 		name = italy.10.a
-		ITA = { transfer_state = 177 }
-		remove_opinion_modifier = { target = ITA modifier = ita_supported_spain_civil_war }
+
 	}
 }
 
-# Spain Refuses to Give Up Islands
-country_event = {
-	id = italy.11
-	title = italy.11.t
-	desc = italy.11.d
-	picture = GFX_report_event_merchant_ship_01
 
-	is_triggered_only = yes
-	
-	option = {
-		name = italy.11.a
-		ITA = { add_state_claim = 177 }
-	}
-}
 
 # Germany want to claim Slovenia from Yugoslavia
 country_event = {
