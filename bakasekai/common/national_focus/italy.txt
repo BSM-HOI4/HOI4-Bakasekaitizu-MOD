@@ -1432,8 +1432,11 @@
 
 	focus = {
 		id = ITA_rule_by_Mussolini
-		icon = GFX_goal_generic_propaganda
+		icon = GFX_focus_ger_assassinate_mussolini
 		mutually_exclusive = { focus = ITA_Rome_again }
+		mutually_exclusive = { focus = ITA_Reestablishment_of_the_Papal_States }
+		mutually_exclusive = { focus = ITA_Criticism_of_the_ID_theory}
+		mutually_exclusive = { focus = ITA_Mysticism_of_Aleister}
 		available = {
 			
 		}
@@ -1640,9 +1643,12 @@
 
 	focus = {
 		id = ITA_Rome_again
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_focus_SOV_the_true_tsars
 		
 		mutually_exclusive = { focus = ITA_rule_by_Mussolini }
+		mutually_exclusive = { focus = ITA_Reestablishment_of_the_Papal_States }
+		mutually_exclusive = { focus = ITA_Criticism_of_the_ID_theory}
+		mutually_exclusive = { focus = ITA_Mysticism_of_Aleister}
 		x = 30
 		y = 0
 		cost = 10
@@ -1692,7 +1698,7 @@
 
 	focus = { #イベリア半島の購入
 		id = ITA_buy_Iberian_Peninsula
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_focus_chi_reach_out_to_france
 		prerequisite = { focus = ITA_restoration_of_the_Senate }
 		prerequisite = { focus = ITA_capital_ships_R focus = ITA_carrier_effort_R }
 		x = 0
@@ -1715,7 +1721,7 @@
 
 	focus = { #ギリシャへの要求
 		id = ITA_demands_on_Greece
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_focus_generic_befriend_greece
 		prerequisite = { focus = ITA_buy_Iberian_Peninsula}
 		x = 0
 		y = 7
@@ -3615,7 +3621,7 @@
 
 	focus = { #イベリア半島の請求
 		id = ITA_Iberian_Peninsula_claims
-		icon = GFX_goal_generic_improve_relations
+		icon = GFX_focus_attack_france
 		prerequisite = { focus = ITA_the_glory_of_empire }
 		prerequisite = { focus = ITA_capital_ships_R focus = ITA_carrier_effort_R }
 		x = 0
@@ -3671,7 +3677,7 @@
 
 	focus = { #ギリシャの確保
 		id = ITA_securing_Greece
-		icon = GFX_goal_generic_occupy_states_ongoing_war
+		icon = GFX_focus_generic_attack_greece
 		prerequisite = { focus = ITA_Iberian_Peninsula_claims}
 		available = {
 			NOT = { is_in_faction_with = GRE }
@@ -3711,7 +3717,7 @@
 
 	focus = { #アナトリアの制圧
 		id = ITA_conquest_in_Anatolia
-		icon = GFX_goal_generic_occupy_states_ongoing_war
+		icon = GFX_focus_TUR_misak_i_milli
 		prerequisite = { focus = ITA_demands_on_Greece focus =ITA_securing_Greece }
 		prerequisite = { focus = ITA_marines_and_landing_craft_R }
 		available = {
@@ -3766,7 +3772,7 @@
 
 	focus = { #ローマの完成
 		id = ITA_completion_of_Rome
-		icon = GFX_goal_generic_occupy_states_ongoing_war
+		icon = GFX_focus_SOV_panslavic_nationalism
 		prerequisite = { focus = ITA_conquest_in_Anatolia }
 		available = {
 			NOT = { is_in_faction_with = GRE }
@@ -3792,7 +3798,7 @@
 
 	focus = { #地中海を内海に
 		id = ITA_turning_the_Mediterranean_into_an_inland_sea
-		icon = GFX_goal_generic_major_war
+		icon = GFX_focus_usa_focus_on_europe
 		prerequisite = { focus = ITA_completion_of_Rome }	
 		available = {
 			NOT = { is_in_faction_with = ENG }
@@ -3835,7 +3841,7 @@
 
 	focus = { #航路を外へ！
 		id = ITA_Out_of_the_way
-		icon = GFX_goal_generic_major_war
+		icon = GFX_focus_ger_break_anglo_french_colonial_hegemony
 		prerequisite = { focus = ITA_turning_the_Mediterranean_into_an_inland_sea }	
 		available = {
 			NOT = { is_in_faction_with = ENG }
@@ -4607,6 +4613,463 @@
 				expire = 0
 				generator = { 118 453 116 183 } # Gibraltar, Suez, Malta, Cyprus
 			}
+		}
+	}
+
+	focus = { #教皇領の再成立
+		id = ITA_Reestablishment_of_the_Papal_States
+		icon = GFX_focus_SOV_the_true_tsars
+		
+		mutually_exclusive = { focus = ITA_rule_by_Mussolini }
+		mutually_exclusive = { focus = ITA_Rome_again }
+		mutually_exclusive = { focus = ITA_Criticism_of_the_ID_theory}
+		mutually_exclusive = { focus = ITA_Mysticism_of_Aleister}
+		x = 48
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #バチカンの建国
+		id = ITA_Founding_of_the_Vatican
+		icon = GFX_focus_SOV_the_true_tsars
+		x = 0
+		y = 1
+		relative_position_id = ITA_Reestablishment_of_the_Papal_States
+		prerequisite = { focus = ITA_Reestablishment_of_the_Papal_States}
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+		}
+	}
+
+	focus = { #教皇の元に集え
+		id = ITA_Gather_with_the_Pope
+		icon = GFX_focus_SOV_the_true_tsars
+		x = 0
+		y = 2
+		relative_position_id = ITA_Reestablishment_of_the_Papal_States
+		prerequisite = { focus = ITA_Founding_of_the_Vatican}
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+		}
+	}
+
+	focus = { #ローマ周辺の寄進
+		id = ITA_donation_around_rome
+		icon = GFX_focus_SOV_the_true_tsars
+		x = 0
+		y = 3
+		relative_position_id = ITA_Reestablishment_of_the_Papal_States
+		prerequisite = { focus = ITA_Gather_with_the_Pope}
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+		}
+	}
+
+	focus = { #カトリック解放基金
+		id = ITA_Catholic_Liberation_Fund
+		icon = GFX_focus_SOV_the_true_tsars
+		x = 0
+		y = 4
+		relative_position_id = ITA_Reestablishment_of_the_Papal_States
+		prerequisite = { focus = ITA_donation_around_rome}
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+		}
+	}
+
+	focus = { #イタリア全土の寄進
+		id = ITA_donation_from_all_over_Italy
+		icon = GFX_focus_SOV_the_true_tsars
+		x = 0
+		y = 5
+		relative_position_id = ITA_Reestablishment_of_the_Papal_States
+		prerequisite = { focus = ITA_Catholic_Liberation_Fund }
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+		}
+	}
+
+
+
+	focus = { #ID説への批判
+		id = ITA_Criticism_of_the_ID_theory
+		icon = GFX_focus_SOV_the_true_tsars
+		
+		mutually_exclusive = { focus = ITA_rule_by_Mussolini }
+		mutually_exclusive = { focus = ITA_Rome_again }
+		mutually_exclusive = { focus = ITA_Reestablishment_of_the_Papal_States }
+		mutually_exclusive = { focus = ITA_Mysticism_of_Aleister}
+		x = 55
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #空飛ぶスパゲッティモンスター教
+		id = ITA_Flying_Spaghetti_Monsterism
+		icon = GFX_focus_SOV_the_true_tsars
+		prerequisite = { focus = ITA_Criticism_of_the_ID_theory }
+		relative_position_id = ITA_Criticism_of_the_ID_theory
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #アレイスターの神秘主義
+		id = ITA_Mysticism_of_Aleister
+		icon = GFX_focus_SOV_the_true_tsars
+		
+		mutually_exclusive = { focus = ITA_rule_by_Mussolini }
+		mutually_exclusive = { focus = ITA_Rome_again }
+		mutually_exclusive = { focus = ITA_Reestablishment_of_the_Papal_States }
+		mutually_exclusive = { focus = ITA_Criticism_of_the_ID_theory}
+		x = 60
+		y = 0
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #テレマ僧院を開く
+		id = ITA_Open_Thelema_Monastery
+		icon = GFX_focus_SOV_the_true_tsars
+		prerequisite = { focus = ITA_Mysticism_of_Aleister}
+		relative_position_id = ITA_Mysticism_of_Aleister
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #教えを広める
+		id = ITA_propagate_the_teachings
+		icon = GFX_focus_SOV_the_true_tsars
+		prerequisite = { focus = ITA_Open_Thelema_Monastery}
+		relative_position_id = ITA_Mysticism_of_Aleister
+		x = 0
+		y = 2
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #教えを広める
+		id = ITA_Expansion_in_Sicily
+		icon = GFX_focus_SOV_the_true_tsars
+		prerequisite = { focus = ITA_propagate_the_teachings}
+		relative_position_id = ITA_Mysticism_of_Aleister
+		x = -1
+		y = 3
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #法の書の発売
+		id = ITA_Release_of_The_Book_of_the_Law
+		icon = GFX_focus_SOV_the_true_tsars
+		prerequisite = { focus = ITA_propagate_the_teachings}
+		relative_position_id = ITA_Mysticism_of_Aleister
+		x = 1
+		y = 3
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #さらなる拡大
+		id = ITA_Further_expansion
+		icon = GFX_focus_SOV_the_true_tsars
+		prerequisite = { focus = ITA_Expansion_in_Sicily}
+		prerequisite = { focus = ITA_Release_of_The_Book_of_the_Law}
+		relative_position_id = ITA_Mysticism_of_Aleister
+		x = -1
+		y = 4
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #法の書の増版
+		id = ITA_more_editions_of_The_Book_of_the_Law
+		icon = GFX_focus_SOV_the_true_tsars
+		prerequisite = { focus = ITA_Expansion_in_Sicily}
+		prerequisite = { focus = ITA_Release_of_The_Book_of_the_Law}
+		relative_position_id = ITA_Mysticism_of_Aleister
+		x = 1
+		y = 4
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
+		}
+	}
+
+	focus = { #運命
+		id = ITA_fate
+		icon = GFX_focus_SOV_the_true_tsars
+		prerequisite = { focus = ITA_Further_expansion}
+		prerequisite = { focus = ITA_more_editions_of_The_Book_of_the_Law}
+		relative_position_id = ITA_Mysticism_of_Aleister
+		x = 0
+		y = 5
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}
+		available = {
+			
+		}
+		bypass = {
+			
+		}
+		completion_reward = {
+			remove_ideas = vittoria_mutilata
+			add_ideas = ITA_Roman_dream
+			swap_ideas = {
+				remove_idea = victor_emmanuel
+				add_idea = victor_emmanuel_2
+			}
+			set_comestic_tag = ITA_Rome_1
 		}
 	}
 
