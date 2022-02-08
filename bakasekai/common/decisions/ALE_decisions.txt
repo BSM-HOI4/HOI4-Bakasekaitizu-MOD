@@ -1,5 +1,5 @@
 Expansion_in_Italy_decision = { #イタリアでの拡大
-	SLV_mefo_bills_mission = {
+	ITA_attack_mission = {
 
 		allowed = { always = no }
 
@@ -11,8 +11,6 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
         visible = {
         }
 
-		#cost = GER_mefo_bill_counter?10
-
 		days_mission_timeout = 180
 		is_good = yes
 		fire_only_once = yes
@@ -22,6 +20,10 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
 		}
 
 		complete_effect = {
+		}
+
+		cancel_trigger = {
+
 		}
 
 		timeout_effect = {
@@ -49,67 +51,39 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
         }
 
         cost = 25
-        fire_only_once = yes
+        fire_only_once = no
+		days_re_enable = 30
 
         available = {
             has_country_flag = ITA_attack_mussolini
+			NOT = {
+				has_country_flag = ALE_Calabria_3
+			}
         }
         visible = {
         }
 
         complete_effect = {
-            set_country_flag = ALE_Calabria_1
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Calabria_decision_2 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Calabria_1
-        }
-
-        complete_effect = {
-            set_country_flag = ALE_Calabria_2
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Calabria_decision_3 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Calabria_2
-        }
-
-        complete_effect = {
-            ALE = { transfer_state = 156 }
-			ALE = { add_core_of = 156 }
+			if = {
+				limit = {
+					NOT = { has_country_flag = ALE_Calabria_1}
+				}
+				set_country_flag = ALE_Calabria_1
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Calabria_1
+				}
+				set_country_flag = ALE_Calabria_2
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Calabria_2
+				}
+				ALE = { transfer_state = 156 }
+				ALE = { add_core_of = 156 }
+				set_country_flag = ALE_Calabria_3
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -124,10 +98,12 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
         }
 
         cost = 25
-        fire_only_once = yes
+        fire_only_once = no
+		days_re_enable = 30
 
         available = {
             has_country_flag = ITA_attack_mussolini
+			NOT = { has_country_flag = ALE_Campania_3}
         }
         visible = {
         }
@@ -135,56 +111,28 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
         complete_effect = {
             set_country_flag = ALE_Campania_1
 		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
 
-	Expansion_in_Campania_decision_2 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Campania_1
-        }
-
-        complete_effect = {
-            set_country_flag = ALE_Campania_2
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Campania_decision_3 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Campania_2
-        }
-
-        complete_effect = {
-            ALE = { transfer_state = 117 }
-			ALE = { add_core_of = 117 }
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = ALE_Campania_1}
+				}
+				set_country_flag = ALE_Campania_1
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Campania_1
+				}
+				set_country_flag = ALE_Campania_2
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Campania_2
+				}
+				ALE = { transfer_state = 117 }
+				ALE = { add_core_of = 117 }
+				set_country_flag = ALE_Campania_3
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -199,67 +147,37 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
         }
 
         cost = 25
-        fire_only_once = yes
+        fire_only_once = no
+		days_re_enable = 30
 
         available = {
             has_country_flag = ITA_attack_mussolini
+			NOT = { has_country_flag = ALE_Latium_3}
         }
         visible = {
         }
 
-        complete_effect = {
-            set_country_flag = ALE_Latium_1
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Latium_decision_2 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Latium_1
-        }
-
-        complete_effect = {
-            set_country_flag = ALE_Latium_2
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Latium_decision_3 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Latium_2
-        }
-
-        complete_effect = {
-            ALE = { transfer_state = 2 }
-			ALE = { add_core_of = 2 }
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = ALE_Latium_1}
+				}
+				set_country_flag = ALE_Latium_1
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Latium_1
+				}
+				set_country_flag = ALE_Latium_2
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Latium_2
+				}
+				ALE = { transfer_state = 2 }
+				ALE = { add_core_of = 2 }
+				set_country_flag = ALE_Latium_3
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -274,67 +192,37 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
         }
 
         cost = 25
-        fire_only_once = yes
+        fire_only_once = no
+		days_re_enable = 30
 
         available = {
             has_country_flag = ITA_attack_mussolini
+			NOT = { has_country_flag = ALE_Abruzzo_3}
         }
         visible = {
         }
 
-        complete_effect = {
-            set_country_flag = ALE_Abruzzo_1
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Abruzzo_decision_2 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Abruzzo_1
-        }
-
-        complete_effect = {
-            set_country_flag = ALE_Abruzzo_2
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Abruzzo_decision_3 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Abruzzo_2
-        }
-
-        complete_effect = {
-            ALE = { transfer_state = 157 }
-			ALE = { add_core_of = 157 }
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = ALE_Abruzzo_1}
+				}
+				set_country_flag = ALE_Abruzzo_1
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Abruzzo_1
+				}
+				set_country_flag = ALE_Abruzzo_2
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Abruzzo_2
+				}
+				ALE = { transfer_state = 157 }
+				ALE = { add_core_of = 157 }
+				set_country_flag = ALE_Abruzzo_3
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -349,73 +237,42 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
         }
 
         cost = 25
-        fire_only_once = yes
+        fire_only_once = no
+		days_re_enable = 30
 
         available = {
             has_country_flag = ITA_attack_mussolini
+			NOT = { has_country_flag = ALE_Tuscany_3}
         }
         visible = {
         }
 
-        complete_effect = {
-            set_country_flag = ALE_Tuscany_1
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = ALE_Tuscany_1}
+				}
+				set_country_flag = ALE_Tuscany_1
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Tuscany_1
+				}
+				set_country_flag = ALE_Tuscany_2
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Tuscany_2
+				}
+				ALE = { transfer_state = 162 }
+				ALE = { add_core_of = 162 }
+				set_country_flag = ALE_Tuscany_3
+			}
 		}
 		ai_will_do = {
 			factor = 100
 		}
 	}
-
-	Expansion_in_Tuscany_decision_2 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Tuscany_1
-        }
-
-        complete_effect = {
-            set_country_flag = ALE_Tuscany_2
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Tuscany_decision_3 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Tuscany_2
-        }
-
-        complete_effect = {
-            ALE = { transfer_state = 162 }
-			ALE = { add_core_of = 162 }
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
 
 	Expansion_in_Emilia_Romagna_decision = {
 		icon = generic_construction
@@ -425,67 +282,37 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
         }
 
         cost = 25
-        fire_only_once = yes
+        fire_only_once = no
+		days_re_enable = 30
 
         available = {
             has_country_flag = ITA_attack_mussolini
+			NOT = { has_country_flag = ALE_Emilia_Romagna_3}
         }
         visible = {
         }
 
-        complete_effect = {
-            set_country_flag = ALE_Emilia_Romagna_1
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Emilia_Romagna_decision_2 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Emilia_Romagna_1
-        }
-
-        complete_effect = {
-            set_country_flag = ALE_Emilia_Romagna_2
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Emilia_Romagna_decision_3 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Emilia_Romagna_2
-        }
-
-        complete_effect = {
-            ALE = { transfer_state = 161 }
-			ALE = { add_core_of = 161 }
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = ALE_Emilia_Romagna_1}
+				}
+				set_country_flag = ALE_Emilia_Romagna_1
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Emilia_Romagna_1
+				}
+				set_country_flag = ALE_Emilia_Romagna_2
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Emilia_Romagna_2
+				}
+				ALE = { transfer_state = 161 }
+				ALE = { add_core_of = 161 }
+				set_country_flag = ALE_Emilia_Romagna_3
+			}
 		}
 		ai_will_do = {
 			factor = 100
@@ -500,67 +327,37 @@ Expansion_in_Italy_decision = { #イタリアでの拡大
         }
 
         cost = 25
-        fire_only_once = yes
+        fire_only_once = no
+		days_re_enable = 30
 
         available = {
             has_country_flag = ITA_attack_mussolini
+			NOT = { has_country_flag = ALE_Sardinia_3}
         }
         visible = {
         }
 
-        complete_effect = {
-            set_country_flag = ALE_Sardinia_1
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Sardinia_decision_2 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Sardinia_1
-        }
-
-        complete_effect = {
-            set_country_flag = ALE_Sardinia_2
-		}
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-	Expansion_in_Sardinia_decision_3 = {
-		icon = generic_construction
-
-        allowed = {
-            always = no
-        }
-
-        cost = 25
-        fire_only_once = yes
-
-        available = {
-            has_country_flag = ITA_attack_mussolini
-        }
-        visible = {
-			has_country_flag = ALE_Sardinia_2
-        }
-
-        complete_effect = {
-            ALE = { transfer_state = 114 }
-			ALE = { add_core_of = 114 }
+		complete_effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = ALE_Sardinia_1}
+				}
+				set_country_flag = ALE_Sardinia_1
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Sardinia_1
+				}
+				set_country_flag = ALE_Sardinia_2
+			}
+			if = {
+				limit = {
+					has_country_flag = ALE_Sardinia_2
+				}
+				ALE = { transfer_state = 161 }
+				ALE = { add_core_of = 161 }
+				set_country_flag = ALE_Sardinia_3
+			}
 		}
 		ai_will_do = {
 			factor = 100
