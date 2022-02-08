@@ -29,7 +29,7 @@ country_event = {
 	}
 
 	option = {
-		name = italy.1.a
+		name = italy.1.b
 		ai_chance = {
 			factor = 0
 		}
@@ -288,7 +288,7 @@ country_event = {
 		}
 
 		effect_tooltip = {
-			WES = {annex_country = ROOT}
+			ITA = {annex_country = ROOT}
 		}
 
 		
@@ -297,7 +297,7 @@ country_event = {
 	}
 
 	option = {
-		name = italy.8.a
+		name = italy.8.b
 		ai_chance = {
 			factor = 0
 		}
@@ -537,3 +537,139 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = italy.17
+	title = italy.17.t #ムッソリーニによる国外退去処分
+	desc = italy.17.d
+	
+	is_triggered_only = yes
+	
+	option = { #了承した…
+		name = italy.17.a
+
+		ai_chance = {
+			factor = 100
+		}
+
+		
+
+		ITA = { country_event = { id = italy.18 days = 1 } }
+	}
+
+	option = { #私の信念のためにこれを了承することはできない
+		name = italy.17.b
+		ai_chance = {
+			factor = 0
+		}
+
+		ITA = { country_event = { id = italy.19 days = 1 } }
+	}
+}
+
+country_event = {
+	id = italy.18
+	title = italy.18.t #ムッソリーニによる国外退去処分
+	desc = italy.18.d
+	
+	is_triggered_only = yes
+	
+	option = { #断る！
+		name = italy.18.a
+
+		ai_chance = {
+			factor = 100
+		}
+
+
+		
+
+		ITA = { country_event = { id = italy.19 days = 1 } }
+	}
+
+	option = { #拒否する！
+		name = italy.18.b
+		ai_chance = {
+			factor = 0
+		}
+
+		ALE = { transfer_state = 115 }
+		ALE = { change_tag_from = ITA }
+
+		ALE = { country_event = { id = italy.19 days = 2 } }
+	}
+}
+
+country_event = {
+	id = italy.19
+	title = italy.19.t #ムッソリーニの暗殺
+	desc = italy.19.d
+	
+	is_triggered_only = yes
+	
+	option = { #暗殺するのだ！
+		name = italy.19.a
+
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 150
+
+		custom_effect_tooltip = ITA_benito_mussolini_kill_A
+		set_country_flag = ITA_attack_mussolini
+
+		hidden_effect = {
+			random_list = { 
+				85 = { ALE = { country_event = { id = italy.20 days = 3} } } 
+				15 = { ALE = { country_event = { id = italy.21 days = 3} } } 
+			}
+		}
+	}
+
+	option = { #そんなことはすべきではない
+		name = italy.19.b
+		ai_chance = {
+			factor = 0
+		}
+
+		
+	}
+}
+
+country_event = {
+	id = italy.20
+	title = italy.20.t #ムッソリーニの暗殺成功
+	desc = italy.20.d
+	
+	is_triggered_only = yes
+	
+	option = { #暗殺するのだ！
+		name = italy.20.a
+
+		ai_chance = {
+			factor = 100
+		}
+
+		add_political_power = 400
+
+		set_country_flag = ITA_benito_mussolini_kill_A_Y
+	}
+}
+
+country_event = {
+	id = italy.21
+	title = italy.21.t #ムッソリーニの暗殺失敗
+	desc = italy.21.d
+	
+	is_triggered_only = yes
+	
+	option = { #暗殺するのだ！
+		name = italy.21.a
+
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 250
+
+		set_country_flag = ITA_benito_mussolini_kill_A_M
+	}
+}
