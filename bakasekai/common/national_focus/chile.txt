@@ -36,7 +36,20 @@ focus_tree = {
             focus = CHL_start_discuss
         }
         mutually_exclusive = {
-            focus = CHL_adopt_larger_country
+            focus = CHL_adopt_to_revolution
+        }
+        allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+                NOT = {
+                    has_completed_focus = CHL_adopt_to_revolution
+                }
+            }
         }
         completion_reward = {
             swap_ideas = {
@@ -49,24 +62,24 @@ focus_tree = {
                 popularity = 0.30
             }
             add_popularity = {
-                ideology = neutrality
+                ideology = longitudinalism
                 popularity = 0.30
             }
             if = {
                 limit = {
                     NOT = {
-                        has_government = neutrality
+                        has_government = longitudinalism
                     }
                 }
                 set_politics = {
-                    ruling_party = neutrality
+                    ruling_party = longitudinalism
                 }
             }
         }
     }
     
     focus = {
-        id = CHL_adopt_to_kyonu
+        id = CHL_adopt_to_revolution
         icon = GFX_focus_AST_squander_bug
         cost = 10
         relative_position_id = CHL_start_discuss
@@ -104,6 +117,19 @@ focus_tree = {
                 }
             }
         }
+        allow_branch = {
+            if = {
+                limit = {
+                    has_game_rule = {
+                        rule = obsolete_focus_branches_visibility
+                        option = HIDE
+                    }
+                }
+                NOT = {
+                    has_completed_focus = CHL_adopt_longer_country
+                }
+            }
+        }
     }
     
     # Industry part 1
@@ -121,9 +147,6 @@ focus_tree = {
             AND = {
                 NOT = {
                     has_idea = CHL_politic_discuss_before
-                }
-                NOT = {
-                    has_idea = CHL_politic_discussing
                 }
                 has_full_control_of_state = 279
                 has_full_control_of_state = 506
@@ -1228,9 +1251,9 @@ focus_tree = {
                 uses = 1
                 category = armor
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_armored_power
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mobile_warfare
             }
@@ -1258,9 +1281,9 @@ focus_tree = {
                 uses = 1
                 category = artillery
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_artillery_power
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_superior_firepower
             }
@@ -1282,22 +1305,19 @@ focus_tree = {
         completion_reward = {
             CHL_research_debuff_level_down = yes
             add_tech_bonus = {
-                name = CHL_artillery_power
                 bonus = 1.0
                 uses = 1
                 category = cat_anti_tank
             }
             add_tech_bonus = {
-                name = CHL_artillery_power
                 bonus = 1.0
                 uses = 1
                 technology = antiair1
                 technology = antiair2
                 technology = antiair3
             }
-            add_tech_bonus = {
-                name = CHL_artillery_power
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_superior_firepower
             }
@@ -1323,8 +1343,8 @@ focus_tree = {
                 ahead_reduction = 1
                 category = armor
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mobile_warfare
             }
@@ -1352,8 +1372,8 @@ focus_tree = {
                 ahead_reduction = 1
                 category = armor
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mobile_warfare
             }
@@ -1381,13 +1401,13 @@ focus_tree = {
         mutually_exclusive = { focus = CHL_armor_is_not_only_power }
         completion_reward = {
             CHL_research_debuff_level_down = yes
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mobile_warfare
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_superior_firepower
             }
@@ -1424,8 +1444,8 @@ focus_tree = {
                 ahead_reduction = 1
                 category = artillery
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 2
                 category = cat_superior_firepower
             }
@@ -1452,8 +1472,8 @@ focus_tree = {
                 uses = 1
                 category = armor
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 2
                 category = cat_mobile_warfare
             }
@@ -1478,8 +1498,8 @@ focus_tree = {
                 uses = 1
                 category = infantry_weapons
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mass_assault
             }
@@ -1504,8 +1524,8 @@ focus_tree = {
                 uses = 2
                 category = support_tech
             }
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 1
                 category = cat_mass_assault
             }
@@ -1531,10 +1551,10 @@ focus_tree = {
                 ahead_reduction = 2
                 category = infantry_weapons
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 bonus = 1.0
                 uses = 2
-                category = cat_mass_assault
+                cost_reduction = 0.5
             }
             swap_ideas = {
                 remove_idea = CHL_mass_recruit_0
@@ -1694,8 +1714,8 @@ focus_tree = {
         }
         completion_reward = {
             CHL_research_debuff_level_down = yes
-            add_tech_bonus = {
-                bonus = 1.0
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.5
                 uses = 4
                 category = air_doctrine
             }
@@ -1765,10 +1785,10 @@ focus_tree = {
         }
         completion_reward = {
             CHL_research_debuff_level_down = yes
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_air_company
-                bonus = 1.0
-                uses = 4
+                cost_reduction = 1.0
+                uses = 0.5
                 category = naval_doctrine
             }
         }
@@ -1795,9 +1815,9 @@ focus_tree = {
                 uses = 2
                 category = naval_air
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_air_company
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 2
                 category = naval_doctrine
             }
@@ -1825,9 +1845,9 @@ focus_tree = {
                 uses = 2
                 category = naval_equipment
             }
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_air_company
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 2
                 category = naval_doctrine
             }
@@ -1847,10 +1867,32 @@ focus_tree = {
         }
         available = {
             has_idea = CHL_enough_research_power
+            num_of_factories > 80
+        }
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+    focus = {
+        id = CHL_additional_research_slot_2
+        icon = GFX_focus_research
+        
+        cost = 10
+        relative_position_id = CHL_additional_research_slot
+        x = 0
+        y = 1
+        prerequisite = {
+            focus = CHL_additional_research_slot
+        }
+        available = {
             num_of_factories > 120
         }
         completion_reward = {
             add_research_slot = 1
+            swap_ideas = {
+                remove_idea = CHL_enough_research_power
+                add_idea = CHL_high_research_power
+            }
         }
     }
     
@@ -1865,13 +1907,8 @@ focus_tree = {
         y = 0
         
         available = {
-            AND = {
-                NOT = {
-                    has_idea = CHL_politic_discuss_before
-                }
-                NOT = {
-                    has_idea = CHL_politic_discussing
-                }
+            NOT = {
+                has_idea = CHL_politic_discuss_before
             }
         }
         completion_reward = {
@@ -2168,9 +2205,9 @@ focus_tree = {
         }
         completion_reward = {
             add_ideas = CHL_coast_emperor_naval
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = CHL_empire_naval
-                bonus = 1.0
+                cost_reduction = 0.5
                 uses = 2
                 category = naval_doctrine
             }
@@ -2425,11 +2462,11 @@ focus_tree = {
         }
         completion_reward = {
             custom_effect_tooltip = available_political_advisor
-            show_ideas_tooltip = CHL_idea_pioneer_god
+            show_ideas_tooltip = CHL_pioneer_god
             custom_effect_tooltip = available_political_advisor
-            show_ideas_tooltip = CHL_idea_pioneer_reimu
+            show_ideas_tooltip = CHL_pioneer_reimu
             custom_effect_tooltip = available_political_advisor
-            show_ideas_tooltip = CHL_idea_pioneer_marisa
+            show_ideas_tooltip = CHL_pioneer_marisa
         }
     }
     focus = {
@@ -2631,6 +2668,13 @@ focus_tree = {
                     logistics_company = { x = 0 y = 3 }
                 }
             }
+    
+            custom_effect_tooltip = available_political_advisor
+            show_ideas_tooltip = CHL_pioneer_winner_of_endsieg
+            custom_effect_tooltip = available_political_advisor
+            show_ideas_tooltip = CHL_pioneer_solver_of_incident
+            custom_effect_tooltip = available_political_advisor
+            show_ideas_tooltip = CHL_pioneer_barrage_user
         }
     }
     focus = {
@@ -2646,92 +2690,7 @@ focus_tree = {
             focus = CHL_advise_of_pioneer
         }
         completion_reward = {
-            create_field_marshal = {
-                name = "????????"
-                picture = "Portrait_pioneer_god.dds"
-                traits = {
-                    # 獲得特性
-                    organizer
-                    panzer_leader
-                    naval_invader
-                    # 将軍特性
-                    panzer_expert
-                    # 元帥特性
-                    logistics_wizard
-                    fast_planner
-                    thorough_planner
-                    unyielding_defender
-                    aggressive_assaulter
-                    offensive_doctrine
-                    defensive_doctrine
-                    organisational_leader
-                    inspirational_leader
-                    expert_delegator
-                    # 地形特性
-                    swamp_fox
-                    hill_fighter
-                    urban_assault_specialist
-                    winter_specialist
-                    adaptable
-                }
-                skill = 5
-                attack_skill = 9
-                defense_skill = 1
-                planning_skill = 1
-                logistics_skill = 1
-            }
-            create_corps_commander = {
-                name = "????????"
-                picture = "Portrait_pioneer_miko.dds"
-                traits = {
-                    trickster
-                    organizer
-                    infantry_leader
-                    infantry_expert
-                    ambusher
-                    trait_engineer
-                    commando
-                    skilled_staffer
-                    guerilla_fighter
-                    ranger
-                    jungle_rat
-                    trait_mountaineer
-                    adaptable
-                    inflexible_strategist
-                    bearer_of_artillery
-                }
-                skill = 5
-                attack_skill = 4
-                defense_skill = 4
-                planning_skill = 3
-                logistics_skill = 5
-            }
-            create_corps_commander = {
-                name = "????????"
-                picture = "Portrait_pioneer_magician.dds"
-                traits = {
-                    organizer
-                    panzer_leader
-                    cavalry_leader
-                    trait_engineer
-                    skilled_staffer
-                    panzer_expert
-                    fortress_buster
-                    trickster
-                    expert_improviser
-                    desert_fox
-                    trait_mountaineer
-                    adaptable
-                    winter_specialist
-                    brilliant_strategist
-                    trait_reckless
-                }
-                skill = 5
-                attack_skill = 4
-                defense_skill = 4
-                planning_skill = 5
-                logistics_skill = 3
-            }
+            custom_effect_tooltip = CHL_can_hire_pioneer_as_commander
         }
     }
     
@@ -2955,7 +2914,6 @@ focus_tree = {
         prerequisite = {
             focus = CHL_get_inka
             focus = CHL_won_inka
-            focus = CHL_buy_inka
         }
         
         mutually_exclusive = {
@@ -3643,63 +3601,4 @@ focus_tree = {
             add_ideas = CHL_the_coast
         }
     }
-    
-    # きょぬー神崇拝ルート
-    focus = {
-        id = CHL_adopt_to_god
-        icon = todo
-        cost = 5
-        relative_position_id = CHL_adopt_to_kyonu
-        x = -1
-        y = 1
-        prerequisite = {
-            focus = CHL_adopt_to_kyonu
-        }
-        mutually_exclusive = {
-            focus = CHL_kyonu_revolution
-        }
-        completion_reward = {
-            swap_ideas = {
-                remove_idea = CHL_politic_discussing
-                add_idea = CHL_take_heathenism
-            }
-            CHL = {
-                add_popularity = {
-                    ideology = mythologicalism
-                    popularity = 0.3
-                }
-                if = {
-                    limit = {
-                        NOT = {
-                            has_government = mythologicalism
-                        }
-                    }
-                    set_politics = {
-                        ruling_party = mythologicalism
-                    }
-                }
-            }
-        }
-    }
-    
-    # 巨乳革命ルート
-    focus = {
-        id = CHL_kyonu_revolution
-        icon = todo
-        cost = 5
-        relative_position_id = CHL_adopt_to_kyonu
-        x = 1
-        y = 1
-        prerequisite = {
-            focus = CHL_adopt_to_kyonu
-        }
-        mutually_exclusive = {
-            focus = CHL_adopt_to_god
-        }
-        completion_reward = {
-            add_political_power = 50
-            add_ideas = CHL_spread_kyonu
-        }
-    }
-
 }
