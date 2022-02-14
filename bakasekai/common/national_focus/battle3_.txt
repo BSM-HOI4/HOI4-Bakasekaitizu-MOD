@@ -4,11 +4,11 @@ focus_tree = {
 		factor = 0
 		modifier = {
 			add = 10
-			OR ={tag = BTB
-			tag=BTB
-			tag=BTB
-			tag=BTY
-			tag=BTG}
+			OR ={tag = UKR
+			tag=CRI
+			tag=RGA
+			tag=LIT
+			tag=BLR}
 		}
 	}
 	default = no
@@ -20,7 +20,7 @@ focus_tree = {
 		cost = 10.00
 		x = 8
 		y = 0
-		available = {tag=BTL}
+		available = {tag=UKR}
 		bypass = {has_idea = battle3_kodoku}
 			completion_reward = {
 					add_stability = 0.05
@@ -69,7 +69,7 @@ focus_tree = {
 				bypass = {AND={has_idea = battle3_kodoku NOT={has_country_flag="内戦準備"}}}
 			select_effect = {
 				set_country_flag="国内問題に対処"
-					BTY = {
+					LIT = {
 						set_country_flag="内戦準備"
 							set_country_flag=naisennbattle
 							add_state_core = 11
@@ -143,10 +143,10 @@ focus_tree = {
 								add_ideas = war_economy
 							
 
-create_unit={division= "name=\"hohei\"division_tempBTBe = \"infantry\" start_experience_factor = 0.2 start_equipment_factor = 1" owner = BTY}
+create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_experience_factor = 0.2 start_equipment_factor = 1" owner = LIT}
 						}
 
-						BTB = {
+						CRI = {
 							set_country_flag="内戦準備"
 							
 								
@@ -213,10 +213,10 @@ create_unit={division= "name=\"hohei\"division_tempBTBe = \"infantry\" start_exp
 									
 
 						}
-						BTB = {
+						RGA = {
 							set_country_flag="内戦準備"
 						
-							ROOT={limit={tag=BTB} add_manpower=200000}
+							ROOT={limit={tag=RGA} add_manpower=200000}
 						
 											add_state_core = 11
 							add_state_core = 12
@@ -272,7 +272,7 @@ create_unit={division= "name=\"hohei\"division_tempBTBe = \"infantry\" start_exp
 							
 							
 						}
-					BTG = {
+					BLR = {
 						set_country_flag="内戦準備"
 					
 						
@@ -362,19 +362,19 @@ create_unit={division= "name=\"hohei\"division_tempBTBe = \"infantry\" start_exp
 						}
 					
 					add_ideas = war_economy
-					BTB={
+					CRI={
 									add_ideas=battle3_kodoku
 									}
-					BTB={
+					RGA={
 									add_ideas=battle3_kodoku
 									}
-					BTG={
+					BLR={
 									add_ideas=battle3_kodoku
 									}
-					BTL={
+					UKR={
 									add_ideas=battle3_kodoku
 									}
-					BTY={
+					LIT={
 									add_ideas=battle3_kodoku
 									}
 
@@ -397,66 +397,66 @@ create_unit={division= "name=\"hohei\"division_tempBTBe = \"infantry\" start_exp
 										clr_country_flag="内戦準備"						
 										}
 						declare_war_on = {
-							target = BTG
+							target = BLR
 							type = annex_everything
 							
 						}
 						declare_war_on = {
-									target = BTB
+									target = RGA
 									type = annex_everything
 								}
 						
-						BTG={
+						BLR={
 								declare_war_on = {
-									target = BTB
+									target = RGA
 									type = annex_everything
 									
 								}
 								declare_war_on = {
-									target = BTY
+									target = LIT
 									type = annex_everything
 									
 								}
 								declare_war_on = {
-									target =BTB
+									target =CRI
 									type = annex_everything
 									
 								}
 								add_stability=0.3
 						}
 						
-						BTB={
+						RGA={
 							declare_war_on = {
-									target = BTB
+									target = CRI
 									type = annex_everything
 								
 								}
 									add_ideas = war_economy
 								declare_war_on = {
-									target = BTY
+									target = LIT
 									type = annex_everything
 									
 								}
 								add_stability=0.3
 						}
 
-						BTB={
+						CRI={
 									declare_war_on = {
-									target = BTL
+									target = UKR
 									type = annex_everything
 									
 								}
 								declare_war_on = {
-									target = BTY
+									target = LIT
 									type = annex_everything
 									
 								}
 								add_stability=0.3							
 						}
 
-						BTY={
+						LIT={
 							declare_war_on = {
-									target = BTL
+									target = UKR
 									type = annex_everything
 									
 								}
@@ -486,22 +486,22 @@ create_unit={division= "name=\"hohei\"division_tempBTBe = \"infantry\" start_exp
 			available = {
 				AND={
 					NOT = {
-							has_war_with = BTY
+							has_war_with = LIT
 						}
 		
 					NOT = {
-							has_war_with = BTB
+							has_war_with = RGA
 						}
 	
 					NOT = {
-							has_war_with = BTL
+							has_war_with = UKR
 						}
 				
 		
 					NOT = {
-							has_war_with = BTB
+							has_war_with = CRI
 						}
-		NOT={has_war_with = BTG}
+		NOT={has_war_with = BLR}
 						
 				}}
 			completion_reward = {
@@ -551,11 +551,11 @@ create_unit={division= "name=\"hohei\"division_tempBTBe = \"infantry\" start_exp
 			ai_will_do={factor=100}
 		available = {
 					OR={
-						has_war_with = BTY 
-						has_war_with = BTB
-						has_war_with=BTG
-						has_war_with=BTB
-						has_war_with=BTL
+						has_war_with = LIT 
+						has_war_with = RGA
+						has_war_with=BLR
+						has_war_with=CRI
+						has_war_with=UKR
 						}
 					}
 		completion_reward={
@@ -577,11 +577,11 @@ create_unit={division= "name=\"hohei\"division_tempBTBe = \"infantry\" start_exp
 		mutually_exclusive = {focus=battle3_s_2}
 		available = {
 					OR={
-						has_war_with = BTY 
-						has_war_with = BTB
-						has_war_with=BTG
-						has_war_with=BTB
-						has_war_with=BTL
+						has_war_with = LIT 
+						has_war_with = RGA
+						has_war_with=BLR
+						has_war_with=CRI
+						has_war_with=UKR
 						}
 					}
 					completion_reward={add_ideas=battle3_kodoku_3}
@@ -599,11 +599,11 @@ focus = {
 		mutually_exclusive = {focus=battle3_s_3}
 		available = {
 					OR={
-						has_war_with = BTY 
-						has_war_with = BTB
-						has_war_with=BTG
-						has_war_with=BTB
-						has_war_with=BTL
+						has_war_with = LIT 
+						has_war_with = RGA
+						has_war_with=BLR
+						has_war_with=CRI
+						has_war_with=UKR
 						}
 					}
 		x=1
@@ -721,7 +721,7 @@ focus = {
 							ruling_party = democratic
 						}
 					ENG = {
-							add_to_faction = BTL
+							add_to_faction = UKR
 						}
 				}
 
