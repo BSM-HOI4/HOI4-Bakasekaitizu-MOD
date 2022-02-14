@@ -15,32 +15,12 @@ if = {
 	set_oob = "ITA_1936_nsb"
 }
 
-starting_train_buffer = 1.5
 
 set_research_slots = 4
 set_stability = 0.6
 set_war_support = 0.7
-add_ideas = {
-	victor_emmanuel
-	vittoria_mutilata
-	limited_exports
-	limited_conscription
-	partial_economic_mobilisation
-}
 
-550 = {
-	start_resistance = yes
-	set_compliance = 10
-	set_resistance = 0
-	set_garrison_strength = 1.0
-}
 
-559 = {
-	start_resistance = yes
-	set_compliance = 10
-	set_resistance = 0
-	set_garrison_strength = 1.0
-}
 
 # Starting tech
 set_technology = {
@@ -129,188 +109,7 @@ if = {
 	}
 	set_naval_oob = "ITA_1936_naval_mtg"
 }
-if = {
-	limit = {
-		has_dlc = "Man the Guns"
-	}
-	add_ideas = MTG_naval_treaty_adherent
-}
 
-# DIPLOMACY / WAR 36
-if = {
-	limit = {
-		has_start_date < 1936.01.02
-	}
-
-	declare_war_on = {
-		target = ETH
-		type = annex_everything
-	}
-	give_guarantee = ALB
-}
-
-1939.1.1 = {
-
-	add_political_power = 1198
-	add_command_power = 100
-	
-	#white_peace = ETH
-	if = {
-		limit = {
-			has_dlc = "Man the Guns"
-		}
-		remove_ideas = MTG_naval_treaty_adherent
-	}
-	#adding ministers
-	add_ideas = {
-		ITA_giovanni_marinelli
-		ITA_giacomo_acerbo
-		emilio_de_bono
-		vittorio_ambrosio
-		fiat
-		beretta
-
-		#laws
-		partial_economic_mobilisation
-		extensive_conscription
-	}
-
-	complete_national_focus = ITA_ethiopian_war_logistics
-	complete_national_focus = ITA_industrial_effort
-	complete_national_focus = ITA_industrial_effort_2
-	complete_national_focus = ITA_victoryinETH
-	unlock_national_focus = ITA_slovenia_dalmatia_claims
-	unlock_national_focus = ITA_albania_war_goal
-	complete_national_focus = ITA_light_ship_effort
-	complete_national_focus = ITA_escort_effort
-	complete_national_focus = ITA_submarine_effort
-	complete_national_focus = ITA_bulgaria_friend
-	complete_national_focus = ITA_pact_of_steel
-
-	complete_national_focus = ITA_army_primacy
-	complete_national_focus = ITA_mare_nostrum
-	unlock_national_focus = ITA_modernized_artillery
-	complete_national_focus = ITA_air_innovation
-	complete_national_focus = ITA_modernized_army
-	complete_national_focus = ITA_fortification_effort
-	complete_national_focus = ITA_extra_tech_slot
-	complete_national_focus = ITA_special_forces
-	complete_national_focus = ITA_capital_ships
-
-	#Simulate Claims on Yugoslavia focus effects
-	add_state_claim = 102
-	add_state_claim = 103
-	add_named_threat = { threat = 4 name = ITA_slovenia_dalmatia_claims_threat }
-	YUG = {
-		add_opinion_modifier = { target = ITA modifier = claimed_western_yugoslavia }
-		add_popularity = {
-			ideology = fascism
-			popularity = -0.07
-		}
-	}
-
-
-	oob = "ITA_1939"
-	set_technology = {
-		fighter1 = 1
-		fighter2 = 1
-		tactical_bomber1 = 1
-		tactical_bomber2 = 1
-		interwar_artillery = 1
-		interwar_antitank = 1
-		infantry_weapons2 = 1
-		support_weapons = 1
-		support_weapons2 = 1
-		tech_recon = 1
-
-		#doctrines
-		grand_battle_plan = 1
-		prepared_defense = 1
-		battlefleet_concentration = 1
-		submarine_operations = 1
-		
-		#Air
-		force_rotation = 1
-		fighter_baiting = 1
-		low_echelon_support = 1
-		dispersed_fighting = 1
-
-
-		#electronics
-		electronic_mechanical_engineering = 1
-		radio = 1
-		radio_detection = 1
-		mechanical_computing = 1
-		computing_machine = 1
-		basic_encryption = 1
-		basic_decryption = 1
-
-		#industry
-		basic_machine_tools = 1
-		improved_machine_tools = 1
-		advanced_machine_tools = 1
-		synth_oil_experiments = 1
-		fuel_refining2 = 1
-		construction1 = 1
-		construction2 = 1
-		construction3 = 1
-		concentrated_industry = 1
-		concentrated_industry2 = 1
-		concentrated_industry3 = 1
-	}
-
-	if = {
-		limit = {
-			NOT = {
-				has_dlc = "No Step Back"
-			}
-		}
-		set_technology = {
-	
-			improved_light_tank = 1
-	
-		}
-		set_oob = "ITA_1939"
-	}
-	if = {
-		limit = {
-			
-			has_dlc = "No Step Back"
-			
-		}
-		set_technology = {
-	
-			improved_light_tank_chassis = 1
-	
-		}
-		set_oob = "ITA_1939_nsb"
-	}
-	if = {
-		limit = { not = { has_dlc = "Man the Guns" } }
-		set_technology = {
-			basic_submarine = 1
-			basic_destroyer = 1
-			improved_destroyer = 1
-			basic_light_cruiser = 1
-			basic_battleship = 1
-			improved_battleship = 1
-		}
-		set_naval_oob = "ITA_1939_naval_legacy"
-	}
-	if = {
-		limit = {
-			has_dlc = "Man the Guns"
-		}
-		set_technology = {
-			improved_airplane_launcher = 1
-			
-		}
-		set_naval_oob = "ITA_1939_naval_mtg"
-	}
-	
-	set_stability = 0.8
-	GER = { add_to_faction = ITA }
-}
 
 
 set_convoys = 200
@@ -327,66 +126,8 @@ set_popularities = {
 	communism = 2
 }
 
-recruit_character = ITA_palmiro_togliatti
-recruit_character = ITA_victor_emmanuel_iii
-recruit_character = ITA_ferruccio_parri
-recruit_character = ITA_benito_mussolini
-recruit_character = ITA_pietro_badoglio
-recruit_character = ITA_emilio_de_bono
-recruit_character = ITA_ugo_cavallero
-recruit_character = ITA_giovanni_messe
-recruit_character = ITA_sebastiano_visconti_prasca
-recruit_character = ITA_ubaldo_soddu
-recruit_character = ITA_italo_balbo
-recruit_character = ITA_rodolfo_graziani
-recruit_character = ITA_inigo_campioni
-recruit_character = ITA_alberto_da_zara
-recruit_character = ITA_giuseppe_fioravanzo
-recruit_character = ITA_carlo_bergamini
-recruit_character = ITA_angelo_iachino
-recruit_character = ITA_alfredo_guzzoni
-recruit_character = ITA_renato_sandalli
-recruit_character = ITA_guiseppe_fioravanzo
-recruit_character = ITA_francesco_pricolo
-recruit_character = ITA_silvio_scaroni
-recruit_character = ITA_vittorio_ambrosio
-recruit_character = ITA_arturo_riccardi
-recruit_character = ITA_mario_roatta
-recruit_character = ITA_marziale_cerutti
-recruit_character = ITA_ettore_muti
-recruit_character = ITA_gaetano_crocco
-recruit_character = ITA_luigi_mascherpa
-recruit_character = ITA_domenico_cavagnari
-recruit_character = ITA_amedeo_mecozzi
-recruit_character = ITA_rino_corso_fougier
-recruit_character = ITA_giacomo_acerbo
-recruit_character = ITA_giovanni_marinelli
-recruit_character = ITA_serafino_mazzolini
-recruit_character = ITA_roberto_farinacci
-recruit_character = ITA_ivanoe_bonomi
-recruit_character = ITA_junio_valerio_borghese
-recruit_character = ITA_luigi_einaudi
-recruit_character = ITA_amadeo_bordiga
-recruit_character = ITA_paolo_thaon_di_revel
-recruit_character = ITA_dino_grandi
-recruit_character = ITA_carlo_scorza
-recruit_character = ITA_gian_galeazzo_ciano
 
 
-if = {
-	limit = {
-		has_dlc = "La Resistance"
-	}
-
-	create_operative_leader = {
-		name = "Maurizio Giglio"
-		GFX = GFX_portrait_maurizio_giglio
-		traits = { }
-		bypass_recruitment = no
-		available_to_spy_master = yes
-		nationalities = { ITA }
-	}
-}
 
 ### VARIANTS ###
 # 1936 Start #
