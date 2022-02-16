@@ -4,7 +4,7 @@ focus_tree = {
 	country = {
 		factor = 0
 		modifier = {
-			add = 20
+			add = -1
 			tag = JPN
 		}
 	}
@@ -696,7 +696,7 @@ focus_tree = {
 			factor = 1
 			modifier = {
 				factor = 0
-				PRC = { surrender_progress > 0 }
+				CHN = { surrender_progress > 0 }
 			}
 		}
 
@@ -1054,7 +1054,7 @@ focus_tree = {
 		id = JPN_intervene_in_china
 		icon = GFX_goal_generic_occupy_states_ongoing_war
 		prerequisite = { focus = JPN_greater_east_asian_co_prosperity_sphere }
-		will_lead_to_war_with = CHI
+		will_lead_to_war_with = CHN
 		x = -1
 		y = 1
 		relative_position_id = JPN_greater_east_asian_co_prosperity_sphere
@@ -1063,16 +1063,16 @@ focus_tree = {
 
 		available = { 
 			is_puppet = no 
-			NOT = { has_war_with = PRC }
+			NOT = { has_war_with = CHN }
 		}
 		bypass = {
 		
 				
-				has_war_with = PRC
+				has_war_with = CHN
 			
 		}
 
-		will_lead_to_war_with = CHI
+		will_lead_to_war_with = CHN
 
 		cancel_if_invalid = yes
 		continue_if_invalid = no
@@ -1090,12 +1090,12 @@ focus_tree = {
 		completion_reward = {
 			
 				declare_war_on={
-							target=PRC
+							target=CHN
 							type = annex_everything
 							}
 				CHI={
 					declare_war_on={
-							target=PRC
+							target=CHN
 							type = annex_everything
 						}
 				}
@@ -1121,7 +1121,7 @@ focus_tree = {
 		}
 
 		available = {
-			CHI = {
+			CHN = {
 				surrender_progress > 0.3
 			}
 			has_war_with = USA
@@ -1130,7 +1130,7 @@ focus_tree = {
 		bypass = {
 			OR = {
 				NOT = { JPN_has_idea_JPN_intervene_in_china = yes }
-				CHI = { has_capitulated = yes }
+				CHN = { has_capitulated = yes }
 			}
 		}
 
@@ -2866,7 +2866,7 @@ focus_tree = {
 		bypass = {
 			OR = {
 				has_war_with = event_target:WTT_current_china_leader
-				has_non_aggression_pact_with = CHI
+				has_non_aggression_pact_with = CHN
 			}
 		}
 
@@ -2876,7 +2876,7 @@ focus_tree = {
 
 
 		completion_reward = {
-			CHI = { country_event = wtt_japan.11 } #TODO_WTT_CD make a proper is nationalist china trigger
+			CHN = { country_event = wtt_japan.11 } #TODO_WTT_CD make a proper is nationalist china trigger
 			609 = {
 				if = {
 					limit = { is_controlled_by = ROOT }
@@ -3549,7 +3549,7 @@ focus_tree = {
 			factor = 1
 			modifier = {
 				factor = 2
-				CHI = { has_government = democratic }
+				CHN = { has_government = democratic }
 			}
 		}
 
@@ -3705,9 +3705,9 @@ focus_tree = {
 
 		completion_reward = {
 			SOV = { add_opinion_modifier = { target = ROOT modifier = JPN_anti_communist_bulwark } }
-			PRC = { add_opinion_modifier = { target = ROOT modifier = JPN_anti_communist_bulwark } }
+			CHN = { add_opinion_modifier = { target = ROOT modifier = JPN_anti_communist_bulwark } }
 			add_opinion_modifier = { target = SOV modifier = JPN_anti_communist_bulwark }
-			add_opinion_modifier = { target = PRC modifier = JPN_anti_communist_bulwark }
+			add_opinion_modifier = { target = CHN modifier = JPN_anti_communist_bulwark }
 		}
 	}
 
