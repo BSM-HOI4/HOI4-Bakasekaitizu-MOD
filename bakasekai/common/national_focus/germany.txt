@@ -3335,7 +3335,7 @@ focus_tree = {
 				NOT = { controls_state = 10 }	
 			}
 			OR = { 
-				has_war_with = ENG
+				has_war_with = GBR
 				NOT = {country_exists = ENG}
 			}
 		}
@@ -3672,12 +3672,12 @@ focus_tree = {
 			if =  {
 				limit = {
 					OR = {
-						ENG = { exists = no }
-						ENG = {
+						GBR = { exists = no }
+						GBR = {
 							is_subject = yes
 						}
-						ENG = { has_completed_focus = ENG_a_change_in_course }
-						has_war_with = ENG
+						GBR = { has_completed_focus = ENG_a_change_in_course }
+						has_war_with = GBR
 						has_war_with = FRA
 						AND = {
 							CZE = { is_subject = yes }
@@ -3690,7 +3690,7 @@ focus_tree = {
 								NOT = { has_dlc = "Death or Dishonor" }
 							}
 						}
-						CZE = { has_war_with = ENG }
+						CZE = { has_war_with = GBR }
 						CZE = { has_war_with = FRA }
 						CZE = { is_in_faction_with = DEU }
 					}
@@ -3728,10 +3728,10 @@ focus_tree = {
 			}
 			if = {
 				limit = {
-					ENG = { exists = yes }
-					ENG = { is_subject = no }
-					NOT = { ENG = { has_completed_focus = ENG_a_change_in_course } }
-					NOT = { has_war_with = ENG }
+					GBR = { exists = yes }
+					GBR = { is_subject = no }
+					NOT = { GBR = { has_completed_focus = ENG_a_change_in_course } }
+					NOT = { has_war_with = GBR }
 					NOT = { has_war_with = FRA }
 					CZE = { is_subject = no }
 					NOT = {
@@ -3742,7 +3742,7 @@ focus_tree = {
 						}
 					}
 					CZE = { NOT = { is_in_faction_with = DEU } }
-					CZE = { NOT = { has_war_with = ENG } }
+					CZE = { NOT = { has_war_with = GBR } }
 					CZE = { controls_state = 69 }
 					OR = {
 						HUN = {
@@ -3755,7 +3755,7 @@ focus_tree = {
 						}
 					}
 				}
-				ENG = {
+				GBR = {
 					country_event = germany.40
 				}
 				add_named_threat = { threat = 3 name = GER_demand_sudetenland_threat }
@@ -4095,8 +4095,8 @@ focus_tree = {
 					date < 1942.01.01
 					surrender_progress > 0
 					AND = {
-						has_war_with = ENG
-						ENG = { surrender_progress < 0.2 }
+						has_war_with = GBR
+						GBR = { surrender_progress < 0.2 }
 					}
 				}
 			}
@@ -5169,13 +5169,13 @@ focus_tree = {
 			YUG = { add_opinion_modifier = { target = DEU modifier = GER_demand_slovenia_YUG } }
 			if = {
 				limit = {
-					NOT = { has_war_with = ENG }
+					NOT = { has_war_with = GBR }
 					YUG = { 
 						is_puppet = no
-						NOT = { has_war_with = ENG }
+						NOT = { has_war_with = GBR }
 					}
 				}
-				ENG = {
+				GBR = {
 					country_event = { id = britain.14 }
 				}
 			}
@@ -5183,8 +5183,8 @@ focus_tree = {
 				limit = {
 					OR = {
 						YUG = { is_puppet = yes }
-						YUG = { has_war_with = ENG }
-						has_war_with = ENG
+						YUG = { has_war_with = GBR }
+						has_war_with = GBR
 					}
 				}
 				create_wargoal = {
@@ -6073,7 +6073,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
 			add_war_support = 0.05
-			ENG = {
+			GBR = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = GER_our_place_in_the_sun
@@ -6220,12 +6220,12 @@ focus_tree = {
 		prerequisite = { focus = GER_prepare_for_the_next_blockade }
 		available = {
 			is_puppet = no
-			NOT = { is_in_faction_with = ENG }
+			NOT = { is_in_faction_with = GBR }
 			NOT = { is_in_faction_with = FRA }
-			NOT = { ENG = { has_completed_focus = ENG_decolonization } }
+			NOT = { GBR = { has_completed_focus = ENG_decolonization } }
 		}
 		cancel_if_invalid = yes
-		will_lead_to_war_with = ENG
+		will_lead_to_war_with = GBR
 		will_lead_to_war_with = FRA
 		x = 0
 		y = 1
@@ -6238,7 +6238,7 @@ focus_tree = {
 		completion_reward = {
 			create_wargoal = {
 				type = annex_everything
-				target = ENG
+				target = GBR
 				expire = 0
 			}
 			create_wargoal = {
@@ -6266,7 +6266,7 @@ focus_tree = {
 				limit = {
 					NOT = {
 						SAF = {
-							is_subject_of = ENG
+							is_subject_of = GBR
 						}
 					}
 				}
@@ -6368,7 +6368,7 @@ focus_tree = {
 			OR = {
 				has_war_with = FRA
 				AND = {
-					has_war_with = ENG
+					has_war_with = GBR
 					has_global_flag = flag_franco_british_union
 				}
 			}
@@ -6421,7 +6421,7 @@ focus_tree = {
 			}
 			NOT = {
 				any_country = {
-					NOT = { tag = ENG }
+					NOT = { tag = GBR }
 					has_war_with = DEU 
 					is_in_faction_with = USA
 					any_owned_state = { is_on_continent = europe }
@@ -6809,7 +6809,7 @@ focus_tree = {
 		mutually_exclusive = { focus = GER_plan_z focus = GER_u_boat_effort focus = GER_rebuild_the_high_seas_fleet }
 		available = {
 			is_puppet = no
-			NOT = { has_war_with = ENG }
+			NOT = { has_war_with = GBR }
 		}
 		cancel_if_invalid = yes
 		x = 0
@@ -6821,7 +6821,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			ENG = {
+			GBR = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = GER_accept_british_naval_dominance_opinion
@@ -6837,7 +6837,7 @@ focus_tree = {
 		prerequisite = { focus = GER_accept_british_naval_dominance }
 		available = {
 			is_puppet = no
-			NOT = { has_war_with = ENG }
+			NOT = { has_war_with = GBR }
 		}
 		cancel_if_invalid = yes
 		x = 0
@@ -6849,7 +6849,7 @@ focus_tree = {
 		}
 		
 		completion_reward = {
-			ENG = {
+			GBR = {
 				country_event = { id = generic.2 }
 				add_ai_strategy = {
 					type = befriend
@@ -7547,7 +7547,7 @@ focus_tree = {
 				limit = {
 					any_owned_state = { is_on_continent = europe }
 					NOT = {
-						tag = ENG
+						tag = GBR
 						tag = FRA
 						tag = SWI
 						tag = ITA
@@ -7707,7 +7707,7 @@ focus_tree = {
 					}
 				}
 				# Making England less likely to guarantee European nations.
-				ENG = {
+				GBR = {
 					GER_democratic_nations_ai_strategies = yes
 				}
 			}
