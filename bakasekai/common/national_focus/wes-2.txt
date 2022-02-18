@@ -4,7 +4,7 @@ focus_tree = {
 	country = {
 		factor = 0
 		modifier = {
-			add = 1
+			add = -1
 			tag = WES
 		}
         
@@ -102,7 +102,7 @@ focus_tree = {
             army_experience = 5
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -173,7 +173,7 @@ focus_tree = {
             army_experience = 5
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -246,7 +246,7 @@ focus_tree = {
             add_ideas = special_forces
             add_tech_bonus = {
                 name = special_forces_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 technology = paratroopers
                 technology = paratroopers2
@@ -342,7 +342,7 @@ focus_tree = {
             }
             add_tech_bonus = {
                 name =  air_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = air_doctrine
             }
@@ -763,7 +763,7 @@ focus_tree = {
         complete_tooltip = {
             add_extra_state_shared_building_slots = 1
             add_building_construction = {
-                type = arms_factory
+                type = industrial_complex
                 level = 2
                 instant_build = yes
             }
@@ -773,7 +773,7 @@ focus_tree = {
             random_owned_controlled_state = {
                 limit = {
                     free_building_slots = {
-                        building = arms_factory
+                        building = industrial_complex
                         size > 0
                         include_locked = yes
                     }
@@ -783,7 +783,7 @@ focus_tree = {
                             owner = {
                                 any_owned_state = {
                                     free_building_slots = {
-                                        building = arms_factory
+                                        building = industrial_complex
                                         size > 0
                                         include_locked = yes
                                     }
@@ -795,7 +795,7 @@ focus_tree = {
                 }
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
-                    type = arms_factory
+                    type = industrial_complex
                     level = 1
                     instant_build = yes
                 }
@@ -803,7 +803,7 @@ focus_tree = {
             random_owned_controlled_state = {
                 limit = {
                     free_building_slots = {
-                        building = arms_factory
+                        building = industrial_complex
                         size > 0
                         include_locked = yes
                     }
@@ -813,7 +813,7 @@ focus_tree = {
                             owner = {
                                 any_owned_state = {
                                     free_building_slots = {
-                                        building = arms_factory
+                                        building = industrial_complex
                                         size > 0
                                         include_locked = yes
                                     }
@@ -825,7 +825,7 @@ focus_tree = {
                 }
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
-                    type = arms_factory
+                    type = industrial_complex
                     level = 1
                     instant_build = yes
                 }
@@ -833,7 +833,7 @@ focus_tree = {
             random_owned_controlled_state = {
                 limit = {
                     free_building_slots = {
-                        building = arms_factory
+                        building = industrial_complex
                         size > 0
                         include_locked = yes
                     }
@@ -843,7 +843,7 @@ focus_tree = {
                             owner = {
                                 any_owned_state = {
                                     free_building_slots = {
-                                        building = arms_factory
+                                        building = industrial_complex
                                         size > 0
                                         include_locked = yes
                                     }
@@ -855,11 +855,69 @@ focus_tree = {
                 }
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
-                    type = arms_factory
+                    type = industrial_complex
                     level = 1
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = industrial_complex
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -934,6 +992,189 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 0
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 0
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 0
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 0
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							arms_factory > 0
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}				
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1068,6 +1309,64 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = industrial_complex
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1202,6 +1501,129 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							arms_factory > 0
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}				
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1523,6 +1945,129 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							arms_factory > 0
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}				
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1844,6 +2389,64 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = industrial_complex
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1939,13 +2542,14 @@ focus_tree = {
 		}
         search_filters = {  FOCUS_FILTER_RESEARCH }
         
+        
         available_if_capitulated = yes
 
         completion_reward = {
             army_experience = 5
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -1976,7 +2580,7 @@ focus_tree = {
             }           
             add_tech_bonus = {
                 name = air_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = air_doctrine
             }           
@@ -2069,6 +2673,54 @@ focus_tree = {
         
         completion_reward = {
             navy_experience = 25
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
             if = {
                 limit = {
                     NOT = {
@@ -2381,19 +3033,19 @@ focus = {
             EGY = {
 				country_event = { id = WES.1 }
 			}
-            MOR = {
+            MAR = {
 				country_event = { id = WES.1 }
 			}
-            TUN = {
+            KSM = {
 				country_event = { id = WES.1 }
 			}
             KEN = {
 				country_event = { id = WES.1 }
 			}
-            CAM = {
+            KHM = {
 				country_event = { id = WES.1 }
 			}
-            ANG = {
+            AMA = {
 				country_event = { id = WES.1 }
 			}
             SAU = {
@@ -2442,17 +3094,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_greening_1}
+                    MAR = { has_idea = WES_greening_1}
                 }
-                MOR = {
+                MAR = {
 				    country_event = { id = WES.2 }
 			    }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_greening_1}
+                    KSM = { has_idea = WES_greening_1}
                 }
-                TUN = {
+                KSM = {
 				    country_event = { id = WES.2 }
 			    }
             }
@@ -2466,17 +3118,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_greening_1}
+                    KHM = { has_idea = WES_greening_1}
                 }
-                CAM = {
+                KHM = {
 				    country_event = { id = WES.2 }
 			    }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_greening_1}
+                    AMA = { has_idea = WES_greening_1}
                 }
-                ANG = {
+                AMA = {
 				    country_event = { id = WES.2 }
 			    }
             }
@@ -2546,17 +3198,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_greening_2}
+                    MAR = { has_idea = WES_greening_2}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.3 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_greening_2}
+                    KSM = { has_idea = WES_greening_2}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.3 }
                 }
             }
@@ -2570,17 +3222,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_greening_2}
+                    KHM = { has_idea = WES_greening_2}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.3 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_greening_2}
+                    AMA = { has_idea = WES_greening_2}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.3 }
                 }
             }
@@ -2641,6 +3293,9 @@ focus = {
                 remove_idea = WES_trade_at_SGC_3
                 add_idea = WES_trade_at_SGC_4
             }
+            hidden_effect = {
+                WES = { country_event = { days = 3 id = baka_super.1 } }
+            }
             if = {
                 limit = {
                     EGY = { has_idea = WES_greening_3}
@@ -2651,17 +3306,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_greening_3}
+                    MAR = { has_idea = WES_greening_3}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.4 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_greening_3}
+                    KSM = { has_idea = WES_greening_3}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.4 }
                 }
             }
@@ -2675,17 +3330,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_greening_3}
+                    KHM = { has_idea = WES_greening_3}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.4 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_greening_3}
+                    AMA = { has_idea = WES_greening_3}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.4 }
                 }
             }
@@ -3161,17 +3816,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_Sahara_Greening_Committee}
+                    MAR = { has_idea = WES_Sahara_Greening_Committee}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.5 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_Sahara_Greening_Committee }
+                    KSM = { has_idea = WES_Sahara_Greening_Committee }
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.5 }
                 }
             }
@@ -3185,17 +3840,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_Sahara_Greening_Committee }
+                    KHM = { has_idea = WES_Sahara_Greening_Committee }
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.5 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_Sahara_Greening_Committee }
+                    AMA = { has_idea = WES_Sahara_Greening_Committee }
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.5 }
                 }
             }
@@ -3262,17 +3917,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_investment_in_resource_development_1}
+                    MAR = { has_idea = WES_investment_in_resource_development_1}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.6 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_investment_in_resource_development_1}
+                    KSM = { has_idea = WES_investment_in_resource_development_1}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.6 }
                 }
             }
@@ -3286,17 +3941,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_investment_in_resource_development_1}
+                    KHM = { has_idea = WES_investment_in_resource_development_1}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.6 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_investment_in_resource_development_1}
+                    AMA = { has_idea = WES_investment_in_resource_development_1}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.6 }
                 }
             }
@@ -3363,17 +4018,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_investment_in_resource_development_2}
+                    MAR = { has_idea = WES_investment_in_resource_development_2}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.7 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_investment_in_resource_development_2}
+                    KSM = { has_idea = WES_investment_in_resource_development_2}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.7 }
                 }
             }
@@ -3387,17 +4042,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_investment_in_resource_development_2}
+                    KHM = { has_idea = WES_investment_in_resource_development_2}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.7 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_investment_in_resource_development_2}
+                    AMA = { has_idea = WES_investment_in_resource_development_2}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.7 }
                 }
             }
@@ -3463,17 +4118,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_investment_in_resource_development_3}
+                    MAR = { has_idea = WES_investment_in_resource_development_3}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.8 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_investment_in_resource_development_3}
+                    KSM = { has_idea = WES_investment_in_resource_development_3}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.8 }
                 }
             }
@@ -3487,17 +4142,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_investment_in_resource_development_3}
+                    KHM = { has_idea = WES_investment_in_resource_development_3}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.8 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_investment_in_resource_development_3}
+                    AMA = { has_idea = WES_investment_in_resource_development_3}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.8 }
                 }
             }
@@ -3588,6 +4243,54 @@ focus = {
         
         completion_reward = {
             navy_experience = 25
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
             if = {
                 limit = {
                     NOT = {
@@ -3681,11 +4384,11 @@ focus = {
                         instant_build = yes
                     }
                 }
-            }    
+            }     
             add_ideas = WES_American_style_shipbuilding
             add_tech_bonus = {
                 name =  naval_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 2
                 category = naval_doctrine
             }
@@ -3726,7 +4429,7 @@ focus = {
         completion_reward = {
             add_tech_bonus = {
                 name = air_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 2
                 category = air_doctrine
             }
@@ -3782,6 +4485,54 @@ focus = {
         
         completion_reward = {
             navy_experience = 25
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
             if = {
                 limit = {
                     NOT = {
@@ -3875,10 +4626,10 @@ focus = {
                         instant_build = yes
                     }
                 }
-            }    
+            }      
             add_tech_bonus = {
                 name =  naval_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 2
                 category = naval_doctrine
             }       
@@ -3919,7 +4670,7 @@ focus = {
         completion_reward = {
             add_tech_bonus = {
                 name = air_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 2
                 category = air_doctrine
             }    
@@ -3962,7 +4713,7 @@ focus = {
             FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
-            ENG = { add_to_faction = WES }
+            GBR = { add_to_faction = WES }
         }
 
     }
@@ -4068,11 +4819,11 @@ focus = {
 		prerequisite = { focus = WES_conquest_of_egypt  }
 		available = {
 			OR = {
-				NOT = { ANG = { is_in_faction_with = WES } }
+				NOT = { AMA = { is_in_faction_with = WES } }
 			}
 		}
 		bypass = {
-			ANG = {
+			AMA = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
@@ -4083,13 +4834,13 @@ focus = {
 		completion_reward = {
 			if = {
 				limit = {
-					country_exists = ANG
-					NOT = { ANG = { is_in_faction_with = WES } }
-					NOT = { has_war_with = ANG }
+					country_exists = AMA
+					NOT = { AMA = { is_in_faction_with = WES } }
+					NOT = { has_war_with = AMA }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = ANG
+					target = AMA
 				}			
 			}
 		}
@@ -4106,11 +4857,7 @@ focus = {
 			FOCUS_FILTER_WAR_SUPPORT
 		}
 		prerequisite = { focus = WES_Amazon_war  }
-		available = {
-			OR = {
-				NOT = { KEN = { is_in_faction_with = WES } }
-			}
-		}
+
 		bypass = {
 			KEN = {
 				OR = {
@@ -4149,11 +4896,11 @@ focus = {
 		prerequisite = { focus = WES_invasion_of_kenya  }
 		available = {
 			OR = {
-				NOT = { SAF = { is_in_faction_with = WES } }
+				NOT = { ZAF = { is_in_faction_with = WES } }
 			}
 		}
 		bypass = {
-			SAF = {
+			ZAF = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
@@ -4164,13 +4911,13 @@ focus = {
 		completion_reward = {
 			if =  {
 				limit = {
-					country_exists = SAF
-					NOT = { SAF = { is_in_faction_with = WES } }
-					NOT = { has_war_with = SAF }
+					country_exists = ZAF
+					NOT = { ZAF = { is_in_faction_with = WES } }
+					NOT = { has_war_with = ZAF }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = SAF
+					target = ZAF
 				}
 			}
 		}
@@ -4190,27 +4937,27 @@ focus = {
 
 		available = {
 			OR = {
-				NOT = { MOR = { is_in_faction_with = WES } }
-				NOT = { TUN = { is_in_faction_with = WES } }
-				NOT = { CAM = { is_in_faction_with = WES } }
+				NOT = { MAR = { is_in_faction_with = WES } }
+				NOT = { KSM = { is_in_faction_with = WES } }
+				NOT = { KHM = { is_in_faction_with = WES } }
 			}
 		}
 		bypass = {
-			MOR = {
+			MAR = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
 					has_war_with = ROOT
 				}
 			}
-			TUN = {
+			KSM = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
 					has_war_with = ROOT
 				}
 			}
-			CAM = {
+			KHM = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
@@ -4221,35 +4968,35 @@ focus = {
 		completion_reward = {
 			if = {
 				limit = {
-					country_exists = MOR
-					NOT = { MOR = { is_in_faction_with = WES } }
-					NOT = { has_war_with = MOR }
+					country_exists = MAR
+					NOT = { MAR = { is_in_faction_with = WES } }
+					NOT = { has_war_with = MAR }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = MOR
+					target = MAR
 				}			
 			}
 			if = { 
 				limit = {
-					country_exists = TUN
-					NOT = { TUN = { is_in_faction_with = WES } }
-					NOT = { has_war_with = TUN }
+					country_exists = KSM
+					NOT = { KSM = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KSM }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = TUN
+					target = KSM
 				}
 			}
 			if =  {
 				limit = {
-					country_exists = CAM
-					NOT = { CAM = { is_in_faction_with = WES } }
-					NOT = { has_war_with = CAM }
+					country_exists = KHM
+					NOT = { KHM = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KHM }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = CAM
+					target = KHM
 				}
 			}
 			#egypt
@@ -4311,7 +5058,10 @@ focus = {
         ai_will_do = {
 			factor = 0.75
 		}
-        prerequisite = { focus = WES_conquest_of_egypt focus = WES_Sahara_prefecture_of_Japan }
+        prerequisite = { 
+                focus = WES_conquest_of_egypt
+                focus = WES_Sahara_prefecture_of_Japan
+             }
         search_filters = {
             FOCUS_FILTER_POLITICAL
         }
@@ -4834,7 +5584,7 @@ focus = {
         completion_reward = {
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -4864,7 +5614,7 @@ focus = {
         completion_reward = {
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -4894,7 +5644,7 @@ focus = {
             FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
-            GER = { add_to_faction = WES }
+                DEU = { add_to_faction = WES }
         }
 
     }
