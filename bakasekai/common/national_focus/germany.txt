@@ -86,66 +86,35 @@ focus_tree = {
 		}
 
 		available_if_capitulated = no
+		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		complete_tooltip = {
 			every_state = {
 				limit = { has_state_flag = GER_industrial_effort_2IC }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-			}			
+				build_industrial_complex_on_locked_slot_2 = yes
+			}
 		}
-		search_filters = { FOCUS_FILTER_INDUSTRY }
+		
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
+					have_free_slot_for_industrial_complex = yes
 				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				build_industrial_complex_on_locked_slot_2 = yes
 				set_state_flag = GER_industrial_effort_2IC
 			}
 			random_owned_controlled_state = {
 				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
+					have_free_slot_for_industrial_complex = yes
 				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				build_industrial_complex_on_locked_slot_2 = yes
 				set_state_flag = GER_industrial_effort_2IC
 			}
 			random_owned_controlled_state = {
 				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
+					have_free_slot_for_industrial_complex = yes
 				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				build_industrial_complex_on_locked_slot_2 = yes
 				set_state_flag = GER_industrial_effort_2IC
 			}
 		}
@@ -169,62 +138,30 @@ focus_tree = {
 		complete_tooltip = {
 			every_state = {
 				limit = { has_state_flag = GER_industrial_effort_2_2IC }
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				build_industrial_complex_on_locked_slot_2
 			}
 		}
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
+					have_free_slot_for_industrial_complex = yes
 				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				build_industrial_complex_on_locked_slot_2 = yes
 				set_state_flag = GER_industrial_effort_2_2IC
 			}
 			random_owned_controlled_state = {
 				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
+					have_free_slot_for_industrial_complex = yes
 				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				build_industrial_complex_on_locked_slot_2 = yes
 				set_state_flag = GER_industrial_effort_2_2IC
 			}
 			random_owned_controlled_state = {
 				limit = {
-					free_building_slots = {
-						building = industrial_complex
-						size > 1
-						include_locked = yes
-					}
+					have_free_slot_for_industrial_complex = yes
 				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
+				build_industrial_complex_on_locked_slot_2 = yes
 				set_state_flag = GER_industrial_effort_2_2IC
 			}
 		}
@@ -241,10 +178,7 @@ focus_tree = {
 		ai_will_do = {
 			factor = 4
 		}
-
-		available = {
-			has_full_control_of_state = 65
-		}
+		
 		search_filters = { FOCUS_FILTER_RESEARCH FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
 			add_tech_bonus = {
@@ -253,17 +187,12 @@ focus_tree = {
 				uses = 1
 				category = synth_resources
 			}
-			if = {
-				limit = {
-					has_full_control_of_state = 65
-				}
-				65 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = synthetic_refinery
-						level = 1
-						instant_build = yes
-					}
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 1
+					instant_build = yes
 				}
 			}
 		}
@@ -384,7 +313,6 @@ focus_tree = {
 		id = GER_german_war_economy
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = GER_autobahn }
-		mutually_exclusive = { focus = GER_integrate_war_economies }
 		x = 0
 		y = 1
 		relative_position_id = GER_autobahn
