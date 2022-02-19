@@ -16,7 +16,7 @@ focus_tree = {
 
 			add = 15
 
-			tag = GER
+			tag = DEU
 		}
 	}
 	
@@ -938,10 +938,10 @@ focus_tree = {
 				OR = {
 					date < 1939.1.1
 					any_neighbor_country = {
-						has_war_with = GER
+						has_war_with = DEU
 						NOT = { has_capitulated = yes }
 						strength_ratio = {
-							tag = GER
+							tag = DEU
 							ratio > 0.6
 						}
 					}
@@ -965,7 +965,7 @@ focus_tree = {
 			AND = {
 				OR = {
 					EUR = {
-						is_in_faction_with = GER
+						is_in_faction_with = DEU
 						NOT = { country_exists = EUR }
 					}
 				}
@@ -988,7 +988,7 @@ focus_tree = {
 
 			if = {
 				limit = {
-					NOT = { EUR = { is_in_faction_with = GER } }
+					NOT = { EUR = { is_in_faction_with = DEU } }
 					country_exists = EUR
 				}
 				create_wargoal = {
@@ -1000,7 +1000,7 @@ focus_tree = {
 			
 			if = {
 				limit = {
-					NOT = { NKA = { is_in_faction_with = GER } }
+					NOT = { NKA = { is_in_faction_with = DEU } }
 					country_exists = NKA
 				}
 				create_wargoal = {
@@ -1027,31 +1027,15 @@ focus_tree = {
 		
 		available = {
 			OR = {
-				NOT = { HOL = { is_in_faction_with = GER } }
-				NOT = { BEL = { is_in_faction_with = GER } }
-				NOT = { LUX = { is_in_faction_with = GER } }
+				NOT = { BLX = { is_in_faction_with = DEU } }
 			}
 		}
 
 		bypass = {
-			HOL = {
+			BLX = {
 				OR = {
 					exists = no
-					is_in_faction_with = GER
-					has_war_with = ROOT
-				}
-			}
-			BEL = {
-				OR = {
-					exists = no
-					is_in_faction_with = GER
-					has_war_with = ROOT
-				}
-			}
-			LUX = {
-				OR = {
-					exists = no
-					is_in_faction_with = GER
+					is_in_faction_with = DEU
 					has_war_with = ROOT
 				}
 			}
@@ -1067,9 +1051,7 @@ focus_tree = {
 				}
 			}
 		}
-		will_lead_to_war_with = BEL
-		will_lead_to_war_with = HOL
-		will_lead_to_war_with = LUX
+		will_lead_to_war_with = BLX
 		will_lead_to_war_with = FRA
 		x = -2
 		y = 1
@@ -1094,58 +1076,15 @@ focus_tree = {
 			#limit wargoals to when it makes sense to give them. No faction, war or non exist
 			if = { 
 				limit = {
-					country_exists = BEL
-					NOT = { BEL = { is_in_faction_with = GER } }
+					country_exists = BLX
+					NOT = { BEL = { is_in_faction_with = DEU } }
 					NOT = { has_war_with = BEL }
 				}
 				create_wargoal = {
-					type = take_state_focus
-					target = BEL
+					type = annex_everything
+					target = BLX
 					expire = 0
-					generator = { 6 }
 				}
-			}
-			if =  {
-				limit = {
-					country_exists = HOL
-					NOT = { HOL = { is_in_faction_with = GER } }
-					NOT = { has_war_with = HOL }
-					NOT = { HOL = { has_completed_focus = HOL_cave_to_the_germans } }
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = HOL
-					expire = 0
-					generator = { 7 }
-				}
-			}
-			if =  {
-				limit = {
-					country_exists = HOL
-					NOT = { HOL = { is_in_faction_with = GER } }
-					NOT = { has_war_with = HOL }
-					HOL = { has_completed_focus = HOL_cave_to_the_germans } 
-					NOT = { HOL = { has_completed_focus = HOL_the_netherlands_first } }
-				}
-				HOL = {
-					country_event = { id = mtg_germany.1 hours = 6 }
-				}
-			}
-			if = {
-				limit = {
-					country_exists = LUX
-					NOT = { LUX = { is_in_faction_with = GER } }
-					NOT = { has_war_with = LUX }
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = LUX
-					expire = 0
-					generator = { 8 }
-				}			
-			}
-			hidden_effect = {
-				news_event = { hours = 6 id = news.234 }
 			}
 		}
 	}
@@ -1180,7 +1119,7 @@ focus_tree = {
 
 		completion_reward = {
 			ITA = {
-				add_opinion_modifier = { target = GER modifier = ger_ita_alliance_focus }
+				add_opinion_modifier = { target = DEU modifier = ger_ita_alliance_focus }
 			}
 		}
 	}
@@ -1239,7 +1178,7 @@ focus_tree = {
 			has_full_control_of_state = 28
 			OR = {
 				FRA = { has_capitulated = yes }
-				FRA = { is_subject_of = GER }
+				FRA = { is_subject_of = DEU }
 				NOT = {
 					any_country = {
 						original_tag = FRA
@@ -1252,7 +1191,7 @@ focus_tree = {
 				LUX = { has_capitulated = yes }
 				NOT = {
 					any_country = {
-						original_tag = LUX
+						original_tag = BLX
 						exists = yes
 					}
 				}
@@ -1281,12 +1220,6 @@ focus_tree = {
 			28 = { set_state_name = "Elsass-Lothringen" }
 			set_province_name = { id = 9503 name = "Strassburg" }
 			set_province_name = { id = 678 name = "Mulhausen" }
-			FRA = {
-				country_event = { id = wtt_germany.63 }
-			}
-			LUX = {
-				country_event = { id = wtt_germany.64 }
-			}
 		}
 	}
 	
@@ -1732,16 +1665,16 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = GER_improve_national_spirit_tooltip
 				OR = {
-					GER = { controls_state = 126 }
+					DEU = { controls_state = 126 }
 					any_other_country = {
-						is_in_faction_with = GER
+						is_in_faction_with = DEU
 						controls_state = 126
 					}
 				}
 				OR = {
-					GER = { controls_state = 16 }
+					DEU = { controls_state = 16 }
 					any_other_country = {
-						is_in_faction_with = GER
+						is_in_faction_with = DEU
 						controls_state = 16
 					}
 				}
@@ -1752,14 +1685,14 @@ focus_tree = {
 				has_war = no
 				126 = {
 					owner = {
-						NOT = { tag = GER }
-						NOT = { is_in_faction_with = GER }
+						NOT = { tag = DEU }
+						NOT = { is_in_faction_with = DEU }
 					}
 				}
 				16 = {
 					owner = {
-						NOT = { tag = GER }
-						NOT = { is_in_faction_with = GER }
+						NOT = { tag = DEU }
+						NOT = { is_in_faction_with = DEU }
 					}
 				}
 			}
