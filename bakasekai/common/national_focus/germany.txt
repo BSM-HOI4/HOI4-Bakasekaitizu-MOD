@@ -958,29 +958,17 @@ focus_tree = {
 		id = GER_weserubung
 		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = GER_danzig_or_war }
-		mutually_exclusive = { focus = GER_denmark_friend }
-		will_lead_to_war_with = DEN 
-		will_lead_to_war_with = NOR
+		will_lead_to_war_with = EUR
+		will_lead_to_war_with = NKA
 
 		bypass = {
 			AND = {
 				OR = {
-					DEN = { 
-						is_in_faction_with = GER 
-						NOT = { country_exists = DEN }
+					EUR = {
+						is_in_faction_with = GER
+						NOT = { country_exists = EUR }
 					}
 				}
-			}
-		}
-		
-		available = {
-			POL = {
-				NOT = { controls_state = 85 }
-				NOT = { controls_state = 10 }	
-			}
-			OR = { 
-				has_war_with = ENG
-				NOT = {country_exists = ENG}
 			}
 		}
 		
@@ -989,7 +977,7 @@ focus_tree = {
 		relative_position_id = GER_danzig_or_war
 		cost = 4
 		ai_will_do = {
-			factor = 10	
+			factor = 10
 			modifier = {
 				factor = 0
 				date < 1939.1.1
@@ -1000,28 +988,25 @@ focus_tree = {
 
 			if = {
 				limit = {
-					NOT = { DEN = { is_in_faction_with = GER } }
-					country_exists = DEN					
-				} 
+					NOT = { EUR = { is_in_faction_with = GER } }
+					country_exists = EUR
+				}
 				create_wargoal = {
-					type = take_state_focus
-					target = DEN
+					type = annex_everything
+					target = EUR
 					expire = 0
-					generator = { 37 }
 				}
 			}
-
-
+			
 			if = {
 				limit = {
-					NOT = { NOR = { is_in_faction_with = GER } }
-					country_exists = NOR					
-				} 
+					NOT = { NKA = { is_in_faction_with = GER } }
+					country_exists = NKA
+				}
 				create_wargoal = {
-					type = take_state_focus
-					target = NOR
+					type = annex_everything
+					target = NKA
 					expire = 0
-					generator = { 110 }
 				}
 			}
 			
@@ -1032,9 +1017,6 @@ focus_tree = {
 				uses = 1
 				category = tp_tech
 			}
-			hidden_effect = {
-				news_event = { hours = 6 id = news.233 }
-			}	
 		}
 	}
 	
