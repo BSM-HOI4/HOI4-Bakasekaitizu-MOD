@@ -4,7 +4,7 @@ focus_tree = {
 	country = {
 		factor = 0
 		modifier = {
-			add = 1
+			add = -1
 			tag = WES
 		}
         
@@ -21,7 +21,7 @@ focus_tree = {
         y = 4
         cost = 10
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_tech_bonus = {
@@ -102,7 +102,7 @@ focus_tree = {
             army_experience = 5
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -173,7 +173,7 @@ focus_tree = {
             army_experience = 5
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -246,7 +246,7 @@ focus_tree = {
             add_ideas = special_forces
             add_tech_bonus = {
                 name = special_forces_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 technology = paratroopers
                 technology = paratroopers2
@@ -342,7 +342,7 @@ focus_tree = {
             }
             add_tech_bonus = {
                 name =  air_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = air_doctrine
             }
@@ -763,7 +763,7 @@ focus_tree = {
         complete_tooltip = {
             add_extra_state_shared_building_slots = 1
             add_building_construction = {
-                type = arms_factory
+                type = industrial_complex
                 level = 2
                 instant_build = yes
             }
@@ -773,7 +773,7 @@ focus_tree = {
             random_owned_controlled_state = {
                 limit = {
                     free_building_slots = {
-                        building = arms_factory
+                        building = industrial_complex
                         size > 0
                         include_locked = yes
                     }
@@ -783,7 +783,7 @@ focus_tree = {
                             owner = {
                                 any_owned_state = {
                                     free_building_slots = {
-                                        building = arms_factory
+                                        building = industrial_complex
                                         size > 0
                                         include_locked = yes
                                     }
@@ -795,7 +795,7 @@ focus_tree = {
                 }
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
-                    type = arms_factory
+                    type = industrial_complex
                     level = 1
                     instant_build = yes
                 }
@@ -803,7 +803,7 @@ focus_tree = {
             random_owned_controlled_state = {
                 limit = {
                     free_building_slots = {
-                        building = arms_factory
+                        building = industrial_complex
                         size > 0
                         include_locked = yes
                     }
@@ -813,7 +813,7 @@ focus_tree = {
                             owner = {
                                 any_owned_state = {
                                     free_building_slots = {
-                                        building = arms_factory
+                                        building = industrial_complex
                                         size > 0
                                         include_locked = yes
                                     }
@@ -825,7 +825,7 @@ focus_tree = {
                 }
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
-                    type = arms_factory
+                    type = industrial_complex
                     level = 1
                     instant_build = yes
                 }
@@ -833,7 +833,7 @@ focus_tree = {
             random_owned_controlled_state = {
                 limit = {
                     free_building_slots = {
-                        building = arms_factory
+                        building = industrial_complex
                         size > 0
                         include_locked = yes
                     }
@@ -843,7 +843,7 @@ focus_tree = {
                             owner = {
                                 any_owned_state = {
                                     free_building_slots = {
-                                        building = arms_factory
+                                        building = industrial_complex
                                         size > 0
                                         include_locked = yes
                                     }
@@ -855,11 +855,69 @@ focus_tree = {
                 }
                 add_extra_state_shared_building_slots = 1
                 add_building_construction = {
-                    type = arms_factory
+                    type = industrial_complex
                     level = 1
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = industrial_complex
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -934,6 +992,189 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 0
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 0
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 0
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 0
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							arms_factory > 0
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}				
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1068,6 +1309,64 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = industrial_complex
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1202,6 +1501,129 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							arms_factory > 0
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}				
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1523,6 +1945,129 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							arms_factory > 0
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}				
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}					
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1844,6 +2389,64 @@ focus_tree = {
                     instant_build = yes
                 }
             }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = industrial_complex
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = industrial_complex
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+				}					
+			}
         }
     }
 
@@ -1939,13 +2542,14 @@ focus_tree = {
 		}
         search_filters = {  FOCUS_FILTER_RESEARCH }
         
+        
         available_if_capitulated = yes
 
         completion_reward = {
             army_experience = 5
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -1976,7 +2580,7 @@ focus_tree = {
             }           
             add_tech_bonus = {
                 name = air_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = air_doctrine
             }           
@@ -2069,6 +2673,54 @@ focus_tree = {
         
         completion_reward = {
             navy_experience = 25
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
             if = {
                 limit = {
                     NOT = {
@@ -2225,7 +2877,7 @@ focus_tree = {
 		y = 0
 		cost = 10
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
 		mutually_exclusive = { focus = WES_the_founding_of_the_saharan_african_empire  }
 		completion_reward = {
@@ -2261,7 +2913,7 @@ focus_tree = {
         mutually_exclusive = { focus = WES_Sahara_prefecture_of_Japan  }
         prerequisite = { focus = WES_republic_of_the_sahara  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
 			add_popularity = { ideology = democratic popularity = 1 }
@@ -2278,7 +2930,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_development_of_democratic_politics  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_political_power = 300
@@ -2295,7 +2947,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_awakening_to_geopolitics  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_ideas = WES_Development_in_marine_transportation
@@ -2311,7 +2963,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_development_in_marine_transportation  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         available = {
 			OR = {
@@ -2353,7 +3005,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_maintaining_own_territory }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_ideas = WES_the_second_america
@@ -2371,7 +3023,7 @@ focus = {
 		cost = 10
 		prerequisite = { focus = WES_republic_of_the_sahara  }
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
         available = {
 			num_of_factories > 25
@@ -2381,19 +3033,19 @@ focus = {
             EGY = {
 				country_event = { id = WES.1 }
 			}
-            MOR = {
+            MAR = {
 				country_event = { id = WES.1 }
 			}
-            TUN = {
+            KSM = {
 				country_event = { id = WES.1 }
 			}
             KEN = {
 				country_event = { id = WES.1 }
 			}
-            CAM = {
+            KHM = {
 				country_event = { id = WES.1 }
 			}
-            ANG = {
+            AMA = {
 				country_event = { id = WES.1 }
 			}
             SAU = {
@@ -2421,7 +3073,7 @@ focus = {
 		cost = 10
 		prerequisite = { focus = WES_request_other_countries_to_join_the_SGC  }
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
         completion_reward = {
             swap_ideas = {
@@ -2442,17 +3094,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_greening_1}
+                    MAR = { has_idea = WES_greening_1}
                 }
-                MOR = {
+                MAR = {
 				    country_event = { id = WES.2 }
 			    }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_greening_1}
+                    KSM = { has_idea = WES_greening_1}
                 }
-                TUN = {
+                KSM = {
 				    country_event = { id = WES.2 }
 			    }
             }
@@ -2466,17 +3118,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_greening_1}
+                    KHM = { has_idea = WES_greening_1}
                 }
-                CAM = {
+                KHM = {
 				    country_event = { id = WES.2 }
 			    }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_greening_1}
+                    AMA = { has_idea = WES_greening_1}
                 }
-                ANG = {
+                AMA = {
 				    country_event = { id = WES.2 }
 			    }
             }
@@ -2525,7 +3177,7 @@ focus = {
 		cost = 10
 		prerequisite = { focus = WES_strengthening_cooperation  }
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
         completion_reward = {
             swap_ideas = {
@@ -2546,17 +3198,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_greening_2}
+                    MAR = { has_idea = WES_greening_2}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.3 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_greening_2}
+                    KSM = { has_idea = WES_greening_2}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.3 }
                 }
             }
@@ -2570,17 +3222,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_greening_2}
+                    KHM = { has_idea = WES_greening_2}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.3 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_greening_2}
+                    AMA = { has_idea = WES_greening_2}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.3 }
                 }
             }
@@ -2630,7 +3282,7 @@ focus = {
         prerequisite = { focus = WES_last_investment  }
 		prerequisite = { focus = WES_expansion_of_trade  }
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
         completion_reward = {
             swap_ideas = {
@@ -2640,6 +3292,9 @@ focus = {
             swap_ideas = {
                 remove_idea = WES_trade_at_SGC_3
                 add_idea = WES_trade_at_SGC_4
+            }
+            hidden_effect = {
+                WES = { country_event = { days = 3 id = baka_super.1 } }
             }
             if = {
                 limit = {
@@ -2651,17 +3306,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_greening_3}
+                    MAR = { has_idea = WES_greening_3}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.4 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_greening_3}
+                    KSM = { has_idea = WES_greening_3}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.4 }
                 }
             }
@@ -2675,17 +3330,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_greening_3}
+                    KHM = { has_idea = WES_greening_3}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.4 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_greening_3}
+                    AMA = { has_idea = WES_greening_3}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.4 }
                 }
             }
@@ -2737,7 +3392,7 @@ focus = {
         mutually_exclusive = { focus = WES_joined_Axis_powers  }
 		prerequisite = { focus = WES_formation_of_the_Saharan_Union  }
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
         completion_reward = {
             add_political_power = 200
@@ -2747,7 +3402,7 @@ focus = {
 
     
 
-        #佐原県ルート、佐山県じゃねぇぞ!
+        #佐原県ルート、佐山県じゃねぇぞ！
     focus = {
         id = WES_Sahara_prefecture_of_Japan
         icon = GFX_focus_jap_spiritual_mobilization
@@ -2762,7 +3417,7 @@ focus = {
         mutually_exclusive = { focus = WES_conquest_of_egypt  }
         prerequisite = { focus = WES_republic_of_the_sahara  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         } 
         completion_reward = {
             set_cosmetic_tag = WES_Sahara_Ken
@@ -2781,7 +3436,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_Sahara_prefecture_of_Japan }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_ideas = WES_change_of_official_language
@@ -2798,7 +3453,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_make_Japanese_an_official_language }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_ideas = WES_deny_Sawara
@@ -2814,7 +3469,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_Not_Sawara }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_ideas = WES_National_Treasury_Expenses
@@ -2831,7 +3486,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_national_treasury_expenses }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_ideas = WES_clarification_of_administrative_sections
@@ -2940,7 +3595,7 @@ focus = {
 		}
         prerequisite = { focus = WES_promotion_of_science_and_technology  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         bypass = {
             custom_trigger_tooltip = {
@@ -3010,7 +3665,7 @@ focus = {
 		}
         prerequisite = { focus = WES_strengthen_domestic_industry  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         bypass = {
             custom_trigger_tooltip = {
@@ -3079,7 +3734,7 @@ focus = {
 		}
         prerequisite = { focus = WES_strengthen_domestic_industry_2  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         bypass = {
             custom_trigger_tooltip = {
@@ -3147,7 +3802,7 @@ focus = {
         cost = 10
 		prerequisite = { focus = WES_request_other_countries_to_join_the_SGC}
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_ideas = WES_investment_in_resource_development_1
@@ -3161,17 +3816,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_Sahara_Greening_Committee}
+                    MAR = { has_idea = WES_Sahara_Greening_Committee}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.5 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_Sahara_Greening_Committee }
+                    KSM = { has_idea = WES_Sahara_Greening_Committee }
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.5 }
                 }
             }
@@ -3185,17 +3840,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_Sahara_Greening_Committee }
+                    KHM = { has_idea = WES_Sahara_Greening_Committee }
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.5 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_Sahara_Greening_Committee }
+                    AMA = { has_idea = WES_Sahara_Greening_Committee }
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.5 }
                 }
             }
@@ -3245,7 +3900,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_investment_in_resource_development} 
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             swap_ideas = {
@@ -3262,17 +3917,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_investment_in_resource_development_1}
+                    MAR = { has_idea = WES_investment_in_resource_development_1}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.6 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_investment_in_resource_development_1}
+                    KSM = { has_idea = WES_investment_in_resource_development_1}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.6 }
                 }
             }
@@ -3286,17 +3941,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_investment_in_resource_development_1}
+                    KHM = { has_idea = WES_investment_in_resource_development_1}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.6 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_investment_in_resource_development_1}
+                    AMA = { has_idea = WES_investment_in_resource_development_1}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.6 }
                 }
             }
@@ -3346,7 +4001,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_proceed_with_investment} 
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             swap_ideas = {
@@ -3363,17 +4018,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_investment_in_resource_development_2}
+                    MAR = { has_idea = WES_investment_in_resource_development_2}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.7 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_investment_in_resource_development_2}
+                    KSM = { has_idea = WES_investment_in_resource_development_2}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.7 }
                 }
             }
@@ -3387,17 +4042,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_investment_in_resource_development_2}
+                    KHM = { has_idea = WES_investment_in_resource_development_2}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.7 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_investment_in_resource_development_2}
+                    AMA = { has_idea = WES_investment_in_resource_development_2}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.7 }
                 }
             }
@@ -3446,7 +4101,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_make_further_investments} 
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             swap_ideas = {
@@ -3463,17 +4118,17 @@ focus = {
             }
             if = {
                 limit = {
-                    MOR = { has_idea = WES_investment_in_resource_development_3}
+                    MAR = { has_idea = WES_investment_in_resource_development_3}
                 }
-                MOR = {
+                MAR = {
                     country_event = { id = WES.8 }
                 }
             }
             if = {
                 limit = {
-                    TUN = { has_idea = WES_investment_in_resource_development_3}
+                    KSM = { has_idea = WES_investment_in_resource_development_3}
                 }
-                TUN = {
+                KSM = {
                     country_event = { id = WES.8 }
                 }
             }
@@ -3487,17 +4142,17 @@ focus = {
             }
             if = {
                 limit = {
-                    CAM = { has_idea = WES_investment_in_resource_development_3}
+                    KHM = { has_idea = WES_investment_in_resource_development_3}
                 }
-                CAM = {
+                KHM = {
                     country_event = { id = WES.8 }
                 }
             }
             if = {
                 limit = {
-                    ANG = { has_idea = WES_investment_in_resource_development_3}
+                    AMA = { has_idea = WES_investment_in_resource_development_3}
                 }
-                ANG = {
+                AMA = {
                     country_event = { id = WES.8 }
                 }
             }
@@ -3551,7 +4206,7 @@ focus = {
 		}
         prerequisite = { focus = WES_republic_of_the_sahara  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
 		    add_offsite_building = { type = industrial_complex level = 5 }
@@ -3567,7 +4222,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_investing_in_the_UK_and_US  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         available = {
             any_state = {
@@ -3588,6 +4243,54 @@ focus = {
         
         completion_reward = {
             navy_experience = 25
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
             if = {
                 limit = {
                     NOT = {
@@ -3681,11 +4384,11 @@ focus = {
                         instant_build = yes
                     }
                 }
-            }    
+            }     
             add_ideas = WES_American_style_shipbuilding
             add_tech_bonus = {
                 name =  naval_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 2
                 category = naval_doctrine
             }
@@ -3721,12 +4424,12 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_shipbuilding_technology_from_UK_and_US  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_tech_bonus = {
                 name = air_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 2
                 category = air_doctrine
             }
@@ -3761,7 +4464,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_aviation_industry_with_UK_and_US  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         available = {
             any_state = {
@@ -3782,6 +4485,54 @@ focus = {
         
         completion_reward = {
             navy_experience = 25
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
             if = {
                 limit = {
                     NOT = {
@@ -3875,10 +4626,10 @@ focus = {
                         instant_build = yes
                     }
                 }
-            }    
+            }      
             add_tech_bonus = {
                 name =  naval_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 2
                 category = naval_doctrine
             }       
@@ -3914,12 +4665,12 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_shipbuilding_technology_from_UK_and_US_2  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_tech_bonus = {
                 name = air_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 2
                 category = air_doctrine
             }    
@@ -3959,10 +4710,10 @@ focus = {
         prerequisite = { focus = WES_aviation_industry_with_UK_and_US_2  }
         prerequisite = { focus = WES_formation_of_the_Saharan_Union  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
-            ENG = { add_to_faction = WES }
+            GBR = { add_to_faction = WES }
         }
 
     }
@@ -3994,7 +4745,7 @@ focus = {
 		y = 0
 		cost = 10
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
 		ai_will_do = {
 			factor = 20
@@ -4068,11 +4819,11 @@ focus = {
 		prerequisite = { focus = WES_conquest_of_egypt  }
 		available = {
 			OR = {
-				NOT = { ANG = { is_in_faction_with = WES } }
+				NOT = { AMA = { is_in_faction_with = WES } }
 			}
 		}
 		bypass = {
-			ANG = {
+			AMA = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
@@ -4083,13 +4834,13 @@ focus = {
 		completion_reward = {
 			if = {
 				limit = {
-					country_exists = ANG
-					NOT = { ANG = { is_in_faction_with = WES } }
-					NOT = { has_war_with = ANG }
+					country_exists = AMA
+					NOT = { AMA = { is_in_faction_with = WES } }
+					NOT = { has_war_with = AMA }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = ANG
+					target = AMA
 				}			
 			}
 		}
@@ -4106,11 +4857,7 @@ focus = {
 			FOCUS_FILTER_WAR_SUPPORT
 		}
 		prerequisite = { focus = WES_Amazon_war  }
-		available = {
-			OR = {
-				NOT = { KEN = { is_in_faction_with = WES } }
-			}
-		}
+
 		bypass = {
 			KEN = {
 				OR = {
@@ -4149,11 +4896,11 @@ focus = {
 		prerequisite = { focus = WES_invasion_of_kenya  }
 		available = {
 			OR = {
-				NOT = { SAF = { is_in_faction_with = WES } }
+				NOT = { ZAF = { is_in_faction_with = WES } }
 			}
 		}
 		bypass = {
-			SAF = {
+			ZAF = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
@@ -4164,13 +4911,13 @@ focus = {
 		completion_reward = {
 			if =  {
 				limit = {
-					country_exists = SAF
-					NOT = { SAF = { is_in_faction_with = WES } }
-					NOT = { has_war_with = SAF }
+					country_exists = ZAF
+					NOT = { ZAF = { is_in_faction_with = WES } }
+					NOT = { has_war_with = ZAF }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = SAF
+					target = ZAF
 				}
 			}
 		}
@@ -4184,33 +4931,33 @@ focus = {
 		y = 5
 		cost = 10
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
 		prerequisite = { focus = WES_liberation_from_south_africa  }
 
 		available = {
 			OR = {
-				NOT = { MOR = { is_in_faction_with = WES } }
-				NOT = { TUN = { is_in_faction_with = WES } }
-				NOT = { CAM = { is_in_faction_with = WES } }
+				NOT = { MAR = { is_in_faction_with = WES } }
+				NOT = { KSM = { is_in_faction_with = WES } }
+				NOT = { KHM = { is_in_faction_with = WES } }
 			}
 		}
 		bypass = {
-			MOR = {
+			MAR = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
 					has_war_with = ROOT
 				}
 			}
-			TUN = {
+			KSM = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
 					has_war_with = ROOT
 				}
 			}
-			CAM = {
+			KHM = {
 				OR = {
 					exists = no
 					is_in_faction_with = WES
@@ -4221,35 +4968,35 @@ focus = {
 		completion_reward = {
 			if = {
 				limit = {
-					country_exists = MOR
-					NOT = { MOR = { is_in_faction_with = WES } }
-					NOT = { has_war_with = MOR }
+					country_exists = MAR
+					NOT = { MAR = { is_in_faction_with = WES } }
+					NOT = { has_war_with = MAR }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = MOR
+					target = MAR
 				}			
 			}
 			if = { 
 				limit = {
-					country_exists = TUN
-					NOT = { TUN = { is_in_faction_with = WES } }
-					NOT = { has_war_with = TUN }
+					country_exists = KSM
+					NOT = { KSM = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KSM }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = TUN
+					target = KSM
 				}
 			}
 			if =  {
 				limit = {
-					country_exists = CAM
-					NOT = { CAM = { is_in_faction_with = WES } }
-					NOT = { has_war_with = CAM }
+					country_exists = KHM
+					NOT = { KHM = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KHM }
 				}
 				create_wargoal = {
 					type = take_state_focus
-					target = CAM
+					target = KHM
 				}
 			}
 			#egypt
@@ -4311,9 +5058,12 @@ focus = {
         ai_will_do = {
 			factor = 0.75
 		}
-        prerequisite = { focus = WES_conquest_of_egypt focus = WES_Sahara_prefecture_of_Japan }
+        prerequisite = { 
+                focus = WES_conquest_of_egypt
+                focus = WES_Sahara_prefecture_of_Japan
+             }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
 		add_offsite_building = { type = industrial_complex level = 3 }
@@ -4330,7 +5080,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_investment_from_Japan }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
 			add_ideas = WES_focus_on_aircraft_carriers
@@ -4347,7 +5097,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_cooperation_in_aircraft_carrier_development }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
 			add_ideas = WES_the_oxygen_torpedoes
@@ -4364,7 +5114,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_development_of_oxygen_torpedoes }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
 			set_technology = { bicycle_infantry = 1 }
@@ -4381,7 +5131,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_bicycle_battalions }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_tech_bonus = {
@@ -4420,10 +5170,10 @@ focus = {
         prerequisite = { focus = WES_mastering_the_Japanese_Doctrine }
         prerequisite = { focus = WES_formation_of_the_Saharan_Union  focus = WES_african_unification }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
-            JPN = { add_to_faction = WES }
+            JAP = { add_to_faction = WES }
         }
 
     }
@@ -4439,7 +5189,7 @@ focus = {
         prerequisite = { focus = WES_join_Greater_East_Asia_Co_Prosperity_Sphere }
         prerequisite = { focus = WES_establishment_of_municipalities }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             if = {
@@ -4450,7 +5200,7 @@ focus = {
                 custom_effect_tooltip = WES_sayama_tt
                 
                 effect_tooltip = {
-                    JPN = { puppet = WES }
+                    JAP = { puppet = WES }
                 }
                 hidden_effect = {
                     WES = {
@@ -4459,7 +5209,7 @@ focus = {
                 }
             }
             else = {
-                JPN = { puppet = WES }
+                JAP = { puppet = WES }
             }
         }
 
@@ -4475,7 +5225,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_the_founding_of_the_saharan_african_empire }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
 
         bypass = {
@@ -4575,7 +5325,7 @@ focus = {
 		}
         prerequisite = { focus = WES_encourage_military_research  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         bypass = {
             custom_trigger_tooltip = {
@@ -4646,7 +5396,7 @@ focus = {
 		}
         prerequisite = { focus = WES_preparing_for_a_War_Economy  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         bypass = {
             custom_trigger_tooltip = {
@@ -4719,7 +5469,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_investment_in_the_military_industry  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         bypass = {
             custom_trigger_tooltip = {
@@ -4790,7 +5540,7 @@ focus = {
 		}
         prerequisite = { focus = WES_the_founding_of_the_saharan_african_empire }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
 		add_offsite_building = { type = industrial_complex level = 3 }
@@ -4807,7 +5557,7 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_agreement_with_Germany }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_tech_bonus = {
@@ -4829,12 +5579,12 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_industry_support_in_Germany }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -4859,12 +5609,12 @@ focus = {
         cost = 10
         prerequisite = { focus = WES_industry_support_in_Germany }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
             add_tech_bonus = {
                 name = land_doc_bonus
-                bonus = 1.0
+                cost_reduction = 1
                 uses = 1
                 category = land_doctrine
             }
@@ -4891,10 +5641,10 @@ focus = {
         mutually_exclusive = { focus = WES_joining_the_United_Nations  }
         mutually_exclusive = { focus = WES_continue_the_SGC_route  }
         search_filters = {
-            FOCUS_FILTER_POBTYICAL
+            FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
-            GER = { add_to_faction = WES }
+                DEU = { add_to_faction = WES }
         }
 
     }
