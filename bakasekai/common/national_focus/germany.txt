@@ -613,13 +613,13 @@ focus_tree = {
 		}
 		#cancel = { 
 		#	OR = {
-		#		has_war_with = SOV
+		#		has_war_with = RUSRUS
 		#		NOT = { country_exists = SOV }
 		#	} 
 		#}
 		bypass = { 
 			OR = {
-				has_war_with = SOV
+				has_war_with = RUSRUS
 				NOT = { country_exists = SOV }
 				has_completed_focus = GER_bulwark_against_bolshevism
 				has_completed_focus = GER_the_great_red_menace
@@ -635,7 +635,7 @@ focus_tree = {
 		}
 		search_filters = { FOCUS_FILTER_RESEARCH }
 		completion_reward = {
-			SOV = {
+			RUS = {
 				country_event = { id = germany.75 days = 1 }
 				custom_effect_tooltip = needs_approval
 			}
@@ -675,9 +675,9 @@ focus_tree = {
 			if = {
 				limit = {
 					has_opinion_modifier = sov_ger_treaty
-					NOT = { has_war_with = SOV }
+					NOT = { has_war_with = RUS }
 				}
-				SOV = {
+				RUS = {
 					country_event = { id = germany.78 days = 1 }
 				}
 			}
@@ -816,17 +816,17 @@ focus_tree = {
 		id = GER_ussr_war_goal
 		icon = GFX_goal_generic_war_with_comintern
 		prerequisite = { focus = GER_war_with_france }
-		will_lead_to_war_with = SOV
+		will_lead_to_war_with = RUS
 
 		cancel = {
-			NOT = { country_exists = SOV }
+			NOT = { country_exists = RUS }
 		}
 		x = 0
 		y = 1
 		relative_position_id = GER_war_with_france
 		cost = 10
 		bypass = {
-			has_war_with = SOV
+			has_war_with = RUS
 		}
 		ai_will_do = {
 			factor = 10
@@ -843,7 +843,7 @@ focus_tree = {
 				factor = 0 #AI should not pick this focus if it does not share a border with the Soviets
 				NOT = { 
 					any_home_area_neighbor_country = {
-						tag = SOV
+						tag = RUS
 					}
 				}
 			}
@@ -856,7 +856,7 @@ focus_tree = {
 		completion_reward = {
 			create_wargoal = {
 				type = annex_everything
-				target = SOV
+				target = RUS
 				expire = 0
 			}
 		}
