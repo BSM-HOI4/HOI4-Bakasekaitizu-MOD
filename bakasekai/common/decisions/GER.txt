@@ -1,4 +1,4 @@
-#Category only allowed for GER
+#Category only allowed for DEU
 GER_mefo_bills_category = {
 
 	GER_mefo_bills_mission = {
@@ -357,17 +357,17 @@ GER_case_anton_category = {
 		icon = generic_operation
 
 		available = {
-			original_tag = GER
+			original_tag = DEU
 			has_war = yes
 			has_government = fascism
 			any_country_with_original_tag = {
 				original_tag_to_check = FRA
 				has_government = fascism
 				OR = {
-					is_subject_of = GER
+					is_subject_of = DEU
 					has_focus_tree = vichy_french_focus
 				}
-				NOT = { has_war_with = GER }
+				NOT = { has_war_with = DEU }
 				NOT = { has_country_flag = case_anton }
 				custom_trigger_tooltip = {
 					tooltip = GER_case_anton_tt2
@@ -402,16 +402,16 @@ GER_case_anton_category = {
 		fire_only_once = yes
 
 		visible = {
-			original_tag = GER
+			original_tag = DEU
 			has_government = fascism
 			any_country_with_original_tag = {
 				original_tag_to_check = FRA
 				has_government = fascism
 				OR = {
-					is_subject_of = GER
+					is_subject_of = DEU
 					has_focus_tree = vichy_french_focus
 				}
-				NOT = { has_war_with = GER }
+				NOT = { has_war_with = DEU }
 			}
 		}
 		ai_will_do = {
@@ -430,7 +430,7 @@ GER_case_anton_category = {
 						original_tag = FRA
 						has_government = fascism
 						OR = {
-							is_subject_of = GER
+							is_subject_of = DEU
 							has_focus_tree = vichy_french_focus
 						}
 					}
@@ -442,7 +442,7 @@ GER_case_anton_category = {
 	}
 }
 
-#Category only allowed for GER
+#Category only allowed for DEU
 GER_reichskommissariats = {
 
 }
@@ -453,7 +453,7 @@ political_actions = {
 	reinstate_wilhelm_iv_succession_rights = {
 
 		allowed = {
-			original_tag = GER
+			original_tag = DEU
 		}
 
 		available = {
@@ -488,7 +488,7 @@ political_actions = {
 	modernize_the_succession_laws = {
 
 		allowed = {
-			original_tag = GER
+			original_tag = DEU
 		}
 
 		available = {
@@ -521,7 +521,7 @@ political_actions = {
 	recall_von_lettow_vorbeck = {
 
 		allowed = {
-			original_tag = GER
+			original_tag = DEU
 		}
 		available = {
 			has_civil_war = no
@@ -557,7 +557,7 @@ political_actions = {
 	GER_sharpen_air_safety_regulations = {
 
 		allowed = {
-			original_tag = GER
+			original_tag = DEU
 			has_dlc = "Waking the Tiger"
 		}
 
@@ -590,11 +590,11 @@ foreign_politics = {
 	request_restoration_of_british_titles = {
 
 		allowed = {
-			original_tag = GER
+			original_tag = DEU
 		}
 
 		available = {
-			ENG = { has_opinion = { target = GER value > 99 } }
+			GBR = { has_opinion = { target = DEU value > 99 } }
 			custom_trigger_tooltip = {
 				tooltip = hindenburg_destroyed_tt
 				NOT = { has_global_flag = hindenburg_destroyed }
@@ -617,7 +617,7 @@ foreign_politics = {
 		}
 
 		complete_effect = {
-			ENG = { country_event = { id = wtt_germany.999 days = 1 } }
+			GBR = { country_event = { id = wtt_germany.999 days = 1 } }
 			custom_effect_tooltip = request_restoration_of_british_titles_tt
 			hidden_effect = { set_global_flag = hindenburg_event_in_progress }
 		}
@@ -628,11 +628,11 @@ foreign_politics = {
 		icon = generic_prepare_civil_war
 
 		allowed = {
-			original_tag = GER
+			original_tag = DEU
 		}
 
 		available = {
-			has_war_with = SOV
+			has_war_with = RUS
 			NOT = { is_in_faction_with = POL }
 		}
 
@@ -656,7 +656,7 @@ foreign_politics = {
 	}
 }
 
-#Category only allowed for GER
+#Category only allowed for DEU
 GER_military_buildup = {
 
 	GER_plan_z = {
@@ -763,7 +763,7 @@ GER_military_buildup = {
 special_projects = {
 	GER_begin_heavy_water_production = {
 		allowed = {
-			original_tag = GER
+			original_tag = DEU
 			has_dlc = "La Resistance"
 		}
 		available = {
@@ -1083,7 +1083,7 @@ GER_aid_hun_rom_democratic_civil_war = {
 		available = {
 			HUN = {
 				NOT = { has_government = democratic }
-				NOT = { has_war_with = GER }
+				NOT = { has_war_with = DEU }
 				has_civil_war = yes
 				exists = yes
 				any_enemy_country = {
@@ -1102,13 +1102,13 @@ GER_aid_hun_rom_democratic_civil_war = {
 		#Available if democratic civil war
 		visible = {
 			has_completed_focus = GER_align_hungary
-			GER = { has_government = democratic }
+			DEU = { has_government = democratic }
 		}
 
 		complete_effect = {
 			if = {
 				limit = {
-					HUN = { is_in_faction_with = GER }
+					HUN = { is_in_faction_with = DEU }
 				}
 				remove_from_faction = HUN
 				random_country = {
@@ -1117,7 +1117,7 @@ GER_aid_hun_rom_democratic_civil_war = {
 						has_government = democratic
 						has_war_with = HUN
 					}
-					GER = { add_to_faction = PREV }
+					DEU = { add_to_faction = PREV }
 				}
 			}
 			random_country = {
@@ -1126,7 +1126,7 @@ GER_aid_hun_rom_democratic_civil_war = {
 					has_government = democratic
 					has_war_with = HUN
 				}
-				GER = { add_to_war = { targeted_alliance = PREV enemy = HUN hostility_reason = asked_to_join } }
+				DEU = { add_to_war = { targeted_alliance = PREV enemy = HUN hostility_reason = asked_to_join } }
 			}
 		}
 	}
@@ -1138,7 +1138,7 @@ GER_aid_hun_rom_democratic_civil_war = {
 		available = {
 			ROM = {
 				NOT = { has_government = democratic }
-				NOT = { has_war_with = GER }
+				NOT = { has_war_with = DEU }
 				has_civil_war = yes
 				exists = yes
 				any_enemy_country = {
@@ -1157,13 +1157,13 @@ GER_aid_hun_rom_democratic_civil_war = {
 		#Available if democratic civil war
 		visible = {
 			has_completed_focus = GER_align_romania
-			GER = { has_government = democratic }
+			DEU = { has_government = democratic }
 		}
 
 		complete_effect = {
 			if = {
 				limit = {
-					ROM = { is_in_faction_with = GER }
+					ROM = { is_in_faction_with = DEU }
 				}
 				remove_from_faction = ROM
 				random_country = {
@@ -1172,7 +1172,7 @@ GER_aid_hun_rom_democratic_civil_war = {
 						has_government = democratic
 						has_war_with = ROM
 					}
-					GER = { add_to_faction = PREV }
+					DEU = { add_to_faction = PREV }
 				}
 			}
 			random_country = {
@@ -1181,7 +1181,7 @@ GER_aid_hun_rom_democratic_civil_war = {
 					has_government = democratic
 					has_war_with = ROM
 				}
-				GER = { add_to_war = { targeted_alliance = PREV enemy = ROM hostility_reason = asked_to_join } }
+				DEU = { add_to_war = { targeted_alliance = PREV enemy = ROM hostility_reason = asked_to_join } }
 			}
 		}
 	}
@@ -1222,7 +1222,7 @@ GER_austro_hungarian_empire = {
 		}
 
 		visible = {
-			GER = {
+			DEU = {
 				has_completed_focus = GER_rekindle_imperial_sentiment
 				has_government = neutrality
 			}
