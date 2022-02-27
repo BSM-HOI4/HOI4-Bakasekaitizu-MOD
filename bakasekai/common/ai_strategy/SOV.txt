@@ -408,7 +408,7 @@ spanish_civil_war_SOV = {
 
 	abort = {
 		OR = {
-			SPR = { has_civil_war = no }
+			ESP = { has_civil_war = no }
 			has_global_flag = scw_over
 		}
 	}
@@ -768,7 +768,7 @@ SOV_dont_mess_with_volunteers_for_european_democratic_nations = { # Reverse stra
 			has_government = communism
 		}
 		NOT = {
-			original_tag = SPR
+			original_tag = ESP
 		}
 
 		capital_scope = {
@@ -1384,139 +1384,15 @@ SOV_molotov_active_friendly_others = {
 }
 
 #Countries that dislike Molotov
-SOV_molotov_active_hostile_others = {
-	allowed = {
-		OR = {
-			original_tag = GBR
-			original_tag = FRA
-			original_tag = USA
-			original_tag = POL
-			original_tag = FIN
-			original_tag = SAU #Khakimov incident
-		}
-	}
-
-	enable = {
-		RUS = { has_idea = SOV_vyacheslav_molotov }
-	}
-
-	abort = {
-		OR = {
-			RUS = { NOT = { has_idea = SOV_vyacheslav_molotov } }
-			has_capitulated = yes
-			is_in_faction_with = RUS
-		}
-	}
-
-	ai_strategy = {
-		type = antagonize
-		id = RUS
-		value = 25
-	}
-}
 
 
 ############################
 ### LITVINOV IN DA HOUSE ###
 ############################
 #Soviets
-SOV_litvinov_active_sov = {
-	allowed = { original_tag = RUS }
-
-	enable = {
-		has_idea = SOV_maksim_litvinov
-		is_subject = no
-	}
-
-	abort = {
-		NOT = { has_idea = SOV_maksim_litvinov }
-		is_subject = yes
-	}
-
-	ai_strategy = {
-		type = befriend
-		id = GBR
-		value = 25
-	}
-
-	ai_strategy = {
-		type = befriend
-		id = USA
-		value = 15
-	}
-
-	ai_strategy = {
-		type = befriend
-		id = FRA
-		value = 35
-	}
-
-	ai_strategy = {
-		type = befriend
-		id = POL
-		value = 25
-	}
-
-	ai_strategy = {
-		type = antagonize
-		id = DEU
-		value = 25
-	}
-
-	ai_strategy = {
-		type = antagonize
-		id = JPN
-		value = 25
-	}
-
-	ai_strategy = {
-		type = diplo_action_desire
-		id = FRA
-		target = improve_relation
-		value = 25
-	}
-
-	ai_strategy = {
-		type = diplo_action_desire
-		id = POL
-		target = improve_relation
-		value = 15
-	}
-}
 
 #Countries that like Litvinov
-SOV_litvinov_active_friendly_others = {
-	allowed = {
-		OR = {
-			original_tag = GBR
-			original_tag = FRA
-			original_tag = USA
-			original_tag = POL
-			original_tag = FIN
-			original_tag = SAU #Khakimov incident
-		}
-	}
 
-	enable = {
-		RUS = { has_idea = SOV_maksim_litvinov }
-		is_subject = no
-	}
-
-	abort = {
-		OR = {
-			RUS = { NOT = { has_idea = SOV_maksim_litvinov } }
-			has_capitulated = yes
-			is_in_faction_with = RUS
-			is_subject = yes
-		}
-	}
-
-	ai_strategy = {
-		type = befriend
-		id = RUS
-		value = 25
-	}
-}
 
 #Countries that dislike Litvinov
 SOV_litvinov_active_hostile_others = {
