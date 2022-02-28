@@ -95,13 +95,13 @@ focus_tree = {
 
 		#Desertification in neighboring countries
 	focus = {
-		id = BKK_air_force?
+		id = BKK_air_force
 		icon = GFX_goal_generic_build_airforce
 
 		relative_position_id = BKK_baka_long_name
 		x = 2
 		y = 1
-		cost = 10
+		cost = 5
 
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -579,7 +579,7 @@ focus_tree = {
 					days = 1
 				}
 			}
-			BKK = { country_event = { id = BKK.3}}
+			SJK = { country_event = { id = BKK.3}}
 		}
 	}
 
@@ -613,25 +613,19 @@ focus_tree = {
 		}
 		prerequisite = { focus = BKK_GB_long  }
 		completion_reward = {
+			every_country = {
+				limit = {
+					is_puppet_of = GBR
+				}
+				GBR = { 
+					annex_country = PREV
+				}
+			}
 			every_state = {
 				limit = {
 					is_owned_by = GBR
 				}
 				add_core_of = GBR
-			}
-			every_country = {
-				limit = {
-					is_puppet_of = GBR
-				}
-				every_state = {
-					limit = {
-						is_owned_by = PREV
-					}
-					add_core_of = GBR
-				}
-				GBR = { 
-					annex_country = PREV
-				}
 			}
 		}
 	}
