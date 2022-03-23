@@ -474,7 +474,6 @@ focus_tree = {
         id = WES_rocket_effort
         icon = GFX_focus_rocketry
         prerequisite = { focus = WES_aviation_effort_2 }
-        prerequisite = { focus = WES_infrastructure_effort }
         relative_position_id = WES_aviation_effort
         x = 0
         y = 4
@@ -2518,7 +2517,7 @@ focus_tree = {
         icon = GFX_focus_wonderweapons
         prerequisite = { focus = WES_infrastructure_effort_2 }
         relative_position_id = WES_industrial_effort
-        x = -3
+        x = -1
         y = 5
         cost = 5
         ai_will_do = {
@@ -2549,10 +2548,96 @@ focus_tree = {
     focus = {
         id = WES_extra_tech_slot
         icon = GFX_focus_research
-        prerequisite = { focus = WES_infrastructure_effort_2 }
-        relative_position_id = WES_industrial_effort
+        prerequisite = { focus = WES_Munitions_factory_at_Central_Africa }
+        prerequisite = { focus = WES_Munitions_factory_at_desert_areas }
+        prerequisite = { focus = WES_Munitions_factory_at_Lake_Victoria }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 7
+        cost = 5
+        ai_will_do = {
+			factor = 20
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH } 
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Reinforcement_of_land_transportation #陸上輸送の強化
+        icon = GFX_goal_generic_construct_naval_dockyard
+        prerequisite = { focus = WES_extra_tech_slot }
+        relative_position_id = WES_establishment_of_MSD
         x = -1
-        y = 5
+        y = 8
+        cost = 5
+        ai_will_do = {
+			factor = 20
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH } 
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Reinforcement_of_land_transportation_2 #陸上輸送の強化
+        icon = GFX_goal_generic_construct_naval_dockyard
+        prerequisite = { focus = WES_Reinforcement_of_land_transportation }
+        relative_position_id = WES_establishment_of_MSD
+        x = -1
+        y = 9
+        cost = 5
+        ai_will_do = {
+			factor = 20
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH } 
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Strengthen_shipbuilding_capacity #造船能力の強化
+        icon = GFX_goal_generic_construct_naval_dockyard
+        prerequisite = { focus = WES_extra_tech_slot }
+        relative_position_id = WES_establishment_of_MSD
+        x = 1
+        y = 8
+        cost = 5
+        ai_will_do = {
+			factor = 20
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH } 
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Strengthen_shipbuilding_capacity_2
+        icon = GFX_goal_generic_construct_naval_dockyard
+        prerequisite = { focus = WES_Strengthen_shipbuilding_capacity }
+        relative_position_id = WES_establishment_of_MSD
+        x = 1
+        y = 9
         cost = 5
         ai_will_do = {
 			factor = 20
@@ -2908,7 +2993,55 @@ focus_tree = {
     focus = {
         id = WES_industrial_effort
         icon = GFX_goal_generic_production
-        x = 20
+        prerequisite = { focus = WES_Concentration_of_construction_forces }
+        x = 16
+        y = 4
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+
+        ai_will_do = {
+            factor = 3
+            modifier = {
+                factor = 0
+                date < 1939.1.1
+                OR = { 
+                    # we dont want chinese minors to go crazy on slots early since they get eaten
+                    tag = GXC 
+                    tag = YUN
+                    tag = SHX
+                    tag = XSM
+                    tag = BEL
+                    tag = LUX
+                    tag = HOL
+                    tag = DEN
+
+                    # we also dont want tiny nations to go crazy with slots right away
+                    num_of_controlled_states < 2
+                }               
+            }
+        }
+    }
+
+    focus = {
+        id = WES_establishment_of_MSD #Ministry_of_Saharan_Development サハラ開発省の設立
+        icon = GFX_goal_generic_production
+        x = 23
         y = 0
         cost = 5
         ai_will_do = {
@@ -2949,6 +3082,524 @@ focus_tree = {
                     num_of_controlled_states < 2
                 }               
             }
+        }
+    }
+
+    focus = {
+        id = WES_Construction_of_the_Nile_Dam #ナイルダムの建設
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = -2
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Construction_of_the_Niger_Dam #ニジェールダムの建設
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Construction_of_the_Congo_Dam #コンゴダムの建設
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = 2
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Strengthening_Construction_Capabilities #建設力の強化
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_Construction_of_the_Congo_Dam }
+        prerequisite = { focus = WES_Construction_of_the_Niger_Dam }
+        prerequisite = { focus = WES_Construction_of_the_Nile_Dam }
+        relative_position_id = WES_establishment_of_MSD
+        x = -1
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_New_machine_tool #工作機械の新調
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_Construction_of_the_Congo_Dam }
+        prerequisite = { focus = WES_Construction_of_the_Niger_Dam }
+        prerequisite = { focus = WES_Construction_of_the_Nile_Dam }
+        relative_position_id = WES_establishment_of_MSD
+        x = 1
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+    
+    focus = {
+        id = WES_Concentration_of_construction_forces #建設力の集中
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_New_machine_tool }
+        prerequisite = { focus = WES_Strengthening_Construction_Capabilities }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 3
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Infrastructure_in_desert_areas #砂漠地域のインフラ
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_Concentration_of_construction_forces }
+        relative_position_id = WES_establishment_of_MSD
+        x = -2
+        y = 4
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Industrialization_of_desert_areas #砂漠地域のインフラ
+        icon = GFX_goal_generic_construct_civ_factory
+        prerequisite = { focus = WES_Infrastructure_in_desert_areas }
+        relative_position_id = WES_establishment_of_MSD
+        x = -2
+        y = 5
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Munitions_factory_at_desert_areas #砂漠地域のインフラ
+        icon = GFX_goal_generic_construct_mil_factory
+        prerequisite = { focus = WES_Industrialization_of_desert_areas }
+        relative_position_id = WES_establishment_of_MSD
+        x = -2
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Infrastructure_in_Central_Africa #中央アフリカのインフラ
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_Concentration_of_construction_forces }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 4
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Industrialization_of_Central_Africa #中央アフリカのインフラ
+        icon = GFX_goal_generic_construct_civ_factory
+        prerequisite = { focus = WES_Infrastructure_in_Central_Africa }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 5
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Munitions_factory_at_Central_Africa #中央アフリカのインフラ
+        icon = GFX_goal_generic_construct_mil_factory
+        prerequisite = { focus = WES_Industrialization_of_Central_Africa }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Infrastructure_in_Lake_Victoria #ヴィクトリア湖のインフラ
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_Concentration_of_construction_forces }
+        relative_position_id = WES_establishment_of_MSD
+        x = 2
+        y = 4
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Industrialization_of_Lake_Victoria #ヴィクトリア湖のインフラ
+        icon = GFX_goal_generic_construct_civ_factory
+        prerequisite = { focus = WES_Infrastructure_in_Lake_Victoria }
+        relative_position_id = WES_establishment_of_MSD
+        x = 2
+        y = 5
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Munitions_factory_at_Lake_Victoria #ヴィクトリア湖のインフラ
+        icon = GFX_goal_generic_construct_mil_factory
+        prerequisite = { focus = WES_Industrialization_of_Lake_Victoria }
+        relative_position_id = WES_establishment_of_MSD
+        x = 2
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Coping_with_Water_Shortage #水不足の解消
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = 4
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Irrigation_in_various_locations #各地での灌漑
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_Coping_with_Water_Shortage }
+        relative_position_id = WES_establishment_of_MSD
+        x = 4
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Resource_Development #資源の開発
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = -4
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
+        }
+    }
+
+    focus = {
+        id = WES_Further_resources #更なる資源を
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_Resource_Development }
+        relative_position_id = WES_establishment_of_MSD
+        x = -4
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			local_resources_factor = 1
         }
     }
 
