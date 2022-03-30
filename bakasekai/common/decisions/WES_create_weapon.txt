@@ -414,35 +414,6 @@ found_sand_country = {
 
 
 public_works = {
-    construction_of_the_transcontinental_railroad_sub = {
-
-		icon = GFX_decision_generic_construction
-
-        allowed = {
-            original_tag = WES
-            always = yes
-        }
-
-        cost = 0
-        fire_only_once = yes
-
-        available = {
-            has_completed_focus = WES_the_second_America
-        }
-        #visible = {has_country_flag=gone_sand}
-
-        complete_effect = {
-            add_timed_idea = {
-                idea = WES_construction_of_the_transcontinental_railroad
-                days = 360
-            }
-            country_event = { days = 361 id = WES.27 }
-		}
-		ai_will_do = {
-			factor = 100
-		}
-    }
-
     construction_of_the_transcontinental_railroad_1 = {
 
 		icon = GFX_decision_generic_construction
@@ -465,16 +436,35 @@ public_works = {
         fire_only_once = yes
 
 		cost = 25
-		days_remove = 120
+		days_remove = 25
 
 		modifier = {
 			civilian_factory_use = 15
 		}
 		remove_effect = {
+            custom_effect_tooltip = WES_railway_1
+            271 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 4954
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 8036
+							instant_build = yes
+						}
+					}
+				}
+			}
             298 = {
 				if = {
 					limit = { is_controlled_by = ROOT }
-					custom_effect_tooltip = WES_railway
 					hidden_effect = {
 						add_building_construction = {
 							type = railway
@@ -485,10 +475,64 @@ public_works = {
 					}
 				}
 			}
+            549 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 1914
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 2016
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 4918
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 5060
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 8084
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 10739
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 10795
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 13484
+							instant_build = yes
+						}
+					}
+				}
+			}
             556 = {
 				if = {
 					limit = { is_controlled_by = ROOT }
-					custom_effect_tooltip = WES_railway
 					hidden_effect = {
 						add_building_construction = {
 							type = railway
@@ -520,12 +564,67 @@ public_works = {
             558 = {
 				if = {
 					limit = { is_controlled_by = ROOT }
-					custom_effect_tooltip = WES_railway
 					hidden_effect = {
 						add_building_construction = {
 							type = railway
 							level = 1
 							province = 1891
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 4997
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 5028
+							instant_build = yes
+						}
+					}
+				}
+			}
+            773 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 7963
+							instant_build = yes
+						}
+					}
+				}
+			}
+            774 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 1473
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 2081
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 4897
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 4978
 							instant_build = yes
 						}
 					}
@@ -534,7 +633,6 @@ public_works = {
             778 = {
 				if = {
 					limit = { is_controlled_by = ROOT }
-					custom_effect_tooltip = WES_railway
 					hidden_effect = {
 						add_building_construction = {
 							type = railway
@@ -554,7 +652,6 @@ public_works = {
             780 = {
 				if = {
 					limit = { is_controlled_by = ROOT }
-					custom_effect_tooltip = WES_railway
 					hidden_effect = {
 						add_building_construction = {
 							type = railway
@@ -580,7 +677,6 @@ public_works = {
             781 = {
 				if = {
 					limit = { is_controlled_by = ROOT }
-					custom_effect_tooltip = WES_railway
 					hidden_effect = {
 						add_building_construction = {
 							type = railway
@@ -597,6 +693,186 @@ public_works = {
 					}
 				}
 			}
+		}
+    }
+
+    construction_of_the_transcontinental_railroad_2 = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            has_completed_focus = WES_the_second_America
+            num_of_civilian_factories_available_for_projects > 15
+        }
+		ai_will_do = {
+			factor = 100
+		}
+        fire_only_once = yes
+
+		cost = 25
+		days_remove = 120
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+            298 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 7959
+							instant_build = yes
+						}
+					}
+				}
+			}
+            556 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 4927
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 8116
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 10829
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 12751
+							instant_build = yes
+						}
+					}
+				}
+			}
+            558 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 1891
+							instant_build = yes
+						}
+					}
+				}
+			}
+            778 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 7950
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 12851
+							instant_build = yes
+						}
+					}
+				}
+			}
+            780 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 4957
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 5039
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = railway
+							level = 1
+							province = 8008
+							instant_build = yes
+						}
+					}
+				}
+			}
+            781 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 2056
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = railway
+							level = 1
+							province = 12707
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+    }
+
+    construction_of_the_transcontinental_railroad_sub = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            has_completed_focus = WES_the_second_America
+        }
+        #visible = {has_country_flag=gone_sand}
+
+        complete_effect = {
+            add_timed_idea = {
+                idea = WES_construction_of_the_transcontinental_railroad
+                days = 360
+            }
+            country_event = { days = 361 id = WES.27 }
+		}
+		ai_will_do = {
+			factor = 100
 		}
     }
 }
