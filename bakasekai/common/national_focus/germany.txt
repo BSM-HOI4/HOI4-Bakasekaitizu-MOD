@@ -1,7 +1,7 @@
-### search_filters = {FOCUS_FILTER_POBTYICAL}
+### search_filters = {FOCUS_FILTER_POLITICAL}
 ### search_filters = {FOCUS_FILTER_RESEARCH}
 ### search_filters = {FOCUS_FILTER_INDUSTRY}
-### search_filters = {FOCUS_FILTER_STABIBTYY}
+### search_filters = {FOCUS_FILTER_STABILITY}
 ### search_filters = {FOCUS_FILTER_WAR_SUPPORT}
 ### search_filters = {FOCUS_FILTER_MANPOWER}
 ### search_filters = {FOCUS_FILTER_ANNEXATION}
@@ -16,7 +16,7 @@ focus_tree = {
 
 			add = 15
 
-			tag = DEU
+			tag = GER
 		}
 	}
 	
@@ -722,7 +722,7 @@ focus_tree = {
 			if = {
 				limit = {
 					has_opinion_modifier = sov_ger_treaty
-					NOT = { has_war_with = RUS }
+					NOT = { has_war_with = SOV }
 				}
 				RUS = {
 					country_event = { id = germany.78 days = 1 }
@@ -841,7 +841,7 @@ focus_tree = {
 		ai_will_do = {
 			factor = 10
 		}
-		search_filters = { FOCUS_FILTER_POBTYICAL }	
+		search_filters = { FOCUS_FILTER_POLITICAL }	
 		completion_reward = {
 			42 = { set_demilitarized_zone = no }
 			51 = { set_demilitarized_zone = no }
@@ -863,17 +863,17 @@ focus_tree = {
 		id = GER_ussr_war_goal
 		icon = GFX_goal_generic_war_with_comintern
 		prerequisite = { focus = GER_war_with_france }
-		will_lead_to_war_with = RUS
+		will_lead_to_war_with = SOV
 
 		cancel = {
-			NOT = { country_exists = RUS }
+			NOT = { country_exists = SOV }
 		}
 		x = 0
 		y = 1
 		relative_position_id = GER_war_with_france
 		cost = 10
 		bypass = {
-			has_war_with = RUS
+			has_war_with = SOV
 		}
 		ai_will_do = {
 			factor = 10
@@ -890,7 +890,7 @@ focus_tree = {
 				factor = 0 #AI should not pick this focus if it does not share a border with the Soviets
 				NOT = { 
 					any_home_area_neighbor_country = {
-						tag = RUS
+						tag = SOV
 					}
 				}
 			}
@@ -903,7 +903,7 @@ focus_tree = {
 		completion_reward = {
 			create_wargoal = {
 				type = annex_everything
-				target = RUS
+				target = SOV
 				expire = 0
 			}
 		}
@@ -913,7 +913,7 @@ focus_tree = {
 		id = GER_danzig_or_war
 		icon = GFX_goal_generic_demand_territory
 		prerequisite = { focus = GER_rhineland }
-		will_lead_to_war_with = OZY
+		will_lead_to_war_with = AUS
 		available = {
 			is_puppet = no
 			has_army_manpower = { size > 949999 } #100 div
@@ -921,9 +921,9 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				OZY={exists=no}
-				has_war_with = OZY
-				is_in_faction_with = OZY
+				AUS={exists=no}
+				has_war_with = AUS
+				is_in_faction_with = AUS
 			}
 		}
 		cancel_if_invalid = no
@@ -938,10 +938,10 @@ focus_tree = {
 				OR = {
 					date < 1939.1.1
 					any_neighbor_country = {
-						has_war_with = DEU
+						has_war_with = GER
 						NOT = { has_capitulated = yes }
 						strength_ratio = {
-							tag = DEU
+							tag = GER
 							ratio > 0.6
 						}
 					}
@@ -950,7 +950,7 @@ focus_tree = {
 		}	
 		completion_reward = {
 			add_named_threat = { threat = 5 name = GER_danzig_or_war }
-			declare_war_on = OZY
+			declare_war_on = AUS
 		}
 	}
 	
@@ -958,15 +958,15 @@ focus_tree = {
 		id = GER_weserubung
 		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = GER_danzig_or_war }
-		will_lead_to_war_with = EUR
-		will_lead_to_war_with = NKA
+		will_lead_to_war_with = DEN
+		will_lead_to_war_with = SWE
 
 		bypass = {
 			AND = {
 				OR = {
-					EUR = {
-						is_in_faction_with = DEU
-						NOT = { country_exists = EUR }
+					DEN = {
+						is_in_faction_with = GER
+						NOT = { country_exists = DEN }
 					}
 				}
 			}
@@ -988,24 +988,24 @@ focus_tree = {
 
 			if = {
 				limit = {
-					NOT = { EUR = { is_in_faction_with = DEU } }
-					country_exists = EUR
+					NOT = { DEN = { is_in_faction_with = GER } }
+					country_exists = DEN
 				}
 				create_wargoal = {
 					type = annex_everything
-					target = EUR
+					target = DEN
 					expire = 0
 				}
 			}
 			
 			if = {
 				limit = {
-					NOT = { NKA = { is_in_faction_with = DEU } }
-					country_exists = NKA
+					NOT = { SWE = { is_in_faction_with = GER } }
+					country_exists = SWE
 				}
 				create_wargoal = {
 					type = annex_everything
-					target = NKA
+					target = SWE
 					expire = 0
 				}
 			}
@@ -1027,15 +1027,15 @@ focus_tree = {
 		
 		available = {
 			OR = {
-				NOT = { BLX = { is_in_faction_with = DEU } }
+				NOT = { HOL = { is_in_faction_with = GER } }
 			}
 		}
 
 		bypass = {
-			BLX = {
+			HOL = {
 				OR = {
 					exists = no
-					is_in_faction_with = DEU
+					is_in_faction_with = GER
 					has_war_with = ROOT
 				}
 			}
@@ -1051,7 +1051,7 @@ focus_tree = {
 				}
 			}
 		}
-		will_lead_to_war_with = BLX
+		will_lead_to_war_with = HOL
 		will_lead_to_war_with = FRA
 		x = -2
 		y = 1
@@ -1076,13 +1076,13 @@ focus_tree = {
 			#limit wargoals to when it makes sense to give them. No faction, war or non exist
 			if = { 
 				limit = {
-					country_exists = BLX
-					NOT = { BEL = { is_in_faction_with = DEU } }
+					country_exists = HOL
+					NOT = { BEL = { is_in_faction_with = GER } }
 					NOT = { has_war_with = BEL }
 				}
 				create_wargoal = {
 					type = annex_everything
-					target = BLX
+					target = HOL
 					expire = 0
 				}
 			}
@@ -1119,7 +1119,7 @@ focus_tree = {
 
 		completion_reward = {
 			ITA = {
-				add_opinion_modifier = { target = DEU modifier = ger_ita_alliance_focus }
+				add_opinion_modifier = { target = GER modifier = ger_ita_alliance_focus }
 			}
 		}
 	}
@@ -1178,7 +1178,7 @@ focus_tree = {
 			has_full_control_of_state = 28
 			OR = {
 				FRA = { has_capitulated = yes }
-				FRA = { is_subject_of = DEU }
+				FRA = { is_subject_of = GER }
 				NOT = {
 					any_country = {
 						original_tag = FRA
@@ -1191,7 +1191,7 @@ focus_tree = {
 				LUX = { has_capitulated = yes }
 				NOT = {
 					any_country = {
-						original_tag = BLX
+						original_tag = HOL
 						exists = yes
 					}
 				}
@@ -1665,16 +1665,16 @@ focus_tree = {
 			custom_trigger_tooltip = {
 				tooltip = GER_improve_national_spirit_tooltip
 				OR = {
-					DEU = { controls_state = 126 }
+					GER = { controls_state = 126 }
 					any_other_country = {
-						is_in_faction_with = DEU
+						is_in_faction_with = GER
 						controls_state = 126
 					}
 				}
 				OR = {
-					DEU = { controls_state = 16 }
+					GER = { controls_state = 16 }
 					any_other_country = {
-						is_in_faction_with = DEU
+						is_in_faction_with = GER
 						controls_state = 16
 					}
 				}
@@ -1685,14 +1685,14 @@ focus_tree = {
 				has_war = no
 				126 = {
 					owner = {
-						NOT = { tag = DEU }
-						NOT = { is_in_faction_with = DEU }
+						NOT = { tag = GER }
+						NOT = { is_in_faction_with = GER }
 					}
 				}
 				16 = {
 					owner = {
-						NOT = { tag = DEU }
-						NOT = { is_in_faction_with = DEU }
+						NOT = { tag = GER }
+						NOT = { is_in_faction_with = GER }
 					}
 				}
 			}

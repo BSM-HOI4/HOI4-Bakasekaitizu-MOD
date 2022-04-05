@@ -23,7 +23,7 @@ fascist_peace = {
 			}
 		}
 		#These guys have their own special peace conference AI
-		#NOT = { tag = DEU }
+		#NOT = { tag = GER }
 	}
 
 	annex_randomness = 0 #400
@@ -38,7 +38,7 @@ fascist_peace = {
 
 				modifier={
 		factor=5000
-		ROOT={OR={tag=MEX tag=DIS tag=CLF tag=LVE tag=TEX tag=NEV tag=NYY tag=HLW tag=MAC tag=BTW tag=BTP tag=BTY tag=BTL tag=BTG
+		ROOT={OR={tag=MEX tag=DIS tag=CLF tag=LVE tag=TEX tag=NEV tag=NYY tag=HLW tag=MAC tag=BLR tag=LAT tag=LIT tag=UKR tag=EST
 		}}
 	}
 		modifier = {
@@ -66,7 +66,7 @@ fascist_peace = {
 		#}
 		modifier = { #Do not annex the entire soviet union until a border with moscow is established
 			factor = 0
-			FROM = { tag = RUS }
+			FROM = { tag = SOV }
 			NOT = {
 				219 = {
 					any_neighbor_state = {
@@ -76,9 +76,9 @@ fascist_peace = {
 			}
 			OR = {
 				tag = POL
-				tag = DEU 
+				tag = GER 
 				tag = FIN
-				tag = JPN
+				tag = JAP
 			}
 			FROM = {
 				NOT = { any_owned_state = { OR = { is_claimed_by = ROOT is_core_of = ROOT } } }
@@ -86,11 +86,11 @@ fascist_peace = {
 		}
 		modifier = { #For now, only the Chinese will completely annex non-CHI China proper.
 			factor = 0
-			FROM = { tag = CHN }
+			FROM = { tag = PRC }
 			#China
 			NOT = {
 				OR = {
-					tag = CHN
+					tag = PRC
 					tag = CHI
 					tag = GXC
 					tag = YUN
@@ -153,13 +153,13 @@ fascist_peace = {
 				AND = {
 					#Is NOT a major
 					NOT = { num_of_factories > 100 }
-					NOT = { tag = DEU }
-					NOT = { tag = GBR }
+					NOT = { tag = GER }
+					NOT = { tag = ENG }
 					NOT = { tag = ITA }
 					NOT = { tag = FRA }
 					NOT = { tag = USA }
-					NOT = { tag = JPN }
-					NOT = { tag = RUS }
+					NOT = { tag = JAP }
+					NOT = { tag = SOV }
 				}
 				is_puppet = yes
 			}
@@ -177,7 +177,7 @@ fascist_peace = {
 			FROM = {
 				OR = { 
 					tag = SIK
-					tag = CHN
+					tag = PRC
 					tag = GXC
 					tag = YUN
 					tag = SHX
@@ -187,7 +187,7 @@ fascist_peace = {
 							tag = MEN
 							#tag = MAN #Manchukuo
 						}
-						ROOT = { NOT = { tag = JPN } }
+						ROOT = { NOT = { tag = JAP } }
 					}
 				}
 			}
@@ -201,32 +201,32 @@ fascist_peace = {
 			factor = 0
 			#Is NOT a major
 			NOT = { num_of_factories > 100 }
-			NOT = { tag = DEU }
-			NOT = { tag = GBR }
+			NOT = { tag = GER }
+			NOT = { tag = ENG }
 			NOT = { tag = ITA }
 			NOT = { tag = FRA }
 			NOT = { tag = USA }
-			NOT = { tag = JPN }
-			NOT = { tag = RUS }
+			NOT = { tag = JAP }
+			NOT = { tag = SOV }
 			NOT = { is_owner_neighbor_of = FROM }
 		}
 		modifier = { #Strongly seek to establish a puppet after taking Moscow if Japan and Germany - test. Germany also needs Northern Urals.
 			factor = 50
-			FROM = { tag = RUS }
+			FROM = { tag = SOV }
 			NOT = { 
 				219 = { #This seems to make Soviet unreleasable by AI for some reason.
 					OR = {
-						is_owned_by = RUS
+						is_owned_by = SOV
 						has_claimed_state_in_peace_conference = ROOT
 					}
 				}
 			}
 			OR = {
-				tag = JPN
-				tag = DEU 
+				tag = JAP
+				tag = GER 
 			}
 			OR = {
-				tag = JPN
+				tag = JAP
 				581 = { is_owned_by = ROOT }
 			}
 		}
@@ -237,7 +237,7 @@ fascist_peace = {
 		}
 		modifier = { #Japan wants PUPPETS for it's co-prosperity sphere instead of direct control.
 			factor = 100
-			tag = JPN
+			tag = JAP
 			#FROM = { capital_scope = { is_on_continent = asia } }
 			FROM = {
 				OR = {
@@ -249,7 +249,7 @@ fascist_peace = {
 					tag = TIB
 					tag = YUN
 					tag = MON
-					tag = IND
+					tag =PRC
 					tag = PHI
 				}
 			}
@@ -268,7 +268,7 @@ fascist_peace = {
 		}
 		modifier = { #Do not puppet Soviet Union unless a border with Moscow is established...
 			factor = 0
-			FROM = { tag = RUS }
+			FROM = { tag = SOV }
 			NOT = {
 				219 = {
 					any_neighbor_state = {
@@ -316,7 +316,7 @@ fascist_peace = {
 				AND = {
 					FROM = { capital_scope = { is_on_continent = europe } }
 					FROM = { NOT = { tag = IRE } }
-					FROM = { NOT = { tag = GBR } }
+					FROM = { NOT = { tag = ENG } }
 				}
 				NOT = {
 					FROM = {
@@ -335,13 +335,13 @@ fascist_peace = {
 		# 	factor = 0
 		# 	FROM = {
 		# 		OR = {
-		# 			tag = CHN
+		# 			tag = PRC
 		# 			tag = GXC
 		# 			tag = YUN
 		# 			tag = SHX
 		# 			tag = XSM
 		# 			tag = SIK
-		# 			original_tag = CHN
+		# 			original_tag = PRC
 		# 			original_tag = GXC
 		# 			original_tag = YUN
 		# 			original_tag = SHX
@@ -416,19 +416,19 @@ fascist_peace = {
 
 		modifier = { #Japan doesn't puppet Australia or NZ
 			factor = 0
-			tag = JPN
+			tag = JAP
 			FROM = { 
 				OR = {
-					tag = AUS 
+					tag = AST 
 					tag = NZL
 				}
 			}
 		}
 		modifier = { #If Japan is in faction, leave Asia and Australia to Japan.
 			factor = 0
-			is_in_faction_with = JPN
-			JPN = { is_puppet = no }
-			NOT = { tag = JPN }
+			is_in_faction_with = JAP
+			JAP = { is_puppet = no }
+			NOT = { tag = JAP }
 			FROM = {
 				capital_scope = {
 					OR = {
@@ -440,9 +440,9 @@ fascist_peace = {
 		}
 		modifier = { #Japan doesn't puppet non-Asian nations if in faction with a major fascist European power
 			factor = 0
-			tag = JPN
+			tag = JAP
 			OR = {
-				is_in_faction_with = DEU 
+				is_in_faction_with = GER 
 				is_in_faction_with = FRA
 				is_in_faction_with = ITA
 			}
@@ -450,7 +450,7 @@ fascist_peace = {
 				OR = {
 					NOT = { capital_scope = { is_on_continent = asia } }
 					tag = FRA
-					tag = GBR
+					tag = ENG
 					tag = HOL
 				}
 			}
@@ -529,8 +529,8 @@ fascist_peace = {
 		modifier = { #Japan prefers puppets for it's co-prosperity sphere instead of direct control.
 			factor = 0
 			OR = {
-				tag = JPN
-				is_in_faction_with = JPN
+				tag = JAP
+				is_in_faction_with = JAP
 			}
 			NOT = {
 				FROM = {
@@ -550,14 +550,14 @@ fascist_peace = {
 					is_core_of = TIB
 					is_core_of = YUN
 					is_core_of = MON
-					is_core_of = IND
+					is_core_of =PRC
 					is_core_of = PHI
 				}
 			}
 		}
 				modifier={
 		factor=0
-		ROOT={OR={tag=MEX tag=DIS tag=CLF tag=LVE tag=TEX tag=NEV tag=NYY tag=HLW tag=MAC tag=BTW tag=BTP tag=BTY tag=BTL tag=BTG
+		ROOT={OR={tag=MEX tag=DIS tag=CLF tag=LVE tag=TEX tag=NEV tag=NYY tag=HLW tag=MAC tag=BLR tag=LAT tag=LIT tag=UKR tag=EST
 		}}
 	}
 		
@@ -636,7 +636,7 @@ fascist_peace = {
 					owner = { 
 						OR = {
 							tag = GXC
-							tag = CHN
+							tag = PRC
 							tag = YUN
 							tag = SHX
 							tag = XSM
@@ -646,7 +646,7 @@ fascist_peace = {
 			}
 			NOT = {
 				OR = {
-					tag = CHN
+					tag = PRC
 					tag = CHI
 					tag = GXC
 					tag = YUN
@@ -695,19 +695,19 @@ fascist_peace = {
 			}
 			#Is NOT a major
 			NOT = { num_of_factories > 100 }
-			NOT = { tag = DEU }
-			NOT = { tag = GBR }
+			NOT = { tag = GER }
+			NOT = { tag = ENG }
 			NOT = { tag = ITA }
 			NOT = { tag = FRA }
 			NOT = { tag = USA }
-			NOT = { tag = JPN }
-			NOT = { tag = RUS }			
+			NOT = { tag = JAP }
+			NOT = { tag = SOV }			
 		}
 		modifier = { #If in axis, Japan doesn't take territory out of Asia or Australia or South America or North America (to do)
 			factor = 0
-			tag = JPN
+			tag = JAP
 			OR = {
-				is_in_faction_with = DEU 
+				is_in_faction_with = GER 
 				is_in_faction_with = FRA
 				is_in_faction_with = ITA
 			}
@@ -736,14 +736,14 @@ fascist_peace = {
 		modifier = { #If Japan is in faction, leave Asia and Australia to Japan.
 			factor = 0
 			OR = {
-				is_in_faction_with = JPN
+				is_in_faction_with = JAP
 				AND = { #Workaround for a puppeted USA being given land in Asia
 					tag = USA
-					JPN = { has_government = fascism }
+					JAP = { has_government = fascism }
 				}
 			}
-			JPN = { is_puppet = no }
-			NOT = { tag = JPN }
+			JAP = { is_puppet = no }
+			NOT = { tag = JAP }
 			NOT = {
 				FROM = {
 					OR = {
@@ -752,7 +752,7 @@ fascist_peace = {
 					}
 				}
 			}
-			NOT = { FROM = { is_core_of = RUS } }
+			NOT = { FROM = { is_core_of = SOV } }
 			FROM = {
 				OR = {
 					is_on_continent = asia
@@ -985,9 +985,9 @@ fascist_peace = {
 			OR = {
 				#Must be taken in contiguous chunks.
 				AND = {
-					FROM = { is_core_of = RUS }
+					FROM = { is_core_of = SOV }
 					OR = { #Germany can always take Soviet land
-						NOT = { tag = DEU }
+						NOT = { tag = GER }
 						NOT = { FROM = { is_on_continent = europe } }
 					}
 				}
@@ -995,24 +995,24 @@ fascist_peace = {
 					is_on_continent = europe
 					is_coastal = yes
 					#Temp Workaround since "is_island_state" doesn't cover some cases like Gotland, Iceland, Crete, Norn Iron
-					NOT = { is_core_of = GBR }
+					NOT = { is_core_of = ENG }
 					NOT = { is_core_of = GRC }
 					NOT = { is_core_of = SWE }
 					NOT = { is_core_of = DEN }
-					NOT = { is_core_of = RUS }
-					NOT = { owner = { tag = GBR } } #Cyprus
+					NOT = { is_core_of = SOV }
+					NOT = { owner = { tag = ENG } } #Cyprus
 				}
 				#Minor old world AI sticks to their own continents 
 				AND = {
 					#Is NOT a major
 					NOT = { num_of_factories > 100 }
-					NOT = { tag = DEU }
-					NOT = { tag = GBR }
+					NOT = { tag = GER }
+					NOT = { tag = ENG }
 					NOT = { tag = ITA }
 					NOT = { tag = FRA }
 					NOT = { tag = USA }
-					NOT = { tag = JPN }
-					NOT = { tag = RUS }
+					NOT = { tag = JAP }
+					NOT = { tag = SOV }
 					OR = {
 						AND = {
 							capital_scope = { is_on_continent = europe }
@@ -1064,12 +1064,12 @@ fascist_peace = {
 				#For now don't take Russian or Northern European lands at all if in the same faction as germany.
 				AND = {
 					is_faction_leader = no
-					is_in_faction_with = DEU 
+					is_in_faction_with = GER 
 					OR = {
-						FROM = { owner = { tag = RUS } }
+						FROM = { owner = { tag = SOV } }
 						FROM = {
 							is_island_state = no
-							is_core_of = GBR
+							is_core_of = ENG
 						}
 						FROM = { 
 							OR = {
@@ -1077,7 +1077,7 @@ fascist_peace = {
 								is_core_of = IRE
 								is_core_of = SWE
 								is_core_of = NOR
-								is_core_of = DEU 
+								is_core_of = GER 
 								is_core_of = FIN
 								owner = { tag = SWE }
 							}
@@ -1093,7 +1093,7 @@ fascist_peace = {
 							AND = {
 								is_on_continent = south_america
 								OR = {
-									owner = { tag = GBR }
+									owner = { tag = ENG }
 									owner = { tag = FRA }
 									owner = { tag = HOL }
 									is_island_state = yes
@@ -1195,13 +1195,13 @@ fascist_peace = {
 		modifier = { #Old World AI will generally stick to the old world and new world to the new.
 			factor = 0
 			NOT = { tag = ITA }
-			NOT = { tag = JPN }
+			NOT = { tag = JAP }
 			OR = { #Danish territories can be taken by these nations
 				NOT = { FROM = { is_core_of = DEN } }
 				AND = {
 					NOT = { tag = USA }
-					NOT = { tag = DEU }
-					NOT = { tag = GBR }
+					NOT = { tag = GER }
+					NOT = { tag = ENG }
 					NOT = { tag = SWE }
 					NOT = { tag = NOR }
 				}
@@ -1221,7 +1221,7 @@ fascist_peace = {
 						OR = { #Colonial core workaround
 							is_on_continent = europe
 							AND = {
-								NOT = { is_core_of = GBR }
+								NOT = { is_core_of = ENG }
 								NOT = { is_core_of = DEN }
 								NOT = { is_core_of = HOL }
 							}
@@ -1253,7 +1253,7 @@ fascist_peace = {
 							is_on_continent = australia
 							AND = {
 								is_on_continent = asia
-								NOT = { is_core_of = RUS }
+								NOT = { is_core_of = SOV }
 							}
 						}
 					}
