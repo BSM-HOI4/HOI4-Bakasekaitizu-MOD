@@ -1,7 +1,7 @@
 Dieting_decision = {
 	Dieting_1_decision = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_civil_support
 
         allowed = {
             original_tag = MAC
@@ -46,7 +46,7 @@ Dieting_decision = {
     }
     Dieting_2_decision = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_civil_support
 
         allowed = {
             original_tag = MAC
@@ -91,7 +91,7 @@ Dieting_decision = {
     }
     Dieting_3_decisiont = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_ignite_civil_war
 
         allowed = {
             original_tag = MAC
@@ -135,11 +135,104 @@ Dieting_decision = {
 
 Progression_of_obesity = {
 
+	
+	MAC_cancel_mefos = {
+
+		icon = GFX_decision_oppression
+
+		available = {
+			NOT = {
+				OR = {
+					has_idea = Suspension_of_operations
+				}
+			}
+			hidden_trigger = { 
+				NOT = { has_country_flag = MAC_has_cancelled_mefo } 
+				
+			}
+		}
+        visible = {
+            has_completed_focus = MAC_sales_start_in_the_USA
+        }
+
+		cost = 0
+
+		fire_only_once = no
+
+		cancel_if_not_visible = yes
+
+
+        complete_effect = {
+			custom_effect_tooltip = MAC_cancel_tt
+            add_ideas = Suspension_of_operations
+		}
+
+		remove_effect = {
+			set_country_flag = MAC_has_cancelled_mefo
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	MAC_renew_mefos = {
+
+		icon = GFX_decision_oil
+
+		available = {
+			hidden_trigger = { 
+				#has_country_flag = ger_has_cancelled_mefo
+				has_idea = Suspension_of_operations	
+				NOT = {
+					OR = {
+						has_idea = Dieting_1
+						has_idea = Dieting_1_2
+						has_idea = Dieting_2
+						has_idea = Dieting_2_2
+						has_idea = Dieting_3
+					}
+				}
+			}
+		}
+        visible = {
+            has_completed_focus = MAC_sales_start_in_the_USA
+        }
+
+		cost = 0
+
+		fire_only_once = no
+
+		
+
+		cancel_if_not_visible = yes
+
+		complete_effect = {
+			remove_ideas = Suspension_of_operations
+			add_timed_idea = { 
+				idea = Suspension_of_operations_sub
+				days = 30
+			}
+			custom_effect_tooltip = MAC_renew_tt
+			hidden_effect = {
+				activate_mission = MAC_mefo_bills_mission
+			}
+		}	
+		remove_effect = {
+			clr_country_flag = MAC_has_cancelled_mefo
+		}
+
+
+		ai_will_do = {
+			factor = 20
+		}
+	}
+
 	MAC_mefo_bills_mission = {
 
 		allowed = { always = no }
 
-		icon = ger_mefo_bills
+		icon = GFX_decision_gre_paying_ifc_debt
 
 		available = {
 			#GER_can_delay_mefo_payment = yes
@@ -181,7 +274,7 @@ Progression_of_obesity = {
 						check_variable = { var = MAC_obesity_counter value = 15 compare = less_than }
 					}
 					add_political_power = -10
-					add_idea = { idea = Suspension_of_operations }
+					add_idea = { idea = Suspension_of_operations　}
 				}
 				#2
 				if = {
@@ -265,101 +358,13 @@ Progression_of_obesity = {
 			factor = 200
 		}
 	}
-	
-	MAC_cancel_mefos = {
-
-		icon = ger_mefo_bills
-
-		available = {
-			NOT = {
-				OR = {
-					has_idea = Suspension_of_operations
-				}
-			}
-			hidden_trigger = { 
-				NOT = { has_country_flag = MAC_has_cancelled_mefo } 
-				
-			}
-		}
-        visible = {
-            has_completed_focus = MAC_sales_start_in_the_USA
-        }
-
-		cost = 0
-
-		fire_only_once = no
-
-		cancel_if_not_visible = yes
-
-
-        complete_effect = {
-			custom_effect_tooltip = MAC_cancel_tt
-            add_ideas = Suspension_of_operations
-		}
-
-		remove_effect = {
-			set_country_flag = MAC_has_cancelled_mefo
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-	}
-	
-	MAC_renew_mefos = {
-
-		icon = ger_mefo_bills
-
-		available = {
-			hidden_trigger = { 
-				#has_country_flag = ger_has_cancelled_mefo
-				has_idea = Suspension_of_operations	
-				NOT = {
-					OR = {
-						has_idea = Dieting_1
-						has_idea = Dieting_1_2
-						has_idea = Dieting_2
-						has_idea = Dieting_2_2
-						has_idea = Dieting_3
-					}
-				}
-			}
-		}
-        visible = {
-            has_completed_focus = MAC_sales_start_in_the_USA
-        }
-
-		cost = 0
-
-		fire_only_once = no
-
-		
-
-		cancel_if_not_visible = yes
-
-		complete_effect = {
-			remove_ideas = Suspension_of_operations
-			custom_effect_tooltip = MAC_renew_tt
-			hidden_effect = {
-				activate_mission = MAC_mefo_bills_mission
-			}
-		}	
-		remove_effect = {
-			clr_country_flag = MAC_has_cancelled_mefo
-		}
-
-
-		ai_will_do = {
-			factor = 20
-		}
-	}
 }
 
 McDonald_Store_Opening_Policy = {
 	
 	Determination_of_policy = {
 
-		icon = ger_mefo_bills
+		icon = GFX_decision_eng_trade_unions_support
 
 		allowed = {
             original_tag = MAC
@@ -367,7 +372,10 @@ McDonald_Store_Opening_Policy = {
         }
 
 		available = {
-			has_global_flag=United_states
+			custom_trigger_tooltip = MAC_USA_create
+			hidden_trigger = {
+				has_global_flag=United_states
+			}
 		}
         visible = {
             has_global_flag=United_states
@@ -393,5 +401,141 @@ McDonald_Store_Opening_Policy = {
 			factor = 100
 		}
 	}
+}
 
+Making_burgers= {
+	
+	Getting_Buns = {
+
+		icon = GFX_decision_generic_decision
+
+		allowed = {
+            original_tag = MAC
+            always = yes
+        }
+
+		available = {
+			has_completed_focus = USAB_1
+		}
+        visible = {
+			has_completed_focus = USAB_1
+        }
+
+		cost = 20
+
+		fire_only_once = yes
+
+
+
+        complete_effect = {
+			add_ideas = Buns
+			
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	Getting_Lettuce = {
+
+		icon = GFX_decision_generic_decision
+
+		allowed = {
+            original_tag = MAC
+            always = yes
+        }
+
+		available = {
+			has_completed_focus = USAB_1
+			has_idea = Buns
+		}
+        visible = {
+			has_completed_focus = USAB_1
+        }
+
+		cost = 20
+
+		fire_only_once = yes
+
+
+
+        complete_effect = {
+			add_ideas = Lettuce
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	Getting_Patty = {
+
+		icon = GFX_decision_generic_decision
+
+		allowed = {
+            original_tag = MAC
+            always = yes
+        }
+
+		available = {
+			has_completed_focus = USAB_1
+			has_idea = Buns
+			has_idea = Lettuce
+		}
+        visible = {
+			has_completed_focus = USAB_1
+        }
+
+		cost = 20
+
+		fire_only_once = yes
+
+
+
+        complete_effect = {
+			add_ideas = Patty
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	Finishing_the_Burgers = {
+
+		icon = GFX_decision_generic_decision
+
+		allowed = {
+            original_tag = MAC
+            always = yes
+        }
+
+		available = {
+			has_completed_focus = USAB_1
+			has_idea = Buns
+			has_idea = Lettuce
+			has_idea = Patty
+		}
+        visible = {
+			has_completed_focus = USAB_1
+        }
+
+		cost = 20
+
+		fire_only_once = yes
+
+
+
+        complete_effect = {
+			add_ideas = Burger
+			remove_ideas = Buns
+			remove_ideas = Lettuce
+			remove_ideas = Patty
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
 }

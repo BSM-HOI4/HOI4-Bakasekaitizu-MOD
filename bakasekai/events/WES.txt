@@ -1001,7 +1001,7 @@ country_event = {
 		set_country_flag = Isaac_Ali
 		create_country_leader = {
 			name = "Isaac Ali"
-			picture = "gfx/leaders/Portrait_Arabia_Generic_navy_2.dds"
+			picture = "gfx/leaders/WES/issac_ali.dds"
 			ideology = liberalism
 		}
 		set_party_name = {
@@ -1038,8 +1038,8 @@ country_event = {
 
 	option = {
 		name = WES.25.a  #民衆の支持は取り付けた！
-		set_politics = { ruling_party = communism elections_allowed = no }
-		add_popularity = { ideology = communism popularity = 0.75 }
+		set_politics = { ruling_party = anarchism elections_allowed = no }
+		add_popularity = { ideology = anarchism popularity = 0.75 }
 		load_focus_tree = wes-sahara_anarchy
 		WES_anarchy = {
 			promote_character = {
@@ -1048,14 +1048,14 @@ country_event = {
 		}
 		create_country_leader = {
 			name = "Anarchy"
-			picture = "gfx/leaders/MYS/Anarchy.dds"
-			ideology = anarchist_communism
+			picture = "gfx/leaders/WES/Anarchy.dds"
+			ideology = Anarcho_syndicalism
 			traits = {
 				anarchy
 			}
 		}
 		set_party_name = {
-			ideology = communism
+			ideology = anarchism
 			long_name = WES_anarchy_long
 			name = WES_anarchy
 		}
@@ -1085,38 +1085,18 @@ country_event = {
 
 	option = {
 		name = WES.26.a  #やったぞ！！！安定度が回復しているように見える！
-		add_stability = 0.5
 		if = {
 			limit = {
-				OR = {
-					NOT = { WES = { has_idea = WES_stability_minus } }
-					NOT = { WES = { has_idea = WES_stability_minus_2 } }
-					NOT = { WES = { has_idea = WES_stability_minus_3 } }
-					NOT = { WES = { has_idea = WES_stability_minus_4 } }
-					NOT = { WES = { has_idea = WES_stability_minus_5 } }
-					NOT = { WES = { has_idea = WES_stability_minus_6 } }
-					NOT = { WES = { has_idea = WES_stability_minus_7 } }
-					NOT = { WES = { has_idea = WES_stability_minus_7 } }
-					NOT = { WES = { has_idea = WES_stability_minus_8 } }
-					NOT = { WES = { has_idea = WES_stability_minus_9 } }
-					NOT = { WES = { has_idea = WES_stability_minus_10 } }
-				}
+				WES = { has_idea = WES_stability_minus }
 			}
-			add_ideas = WES_stability_minus
+			swap_ideas = {
+				remove_idea = WES_stability_minus
+				add_idea = WES_stability_minus_2
+			}
 		}
 		else = {
 			if = {
 				limit = {
-					WES = { has_idea = WES_stability_minus }
-				}
-				swap_ideas = {
-					remove_idea = WES_stability_minus
-					add_idea = WES_stability_minus_2
-				}
-			}
-			else = {
-				if = {
-					limit = {
 						WES = { has_idea = WES_stability_minus_2 }
 					}
 					swap_ideas = {
@@ -1194,6 +1174,26 @@ country_event = {
 													add_idea = WES_stability_minus_10
 												}
 											}
+											else = {
+												if = {
+													limit = {
+														AND = {
+															NOT = { WES = { has_idea = WES_stability_minus } }
+															NOT = { WES = { has_idea = WES_stability_minus_2 } }
+															NOT = { WES = { has_idea = WES_stability_minus_3 } }
+															NOT = { WES = { has_idea = WES_stability_minus_4 } }
+															NOT = { WES = { has_idea = WES_stability_minus_5 } }
+															NOT = { WES = { has_idea = WES_stability_minus_6 } }
+															NOT = { WES = { has_idea = WES_stability_minus_7 } }
+															NOT = { WES = { has_idea = WES_stability_minus_7 } }
+															NOT = { WES = { has_idea = WES_stability_minus_8 } }
+															NOT = { WES = { has_idea = WES_stability_minus_9 } }
+															NOT = { WES = { has_idea = WES_stability_minus_10 } }
+														}
+													}
+													add_ideas = WES_stability_minus
+												}
+											}
 										}
 									}
 								}
@@ -1201,7 +1201,11 @@ country_event = {
 						}
 					}
 				}
-			}
+
+		}
+		if = {
+			limit = { WES = { has_stability < 0.25 } }
+			WES = { country_event = { id = WES.26}}			
 		}
 		
 	}

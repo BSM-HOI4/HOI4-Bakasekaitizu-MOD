@@ -1,6 +1,6 @@
 focus_tree = {
 	id = wes_2
-	continuous_focus_position = { x = -200 y = 2000 } 
+	continuous_focus_position = { x = 0 y = 2000 } 
 	country = {
 		factor = 0
 		modifier = {
@@ -3063,25 +3063,7 @@ focus_tree = {
         }
 
         ai_will_do = {
-            factor = 3
-            modifier = {
-                factor = 0
-                date < 1939.1.1
-                OR = { 
-                    # we dont want chinese minors to go crazy on slots early since they get eaten
-                    tag = GXC 
-                    tag = YUN
-                    tag = SHX
-                    tag = XSM
-                    tag = BEL
-                    tag = LUX
-                    tag = HOL
-                    tag = DEN
-
-                    # we also dont want tiny nations to go crazy with slots right away
-                    num_of_controlled_states < 2
-                }               
-            }
+            factor = 36
         }
     }
 
@@ -3392,12 +3374,7 @@ focus_tree = {
         available_if_capitulated = yes
 
         completion_reward = {
-            add_tech_bonus = {
-                name = industrial_bonus
-                bonus = 1.0
-                uses = 2
-                category = industry
-            }
+            custom_effect_tooltip = WES_Concentration_decision
         }
     }
 
@@ -4496,6 +4473,7 @@ focus = {
             FOCUS_FILTER_POLITICAL
         }
         completion_reward = {
+            custom_effect_tooltip = WES_train_decision_available
             add_ideas = WES_the_second_america
             add_ideas = WES_mass_production_and_mass_consumption_economy
         }
@@ -4536,7 +4514,7 @@ focus = {
             AMA = {
 				country_event = { id = WES.1 }
 			}
-            ZAF = {
+            SAU = {
 				country_event = { id = WES.1 }
 			}
             IRQ = {
@@ -4622,9 +4600,9 @@ focus = {
             }
             if = {
                 limit = {
-                    ZAF = { has_idea = WES_greening_1}
+                    SAU = { has_idea = WES_greening_1}
                 }
-                ZAF = {
+                SAU = {
 				    country_event = { id = WES.2 }
 			    }
             }
@@ -4726,9 +4704,9 @@ focus = {
             }
             if = {
                 limit = {
-                    ZAF = { has_idea = WES_greening_2}
+                    SAU = { has_idea = WES_greening_2}
                 }
-                ZAF = {
+                SAU = {
                     country_event = { id = WES.3 }
                 }
             }
@@ -4776,7 +4754,7 @@ focus = {
             add_to_tech_sharing_group = WES_SGC_research
             if = {
                 limit = {
-                    EGY = { has_idea = WES_greening_2}
+                    EGY = { has_idea = WES_greening_3}
                 }
                 EGY = {
                     country_event = { id = WES.28 }
@@ -4784,7 +4762,7 @@ focus = {
             }
             if = {
                 limit = {
-                    MAR = { has_idea = WES_greening_2}
+                    MAR = { has_idea = WES_greening_3}
                 }
                 MAR = {
                     country_event = { id = WES.28 }
@@ -4792,7 +4770,7 @@ focus = {
             }
             if = {
                 limit = {
-                    KSM = { has_idea = WES_greening_2}
+                    KSM = { has_idea = WES_greening_3}
                 }
                 KSM = {
                     country_event = { id = WES.28 }
@@ -4800,7 +4778,7 @@ focus = {
             }
             if = {
                 limit = {
-                    KEN = { has_idea = WES_greening_2}
+                    KEN = { has_idea = WES_greening_3}
                 }
                 KEN = {
                     country_event = { id = WES.28 }
@@ -4808,7 +4786,7 @@ focus = {
             }
             if = {
                 limit = {
-                    KHM = { has_idea = WES_greening_2}
+                    KHM = { has_idea = WES_greening_3}
                 }
                 KHM = {
                     country_event = { id = WES.28 }
@@ -4816,7 +4794,7 @@ focus = {
             }
             if = {
                 limit = {
-                    AMA = { has_idea = WES_greening_2}
+                    AMA = { has_idea = WES_greening_3}
                 }
                 AMA = {
                     country_event = { id = WES.28 }
@@ -4824,15 +4802,15 @@ focus = {
             }
             if = {
                 limit = {
-                    ZAF = { has_idea = WES_greening_2}
+                    SAU = { has_idea = WES_greening_3}
                 }
-                ZAF = {
+                SAU = {
                     country_event = { id = WES.28 }
                 }
             }
             if = {
                 limit = {
-                    IRQ = { has_idea = WES_greening_2}
+                    IRQ = { has_idea = WES_greening_3}
                 }
                 IRQ = {
                     country_event = { id = WES.28 }
@@ -4840,7 +4818,7 @@ focus = {
             }
             if = {
                 limit = {
-                    IRN = { has_idea = WES_greening_2}
+                    IRN = { has_idea = WES_greening_3}
                 }
                 IRN = {
                     country_event = { id = WES.28 }
@@ -4848,7 +4826,7 @@ focus = {
             }
             if = {
                 limit = {
-                    TUR = { has_idea = WES_greening_2}
+                    TUR = { has_idea = WES_greening_3}
                 }
                 TUR = {
                     country_event = { id = WES.28 }
@@ -4881,7 +4859,11 @@ focus = {
                 add_idea = WES_trade_at_SGC_4
             }
             hidden_effect = {
-                WES = { country_event = { days = 3 id = baka_super.1 } }
+                #WES = { country_event = { days = 3 id = baka_super.1 } }
+                news_event = { 
+					id = baka_super_news.1
+					days = 2
+				}
             }
             if = {
                 limit = {
@@ -4933,9 +4915,9 @@ focus = {
             }
             if = {
                 limit = {
-                    ZAF = { has_idea = WES_greening_3}
+                    SAU = { has_idea = WES_greening_3}
                 }
-                ZAF = {
+                SAU = {
                     country_event = { id = WES.4 }
                 }
             }
@@ -5456,9 +5438,9 @@ focus = {
             }
             if = {
                 limit = {
-                    ZAF = { has_idea = WES_Sahara_Greening_Committee }
+                    SAU = { has_idea = WES_Sahara_Greening_Committee }
                 }
-                ZAF = {
+                SAU = {
                     country_event = { id = WES.5 }
                 }
             }
@@ -5557,9 +5539,9 @@ focus = {
             }
             if = {
                 limit = {
-                    ZAF = { has_idea = WES_investment_in_resource_development_1}
+                    SAU = { has_idea = WES_investment_in_resource_development_1}
                 }
-                ZAF = {
+                SAU = {
                     country_event = { id = WES.6 }
                 }
             }
@@ -5658,9 +5640,9 @@ focus = {
             }
             if = {
                 limit = {
-                    ZAF = { has_idea = WES_investment_in_resource_development_2}
+                    SAU = { has_idea = WES_investment_in_resource_development_2}
                 }
-                ZAF = {
+                SAU = {
                     country_event = { id = WES.7 }
                 }
             }
@@ -5758,9 +5740,9 @@ focus = {
             }
             if = {
                 limit = {
-                    ZAF = { has_idea = WES_investment_in_resource_development_3}
+                    SAU = { has_idea = WES_investment_in_resource_development_3}
                 }
-                ZAF = {
+                SAU = {
                     country_event = { id = WES.8 }
                 }
             }
