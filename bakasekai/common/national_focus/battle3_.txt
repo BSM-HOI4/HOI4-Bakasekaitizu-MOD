@@ -4,11 +4,11 @@ focus_tree = {
 		factor = 0
 		modifier = {
 			add = 10
-			OR ={tag = UKR
-			tag=CRI
-			tag=RGA
-			tag=LIT
-			tag=BTL}
+			OR ={tag = BTL
+			tag=BTW
+			tag=BTP
+			tag=BTY
+			tag=BTG}
 		}
 	}
 	default = no
@@ -20,7 +20,7 @@ focus_tree = {
 		cost = 10.00
 		x = 8
 		y = 0
-		available = {tag=UKR}
+		available = {tag=BTL}
 		bypass = {has_idea = battle3_kodoku}
 			completion_reward = {
 					add_stability = 0.05
@@ -63,13 +63,26 @@ focus_tree = {
 		y = 2
 			ai_will_do = {
 
-					factor = 20
+					factor = 2000
 
 				}
-				bypass = {AND={has_idea = battle3_kodoku NOT={has_country_flag="内戦準備"}}}
+				bypass = {AND={has_idea = battle3_kodoku NOT={ has_country_flag="内戦準備" }}}
 			select_effect = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 20000
+				}
+				add_ideas = battle3_naisen
 				set_country_flag="国内問題に対処"
-					LIT = {
+				IF={
+					limit={
+						NOT={
+							 has_global_flag="BSM_Battle" 
+							}
+						}
+					
+					set_global_flag="BSM_Battle"
+					BTY = {
 						set_country_flag="内戦準備"
 							set_country_flag=naisennbattle
 							add_state_core = 11
@@ -125,6 +138,8 @@ focus_tree = {
 							set_state_owner = 207
 							set_state_owner = 206
 							set_state_owner = 241
+							set_state_owner = 814
+							
 							set_state_controller = 13
 							set_state_controller = 191
 							set_state_controller = 12
@@ -138,15 +153,20 @@ focus_tree = {
 							set_state_controller = 207
 							set_state_controller = 206
 							set_state_controller = 241
-							
+							set_state_controller = 814
+
+							add_offsite_building = {
+								type = industrial_complex
+								level = 5
+							}
 							
 								add_ideas = war_economy
 							
 
-create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_experience_factor = 0.2 start_equipment_factor = 1" owner = LIT}
+							create_unit={division= "name=\"hohei\"division_tempBTPe = \"infantry\" start_experience_factor = 0.2 start_equipment_factor = 1" owner = BTY}
 						}
 
-						CRI = {
+						BTW = {
 							set_country_flag="内戦準備"
 							
 								
@@ -196,7 +216,7 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							set_state_owner =200
 							set_state_owner =221
 							
-							set_state_owner =137
+						
 							set_state_owner =196
 							
 						
@@ -205,18 +225,21 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							set_state_controller =200
 							set_state_controller =221
 							
-							set_state_controller =137
+						
 							set_state_controller =196
 					
 							
 								add_ideas = war_economy
-									
+								add_offsite_building = {
+									type = industrial_complex
+									level = 5
+								}	
 
 						}
-						RGA = {
+						BTP = {
 							set_country_flag="内戦準備"
 						
-							ROOT={limit={tag=RGA} add_manpower=200000}
+							ROOT={limit={tag=BTP} add_manpower=200000}
 						
 											add_state_core = 11
 							add_state_core = 12
@@ -258,6 +281,10 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							add_state_core = 94
 							add_state_core = 95
 							add_state_core = 96
+							add_state_core = 188
+							add_state_core = 812
+							add_state_core = 813
+							add_state_core = 811
 							
 							set_state_owner = 13
 							set_state_owner = 191
@@ -269,10 +296,26 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							set_state_controller = 12
 							set_state_controller = 190
 							set_state_controller = 189
-							
+							set_state_controller = 809
+							set_state_controller = 808
+							set_state_controller = 810
+							set_state_controller = 815
+							set_state_owner = 809
+							set_state_owner = 808
+							set_state_owner = 810
+							set_state_owner = 815
+
+							set_state_owner = 188
+							set_state_owner = 812
+							set_state_owner = 813
+							set_state_owner = 811
+							add_offsite_building = {
+								type = industrial_complex
+								level = 5
+							}
 							
 						}
-					BTL = {
+					BTG = {
 						set_country_flag="内戦準備"
 					
 						
@@ -343,120 +386,120 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 							set_state_controller = 241
 							set_state_controller = 201
 							set_state_controller = 202
-							
+							add_offsite_building = {
+								type = industrial_complex
+								level = 5
+							}
 							
 								add_ideas = war_economy
 
 						}
 
-					set_country_flag="内戦準備"
+					BTL={
+						set_country_flag="内戦準備"
 				
-					add_offsite_building = {
-							type = industrial_complex
-							level = 5
-						}
-				
-					country_event={
+						add_offsite_building = {
+								type = industrial_complex
+								level = 5
+							}
+						country_event={
 						id=kpo.2 
 						days=3
 						}
+						add_ideas = war_economy
+					}
 					
-					add_ideas = war_economy
-					CRI={
+					BTW={
 									add_ideas=battle3_kodoku
 									}
-					RGA={
+					BTP={
+									add_ideas=battle3_kodoku
+									}
+					BTG={
 									add_ideas=battle3_kodoku
 									}
 					BTL={
 									add_ideas=battle3_kodoku
 									}
-					UKR={
-									add_ideas=battle3_kodoku
-									}
-					LIT={
+					BTY={
 									add_ideas=battle3_kodoku
 									}
 
-
-					}
+								}
+			}
 
 			completion_reward={
 						every_country={limit={has_country_flag="内戦準備"} 
 										add_stability=0.3
-										add_ideas = battle3_naisen
 										add_ideas = battle3_kodoku
 										add_offsite_building={
 											type=industrial_complex
 											level=5
 										}
-				add_equipment_to_stockpile = {
-												type = infantry_equipment
-												amount = 20000
-											}
+	
 										clr_country_flag="内戦準備"						
 										}
 						declare_war_on = {
-							target = BTL
+							target = BTG
 							type = annex_everything
 							
 						}
 						declare_war_on = {
-									target = RGA
+									target = BTP
 									type = annex_everything
 								}
 						
-						BTL={
+						BTG={
 								declare_war_on = {
-									target = RGA
+									target = BTP
 									type = annex_everything
 									
 								}
 								declare_war_on = {
-									target = LIT
+									target = BTY
 									type = annex_everything
 									
 								}
 								declare_war_on = {
-									target =CRI
+									target =BTW
 									type = annex_everything
 									
 								}
 								add_stability=0.3
 						}
 						
-						RGA={
+						BTP={
 							declare_war_on = {
-									target = CRI
+									target = BTW
 									type = annex_everything
 								
 								}
 									add_ideas = war_economy
 								declare_war_on = {
-									target = LIT
+									target = BTY
 									type = annex_everything
 									
 								}
 								add_stability=0.3
 						}
 
-						CRI={
+						BTW={
 									declare_war_on = {
-									target = UKR
+									target = BTL
 									type = annex_everything
 									
 								}
 								declare_war_on = {
-									target = LIT
+									target = BTY
 									type = annex_everything
 									
 								}
 								add_stability=0.3							
 						}
 
-						LIT={
+						BTY={
 							declare_war_on = {
-									target = UKR
+									target = BTL
 									type = annex_everything
 									
 								}
@@ -470,7 +513,7 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 
 					}
 
-	}
+		}
     	focus = {
 		id = battle3_s
 		text = battle3_s
@@ -486,22 +529,22 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 			available = {
 				AND={
 					NOT = {
-							has_war_with = LIT
+							has_war_with = BTY
 						}
 		
 					NOT = {
-							has_war_with = RGA
+							has_war_with = BTP
 						}
 	
 					NOT = {
-							has_war_with = UKR
+							has_war_with = BTL
 						}
 				
 		
 					NOT = {
-							has_war_with = CRI
+							has_war_with = BTW
 						}
-		NOT={has_war_with = BTL}
+		NOT={has_war_with = BTG}
 						
 				}}
 			completion_reward = {
@@ -551,11 +594,11 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 			ai_will_do={factor=100}
 		available = {
 					OR={
-						has_war_with = LIT 
-						has_war_with = RGA
+						has_war_with = BTY 
+						has_war_with = BTP
+						has_war_with=BTG
+						has_war_with=BTW
 						has_war_with=BTL
-						has_war_with=CRI
-						has_war_with=UKR
 						}
 					}
 		completion_reward={
@@ -564,7 +607,7 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 					}
 		x=2
 		y=3
-}
+	}
 	focus = {
 		id = battle3_s_3
 		text = battle3_s_3
@@ -577,18 +620,18 @@ create_unit={division= "name=\"hohei\"division_tempRGAe = \"infantry\" start_exp
 		mutually_exclusive = {focus=battle3_s_2}
 		available = {
 					OR={
-						has_war_with = LIT 
-						has_war_with = RGA
+						has_war_with = BTY 
+						has_war_with = BTP
+						has_war_with=BTG
+						has_war_with=BTW
 						has_war_with=BTL
-						has_war_with=CRI
-						has_war_with=UKR
 						}
 					}
 					completion_reward={add_ideas=battle3_kodoku_3}
 	x=3
 	y=4
-}
-focus = {
+	}
+	focus = {
 		id = battle3_s_2
 		text = battle3_s_2
 		icon = GFX_goal_generic_CAS
@@ -599,16 +642,16 @@ focus = {
 		mutually_exclusive = {focus=battle3_s_3}
 		available = {
 					OR={
-						has_war_with = LIT 
-						has_war_with = RGA
+						has_war_with = BTY 
+						has_war_with = BTP
+						has_war_with=BTG
+						has_war_with=BTW
 						has_war_with=BTL
-						has_war_with=CRI
-						has_war_with=UKR
 						}
 					}
 		x=1
 		y=4
-}
+	}
 
 
 
@@ -652,7 +695,7 @@ focus = {
 		text = battle3_4_2
 		icon = GFX_focus_chi_mission_to_germany
 		cost = 10.00
-		available = {NOT ={ has_war_with = GER }}
+		available = {NOT ={ has_war_with = DEU }}
 		prerequisite = {
 			focus = battle3_4_1
 		}
@@ -720,8 +763,8 @@ focus = {
 					set_politics = {
 							ruling_party = democratic
 						}
-					ENG = {
-							add_to_faction = UKR
+					GBR = {
+							add_to_faction = BTL
 						}
 				}
 
@@ -731,7 +774,7 @@ focus = {
 		text = battle3_4_4
 		icon = GFX_focus_chi_mission_to_the_soviet_union
 		cost = 10.00
-		available = {NOT ={ has_war_with = SOV }}
+		available = {NOT ={ has_war_with = RUS }}
 		prerequisite = {
 			focus = battle3_4_1
 		}
@@ -776,7 +819,7 @@ focus = {
 			completion_reward = {
 					create_wargoal = {
 							type = annex_everything
-							target = GER
+							target = DEU 
 						}
 				}
 
@@ -989,8 +1032,8 @@ focus = {
 		}
 		x = 22
 		y = 10
-completion_reward = {add_ideas=battle3_toushi}
-	}
+	completion_reward = {add_ideas=battle3_toushi}
+		}
 	focus = {
 		id = battle3a_1
 		icon = GFX_goal_generic_build_airforce
@@ -1598,43 +1641,42 @@ completion_reward = {add_ideas=battle3_toushi}
 		x = 17
 		y = 10
 			completion_reward = {
-					ramdom_owned_controlled_state = {
-							limit = {
-									free_building_slots = {
-											building = infrastructure
-											size > 2
-											include_locked = yes
-										}
-								}
-							add_extra_state_shared_building_slots = 3
-							add_building_construction = {
-									type = infrastructure
-									level = 3
-									instant_build = yes
-								}}
-						ramdom_owned_controlled_state = {
-												limit = {
-									free_building_slots = {
-											building = infrastructure
-											size > 2
-											include_locked = yes
-										}}
-							add_extra_state_shared_building_slots = 3
-							add_building_construction = {
-									type = infrastructure
-									level = 3
-									instant_build = yes
-								}}
-				ramdom_owned_controlled_state = {
-							add_extra_state_shared_building_slots = 3
-							add_building_construction = {
-									type = industrial_complex
-									level = 3
-									instant_build = yes
-								}
+				random_state = {
+					
+						limit = {
+							is_controlled_by = ROOT
 						}
+						add_building_construction = {
+							type = infrastructure
+							level = 3
+							instant_build = yes
+						}
+					
 				}
-
+				random_state = {
+						limit = {
+							is_controlled_by = ROOT
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 3
+							instant_build = yes
+						}
+					}
+				
+				random_state = {
+						limit = {
+							is_controlled_by = ROOT
+						}
+						add_building_construction = {
+							type = infrastructure
+							level = 3
+							instant_build = yes
+						}
+					
+					}
+				
+			}
 	}
 	focus = {
 		id = battle3_12_1
@@ -1674,7 +1716,7 @@ completion_reward = {add_ideas=battle3_toushi}
 			completion_reward = {
 					create_wargoal = {
 							type = annex_everything
-							target = SOV
+							target = RUS
 						}
 					create_wargoal = {
 							type = annex_everything
@@ -1686,7 +1728,7 @@ completion_reward = {add_ideas=battle3_toushi}
 						}
 					create_wargoal = {
 							type = annex_everything
-							target = TAN
+							target = SOV
 						}
 				}
 
@@ -2086,7 +2128,7 @@ completion_reward = {add_ideas=battle3_toushi}
 			completion_reward = {
 					create_wargoal = {
 							type = annex_everything
-							target = PRC
+							target = CHN
 						}
 				}
 
@@ -2216,8 +2258,8 @@ completion_reward = {add_ideas=battle3_toushi}
 		}
 		x = 16
 		y = 14
-completion_reward = { create_wargoal = {
-									target =ENG
+		completion_reward = { create_wargoal = {
+									target = GBR
 									type = annex_everything
 									
 								}
@@ -2225,15 +2267,15 @@ completion_reward = { create_wargoal = {
 									target =USA
 									type = annex_everything}
 								create_wargoal = {
-									target =SOV
+									target =RUS
 									type = annex_everything
 								}
 								create_wargoal = {
-									target =PRC
+									target =CHI
 									type = annex_everything
 								}
 								create_wargoal = {
-									target =GER
+									target = DEU 
 									type = annex_everything
 								}
 								create_wargoal = {
@@ -2249,27 +2291,29 @@ completion_reward = { create_wargoal = {
 									type = annex_everything
 								}
 								create_wargoal = {
-									target =ENG
+									target = GBR
 									type = annex_everything
 									}}}
-				focus = {
-		id = battle3_1_1
-		text = battle3_1_1
-		icon = GFX_goal_generic_consumer_goods
-		cost = 10.00
-		prerequisite = {
-			focus = battle3_4_1
-		}
-		x = 22
-		y = 6
+		focus = {
+			id = battle3_1_1
+			text = battle3_1_1
+			icon = GFX_goal_generic_consumer_goods
+			cost = 10.00
+			prerequisite = {
+					focus = battle3_4_1
+				}
+			x = 22
+			y = 6
 			completion_reward = {
-					add_offsite_building  
+					add_offsite_building ={
 					type = industrial_complex
-					level = 3
+					level = 3 
+					}
 				}
 
 	}
 
 
 
+ 
 }

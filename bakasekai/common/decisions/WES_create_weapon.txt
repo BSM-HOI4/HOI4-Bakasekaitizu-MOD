@@ -1,7 +1,7 @@
 create_weapons = {
 	create_infantry_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_prepare_civil_war
 
         allowed = {
             original_tag = WES
@@ -34,7 +34,7 @@ create_weapons = {
     }
     create_support_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_prepare_civil_war
 
         allowed = {
             original_tag = WES
@@ -67,7 +67,7 @@ create_weapons = {
     }
     create_motorized_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_rubber
 
         allowed = {
             original_tag = WES
@@ -100,7 +100,7 @@ create_weapons = {
     }
     create_light_tank_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_tank
 
         allowed = {
             original_tag = WES
@@ -134,7 +134,7 @@ create_weapons = {
     }
     create_medium_tank_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_tank
 
         allowed = {
             original_tag = WES
@@ -167,7 +167,7 @@ create_weapons = {
     }
     create_heavy_tank_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_tank
 
         allowed = {
             original_tag = WES
@@ -200,7 +200,7 @@ create_weapons = {
     }
     create_fighter_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_air
 
         allowed = {
             original_tag = WES
@@ -233,7 +233,7 @@ create_weapons = {
     }
     create_CAS_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_air
 
         allowed = {
             original_tag = WES
@@ -266,7 +266,7 @@ create_weapons = {
     }
     create_convoy = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_naval
 
         allowed = {
             original_tag = WES
@@ -301,6 +301,7 @@ create_weapons = {
 
 desertification = {
     Desertification_of_territory = {
+        icon = GFX_decision_generic_ignite_civil_war
         allowed = {
             original_tag = WES
             always = yes
@@ -328,6 +329,7 @@ desertification = {
 
 found_sand_country = {
     found_sandsand_stan = {
+        icon = GFX_decision_infiltrate_state
         allowed = {
             always =yes
             original_tag = WES
@@ -335,32 +337,37 @@ found_sand_country = {
         fire_only_once = yes
         available = {
             has_completed_focus = WES_founding_of_sandsand_stan
-			controls_state = 267
-			controls_state = 402
-			controls_state = 404
-            controls_state = 405
-            controls_state = 406
-            controls_state = 407
-            controls_state = 415
-            controls_state = 440
-            controls_state = 442
-            controls_state = 443
-            controls_state = 444
-            controls_state = 445
-            controls_state = 583
-            controls_state = 584
-            controls_state = 585
-            controls_state = 586
-            controls_state = 587
-            controls_state = 588
-            controls_state = 589
-            controls_state = 590
-            controls_state = 732
-            controls_state = 742
-            controls_state = 787
-            NOT = {
-                country_exists = AFG
-            }
+			custom_trigger_tooltip = {
+				toolip = WES_annex_NTS
+				WES = {
+					controls_state = 267
+			    	controls_state = 402
+			    	controls_state = 404
+                	controls_state = 405
+                	controls_state = 406
+                	controls_state = 407
+                	controls_state = 415
+                	controls_state = 440
+                	controls_state = 442
+                	controls_state = 443
+                	controls_state = 444
+                	controls_state = 445
+                	controls_state = 583
+                	controls_state = 584
+                	controls_state = 585
+                	controls_state = 586
+                	controls_state = 587
+                	controls_state = 588
+                	controls_state = 589
+                	controls_state = 590
+                	controls_state = 732
+                	controls_state = 742
+                	controls_state = 787
+				}
+				NOT = {
+            	    country_exists = NTS
+            	}
+			}
 
         }
         ai_will_do = {
@@ -370,51 +377,54 @@ found_sand_country = {
             has_completed_focus = WES_founding_of_sandsand_stan
         }
         complete_effect = {
-            AFG = {
-				transfer_state = 267
-				transfer_state = 402
-                transfer_state = 404
-                transfer_state = 405
-                transfer_state = 406
-                transfer_state = 407
-                transfer_state = 415
-                transfer_state = 440
-                transfer_state = 442
-                transfer_state = 443
-                transfer_state = 444
-                transfer_state = 445
-                transfer_state = 583
-                transfer_state = 584
-                transfer_state = 585
-                transfer_state = 586
-                transfer_state = 587
-                transfer_state = 588
-                transfer_state = 589
-                transfer_state = 590
-                transfer_state = 732
-                transfer_state = 742
-                transfer_state = 787
-				set_cosmetic_tag = AFG_SandSand
-				create_country_leader = {
-					name = "Sand Sand"
-					desc = "POBTYICS_JOSEF_GROHE_DESC"
-					picture = "gfx/leaders/WES/Sands.dds"
-					ideology = fascism_ideology
-					traits = {
-                        charisma
+			custom_effect_tooltip = WES_found_sandsand_stan_fin
+            hidden_effect = {
+				NTS = {
+				    transfer_state = 267
+				    transfer_state = 402
+                    transfer_state = 404
+                    transfer_state = 405
+                    transfer_state = 406
+                    transfer_state = 407
+                    transfer_state = 415
+                    transfer_state = 440
+                    transfer_state = 442
+                    transfer_state = 443
+                    transfer_state = 444
+                    transfer_state = 445
+                    transfer_state = 583
+                    transfer_state = 584
+                    transfer_state = 585
+                    transfer_state = 586
+                    transfer_state = 587
+                    transfer_state = 588
+                    transfer_state = 589
+                    transfer_state = 590
+                    transfer_state = 732
+                    transfer_state = 742
+                    transfer_state = 787
+					set_cosmetic_tag = AFG_SandSand
+					create_country_leader = {
+						name = "Sand Sand"
+						desc = "POLITICS_JOSEF_GROHE_DESC"
+						picture = "gfx/leaders/WES/Sands.dds"
+						ideology = fascism_ideology
+						traits = {
+               		        charisma
+						}
 					}
 				}
+				set_autonomy = { target = NTS autonomy_state = autonomy_integrated_puppet }
 			}
-			set_autonomy = { target = AFG autonomy_state = autonomy_integrated_puppet }
         }
     }
 }
 
 
 public_works = {
-    construction_of_the_transcontinental_railroad = {
+    construction_of_the_transcontinental_railroad_decision_1 = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_construction
 
         allowed = {
             original_tag = WES
@@ -426,15 +436,729 @@ public_works = {
 
         available = {
             has_completed_focus = WES_the_second_America
+            num_of_civilian_factories_available_for_projects > 15
+        }
+		ai_will_do = {
+			factor = 100
+		}
+        fire_only_once = yes
+
+		cost = 25
+		days_remove = 100
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+            set_country_flag = WES_train_1
+            custom_effect_tooltip = WES_railway_1
+            271 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 4954
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 8036
+							instant_build = yes
+						}
+					}
+				}
+			}
+            298 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 7959
+							instant_build = yes
+						}
+					}
+				}
+			}
+            549 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 1914
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 2016
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 4918
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 5060
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 8084
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 10739
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 10795
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 13484
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = supply_node
+							level = 1
+							province = 10739
+							instant_build = yes
+						}
+					}
+				}
+			}
+            556 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 4927
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 8116
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 10829
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 12751
+							instant_build = yes
+						}
+					}
+				}
+			}
+            558 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 1891
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 4997
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 5028
+							instant_build = yes
+						}
+					}
+				}
+			}
+            773 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 7963
+							instant_build = yes
+						}
+					}
+				}
+			}
+            774 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 1473
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 2081
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 4897
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 4978
+							instant_build = yes
+						}
+					}
+				}
+			}
+            778 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 7950
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 12851
+							instant_build = yes
+						}
+					}
+				}
+			}
+            780 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 4957
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 5039
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 8008
+							instant_build = yes
+						}
+					}
+				}
+			}
+            781 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 2056
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 12707
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+    }
+
+    construction_of_the_transcontinental_railroad_decision_2 = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+			custom_trigger_tooltip = {
+				toolip = WES_train_1_fin
+				WES = {
+					has_country_flag = WES_train_1
+				}
+			}
+            has_completed_focus = WES_the_second_America
+            num_of_civilian_factories_available_for_projects > 15
+        }
+		ai_will_do = {
+			factor = 100
+		}
+        fire_only_once = yes
+
+		cost = 25
+		days_remove = 100
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+            set_country_flag = WES_train_2
+            custom_effect_tooltip = WES_railway_1
+            271 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 7912
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 12856
+							instant_build = yes
+						}
+					}
+				}
+			}
+            538 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 8016
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 8048
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 12775
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = supply_node
+							level = 1
+							province = 8048
+							instant_build = yes
+						}
+					}
+				}
+			}
+            546 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 11017
+							instant_build = yes
+						}
+					}
+				}
+			}
+            547 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 11145
+							instant_build = yes
+						}
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 13480
+							instant_build = yes
+						}
+					}
+				}
+			}
+            549 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+                        add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 13481
+							instant_build = yes
+						}
+					}
+				}
+			}
+            718 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 4941
+							instant_build = yes
+						}
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 10766
+							instant_build = yes
+						}
+					}
+				}
+			}
+            769 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+						add_building_construction = {
+							type = rail_way
+							level = 1
+							province = 2220
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+    }
+
+    construction_of_the_transcontinental_railroad_decision_sub = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            custom_trigger_tooltip = {
+				toolip = WES_train_2_fin
+				WES = {
+					has_country_flag = WES_train_2
+				}
+			}
+            has_completed_focus = WES_the_second_America
         }
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
             add_timed_idea = {
                 idea = WES_construction_of_the_transcontinental_railroad
-                days = 360
+                days = 160
             }
-            country_event = { days = 361 id = WES.27 }
+            country_event = { days = 161 id = WES.27 }
+		}
+		ai_will_do = {
+			factor = 100
+		}
+    }
+}
+
+Concentration_of_construction_forces = {
+    construction_in_Sahara = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            has_completed_focus = WES_Concentration_of_construction_forces
+            num_of_civilian_factories_available_for_projects > 15
+        }
+		ai_will_do = {
+			factor = 100
+		}
+        fire_only_once = yes
+
+		cost = 25
+		days_remove = 100
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+			custom_effect_tooltip = WES_Industrialization_in_sahara
+            hidden_effect = {
+				514 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+				515 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+				551 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+			    556 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                767 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                775 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                781 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                782 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+			}
+		}
+    }
+
+    construction_in_the_center = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            has_completed_focus = WES_Concentration_of_construction_forces
+            num_of_civilian_factories_available_for_projects > 15
+        }
+		ai_will_do = {
+			factor = 100
+		}
+        fire_only_once = yes
+
+		cost = 25
+		days_remove = 100
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+            custom_effect_tooltip = WES_Industrialization_in_the_center
+			hidden_effect = {
+				538 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+				549 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+				660 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+			    718 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                774 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                772 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+			}
+		}
+    }
+}
+
+
+It_is_dream = {
+    dream = {
+
+		icon = GFX_decision_unknown
+
+        allowed = {
+            original_tag = WES
+            always = no
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            has_global_flag = WES_anarchy_end
+        }
+        #visible = {has_country_flag=gone_sand}
+
+        complete_effect = {
+            country_event = { id = WES_a.11 }
 		}
 		ai_will_do = {
 			factor = 100
