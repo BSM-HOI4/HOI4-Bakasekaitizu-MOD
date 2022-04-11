@@ -1,0 +1,675 @@
+﻿###########################
+# Italian Events
+###########################
+
+add_namespace = italy
+
+#イベリア半島の購入
+country_event = {
+	id = italy.1
+	title = italy.1.t
+	desc = italy.1.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.1.a
+
+		ai_chance = {
+			factor = 100
+		}
+
+		add_ideas = ITA_bought_Iberian_Peninsula_idea
+
+		hidden_effect = {
+			ITA = { country_event = { id = italy.2 } }
+		}
+
+		custom_effect_tooltip = ITA_buy_Iberia_tt
+	}
+
+	option = {
+		name = italy.1.b
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			ITA = { country_event = { id = italy.3 } }
+		}
+		
+	}
+}
+
+country_event = {
+	id = italy.2
+	title = italy.2.t
+	desc = italy.2.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.2.a
+		add_ideas = ITA_buy_Iberian_Peninsula_idea
+
+		custom_effect_tooltip = form_spqr_spain_coring_states_tt
+		hidden_effect = {
+			165 = { add_core_of = ROOT }
+			166 = { add_core_of = ROOT }
+			167 = { add_core_of = ROOT }
+			177 = { add_core_of = ROOT }
+			171 = { add_core_of = ROOT }
+			174 = { add_core_of = ROOT }
+			172 = { add_core_of = ROOT }
+			176 = { add_core_of = ROOT }
+			170 = { add_core_of = ROOT }
+			41 = { add_core_of = ROOT }
+			175 = { add_core_of = ROOT }
+			169 = { add_core_of = ROOT }
+			173 = { add_core_of = ROOT }
+			168 = { add_core_of = ROOT }
+			290 = { add_core_of = ROOT }
+			788 = { add_core_of = ROOT }
+			789 = { add_core_of = ROOT }
+			790 = { add_core_of = ROOT }
+			791 = { add_core_of = ROOT }
+			792 = { add_core_of = ROOT }
+			793 = { add_core_of = ROOT }
+			794 = { add_core_of = ROOT }
+		}
+		custom_effect_tooltip = form_eu_portugal_coring_states_tt
+		hidden_effect = {
+			118 = { add_core_of = ROOT }
+			180 = { add_core_of = ROOT }
+			181 = { add_core_of = ROOT }
+			112 = { add_core_of = ROOT }
+			179 = { add_core_of = ROOT }
+			795 = { add_core_of = ROOT }
+		}
+
+		custom_effect_tooltip = ITA_get_iberiatt
+		hidden_effect = {
+			165 = { transfer_state = ROOT }
+			166 = { transfer_state = ROOT }
+			167 = { transfer_state = ROOT }
+			177 = { transfer_state = ROOT }
+			171 = { transfer_state = ROOT }
+			174 = { transfer_state = ROOT }
+			172 = { transfer_state = ROOT }
+			176 = { transfer_state = ROOT }
+			170 = { transfer_state = ROOT }
+			41 = { transfer_state = ROOT }
+			175 = { transfer_state = ROOT }
+			169 = { transfer_state = ROOT }
+			173 = { transfer_state = ROOT }
+			168 = { transfer_state = ROOT }
+			290 = { transfer_state = ROOT }
+			788 = { transfer_state = ROOT }
+			789 = { transfer_state = ROOT }
+			790 = { transfer_state = ROOT }
+			791 = { transfer_state = ROOT }
+			792 = { transfer_state = ROOT }
+			793 = { transfer_state = ROOT }
+			794 = { transfer_state = ROOT }
+			118 = { transfer_state = ROOT }
+		}
+		hidden_effect = {
+			180 = { transfer_state = ROOT }
+			181 = { transfer_state = ROOT }
+			112 = { transfer_state = ROOT }
+			179 = { transfer_state = ROOT }
+			795 = { transfer_state = ROOT }
+		}
+		
+
+	}
+}
+
+country_event = {
+	id = italy.3
+	title = italy.3.t
+	desc = italy.3.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.3.a
+
+	}
+}
+
+
+
+# Extension of the Vallo Alpino
+country_event = {
+	id = italy.4
+	title = italy.4.t
+	desc = italy.4.d
+	picture = GFX_report_event_bunker_01
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.4.a
+		158 = {
+			add_building_construction = {
+				type = bunker
+				province = 11891
+				level = 3
+			}
+			add_building_construction = {
+				type = bunker
+				province = 11721
+				level = 3
+			}
+		
+			add_building_construction = {
+				type = bunker
+				province = 9738
+				level = 3
+			}
+		}
+		160 = {
+			add_building_construction = {
+				type = bunker
+				province = 3657
+				level = 3
+			}
+			add_building_construction = {
+				type = bunker
+				province = 9613
+				level = 3
+			}
+			add_building_construction = {
+				type = bunker
+				province = 11595
+				level = 3
+			}
+		}
+	}
+}
+
+
+# Italian-German Treaty (Germans)
+country_event = {
+	id = italy.5
+	title = italy.5.t
+	desc = italy.5.d
+	picture = GFX_report_event_german_italian_pact
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.5.a	#sounds good
+		ITA = {
+			country_event = { days = 1 id = italy.6 }
+		}
+		# REVISIT Balance research bonus, also in event below
+		add_tech_bonus = {
+			bonus = 1.0
+			uses = 1
+			technology = tech_mountaineers2
+		}
+		add_doctrine_cost_reduction = {
+			cost_reduction = 0.35
+			uses = 2
+			category = naval_doctrine
+		}
+	}
+	
+	option = {
+		name = italy.5.b	#no way 
+		ai_chance = { factor = 0 }
+		add_political_power = -10
+		ITA = {
+			country_event = { days = 1 id = italy.7 }
+		}
+	}
+}
+
+# Germans Accept Italian-German Treaty
+country_event = {
+	id = italy.6
+	title = italy.6.t
+	desc = italy.6.d
+	picture = GFX_report_event_physics_lab_01
+
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.6.a
+		# REVISIT Balance research bonus
+		add_tech_bonus = {
+			name = synth_bonus
+			bonus = 1.0
+			uses = 1
+			category = synth_resources
+		}
+		add_tech_bonus = {
+			name = armor_bonus
+			bonus = 1.0
+			uses = 2
+			category = armor
+		}
+		ITA = {
+			add_opinion_modifier = { target = GER modifier = ger_ita_tech_treaty }
+		}
+	}
+}
+
+# Germans Reject Italian-German Treaty
+country_event = {
+	id = italy.7
+	title = italy.7.t
+	desc = italy.7.d
+	picture = GFX_report_event_physics_lab_01
+
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.7.a
+		ITA = {
+			add_opinion_modifier = { target = GER modifier = ger_ita_tech_treaty_rejected }
+		}
+	}
+}
+
+country_event = {
+	id = italy.8
+	title = italy.8.t
+	desc = italy.8.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.8.a
+
+		ai_chance = {
+			factor = 100
+		}
+
+		effect_tooltip = {
+			ITA = {annex_country = ROOT}
+		}
+
+		
+
+		ITA = { country_event = { id = italy.9 } }
+	}
+
+	option = {
+		name = italy.8.b
+		ai_chance = {
+			factor = 0
+		}
+
+		ITA = { country_event = { id = italy.10 } }
+	}
+}
+
+country_event = {
+	id = italy.9
+	title = italy.9.t
+	desc = italy.9.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.9.a
+		add_ideas = ITA_buy_Iberian_Peninsula_idea
+		ITA = {annex_country = GRE}
+
+        47 = { add_core_of = ROOT }
+		182 = { add_core_of = ROOT }
+        184 = { add_core_of = ROOT }
+        185 = { add_core_of = ROOT }
+		186 = { add_core_of = ROOT }
+		187 = { add_core_of = ROOT }
+		731 = { add_core_of = ROOT }
+	}
+}
+
+country_event = {
+	id = italy.10
+	title = italy.10.t
+	desc = italy.10.d
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.10.a
+
+	}
+}
+
+
+
+# Germany want to claim Slovenia from Yugoslavia
+country_event = {
+	id = italy.12
+	title = italy.12.t
+	desc = italy.12.d
+	picture = GFX_report_event_hitler_croatia_handshake
+
+	is_triggered_only = yes
+	
+	option = {
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 3
+				has_army_size = { size > 75 }
+			}
+		}
+		name = italy.12.a
+		ITA = {
+			add_political_power = -100
+			if = { limit = { is_faction_leader = yes }
+				add_to_faction = YUG
+				YUG = {
+					add_ai_strategy = {
+						type = alliance
+						id = "ITA"
+						value = 200
+					}
+				}
+			}
+			if = {
+				limit = { 
+					OR = {
+						AND = {
+							is_faction_leader = no
+							is_in_faction = yes
+						}
+						is_in_faction = no
+					}
+				}
+				create_faction = italy_empire_faction
+				add_to_faction = YUG
+				YUG = {
+					add_ai_strategy = {
+						type = alliance
+						id = "ITA"
+						value = 200
+					}
+				}
+			}			
+		}
+		GER = { country_event = { id = germany.96 hours = 6 } }
+		YUG = { country_event = { id = yugoslavia.6 hours = 6 } }
+	}	
+	option = {
+		ai_chance = {
+			factor = 100
+		}	
+		name = italy.12.b
+		YUG = {
+			add_opinion_modifier = { target = ITA modifier = western_betrayal }
+			country_event = { id = yugoslavia.5 hours = 6 }
+		}
+	}
+}
+
+# Italy (First Ljubljana Award) from german focus
+country_event = {
+	id = italy.13
+	title = italy.13.t
+	desc = { 
+		text = italy.13.d_dalmatia_montenegro
+		trigger = {
+			has_completed_focus = ITA_slovenia_dalmatia_claims
+			owns_state = 44
+		}
+	}
+	desc = { 
+		text = italy.13.d_dalmatia
+		trigger = {
+			has_completed_focus = ITA_slovenia_dalmatia_claims
+			NOT = { owns_state = 44 }
+		}
+	}
+	desc = { 
+		text = italy.13.d_montenegro
+		trigger = {
+			NOT = { has_completed_focus = ITA_slovenia_dalmatia_claims }
+			owns_state = 44
+		}
+	}
+ 
+	picture = GFX_report_event_vienna_award_negotiations
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.13.a
+		if = {
+			limit = { has_completed_focus = ITA_slovenia_dalmatia_claims }
+			ITA = { transfer_state = 103 }
+		}
+		if = {
+			limit = { owns_state = 44 }
+			ITA = { transfer_state = 105 }
+		}
+		if = {
+			limit = { owns_state = 44 }
+			ITA = { transfer_state = 802 }
+		}
+	}
+}
+
+
+# Italy Germany rejects demands for Vichy territory
+country_event = {
+	id = italy.14
+	title = italy.14.t
+	desc = italy.14.d
+ 
+	picture = GFX_report_event_generic_sign_treaty1
+	
+	is_triggered_only = yes
+	
+	option = {
+		ai_chance = { factor = 25 }
+		name = italy.14.a
+		GER = { 
+			remove_from_faction = ITA 
+			country_event = germany.105
+		}
+	}
+
+	option = {
+		ai_chance = { factor = 75 }
+		name = italy.14.b
+
+	}
+}
+
+
+# Italy Germany accepts demands for Vichy territory
+country_event = {
+	id = italy.15
+	title = italy.15.t
+	desc = { 
+		text = italy.15.d
+		trigger = {
+			has_global_flag = ITA_claims_on_france_735
+			has_global_flag = ITA_claims_on_france_1
+		}
+	}
+	desc = { 
+		text = italy.15.d_Corsica
+		trigger = {
+			NOT = { has_global_flag = ITA_claims_on_france_735 }
+			has_global_flag = ITA_claims_on_france_1
+		}
+	}
+ 
+	picture = GFX_report_event_generic_sign_treaty1
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.15.a
+		if = {
+			limit = { has_global_flag = ITA_claims_on_france_735 }
+			ITA = { transfer_state = 735 }
+		}
+		if = {
+			limit = { has_global_flag = ITA_claims_on_france_1 }
+			ITA = { transfer_state = 1 }
+		}		
+	}
+}
+
+# Italy Germany accepts some of demands for Vichy territory
+country_event = {
+	id = italy.16
+	title = italy.16.t
+	desc = italy.16.d
+ 
+	picture = GFX_report_event_generic_sign_treaty1
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = italy.16.a
+
+		transfer_state = 735
+	}
+}
+
+country_event = {
+	id = italy.17
+	title = italy.17.t #ムッソリーニによる国外退去処分
+	desc = italy.17.d
+	
+	is_triggered_only = yes
+	
+	option = { #了承した…
+		name = italy.17.a
+
+		ai_chance = {
+			factor = 100
+		}
+
+		
+
+		ITA = { country_event = { id = italy.18 days = 1 } }
+	}
+
+	option = { #私の信念のためにこれを了承することはできない
+		name = italy.17.b
+		ai_chance = {
+			factor = 0
+		}
+
+		ITA = { country_event = { id = italy.19 days = 1 } }
+	}
+}
+
+country_event = {
+	id = italy.18
+	title = italy.18.t #ムッソリーニによる国外退去処分
+	desc = italy.18.d
+	
+	is_triggered_only = yes
+	
+	option = { #断る！
+		name = italy.18.a
+
+		ai_chance = {
+			factor = 100
+		}
+
+
+		
+
+		ITA = { country_event = { id = italy.19 days = 1 } }
+	}
+
+	option = { #拒否する！
+		name = italy.18.b
+		ai_chance = {
+			factor = 0
+		}
+
+		ALE = { transfer_state = 115 }
+		ALE = { change_tag_from = ITA }
+
+		ALE = { country_event = { id = italy.19 days = 2 } }
+	}
+}
+
+country_event = {
+	id = italy.19
+	title = italy.19.t #ムッソリーニの暗殺
+	desc = italy.19.d
+	
+	is_triggered_only = yes
+	
+	option = { #暗殺するのだ！
+		name = italy.19.a
+
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 150
+
+		custom_effect_tooltip = ITA_benito_mussolini_kill_A
+		set_country_flag = ITA_attack_mussolini
+
+		hidden_effect = {
+			random_list = { 
+				85 = { ALE = { country_event = { id = italy.20 days = 3} } } 
+				15 = { ALE = { country_event = { id = italy.21 days = 3} } } 
+			}
+		}
+	}
+
+	option = { #そんなことはすべきではない
+		name = italy.19.b
+		ai_chance = {
+			factor = 0
+		}
+
+		
+	}
+}
+
+country_event = {
+	id = italy.20
+	title = italy.20.t #ムッソリーニの暗殺成功
+	desc = italy.20.d
+	
+	is_triggered_only = yes
+	
+	option = { #暗殺するのだ！
+		name = italy.20.a
+
+		ai_chance = {
+			factor = 100
+		}
+
+		add_political_power = 400
+
+		set_country_flag = ITA_benito_mussolini_kill_A_Y
+	}
+}
+
+country_event = {
+	id = italy.21
+	title = italy.21.t #ムッソリーニの暗殺失敗
+	desc = italy.21.d
+	
+	is_triggered_only = yes
+	
+	option = { #暗殺するのだ！
+		name = italy.21.a
+
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = 250
+
+		set_country_flag = ITA_benito_mussolini_kill_A_M
+	}
+}

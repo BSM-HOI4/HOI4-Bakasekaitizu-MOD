@@ -13,7 +13,7 @@ battle3_naisen_d = {
                         AND = {
                                 has_idea=battle3_naisen 
                                 OR = {
-                                        has_war_with=BTL has_war_with=BTG has_war_with=LAT has_war_with=BTY has_war_with=BTW 
+                                        has_war_with=BTP has_war_with=BTL has_war_with=BTW has_war_with=BTY has_war_with=BTG 
                                 }
                         }
                 }
@@ -39,19 +39,16 @@ battle3_naisen_d = {
 USAB_civil = {
     #
         USAB_civil_1 = {
-                visible = {
-                        AND = {
-                                has_country_flag=NATO1
-                                has_country_flag=USAC
-                        }
-                }
                 available = {
                         AND = { 
-                                has_country_flag=USAC
-                                has_political_power>30 
+                                has_political_power>30 has_country_flag=USAC
                         } 
                 }
-
+                visible = {
+                        AND = {
+                                has_country_flag=NATO1  has_country_flag=USAC
+                        }
+                }
                 cost=50
                 days_re_enable=20
                 ai_will_do = {
@@ -71,16 +68,13 @@ USAB_civil = {
                 }
         }
         USAB_civil_2 = {
-        }
-        visible = {
-                AND = {
-                        has_country_flag=SATO1
-                        has_country_flag=USAC
-                }
                 available = { 
-                        has_country_flag=USAC
                         has_political_power>30
-
+                }
+                visible = {
+                        AND = {
+                                has_country_flag=SATO1  has_country_flag=USAC
+                        }
                 }
                 cost=50
                 days_re_enable=20
@@ -104,196 +98,32 @@ USAB_civil = {
 
 
 USA_touitu = {
-        USAB_AI = {
-
-                visible = {
-                        AND = {
-                                NOT = {
-                                        OR = {
-                                                has_war_with=MEX 
-                                                has_war_with=SER 
-                                                has_war_with=CRO 
-                                                has_war_with=SLV 
-                                                has_war_with=KOS 
-                                                has_war_with=BOS 
-                                                has_war_with=HRZ 
-                                                has_war_with=MNT 
-                                                has_war_with=MAC
-                                        }
-                                }
-                                OR = {
-                                        tag=MEX
-                                        tag=SER
-                                        tag=CRO 
-                                        tag=SLV 
-                                        tag=KOS 
-                                        tag=BOS 
-                                        tag=HRZ 
-                                        tag=MNT 
-                                        tag=MAC
-                                }
-                                NOT = {
-                                        has_country_flag=USABB
-                                }
-                                is_ai=yes
-                                NOT = {
-                                        has_country_flag=United_states
-                                }
-                        }
-                }
-                available = {
-                        AND = {
-                                OR = {
-                                        tag=MEX 
-                                        tag=SER 
-                                        tag=CRO 
-                                        tag=SLV 
-                                        tag=KOS 
-                                        tag=BOS 
-                                        tag=HRZ 
-                                        tag=MNT 
-                                        tag=MAC
-                                }
-                                has_political_power>20
-                                NOT = {
-                                        has_country_flag=USABB
-                                }
-
-                                NOT = {
-                                        has_country_flag=United_states
-                                }
-                                is_ai=yes
-                                NOT = {
-                                        OR = {
-                                                has_war_with=MEX 
-                                                has_war_with=SER 
-                                                has_war_with=CRO 
-                                                has_war_with=SLV 
-                                                has_war_with=KOS 
-                                                has_war_with=BOS 
-                                                has_war_with=HRZ 
-                                                has_war_with=MNT 
-                                                has_war_with=MAC
-                                        }
-                                }
-                        }
-                }
-                ai_will_do = {
-                        factor=100
-                }
-                complete_effect = { 
-                        random_country = {
-                                limit = {
-                                        AND = {
-                                        NOT = {
-                                                is_puppet=yes
-                                        }
-                                        OR = { 
-                                        controls_state = 367
-                                        
-                                        controls_state = 377
-                                        controls_state = 372
-                                
-                                        controls_state = 378
-                                        controls_state = 382
-                                        controls_state = 382
-                                        controls_state = 366
-                                        controls_state = 365
-                                        
-                                        controls_state = 387
-                                        controls_state = 395
-                                        controls_state = 396
-                                        controls_state = 392
-                                
-                                        controls_state = 383
-                                        controls_state = 369
-                        
-                                        controls_state = 371
-                                        controls_state = 361
-                                        controls_state = 393
-                                        
-                                        controls_state = 391
-                                        controls_state = 370
-                                        controls_state = 373
-                                        controls_state = 388
-                                        controls_state = 384
-                                        controls_state = 379
-                                        controls_state = 357
-                                        controls_state = 359
-                                        controls_state = 376
-                                        controls_state = 358
-                                        controls_state = 363
-                                        controls_state = 389
-                                        controls_state = 261
-                                        controls_state = 374
-                                        controls_state = 385
-                                        controls_state = 360
-                                
-                                
-                                        controls_state = 364
-                                        controls_state = 390
-                                        controls_state = 368
-                                        controls_state = 375
-                                        controls_state = 380
-                                
-                                        controls_state = 386
-                                        controls_state = 394
-                                        controls_state = 381
-                                        }
-                                }
-                        }
-                   
-                        ROOT = {
-                           declare_war_on = {
-                                type= annex_everything
-                                target=PREV 
-                                }
-                        }
-                   
-                }
-        }
-}
-                   
+            
                    
 
 
 
         USAB_civil_3 = {
                 visible = {
-                        OR = {
-                                tag=MEX 
-                                tag=SER 
-                                tag=CRO 
-                                tag=SLV 
-                                tag=KOS 
-                                tag=BOS 
-                                tag=HRZ 
-                                tag=MNT 
-                                tag=MAC
-                        }
                         NOT = {
-                                has_global_flag = United_states
+                                has_global_flag=United_states
                         }
                 }
                 ai_will_do = {
                         factor=200
                 }
-                available = {               
-                        AND = {
-                                OR = {
-                                        tag=MEX 
-                                        tag=SER 
-                                        tag=CRO 
-                                        tag=SLV 
-                                        tag=KOS 
-                                        tag=BOS 
-                                        tag=HRZ 
-                                        tag=MNT 
-                                        tag=MAC
+                available = {  
+                        ROOT = {
+                                limit = {
+                                        tag=LVE
                                 }
-                                is_exist=yes
+                                load_focus_tree = McDonald
+                        }
+                        
+                        
+                        AND = {
                                 NOT = {
-                                        has_global_flag = United_states
+                                        has_country_flag=United_states
                                 }
                                 controls_state = 367
                 
@@ -347,11 +177,28 @@ USA_touitu = {
                                 controls_state = 381
                         }
                 }
-
+                visible = {
+                        AND = {
+                                NOT = {
+                                        has_country_flag=United_states
+                                } 
+                                OR = {
+                                        tag=MEX 
+                                        tag=DIS 
+                                        tag=CLF 
+                                        tag=LVE 
+                                        tag=TEX 
+                                        tag=NEV 
+                                        tag=NYY 
+                                        tag=HLW 
+                                        tag=MAC
+                                }
+                        }
+                }
 
                 complete_effect = {
 			set_cosmetic_tag = United_states
-                        set_global_flag = United_states
+                        set_global_flag=United_states
                         add_state_core = 367
 			add_state_core = 463
 			add_state_core = 377
@@ -404,6 +251,7 @@ USA_touitu = {
                         add_state_core = 394
                         add_state_core = 381
                         remove_ideas=kokudo_touitu
+                        puppet=PHI
                 }
                         
 

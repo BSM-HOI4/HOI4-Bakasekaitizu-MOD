@@ -3,10 +3,6 @@ focus_tree = {
 	continuous_focus_position = { x = 0 y = 1000 } 
 	country = {
 		factor = 0
-		modifier = {
-			add = 10
-			tag = WES
-		}
 	}
 	default = no
 	
@@ -15,14 +11,14 @@ focus_tree = {
 		#Welcoming the Sands of the Middle East
 	focus = {
 		id = WES_civil_struggle #市民闘争
-		icon = GFX_focus_TUR_taking_over_defense_of_the_gulf
+		icon = GFX_focus_generic_support_the_left_right
 		relative_position_id = WES_destruction_of_the_government
 		prerequisite = { focus = WES_anarchic_struggle  }
 		x = 0
 		y = 5
 		cost = 4
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
 			swap_ideas = {
@@ -34,6 +30,10 @@ focus_tree = {
 			add_state_core = 271
 			hidden_effect = {
 				WES = { country_event = { id = WES_a.6}}
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+				}
 			}
 		}
 	}
@@ -49,7 +49,7 @@ focus_tree = {
 		cost = 1
 
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
 		prerequisite = { focus = WES_destruction_of_the_government  }
 		completion_reward = {
@@ -59,6 +59,10 @@ focus_tree = {
 			}
 			hidden_effect = {
 				WES = { country_event = { id = WES_a.2}}
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+				}
 			}
 		}
 	}
@@ -72,7 +76,7 @@ focus_tree = {
 		y = 2
 		cost = 1
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
 		prerequisite = { focus = WES_destruction_of_local_politics  }
 		completion_reward = {
@@ -82,6 +86,10 @@ focus_tree = {
 			}
 			hidden_effect = {
 				WES = { country_event = { id = WES_a.3}}
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+				}
 			}
 		}
 	}
@@ -106,6 +114,10 @@ focus_tree = {
 			}
 			hidden_effect = {
 				WES = { country_event = { id = WES_a.4}}
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+				}
 			}
 		}
 	}
@@ -113,7 +125,7 @@ focus_tree = {
 		#African unification
 	focus = {
 		id = WES_anarchic_struggle #無政府闘争
-		icon = GFX_focus_generic_africa_factory
+		icon = GFX_focus_generic_support_the_left_right
 		relative_position_id = WES_destruction_of_the_government
 		x = 0
 		y = 4
@@ -129,6 +141,10 @@ focus_tree = {
 			}
 			hidden_effect = {
 				WES = { country_event = { id = WES_a.5}}
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+				}
 			}
 		}
 	}
@@ -138,19 +154,25 @@ focus_tree = {
 		#Founding of Sandsand Stan
 	focus = {
 		id = WES_dismantling_the_state
-		icon = GFX_focus_TUR_treaty_of_saadabad
+		icon = GFX_focus_generic_support_the_left_right
 		relative_position_id = WES_destruction_of_the_government
 		x = 0
 		y = 6
 		cost = 30
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
 		prerequisite = { focus = WES_civil_struggle  }
 		prerequisite = { focus = WES_anarchic_consolidation  }
 		completion_reward = {
 			hidden_effect = {
 				WES = { country_event = { id = WES_a.9}}
+				every_state={limit={is_owned_by=WES} add_core_of = ZZZ }
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+					
+				}
 			}
 		}
 	}
@@ -161,7 +183,7 @@ focus_tree = {
 		#sand boat
 	focus = {
 		id = WES_spread_of_anarchy #無政府の広がり
-		icon = GFX_focus_generic_africa_naval
+		icon = GFX_goal_generic_special_forces
 		relative_position_id = WES_destruction_of_the_government
 		x = 2
 		y = 4
@@ -175,15 +197,15 @@ focus_tree = {
 				set_politics = { ruling_party = anarchism elections_allowed = no }
 				add_popularity = { ideology = anarchism popularity = 0.75 }
 			}
-			MOR = {
+			MAR = {
 				set_politics = { ruling_party = anarchism elections_allowed = no }
 				add_popularity = { ideology = anarchism popularity = 0.75 }
 			}
-			CAM = {
+			KHM = {
 				set_politics = { ruling_party = anarchism elections_allowed = no }
 				add_popularity = { ideology = anarchism popularity = 0.75 }
 			}
-			TUN = {
+			KSM = {
 				set_politics = { ruling_party = anarchism elections_allowed = no }
 				add_popularity = { ideology = anarchism popularity = 0.75 }
 			}
@@ -191,12 +213,16 @@ focus_tree = {
 				set_politics = { ruling_party = anarchism elections_allowed = no }
 				add_popularity = { ideology = anarchism popularity = 0.75 }
 			}
-			ANG = {
+			AMA = {
 				set_politics = { ruling_party = anarchism elections_allowed = no }
 				add_popularity = { ideology = anarchism popularity = 0.75 }
 			}
 			hidden_effect = {
 				WES = { country_event = { id = WES_a.7}}
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+				}
 			}
 		}
 	}
@@ -204,7 +230,7 @@ focus_tree = {
 		#sand plane
 	focus = {
 		id = WES_anarchic_consolidation #無政府の広がり
-		icon = GFX_goal_continuous_air_production
+		icon = GFX_goal_generic_special_forces
 		relative_position_id = WES_destruction_of_the_government
 		x = 2
 		y = 5
@@ -218,22 +244,26 @@ focus_tree = {
 				target = EGY
 			}
 			annex_country = {
-				target = MOR
+				target = MAR
 			}
 			annex_country = {
-				target = CAM
+				target = KHM
 			}
 			annex_country = {
-				target = TUN
+				target = KSM
 			}
 			annex_country = {
 				target = KEN
 			}
 			annex_country = {
-				target = ANG
+				target = AMA
 			}
 			hidden_effect = {
 				WES = { country_event = { id = WES_a.8}}
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+				}
 			}
 		}
 	}
@@ -242,18 +272,22 @@ focus_tree = {
 		#Gone with the sand
 	focus = {
 		id = WES_destruction_of_the_government #政府の破壊
-		icon = GFX_focus_AST_squander_bug
+		icon = GFX_focus_generic_support_the_left_right
 		x = 3
 		y = 0
 		cost = 1
 		search_filters = {
-			FOCUS_FILTER_POBTYICAL
+			FOCUS_FILTER_POLITICAL
 		}
 		mutually_exclusive = { focus = WES_establishment_of_the_sgc  }
 		completion_reward = {
 			add_ideas = WES_anarchy_idea
 			hidden_effect = {
 				WES = { country_event = { id = WES_a.1}}
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+				}
 			}
 			#set_party_name = { 
 			#    ideology = fascism
