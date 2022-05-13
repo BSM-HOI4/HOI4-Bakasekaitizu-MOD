@@ -1,4 +1,4 @@
-version="Alpha 0.1"
+version="Alpha 0.1.5.1"
 picture="thumbnail.png"
 tags={
 	"Map"
