@@ -24,6 +24,10 @@ replace_path="common/units/names"
 replace_path="common/units/names_divisions"
 replace_path="common/units/names_ships"
 replace_path="common/units/names_railway_guns"
+<<<<<<< HEAD
+=======
+replace_path="common/units/codenames_operatives"
+>>>>>>> f8bc3813 (修正)
 replace_path="common/scripted_localisation"
 replace_path="common/scripted_effects"
 replace_path="common/scripted_triggers"
@@ -35,6 +39,10 @@ replace_path="history/general"
 replace_path="map"
 replace_path="map/strategicregions"
 replace_path="localisation/replace/loading_tips_l_english.yml"
+<<<<<<< HEAD
+=======
+
+>>>>>>> f8bc3813 (修正)
 name="+バカ世界地図(α版)"
 dependencies={
 	"Japanese Language mod"
