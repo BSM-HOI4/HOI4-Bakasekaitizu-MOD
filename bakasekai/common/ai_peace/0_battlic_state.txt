@@ -26,7 +26,13 @@
 
 default_peace = {
 	enable = {
-		OR={tag=BTY tag=BTL tag=BTP tag=BTW tag=BTG}
+		OR={
+			tag=BTY 
+			tag=BTL 
+			tag=BTP 
+			tag=BTW 
+			tag=BTG
+		}
 	}
 	annex_randomness = 0 #350
 	liberate_randomness = 0 #100
@@ -41,23 +47,23 @@ default_peace = {
 	# ROOT = Taker, FROM = Giver
 	annex = {
 		base =100
-	modifier={
-		factor=100
-		FROM={is_neighbor_of= ROOT}
-	}
+		modifier={
+			factor=100
+			FROM={
+				is_neighbor_of= ROOT
+			}
+		}
 	
 	}
 
 	# ROOT = Taker, FROM = Liberated
 	liberate = {
 		factor = -1 #100
-
 	}
 
 	# ROOT = Taker, FROM = Giver
 	puppet = {
-		base =-1 #200
-		
+		base =-1 #200		
 			}
 		
 	
@@ -69,19 +75,21 @@ default_peace = {
 	
 	# ROOT = STATE, FROM = Taker, FROM.FROM = Giver
 	puppet_state = {
-		base = -1
-	
+		base = -1	
 		}
 	
 
 	# ROOT = Taker, FROM = State
 	take_states = {
 		factor = 50
-	FROM={owner={num_owned_neighbour_states={
-		  owner=ROOT
-		  count=0
-	}}}
-	
+	FROM={
+		owner={
+			num_owned_neighbour_states={
+		 		owner=ROOT
+		 		count=0
+				}
+			}
+		}	
 	}
 
 	# ROOT = Taker, FROM = Giver
