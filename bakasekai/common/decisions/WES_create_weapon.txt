@@ -65,6 +65,39 @@ create_weapons = {
 			factor = 10
 		}
     }
+	create_artillery_equipment = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 50
+        fire_only_once = no
+
+        days_re_enable = 50
+
+        available = {
+            has_completed_focus = WES_sand_rifle
+        }
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+        #visible = {has_country_flag=gone_sand}
+
+        complete_effect = {
+            add_equipment_to_stockpile = {
+			    type = artillery_equipment
+			    amount = 35
+			    producer = WES
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+    }
     create_motorized_equipment = {
 
 		icon = GFX_decision_rubber
@@ -121,10 +154,22 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            add_equipment_to_stockpile = {
-			    type = light_tank_equipment
-			    amount = 20
-			    producer = WES
+            if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+				    type = light_tank_chassis
+	   				amount = 20
+				    producer = WES
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+				    type = light_tank_equipment
+	   				amount = 20
+				    producer = WES
+				}
 			}
 		}
 
@@ -155,10 +200,22 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            add_equipment_to_stockpile = {
-			    type = medium_tank_equipment
-			    amount = 15
-			    producer = WES
+            if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+				    type = medium_tank_chassis
+		  			amount = 15
+				    producer = WES
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+				    type = medium_tank_equipment
+		    		amount = 15
+				    producer = WES
+				}
 			}
 		}
 		ai_will_do = {
@@ -188,10 +245,22 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            add_equipment_to_stockpile = {
-			    type = 	heavy_tank_equipment
-			    amount = 10
-			    producer = WES
+            if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+				    type = heavy_tank_chassis
+		   			amount = 10
+				    producer = WES
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+				    type = heavy_tank_equipment
+					amount = 10
+				    producer = WES
+				}
 			}
 		}
 		ai_will_do = {
@@ -297,6 +366,291 @@ create_weapons = {
 			factor = 10
 		}
     }
+}
+
+create_weapons_auto = {
+	WES_cancel_mefos = {
+
+		icon = GFX_decision_oppression
+
+		available = {
+			hidden_trigger = { 
+				NOT = {
+					OR = {
+						has_country_flag = WES_create_fin
+						has_country_flag = WES_create_end
+					}
+				}
+			}
+		}
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+
+		cost = 0
+
+		fire_only_once = no
+
+		cancel_if_not_visible = yes
+
+
+        complete_effect = {
+			custom_effect_tooltip = WES_cancel_tt
+		}
+
+		remove_effect = {
+			set_country_flag = WES_create_end
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	WES_renew_mefos = {
+
+		icon = GFX_decision_oil
+
+		available = {
+			hidden_trigger = { 
+				#has_country_flag = ger_has_cancelled_mefo
+				OR = {
+					has_country_flag = WES_create_fin
+					NOT = {
+						has_country_flag = WES_create_first
+					}
+				}
+			}
+		}
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+
+		cost = 0
+
+		fire_only_once = no
+
+		
+
+		cancel_if_not_visible = yes
+
+		complete_effect = {
+			custom_effect_tooltip = WES_renew_tt
+			country_event = {
+				id = WES_cre.1
+			}
+			set_country_flag = WES_create_first
+		}
+
+
+		ai_will_do = {
+			factor = 20
+		}
+	}
+
+	WES_mefo_bills_mission = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_gre_paying_ifc_debt
+
+		available = {
+			hidden_trigger = { always = no }
+			has_completed_focus = WES_gone_with_the_sand
+        }
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+
+		#cost = GER_mefo_bill_counter?10
+
+		days_mission_timeout = 50
+		is_good = yes
+
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = WES_create_fin
+			}
+		}
+
+		#days_remove = WES_extend_mefo_bills_days?0
+		remove_effect = {
+		}
+
+		complete_effect = {
+		}
+
+		timeout_effect = {
+			add_political_power = 10
+			if = {
+				limit = {
+					has_country_flag = WES_cre_gun
+				}
+				add_political_power = -50
+				add_equipment_to_stockpile = {
+				    type = infantry_equipment
+			    	amount = 200
+			    	producer = WES
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_sup
+				}
+				add_political_power = -50
+				add_equipment_to_stockpile = {
+				    type = support_equipment
+				    amount = 50
+				    producer = WES
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_art
+				}
+				add_equipment_to_stockpile = {
+			   		type = artillery_equipment
+			    	amount = 35
+			    	producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_mot
+				}
+				add_equipment_to_stockpile = {
+				    type = motorized_equipment
+		   			amount = 50
+				    producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_lt
+				}
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					add_equipment_to_stockpile = {
+					    type = light_tank_chassis
+		   				amount = 20
+					    producer = WES
+					}
+				}
+				else = {
+					add_equipment_to_stockpile = {
+					    type = light_tank_equipment
+		   				amount = 20
+					    producer = WES
+					}
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_mt
+				}
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					add_equipment_to_stockpile = {
+					    type = medium_tank_chassis
+		   				amount = 15
+					    producer = WES
+					}
+				}
+				else = {
+					add_equipment_to_stockpile = {
+					    type = medium_tank_equipment
+		    			amount = 15
+					    producer = WES
+					}
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_ht
+				}
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					add_equipment_to_stockpile = {
+					    type = heavy_tank_chassis
+		   				amount = 10
+					    producer = WES
+					}
+				}
+				else = {
+					add_equipment_to_stockpile = {
+					    type = heavy_tank_equipment
+		    			amount = 10
+					    producer = WES
+					}
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_fight
+				}
+				add_equipment_to_stockpile = {
+				    type = 	fighter_equipment
+		    		amount = 15
+				    producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_cas
+				}
+				add_equipment_to_stockpile = {
+				    type = CAS_equipment
+		    		amount = 15
+				    producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_convoy
+				}
+				add_equipment_to_stockpile = {
+				    type = convoy_1
+		    		amount = 20
+				    producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_create_end
+				}
+				set_country_flag = WES_create_fin
+			}
+			else = {
+				#hidden_effect = {
+				#	set_variable = { WES_extend_mefo_bills_days = days_mission_timeout@WES_mefo_bills_mission }
+				#	#set_country_flag = paid_for_mefo
+				#}
+
+				hidden_effect = {
+					activate_mission = WES_mefo_bills_mission
+				}
+			}
+			
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
 }
 
 desertification = {

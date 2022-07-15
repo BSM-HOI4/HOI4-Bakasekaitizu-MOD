@@ -501,6 +501,7 @@ focus_tree = {
 			}
 			army_experience = 100
 			add_ideas = WES_sand_war
+			add_ideas = WES_Desert_Communication_Systems
 		}
 	}
 
@@ -520,6 +521,7 @@ focus_tree = {
 		prerequisite = { focus = WES_march_of_the_sand_division  }
 		completion_reward = {
 			set_technology = { tech_support = 1 }
+			set_technology = { gw_artillery = 1 }
 		}
 	}
 
@@ -537,9 +539,62 @@ focus_tree = {
 		prerequisite = { focus = WES_sand_rifle  }
 		completion_reward = {
 			set_technology = { motorised_infantry = 1 }
-			set_technology = { gwtank = 1 }
-			set_technology = { basic_light_tank = 1 }
-			set_technology = { basic_heavy_tank = 1 }
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				set_technology = { gwtank_chassis = 1 }
+				set_technology = { basic_light_tank_chassis = 1 }
+				set_technology = { basic_medium_tank_chassis = 1 }
+				set_technology = { basic_heavy_tank_chassis = 1 }
+				set_technology = { armor_tech_1 = 1 }
+				set_technology = { engine_tech_1 = 1 }
+
+				create_equipment_variant = {
+					name = "中戦車1 A"
+					type = medium_tank_chassis_1
+					parent_version = 0
+					modules = {
+						main_armament_slot = tank_high_velocity_cannon
+						turret_type_slot = tank_medium_three_man_tank_turret
+						suspension_type_slot = tank_bogie_suspension
+						armor_type_slot = tank_welded_armor
+						engine_type_slot = tank_gasoline_engine
+					}
+					icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+				}
+				create_equipment_variant = {
+					name = "軽戦車1 A"
+					type = light_tank_chassis_1
+					parent_version = 0
+					modules = {
+						main_armament_slot = tank_high_velocity_cannon
+						turret_type_slot = tank_light_three_man_tank_turret
+						suspension_type_slot = tank_bogie_suspension
+						armor_type_slot = tank_welded_armor
+						engine_type_slot = tank_gasoline_engine
+					}
+					icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+				}
+				create_equipment_variant = {
+					name = "軽戦車1 A"
+					type = heavy_tank_chassis_1
+					parent_version = 0
+					modules = {
+						main_armament_slot = tank_high_velocity_cannon
+						turret_type_slot = tank_heavy_three_man_tank_turret
+						suspension_type_slot = tank_bogie_suspension
+						armor_type_slot = tank_welded_armor
+						engine_type_slot = tank_gasoline_engine
+					}
+					icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+				}
+			}
+			else = {
+				set_technology = { gwtank = 1 }
+				set_technology = { basic_light_tank = 1 }
+				set_technology = { basic_heavy_tank = 1 }
+			}
 		}
 	}
 
@@ -674,15 +729,8 @@ focus_tree = {
 			}
 			set_politics = { ruling_party = fascism elections_allowed = no }
 			add_popularity = { ideology = fascism popularity = 0.75 }
-			create_country_leader = {
-				name = "Sands"
-				desc = "Sand is all. All is sand."
-				picture = "gfx/leaders/WES/Sands.dds"
-				ideology = fascism_ideology
-				traits = {
-					charisma
-				}
-			}
+			#recruit_character = WES_sands
+			promote_leader = WES_sands
 			add_ideas = WES_Gone_with_the_sand
 			set_rule = { can_create_factions = yes }
 			create_faction = WES_sands
@@ -693,12 +741,8 @@ focus_tree = {
 					days = 1
 				}
 			}
+			set_country_flag = WES_create_fin
 			
 		}
 	}
-
-	
-
-
-
 }

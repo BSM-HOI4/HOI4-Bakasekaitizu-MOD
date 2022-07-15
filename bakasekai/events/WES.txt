@@ -792,11 +792,12 @@ country_event = {
 		add_stability = -0.1
 		add_war_support = -0.1
 		add_ideas = WES_the_absentee_presidency
-		create_country_leader = {
-			name = "No President"
-			picture = "gfx/leaders/operative_unknown.dds"
-			ideology = liberalism
-		}
+		#create_country_leader = {
+		#	name = "No President"
+		#	picture = "gfx/leaders/operative_unknown.dds"
+		#	ideology = liberalism
+		#}
+		promote_leader = WES_no_president
 		hidden_effect = {
 			WES = { country_event = { id = WES.24}}
 		}
@@ -972,14 +973,15 @@ country_event = {
 		name = WES.24.a  #フェネックが大統領選に出ている！かわいい！
 		#set_politics = { ruling_party = neutrality_democracy elections_allowed = no }
 		#add_popularity = { ideology = neutrality_democracy popularity = 0.75 }
-		create_country_leader = {
-			name = "Fennec"
-			picture = "gfx/leaders/WES/fennec_2.dds"
-			ideology = liberalism
-			traits = {
-				cute_head_of_state
-			}
-		}
+		#create_country_leader = {
+		#	name = "Fennec"
+		#	picture = "gfx/leaders/WES/fennec_2.dds"
+		#	ideology = liberalism
+		#	traits = {
+		#		cute_head_of_state
+		#	}
+		#}
+		promote_leader = WES_fennec
 		remove_ideas = WES_the_absentee_presidency
 		add_war_support = -0.5
 		add_stability = 0.5
@@ -999,11 +1001,12 @@ country_event = {
 		name = WES.24.b  #Isaac Ali 氏が当選した！
 		remove_ideas = WES_the_absentee_presidency
 		set_country_flag = Isaac_Ali
-		create_country_leader = {
-			name = "Isaac Ali"
-			picture = "gfx/leaders/WES/issac_ali.dds"
-			ideology = liberalism
-		}
+		#create_country_leader = {
+		#	name = "Isaac Ali"
+		#	picture = "gfx/leaders/WES/issac_ali.dds"
+		#	ideology = liberalism
+		#}
+		promote_leader = WES_isaac_ali
 		set_party_name = {
 			ideology = democratic
 			long_name = WES_issac_party_long
@@ -1014,6 +1017,9 @@ country_event = {
 	option = {
 		name = WES.24.c  #いや、このまま大統領を決定しなければ…我々の目的が達成できるのでは…？
 		WES = {country_event = { days = 55 id = WES.25 } }
+		trigger = {
+			has_country_flag = WES_anarchy_create_fin #完成後外す
+		}
 	}
 
 }
@@ -1046,14 +1052,15 @@ country_event = {
 				Ideology = anarchist_communism
 			}
 		}
-		create_country_leader = {
-			name = "Anarchy"
-			picture = "gfx/leaders/WES/Anarchy.dds"
-			ideology = Anarcho_syndicalism
-			traits = {
-				anarchy
-			}
-		}
+		#create_country_leader = {
+		#	name = "Anarchy"
+		#	picture = "gfx/leaders/WES/Anarchy.dds"
+		#	ideology = Anarcho_syndicalism
+		#	traits = {
+		#		anarchy
+		#	}
+		#}
+		promote_leader = WES_anarchy
 		set_party_name = {
 			ideology = anarchism
 			long_name = WES_anarchy_long
