@@ -2847,10 +2847,10 @@ focus_tree = {
     focus = {
         id = WES_determination_of_policy #方針の決定
         icon = GFX_goal_generic_army_doctrines
-        prerequisite = { focus = WES_normalization_of_organization }
+        prerequisite = { focus = WES_large_scale_manoeuvres }
         relative_position_id = WES_normalization_of_organization
         x = 0
-        y = 1
+        y = 4
         cost = 5
         ai_will_do = {
 			factor = 32
@@ -2863,6 +2863,58 @@ focus_tree = {
         completion_reward = {
             army_experience = 30
             #country_event = {}
+        }
+    }
+
+    focus = {
+        id = WES_equipment_development #装備開発
+        icon = GFX_goal_generic_build_tank
+        prerequisite = { focus = WES_determination_of_policy }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 5
+        cost = 5
+        ai_will_do = {
+			factor = 12
+		}
+        
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = motorized_bonus
+                ahead_reduction = 2
+                uses = 1
+                category = motorized_equipment
+            }
+        }
+    }
+
+    focus = {
+        id = WES_equipment_development #装備開発
+        icon = GFX_goal_generic_build_tank
+        prerequisite = { focus = WES_determination_of_policy }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 5
+        cost = 5
+        ai_will_do = {
+			factor = 12
+		}
+        
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = motorized_bonus
+                ahead_reduction = 2
+                uses = 1
+                category = motorized_equipment
+            }
         }
     }
     
