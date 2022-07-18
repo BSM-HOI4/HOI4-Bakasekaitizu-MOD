@@ -4,20 +4,21 @@ focus_tree = {
         factor = 0
         modifier = {
             add = 10
-            OR = { 
-                tag = MEX 
-                tag = DIS 
-                tag = CLF 
-                tag = LVE 
-                tag = TEX 
-                tag = NEV 
-                tag = NYY 
-                tag = HLW 
-                tag = MAC }
+            OR = {
+                tag = MEX
+                tag = DIS
+                tag = CLF
+                tag = LVE
+                tag = TEX
+                tag = NEV
+                tag = NYY
+                tag = HLW
+                tag = MAC
+            }
         }
     }
     default = no
-    
+
     focus = {
         id = USAB_1
         text = USAB_1
@@ -30,52 +31,90 @@ focus_tree = {
             set_country_flag = USAC
             set_country_flag = USABB
             army_experience = 10
-            add_timed_idea = { idea = USAB_N days = 200 }
+            add_timed_idea = {
+                idea = USAB_N
+                days = 200
+            }
             add_equipment_to_stockpile = {
                 type = infantry_equipment
                 amount = 10000
             }
             ROOT = {
-                limit = { tag = NYY }
+                limit = {
+                    tag = NYY
+                }
                 add_equipment_to_stockpile = {
                     type = infantry_equipment
                     amount = 10000
                 }
             }
-            
+
             ROOT = {
-                limit = { tag = MEX }
+                limit = {
+                    tag = MEX
+                }
                 NYY = {
                     add_timed_idea = {
                         idea = USAB_S
                         days = 400
                     }
                 }
-                
                 random_country = {
                     limit = {
                         AND = {
-                            NOT = { has_country_flag = nemui }
+                            NOT = {
+                                has_country_flag = nemui
+                            }
                             is_ai = no
-                            OR = { tag = MEX tag = DIS tag = CLF tag = LVE tag = TEX tag = NEV tag = NYY tag = HLW tag = MAC }
+                            OR = {
+                                tag = MEX
+                                tag = DIS
+                                tag = CLF
+                                tag = LVE
+                                tag = TEX
+                                tag = NEV
+                                tag = NYY
+                                tag = HLW
+                                tag = MAC
+                            }
                         }
                     }
-                    country_event = { id = USAB.1 }
+                    country_event = {
+                        id = USAB.1
+                    }
                     set_country_flag = nemui
                 }
                 random_country = {
                     limit = {
-                        AND = { is_ai = no
-                            NOT = { has_country_flag = nemui }
-                            OR = { tag = MEX tag = DIS tag = CLF tag = LVE tag = TEX tag = NEV tag = NYY tag = HLW tag = MAC }
+                        AND = {
+                            is_ai = no
+                            NOT = {
+                                has_country_flag = nemui
+                            }
+                            OR = {
+                                tag = MEX
+                                tag = DIS
+                                tag = CLF
+                                tag = LVE
+                                tag = TEX
+                                tag = NEV
+                                tag = NYY
+                                tag = HLW
+                                tag = MAC
+                            }
                         }
                     }
-                    country_event = { id = USAB.1 days = 5 }
+                    country_event = {
+                        id = USAB.1
+                        days = 5
+                    }
                     set_country_flag = nemui
                 }
-                
+
                 TEX = {
-                    limit = { is_ai = yes }
+                    limit = {
+                        is_ai = yes
+                    }
                     clr_country_flag = nemui
                     country_event = {
                         id = USAB.1
@@ -84,7 +123,9 @@ focus_tree = {
                     }
                 }
                 NYY = {
-                    limit = { is_ai = yes }
+                    limit = {
+                        is_ai = yes
+                    }
                     clr_country_flag = nemui
                     country_event = {
                         id = USAB.1
@@ -96,19 +137,43 @@ focus_tree = {
                     limit = {
                         AND = {
                             is_ai = yes
-                            NOT = { has_country_flag = nemui }
-                            OR = { tag = MEX tag = DIS tag = CLF tag = LVE tag = TEX tag = NEV tag = NYY tag = HLW tag = MAC }
+                            NOT = {
+                                 has_country_flag = nemui
+                                }
+                            OR = {
+                                tag = MEX
+                                tag = DIS
+                                tag = CLF
+                                tag = LVE
+                                tag = TEX
+                                tag = NEV
+                                tag = NYY
+                                tag = HLW
+                                tag = MAC  }
                         }
                     }
                     clr_country_flag = nemui
-                    country_event = { id = USAB.1 days = 13 }
+                    country_event = {
+                        id = USAB.1
+                        days = 13
+                    }
                 }
                 random_country = {
                     limit = {
                         AND = {
                             is_ai = yes
                             NOT = { has_country_flag = nemui }
-                            OR = { tag = MEX tag = DIS tag = CLF tag = LVE tag = TEX tag = NEV tag = NYY tag = HLW tag = MAC }
+                            OR = {
+                                tag = MEX
+                                tag = DIS
+                                tag = CLF
+                                tag = LVE
+                                tag = TEX
+                                tag = NEV
+                                tag = NYY
+                                tag = HLW
+                                tag = MAC
+                            }
                         }
                     }
                     clr_country_flag = nemui
@@ -120,8 +185,13 @@ focus_tree = {
             clr_country_flag = USAC
             add_war_support = 0.3
             every_country = {
-                limit = { has_country_flag = SATO2 }
-                add_timed_idea = { idea = USAB_M days = 150 }
+                limit = {
+                    has_country_flag = SATO2
+                }
+                add_timed_idea = {
+                    idea = USAB_M
+                    days = 150
+                }
             }
             ROOT = {
                 limit = {
@@ -135,14 +205,16 @@ focus_tree = {
                     }
                 }
             }
-            country_event = { id = USAB.4 }
+            country_event = {
+                id = USAB.4
+            }
             every_country = {
                 limit = {
                         has_country_flag = SATO1
                     }
                 every_country = {
                     limit = {
-                       has_country_flag = NATO1 
+                       has_country_flag = NATO1
                     }
                     declare_war_on = {
                         target = PREV
@@ -152,27 +224,37 @@ focus_tree = {
             }
         }
     }
-    
+
     focus = {
         id = USAB_2
         text = USAB_2
         icon = GFX_focus_RAJ_lions_of_the_great_war
         cost = 10
         available = { has_war = no }
-        
+
         prerequisite = {
             focus = USAB_1
         }
         x = 7
         y = 2
-        
-        
+
+
         completion_reward = {
             country_event = { id = MCD.6 }
             dismantle_faction = yes
             every_country = {
                 limit = {
-                    OR = { tag = MEX tag = DIS tag = CLF tag = LVE tag = TEX tag = NEV tag = NYY tag = HLW tag = MAC }
+                    OR = {
+                        tag = MEX
+                        tag = DIS
+                        tag = CLF
+                        tag = LVE
+                        tag = TEX
+                        tag = NEV
+                        tag = NYY
+                        tag = HLW
+                        tag = MAC
+                    }
                 }
                 clr_country_flag = USABB
                 load_focus_tree = generic_focus
@@ -186,4 +268,3 @@ focus_tree = {
         }
     }
 }
-							
