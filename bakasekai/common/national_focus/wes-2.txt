@@ -3057,6 +3057,49 @@ focus_tree = {
     }
 
     focus = {
+        id = WES_Fleet_Refining #艦隊の編成
+        icon = GFX_goal_generic_navy_battleship
+        prerequisite = { focus = WES_promotion_of_shipbuilding_industry }
+        relative_position_id = WES_normalization_of_organization
+        x = -2
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 6
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        ai_will_do = {
+            factor = 1
+            modifier = {
+                factor = 0
+                all_owned_state = {
+                    OR = {
+                        is_coastal = no
+                        dockyard < 1
+                    }
+                }
+            }
+        }
+
+        completion_reward = {
+            navy_experience = 25
+            add_tech_bonus = {
+                name = capital_ships_bonus
+                bonus = 1.0
+                ahead_reduction = 2
+                uses = 1
+                category = bc_tech
+                category = bb_tech
+                category = cv_tech
+            }
+        }
+    }
+
+    focus = {
         id = WES_promotion_of_military_industry #軍需産業の振興
         icon = GFX_goal_generic_construct_mil_factory
         prerequisite = { focus = WES_determination_of_policy }
