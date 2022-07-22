@@ -2787,7 +2787,7 @@ focus_tree = {
         available_if_capitulated = yes
 
         completion_reward = {
-            #add_ideas =
+            add_ideas = WES_reorganization_idea
         }
     }
 
@@ -2860,6 +2860,8 @@ focus_tree = {
 
         completion_reward = {
             army_experience = 30
+            navy_experience = 30
+            air_experience = 30
             country_event = { id = WES.30 }
         }
     }
@@ -3085,13 +3087,23 @@ focus_tree = {
 
         completion_reward = {
             navy_experience = 25
-            add_tech_bonus = {
-                name = cr_bonus
-                bonus = 1.0
-                ahead_reduction = 2
-                uses = 1
-                category = cl_tech
-                category = ca_tech
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_trade_interdiction
+                }
+                add_ideas = WES_trade_disruption
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_fleet_in_being
+                }
+                add_ideas = WES_Fleet_Protection
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_base_strike
+                }
+                add_ideas = WES_Carrier_Task_Force
             }
         }
     }
@@ -3370,11 +3382,47 @@ focus_tree = {
         available_if_capitulated = yes
 
         completion_reward = {
-            add_tech_bonus = {
-                name = motorized_bonus
-                ahead_reduction = 2
-                uses = 1
-                category = motorized_equipment
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_mobile_warfare
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 2
+                    category = armor
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_superior_firepower
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 2
+                    category = artillery
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_grand_battle_plan
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 2
+                    category = infantry_weapons
+                    category = support_tech
+                    category = artillery
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_mass_assault
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 2
+                    category = infantry_weapons
+                }
             }
         }
     }
@@ -3654,10 +3702,43 @@ focus_tree = {
 
         completion_reward = {
             add_tech_bonus = {
-                name = motorized_bonus
-                ahead_reduction = 2
+                bonus = 1.0
                 uses = 1
-                category = motorized_equipment
+                category = light_fighter
+                category = cat_heavy_fighter
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_operational_integrity
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = light_fighter
+                    category = cat_heavy_fighter
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_battlefield_support
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = cas_bomber
+                    category = tactical_bomber
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_strategic_destruction
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = cat_strategic_bomber
+                    category = tactical_bomber
+                }
             }
         }
     }
@@ -3682,7 +3763,21 @@ focus_tree = {
 
         completion_reward = {
             army_experience = 30
-            #country_event = {}
+            add_tech_bonus = {
+                cost_reduction = 0.5
+                uses = 1
+                category = land_doctrine
+            }
+            add_tech_bonus = {
+                cost_reduction = 0.5
+                uses = 1
+                category = naval_doctrine
+            }
+            add_tech_bonus = {
+                cost_reduction = 0.5
+                uses = 1
+                category = air_doctrine
+            }
         }
     }
 
@@ -3742,15 +3837,7 @@ focus_tree = {
 
         completion_reward = {
             navy_experience = 25
-            add_tech_bonus = {
-                name = capital_ships_bonus
-                bonus = 1.0
-                ahead_reduction = 2
-                uses = 1
-                category = bc_tech
-                category = bb_tech
-                category = cv_tech
-            }
+            add_ideas = WES_Further_expansion_of_the_fleet
         }
     }
 
@@ -3772,7 +3859,30 @@ focus_tree = {
 
         completion_reward = {
             army_experience = 30
-            #country_event = {}
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_mobile_warfare
+                }
+                add_ideas = WES_mobile_warfare
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_superior_firepower
+                }
+                add_ideas = WES_superior_firepower
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_grand_battle_plan
+                }
+                add_ideas = WES_grand_battle_plan
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_mass_assault
+                }
+                add_ideas = WES_mass_assault
+            }
         }
     }
 
@@ -3794,11 +3904,38 @@ focus_tree = {
         available_if_capitulated = yes
 
         completion_reward = {
-            add_tech_bonus = {
-                name = motorized_bonus
-                ahead_reduction = 2
-                uses = 1
-                category = motorized_equipment
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_operational_integrity
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = light_fighter
+                    category = cat_heavy_fighter
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_battlefield_support
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = cas_bomber
+                    category = tactical_bomber
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_strategic_destruction
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = cat_strategic_bomber
+                    category = tactical_bomber
+                }
             }
         }
     }
