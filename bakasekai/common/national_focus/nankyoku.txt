@@ -203,9 +203,16 @@ focus_tree = {
 		icon = GFX_SPL_guojianobenghuai
 		x = 2
 		y = 2
-		cost = 1
+		cost = 4
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 80
+			SPL =  {country_event = SPL_naisen.0 }
+		}
+		complete_tooltip = {
+			
 		}
 		prerequisite = { focus = SPL_shunying  }
 		mutually_exclusive = { focus = SPL_woranoshen  focus = SPL_rennozhixing  }
@@ -246,6 +253,13 @@ focus_tree = {
 		cost = 1
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = -120
+			SPL =  {country_event = SPL_naisen.3}
+		}
+		complete_tooltip = {
+			
 		}
 		prerequisite = { focus = SPL_guojianobenghuai  }
 	}
@@ -300,7 +314,9 @@ focus_tree = {
 		search_filters = {
 			FOCUS_FILTER_MANPOWER
 		}
-		prerequisite = { focus = SPL_xiangzhounojianzao  } prerequisite = { focus = SPL_taimurimituto  }
+		prerequisite = { focus = SPL_xiangzhounojianzao  } 
+		prerequisite = { focus = SPL_taimurimituto  }
+		mutually_exclusive = { focus = SPL_shijienozhongyan  }
 	}
 
 	#世界の終焉
@@ -326,6 +342,9 @@ focus_tree = {
 		cost = 5
 		search_filters = {
 			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+
 		}
 		prerequisite = { focus = SPL_woranoshen  }
 	}
@@ -394,7 +413,18 @@ focus_tree = {
 		}
 		prerequisite = { focus = SPL_jishugexin  } prerequisite = { focus = SPL_jiyijichengjishunokaifa  }
 		complete_tooltip = {
-			recruit_character = SPL_95
+			SPL_95= {
+				add_country_leader_role = {
+                    promote_leader = yes
+                    country_leader = {
+                        expire = "1999.1.1"
+                        ideology = animism
+                        traits = {
+
+                        }
+                    }
+                }
+			}
 
 		}
 	}
