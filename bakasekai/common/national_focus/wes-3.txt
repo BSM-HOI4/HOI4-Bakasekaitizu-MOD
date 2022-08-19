@@ -5498,13 +5498,44 @@ focus = {
     }
 
     focus = {
-        id = WES_allied_technical_cooperatio
+        id = WES_achievement_of_major_project #一大事業の達成
         icon = GFX_focus_research
-        prerequisite = { focus = WES_joining_the_United_Nations }
+        available = {
+            OR = {
+                has_completed_focus = WES_joining_the_United_Nations
+                has_completed_focus = WES_continue_the_SGC_route
+            }
+        }
         relative_position_id = WES_establishment_of_the_sgc
-        #allow_branch = { has_country_flag = WES_allow_branch_flag }
+        allow_branch = { 
+            OR = {
+                has_completed_focus = WES_joining_the_United_Nations
+                has_completed_focus = WES_continue_the_SGC_route
+            }
+        }
         x = 0
         y = 11
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+            set_country_flag = WES_Bokkassa
+        }
+    }
+
+    focus = {
+        id = WES_Presidential_Continuation #大統領の続投
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_achievement_of_major_project }
+        mutually_exclusive = { focus = WES_admiration_for_Napoleon  }
+        mutually_exclusive = { focus = WES_Issac_Ali_was_Election  }
+        relative_position_id = WES_achievement_of_major_project
+        x = -4
+        y = 1
         cost = 10
 
         search_filters = { FOCUS_FILTER_RESEARCH }
@@ -5517,12 +5548,274 @@ focus = {
     }
 
     focus = {
-        id = WES_allied_technical_cooperati
+        id = WES_Issac_Ali_was_Election #Issac Aliの当選
         icon = GFX_focus_research
-        prerequisite = { focus = WES_joining_the_United_Nations }
-        relative_position_id = WES_establishment_of_the_sgc
+        prerequisite = { focus = WES_achievement_of_major_project }
+        mutually_exclusive = { focus = WES_admiration_for_Napoleon  }
+        mutually_exclusive = { focus = WES_Presidential_Continuation  }
+        relative_position_id = WES_achievement_of_major_project
         x = 0
-        y = 12
+        y = 1
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_domination_of_the_Indian_Ocean #インド洋の支配
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_Issac_Ali_was_Election }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = 0
+        y = 1
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Securing_Ceylon #セイロンの確保
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_domination_of_the_Indian_Ocean }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = -1
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Securing_Maldives #モルディブの確保
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_domination_of_the_Indian_Ocean }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = 1
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Control_of_Murray #マレーの制圧
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_Securing_Ceylon }
+        prerequisite = { focus = WES_Securing_Maldives }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = 0
+        y = 3
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Annexation_of_Australia #オーストラリアの併合
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_Control_of_Murray }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = 0
+        y = 4
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_admiration_for_Napoleon #ナポレオンへの憧れ
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_achievement_of_major_project }
+        mutually_exclusive = { focus = WES_Issac_Ali_was_Election  }
+        mutually_exclusive = { focus = WES_Presidential_Continuation  }
+        relative_position_id = WES_achievement_of_major_project
+        available = {
+            has_country_flag
+        }
+        x = 5
+        y = 1
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Formation_of_the_Sahara_Federation #サハラ連邦の結成
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_admiration_for_Napoleon }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 1
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Securing_Resource_Zones #資源地帯の確保
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_Formation_of_the_Sahara_Federation }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_wealth_and_military_strength_of_a_country #富国強兵
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_Formation_of_the_Sahara_Federation }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = -2
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Reinforcing_the_artillery #火砲の強化
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_Formation_of_the_Sahara_Federation }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 2
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_March_to_Versailles #ベルサイユ進軍
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_wealth_and_military_strength_of_a_country }
+        prerequisite = { focus = WES_Securing_Resource_Zones }
+        prerequisite = { focus = WES_Reinforcing_the_artillery }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 3
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_hall_of_mirrors  #鏡の間
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_March_to_Versailles }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 4
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Imperial_Conference  #帝国会議
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_hall_of_mirrors }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 5
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Waterloo_again  #ワーテルロー再び
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_Imperial_Conference }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 6
         cost = 10
 
         search_filters = { FOCUS_FILTER_RESEARCH }
