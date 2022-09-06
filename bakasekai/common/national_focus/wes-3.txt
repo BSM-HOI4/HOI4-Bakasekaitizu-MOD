@@ -845,7 +845,7 @@ focus_tree = {
     focus = {
         id = WES_equipment_development #装備開発
         icon = GFX_goal_generic_build_tank
-        prerequisite = { focus = WES_determination_of_policy }
+        prerequisite = { focus = WES_promotion_of_military_industry }
         relative_position_id = WES_normalization_of_organization
         x = 0
         y = 6
@@ -4033,6 +4033,14 @@ focus = {
 			FOCUS_FILTER_POLITICAL
 		}
         completion_reward = {
+            set_country_flag = WES_SGC_finish_flag
+            hidden_effect = { #collapse focus tree
+				load_focus_tree = {
+					tree = wes_3
+					keep_completed = yes
+				}
+				mark_focus_tree_layout_dirty = yes
+			}
             swap_ideas = {
 				remove_idea = WES_greening_3
 				add_idea = WES_greening_4
@@ -5506,14 +5514,12 @@ focus = {
                 has_completed_focus = WES_continue_the_SGC_route
             }
         }
-        relative_position_id = WES_establishment_of_the_sgc
         allow_branch = { 
             OR = {
-                has_completed_focus = WES_joining_the_United_Nations
-                has_completed_focus = WES_continue_the_SGC_route
+                has_country_flag = WES_SGC_finish_flag
             }
         }
-        x = 0
+        x = -5
         y = 11
         cost = 10
 
@@ -5522,8 +5528,15 @@ focus = {
         available_if_capitulated = yes
 
         completion_reward = {
-            add_research_slot = 1
             set_country_flag = WES_Bokkassa
+            hidden_effect = {
+				load_focus_tree = {
+					tree = wes_3
+					keep_completed = yes
+				}
+				mark_focus_tree_layout_dirty = yes
+			}
+            country_event = { id = WES.33}
         }
     }
 
@@ -5534,7 +5547,15 @@ focus = {
         mutually_exclusive = { focus = WES_admiration_for_Napoleon  }
         mutually_exclusive = { focus = WES_Issac_Ali_was_Election  }
         relative_position_id = WES_achievement_of_major_project
-        x = -4
+        allow_branch = { 
+            OR = {
+                has_country_flag = WES_President_elected_flag
+            }
+        }
+        bypass = {
+            has_country_flag = WES_President_elected_flag
+        }
+        x = 0
         y = 1
         cost = 10
 
@@ -5543,7 +5564,7 @@ focus = {
         available_if_capitulated = yes
 
         completion_reward = {
-            add_research_slot = 1
+            add_political_power = 50
         }
     }
 
@@ -5554,16 +5575,24 @@ focus = {
         mutually_exclusive = { focus = WES_admiration_for_Napoleon  }
         mutually_exclusive = { focus = WES_Presidential_Continuation  }
         relative_position_id = WES_achievement_of_major_project
+        allow_branch = { 
+            OR = {
+                has_country_flag = WES_Issac_Ali_flag
+            }
+        }
         x = 0
         y = 1
         cost = 10
+        bypass = {
+            has_country_flag = WES_Issac_Ali_flag
+        }
 
         search_filters = { FOCUS_FILTER_RESEARCH }
 
         available_if_capitulated = yes
 
         completion_reward = {
-            add_research_slot = 1
+            add_political_power = 25
         }
     }
 
@@ -5599,8 +5628,36 @@ focus = {
         available_if_capitulated = yes
 
         completion_reward = {
-            add_research_slot = 1
-        }
+			if = {
+				limit = {
+                    AND = {
+					    country_exists = SJK
+					    NOT = { EGY = { is_in_faction_with = WES } }
+					    NOT = { has_war_with = SJK }
+                        SJK = {
+                            controls_state = 422
+                        }
+                    }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = SJK
+				}
+			}
+            else = {
+                every_country = {
+                    limit = {
+                        controls_state = 422
+                    }
+				    ROOT = {
+					    create_wargoal = {
+					    	type = annex_everything
+					    	target = PREV
+					    }
+				    }
+			    }
+            }
+		}
     }
 
     focus = {
@@ -5665,19 +5722,24 @@ focus = {
         mutually_exclusive = { focus = WES_Issac_Ali_was_Election  }
         mutually_exclusive = { focus = WES_Presidential_Continuation  }
         relative_position_id = WES_achievement_of_major_project
-        available = {
-            has_country_flag
+        allow_branch = { 
+            OR = {
+                has_country_flag = WES_Bokkassa_flag
+            }
         }
-        x = 5
+        x = 0
         y = 1
         cost = 10
+        bypass = {
+            has_country_flag = WES_Bokkassa_flag
+        }
 
         search_filters = { FOCUS_FILTER_RESEARCH }
 
         available_if_capitulated = yes
 
         completion_reward = {
-            add_research_slot = 1
+            add_political_power = 25
         }
     }
 
@@ -5695,7 +5757,24 @@ focus = {
         available_if_capitulated = yes
 
         completion_reward = {
-            add_research_slot = 1
+            every_state = {
+                limit = {
+                    owner = {
+                        every_country = {
+                            limit = {
+                                is_puppet_of = WES
+                            }
+                        }
+                    }
+                }
+                add_core_of = WES
+            }
+            every_country = {
+                limit = {
+                    is_puppet_of = WES
+                }
+                annex_country = PREV
+            }
         }
     }
 
@@ -5769,7 +5848,17 @@ focus = {
         available_if_capitulated = yes
 
         completion_reward = {
-            add_research_slot = 1
+            every_country = {
+                limit = {
+                    controls_state = 16
+                }
+			    ROOT = {
+				    create_wargoal = {
+				    	type = annex_everything
+				    	target = PREV
+				    }
+			    }
+			}
         }
     }
 
@@ -5781,13 +5870,33 @@ focus = {
         x = 0
         y = 4
         cost = 10
+        available = {
+            AND = {
+                16 = { 
+                    controller = {
+                        OR = {
+                            tag = WES
+					        is_in_faction_with = WES
+                        }
+                    }
+                }
+                OR = {
+                    divisions_in_state = {
+                        type = infantry
+                        size > 5
+                        state = 16
+                    }
+                }
+            }
+
+        }
 
         search_filters = { FOCUS_FILTER_RESEARCH }
 
         available_if_capitulated = yes
 
         completion_reward = {
-            add_research_slot = 1
+            #country_event = { id = wes. }
         }
     }
 
@@ -5912,7 +6021,7 @@ focus = {
 		id = WES_Amazon_war
 		icon = GFX_Amazon_War
 		x = -3
-		y = 2
+		y = 3
 		cost = 10
 		search_filters = {
 			FOCUS_FILTER_WAR_SUPPORT
@@ -5955,7 +6064,7 @@ focus = {
 		id = WES_invasion_of_kenya
 		icon = GFX_focus_generic_provoke_border_clashes
 		x = -3
-		y = 3
+		y = 4
 		cost = 10
         ai_will_do = {
 			factor = 20.5
@@ -5995,7 +6104,7 @@ focus = {
 		id = WES_liberation_from_south_africa
 		icon = GFX_goal_generic_position_armies
 		x = -3
-		y = 4
+		y = 5
 		cost = 10
 		search_filters = {
 			FOCUS_FILTER_WAR_SUPPORT
@@ -6038,7 +6147,7 @@ focus = {
 		id = WES_african_unification
 		icon = GFX_focus_por_recover_latin_america
 		x = -3
-		y = 5
+		y = 6
 		cost = 10
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -6172,9 +6281,9 @@ focus = {
 			factor = 37
 		}
         prerequisite = {
-                focus = WES_conquest_of_egypt
-                focus = WES_Sahara_prefecture_of_Japan
-             }
+            focus = WES_conquest_of_egypt
+            focus = WES_Sahara_prefecture_of_Japan
+        }
         search_filters = {
             FOCUS_FILTER_POLITICAL
         }

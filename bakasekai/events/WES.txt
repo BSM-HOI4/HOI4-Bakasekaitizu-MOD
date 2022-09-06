@@ -798,6 +798,7 @@ country_event = {
 		#	ideology = liberalism
 		#}
 		promote_leader = WES_no_president
+		set_country_flag = WES_President_fire
 		hidden_effect = {
 			WES = { country_event = { id = WES.24}}
 		}
@@ -1450,5 +1451,114 @@ country_event = {
 			factor = 0
 		}
 		set_country_flag = WES_elect_cat_strategic_destruction
+	}
+}
+
+country_event = {
+	id = WES.33
+	title = WES.33.t #大統領選
+	desc = WES.33.d #我が国は今後の軍事的方針を定めなければならない。最後は空軍だ。
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.33.a	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 0
+		}
+		trigger = {
+			NOT = { 
+				has_country_flag = WES_President_fire
+			}
+		}
+		set_country_flag = WES_President_elected_flag
+        hidden_effect = {
+			load_focus_tree = {
+				tree = wes_3
+				keep_completed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+
+	option = {
+		name = WES.33.b	#"空軍による陸軍の補佐が重要だ"
+		ai_chance = {
+			factor = 0
+		}
+		trigger = {
+			NOT = { 
+				has_country_flag = WES_President_fire
+			}
+		}
+		set_country_flag = WES_Issac_Ali_flag
+		promote_leader = WES_isaac_ali
+		set_party_name = {
+			ideology = democratic
+			long_name = WES_issac_party_long
+			name = WES_issac_party
+		}
+        hidden_effect = {
+			load_focus_tree = {
+				tree = wes_3
+				keep_completed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+
+	option = {
+		name = WES.33.c	#"空軍による陸軍の補佐が重要だ"
+		ai_chance = {
+			factor = 0
+		}
+		trigger = {
+			has_country_flag = WES_President_fire
+		}
+		set_country_flag = WES_Issac_Ali_flag
+		promote_leader = WES_isaac_ali
+		set_party_name = {
+			ideology = democratic
+			long_name = WES_issac_party_long
+			name = WES_issac_party
+		}
+        hidden_effect = {
+			load_focus_tree = {
+				tree = wes_3
+				keep_completed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+		}
+	}
+
+	option = {
+		name = WES.33.d	#"空軍によって敵生産能力を破壊することが最善だ"
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = WES_Bokkassa_flag
+		promote_leader = WES_Bokkassa
+		set_party_name = {
+			ideology = democratic
+			long_name = WES_issac_party_long
+			name = WES_issac_party
+		}
+        hidden_effect = {
+			load_focus_tree = {
+				tree = wes_3
+				keep_completed = yes
+			}
+			mark_focus_tree_layout_dirty = yes
+		}
 	}
 }
