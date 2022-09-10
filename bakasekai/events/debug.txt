@@ -1,0 +1,267 @@
+add_namespace = BKK
+
+country_event = {
+	id = baka_debug.1	#国家元首の旅行
+	title = baka_debug.1.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
+	desc = baka_debug.1.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = BKK
+	}
+
+
+	option = {
+		name = baka_debug.1.a  #絶対に止めるべきだ！
+		ai_chance = {
+			factor = 0
+		}
+		custom_effect_tooltip = WES_railway_1
+		set_country_flag = WES_elect_cat_operational_integrity
+		build_railway = {
+  			level = 1
+ 	 		build_only_on_allied = yes
+ 			controller_priority = {
+    			base = 1
+    			modifier = {
+    				tag = MAN
+    				add = 2
+				}
+			}
+			fallback = yes
+			path = { 7959 5039 8008 4957 2012 10829 12751 4927 8116 12851 7950 12707 2056 1891 1969 4972 5028 4997 7963 2081 4897 4978 1473 5060 10739 8084 2016 10795 1914 4918 13484 4954 5010 8036 10775}
+			start_province = 7959
+			target_province = 10775
+		}
+            549 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+                        add_building_construction = {
+							type = supply_node
+							level = 1
+							province = 10739
+							instant_build = yes
+						}
+					}
+				}
+			}
+
+	}
+
+	option = {
+		name = baka_debug.1.b  #絶対に止めるべきだ！
+		ai_chance = {
+			factor = 100
+		}
+		custom_effect_tooltip = WES_railway_1
+		set_country_flag = WES_elect_cat_battlefield_support
+		build_railway = {
+  			level = 1
+ 	 		build_only_on_allied = yes
+ 			controller_priority = {
+    			base = 1
+			}
+			fallback = yes
+			path = { 10968 2115 14776 8193 5117 12775 8016 8048 10766 4941 2220 8144 10932 11017 10860 5160 11145 13481 7912 12856 5010 }
+			start_province = 10968
+			target_province = 5010
+		}
+            538 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+                        add_building_construction = {
+							type = supply_node
+							level = 1
+							province = 8048
+							instant_build = yes
+						}
+					}
+				}
+			}
+
+	}
+}
+
+country_event = {
+	id = baka_debug.2	#国家元首の旅行
+	title = baka_debug.2.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
+	desc = baka_debug.2.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = SJK
+	}
+
+
+	option = {
+		name = baka_debug.2.a  #絶対に止めるべきだ！
+		ai_chance = {
+			factor = 100
+		}
+		load_focus_tree = long_Sri_Jaya_focus
+		add_political_power = 20
+		add_stability = 0.05
+		set_party_name = { 
+		    ideology = stupidism
+		    long_name = SJK_long_name_party_long 
+		    name = SJK_long_name_party
+		}
+		set_politics = { ruling_party = stupidism elections_allowed = yes }
+		add_popularity = { ideology = stupidism popularity = 0.75 }
+		add_ideas = tightly_bound_feelings
+
+	}
+
+	option = {
+		name = baka_debug.2.b  #今回は見送ろう
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = baka_debug.3	#国家元首の旅行
+	title = baka_debug.3.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
+	desc = baka_debug.3.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = BKK
+	}
+
+
+	option = {
+		name = baka_debug.3.a  #絶対に止めるべきだ！
+		ai_chance = {
+			factor = 100
+		}
+		BKK = { add_to_faction = ROOT }
+		set_politics = { ruling_party = stupidism elections_allowed = yes }
+		add_popularity = { ideology = stupidism popularity = 0.75 }
+
+	}
+
+	option = {
+		name = baka_debug.3.b  #バカは伝染するが、つける薬はない。
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = baka_debug.4	#国家元首の旅行
+	title = baka_debug.4.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
+	desc = baka_debug.4.d
+
+	fire_only_once = no
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = GBR
+		tag = NTS
+	}
+
+
+	option = {
+		name = baka_debug.4.a  #絶対に止めるべきだ！
+		ai_chance = {
+			factor = 100
+		}
+		FROM = {puppet = ROOT}
+		BKK = { add_to_faction = ROOT }
+		set_politics = { ruling_party = stupidism elections_allowed = yes }
+		add_popularity = { ideology = stupidism popularity = 0.75 }
+		if = {
+			limit = {
+				tag = GBR
+			}
+			GBR = {
+				set_comestic_tag = long_GBR
+			}
+		}
+		if = {
+			limit = {
+				tag = NTS
+			}
+			GBR = {
+				set_comestic_tag = long_NTS
+			}
+		}
+
+	}
+
+	option = {
+		name = baka_debug.4.b  #バカは伝染するが、つける薬はない。
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = baka_debug.5	#存在しない空軍
+	title = baka_debug.5.t #空軍には設計がまだないから長名化できないんだよ！！！！！残念だったな！！！！！
+	desc = baka_debug.5.d
+
+	fire_only_once = no
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+	}
+
+
+	option = {
+		name = baka_debug.5.a  #パラドのアプデを待ちやがれ！
+		ai_chance = {
+			factor = 100
+		}
+	}
+}
+
+country_event = {
+	id = baka_debug.6	#存在しない空軍
+	title = baka_debug.6.t #空軍には設計がまだないから長名化できないんだよ！！！！！残念だったな！！！！！
+	desc = baka_debug.6.d
+
+	fire_only_once = no
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+	}
+
+
+	option = {
+		name = baka_debug.6.a  #パラドのアプデを待ちやがれ！
+		ai_chance = {
+			factor = 100
+		}
+		create_country_leader = {
+			name = "Pablo Diego Jose Francisco de Paula Juan Nepomuceno Maria de los Remedios Crispin Crispiano de la Santisima Trinidad Ruiz y Picasso"
+			picture = "gfx/leaders/BKK/picasso.dds"
+			ideology = exclusionism
+			traits = { }
+		}
+	}
+}

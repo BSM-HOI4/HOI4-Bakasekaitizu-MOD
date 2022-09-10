@@ -1562,3 +1562,91 @@ country_event = {
 		}
 	}
 }
+
+country_event = {
+	id = WES.34
+	title = WES.34.t #方針の決定
+	desc = WES.34.d #我が国は今後の軍事的方針を定めなければならない。最後は空軍だ。
+
+	fire_only_once = false	
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES.34.a	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		custom_effect_tooltip = WES_railway_1
+		set_country_flag = WES_elect_cat_operational_integrity
+		build_railway = {
+  			level = 1
+ 	 		build_only_on_allied = yes
+ 			controller_priority = {
+    			base = 1
+    			modifier = {
+    				tag = MAN
+    				add = 2
+				}
+			}
+			fallback = yes
+			path = { 7959 5039 8008 4957 2012 10829 12751 4927 8116 12851 7950 12707 2056 1891 1969 4972 5028 4997 7963 2081 4897 4978 1473 5060 10739 8084 2016 10795 1914 4918 13484 4954 5010 8036 10775}
+			start_province = 7959
+			target_province = 10775
+		}
+            549 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+                        add_building_construction = {
+							type = supply_node
+							level = 1
+							province = 10739
+							instant_build = yes
+						}
+					}
+				}
+			}
+	}
+
+	option = {
+		name = WES.34.b	#"空軍による陸軍の補佐が重要だ"
+		ai_chance = {
+			factor = 0
+		}
+		custom_effect_tooltip = WES_railway_1
+		set_country_flag = WES_elect_cat_battlefield_support
+		build_railway = {
+  			level = 1
+ 	 		build_only_on_allied = yes
+ 			controller_priority = {
+    			base = 1
+			}
+			fallback = yes
+			path = { 10968 2115 14776 8193 5117 12775 8016 8048 10766 4941 2220 8144 10932 11017 10860 5160 11145 13481 7912 12856 5010 }
+			start_province = 10968
+			target_province = 5010
+		}
+            538 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+                        add_building_construction = {
+							type = supply_node
+							level = 1
+							province = 8048
+							instant_build = yes
+						}
+					}
+				}
+			}
+	}
+}
