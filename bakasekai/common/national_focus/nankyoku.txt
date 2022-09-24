@@ -11,7 +11,7 @@ focus_tree = {
 	#情報網の構築
 	focus = {
 		id = SPL_qingbaowangnogouzhu
-		icon = GFX_SPL_qingbaowangnogouzhu-252219
+		icon = GFX_SPL_qingbaowangnogouzhu
 		x = 14
 		y = 5
 		cost = 11
@@ -24,12 +24,81 @@ focus_tree = {
 	#国土の再開発
 	focus = {
 		id = SPL_guotunozaikaifa
-		icon = GFX_SPL_guotunozaikaifa-252111
+		icon = GFX_SPL_guotunozaikaifa
 		x = 8
 		y = 0
 		cost = 5
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
+		}
+		complete_tooltip = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		completion_reward = {
+			add_political_power = 150
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 0
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -44,12 +113,26 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		prerequisite = { focus = SPL_guotunozaikaifa  }
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_idea = jyunno
+					}
+				}
+				add_ideas = jyunno
+			}
+			add_political_power = 150
+			country_event = {
+				id = ssw_generic_focus.1
+			}
+		}
 	}
 
 	#我らの神
 	focus = {
 		id = SPL_woranoshen
-		icon = GFX_SPL_woranoshen-252114
+		icon = GFX_SPL_woranoshen
 		x = 8
 		y = 2
 		cost = 1
@@ -58,12 +141,15 @@ focus_tree = {
 		}
 		prerequisite = { focus = SPL_shunying  }
 		mutually_exclusive = { focus = SPL_rennozhixing  focus = SPL_guojianobenghuai  }
+		completion_reward = {
+			recruit_character = SPL_Windows_3_1
+		}
 	}
 
 	#人の知性
 	focus = {
 		id = SPL_rennozhixing
-		icon = GFX_SPL_rennozhixing-252115
+		icon = GFX_SPL_rennozhixing
 		x = 14
 		y = 2
 		cost = 4
@@ -77,7 +163,7 @@ focus_tree = {
 	#国家の崩壊
 	focus = {
 		id = SPL_guojianobenghuai
-		icon = GFX_SPL_guojianobenghuai-252117
+		icon = GFX_SPL_guojianobenghuai
 		x = 2
 		y = 2
 		cost = 1
@@ -91,7 +177,7 @@ focus_tree = {
 	#政治会議を開く
 	focus = {
 		id = SPL_zhengzhihuiyiwokaiku
-		icon = GFX_SPL_zhengzhihuiyiwokaiku-252124
+		icon = GFX_SPL_zhengzhihuiyiwokaiku
 		x = 14
 		y = 3
 		cost = 5
@@ -104,7 +190,7 @@ focus_tree = {
 	#基礎教育の強化
 	focus = {
 		id = SPL_jichujiaoyunoqianghua
-		icon = GFX_SPL_jichujiaoyunoqianghua-252125
+		icon = GFX_SPL_jichujiaoyunoqianghua
 		x = 10
 		y = 3
 		cost = 2
@@ -117,7 +203,7 @@ focus_tree = {
 	#迫る終焉
 	focus = {
 		id = SPL_poruzhongyan
-		icon = GFX_SPL_poruzhongyan-252126
+		icon = GFX_SPL_poruzhongyan
 		x = 2
 		y = 3
 		cost = 1
@@ -130,7 +216,7 @@ focus_tree = {
 	#未知の病原菌
 	focus = {
 		id = SPL_weizhinobingyuanjun
-		icon = GFX_SPL_weizhinobingyuanjun-252131
+		icon = GFX_SPL_weizhinobingyuanjun
 		x = 3
 		y = 4
 		cost = 5
@@ -143,7 +229,7 @@ focus_tree = {
 	#箱舟の建造
 	focus = {
 		id = SPL_xiangzhounojianzao
-		icon = GFX_SPL_xiangzhounojianzao-252132
+		icon = GFX_SPL_xiangzhounojianzao
 		x = 1
 		y = 4
 		cost = 10
@@ -156,7 +242,7 @@ focus_tree = {
 	#タイム・リミット
 	focus = {
 		id = SPL_taimurimituto
-		icon = GFX_SPL_taimurimituto-252135
+		icon = GFX_SPL_taimurimituto
 		x = 3
 		y = 5
 		cost = 5
@@ -170,7 +256,7 @@ focus_tree = {
 	#危機からの脱却
 	focus = {
 		id = SPL_weijikaranotuoque
-		icon = GFX_SPL_weijikaranotuoque-252136
+		icon = GFX_SPL_weijikaranotuoque
 		x = 1
 		y = 6
 		cost = 20
@@ -183,7 +269,7 @@ focus_tree = {
 	#世界の終焉
 	focus = {
 		id = SPL_shijienozhongyan
-		icon = GFX_SPL_shijienozhongyan-252138
+		icon = GFX_SPL_shijienozhongyan
 		x = 3
 		y = 6
 		cost = 5
@@ -197,7 +283,7 @@ focus_tree = {
 	#技術の信仰
 	focus = {
 		id = SPL_jishunoxinyang
-		icon = GFX_SPL_jishunoxinyang-252170
+		icon = GFX_SPL_jishunoxinyang
 		x = 8
 		y = 3
 		cost = 5
@@ -210,7 +296,7 @@ focus_tree = {
 	#研究の加速
 	focus = {
 		id = SPL_yanjiunojiasu
-		icon = GFX_SPL_yanjiunojiasu-252171
+		icon = GFX_SPL_yanjiunojiasu
 		x = 8
 		y = 4
 		cost = 9
@@ -223,7 +309,7 @@ focus_tree = {
 	#技術革新
 	focus = {
 		id = SPL_jishugexin
-		icon = GFX_SPL_jishugexin-252173
+		icon = GFX_SPL_jishugexin
 		x = 7
 		y = 5
 		cost = 20
@@ -236,7 +322,7 @@ focus_tree = {
 	#必要技術の研究
 	focus = {
 		id = SPL_biyaojishunoyanjiu
-		icon = GFX_SPL_biyaojishunoyanjiu-252174
+		icon = GFX_SPL_biyaojishunoyanjiu
 		x = 6
 		y = 3
 		cost = 20
@@ -249,7 +335,7 @@ focus_tree = {
 	#記憶継承技術の開発
 	focus = {
 		id = SPL_jiyijichengjishunokaifa
-		icon = GFX_SPL_jiyijichengjishunokaifa-252175
+		icon = GFX_SPL_jiyijichengjishunokaifa
 		x = 9
 		y = 5
 		cost = 10
@@ -262,7 +348,7 @@ focus_tree = {
 	#95
 	focus = {
 		id = SPL_95
-		icon = GFX_SPL_95-252178
+		icon = GFX_SPL_95
 		x = 8
 		y = 6
 		cost = 5
@@ -275,7 +361,7 @@ focus_tree = {
 	#観測基地の修復
 	focus = {
 		id = SPL_guancejidinoxiufu
-		icon = GFX_SPL_guancejidinoxiufu-252191
+		icon = GFX_SPL_guancejidinoxiufu
 		x = 14
 		y = 4
 		cost = 10
@@ -302,7 +388,7 @@ focus_tree = {
 	#技術至上主義
 	focus = {
 		id = SPL_jishuzhishangzhuyi
-		icon = GFX_SPL_jishuzhishangzhuyi-252170
+		icon = GFX_SPL_jishuzhishangzhuyi
 		x = 5
 		y = 6
 		cost = 5
@@ -315,7 +401,7 @@ focus_tree = {
 	#安寧の代償
 	focus = {
 		id = SPL_anzhunodaichang
-		icon = GFX_SPL_anzhunodaichang-252211
+		icon = GFX_SPL_anzhunodaichang
 		x = 2
 		y = 7
 		cost = 1
@@ -328,7 +414,7 @@ focus_tree = {
 	#外への準備
 	focus = {
 		id = SPL_waihenozhunbei
-		icon = GFX_SPL_waihenozhunbei-252220
+		icon = GFX_SPL_waihenozhunbei
 		x = 12
 		y = 4
 		cost = 5
@@ -341,7 +427,7 @@ focus_tree = {
 	#諜報強化
 	focus = {
 		id = SPL_diebaoqianghua
-		icon = GFX_SPL_diebaoqianghua-73994
+		icon = GFX_SPL_diebaoqianghua
 		x = 13
 		y = 6
 		cost = 10
@@ -354,7 +440,7 @@ focus_tree = {
 	#造船所の建設
 	focus = {
 		id = SPL_zaochuansuonojianshe
-		icon = GFX_SPL_zaochuansuonojianshe-73983
+		icon = GFX_SPL_zaochuansuonojianshe
 		x = 11
 		y = 5
 		cost = 5
