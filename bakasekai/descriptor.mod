@@ -6,7 +6,8 @@ tags={
 	"Gameplay"
 }
 replace_path="common/ai_focuses"
-replace_path="common/ai_peace"
+replace_path="common/ai_areas"
+replace_path="common/peace_conference"
 replace_path="common/ai_strategy_plans"
 replace_path="common/ai_strategy"
 replace_path="common/autonomous_states"
