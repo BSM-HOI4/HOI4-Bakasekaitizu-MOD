@@ -3867,13 +3867,13 @@ focus_tree = {
 		}
 
 		available = {
-			country_exists = AST
+			country_exists = AUS
 			country_exists = NZL
 		}
 		
 		bypass = {
 			AND = { 
-				AST = {
+				AUS = {
 					OR = {
 						exists = no
 						is_subject_of = ROOT 
@@ -3896,11 +3896,11 @@ focus_tree = {
 		continue_if_invalid = no
 		available_if_capitulated = no
 		
-		## AST is Subject, NZL is not ## 	
+		## AUS is Subject, NZL is not ## 	
 		completion_reward = {
 			if = {
 				limit = {
-					AST = {
+					AUS = {
 						is_subject = yes
 						OVERLORD = {
 							not = { tag = NZL }
@@ -3914,9 +3914,9 @@ focus_tree = {
 				##Checking if any of the coutries involved are at war with USA before triggering the event for them. 
 				if = {
 					limit = {
-						AST = { OVERLORD = { NOT = {has_war_with = ROOT}}}
+						AUS = { OVERLORD = { NOT = {has_war_with = ROOT}}}
 						}
-					AST = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
+					AUS = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
 				}
 				if = {
 					limit = {
@@ -3927,16 +3927,16 @@ focus_tree = {
 				
 				
 			}
-			## NZL is subject, AST is not ##
+			## NZL is subject, AUS is not ##
 			else_if = {
 				limit = {
-					AST = {
+					AUS = {
 						is_subject = no
 					}
 					NZL = {
 						is_subject = yes
 						OVERLORD = {
-							not = { tag = AST }
+							not = { tag = AUS }
 							not = { tag = ROOT }
 						}
 					}
@@ -3950,15 +3950,15 @@ focus_tree = {
 				}
 				if = {
 					limit = {
-						AST = { NOT = { has_war_with = ROOT }}
+						AUS = { NOT = { has_war_with = ROOT }}
 					}
-					AST = { country_event = mtg_usa_pacific_pacification.1 }
+					AUS = { country_event = mtg_usa_pacific_pacification.1 }
 				}
 			}
-			## NZL and AST are subjects ## 
+			## NZL and AUS are subjects ## 
 			else_if = {
 				limit = {
-					AST = {
+					AUS = {
 						is_subject = yes
 						OVERLORD = {
 							not = { tag = ROOT }
@@ -3973,13 +3973,13 @@ focus_tree = {
 				}
 				if = {
 					limit = {
-						AST = { OVERLORD = { NOT = {has_war_with = ROOT }}}
+						AUS = { OVERLORD = { NOT = {has_war_with = ROOT }}}
 					}
-					AST = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
+					AUS = { OVERLORD = { country_event = mtg_usa_pacific_pacification.1 } }
 				}
 				if = {
 					limit = {
-						AST = { OVERLORD = { NZL = { OVERLORD = { not = { tag = PREV.PREV } } } } } #NZL and AST both subjects but of different people
+						AUS = { OVERLORD = { NZL = { OVERLORD = { not = { tag = PREV.PREV } } } } } #NZL and AUS both subjects but of different people
 					}
 					if = {
 						limit = { 
@@ -3990,9 +3990,9 @@ focus_tree = {
 					
 				}
 			}
-			## NZL and AST are independent. 
+			## NZL and AUS are independent. 
 			else = {
-				AST = { country_event = mtg_usa_pacific_pacification.1 }
+				AUS = { country_event = mtg_usa_pacific_pacification.1 }
 				NZL = { country_event = mtg_usa_pacific_pacification.1 }
 			}	
 		}
