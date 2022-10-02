@@ -1,12 +1,8 @@
 focus_tree = {
 	id = McDonald
-	continuous_focus_position = { x = 0 y = 1000 } 
+	continuous_focus_position = { x = -10 y = 1500 }
 	country = {
 		factor = 0
-		modifier = {
-			add = -9
-			tag = MAC
-		}
 	}
 	default = no
 
@@ -14,8 +10,8 @@ focus_tree = {
 		#Establishment of the SGC
 	focus = {
 		id = MAC_sales_start_in_the_USA
-		icon = GFX_focus_AST_squander_bug 
-		x =5
+		icon = GFX_focus_generic_the_giant_wakes
+		x = 16
 		y = 0
 		cost = 20
 		search_filters = {
@@ -39,8 +35,8 @@ focus_tree = {
 		#Gone with the sand
 	focus = {
 		id = MAC_Overseas_shop_openings
-		icon = GFX_focus_AST_squander_bug
-		x = 5
+		icon = GFX_goal_generic_intelligence_exchange
+		x = 16
 		y = 1
 		cost = 30
 		search_filters = {
@@ -52,17 +48,2984 @@ focus_tree = {
 			#set_politics = { ruling_party = fascism elections_allowed = no }
 			#add_popularity = { ideology = fascism popularity = 0.75 }
 			add_ideas = Overseas_shop_openings
-			load_focus_tree = generic_focus
-			#set_party_name = { 
-			#    ideology = fascism
-			 #   long_name = WES_fascism_party_Sand Party_long 
-			  #  name = WES_fascism_party_Sand Party 
-			#}
-			
+			country_event = { id = MCD.7 }
+
 		}
 	}
 
-	
+	focus = {
+		id = MAC_donaldism
+		icon = GFX_focus_AST_squander_bug
+		x = -2
+		y = 1
+		cost = 10
+		relative_position_id = MAC_Overseas_shop_openings
+		mutually_exclusive = { focus = MAC_Overseas_shop_openings_2  }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Overseas_shop_openings  }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.15 }
+			set_party_name = {
+				ideology = stupidism
+				long_name = MAC_donald_party_Long
+				name = MAC_donald_party_Party
+			}
+
+		}
+	}
+
+	focus = {
+		id = MAC_niconico_douga
+		icon = GFX_MAC_niconico_focus
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = MAC_donaldism
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_donaldism }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+			add_stability = 0.1
+			add_war_support = 0.1
+		}
+	}
+
+	focus = {
+		id = MAC_the_expansion_of_donaldism
+		icon = GFX_focus_generic_air_defense
+		x = 0
+		y = 2
+		cost = 10
+		relative_position_id = MAC_donaldism
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_niconico_douga }
+		completion_reward = {
+			set_politics = { ruling_party = stupidism elections_allowed = no }
+			add_popularity = { ideology = stupidism popularity = 0.35 }
+			create_country_leader = {
+				name = "Donald"
+				picture = "gfx/leaders/MAC/Donald.dds"
+				ideology = anthropocentrism
+				traits = {
+					donald
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_What_size_are_shoes_of_Donald #ドナルドの靴って何センチ？
+		icon = GFX_MAC_Shoes_focus
+		x = -2
+		y = 3
+		cost = 5
+		relative_position_id = MAC_donaldism
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_the_expansion_of_donaldism }
+		completion_reward = {
+			add_ideas = Burger_4
+		}
+	}
+
+	focus = {
+		id = MAC_rumor_of_Donald #ドナルドのウワサ
+		icon = GFX_MAC_donald_rumor_focus
+		x = 0
+		y = 3
+		cost = 5
+		relative_position_id = MAC_donaldism
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_the_expansion_of_donaldism }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.15 }
+			add_ideas = rumor_of_Donald
+		}
+	}
+
+	focus = {
+		id = MAC_What_is_a_ranranru #らんらんルーってなんなんだ？
+		icon = GFX_MAC_ranranru_focus
+		x = 2
+		y = 3
+		cost = 5
+		relative_position_id = MAC_donaldism
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_the_expansion_of_donaldism }
+		completion_reward = {
+			add_ideas = ranranru
+		}
+	}
+
+	focus = {
+		id = MAC_Donald_memeing #ドナルドのミーム化
+		icon = GFX_focus_eng_organise_the_blackshirts
+		x = 0
+		y = 4
+		cost = 10
+		relative_position_id = MAC_donaldism
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_What_is_a_ranranru }
+		prerequisite = { focus = MAC_What_size_are_shoes_of_Donald }
+		prerequisite = { focus = MAC_rumor_of_Donald }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.15 }
+			add_stability = 0.1
+			add_war_support = 0.1
+			add_ideas = Donald_meme
+		}
+	}
+
+	focus = {
+		id = MAC_further_expansion_of_Donaldism #ドナルドの更なる拡大
+		icon = GFX_goal_generic_propaganda
+		x = 0
+		y = 5
+		cost = 10
+		relative_position_id = MAC_donaldism
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Donald_memeing }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = Donald_meme
+				add_idea = Donald_meme_2
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_Is_MC_Donald#M.C.ドナルドはダンスに夢中なのか？最終鬼畜道化師ドナルド・Ｍ
+		icon = GFX_focus_spr_the_anti_fascist_workers_revolution
+		x = 0
+		y = 6
+		cost = 10
+		relative_position_id = MAC_donaldism
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_further_expansion_of_Donaldism }
+		completion_reward = {
+			add_ideas = MC_Donald
+			hidden_effect = {
+                #MAC = { country_event = { days = 1 id = baka_super.6 } }
+				news_event = {
+					id = baka_super_news.6
+					days = 1
+				}
+            }
+		}
+	}
+
+	focus = {
+		id = MAC_Perfection_of_Donaldism#ドナルド教の完成
+		icon = GFX_MAC_Logo_focus
+		x = 0
+		y = 7
+		cost = 10
+		relative_position_id = MAC_donaldism
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Is_MC_Donald }
+		completion_reward = {
+			add_offsite_building = { type = industrial_complex level = 5 }
+		}
+	}
+
+
+	focus = {
+		id = MAC_Governance_by_corporations #企業による統治
+		icon = GFX_focus_spa_the_spanish_miracle
+		x = 3
+		y = 1
+		cost = 10
+		relative_position_id = MAC_Overseas_shop_openings
+		mutually_exclusive = { focus = MAC_donaldism  }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		allow_branch = { #実装できたら消す
+			has_completed_focus = MAC_unstoppable_rise
+		}
+		prerequisite = { focus = MAC_Overseas_shop_openings  }
+		completion_reward = {
+			add_offsite_building = { type = industrial_complex level = 5 }
+			add_popularity = { ideology = stupidism popularity = 0.15 }
+			set_party_name = {
+				ideology = stupidism
+				long_name = MAC_donald_party_Long
+				name = MAC_donald_party_Party
+			}
+
+		}
+	}
+
+	focus = {
+		id = MAC_Increase_production_of_burgers #ハンバーガーの増産
+		icon = GFX_focus_AST_squander_bug_
+		x = 0
+		y = 1
+		cost = 5
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Governance_by_corporations }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+		}
+	}
+
+	focus = {
+		id = MAC_Encourage_burgers #ハンバーガーの奨励
+		icon = GFX_focus_AST_squander_bug_
+		x = 2
+		y = 1
+		cost = 5
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Governance_by_corporations }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+		}
+	}
+
+	focus = {
+		id = MAC_Start_of_Happy_Set #ハッピーセットの開始
+		icon = GFX_focus_AST_squander_bug_
+		x = -2
+		y = 1
+		cost = 5
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Governance_by_corporations }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+		}
+	}
+
+	focus = {
+		id = MAC_Expansion_of_private_demand #民需の拡大
+		icon = GFX_focus_AST_squander_bug_
+		x = 0
+		y = 2
+		cost = 10
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Increase_production_of_burgers }
+		prerequisite = { focus = MAC_Encourage_burgers }
+		prerequisite = { focus = MAC_Start_of_Happy_Set }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+		}
+	}
+
+	focus = {
+		id = MAC_Economic_acceleration #経済の加速
+		icon = GFX_focus_AST_squander_bug_
+		x = 0
+		y = 3
+		cost = 10
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Expansion_of_private_demand }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+		}
+	}
+
+	focus = {
+		id = MAC_Establishment_of_subsidiaries #子会社の設立
+		icon = GFX_focus_AST_squander_bug_
+		x = 0
+		y = 4
+		cost = 10
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Economic_acceleration }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+		}
+	}
+
+	focus = {
+		id = MAC_seizing_control_of_the_economy #経済の掌握
+		icon = GFX_focus_AST_squander_bug_
+		x = 0
+		y = 5
+		cost = 10
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Establishment_of_subsidiaries }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+		}
+	}
+
+	focus = {
+		id = MAC_Buying_the_World#世界の購入
+		icon = GFX_focus_AST_squander_bug_
+		x = 0
+		y = 6
+		cost = 10
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_seizing_control_of_the_economy }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+		}
+	}
+
+	focus = {
+		id = MAC_unstoppable_rise #止まらない上昇
+		icon = GFX_focus_AST_squander_bug_
+		x = 0
+		y = 7
+		cost = 40
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = MAC_Buying_the_World }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+		}
+	}
+
+	focus = {
+		id = MAC_ucollapse #崩壊
+		icon = GFX_focus_AST_squander_bug_
+		x = 0
+		y = 8
+		cost = 10
+		relative_position_id = MAC_Governance_by_corporations
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		allow_branch = {
+			has_completed_focus = MAC_unstoppable_rise
+		}
+		available = {
+			every_country = {
+				limit = {
+					NOT = { tag = MAC}
+				}
+				exists = no
+			}
+		}
+		prerequisite = { focus = MAC_unstoppable_rise }
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.25 }
+			hidden_effect = {
+                #MAC = { country_event = { days = 1 id = baka_super.7 } }
+				news_event = {
+					id = baka_super_news.5
+					days = 1
+				}
+            }
+		}
+	}
+
+	# Army Tree
+	focus = {
+		id = MAC_army_effort
+		icon = GFX_goal_generic_allies_build_infantry
+		x = -20
+		y = 2
+		relative_position_id = MAC_sales_start_in_the_USA
+		cost = 10
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		prerequisite = { focus = MAC_Overseas_shop_openings }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 100
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_equipment_effort
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = MAC_army_effort }
+		x = -1
+		y = 1
+		relative_position_id = MAC_army_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = MAC_equipment_effort_2
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus = MAC_equipment_effort }
+		mutually_exclusive = { focus = MAC_armor_effort }
+		x = 0
+		y = 2
+		relative_position_id = MAC_equipment_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 2
+				ahead_reduction = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+	focus = {
+		id = MAC_equipment_effort_3
+		icon = GFX_goal_generic_army_artillery2
+		prerequisite = { focus = MAC_equipment_effort_2 }
+		x = 0
+		y = 2
+		relative_position_id = MAC_equipment_effort_2
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 2
+				ahead_reduction = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_motorization_effort
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = MAC_army_effort }
+		bypass = { has_tech = motorised_infantry }
+		x = 1
+		y = 1
+		relative_position_id = MAC_army_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			set_technology = {
+				motorised_infantry = 1
+			}
+			add_tech_bonus = {
+				name = motorized_bonus
+				bonus = 1.0
+				uses = 2
+				technology = tech_field_hospital
+				technology = tech_field_hospital2
+				technology = tech_logistics_company
+				technology = tech_logistics_company2
+				technology = tech_signal_company
+				technology = tech_signal_company2
+			}
+		}
+	}
+	focus = {
+		id = MAC_armor_effort
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = MAC_motorization_effort }
+		mutually_exclusive = { focus = MAC_equipment_effort_2 }
+		x = 0
+		y = 2
+		relative_position_id = MAC_motorization_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				ahead_reduction = 1.0
+				uses = 2
+				category = armor
+			}
+		}
+	}
+	focus = {
+		id = MAC_mechanization_effort
+		icon = GFX_goal_generic_build_tank
+		prerequisite = { focus = MAC_armor_effort }
+		x = 0
+		y = 2
+		relative_position_id = MAC_armor_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				ahead_reduction = 1
+				bonus = 1.0
+				uses = 2
+				category = motorized_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_doctrine_effort
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = MAC_army_effort }
+		x = 0
+		y = 2
+		relative_position_id = MAC_army_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 20
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	focus = {
+		id = MAC_doctrine_effort_2
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = MAC_doctrine_effort }
+		x = 0
+		y = 2
+		relative_position_id = MAC_doctrine_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 30
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 3.0
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_special_forces
+		icon = GFX_goal_generic_special_forces
+		prerequisite = {
+			focus = equipment_effort_3
+			focus = mechanization_effort
+		}
+		prerequisite = { focus = MAC_doctrine_effort_2 }
+		x = 1
+		y = 1
+		relative_position_id = MAC_equipment_effort_3
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_ideas = special_forces
+			set_technology = {
+				paratroopers = 1
+				marines = 1
+				tech_mountaineers = 1
+			}
+			add_tech_bonus = {
+				name = special_forces_bonus
+				bonus = 1.0
+				uses = 2
+				category = mountaineers_tech
+				category = marine_tech
+				category = para_tech
+			}
+		}
+	}
+
+	# Air Tree
+	focus = {
+		id = MAC_aviation_effort
+		icon = GFX_goal_generic_build_airforce
+		x = -16
+		y = 2
+		cost = 10
+		relative_position_id = MAC_sales_start_in_the_USA
+
+		search_filters = {   FOCUS_FILTER_RESEARCH }
+
+		prerequisite = { focus = MAC_Overseas_shop_openings }
+
+		available_if_capitulated = yes
+
+
+		complete_tooltip = {
+			air_experience = 25
+			if = { limit = { has_country_flag = aviation_effort_AB }
+				add_building_construction = {
+					type = air_base
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = air_doctrine
+			}
+		}
+
+		completion_reward = {
+			air_experience = 25
+
+			if = {
+				limit = {
+					capital_scope = {
+						NOT = {
+							free_building_slots = {
+								building = air_base
+								size > 1
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+					add_building_construction = {
+						type = air_base
+						level = 3
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = aviation_effort_AB }
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = air_base
+						level = 3
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = aviation_effort_AB }
+				}
+			}
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = air_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_fighter_focus
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = MAC_aviation_effort }
+		mutually_exclusive = { focus = MAC_bomber_focus }
+		x = -1
+		y = 1
+		relative_position_id = MAC_aviation_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+			set_technology = {
+				early_fighter = 1
+			}
+			add_tech_bonus = {
+				name = fighter_bonus
+				bonus = 1.0
+				uses = 2
+				technology = fighter1
+				technology = fighter2
+				technology = fighter3
+				technology = heavy_fighter1
+				technology = heavy_fighter2
+				technology = heavy_fighter3
+			}
+		}
+	}
+	focus = {
+		id = MAC_bomber_focus
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = MAC_aviation_effort }
+		mutually_exclusive = { focus = MAC_fighter_focus }
+		x = 1
+		y = 1
+		relative_position_id = MAC_aviation_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+			add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 2
+				technology = strategic_bomber1
+				technology = strategic_bomber2
+				technology = strategic_bomber3
+				category = tactical_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_aviation_effort_2
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = MAC_bomber_focus focus = MAC_fighter_focus }
+		x = -1
+		y = 1
+		relative_position_id = MAC_bomber_focus
+		cost = 10
+
+		search_filters = {   FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		complete_tooltip = {
+			air_experience = 50
+			if = { limit = { has_country_flag = aviation_effort_2_AB }
+				add_building_construction = {
+					type = air_base
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name =  air_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = air_doctrine
+			}
+		}
+		completion_reward = {
+			air_experience = 50
+			if = {
+				limit = {
+					capital_scope = {
+						OR = {
+							NOT = { is_controlled_by = ROOT }
+							NOT = {
+								free_building_slots = {
+									building = air_base
+									size > 1
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+					add_building_construction = {
+						type = air_base
+						level = 3
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = aviation_effort_2_AB }
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = air_base
+						level = 3
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = aviation_effort_2_AB }
+				}
+			}
+			add_tech_bonus = {
+				name =  air_doc_bonus
+				bonus = 1.0
+				uses = 2
+				category = air_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_CAS_effort
+		icon = GFX_goal_generic_CAS
+		prerequisite = { focus = MAC_aviation_effort_2 }
+		x = -1
+		y = 1
+		relative_position_id = MAC_aviation_effort_2
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = CAS_bonus
+				bonus = 1.0
+				ahead_reduction = 1
+				uses = 2
+				category = cas_bomber
+			}
+		}
+	}
+	focus = {
+		id = MAC_rocket_effort
+		icon = GFX_focus_rocketry
+		prerequisite = { focus = MAC_aviation_effort_2 }
+		x = 0
+		y = 2
+		relative_position_id = MAC_aviation_effort_2
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = jet_rocket_bonus
+				ahead_reduction = 2
+				uses = 2
+				category = rocketry
+				category = jet_technology
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.25
+				always = yes
+			}
+		}
+	}
+	focus = {
+		id = MAC_NAV_effort
+		icon = GFX_goal_generic_air_naval_bomber
+		prerequisite = { focus = MAC_aviation_effort_2 }
+		x = 1
+		y = 1
+		relative_position_id = MAC_aviation_effort_2
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = nav_bomber_bonus
+				bonus = 1.0
+				ahead_reduction = 1
+				uses = 2
+				category = naval_bomber
+			}
+		}
+	}
+
+	# Naval Tree
+	focus = {
+		id = MAC_naval_effort
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = -12
+		y = 2
+		cost = 10
+		relative_position_id = MAC_sales_start_in_the_USA
+
+		search_filters = {  FOCUS_FILTER_INDUSTRY }
+
+		prerequisite = { focus = MAC_Overseas_shop_openings }
+
+		available_if_capitulated = yes
+
+
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+
+		complete_tooltip = {
+			navy_experience = 25
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = dockyard
+				level = 3
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			navy_experience = 50
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							dockyard > 0
+							free_building_slots = {
+								building = dockyard
+								size > 2
+								include_locked = yes
+							}
+						}
+					}
+					any_owned_state = {
+						is_coastal = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+				set_country_flag = naval_effort_built
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = naval_effort_built }
+					any_owned_state = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+				set_country_flag = naval_effort_built
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = naval_effort_built }
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = dockyard
+								size > 2
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_state = {
+					limit = {
+						controller = { tag = ROOT }
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_flexible_navy
+		icon = GFX_goal_generic_build_navy
+		prerequisite = { focus = MAC_naval_effort }
+		mutually_exclusive = { focus = MAC_large_navy }
+		x = -1
+		y = 1
+		relative_position_id = MAC_naval_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+			add_tech_bonus = {
+				name = sub_op_bonus
+				bonus = 1.0
+				uses = 3
+				technology = convoy_interdiction_ti
+				technology = unrestricted_submarine_warfare
+				technology = wolfpacks
+				technology = advanced_submarine_warfare
+				technology = combined_operations_raiding
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_large_navy
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = MAC_naval_effort }
+		mutually_exclusive = { focus = MAC_flexible_navy }
+		x = 1
+		y = 1
+		relative_position_id = MAC_naval_effort
+		cost = 10
+
+		search_filters = {   FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+			add_tech_bonus = {
+				name = fleet_in_being_bonus
+				bonus = 1.0
+				uses = 4
+				category = fleet_in_being_tree
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_submarine_effort
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = MAC_flexible_navy focus = MAC_large_navy }
+		x = 0
+		y = 1
+		relative_position_id = MAC_flexible_navy
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+
+			add_tech_bonus = {
+				name = ss_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = ss_tech
+			}
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+	focus = {
+		id = MAC_destroyer_effort
+		icon = GFX_goal_generic_wolf_pack
+		prerequisite = { focus = MAC_submarine_effort }
+		x = 0
+		y = 1
+		relative_position_id = MAC_submarine_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = dd_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = dd_tech
+			}
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_cruiser_effort
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = { focus = MAC_large_navy focus = MAC_flexible_navy }
+		x = 0
+		y = 1
+		relative_position_id = MAC_large_navy
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = cr_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = cl_tech
+				category = ca_tech
+			}
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+	focus = {
+		id = MAC_capital_ships_effort
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = MAC_cruiser_effort }
+		x = 0
+		y = 1
+		relative_position_id = MAC_cruiser_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = bc_tech
+				category = bb_tech
+				category = cv_tech
+			}
+			add_tech_bonus = {
+				name =  naval_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+
+	# Industry Tree
+	focus = {
+		id = MAC_industrial_effort
+		icon = GFX_goal_generic_production
+		x = -8
+		y = 2
+		cost = 10
+
+		relative_position_id = MAC_sales_start_in_the_USA
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+		prerequisite = { focus = MAC_Overseas_shop_openings }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 2
+				category = industry
+			}
+		}
+
+		ai_will_do = {
+			factor = 3
+		}
+	}
+
+	focus = {
+		id = MAC_construction_effort
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = MAC_industrial_effort }
+		x = 1
+		y = 1
+		relative_position_id = MAC_industrial_effort
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY  }
+
+		available_if_capitulated = yes
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MAC_construction_effort_2
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = MAC_construction_effort }
+		x = 0
+		y = 1
+		relative_position_id = MAC_construction_effort
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY  }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MAC_construction_effort_3
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = MAC_construction_effort_2 }
+		x = 0
+		y = 1
+		relative_position_id = MAC_construction_effort_2
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY  }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = construction_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = industrial_complex
+						size < 2
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = industrial_complex
+				level = 3
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 1
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 1
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_infrastructure_effort
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = MAC_industrial_effort }
+		x = -1
+		y = 1
+		relative_position_id = MAC_industrial_effort
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+
+		available_if_capitulated = yes
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = infrastructure_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 0
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 0
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MAC_infrastructure_effort_2
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = MAC_infrastructure_effort }
+		x = 0
+		y = 1
+		relative_position_id = MAC_infrastructure_effort
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+
+		available_if_capitulated = yes
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = infrastructure_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 0
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 0
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MAC_infrastructure_effort_3
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = MAC_infrastructure_effort_2 }
+		x = 0
+		y = 1
+		relative_position_id = MAC_infrastructure_effort_2
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+
+		available_if_capitulated = yes
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = infrastructure_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 0
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 0
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 0
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = infrastructure
+						size > 1
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = infrastructure
+										size > 1
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_production_effort
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = MAC_construction_effort_3 }
+		x = 0
+		y = 1
+		relative_position_id = MAC_construction_effort_3
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY  }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = production_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = arms_factory
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MAC_production_effort_2
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = MAC_production_effort }
+		x = 0
+		y = 1
+		relative_position_id = MAC_production_effort
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY  }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = production_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = arms_factory
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	focus = {
+		id = MAC_production_effort_3
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = MAC_production_effort_2 }
+		x = 0
+		y = 1
+		relative_position_id = MAC_production_effort_2
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY  }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 2
+		}
+
+		bypass = {
+			custom_trigger_tooltip = {
+				tooltip = production_effort_tt
+				all_owned_state = {
+					free_building_slots = {
+						building = arms_factory
+						size < 1
+						include_locked = yes
+					}
+				}
+			}
+		}
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 1
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = MAC_extra_tech_slot
+		icon = GFX_focus_research
+		prerequisite = {
+			focus = MAC_infrastructure_effort_3
+			focus = MAC_construction_effort_3
+		}
+		x = 0
+		y = 1
+		relative_position_id = MAC_infrastructure_effort_3
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = MAC_extra_tech_slot_2
+		icon = GFX_focus_research
+		prerequisite = { focus = MAC_extra_tech_slot }
+		available = {
+			num_of_factories > 50
+		}
+		cancel_if_invalid = MAC_no
+		continue_if_invalid = MAC_yes
+		x = 0
+		y = 1
+		relative_position_id = MAC_extra_tech_slot
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	focus = {
+		id = MAC_extra_tech_slot_3
+		icon = GFX_focus_research
+		prerequisite = { focus = MAC_extra_tech_slot_2 }
+		available = {
+			num_of_factories > 120
+		}
+		cancel_if_invalid = MAC_no
+		continue_if_invalid = MAC_yes
+		x = 0
+		y = 1
+		relative_position_id = MAC_extra_tech_slot_2
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = MAC_nuclear_effort
+		icon = GFX_focus_wonderweapons
+		prerequisite = { focus = MAC_extra_tech_slot }
+		x = -2
+		y = 1
+		relative_position_id = MAC_extra_tech_slot
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = nuclear_bonus
+				ahead_reduction = 1
+				bonus = 0.5
+				uses = 2
+				category = nuclear
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.25
+				always = yes
+			}
+		}
+	}
+	focus = {
+		id = MAC_nuclear_effort_2
+		icon = GFX_focus_wonderweapons
+		prerequisite = { focus = MAC_nuclear_effort }
+		x = 0
+		y = 1
+		relative_position_id = MAC_nuclear_effort
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = nuclear_bonus
+				ahead_reduction = 2
+				bonus = 1
+				uses = 1
+				category = nuclear
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.25
+				always = yes
+			}
+		}
+	}
+	focus = {
+		id = MAC_industrial_effort_2
+		icon = GFX_goal_generic_production
+		prerequisite = { focus = MAC_extra_tech_slot }
+		x = -4
+		y = 1
+		relative_position_id = MAC_extra_tech_slot
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 2
+				category = industry
+			}
+		}
+
+		ai_will_do = {
+			factor = 3
+		}
+	}
+	focus = {
+		id = MAC_secret_weapons
+		icon = GFX_goal_generic_secret_weapon
+		prerequisite = { focus = MAC_industrial_effort_2 }
+		x = 0
+		y = 1
+		relative_position_id = MAC_industrial_effort_2
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = secret_bonus
+				bonus = 1.0
+				uses = 4
+				category = electronics
+				category = nuclear
+				category = rocketry
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.25
+				always = yes
+			}
+		}
+	}
 
 
 
