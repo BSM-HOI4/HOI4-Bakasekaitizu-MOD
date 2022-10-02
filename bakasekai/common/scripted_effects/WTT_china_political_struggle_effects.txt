@@ -68,20 +68,20 @@ WTT_setup_political_struggle = {
 		XSM = { set_variable = { warlord_political_support_value = @WARLORD_SUPPORT_VALUE } }
 		SIK = { set_variable = { warlord_political_support_value = @WARLORD_SUPPORT_VALUE } }
 		
-		event_target:WTT_current_china_leader = {
-			WTT_save_country_as_event_target = yes
-			set_country_flag = wtt_political_struggle
+		# event_target:WTT_current_china_leader = {
+		# 	WTT_save_country_as_event_target = yes
+		# 	set_country_flag = wtt_political_struggle
 
-			#Set all states to support WTT_current_china_leader. We only calculate support from the ones they actually control
-			every_state = {
-				limit = {
-					#Make sure we limit to correct states even if some crazy core switching or conquering happens
-					WTT_is_potential_political_struggle_state = yes
-				}
-				add_to_variable = { political_platform_@PREV = 1 }
-				set_state_flag = majority_political_platform_@PREV
-			}
-		}
+		# 	#Set all states to support WTT_current_china_leader. We only calculate support from the ones they actually control
+		# 	every_state = {
+		# 		limit = {
+		# 			#Make sure we limit to correct states even if some crazy core switching or conquering happens
+		# 			WTT_is_potential_political_struggle_state = yes
+		# 		}
+		# 		add_to_variable = { political_platform_@PREV = 1 }
+		# 		set_state_flag = majority_political_platform_@PREV
+		# 	}
+		# }
 		#Not needed here. WTT_add_ROOT_to_political_struggle will call it
 		#WTT_political_struggle_recalculate_support = yes
 	}
@@ -91,11 +91,11 @@ WTT_setup_political_struggle = {
 WTT_restart_political_struggle = {
 
 	#If the leader has support in a start they get it all
-	event_target:WTT_current_china_leader = {
-		set_country_flag = wtt_political_struggle
-		clr_country_flag = wtt_political_struggle_paused
-		WTT_save_country_as_event_target = yes
-	}
+	# event_target:WTT_current_china_leader = {
+	# 	set_country_flag = wtt_political_struggle
+	# 	clr_country_flag = wtt_political_struggle_paused
+	# 	WTT_save_country_as_event_target = yes
+	# }
 
 	every_country = {
 		limit = {
@@ -495,12 +495,12 @@ WTT_political_struggle_recalculate_support = {
 		every_state = {
 			limit = {
 				WTT_is_potential_political_struggle_state = yes
-				OR = {
-					is_controlled_by = event_target:WTT_current_china_leader
-					CONTROLLER = { is_subject_of = event_target:WTT_current_china_leader }
-					#Own state points
-					CONTROLLER = { has_country_flag = wtt_political_struggle }
-				}
+				# OR = {
+				# 	is_controlled_by = event_target:WTT_current_china_leader
+				# 	CONTROLLER = { is_subject_of = event_target:WTT_current_china_leader }
+				# 	#Own state points
+				# 	CONTROLLER = { has_country_flag = wtt_political_struggle }
+				# }
 			}
 			every_country = {
 				limit = {

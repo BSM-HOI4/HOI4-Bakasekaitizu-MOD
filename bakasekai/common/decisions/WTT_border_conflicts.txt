@@ -41,54 +41,6 @@ CHI_border_clashes = {
 			NOT = {
 				is_subject_of = FROM
 			}
-			OR = {
-				#Warlord goes opposition can border war all other warlords (PRC counted as warlord here)
-				AND = {
-					has_country_flag = CHI_institute_cross_border_raids
-					NOT = { tag = event_target:WTT_current_china_leader }
-					FROM = { NOT = { tag = event_target:WTT_current_china_leader } }
-				}
-
-				#Warlord has completed focus to start shit against Leader of China
-				AND = {
-					has_country_flag = CHI_provoke_border_clashes
-					FROM = { tag = event_target:WTT_current_china_leader }
-				}
-
-				#Leader of China can kind of fight back
-				AND = {
-					FROM = { has_country_flag = CHI_provoke_border_clashes }
-					tag = event_target:WTT_current_china_leader
-				}
-				
-
-				#Completed border war on opposition and other warlord has picked a side
-				AND = {
-					has_completed_focus = CHI_anti_opposition_campaigns
-					OR = {
-						AND = {
-							has_completed_focus =   CHI_cooperation_with_the_nationalists
-							FROM = { has_completed_focus = CHI_cooperation_with_the_communists }
-							NOT = { is_subject_of = event_target:WTT_communist_china }
-							FROM = { NOT = { is_subject_of = event_target:WTT_current_china_leader } }
-						}
-						AND = {
-							has_completed_focus = CHI_cooperation_with_the_communists
-							FROM = { has_completed_focus = CHI_cooperation_with_the_nationalists }
-							NOT = { is_subject_of = event_target:WTT_current_china_leader }
-							FROM = { NOT = { is_subject_of = event_target:WTT_communist_china } }
-						}
-					}					
-				}
-
-				#Communist China can start with all who goes with the nationalists
-				AND = {
-					tag = event_target:WTT_communist_china
-					FROM = { 
-						has_completed_focus = CHI_cooperation_with_the_nationalists 
-					}
-				}
-			}
 
 			OR = {
 				NOT = { has_border_war_with = FROM }
