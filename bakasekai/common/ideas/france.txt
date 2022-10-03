@@ -469,11 +469,11 @@ ideas = {
 			removal_cost = -1
 			
 			equipment_bonus = {
-				fighter_equipment = {
+				small_plane_airframe = {
 					build_cost_ic = -0.1
 					instant = yes
 				}
-				CAS_equipment = {
+				small_plane_cas_airframe = {
 					build_cost_ic = -0.1
 					instant = yes
 				}
@@ -497,11 +497,11 @@ ideas = {
 			removal_cost = -1
 			
 			equipment_bonus = {
-				tac_bomber_equipment = {
+				medium_plane_airframe = {
 					air_ground_attack = 0.15
 					instant = yes
 				}
-				CAS_equipment = {
+				small_plane_cas_airframe = {
 					air_ground_attack = 0.15
 					instant = yes
 				}
@@ -649,14 +649,14 @@ ideas = {
 			removal_cost = -1
 			
 			modifier = {
-				stability_factor = -0.1 #TODO_GABRIEL: replace with +15% resistance target in core states
+				stability_factor = -0.1 
 			}
 		}
 
 		VIC_guest_workers = {
 			picture = generic_exploit_mines
 			allowed = {
-				original_tag = GER #should probably be main occupier
+				original_tag = DEU #should probably be main occupier
 				always = no
 			}
 
@@ -685,39 +685,47 @@ ideas = {
 			removal_cost = -1
 			
 			equipment_bonus = {
-				tac_bomber_equipment = {
+				small_plane_airframe = {
 					build_cost_ic = 0.25
 					instant = yes
 				}
-				strat_bomber_equipment = {
+				cv_small_plane_airframe = {
 					build_cost_ic = 0.25
 					instant = yes
 				}
-				nav_bomber_equipment = {
+				small_plane_cas_airframe = {
 					build_cost_ic = 0.25
 					instant = yes
 				}
-				CAS_equipment = {
+				cv_small_plane_cas_airframe = {
 					build_cost_ic = 0.25
 					instant = yes
 				}
-				fighter_equipment = {
+				small_plane_naval_bomber_airframe = {
 					build_cost_ic = 0.25
 					instant = yes
 				}
-				heavy_fighter_equipment = {
+				cv_small_plane_naval_bomber_airframe = {
 					build_cost_ic = 0.25
 					instant = yes
 				}
-				cv_nav_bomber_equipment = {
+				medium_plane_airframe = {
 					build_cost_ic = 0.25
 					instant = yes
 				}
-				cv_CAS_equipment = {
+				medium_plane_fighter_airframe = {
 					build_cost_ic = 0.25
 					instant = yes
 				}
-				cv_fighter_equipment = {
+				medium_plane_scout_plane_airframe = {
+					build_cost_ic = 0.25
+					instant = yes
+				}
+				large_plane_airframe = {
+					build_cost_ic = 0.25
+					instant = yes
+				}
+				large_plane_maritime_patrol_plane_airframe = {
 					build_cost_ic = 0.25
 					instant = yes
 				}
@@ -726,7 +734,7 @@ ideas = {
 		VIC_aircraft_parts = {
 			picture = generic_bomber_production_diverted
 			allowed = {
-				original_tag = GER 
+				original_tag = DEU 
 				always = no
 			}
 			available = { 
@@ -734,7 +742,7 @@ ideas = {
 					country_exists = VIC
 					any_country_with_original_tag = {
 						original_tag_to_check = FRA
-						is_in_faction_with = GER
+						is_in_faction_with = DEU
 					}
 				}
 			}
@@ -745,39 +753,47 @@ ideas = {
 			removal_cost = -1
 			
 			equipment_bonus = {
-				tac_bomber_equipment = {
+				small_plane_airframe = {
 					build_cost_ic = -0.05
 					instant = yes
 				}
-				strat_bomber_equipment = {
+				cv_small_plane_airframe = {
 					build_cost_ic = -0.05
 					instant = yes
 				}
-				nav_bomber_equipment = {
+				small_plane_cas_airframe = {
 					build_cost_ic = -0.05
 					instant = yes
 				}
-				CAS_equipment = {
+				cv_small_plane_cas_airframe = {
 					build_cost_ic = -0.05
 					instant = yes
 				}
-				fighter_equipment = {
+				small_plane_naval_bomber_airframe = {
 					build_cost_ic = -0.05
 					instant = yes
 				}
-				heavy_fighter_equipment = {
+				cv_small_plane_naval_bomber_airframe = {
 					build_cost_ic = -0.05
 					instant = yes
 				}
-				cv_nav_bomber_equipment = {
+				medium_plane_airframe = {
 					build_cost_ic = -0.05
 					instant = yes
 				}
-				cv_CAS_equipment = {
+				medium_plane_fighter_airframe = {
 					build_cost_ic = -0.05
 					instant = yes
 				}
-				cv_fighter_equipment = {
+				medium_plane_scout_plane_airframe = {
+					build_cost_ic = -0.05
+					instant = yes
+				}
+				large_plane_airframe = {
+					build_cost_ic = -0.05
+					instant = yes
+				}
+				large_plane_maritime_patrol_plane_airframe = {
 					build_cost_ic = -0.05
 					instant = yes
 				}
@@ -1166,19 +1182,19 @@ ideas = {
 					OR = {
 						AND = {
 							has_government = democratic
-							GER = {
+							DEU = {
 								has_government = democratic
 							}
 						}
 						AND = {
 							has_government = communism
-							GER = {
+							DEU = {
 								has_government = communism
 							}
 						}
 						AND = {	
 							has_government = fascism
-							GER = {
+							DEU = {
 								has_government = fascism
 							}
 						}
@@ -1485,7 +1501,7 @@ ideas = {
 			picture = generic_tank_manufacturer_2
 
 			available = {
-				#has_completed_focus = FRA_army_reform
+				has_completed_focus = FRA_army_reform
 			}
 						
 			allowed = {
@@ -1504,7 +1520,7 @@ ideas = {
 			picture = generic_tank_manufacturer_3
 
 			available = {
-				#has_completed_focus = FRA_infantry_tanks
+				has_completed_focus = FRA_infantry_tanks
 			}
 						
 			allowed = {
@@ -1665,7 +1681,7 @@ ideas = {
 			allowed = {
 				original_tag = FRA
 			}
-			visible = { #has_completed_focus = FRA_reorganize_the_aviation_industry }	
+			visible = { has_completed_focus = FRA_reorganize_the_aviation_industry }	
 			available = { has_country_flag = FRA_SNCAN_formed }	
 			research_bonus = {
 				air_equipment = 0.2
@@ -1678,7 +1694,7 @@ ideas = {
 			allowed = {
 				original_tag = FRA
 			}
-			visible = { #has_completed_focus = FRA_reorganize_the_aviation_industry }	
+			visible = { has_completed_focus = FRA_reorganize_the_aviation_industry }	
 			available = { has_country_flag = FRA_SNCAO_formed }	
 			research_bonus = {
 				air_equipment = 0.2
@@ -1691,7 +1707,7 @@ ideas = {
 			allowed = {
 				original_tag = FRA
 			}
-			visible = { #has_completed_focus = FRA_reorganize_the_aviation_industry }	
+			visible = { has_completed_focus = FRA_reorganize_the_aviation_industry }	
 			available = { has_country_flag = FRA_SNCASE_formed }	
 			research_bonus = {
 				air_equipment = 0.2
@@ -1704,7 +1720,7 @@ ideas = {
 			allowed = {
 				original_tag = FRA
 			}
-			visible = { #has_completed_focus = FRA_reorganize_the_aviation_industry }	
+			visible = { has_completed_focus = FRA_reorganize_the_aviation_industry }	
 			available = { has_country_flag = FRA_SNCASO_formed }	
 			research_bonus = {
 				air_equipment = 0.2
@@ -1717,7 +1733,7 @@ ideas = {
 			allowed = {
 				original_tag = FRA
 			}
-			visible = { #has_completed_focus = FRA_reorganize_the_aviation_industry }	
+			visible = { has_completed_focus = FRA_reorganize_the_aviation_industry }	
 			available = { has_country_flag = FRA_SNCAC_formed }	
 			research_bonus = {
 				air_equipment = 0.3
