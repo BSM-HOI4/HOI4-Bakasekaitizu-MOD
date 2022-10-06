@@ -1,5 +1,5 @@
 ﻿###########################
-# RAJ TFV events Events
+# IND TFV events Events
 ###########################
 
 add_namespace = tfv_raj
@@ -43,7 +43,7 @@ country_event = {
 			limit = {
 				NOT = { has_dlc = "By Blood Alone" }
 			}
-			add_equipment_to_stockpile = { type = fighter_equipment_0 amount = var:fighter_buy_amount producer = RAJ }
+			add_equipment_to_stockpile = { type = fighter_equipment_0 amount = var:fighter_buy_amount producer = IND }
 		}
 		else = {
 			bba_get_fighter_ENG_effect = yes	
@@ -70,7 +70,7 @@ country_event = {
 			limit = {
 				NOT = { has_dlc = "By Blood Alone" }
 			}
-			add_equipment_to_stockpile = { type = fighter_equipment_1 amount = var:fighter_buy_amount producer = RAJ }
+			add_equipment_to_stockpile = { type = fighter_equipment_1 amount = var:fighter_buy_amount producer = IND }
 		}
 		else = {
 			bba_get_fighter_ENG_effect = yes	
@@ -96,7 +96,7 @@ country_event = {
 			limit = {
 				NOT = { has_dlc = "By Blood Alone" }
 			}
-			add_equipment_to_stockpile = { type = fighter_equipment_2 amount = var:fighter_buy_amount producer = RAJ }
+			add_equipment_to_stockpile = { type = fighter_equipment_2 amount = var:fighter_buy_amount producer = IND }
 		}
 		else = {
 			bba_get_fighter_ENG_effect = yes
@@ -115,7 +115,7 @@ country_event = {
 			limit = {
 				NOT = { has_dlc = "By Blood Alone" }
 			}
-			add_equipment_to_stockpile = { type = fighter_equipment_3 amount = var:fighter_buy_amount producer = RAJ }
+			add_equipment_to_stockpile = { type = fighter_equipment_3 amount = var:fighter_buy_amount producer = IND }
 		}
 		else = {
 			bba_get_fighter_ENG_effect = yes
@@ -239,7 +239,7 @@ country_event = {
 
 }
 
-#RAJ gets famine - Trigger/randomness event
+#IND gets famine - Trigger/randomness event
 country_event = {
 	id = tfv_raj.20
 	
@@ -253,7 +253,7 @@ country_event = {
 		#compare_autonomy_state < autonomy_dominion
 		has_capitulated = no
 		NOT = { surrender_progress > 0.5 }
-		original_tag = RAJ
+		original_tag = IND
 		has_idea = RAJ_risk_of_famine
 		has_war = yes		
 	}
@@ -262,7 +262,7 @@ country_event = {
 
 }
 
-#RAJ gets famine - Actual event
+#IND gets famine - Actual event
 country_event = {
 	id = tfv_raj.21
 	title = tfv_raj.21.t
@@ -286,7 +286,7 @@ country_event = {
 		#compare_autonomy_state < autonomy_dominion
 		has_capitulated = no
 		NOT = { surrender_progress > 0.5 }
-		original_tag = RAJ
+		original_tag = IND
 		has_idea = RAJ_risk_of_famine
 	}
 
@@ -299,7 +299,7 @@ country_event = {
 	}
 }
 
-#RAJ asks help from Soviet to break free from GBR
+#IND asks help from Soviet to break free from GBR
 #Event for SOV
 country_event = {
 	id = tfv_raj.30
@@ -312,7 +312,7 @@ country_event = {
 	fire_only_once = yes
 
 	immediate = {
-		RAJ = {
+		IND = {
 			OVERLORD = {
 				save_event_target_as = Britain
 			}
@@ -331,7 +331,7 @@ country_event = {
 			modifier = {
 				factor = 2
 				has_opinion = {
-					target = RAJ
+					target = IND
 					value > 75
 				}
 				has_opinion = {
@@ -351,13 +351,13 @@ country_event = {
 		set_global_flag = RAJ_seek_help_from_soviet_promised
 		if = {
 			limit = {
-				RAJ = { NOT = { has_war_together_with = GBR } }
+				IND = { NOT = { has_war_together_with = GBR } }
 				NOT = { has_war_with = GBR }
 			}
 			GBR = { country_event = { id = tfv_raj.31 hours = 6 } }
 			else = {
 				#Answer event - Accept
-				RAJ = { country_event = { id = tfv_raj.32 } }
+				IND = { country_event = { id = tfv_raj.32 } }
 			}
 		}
 	}
@@ -373,11 +373,11 @@ country_event = {
 			}
 		}
 		#Answer event - Reject
-		RAJ = { country_event = { id = tfv_raj.33 } }
+		IND = { country_event = { id = tfv_raj.33 } }
 	}
 }
 
-#RAJ asks help from Soviet to break free from GBR
+#IND asks help from Soviet to break free from GBR
 #Event for GBR. Let them go or not
 country_event = {
 	id = tfv_raj.31
@@ -397,12 +397,12 @@ country_event = {
 		}
 		effect_tooltip = {
 			set_autonomy = {
-				target = RAJ
+				target = IND
 				autonomy_state = autonomy_free				
 			}
-			SOV = { add_to_faction = RAJ }			
+			SOV = { add_to_faction = IND }			
 		}
-		RAJ = { country_event = { id = tfv_raj.34 hours = 6 } }
+		IND = { country_event = { id = tfv_raj.34 hours = 6 } }
 		hidden_effect = { news_event = { id = news.281 hours = 12 } }
 	}
 
@@ -413,12 +413,12 @@ country_event = {
 			base = 1
 		}
 		set_global_flag = RAJ_seek_help_from_soviet_ENG_reject
-		RAJ = { country_event = { id = tfv_raj.32 } } #Answer event
+		IND = { country_event = { id = tfv_raj.32 } } #Answer event
 	}
 }
 
-#RAJ asks help from Soviet to break free from GBR
-#Event for RAJ. SOV supports us
+#IND asks help from Soviet to break free from GBR
+#Event for IND. SOV supports us
 country_event = {
 	id = tfv_raj.32
 	title = tfv_raj.32.t
@@ -449,8 +449,8 @@ country_event = {
 
 }
 
-#RAJ asks help from Soviet to break free from GBR
-#Event for RAJ. Soviet rejects.
+#IND asks help from Soviet to break free from GBR
+#Event for IND. Soviet rejects.
 country_event = {
 	id = tfv_raj.33
 	title = tfv_raj.33.t
@@ -467,8 +467,8 @@ country_event = {
 
 }
 
-#RAJ asks help from Soviet to break free from GBR
-#Event for RAJ. The Brits have decided to let us go.
+#IND asks help from Soviet to break free from GBR
+#Event for IND. The Brits have decided to let us go.
 country_event = {
 	id = tfv_raj.34
 	title = tfv_raj.34.t
@@ -486,7 +486,7 @@ country_event = {
 			relation = puppet
 			active = no
 		}
-		SOV = { add_to_faction = RAJ }
+		SOV = { add_to_faction = IND }
 		add_popularity = {
 			ideology = communism
 			popularity = 0.35
@@ -502,7 +502,7 @@ country_event = {
 
 }
 
-#RAJ asks help from Germany to break free from GBR
+#IND asks help from Germany to break free from GBR
 #Event for DEU
 country_event = {
 	id = tfv_raj.40
@@ -515,7 +515,7 @@ country_event = {
 	fire_only_once = yes
 
 	immediate = {
-		RAJ = {
+		IND = {
 			OVERLORD = {
 				save_event_target_as = Britain
 			}
@@ -534,7 +534,7 @@ country_event = {
 			modifier = {
 				factor = 2
 				has_opinion = {
-					target = RAJ
+					target = IND
 					value > 75
 				}
 				has_opinion = {
@@ -554,13 +554,13 @@ country_event = {
 		set_global_flag = RAJ_seek_help_from_germany_promised
 		if = {
 			limit = {
-				RAJ = { NOT = { has_war_together_with = GBR } }
+				IND = { NOT = { has_war_together_with = GBR } }
 				NOT = { has_war_with = GBR }
 			}
 			GBR = { country_event = { id = tfv_raj.41 hours = 6 } }
 			else = {
 				#Answer event - Accept
-				RAJ = { country_event = { id = tfv_raj.42 } }
+				IND = { country_event = { id = tfv_raj.42 } }
 			}
 		}
 	}
@@ -576,11 +576,11 @@ country_event = {
 			}
 		}
 		#Answer event - Reject
-		RAJ = { country_event = { id = tfv_raj.43 } }
+		IND = { country_event = { id = tfv_raj.43 } }
 	}
 }
 
-#RAJ asks help from Germany to break free from GBR
+#IND asks help from Germany to break free from GBR
 #Event for GBR. Let them go or not
 country_event = {
 	id = tfv_raj.41
@@ -600,12 +600,12 @@ country_event = {
 		}
 		effect_tooltip = {
 			set_autonomy = {
-				target = RAJ
+				target = IND
 				autonomy_state = autonomy_free
 			}
-			DEU = { add_to_faction = RAJ }
+			DEU = { add_to_faction = IND }
 		}
-		RAJ = { country_event = { id = tfv_raj.44 hours = 6 } }
+		IND = { country_event = { id = tfv_raj.44 hours = 6 } }
 		hidden_effect = { news_event = { id = news.280 hours = 12 } }
 	}
 
@@ -616,12 +616,12 @@ country_event = {
 			base = 1
 		}
 		set_global_flag = RAJ_seek_help_from_germany_ENG_reject
-		RAJ = { country_event = { id = tfv_raj.42 } } #Answer event
+		IND = { country_event = { id = tfv_raj.42 } } #Answer event
 	}
 }
 
-#RAJ asks help from Germany to break free from GBR
-#Event for RAJ. DEU supports us
+#IND asks help from Germany to break free from GBR
+#Event for IND. DEU supports us
 country_event = {
 	id = tfv_raj.42
 	title = tfv_raj.42.t
@@ -652,8 +652,8 @@ country_event = {
 
 }
 
-#RAJ asks help from Germany to break free from GBR
-#Event for RAJ. Germany rejects.
+#IND asks help from Germany to break free from GBR
+#Event for IND. Germany rejects.
 country_event = {
 	id = tfv_raj.43
 	title = tfv_raj.43.t
@@ -670,8 +670,8 @@ country_event = {
 
 }
 
-#RAJ asks help from Germany to break free from GBR
-#Event for RAJ. The Brits have decided to let us go.
+#IND asks help from Germany to break free from GBR
+#Event for IND. The Brits have decided to let us go.
 country_event = {
 	id = tfv_raj.44
 	title = tfv_raj.44.t
@@ -689,7 +689,7 @@ country_event = {
 			relation = puppet
 			active = no
 		}
-		DEU = { add_to_faction = RAJ }
+		DEU = { add_to_faction = IND }
 		add_popularity = {
 			ideology = fascism
 			popularity = 0.35
@@ -710,7 +710,7 @@ country_event = {
 ##################################################
 country_event = {
 	id = tfv_raj.201
-	title = tfv_raj.201.t				# ITA receives paratrooper division from RAJ
+	title = tfv_raj.201.t				# ITA receives paratrooper division from IND
 	desc = tfv_raj.201.desc
 	picture = GFX_report_event_indian_parade
 	
@@ -721,7 +721,7 @@ country_event = {
 		
 		if = {
 			limit = {
-				RAJ = { is_ai = yes }
+				IND = { is_ai = yes }
 			}
 		
 			division_template = {
