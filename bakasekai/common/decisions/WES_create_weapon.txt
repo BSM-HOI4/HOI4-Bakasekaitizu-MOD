@@ -1,7 +1,7 @@
 create_weapons = {
 	create_infantry_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_prepare_civil_war
 
         allowed = {
             original_tag = WES
@@ -34,7 +34,7 @@ create_weapons = {
     }
     create_support_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_prepare_civil_war
 
         allowed = {
             original_tag = WES
@@ -65,9 +65,42 @@ create_weapons = {
 			factor = 10
 		}
     }
+	create_artillery_equipment = {
+
+		icon = GFX_decision_generic_prepare_civil_war
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 50
+        fire_only_once = no
+
+        days_re_enable = 50
+
+        available = {
+            has_completed_focus = WES_sand_rifle
+        }
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+        #visible = {has_country_flag=gone_sand}
+
+        complete_effect = {
+            add_equipment_to_stockpile = {
+			    type = artillery_equipment
+			    amount = 35
+			    producer = WES
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+    }
     create_motorized_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_rubber
 
         allowed = {
             original_tag = WES
@@ -100,7 +133,7 @@ create_weapons = {
     }
     create_light_tank_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_tank
 
         allowed = {
             original_tag = WES
@@ -121,10 +154,22 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            add_equipment_to_stockpile = {
-			    type = light_tank_equipment
-			    amount = 20
-			    producer = WES
+            if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+				    type = light_tank_chassis
+	   				amount = 20
+				    producer = WES
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+				    type = light_tank_equipment
+	   				amount = 20
+				    producer = WES
+				}
 			}
 		}
 
@@ -134,7 +179,7 @@ create_weapons = {
     }
     create_medium_tank_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_tank
 
         allowed = {
             original_tag = WES
@@ -155,10 +200,22 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            add_equipment_to_stockpile = {
-			    type = medium_tank_equipment
-			    amount = 15
-			    producer = WES
+            if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+				    type = medium_tank_chassis
+		  			amount = 15
+				    producer = WES
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+				    type = medium_tank_equipment
+		    		amount = 15
+				    producer = WES
+				}
 			}
 		}
 		ai_will_do = {
@@ -167,7 +224,7 @@ create_weapons = {
     }
     create_heavy_tank_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_tank
 
         allowed = {
             original_tag = WES
@@ -188,10 +245,22 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            add_equipment_to_stockpile = {
-			    type = 	heavy_tank_equipment
-			    amount = 10
-			    producer = WES
+            if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				add_equipment_to_stockpile = {
+				    type = heavy_tank_chassis
+		   			amount = 10
+				    producer = WES
+				}
+			}
+			else = {
+				add_equipment_to_stockpile = {
+				    type = heavy_tank_equipment
+					amount = 10
+				    producer = WES
+				}
 			}
 		}
 		ai_will_do = {
@@ -200,7 +269,7 @@ create_weapons = {
     }
     create_fighter_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_air
 
         allowed = {
             original_tag = WES
@@ -233,7 +302,7 @@ create_weapons = {
     }
     create_CAS_equipment = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_air
 
         allowed = {
             original_tag = WES
@@ -266,7 +335,7 @@ create_weapons = {
     }
     create_convoy = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_naval
 
         allowed = {
             original_tag = WES
@@ -299,8 +368,357 @@ create_weapons = {
     }
 }
 
+create_weapons_auto = {
+	WES_cancel_mefos = {
+
+		icon = GFX_decision_oppression
+
+		available = {
+			hidden_trigger = {
+				NOT = {
+					OR = {
+						has_country_flag = WES_create_fin
+						has_country_flag = WES_create_end
+					}
+				}
+			}
+		}
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+
+		cost = 0
+
+		fire_only_once = no
+
+		cancel_if_not_visible = yes
+
+
+        complete_effect = {
+			custom_effect_tooltip = WES_cancel_tt
+		}
+
+		remove_effect = {
+			set_country_flag = WES_create_end
+			if = {
+                limit = {
+                    has_country_flag = WES_cre_gun
+                }
+                clr_country_flag = WES_cre_gun
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_cre_sup
+                }
+                clr_country_flag = WES_cre_sup
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_cre_art
+                }
+                clr_country_flag = WES_cre_art
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_cre_mot
+                }
+                clr_country_flag = WES_cre_mot
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_cre_lt
+                }
+                clr_country_flag = WES_cre_lt
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_cre_mt
+                }
+               clr_country_flag = WES_cre_mt
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_cre_ht
+                }
+                clr_country_flag = WES_cre_ht
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_cre_fight
+                }
+                clr_country_flag = WES_cre_fight
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_cre_cas
+                }
+                clr_country_flag = WES_cre_cas
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_cre_convoy
+                }
+                clr_country_flag = WES_cre_convoy
+            }
+
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	WES_renew_mefos = {
+
+		icon = GFX_decision_oil
+
+		available = {
+			hidden_trigger = {
+				#has_country_flag = ger_has_cancelled_mefo
+				AND = {
+					has_country_flag = WES_create_fin
+					NOT = {
+						has_country_flag = WES_create_first
+					}
+				}
+			}
+		}
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+
+		cost = 0
+
+		fire_only_once = no
+
+
+
+		cancel_if_not_visible = yes
+
+		complete_effect = {
+			custom_effect_tooltip = WES_renew_tt
+			country_event = {
+				id = WES_cre.1
+			}
+			set_country_flag = WES_create_first
+			clr_country_flag = WES_create_end
+			clr_country_flag = WES_create_fin
+		}
+
+
+		ai_will_do = {
+			factor = 20
+		}
+	}
+
+	WES_mefo_bills_mission = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_gre_paying_ifc_debt
+
+		available = {
+			hidden_trigger = { always = no }
+			has_completed_focus = WES_gone_with_the_sand
+        }
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+
+		#cost = GER_mefo_bill_counter?10
+
+		days_mission_timeout = 50
+		is_good = yes
+
+		cancel_trigger = {
+			hidden_trigger = {
+				has_country_flag = WES_create_fin
+			}
+		}
+
+		#days_remove = WES_extend_mefo_bills_days?0
+		remove_effect = {
+		}
+
+		complete_effect = {
+		}
+
+		timeout_effect = {
+			add_political_power = 10
+			if = {
+				limit = {
+					has_country_flag = WES_cre_gun
+				}
+				add_political_power = -50
+				add_equipment_to_stockpile = {
+				    type = infantry_equipment
+			    	amount = 200
+			    	producer = WES
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_sup
+				}
+				add_political_power = -50
+				add_equipment_to_stockpile = {
+				    type = support_equipment
+				    amount = 50
+				    producer = WES
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_art
+				}
+				add_equipment_to_stockpile = {
+			   		type = artillery_equipment
+			    	amount = 35
+			    	producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_mot
+				}
+				add_equipment_to_stockpile = {
+				    type = motorized_equipment
+		   			amount = 50
+				    producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_lt
+				}
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					add_equipment_to_stockpile = {
+					    type = light_tank_chassis
+		   				amount = 20
+					    producer = WES
+					}
+				}
+				else = {
+					add_equipment_to_stockpile = {
+					    type = light_tank_equipment
+		   				amount = 20
+					    producer = WES
+					}
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_mt
+				}
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					add_equipment_to_stockpile = {
+					    type = medium_tank_chassis
+		   				amount = 15
+					    producer = WES
+					}
+				}
+				else = {
+					add_equipment_to_stockpile = {
+					    type = medium_tank_equipment
+		    			amount = 15
+					    producer = WES
+					}
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_ht
+				}
+				if = {
+					limit = {
+						has_dlc = "No Step Back"
+					}
+					add_equipment_to_stockpile = {
+					    type = heavy_tank_chassis
+		   				amount = 10
+					    producer = WES
+					}
+				}
+				else = {
+					add_equipment_to_stockpile = {
+					    type = heavy_tank_equipment
+		    			amount = 10
+					    producer = WES
+					}
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_fight
+				}
+				add_equipment_to_stockpile = {
+				    type = 	fighter_equipment
+		    		amount = 15
+				    producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_cas
+				}
+				add_equipment_to_stockpile = {
+				    type = CAS_equipment
+		    		amount = 15
+				    producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_cre_convoy
+				}
+				add_equipment_to_stockpile = {
+				    type = convoy_1
+		    		amount = 20
+				    producer = WES
+				}
+				add_political_power = -50
+			}
+			if = {
+				limit = {
+					has_country_flag = WES_create_end
+				}
+				set_country_flag = WES_create_fin
+			}
+			else = {
+				#hidden_effect = {
+				#	set_variable = { WES_extend_mefo_bills_days = days_mission_timeout@WES_mefo_bills_mission }
+				#	#set_country_flag = paid_for_mefo
+				#}
+
+				hidden_effect = {
+					activate_mission = WES_mefo_bills_mission
+				}
+			}
+
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
+
 desertification = {
     Desertification_of_territory = {
+        icon = GFX_decision_generic_ignite_civil_war
         allowed = {
             original_tag = WES
             always = yes
@@ -328,6 +746,7 @@ desertification = {
 
 found_sand_country = {
     found_sandsand_stan = {
+        icon = GFX_decision_infiltrate_state
         allowed = {
             always =yes
             original_tag = WES
@@ -335,32 +754,41 @@ found_sand_country = {
         fire_only_once = yes
         available = {
             has_completed_focus = WES_founding_of_sandsand_stan
-			controls_state = 267
-			controls_state = 402
-			controls_state = 404
-            controls_state = 405
-            controls_state = 406
-            controls_state = 407
-            controls_state = 415
-            controls_state = 440
-            controls_state = 442
-            controls_state = 443
-            controls_state = 444
-            controls_state = 445
-            controls_state = 583
-            controls_state = 584
-            controls_state = 585
-            controls_state = 586
-            controls_state = 587
-            controls_state = 588
-            controls_state = 589
-            controls_state = 590
-            controls_state = 732
-            controls_state = 742
-            controls_state = 787
-            NOT = {
-                country_exists = AFG
-            }
+			custom_trigger_tooltip = {
+				toolip = WES_annex_NTS
+				WES = {
+					controls_state = 267
+			    	controls_state = 402
+			    	controls_state = 404
+                	controls_state = 405
+                	controls_state = 406
+                	controls_state = 407
+                	controls_state = 415
+                	controls_state = 440
+                	controls_state = 442
+                	controls_state = 443
+                	controls_state = 444
+                	controls_state = 445
+                	controls_state = 583
+                	controls_state = 584
+                	controls_state = 585
+                	controls_state = 586
+                	controls_state = 587
+                	controls_state = 588
+                	controls_state = 589
+                	controls_state = 590
+                	controls_state = 732
+                	controls_state = 742
+                	controls_state = 787
+					controls_state = 823
+					controls_state = 830
+					controls_state = 831
+					controls_state = 832
+				}
+				NOT = {
+            	    country_exists = NTS
+            	}
+			}
 
         }
         ai_will_do = {
@@ -370,51 +798,58 @@ found_sand_country = {
             has_completed_focus = WES_founding_of_sandsand_stan
         }
         complete_effect = {
-            AFG = {
-				transfer_state = 267
-				transfer_state = 402
-                transfer_state = 404
-                transfer_state = 405
-                transfer_state = 406
-                transfer_state = 407
-                transfer_state = 415
-                transfer_state = 440
-                transfer_state = 442
-                transfer_state = 443
-                transfer_state = 444
-                transfer_state = 445
-                transfer_state = 583
-                transfer_state = 584
-                transfer_state = 585
-                transfer_state = 586
-                transfer_state = 587
-                transfer_state = 588
-                transfer_state = 589
-                transfer_state = 590
-                transfer_state = 732
-                transfer_state = 742
-                transfer_state = 787
-				set_cosmetic_tag = AFG_SandSand
-				create_country_leader = {
-					name = "Sand Sand"
-					desc = "POLITICS_JOSEF_GROHE_DESC"
-					picture = "gfx/leaders/WES/Sands.dds"
-					ideology = fascism_ideology
-					traits = {
-                        charisma
+			custom_effect_tooltip = WES_found_sandsand_stan_fin
+            hidden_effect = {
+				NTS = {
+				    transfer_state = 267
+				    transfer_state = 402
+                    transfer_state = 404
+                    transfer_state = 405
+                    transfer_state = 406
+                    transfer_state = 407
+                    transfer_state = 415
+                    transfer_state = 440
+                    transfer_state = 442
+                    transfer_state = 443
+                    transfer_state = 444
+                    transfer_state = 445
+                    transfer_state = 583
+                    transfer_state = 584
+                    transfer_state = 585
+                    transfer_state = 586
+                    transfer_state = 587
+                    transfer_state = 588
+                    transfer_state = 589
+                    transfer_state = 590
+                    transfer_state = 732
+                    transfer_state = 742
+                    transfer_state = 787
+					transfer_state = 823
+					transfer_state = 830
+					transfer_state = 831
+					transfer_state = 832
+					set_cosmetic_tag = AFG_SandSand
+					create_country_leader = {
+						name = "Sand Sand"
+						desc = "POLITICS_JOSEF_GROHE_DESC"
+						picture = "gfx/leaders/WES/Sands.dds"
+						ideology = fascism_ideology
+						traits = {
+               		        charisma
+						}
 					}
 				}
+				set_autonomy = { target = NTS autonomy_state = autonomy_integrated_puppet }
 			}
-			set_autonomy = { target = AFG autonomy_state = autonomy_integrated_puppet }
         }
     }
 }
 
 
 public_works = {
-    construction_of_the_transcontinental_railroad = {
+    construction_of_the_transcontinental_railroad_decision_1 = {
 
-		icon = generic_construction
+		icon = GFX_decision_generic_construction
 
         allowed = {
             original_tag = WES
@@ -426,15 +861,422 @@ public_works = {
 
         available = {
             has_completed_focus = WES_the_second_America
+            num_of_civilian_factories_available_for_projects > 15
+        }
+		ai_will_do = {
+			factor = 100
+		}
+        fire_only_once = yes
+
+		cost = 25
+		days_remove = 100
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+            set_country_flag = WES_train_1
+            custom_effect_tooltip = WES_railway_1
+            build_railway = {
+  				level = 2
+ 	 			build_only_on_allied = yes
+ 				controller_priority = {
+	    			base = 1
+				}
+				fallback = yes
+				path = { 7959 5039 8008 4957 2012 10829 12751 4927 8116 12851 7950 12707 2056 1891 1969 4972 5028 4997 7963 2081 4897 4978 1473 5060 10739 8084 2016 10795 1914 4918 13484 4954 5010 8036 10775}
+				start_province = 7959
+				target_province = 10775
+			}
+            549 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+                        add_building_construction = {
+							type = supply_node
+							level = 1
+							province = 10739
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+    }
+
+    construction_of_the_transcontinental_railroad_decision_2 = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+			custom_trigger_tooltip = {
+				toolip = WES_train_1_fin
+				WES = {
+					has_country_flag = WES_train_1
+				}
+			}
+            has_completed_focus = WES_the_second_America
+            num_of_civilian_factories_available_for_projects > 15
+        }
+		ai_will_do = {
+			factor = 100
+		}
+        fire_only_once = yes
+
+		cost = 25
+		days_remove = 100
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+            set_country_flag = WES_train_2
+            custom_effect_tooltip = WES_railway_1
+            build_railway = {
+	  			level = 2
+ 	 			build_only_on_allied = yes
+ 				controller_priority = {
+    				base = 1
+				}
+				fallback = yes
+				path = { 10968 2115 14776 8193 5117 12775 8016 8048 10766 4941 2220 8144 10932 11017 10860 5160 11145 13481 7912 12856 5010 }
+				start_province = 10968
+				target_province = 5010
+			}
+			538 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					hidden_effect = {
+                        add_building_construction = {
+							type = supply_node
+							level = 1
+							province = 8048
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+    }
+
+    construction_of_the_transcontinental_railroad_decision_sub = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            custom_trigger_tooltip = {
+				toolip = WES_train_2_fin
+				WES = {
+					has_country_flag = WES_train_2
+				}
+			}
+            has_completed_focus = WES_the_second_America
         }
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
             add_timed_idea = {
                 idea = WES_construction_of_the_transcontinental_railroad
-                days = 360
+                days = 160
             }
-            country_event = { days = 361 id = WES.27 }
+            country_event = { days = 161 id = WES.27 }
+		}
+		ai_will_do = {
+			factor = 100
+		}
+    }
+}
+
+Concentration_of_construction_forces = {
+    construction_in_Sahara = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            has_completed_focus = WES_Concentration_of_construction_forces
+            num_of_civilian_factories_available_for_projects > 15
+        }
+		ai_will_do = {
+			factor = 100
+		}
+        fire_only_once = yes
+
+		cost = 25
+		days_remove = 100
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+			custom_effect_tooltip = WES_Industrialization_in_sahara
+            hidden_effect = {
+				514 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+				515 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+				551 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+			    556 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                767 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                775 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                781 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                782 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+			}
+		}
+    }
+
+    construction_in_the_center = {
+
+		icon = GFX_decision_generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            has_completed_focus = WES_Concentration_of_construction_forces
+            num_of_civilian_factories_available_for_projects > 15
+        }
+		ai_will_do = {
+			factor = 100
+		}
+        fire_only_once = yes
+
+		cost = 25
+		days_remove = 100
+
+		modifier = {
+			civilian_factory_use = 15
+		}
+		remove_effect = {
+            custom_effect_tooltip = WES_Industrialization_in_the_center
+			hidden_effect = {
+				538 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+				549 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+				660 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+			    718 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                774 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+                772 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 3
+					}
+				}
+			}
+		}
+    }
+}
+
+
+It_is_dream = {
+    dream = {
+
+		icon = GFX_decision_unknown
+
+        allowed = {
+            original_tag = WES
+            always = no
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            has_global_flag = WES_anarchy_end
+        }
+        #visible = {has_country_flag=gone_sand}
+
+        complete_effect = {
+            country_event = { id = WES_a.11 }
+		}
+		ai_will_do = {
+			factor = 100
+		}
+    }
+}
+
+
+It_is_dream = {
+    It_is_dream___dream = {
+
+		icon = generic_construction
+
+        allowed = {
+            original_tag = WES
+            always = no
+        }
+
+        cost = 0
+        fire_only_once = yes
+
+        available = {
+            has_country_flag = anarchy_end
+        }
+        #visible = {has_country_flag=gone_sand}
+
+        complete_effect = {
+            country_event = { id = WES_a.11 }
 		}
 		ai_will_do = {
 			factor = 100

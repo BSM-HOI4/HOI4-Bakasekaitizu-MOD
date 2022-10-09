@@ -1,0 +1,6938 @@
+focus_tree = {
+	id = wes_3
+	continuous_focus_position = { x = 0 y = 2000 }
+	country = {
+		factor = 0
+		modifier = {
+			add = 40
+			tag = WES
+		}
+
+	}
+    default = no
+
+
+    focus = {
+        id = WES_industry_support_in_Germany_2
+        icon = GFX_goal_generic_construct_civilian
+        prerequisite = { focus = WES_Germany_military_support }
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 6
+        y = 4
+        cost = 10
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        ai_will_do = {
+			factor = 10
+		}
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+        }
+
+    }
+
+    focus = {
+        id = WES_Reinforcement_of_land_transportation #陸上輸送の強化
+        icon = GFX_goal_generic_construct_infrastructure
+        prerequisite = { focus = WES_extra_tech_slot }
+        relative_position_id = WES_establishment_of_MSD
+        x = -1
+        y = 8
+        cost = 5
+        ai_will_do = {
+			factor = 20
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_ideas = WES_train_strength
+        }
+    }
+
+    focus = {
+        id = WES_Reinforcement_of_land_transportation_2 #陸上輸送の強化
+        icon = GFX_goal_generic_construct_infrastructure
+        prerequisite = { focus = WES_Reinforcement_of_land_transportation }
+        relative_position_id = WES_establishment_of_MSD
+        x = -1
+        y = 9
+        cost = 5
+        ai_will_do = {
+			factor = 20
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            swap_ideas = {
+                remove_idea = WES_train_strength
+                add_idea = WES_train_strength_2
+            }
+        }
+    }
+
+    focus = {
+        id = WES_Strengthen_shipbuilding_capacity #造船能力の強化
+        icon = GFX_goal_generic_construct_naval_dockyard
+        prerequisite = { focus = WES_extra_tech_slot }
+        relative_position_id = WES_establishment_of_MSD
+        x = 1
+        y = 8
+        cost = 5
+        ai_will_do = {
+			factor = 20
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_ideas = WES_shipbuilding_capacity_1
+        }
+    }
+
+    focus = {
+        id = WES_Strengthen_shipbuilding_capacity_2
+        icon = GFX_goal_generic_construct_naval_dockyard
+        prerequisite = { focus = WES_Strengthen_shipbuilding_capacity }
+        relative_position_id = WES_establishment_of_MSD
+        x = 1
+        y = 9
+        cost = 5
+        ai_will_do = {
+			factor = 20
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            swap_ideas = {
+                remove_idea = WES_shipbuilding_capacity_1
+                add_idea = WES_shipbuilding_capacity_2
+            }
+        }
+    }
+
+    focus = {
+        id = WES_normalization_of_organization #組織の正常化
+        icon = GFX_goal_generic_allies_build_infantry
+        x = 15
+        y = 0
+        cost = 5
+        ai_will_do = {
+			factor = 75
+		}
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+        available = {
+            has_completed_focus = WES_establishment_of_the_sgc
+        }
+
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            army_experience = 25
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+                name = land_doc_bonus
+                uses = 1
+                category = land_doctrine
+            }
+            remove_ideas = WES_disorganized_command_and_control
+            
+        }
+    }
+
+    focus = {
+        id = WES_establishment_of_General_Staff_Headquarters #参謀本部の設立
+        icon = GFX_goal_generic_army_doctrines
+        prerequisite = { focus = WES_normalization_of_organization }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 75
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            army_experience = 15
+            add_ideas = WES_General_Staff_Headquarters
+        }
+    }
+
+    focus = {
+        id = WES_manufacture_of_infantry_rifles #歩兵銃の製造
+        icon = GFX_goal_generic_small_arms
+        prerequisite = { focus = WES_establishment_of_General_Staff_Headquarters }
+        relative_position_id = WES_normalization_of_organization
+        x = -2
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 40
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = infantry_artillery_bonus
+                bonus = 1.0
+                uses = 3
+                category = infantry_weapons
+                category = artillery
+            }
+        }
+    }
+
+    focus = {
+        id = WES_reorganization #再編成
+        icon = GFX_focus_spr_the_anti_fascist_workers_revolution
+        prerequisite = { focus = WES_establishment_of_General_Staff_Headquarters }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 45
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_ideas = WES_reorganization_idea
+        }
+    }
+
+    focus = {
+        id = WES_expansion_of_human_resources #人材の拡充
+        icon = GFX_goal_generic_army_artillery
+        prerequisite = { focus = WES_establishment_of_General_Staff_Headquarters }
+        relative_position_id = WES_normalization_of_organization
+        x = 2
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 15
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            remove_ideas = WES_insufficient_human_resources
+            country_event = { id = WES.29 }
+        }
+    }
+
+    focus = {
+        id = WES_large_scale_manoeuvres #大演習
+        icon = GFX_goal_generic_special_forces
+        prerequisite = { focus = WES_manufacture_of_infantry_rifles }
+        prerequisite = { focus = WES_reorganization }
+        prerequisite = { focus = WES_expansion_of_human_resources }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 3
+        cost = 5
+        ai_will_do = {
+			factor = 10
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            army_experience = 50
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+                name = land_doc_bonus
+                uses = 2
+                category = land_doctrine
+            }
+        }
+    }
+
+    focus = {
+        id = WES_determination_of_policy #方針の決定
+        icon = GFX_goal_generic_army_doctrines
+        prerequisite = { focus = WES_large_scale_manoeuvres }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 4
+        cost = 5
+        ai_will_do = {
+			factor = 32
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            army_experience = 30
+            navy_experience = 30
+            air_experience = 30
+            country_event = { id = WES.30 }
+        }
+    }
+
+    focus = {
+        id = WES_promotion_of_shipbuilding_industry #造船業の振興
+        icon = GFX_goal_generic_construct_naval_dockyard
+        prerequisite = { focus = WES_determination_of_policy }
+        relative_position_id = WES_normalization_of_organization
+        x = -2
+        y = 5
+        cost = 5
+        ai_will_do = {
+			factor = 0
+            modifier = {
+                factor = 29
+                all_owned_state = {
+                    OR = {
+                        is_coastal = yes
+                        dockyard > 1
+                    }
+                }
+            }
+		}
+
+        search_filters = {  FOCUS_FILTER_INDUSTRY }
+
+        available_if_capitulated = yes
+
+
+        available = {
+            any_state = {
+                is_coastal = yes
+                is_controlled_by = ROOT
+            }
+        }
+
+        complete_tooltip = {
+            navy_experience = 25
+            add_extra_state_shared_building_slots = 3
+            add_building_construction = {
+                type = dockyard
+                level = 3
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            navy_experience = 25
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            if = {
+                limit = {
+                    NOT = {
+                        any_owned_state = {
+                            dockyard > 0
+                            free_building_slots = {
+                                building = dockyard
+                                size > 2
+                                include_locked = yes
+                            }
+                        }
+                    }
+                    any_owned_state = {
+                        is_coastal = yes
+                    }
+                }
+                random_owned_controlled_state = {
+                    limit = {
+                        is_coastal = yes
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = dockyard
+                        level = 3
+                        instant_build = yes
+                    }
+                }
+                set_country_flag = naval_effort_built
+            }
+            if = {
+                limit = {
+                    NOT = { has_country_flag = naval_effort_built }
+                    any_owned_state = {
+                        dockyard > 0
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                }
+                random_owned_controlled_state = {
+                    limit = {
+                        dockyard > 0
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = dockyard
+                        level = 3
+                        instant_build = yes
+                    }
+                }
+                set_country_flag = naval_effort_built
+            }
+            if = {
+                limit = {
+                    NOT = { has_country_flag = naval_effort_built }
+                    NOT = {
+                        any_owned_state = {
+                            free_building_slots = {
+                                building = dockyard
+                                size > 2
+                                include_locked = yes
+                            }
+                        }
+                    }
+                }
+                random_state = {
+                    limit = {
+                        controller = { tag = ROOT }
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = dockyard
+                        level = 3
+                        instant_build = yes
+                    }
+                }
+            }
+        }
+    }
+
+    focus = {
+        id = WES_Fleet_Refining #艦隊の編成
+        icon = GFX_goal_generic_navy_cruiser
+        prerequisite = { focus = WES_promotion_of_shipbuilding_industry }
+        relative_position_id = WES_normalization_of_organization
+        x = -2
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 6
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        ai_will_do = {
+            factor = 1
+            modifier = {
+                factor = 0
+                all_owned_state = {
+                    OR = {
+                        is_coastal = no
+                        dockyard < 1
+                    }
+                }
+            }
+        }
+
+        completion_reward = {
+            navy_experience = 25
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_trade_interdiction
+                }
+                add_ideas = WES_trade_disruption
+                add_tech_bonus = {
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = ss_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = dd_tech
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_fleet_in_being
+                }
+                add_ideas = WES_Fleet_Protection
+                add_tech_bonus = {
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = bc_tech
+                    category = bb_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = cl_tech
+                    category = ca_tech
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_base_strike
+                }
+                add_ideas = WES_Carrier_Task_Force
+                add_tech_bonus = {
+                    name = ss_bonus
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = cl_tech
+                    category = ca_tech
+                }
+                add_tech_bonus = {
+                    name = dd_bonus
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = cv_tech
+                }
+            }
+        }
+    }
+
+    focus = {
+        id = WES_promotion_of_military_industry #軍需産業の振興
+        icon = GFX_goal_generic_construct_mil_factory
+        prerequisite = { focus = WES_determination_of_policy }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 5
+        cost = 5
+
+        search_filters = { FOCUS_FILTER_INDUSTRY  }
+
+        available_if_capitulated = yes
+
+
+        ai_will_do = {
+            factor = 2
+        }
+
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = production_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size < 1
+                        include_locked = yes
+                    }
+                }
+            }
+        }
+
+        complete_tooltip = {
+            add_extra_state_shared_building_slots = 1
+            add_building_construction = {
+                type = arms_factory
+                level = 3
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 0
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 0
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 0
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 0
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 0
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 0
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							arms_factory > 0
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+        }
+    }
+
+    focus = {
+        id = WES_equipment_development #装備開発
+        icon = GFX_goal_generic_build_tank
+        prerequisite = { focus = WES_promotion_of_military_industry }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 12
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_mobile_warfare
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 2
+                    category = armor
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_superior_firepower
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 2
+                    category = artillery
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_grand_battle_plan
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 2
+                    category = infantry_weapons
+                    category = support_tech
+                    category = artillery
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_mass_assault
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 2
+                    category = infantry_weapons
+                }
+            }
+        }
+    }
+
+    focus = {
+        id = WES_promotion_of_the_aircraft_industry #航空機産業の振興
+        icon = GFX_goal_generic_build_airforce
+        prerequisite = { focus = WES_determination_of_policy }
+        relative_position_id = WES_normalization_of_organization
+        x = 2
+        y = 5
+        cost = 5
+
+        search_filters = { FOCUS_FILTER_INDUSTRY  }
+
+        available_if_capitulated = yes
+
+
+        ai_will_do = {
+            factor = 2
+        }
+
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = production_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size < 1
+                        include_locked = yes
+                    }
+                }
+
+            }
+        }
+
+        complete_tooltip = {
+            air_experience = 25
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = arms_factory
+                level = 2
+                instant_build = yes
+            }
+            add_building_construction = {
+                type = air_base
+                level = 2
+                instant_build = yes
+            }
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = air_doctrine
+            }
+        }
+
+        completion_reward = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 0
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 0
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 0
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 0
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 1
+                add_building_construction = {
+                    type = arms_factory
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							arms_factory > 0
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						arms_factory > 0
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+						is_on_continent = europe
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = arms_factory
+								size > 1
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = arms_factory
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+            air_experience = 25
+            if = {
+                limit = {
+                    capital_scope = {
+                        NOT = {
+                            free_building_slots = {
+                                building = air_base
+                                size > 1
+                            }
+                        }
+                    }
+                }
+                random_owned_controlled_state = {
+                    limit = {
+                        free_building_slots = {
+                            building = air_base
+                            size > 1
+                        }
+                    }
+                    add_building_construction = {
+                        type = air_base
+                        level = 2
+                        instant_build = yes
+                    }
+                    ROOT = { set_country_flag = aviation_effort_AB }
+                }
+            }
+            if = {
+                limit = {
+                    capital_scope = {
+                        free_building_slots = {
+                            building = air_base
+                            size > 1
+                        }
+                    }
+                }
+                capital_scope = {
+                    add_building_construction = {
+                        type = air_base
+                        level = 2
+                        instant_build = yes
+                    }
+                    ROOT = { set_country_flag = aviation_effort_AB }
+                }
+            }
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = air_doctrine
+            }
+        }
+    }
+
+    focus = {
+        id = WES_air_force_development #空軍の開発
+        icon = GFX_goal_generic_air_fighter
+        prerequisite = { focus = WES_promotion_of_the_aircraft_industry }
+        relative_position_id = WES_normalization_of_organization
+        x = 2
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 12
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                bonus = 1.0
+                uses = 1
+                category = light_fighter
+                category = cat_heavy_fighter
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_operational_integrity
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = light_fighter
+                    category = cat_heavy_fighter
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_battlefield_support
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = cas_bomber
+                    category = tactical_bomber
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_strategic_destruction
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = cat_strategic_bomber
+                    category = tactical_bomber
+                }
+            }
+        }
+    }
+
+    focus = {
+        id = WES_doctrine_enhancement #ドクトリンの強化
+        icon = GFX_goal_generic_army_doctrines
+        prerequisite = { focus = WES_Fleet_Refining }
+        prerequisite = { focus = WES_equipment_development }
+        prerequisite = { focus = WES_air_force_development }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 7
+        cost = 5
+        ai_will_do = {
+			factor = 32
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            army_experience = 30
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = land_doctrine
+            }
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = naval_doctrine
+            }
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = air_doctrine
+            }
+        }
+    }
+
+    focus = {
+        id = WES_generalization_in_the_military #一般化
+        icon = GFX_focus_generic_little_entente
+        prerequisite = { focus = WES_Fleet_Refining_2 }
+        prerequisite = { focus = WES_optimization_to_doctrine }
+        prerequisite = { focus = WES_exploration_of_equipment }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 9
+        cost = 5
+        ai_will_do = {
+			factor = 32
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            army_experience = 30
+            #country_event = {}
+        }
+    }
+
+    focus = {
+        id = WES_Fleet_Refining_2 #艦隊の編成2
+        icon = GFX_goal_generic_navy_battleship
+        prerequisite = { focus = WES_Fleet_Refining }
+        prerequisite = { focus = WES_doctrine_enhancement }
+        relative_position_id = WES_normalization_of_organization
+        x = -2
+        y = 8
+        cost = 5
+        ai_will_do = {
+			factor = 6
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+        
+        available_if_capitulated = yes
+
+        ai_will_do = {
+            factor = 1
+            modifier = {
+                factor = 0
+                all_owned_state = {
+                    OR = {
+                        is_coastal = no
+                        dockyard < 1
+                    }
+                }
+            }
+        }
+
+        completion_reward = {
+            navy_experience = 25
+            add_ideas = WES_Further_expansion_of_the_fleet
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_trade_interdiction
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = ss_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = dd_tech
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_fleet_in_being
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = bc_tech
+                    category = bb_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = cl_tech
+                    category = ca_tech
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_base_strike
+                }
+                add_tech_bonus = {
+                    name = ss_bonus
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = cl_tech
+                    category = ca_tech
+                }
+                add_tech_bonus = {
+                    name = dd_bonus
+                    bonus = 1.0
+                    ahead_reduction = 2
+                    uses = 1
+                    category = cv_tech
+                }
+            }
+        }
+    }
+
+    focus = {
+        id = WES_optimization_to_doctrine #ドクトリンへの最適化
+        icon = GFX_goal_generic_allies_build_infantry
+        prerequisite = { focus = WES_doctrine_enhancement }
+        relative_position_id = WES_normalization_of_organization
+        x = 0
+        y = 8
+        cost = 5
+        ai_will_do = {
+			factor = 32
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            army_experience = 30
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_mobile_warfare
+                }
+                add_ideas = WES_mobile_warfare
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_superior_firepower
+                }
+                add_ideas = WES_superior_firepower
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_grand_battle_plan
+                }
+                add_ideas = WES_grand_battle_plan
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_mass_assault
+                }
+                add_ideas = WES_mass_assault
+            }
+        }
+    }
+
+    focus = {
+        id = WES_exploration_of_equipment #装備の探求
+        icon = GFX_goal_generic_air_fighter
+        prerequisite = { focus = WES_air_force_development }
+        prerequisite = { focus = WES_doctrine_enhancement }
+        relative_position_id = WES_normalization_of_organization
+        x = 2
+        y = 8
+        cost = 5
+        ai_will_do = {
+			factor = 12
+		}
+
+        search_filters = {  FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_operational_integrity
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = light_fighter
+                    category = cat_heavy_fighter
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_battlefield_support
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = cas_bomber
+                    category = tactical_bomber
+                }
+            }
+            if = {
+                limit = {
+                    has_country_flag = WES_elect_cat_strategic_destruction
+                }
+                add_tech_bonus = {
+                    bonus = 1.0
+                    uses = 1
+                    category = cat_strategic_bomber
+                    category = tactical_bomber
+                }
+            }
+        }
+    }
+
+    focus = {
+        id = WES_establishment_of_MSD #Ministry_of_Saharan_Development サハラ開発省の設立
+        icon = GFX_focus_generic_africa_factory
+        x = 24
+        y = 0
+        cost = 5
+        ai_will_do = {
+			factor = 90
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_ideas = WES_MSD
+        }
+
+        available = {
+            has_completed_focus = WES_establishment_of_the_sgc
+        }
+
+        ai_will_do = {
+            factor = 36
+        }
+    }
+
+    focus = {
+        id = WES_Construction_of_the_Nile_Dam #ナイルダムの建設
+        icon = GFX_goal_generic_construction
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = -2
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            271 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+
+            }
+            547 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+
+            }
+            548 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+
+            }
+            549 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+			}
+            551 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+
+            }
+            767 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+
+            }
+        }
+    }
+
+    focus = {
+        id = WES_Construction_of_the_Niger_Dam #ニジェールダムの建設
+        icon = GFX_goal_generic_construction
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            556 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+
+            }
+            558 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+
+            }
+            780 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+			}
+            781 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+			}
+        }
+    }
+
+    focus = {
+        id = WES_Construction_of_the_Congo_Dam #コンゴダムの建設
+        icon = GFX_goal_generic_construction
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = 2
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            295 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+
+            }
+            538 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+
+            }
+            718 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+			}
+            772 = {
+				if = {
+					limit = { is_controlled_by = ROOT }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+                    add_extra_state_shared_building_slots = 1
+				}
+			}
+        }
+    }
+
+    focus = {
+        id = WES_Strengthening_Construction_Capabilities #建設力の強化
+        icon = GFX_goal_generic_construction
+        prerequisite = { focus = WES_Construction_of_the_Congo_Dam }
+        prerequisite = { focus = WES_Construction_of_the_Niger_Dam }
+        prerequisite = { focus = WES_Construction_of_the_Nile_Dam }
+        relative_position_id = WES_establishment_of_MSD
+        x = -1
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+				name = WES_construction_NF
+				bonus = 1.0
+				uses = 2
+				technology = construction1
+				technology = construction2
+				technology = construction3
+				technology = construction4
+				technology = construction5
+			}
+        }
+    }
+
+    focus = {
+        id = WES_New_machine_tool #工作機械の新調
+        icon = GFX_goal_generic_production
+        prerequisite = { focus = WES_Construction_of_the_Congo_Dam }
+        prerequisite = { focus = WES_Construction_of_the_Niger_Dam }
+        prerequisite = { focus = WES_Construction_of_the_Nile_Dam }
+        relative_position_id = WES_establishment_of_MSD
+        x = 1
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                technology = basic_machine_tools
+				technology = improved_machine_tools
+				technology = advanced_machine_tools
+				technology = assembly_line_production
+				technology = flexible_line
+                technology = streamlined_line
+            }
+
+        }
+    }
+
+    focus = {
+        id = WES_Concentration_of_construction_forces #建設力の集中
+        icon = GFX_goal_generic_production2
+        prerequisite = { focus = WES_New_machine_tool }
+        prerequisite = { focus = WES_Strengthening_Construction_Capabilities }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 3
+        cost = 5
+        ai_will_do = {
+			factor = 30
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            custom_effect_tooltip = WES_Concentration_decision
+        }
+    }
+
+    focus = {
+        id = WES_Infrastructure_in_desert_areas #砂漠地域のインフラ
+        icon = GFX_goal_generic_construct_infrastructure
+        prerequisite = { focus = WES_Concentration_of_construction_forces }
+        relative_position_id = WES_establishment_of_MSD
+        x = -2
+        y = 4
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			custom_effect_tooltip = WES_Infrastructure_desert_areas
+            hidden_effect = {
+				514 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				515 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				551 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			    556 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+                767 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+                775 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+                781 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+                782 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+    }
+
+    focus = {
+        id = WES_Industrialization_of_desert_areas #砂漠地域のインフラ
+        icon = GFX_goal_generic_construct_civ_factory
+        prerequisite = { focus = WES_Infrastructure_in_desert_areas }
+        relative_position_id = WES_establishment_of_MSD
+        x = -2
+        y = 5
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			custom_effect_tooltip = WES_Industrialization_desert_areas
+			hidden_effect = {
+				514 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				515 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				551 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			    556 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                767 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                775 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                781 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                782 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+		}
+    }
+
+    focus = {
+        id = WES_Munitions_factory_at_desert_areas #砂漠地域のインフラ
+        icon = GFX_goal_generic_construct_mil_factory
+        prerequisite = { focus = WES_Industrialization_of_desert_areas }
+        relative_position_id = WES_establishment_of_MSD
+        x = -2
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			custom_effect_tooltip = WES_Industrialization_desert_areas
+			hidden_effect = {
+				514 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				515 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				551 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			    556 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                767 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                775 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                781 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                782 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+		}
+    }
+
+    focus = {
+        id = WES_Infrastructure_in_Central_Africa #中央アフリカのインフラ
+        icon = GFX_goal_generic_construct_infrastructure
+        prerequisite = { focus = WES_Concentration_of_construction_forces }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 4
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			custom_effect_tooltip = WES_Infrastructure_Central_Africa
+			hidden_effect = {
+				538 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				549 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				660 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			    718 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+                774 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+                772 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+    }
+
+    focus = {
+        id = WES_Industrialization_of_Central_Africa #中央アフリカのインフラ
+        icon = GFX_goal_generic_construct_civ_factory
+        prerequisite = { focus = WES_Infrastructure_in_Central_Africa }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 5
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			custom_effect_tooltip = WES_Industrialization_Central_Africa
+			hidden_effect = {
+				538 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				549 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				660 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			    718 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                774 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                772 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+		}
+    }
+
+    focus = {
+        id = WES_Munitions_factory_at_Central_Africa #中央アフリカのインフラ
+        icon = GFX_goal_generic_construct_mil_factory
+        prerequisite = { focus = WES_Industrialization_of_Central_Africa }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			custom_effect_tooltip = WES_Industrialization_Central_Africa
+			hidden_effect = {
+				538 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				549 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				660 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			    718 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                774 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                772 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+		}
+    }
+
+    focus = {
+        id = WES_Infrastructure_in_Lake_Victoria #ヴィクトリア湖のインフラ
+        icon = GFX_goal_generic_construct_infrastructure
+        prerequisite = { focus = WES_Concentration_of_construction_forces }
+        relative_position_id = WES_establishment_of_MSD
+        x = 2
+        y = 4
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			custom_effect_tooltip = WES_Infrastructure_Victoria
+			hidden_effect = {
+				546 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				547 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				548 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			    718 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+                768 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+                769 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = infrastructure
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+			}
+		}
+    }
+
+    focus = {
+        id = WES_Industrialization_of_Lake_Victoria #ヴィクトリア湖のインフラ
+        icon = GFX_goal_generic_construct_civ_factory
+        prerequisite = { focus = WES_Infrastructure_in_Lake_Victoria }
+        relative_position_id = WES_establishment_of_MSD
+        x = 2
+        y = 5
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			custom_effect_tooltip = WES_Industrialization_Victoria
+			hidden_effect = {
+				546 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				547 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				548 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			    718 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                768 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                769 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+		}
+    }
+
+    focus = {
+        id = WES_Munitions_factory_at_Lake_Victoria #ヴィクトリア湖のインフラ
+        icon = GFX_goal_generic_construct_mil_factory
+        prerequisite = { focus = WES_Industrialization_of_Lake_Victoria }
+        relative_position_id = WES_establishment_of_MSD
+        x = 2
+        y = 6
+        cost = 5
+        ai_will_do = {
+			factor = 36
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			custom_effect_tooltip = WES_arms_factory_Victoria
+			hidden_effect = {
+				546 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+				547 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+					}
+				}
+				548 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			    718 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                768 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+                769 = {
+					if = {
+						limit = { is_controlled_by = ROOT }
+						add_building_construction = {
+							type = arms_factory
+							level = 1
+							instant_build = yes
+						}
+                        add_extra_state_shared_building_slots = 1
+					}
+				}
+			}
+		}
+    }
+
+    focus = {
+        id = WES_extra_tech_slot
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_Munitions_factory_at_Central_Africa }
+        prerequisite = { focus = WES_Munitions_factory_at_desert_areas }
+        prerequisite = { focus = WES_Munitions_factory_at_Lake_Victoria }
+        relative_position_id = WES_establishment_of_MSD
+        x = 0
+        y = 7
+        cost = 5
+        ai_will_do = {
+			factor = 100
+		}
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Coping_with_Water_Shortage #水不足の解消
+        icon = GFX_goal_generic_consumer_goods
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = 4
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 70
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            remove_ideas = WES_Water_Shortage
+        }
+    }
+
+    focus = {
+        id = WES_Irrigation_in_various_locations #各地での灌漑
+        icon = GFX_goal_generic_defence
+        prerequisite = { focus = WES_Coping_with_Water_Shortage }
+        relative_position_id = WES_establishment_of_MSD
+        x = 4
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 70
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_ideas = WES_irrigated_agriculture
+        }
+    }
+
+    focus = {
+        id = WES_Resource_Development #資源の開発
+        icon = GFX_goal_generic_construction2
+        prerequisite = { focus = WES_establishment_of_MSD }
+        relative_position_id = WES_establishment_of_MSD
+        x = -4
+        y = 1
+        cost = 5
+        ai_will_do = {
+			factor = 15
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+				name = WES_excavation_NF
+				bonus = 1.5
+				uses = 2
+				technology = excavation1
+				technology = excavation2
+				technology = excavation3
+				technology = excavation4
+				technology = excavation5
+			}
+        }
+    }
+
+    focus = {
+        id = WES_Further_resources #更なる資源を
+        icon = GFX_focus_generic_steel
+        prerequisite = { focus = WES_Resource_Development }
+        relative_position_id = WES_establishment_of_MSD
+        x = -4
+        y = 2
+        cost = 5
+        ai_will_do = {
+			factor = 15
+		}
+
+        search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+			add_ideas = WES_resource_addition
+        }
+    }
+
+    	#Gone with the sand
+	focus = {
+		id = WES_gone_with_the_sand
+		icon = GFX_focus_AST_squander_bug
+		x = 8
+		y = 0
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		mutually_exclusive = { focus = WES_establishment_of_the_sgc  }
+		completion_reward = {
+			set_party_name = {
+			    ideology = fascism
+			    long_name = WES_fascism_party_Sandism_Party_long
+			    name = WES_fascism_party_Sandism_Party
+			}
+			set_politics = { ruling_party = fascism elections_allowed = no }
+			add_popularity = { ideology = fascism popularity = 0.75 }
+			recruit_character = WES_sands
+			promote_leader = WES_sands
+			add_ideas = WES_Gone_with_the_sand
+			set_rule = { can_create_factions = yes }
+			create_faction = WES_sands
+			custom_effect_tooltip = WES_create_wespon_available
+			hidden_effect = {
+				news_event = {
+					id = baka_news.1
+					days = 1
+				}
+			}
+			set_country_flag = WES_create_fin
+
+		}
+	}
+
+    	#Welcoming the Sands of the Middle East
+	focus = {
+		id = WES_welcoming_the_sands_of_the_middle_east
+		icon = GFX_focus_TUR_taking_over_defense_of_the_gulf
+		relative_position_id = WES_gone_with_the_sand
+		prerequisite = { focus = WES_African_unification  }
+		x = -2
+		y = 5
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available = {
+			OR = {
+				NOT = { SAU = { is_in_faction_with = WES } }
+				NOT = { IRQ = { is_in_faction_with = WES } }
+				NOT = { IRN = { is_in_faction_with = WES } }
+				NOT = { TUR = { is_in_faction_with = WES } }
+			}
+		}
+
+		bypass = {
+			SAU = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			IRQ = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			IRN = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			TUR = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			#limit wargoals to when it makes sense to give them. No faction, war or non exist
+			if = {
+				limit = {
+					country_exists = SAU
+					NOT = { SAU = { is_in_faction_with = WES } }
+					NOT = { has_war_with = SAU }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = SAU
+				}
+			}
+			if =  {
+				limit = {
+					country_exists = IRQ
+					NOT = {IRQ = { is_in_faction_with = WES } }
+					NOT = { has_war_with = ZAF }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = IRQ
+				}
+			}
+			if = {
+				limit = {
+					country_exists = IRN
+					NOT = { IRN = { is_in_faction_with = WES } }
+					NOT = { has_war_with = IRN }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = IRN
+				}
+			}
+			if = {
+				limit = {
+					country_exists = TUR
+					NOT = { TUR = { is_in_faction_with = WES } }
+					NOT = { has_war_with = TUR }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = TUR
+				}
+			}
+            custom_effect_tooltip = WES_SAND_add_core_of_middle_east
+            hidden_effect = {
+			    #Saudi Arabia
+				add_state_core = 292
+				add_state_core = 293
+				add_state_core = 294
+				add_state_core = 658
+				add_state_core = 659
+				add_state_core = 678
+				add_state_core = 679
+				add_state_core = 765
+			    #Iraq
+				add_state_core = 291
+				add_state_core = 454
+				add_state_core = 455
+				add_state_core = 553
+				add_state_core = 554
+				add_state_core = 656
+				add_state_core = 675
+				add_state_core = 676
+				add_state_core = 677
+				add_state_core = 680
+			    #Iran
+				add_state_core = 266
+				add_state_core = 410
+				add_state_core = 411
+				add_state_core = 412
+				add_state_core = 413
+				add_state_core = 414
+				add_state_core = 416
+				add_state_core = 417
+				add_state_core = 418
+				add_state_core = 419
+				add_state_core = 420
+				add_state_core = 421
+			    #Turkey
+			    341 = { add_core_of = ROOT }
+		    	340 = { add_core_of = ROOT }
+	    		339 = { add_core_of = ROOT }
+    			342 = { add_core_of = ROOT }
+			    343 = { add_core_of = ROOT }
+		    	347 = { add_core_of = ROOT }
+	    		49 = { add_core_of = ROOT }
+    			346 = { add_core_of = ROOT }
+			    345 = { add_core_of = ROOT }
+		    	356 = { add_core_of = ROOT }
+	    		348 = { add_core_of = ROOT }
+    			344 = { add_core_of = ROOT }
+			    355 = { add_core_of = ROOT }
+		    	349 = { add_core_of = ROOT }
+	    		350 = { add_core_of = ROOT }
+    			354 = { add_core_of = ROOT }
+			    353 = { add_core_of = ROOT }
+			    352 = { add_core_of = ROOT }
+				add_state_core = 797
+				add_state_core = 798
+				add_state_core = 799
+				add_state_core = 800
+            }
+		}
+	}
+
+		#Desertification in neighboring countries
+	focus = {
+		id = WES_progress_of_desertification
+		icon = GFX_focus_generic_air_defense
+
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 1
+		cost = 20
+
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_gone_with_the_sand  }
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = WES_Gone_with_the_sand
+				add_idea = WES_Gone_with_the_sand_2
+			}
+		}
+	}
+
+		#Rule by sand
+	focus = {
+		id = WES_rule_by_sand
+		icon = GFX_focus_generic_support_the_left_right
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 2
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_progress_of_desertification  }
+		completion_reward = {
+			add_ideas = WES_3S_Policy
+		}
+	}
+
+		#Desertification of the Nile and Suez
+	focus = {
+		id = WES_desertification_of_the_nile_and_suez
+		icon = GFX_goal_generic_major_war
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 3
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_rule_by_sand  }
+		available = {
+			OR = {
+				NOT = { EGY = { is_in_faction_with =  WES } }
+			}
+		}
+
+		bypass = {
+			 EGY = {
+				OR = {
+					exists = no
+					is_in_faction_with =  WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			#limit wargoals to when it makes sense to give them. No faction, war or non exist
+			if = {
+				limit = {
+					country_exists = EGY
+					NOT = { EGY = { is_in_faction_with = WES } }
+					NOT = { has_war_with = EGY }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = EGY
+				}
+			}
+			add_state_core = 446
+			add_state_core = 447
+			add_state_core = 452
+			add_state_core = 453
+			add_state_core = 456
+			add_state_core = 457
+			add_state_core = 552
+			add_state_core = 796
+		}
+	}
+
+		#African unification
+	focus = {
+		id = WES_African_unification
+		icon = GFX_focus_generic_africa_factory
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 4
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_desertification_of_the_nile_and_suez  }
+		available = {
+			OR = {
+				NOT = { KEN = { is_in_faction_with = WES } }
+				NOT = { ZAF = { is_in_faction_with = WES } }
+				NOT = { MAR = { is_in_faction_with = WES } }
+				NOT = { KSM = { is_in_faction_with = WES } }
+				NOT = { KHM = { is_in_faction_with = WES } }
+				NOT = { AMA = { is_in_faction_with = WES } }
+			}
+		}
+
+		bypass = {
+			KEN = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			ZAF = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			MAR = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			KSM = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			KHM = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			AMA = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					country_exists = KEN
+					NOT = { KEN = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KEN }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = KEN
+				}
+			}
+			if =  {
+				limit = {
+					country_exists = ZAF
+					NOT = { ZAF = { is_in_faction_with = WES } }
+					NOT = { has_war_with = ZAF }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = ZAF
+				}
+			}
+			if = {
+				limit = {
+					country_exists = MAR
+					NOT = { MAR = { is_in_faction_with = WES } }
+					NOT = { has_war_with = MAR }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = MAR
+				}
+			}
+			if = {
+				limit = {
+					country_exists = KSM
+					NOT = { KSM = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KSM }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = KSM
+				}
+			}
+			if =  {
+				limit = {
+					country_exists = KHM
+					NOT = { KHM = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KHM }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = KHM
+				}
+			}
+			if = {
+				limit = {
+					country_exists = AMA
+					NOT = { AMA = { is_in_faction_with = WES } }
+					NOT = { has_war_with = AMA }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = AMA
+				}
+			}
+			#Kenya
+			add_state_core = 544
+			add_state_core = 545
+			add_state_core = 770
+			add_state_core = 771
+			#South Africa
+			add_state_core = 275
+			add_state_core = 681
+			add_state_core = 719
+			#Morocco
+			add_state_core = 273
+			add_state_core = 448
+			add_state_core = 449
+			add_state_core = 450
+			add_state_core = 451
+			add_state_core = 661
+			add_state_core = 662
+			add_state_core = 663
+			#Tunisia
+			add_state_core = 458
+			add_state_core = 459
+			add_state_core = 460
+			add_state_core = 513
+			add_state_core = 665
+			#Cambodia
+			add_state_core = 290
+			add_state_core = 461
+			add_state_core = 462
+			add_state_core = 557
+			add_state_core = 699
+			add_state_core = 783
+			add_state_core = 786
+			#Amazon(Angola)
+			add_state_core = 540
+			add_state_core = 541
+			add_state_core = 542
+			add_state_core = 796
+
+		}
+	}
+
+
+
+		#Founding of Sandsand Stan
+	focus = {
+		id = WES_founding_of_sandsand_stan
+		icon = GFX_focus_TUR_treaty_of_saadabad
+		relative_position_id = WES_gone_with_the_sand
+		x = -2
+		y = 6
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_welcoming_the_sands_of_the_middle_east  }
+		completion_reward = {
+			custom_effect_tooltip = WES_found_sandsand_stan_available
+			create_wargoal = {
+				type = annex_everything
+				target = NTS
+			}
+		}
+	}
+
+
+
+	#March of the Sand Division
+	focus = {
+		id = WES_march_of_the_sand_division
+		icon = GFX_focus_generic_little_entente
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_gone_with_the_sand  }
+		completion_reward = {
+			set_technology = { sand = 1 }
+			division_template = {
+    			name = "Sand"
+   				regiments = {
+   				sand = { x = 0 y = 0 }
+    		    sand = { x = 0 y = 1 }
+				sand = { x = 0 y = 2 }
+        		sand = { x = 0 y = 3 }
+        		sand = { x = 0 y = 4 }
+        		sand = { x = 1 y = 0 }
+        		sand = { x = 1 y = 1 }
+        		sand = { x = 1 y = 2 }
+		        sand = { x = 1 y = 3 }
+		        sand = { x = 1 y = 4 }
+		        sand = { x = 2 y = 0 }
+		        sand = { x = 2 y = 1 }
+		        sand = { x = 2 y = 2 }
+		        sand = { x = 2 y = 3 }
+		        sand = { x = 2 y = 4 }
+		        sand = { x = 3 y = 0 }
+		        sand = { x = 3 y = 1 }
+		        sand = { x = 3 y = 2 }
+		        sand = { x = 3 y = 3 }
+		        sand = { x = 3 y = 4 }
+		    	}
+		    	support = {
+		    	}
+			}
+			army_experience = 100
+			add_ideas = WES_sand_war
+			add_ideas = WES_Desert_Communication_Systems
+            remove_ideas = WES_disorganized_command_and_control
+		}
+	}
+
+
+
+		#sand rifle
+	focus = {
+		id = WES_sand_rifle
+		icon = GFX_goal_continuous_reduce_training_time
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 2
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		prerequisite = { focus = WES_march_of_the_sand_division  }
+		completion_reward = {
+			set_technology = { tech_support = 1 }
+			set_technology = { gw_artillery = 1 }
+		}
+	}
+
+		#sand car
+	focus = {
+		id = WES_sand_car
+		icon = GFX_goal_generic_army_motorized
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 3
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = { focus = WES_sand_rifle  }
+		completion_reward = {
+			set_technology = { motorised_infantry = 1 }
+			if = {
+				limit = {
+					has_dlc = "No Step Back"
+				}
+				set_technology = { gwtank_chassis = 1 }
+				set_technology = { basic_light_tank_chassis = 1 }
+				set_technology = { basic_medium_tank_chassis = 1 }
+				set_technology = { basic_heavy_tank_chassis = 1 }
+				set_technology = { armor_tech_1 = 1 }
+				set_technology = { engine_tech_1 = 1 }
+
+				create_equipment_variant = {
+					name = "中戦車1 A"
+					type = medium_tank_chassis_1
+					parent_version = 0
+					modules = {
+						main_armament_slot = tank_high_velocity_cannon
+						turret_type_slot = tank_medium_three_man_tank_turret
+						suspension_type_slot = tank_bogie_suspension
+						armor_type_slot = tank_welded_armor
+						engine_type_slot = tank_gasoline_engine
+					}
+					icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+				}
+				create_equipment_variant = {
+					name = "軽戦車1 A"
+					type = light_tank_chassis_1
+					parent_version = 0
+					modules = {
+						main_armament_slot = tank_high_velocity_cannon
+						turret_type_slot = tank_light_three_man_tank_turret
+						suspension_type_slot = tank_bogie_suspension
+						armor_type_slot = tank_welded_armor
+						engine_type_slot = tank_gasoline_engine
+					}
+					icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+				}
+				create_equipment_variant = {
+					name = "軽戦車1 A"
+					type = heavy_tank_chassis_1
+					parent_version = 0
+					modules = {
+						main_armament_slot = tank_high_velocity_cannon
+						turret_type_slot = tank_heavy_three_man_tank_turret
+						suspension_type_slot = tank_bogie_suspension
+						armor_type_slot = tank_welded_armor
+						engine_type_slot = tank_gasoline_engine
+					}
+					icon = "gfx/interface/technologies/ger_basic_main_tank.dds"
+				}
+			}
+			else = {
+				set_technology = { gwtank = 1 }
+				set_technology = { basic_light_tank = 1 }
+				set_technology = { basic_heavy_tank = 1 }
+			}
+		}
+	}
+
+		#sand boat
+	focus = {
+		id = WES_sand_boat
+		icon = GFX_focus_generic_africa_naval
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 4
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = { focus = WES_sand_car  }
+	}
+
+		#sand plane
+	focus = {
+		id = WES_sand_plane
+		icon = GFX_goal_continuous_air_production
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 5
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = { focus = WES_sand_boat  }
+		completion_reward = {
+			set_technology = { early_fighter = 1 }
+			set_technology = { fighter1 = 1 }
+			set_technology = { CAS1 = 1 }
+		}
+	}
+
+		#Desert_Research_Lab
+	focus = {
+		id = WES_desert_research_lab
+		icon = GFX_focus_research
+		relative_position_id = WES_gone_with_the_sand
+		x = 2
+		y = 6
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		prerequisite = { focus = WES_sand_plane  }
+
+		completion_reward = {
+			add_research_slot = 1
+			add_ideas = {
+				WES_desert_research_lab
+			}
+		}
+	}
+
+		#War of Sands
+	focus = {
+		id = WES_war_of_sands
+		icon = GFX_goal_generic_special_forces
+		relative_position_id = WES_gone_with_the_sand
+		x = 0
+		y = 7
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_founding_of_sandsand_stan  }
+		prerequisite = { focus = WES_desert_research_lab  }
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = WES_sand_war
+				add_idea = WES_sand_war_2
+			}
+			hidden_effect = {
+                #WES = { country_event = { days = 1 id = baka_super.2 } }
+				#news_event = {
+				#	id = baka_super_news.2
+				#	days = 1
+				#}
+            }
+		}
+	}
+
+    	#Establishment of the SGC
+	focus = {
+		id = WES_establishment_of_the_sgc
+		icon = GFX_focus_generic_africa_production
+		x = -6
+		y = 0
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		ai_will_do = {
+			factor = 20
+		}
+		mutually_exclusive = { focus = WES_gone_with_the_sand  }
+		completion_reward ={
+			#load_focus_tree = wes_2
+			set_rule = { can_create_factions = yes }
+			create_faction = WES_SGC
+			add_ideas = WES_greening_1
+			hidden_effect = {
+				news_event = {
+					id = baka_news.2
+					days = 1
+				}
+			}
+		}
+	}
+
+        #サハラ共和国
+	#Republic of the Sahara
+	focus = {
+		id = WES_republic_of_the_sahara
+		icon = GFX_focus_por_latin_american_communism
+		x = -9
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+        prerequisite = { focus = WES_establishment_of_the_sgc }
+		mutually_exclusive = { focus = WES_the_founding_of_the_saharan_african_empire  }
+		completion_reward = {
+            set_politics = { ruling_party = democratic elections_allowed = yes }
+			add_popularity = { ideology = democratic popularity = 0.75 }
+            hidden_effect = {
+                promote_character = WES_el_ouali_mustapha_sayed
+                WES = {
+				    country_event = { days = 5 id = WES.20 }
+			    }
+            }
+		}
+	}
+        #共和国
+    focus = {
+        id = WES_development_of_democratic_politics
+        icon = GFX_focus_generic_treaty
+        relative_position_id = WES_republic_of_the_sahara
+        x = -2
+        y = 1
+        cost = 10
+        ai_will_do = {
+			factor = 10
+		}
+        bypass = {
+            WES = { has_country_flag = Isaac_Ali }
+        }
+        mutually_exclusive = { focus = WES_Sahara_prefecture_of_Japan  }
+        prerequisite = { focus = WES_republic_of_the_sahara  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+			add_popularity = { ideology = democratic popularity = 1 }
+		}
+
+    }
+    	#地政学への目覚め
+focus = {
+        id = WES_awakening_to_geopolitics
+        icon = GFX_focus_ger_break_anglo_french_colonial_hegemony
+        relative_position_id = WES_republic_of_the_sahara
+        x = -2
+        y = 2
+        cost = 10
+        prerequisite = { focus = WES_development_of_democratic_politics  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_political_power = 300
+            add_ideas = WES_Awakening_to_geopolitics
+        }
+    }
+	#海上輸送による発展
+focus = {
+        id = WES_development_in_marine_transportation
+        icon = GFX_focus_generic_africa_naval
+        relative_position_id = WES_republic_of_the_sahara
+        x = -2
+        y = 3
+        cost = 10
+        prerequisite = { focus = WES_awakening_to_geopolitics  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_ideas = WES_Development_in_marine_transportation
+        }
+    }
+	#自国領土の保持
+focus = {
+        id = WES_maintaining_own_territory
+        icon = GFX_focus_chi_whampoa_military_academy
+        relative_position_id = WES_republic_of_the_sahara
+        x = -2
+        y = 4
+        cost = 10
+        prerequisite = { focus = WES_development_in_marine_transportation  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        available = {
+			OR = {
+				NOT = { TWN = { is_in_faction_with = WES } }
+			}
+		}
+
+		bypass = {
+			TWN = {
+				OR = {
+					exists = no
+					is_in_faction_with =  WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			#limit wargoals to when it makes sense to give them. No faction, war or non exist
+			if = {
+				limit = {
+					country_exists = TWN
+					NOT = { TWN = { is_in_faction_with = WES } }
+					NOT = { has_war_with = TWN }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = TWN
+				}
+			}
+		}
+    }
+	#第二のアメリカ
+focus = {
+        id = WES_the_second_America
+        icon = GFX_focus_generic_strike_at_democracy3
+        relative_position_id = WES_republic_of_the_sahara
+        x = -2
+        y = 5
+        cost = 10
+        prerequisite = { focus = WES_maintaining_own_territory }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            custom_effect_tooltip = WES_train_decision_available
+            add_ideas = WES_the_second_america
+            add_ideas = WES_mass_production_and_mass_consumption_economy
+        }
+    }
+
+        #緑化委員会系デシジョン
+	focus = {
+		id = WES_request_other_countries_to_join_the_SGC
+		icon = GFX_focus_hol_the_foundations_of_defense
+		relative_position_id = WES_republic_of_the_sahara
+		x = -6
+		y = 1
+		cost = 10
+		prerequisite = { focus = WES_republic_of_the_sahara  }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+        available = {
+			num_of_factories > 25
+		}
+        completion_reward = {
+            add_ideas = WES_trade_at_SGC_1
+            EGY = {
+				country_event = { id = WES.1 }
+			}
+            MAR = {
+				country_event = { id = WES.1 }
+			}
+            KSM = {
+				country_event = { id = WES.1 }
+			}
+            KEN = {
+				country_event = { id = WES.1 }
+			}
+            KHM = {
+				country_event = { id = WES.1 }
+			}
+            AMA = {
+				country_event = { id = WES.1 }
+			}
+            SAU = {
+				country_event = { id = WES.1 }
+			}
+            IRQ = {
+				country_event = { id = WES.1 }
+			}
+            IRN = {
+				country_event = { id = WES.1 }
+			}
+            TUR = {
+				country_event = { id = WES.1 }
+			}
+        }
+
+	}
+
+    focus = {
+		id = WES_strengthening_cooperation
+		icon = GFX_goal_generic_major_alliance
+		relative_position_id = WES_republic_of_the_sahara
+		x = -6
+		y = 2
+		cost = 10
+		prerequisite = { focus = WES_request_other_countries_to_join_the_SGC  }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+        completion_reward = {
+            swap_ideas = {
+				remove_idea = WES_greening_1
+				add_idea = WES_greening_2
+            }
+            swap_ideas = {
+                remove_idea = WES_trade_at_SGC_1
+                add_idea = WES_trade_at_SGC_2
+            }
+            if = {
+                limit = {
+                    EGY = { has_idea = WES_greening_1}
+                }
+                EGY = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+            if = {
+                limit = {
+                    MAR = { has_idea = WES_greening_1}
+                }
+                MAR = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+            if = {
+                limit = {
+                    KSM = { has_idea = WES_greening_1}
+                }
+                KSM = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+            if = {
+                limit = {
+                    KEN = { has_idea = WES_greening_1}
+                }
+                KEN = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+            if = {
+                limit = {
+                    KHM = { has_idea = WES_greening_1}
+                }
+                KHM = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+            if = {
+                limit = {
+                    AMA = { has_idea = WES_greening_1}
+                }
+                AMA = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+            if = {
+                limit = {
+                    SAU = { has_idea = WES_greening_1}
+                }
+                SAU = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+            if = {
+                limit = {
+                    IRQ = { has_idea = WES_greening_1}
+                }
+                IRQ = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+            if = {
+                limit = {
+                    IRN = { has_idea = WES_greening_1}
+                }
+                IRN = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+            if = {
+                limit = {
+                    TUR = { has_idea = WES_greening_1}
+                }
+                TUR = {
+				    country_event = { id = WES.2 }
+			    }
+            }
+        }
+
+	}
+
+    focus = {
+		id = WES_expansion_of_trade
+		icon = GFX_goal_generic_trade
+		relative_position_id = WES_republic_of_the_sahara
+		x = -6
+		y = 3
+		cost = 10
+		prerequisite = { focus = WES_strengthening_cooperation  }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+        completion_reward = {
+            swap_ideas = {
+				remove_idea = WES_greening_2
+				add_idea = WES_greening_3
+            }
+            swap_ideas = {
+                remove_idea = WES_trade_at_SGC_2
+                add_idea = WES_trade_at_SGC_3
+            }
+            if = {
+                limit = {
+                    EGY = { has_idea = WES_greening_2}
+                }
+                EGY = {
+                    country_event = { id = WES.3 }
+                }
+            }
+            if = {
+                limit = {
+                    MAR = { has_idea = WES_greening_2}
+                }
+                MAR = {
+                    country_event = { id = WES.3 }
+                }
+            }
+            if = {
+                limit = {
+                    KSM = { has_idea = WES_greening_2}
+                }
+                KSM = {
+                    country_event = { id = WES.3 }
+                }
+            }
+            if = {
+                limit = {
+                    KEN = { has_idea = WES_greening_2}
+                }
+                KEN = {
+                    country_event = { id = WES.3 }
+                }
+            }
+            if = {
+                limit = {
+                    KHM = { has_idea = WES_greening_2}
+                }
+                KHM = {
+                    country_event = { id = WES.3 }
+                }
+            }
+            if = {
+                limit = {
+                    AMA = { has_idea = WES_greening_2}
+                }
+                AMA = {
+                    country_event = { id = WES.3 }
+                }
+            }
+            if = {
+                limit = {
+                    SAU = { has_idea = WES_greening_2}
+                }
+                SAU = {
+                    country_event = { id = WES.3 }
+                }
+            }
+            if = {
+                limit = {
+                    IRQ = { has_idea = WES_greening_2}
+                }
+                IRQ = {
+                    country_event = { id = WES.3 }
+                }
+            }
+            if = {
+                limit = {
+                    IRN = { has_idea = WES_greening_2}
+                }
+                IRN = {
+                    country_event = { id = WES.3 }
+                }
+            }
+            if = {
+                limit = {
+                    TUR = { has_idea = WES_greening_2}
+                }
+                TUR = {
+                    country_event = { id = WES.3 }
+                }
+            }
+
+        }
+
+	}
+
+    focus = {
+		id = WES_Technology_sharing_SGC #SGCでの技術共有
+		icon = GFX_goal_generic_trade
+		relative_position_id = WES_republic_of_the_sahara
+		x = -6
+		y = 4
+		cost = 10
+		prerequisite = { focus = WES_expansion_of_trade  }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+        completion_reward = {
+            add_to_tech_sharing_group = WES_SGC_research
+            if = {
+                limit = {
+                    EGY = { has_idea = WES_greening_3}
+                }
+                EGY = {
+                    country_event = { id = WES.28 }
+                }
+            }
+            if = {
+                limit = {
+                    MAR = { has_idea = WES_greening_3}
+                }
+                MAR = {
+                    country_event = { id = WES.28 }
+                }
+            }
+            if = {
+                limit = {
+                    KSM = { has_idea = WES_greening_3}
+                }
+                KSM = {
+                    country_event = { id = WES.28 }
+                }
+            }
+            if = {
+                limit = {
+                    KEN = { has_idea = WES_greening_3}
+                }
+                KEN = {
+                    country_event = { id = WES.28 }
+                }
+            }
+            if = {
+                limit = {
+                    KHM = { has_idea = WES_greening_3}
+                }
+                KHM = {
+                    country_event = { id = WES.28 }
+                }
+            }
+            if = {
+                limit = {
+                    AMA = { has_idea = WES_greening_3}
+                }
+                AMA = {
+                    country_event = { id = WES.28 }
+                }
+            }
+            if = {
+                limit = {
+                    SAU = { has_idea = WES_greening_3}
+                }
+                SAU = {
+                    country_event = { id = WES.28 }
+                }
+            }
+            if = {
+                limit = {
+                    IRQ = { has_idea = WES_greening_3}
+                }
+                IRQ = {
+                    country_event = { id = WES.28 }
+                }
+            }
+            if = {
+                limit = {
+                    IRN = { has_idea = WES_greening_3}
+                }
+                IRN = {
+                    country_event = { id = WES.28 }
+                }
+            }
+            if = {
+                limit = {
+                    TUR = { has_idea = WES_greening_3}
+                }
+                TUR = {
+                    country_event = { id = WES.28 }
+                }
+            }
+
+        }
+
+	}
+
+    focus = {
+		id = WES_formation_of_the_Saharan_Union
+		icon = GFX_goal_generic_demand_territory
+		relative_position_id = WES_republic_of_the_sahara
+		x = -6
+		y = 6
+		cost = 10
+        prerequisite = { focus = WES_last_investment  }
+		prerequisite = { focus = WES_Technology_sharing_SGC  }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+        completion_reward = {
+            set_country_flag = WES_SGC_finish_flag
+            hidden_effect = { #collapse focus tree
+				load_focus_tree = {
+					tree = wes_3
+					keep_completed = yes
+				}
+				mark_focus_tree_layout_dirty = yes
+			}
+            swap_ideas = {
+				remove_idea = WES_greening_3
+				add_idea = WES_greening_4
+            }
+            swap_ideas = {
+                remove_idea = WES_trade_at_SGC_3
+                add_idea = WES_trade_at_SGC_4
+            }
+            hidden_effect = {
+                #WES = { country_event = { days = 3 id = baka_super.1 } }
+                #news_event = {
+				#	id = baka_super_news.1
+				#	days = 2
+				#}
+            }
+            if = {
+                limit = {
+                    EGY = { has_idea = WES_greening_3}
+                }
+                EGY = {
+                    country_event = { id = WES.4 }
+                }
+            }
+            if = {
+                limit = {
+                    MAR = { has_idea = WES_greening_3}
+                }
+                MAR = {
+                    country_event = { id = WES.4 }
+                }
+            }
+            if = {
+                limit = {
+                    KSM = { has_idea = WES_greening_3}
+                }
+                KSM = {
+                    country_event = { id = WES.4 }
+                }
+            }
+            if = {
+                limit = {
+                    KEN = { has_idea = WES_greening_3}
+                }
+                KEN = {
+                    country_event = { id = WES.4 }
+                }
+            }
+            if = {
+                limit = {
+                    KHM = { has_idea = WES_greening_3}
+                }
+                KHM = {
+                    country_event = { id = WES.4 }
+                }
+            }
+            if = {
+                limit = {
+                    AMA = { has_idea = WES_greening_3}
+                }
+                AMA = {
+                    country_event = { id = WES.4 }
+                }
+            }
+            if = {
+                limit = {
+                    SAU = { has_idea = WES_greening_3}
+                }
+                SAU = {
+                    country_event = { id = WES.4 }
+                }
+            }
+            if = {
+                limit = {
+                    IRQ = { has_idea = WES_greening_3}
+                }
+                IRQ = {
+                    country_event = { id = WES.4 }
+                }
+            }
+            if = {
+                limit = {
+                    IRN = { has_idea = WES_greening_3}
+                }
+                IRN = {
+                    country_event = { id = WES.4 }
+                }
+            }
+            if = {
+                limit = {
+                    TUR = { has_idea = WES_greening_3}
+                }
+                TUR = {
+                    country_event = { id = WES.4 }
+                }
+            }
+        }
+
+	}
+
+    focus = {
+		id = WES_continue_the_SGC_route
+		icon = GFX_goal_generic_neutrality_focus
+		relative_position_id = WES_republic_of_the_sahara
+		x = -6
+		y = 7
+		cost = 10
+        mutually_exclusive = { focus = WES_joining_the_United_Nations  }
+        mutually_exclusive = { focus = WES_join_Greater_East_Asia_Co_Prosperity_Sphere  }
+        mutually_exclusive = { focus = WES_joined_Axis_powers  }
+		prerequisite = { focus = WES_formation_of_the_Saharan_Union  }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+        completion_reward = {
+            add_political_power = 200
+        }
+
+	}
+
+
+
+        #佐原県ルート、佐山県じゃねぇぞ！
+    focus = {
+        id = WES_Sahara_prefecture_of_Japan
+        icon = GFX_focus_jap_spiritual_mobilization
+        relative_position_id = WES_republic_of_the_sahara
+        x = 2
+        y = 1
+        cost = 10
+        cancel = {
+            WES = { has_country_flag = Isaac_Ali}
+        }
+        mutually_exclusive = { focus = WES_development_of_democratic_politics  }
+        mutually_exclusive = { focus = WES_conquest_of_egypt  }
+        prerequisite = { focus = WES_republic_of_the_sahara  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            #set_country_flag = tiisara_allow
+            set_cosmetic_tag = WES_Sahara_Ken
+            add_ideas = WES_sahaea_ken_idea
+            set_party_name = {
+			    ideology = stupidism
+			    long_name = WES_stupidism_party_Saharaken_Party_long
+			    name = WES_stupidism_party_Saharaken_Party
+			}
+            set_politics = { ruling_party = stupidism elections_allowed = yes }
+			add_popularity = { ideology = stupidism popularity = 0.85 }
+            create_country_leader = {
+			    name = "El-Ouali Mustapha Sayed"
+			    picture = "gfx/leaders/WES/Portrait_Arabia_Generic_1.dds"
+		    	ideology = anthropocentrism
+		    }
+        }
+
+    }
+
+    	#日本語を公用語に
+focus = {
+        id = WES_make_Japanese_an_official_language
+        icon = GFX_focus_jap_pacific_guardian
+        relative_position_id = WES_republic_of_the_sahara
+        x = 2
+        y = 2
+        cost = 10
+        prerequisite = { focus = WES_Sahara_prefecture_of_Japan }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_ideas = WES_change_of_official_language
+        }
+    }
+
+	#sawaraではない
+focus = {
+        id = WES_Not_Sawara
+        icon = GFX_focus_generic_japanese_imperial_glory
+        relative_position_id = WES_republic_of_the_sahara
+        x = 2
+        y = 3
+        cost = 10
+        prerequisite = { focus = WES_make_Japanese_an_official_language }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_ideas = WES_deny_Sawara
+        }
+    }
+	#国庫支出金
+focus = {
+        id = WES_national_treasury_expenses
+        icon = GFX_focus_usa_reestablish_the_gold_standard
+        relative_position_id = WES_republic_of_the_sahara
+        x = 2
+        y = 4
+        cost = 10
+        prerequisite = { focus = WES_Not_Sawara }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_ideas = WES_National_Treasury_Expenses
+        }
+    }
+
+	#市町村の設置
+focus = {
+        id = WES_establishment_of_municipalities
+        icon = GFX_focus_jap_manchurian_project
+        relative_position_id = WES_republic_of_the_sahara
+        x = 2
+        y = 5
+        cost = 10
+        prerequisite = { focus = WES_national_treasury_expenses }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_ideas = WES_clarification_of_administrative_sections
+        }
+    }
+
+
+        #民需産業ルート
+	focus = {
+        id = WES_desert_development
+        icon = GFX_goal_generic_construction
+        relative_position_id = WES_republic_of_the_sahara
+        x = -9
+        y = 1
+        cost = 10
+        ai_will_do = {
+			factor = 1
+		}
+        prerequisite = { focus = WES_republic_of_the_sahara  }
+        search_filters = { FOCUS_FILTER_INDUSTRY }
+
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = construction_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size < 2
+                        include_locked = yes
+                    }
+                }
+            }
+        }
+
+        complete_tooltip = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = industrial_complex
+                level = 2
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            add_ideas = WES_infrastructure_construction
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size > 1
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = industrial_complex
+                                        size > 1
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 2
+                    instant_build = yes
+                }
+            }
+        }
+
+    }
+
+    focus = {
+        id = WES_promotion_of_science_and_technology
+        icon = GFX_focus_research
+        relative_position_id = WES_republic_of_the_sahara
+        x = -9
+        y = 2
+        cost = 10
+        ai_will_do = {
+			factor = 1
+		}
+        prerequisite = { focus = WES_desert_development  }
+        search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_research_slot = 2
+		}
+
+    }
+    focus = {
+        id = WES_strengthen_domestic_industry
+        icon = GFX_goal_generic_construct_civ_factory
+        relative_position_id = WES_republic_of_the_sahara
+        x = -9
+        y = 3
+        cost = 10
+        ai_will_do = {
+			factor = 1
+		}
+        prerequisite = { focus = WES_promotion_of_science_and_technology  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = construction_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size < 2
+                        include_locked = yes
+                    }
+                }
+            }
+        }
+        complete_tooltip = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = industrial_complex
+                level = 2
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size > 1
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = industrial_complex
+                                        size > 1
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 2
+                    instant_build = yes
+                }
+            }
+        }
+
+    }
+
+    focus = {
+        id = WES_strengthen_domestic_industry_2
+        icon = GFX_goal_generic_construct_civ_factory
+        relative_position_id = WES_republic_of_the_sahara
+        x = -9
+        y = 4
+        cost = 10
+        ai_will_do = {
+			factor = 1
+		}
+        prerequisite = { focus = WES_strengthen_domestic_industry  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = construction_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size < 2
+                        include_locked = yes
+                    }
+                }
+            }
+        }
+        complete_tooltip = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = industrial_complex
+                level = 2
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size > 1
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = industrial_complex
+                                        size > 1
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 2
+                    instant_build = yes
+                }
+            }
+        }
+
+    }
+    focus = {
+        id = WES_strengthen_the_military_industry
+        icon = GFX_goal_generic_construct_mil_factory
+        relative_position_id = WES_republic_of_the_sahara
+        x = -9
+        y = 5
+        cost = 10
+        ai_will_do = {
+			factor = 1
+		}
+        prerequisite = { focus = WES_strengthen_domestic_industry_2  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = construction_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size < 2
+                        include_locked = yes
+                    }
+                }
+            }
+        }
+        complete_tooltip = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = arms_factory
+                level = 2
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 1
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 1
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = arms_factory
+                    level = 2
+                    instant_build = yes
+                }
+            }
+        }
+
+    }
+
+        #資源投資デシジョン
+	focus = {
+        id = WES_investment_in_resource_development
+        icon = GFX_goal_generic_construction2
+        relative_position_id = WES_republic_of_the_sahara
+        x = -4
+        y = 2
+        cost = 10
+		prerequisite = { focus = WES_request_other_countries_to_join_the_SGC}
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_ideas = WES_investment_in_resource_development_1
+            if = {
+                limit = {
+                    EGY = { has_idea = WES_Sahara_Greening_Committee}
+                }
+                EGY = {
+                    country_event = { id = WES.5 }
+                }
+            }
+            if = {
+                limit = {
+                    MAR = { has_idea = WES_Sahara_Greening_Committee}
+                }
+                MAR = {
+                    country_event = { id = WES.5 }
+                }
+            }
+            if = {
+                limit = {
+                    KSM = { has_idea = WES_Sahara_Greening_Committee }
+                }
+                KSM = {
+                    country_event = { id = WES.5 }
+                }
+            }
+            if = {
+                limit = {
+                    KEN = { has_idea = WES_Sahara_Greening_Committee }
+                }
+                KEN = {
+                    country_event = { id = WES.5 }
+                }
+            }
+            if = {
+                limit = {
+                    KHM = { has_idea = WES_Sahara_Greening_Committee }
+                }
+                KHM = {
+                    country_event = { id = WES.5 }
+                }
+            }
+            if = {
+                limit = {
+                    AMA = { has_idea = WES_Sahara_Greening_Committee }
+                }
+                AMA = {
+                    country_event = { id = WES.5 }
+                }
+            }
+            if = {
+                limit = {
+                    SAU = { has_idea = WES_Sahara_Greening_Committee }
+                }
+                SAU = {
+                    country_event = { id = WES.5 }
+                }
+            }
+            if = {
+                limit = {
+                    IRQ = { has_idea = WES_Sahara_Greening_Committee }
+                }
+                IRQ = {
+                    country_event = { id = WES.5 }
+                }
+            }
+            if = {
+                limit = {
+                    IRN = { has_idea = WES_Sahara_Greening_Committee }
+                }
+                IRN = {
+                    country_event = { id = WES.5 }
+                }
+            }
+            if = {
+                limit = {
+                    TUR = { has_idea = WES_Sahara_Greening_Committee }
+                }
+                TUR = {
+                    country_event = { id = WES.5 }
+                }
+            }
+
+        }
+
+    }
+
+    focus = {
+        id = WES_proceed_with_investment
+        icon = GFX_focus_generic_industry_1
+        relative_position_id = WES_investment_in_resource_development
+        x = 0
+        y = 1
+        cost = 10
+        prerequisite = { focus = WES_investment_in_resource_development}
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            swap_ideas = {
+				remove_idea = WES_investment_in_resource_development_1
+				add_idea = WES_investment_in_resource_development_2
+            }
+            if = {
+                limit = {
+                    EGY = { has_idea = WES_investment_in_resource_development_1}
+                }
+                EGY = {
+                    country_event = { id = WES.6 }
+                }
+            }
+            if = {
+                limit = {
+                    MAR = { has_idea = WES_investment_in_resource_development_1}
+                }
+                MAR = {
+                    country_event = { id = WES.6 }
+                }
+            }
+            if = {
+                limit = {
+                    KSM = { has_idea = WES_investment_in_resource_development_1}
+                }
+                KSM = {
+                    country_event = { id = WES.6 }
+                }
+            }
+            if = {
+                limit = {
+                    KEN = { has_idea = WES_investment_in_resource_development_1}
+                }
+                KEN = {
+                    country_event = { id = WES.6 }
+                }
+            }
+            if = {
+                limit = {
+                    KHM = { has_idea = WES_investment_in_resource_development_1}
+                }
+                KHM = {
+                    country_event = { id = WES.6 }
+                }
+            }
+            if = {
+                limit = {
+                    AMA = { has_idea = WES_investment_in_resource_development_1}
+                }
+                AMA = {
+                    country_event = { id = WES.6 }
+                }
+            }
+            if = {
+                limit = {
+                    SAU = { has_idea = WES_investment_in_resource_development_1}
+                }
+                SAU = {
+                    country_event = { id = WES.6 }
+                }
+            }
+            if = {
+                limit = {
+                    IRQ = { has_idea = WES_investment_in_resource_development_1}
+                }
+                IRQ = {
+                    country_event = { id = WES.6 }
+                }
+            }
+            if = {
+                limit = {
+                    IRN = { has_idea = WES_investment_in_resource_development_1}
+                }
+                IRN = {
+                    country_event = { id = WES.6 }
+                }
+            }
+            if = {
+                limit = {
+                    TUR = { has_idea = WES_investment_in_resource_development_1}
+                }
+                TUR = {
+                    country_event = { id = WES.6 }
+                }
+            }
+
+        }
+
+    }
+
+    focus = {
+        id = WES_make_further_investments
+        icon = GFX_focus_generic_industry_2
+        relative_position_id = WES_investment_in_resource_development
+        x = 0
+        y = 2
+        cost = 10
+        prerequisite = { focus = WES_proceed_with_investment}
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            swap_ideas = {
+				remove_idea = WES_investment_in_resource_development_2
+				add_idea = WES_investment_in_resource_development_3
+            }
+            if = {
+                limit = {
+                    EGY = { has_idea = WES_investment_in_resource_development_2}
+                }
+                EGY = {
+                    country_event = { id = WES.7 }
+                }
+            }
+            if = {
+                limit = {
+                    MAR = { has_idea = WES_investment_in_resource_development_2}
+                }
+                MAR = {
+                    country_event = { id = WES.7 }
+                }
+            }
+            if = {
+                limit = {
+                    KSM = { has_idea = WES_investment_in_resource_development_2}
+                }
+                KSM = {
+                    country_event = { id = WES.7 }
+                }
+            }
+            if = {
+                limit = {
+                    KEN = { has_idea = WES_investment_in_resource_development_2}
+                }
+                KEN = {
+                    country_event = { id = WES.7 }
+                }
+            }
+            if = {
+                limit = {
+                    KHM = { has_idea = WES_investment_in_resource_development_2}
+                }
+                KHM = {
+                    country_event = { id = WES.7 }
+                }
+            }
+            if = {
+                limit = {
+                    AMA = { has_idea = WES_investment_in_resource_development_2}
+                }
+                AMA = {
+                    country_event = { id = WES.7 }
+                }
+            }
+            if = {
+                limit = {
+                    SAU = { has_idea = WES_investment_in_resource_development_2}
+                }
+                SAU = {
+                    country_event = { id = WES.7 }
+                }
+            }
+            if = {
+                limit = {
+                    IRQ = { has_idea = WES_investment_in_resource_development_2}
+                }
+                IRQ = {
+                    country_event = { id = WES.7 }
+                }
+            }
+            if = {
+                limit = {
+                    IRN = { has_idea = WES_investment_in_resource_development_2}
+                }
+                IRN = {
+                    country_event = { id = WES.7 }
+                }
+            }
+            if = {
+                limit = {
+                    TUR = { has_idea = WES_investment_in_resource_development_2}
+                }
+                TUR = {
+                    country_event = { id = WES.7 }
+                }
+            }
+
+        }
+
+    }
+    focus = {
+        id = WES_last_investment
+        icon = GFX_focus_generic_industry_3
+        relative_position_id = WES_investment_in_resource_development
+        x = 0
+        y = 3
+        cost = 10
+        prerequisite = { focus = WES_make_further_investments}
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            swap_ideas = {
+				remove_idea = WES_investment_in_resource_development_3
+				add_idea = WES_investment_in_resource_development_4
+            }
+            if = {
+                limit = {
+                    EGY = { has_idea = WES_investment_in_resource_development_3}
+                }
+                EGY = {
+                    country_event = { id = WES.8 }
+                }
+            }
+            if = {
+                limit = {
+                    MAR = { has_idea = WES_investment_in_resource_development_3}
+                }
+                MAR = {
+                    country_event = { id = WES.8 }
+                }
+            }
+            if = {
+                limit = {
+                    KSM = { has_idea = WES_investment_in_resource_development_3}
+                }
+                KSM = {
+                    country_event = { id = WES.8 }
+                }
+            }
+            if = {
+                limit = {
+                    KEN = { has_idea = WES_investment_in_resource_development_3}
+                }
+                KEN = {
+                    country_event = { id = WES.8 }
+                }
+            }
+            if = {
+                limit = {
+                    KHM = { has_idea = WES_investment_in_resource_development_3}
+                }
+                KHM = {
+                    country_event = { id = WES.8 }
+                }
+            }
+            if = {
+                limit = {
+                    AMA = { has_idea = WES_investment_in_resource_development_3}
+                }
+                AMA = {
+                    country_event = { id = WES.8 }
+                }
+            }
+            if = {
+                limit = {
+                    SAU = { has_idea = WES_investment_in_resource_development_3}
+                }
+                SAU = {
+                    country_event = { id = WES.8 }
+                }
+            }
+            if = {
+                limit = {
+                    IRQ = { has_idea = WES_investment_in_resource_development_3}
+                }
+                IRQ = {
+                    country_event = { id = WES.8 }
+                }
+            }
+            if = {
+                limit = {
+                    IRN = { has_idea = WES_investment_in_resource_development_3}
+                }
+                IRN = {
+                    country_event = { id = WES.8 }
+                }
+            }
+            if = {
+                limit = {
+                    TUR = { has_idea = WES_investment_in_resource_development_3}
+                }
+                TUR = {
+                    country_event = { id = WES.8 }
+                }
+            }
+
+        }
+
+    }
+
+        #英米からの支援
+	focus = {
+        id = WES_investing_in_the_UK_and_US
+        icon = GFX_WES_US_and_UK
+        relative_position_id = WES_republic_of_the_sahara
+        x = 0
+        y = 2
+        cost = 10
+        ai_will_do = {
+			factor = 0.75
+		}
+        prerequisite = { focus = WES_republic_of_the_sahara  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+		    add_offsite_building = { type = industrial_complex level = 5 }
+	    }
+    }
+
+    focus = {
+        id = WES_shipbuilding_technology_from_UK_and_US
+        icon = GFX_goal_generic_construct_naval_dockyard
+        relative_position_id = WES_republic_of_the_sahara
+        x = 0
+        y = 3
+        cost = 10
+        prerequisite = { focus = WES_investing_in_the_UK_and_US  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        available = {
+            any_state = {
+                is_coastal = yes
+                is_controlled_by = ROOT
+            }
+        }
+
+        complete_tooltip = {
+            navy_experience = 25
+            add_extra_state_shared_building_slots = 3
+            add_building_construction = {
+                type = dockyard
+                level = 3
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            navy_experience = 25
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            if = {
+                limit = {
+                    NOT = {
+                        any_owned_state = {
+                            dockyard > 0
+                            free_building_slots = {
+                                building = dockyard
+                                size > 2
+                                include_locked = yes
+                            }
+                        }
+                    }
+                    any_owned_state = {
+                        is_coastal = yes
+                    }
+                }
+                random_owned_controlled_state = {
+                    limit = {
+                        is_coastal = yes
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = dockyard
+                        level = 3
+                        instant_build = yes
+                    }
+                }
+                set_country_flag = naval_effort_built
+            }
+            if = {
+                limit = {
+                    NOT = { has_country_flag = naval_effort_built }
+                    any_owned_state = {
+                        dockyard > 0
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                }
+                random_owned_controlled_state = {
+                    limit = {
+                        dockyard > 0
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = dockyard
+                        level = 3
+                        instant_build = yes
+                    }
+                }
+                set_country_flag = naval_effort_built
+            }
+            if = {
+                limit = {
+                    NOT = { has_country_flag = naval_effort_built }
+                    NOT = {
+                        any_owned_state = {
+                            free_building_slots = {
+                                building = dockyard
+                                size > 2
+                                include_locked = yes
+                            }
+                        }
+                    }
+                }
+                random_state = {
+                    limit = {
+                        controller = { tag = ROOT }
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = dockyard
+                        level = 3
+                        instant_build = yes
+                    }
+                }
+            }
+            add_ideas = WES_American_style_shipbuilding
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 2
+	            category = naval_doctrine
+            }
+            add_tech_bonus = {
+                name = ss_bonus
+                bonus = 1.0
+                ahead_reduction = 2
+                uses = 2
+                category = ss_tech
+                category = dd_tech
+                category = bc_tech
+                category = bb_tech
+                category = cv_tech
+                category = cl_tech
+                category = ca_tech
+                category = fleet_in_being_tree
+                technology = convoy_interdiction_ti
+                technology = unrestricted_submarine_warfare
+                technology = wolfpacks
+                technology = advanced_submarine_warfare
+                technology = combined_operations_raiding
+            }
+       }
+
+    }
+
+    focus = {
+        id = WES_aviation_industry_with_UK_and_US
+        icon = GFX_goal_generic_build_airforce
+        relative_position_id = WES_republic_of_the_sahara
+        x = 0
+        y = 4
+        cost = 10
+        prerequisite = { focus = WES_shipbuilding_technology_from_UK_and_US  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 2
+	            category = air_doctrine
+            }
+            add_tech_bonus = {
+                name = aircraft_bonus
+                bonus = 1.0
+                uses = 2
+                technology = early_fighter
+                technology = fighter1
+                technology = fighter2
+                technology = fighter3
+                technology = heavy_fighter1
+                technology = heavy_fighter2
+                technology = heavy_fighter3
+                category = cas_bomber
+                technology = strategic_bomber1
+                technology = strategic_bomber2
+                technology = strategic_bomber3
+                category = tactical_bomber
+            }
+            add_ideas = WES_American_style_aircraft_production
+        }
+
+    }
+
+    focus = {
+        id = WES_shipbuilding_technology_from_UK_and_US_2
+        icon = GFX_goal_generic_construct_naval_dockyard
+        relative_position_id = WES_republic_of_the_sahara
+        x = 0
+        y = 5
+        cost = 10
+        prerequisite = { focus = WES_aviation_industry_with_UK_and_US  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        available = {
+            any_state = {
+                is_coastal = yes
+                is_controlled_by = ROOT
+            }
+        }
+
+        complete_tooltip = {
+            navy_experience = 25
+            add_extra_state_shared_building_slots = 3
+            add_building_construction = {
+                type = dockyard
+                level = 3
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            navy_experience = 25
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            random_owned_controlled_state = {
+				limit = {
+					dockyard > 0
+					free_building_slots = {
+						building = dockyard
+						size > 1
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+            if = {
+                limit = {
+                    NOT = {
+                        any_owned_state = {
+                            dockyard > 0
+                            free_building_slots = {
+                                building = dockyard
+                                size > 2
+                                include_locked = yes
+                            }
+                        }
+                    }
+                    any_owned_state = {
+                        is_coastal = yes
+                    }
+                }
+                random_owned_controlled_state = {
+                    limit = {
+                        is_coastal = yes
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = dockyard
+                        level = 3
+                        instant_build = yes
+                    }
+                }
+                set_country_flag = naval_effort_built
+            }
+            if = {
+                limit = {
+                    NOT = { has_country_flag = naval_effort_built }
+                    any_owned_state = {
+                        dockyard > 0
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                }
+                random_owned_controlled_state = {
+                    limit = {
+                        dockyard > 0
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = dockyard
+                        level = 3
+                        instant_build = yes
+                    }
+                }
+                set_country_flag = naval_effort_built
+            }
+            if = {
+                limit = {
+                    NOT = { has_country_flag = naval_effort_built }
+                    NOT = {
+                        any_owned_state = {
+                            free_building_slots = {
+                                building = dockyard
+                                size > 2
+                                include_locked = yes
+                            }
+                        }
+                    }
+                }
+                random_state = {
+                    limit = {
+                        controller = { tag = ROOT }
+                        free_building_slots = {
+                            building = dockyard
+                            size > 2
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = dockyard
+                        level = 3
+                        instant_build = yes
+                    }
+                }
+            }
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 2
+	            category = naval_doctrine
+            }
+            add_tech_bonus = {
+                name = ss_bonus
+                bonus = 1.0
+                ahead_reduction = 2
+                uses = 2
+                category = ss_tech
+                category = dd_tech
+                category = bc_tech
+                category = bb_tech
+                category = cv_tech
+                category = cl_tech
+                category = ca_tech
+                category = fleet_in_being_tree
+                technology = convoy_interdiction_ti
+                technology = unrestricted_submarine_warfare
+                technology = wolfpacks
+                technology = advanced_submarine_warfare
+                technology = combined_operations_raiding
+            }
+        }
+
+    }
+
+    focus = {
+        id = WES_aviation_industry_with_UK_and_US_2
+        icon = GFX_goal_generic_air_fighter
+        relative_position_id = WES_republic_of_the_sahara
+        x = 0
+        y = 6
+        cost = 10
+        prerequisite = { focus = WES_shipbuilding_technology_from_UK_and_US_2  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 2
+	            category = air_doctrine
+            }
+            add_tech_bonus = {
+                name = aircraft_bonus
+                bonus = 1.0
+                uses = 2
+                technology = early_fighter
+                technology = fighter1
+                technology = fighter2
+                technology = fighter3
+                technology = heavy_fighter1
+                technology = heavy_fighter2
+                technology = heavy_fighter3
+                category = cas_bomber
+                technology = strategic_bomber1
+                technology = strategic_bomber2
+                technology = strategic_bomber3
+                category = tactical_bomber
+
+
+            }
+        }
+
+    }
+
+    focus = {
+        id = WES_joining_the_United_Nations
+        icon = GFX_focus_generic_the_giant_wakes
+        relative_position_id = WES_republic_of_the_sahara
+        x = 0
+        y = 7
+        cost = 10
+        mutually_exclusive = { focus = WES_continue_the_SGC_route  }
+        mutually_exclusive = { focus = WES_join_Greater_East_Asia_Co_Prosperity_Sphere  }
+        mutually_exclusive = { focus = WES_joined_Axis_powers  }
+        prerequisite = { focus = WES_aviation_industry_with_UK_and_US_2  }
+        prerequisite = { focus = WES_formation_of_the_Saharan_Union  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            GBR = { add_to_faction = WES }
+        }
+
+    }
+
+    focus = {
+        id = WES_allied_technical_cooperation
+        icon = GFX_focus_research
+        prerequisite = { focus = WES_joining_the_United_Nations }
+        relative_position_id = WES_republic_of_the_sahara
+        x = 0
+        y = 8
+        cost = 5
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_achievement_of_major_project #一大事業の達成
+        icon = GFX_focus_generic_treaty
+        available = {
+            OR = {
+                has_completed_focus = WES_joining_the_United_Nations
+                has_completed_focus = WES_continue_the_SGC_route
+            }
+        }
+        allow_branch = { 
+            OR = {
+                has_country_flag = WES_SGC_finish_flag
+            }
+        }
+        x = -5
+        y = 11
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_political_power = 30
+            country_event = { id = WES.33}
+        }
+    }
+
+    focus = {
+        id = WES_Presidential_Continuation #大統領の続投
+        icon = GFX_focus_generic_self_management
+        prerequisite = { focus = WES_achievement_of_major_project }
+        mutually_exclusive = { focus = WES_admiration_for_Napoleon  }
+        mutually_exclusive = { focus = WES_Issac_Ali_was_Election  }
+        relative_position_id = WES_achievement_of_major_project
+        allow_branch = { 
+            OR = {
+                has_country_flag = WES_President_elected_flag
+            }
+        }
+        bypass = {
+            has_country_flag = WES_President_elected_flag
+        }
+        x = 0
+        y = 1
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_political_power = 50
+        }
+    }
+
+    focus = {
+        id = WES_Issac_Ali_was_Election #Issac Aliの当選
+        icon = GFX_focus_generic_strike_at_democracy3
+        prerequisite = { focus = WES_achievement_of_major_project }
+        mutually_exclusive = { focus = WES_admiration_for_Napoleon  }
+        mutually_exclusive = { focus = WES_Presidential_Continuation  }
+        relative_position_id = WES_achievement_of_major_project
+        allow_branch = { 
+            OR = {
+                has_country_flag = WES_Issac_Ali_flag
+            }
+        }
+        x = 0
+        y = 1
+        cost = 10
+        bypass = {
+            has_country_flag = WES_Issac_Ali_flag
+        }
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_political_power = 25
+        }
+    }
+
+    focus = {
+        id = WES_domination_of_the_Indian_Ocean #インド洋の支配
+        icon = GFX_focus_usa_focus_on_asia
+        prerequisite = { focus = WES_Issac_Ali_was_Election }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = 0
+        y = 1
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_ideas = WES_Indian_Ocean_Fleets
+        }
+    }
+
+    focus = {
+        id = WES_Securing_Ceylon #セイロンの確保
+        icon = GFX_goal_generic_position_armies
+        prerequisite = { focus = WES_domination_of_the_Indian_Ocean }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = -1
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+			if = {
+				limit = {
+                    AND = {
+					    country_exists = SJK
+					    NOT = { EGY = { is_in_faction_with = WES } }
+					    NOT = { has_war_with = SJK }
+                        SJK = {
+                            controls_state = 422
+                        }
+                    }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = SJK
+				}
+			}
+            else = {
+                every_country = {
+                    limit = {
+                        controls_state = 422
+                    }
+				    ROOT = {
+					    create_wargoal = {
+					    	type = annex_everything
+					    	target = PREV
+					    }
+				    }
+			    }
+            }
+		}
+    }
+
+    focus = {
+        id = WES_Securing_Maldives #モルディブの確保
+        icon = GFX_focus_generic_little_entente
+        prerequisite = { focus = WES_domination_of_the_Indian_Ocean }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = 1
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            every_country = {
+                limit = {
+                    controls_state = 281
+                }
+			    ROOT = {
+				    create_wargoal = {
+				    	type = annex_everything
+				    	target = PREV
+				    }
+				}
+			}
+        }
+    }
+
+    focus = {
+        id = WES_Control_of_Murray #マレーの制圧
+        icon = GFX_goal_generic_occupy_states_ongoing_war
+        prerequisite = { focus = WES_Securing_Ceylon }
+        prerequisite = { focus = WES_Securing_Maldives }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = 0
+        y = 3
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_state_claim = 336
+            every_country = {
+                limit = {
+                    controls_state = 336
+                }
+			    ROOT = {
+				    create_wargoal = {
+				    	type = take_state_focus
+				    	target = PREV
+                        generator = { 336 }
+				    }
+				}
+			}
+        }
+    }
+
+    focus = {
+        id = WES_Annexation_of_Australia #オーストラリアの併合
+        icon = GFX_focus_attack_australia
+        prerequisite = { focus = WES_Control_of_Murray }
+        relative_position_id = WES_Issac_Ali_was_Election
+        x = 0
+        y = 4
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            create_wargoal = {
+                type = puppet_wargoal_focus
+                target = AUS
+            }
+        }
+    }
+
+    focus = {
+        id = WES_admiration_for_Napoleon #ナポレオンへの憧れ
+        icon = GFX_focus_focus_fra_third_empire
+        prerequisite = { focus = WES_achievement_of_major_project }
+        mutually_exclusive = { focus = WES_Issac_Ali_was_Election  }
+        mutually_exclusive = { focus = WES_Presidential_Continuation  }
+        relative_position_id = WES_achievement_of_major_project
+        allow_branch = { 
+            OR = {
+                has_country_flag = WES_Bokkassa_flag
+            }
+        }
+        x = 0
+        y = 1
+        cost = 10
+        bypass = {
+            has_country_flag = WES_Bokkassa_flag
+        }
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_political_power = 25
+        }
+    }
+
+    focus = {
+        id = WES_Formation_of_the_Sahara_Federation #サハラ連邦の結成
+        icon = GFX_focus_generic_africa_factory
+        prerequisite = { focus = WES_admiration_for_Napoleon }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 1
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            every_state = {
+                limit = {
+                    owner = {
+                        every_country = {
+                            limit = {
+                                is_puppet_of = WES
+                            }
+                        }
+                    }
+                }
+                add_core_of = WES
+            }
+            every_country = {
+                limit = {
+                    is_puppet_of = WES
+                }
+                annex_country = PREV
+            }
+        }
+    }
+
+    focus = {
+        id = WES_Securing_Resource_Zones #資源地帯の確保
+        icon = GFX_goal_generic_positive_trade_relations
+        prerequisite = { focus = WES_Formation_of_the_Sahara_Federation }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            create_wargoal = {
+                type = annex_everything
+                target = PAL
+            }
+            create_wargoal = {
+                type = annex_everything
+                target = ISR
+            }
+        }
+    }
+
+    focus = {
+        id = WES_wealth_and_military_strength_of_a_country #富国強兵
+        icon = GFX_focus_spr_the_anti_fascist_workers_revolution
+        prerequisite = { focus = WES_Formation_of_the_Sahara_Federation }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = -2
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Reinforcing_the_artillery #火砲の強化
+        icon = GFX_goal_generic_army_artillery2
+        prerequisite = { focus = WES_Formation_of_the_Sahara_Federation }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 2
+        y = 2
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            
+            add_tech_bonus = {
+                name = artillery_bonus
+                bonus = 1.0
+                uses = 2
+                category = artillery
+            }
+        }
+    }
+
+    focus = {
+        id = WES_March_to_Versailles #ベルサイユ進軍
+        icon = GFX_focus_attack_france
+        prerequisite = { focus = WES_wealth_and_military_strength_of_a_country }
+        prerequisite = { focus = WES_Securing_Resource_Zones }
+        prerequisite = { focus = WES_Reinforcing_the_artillery }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 3
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            every_country = {
+                limit = {
+                    controls_state = 16
+                }
+			    ROOT = {
+				    create_wargoal = {
+				    	type = annex_everything
+				    	target = PREV
+				    }
+			    }
+			}
+        }
+    }
+
+    focus = {
+        id = WES_hall_of_mirrors  #鏡の間
+        icon = GFX_focus_fra_le_deluge
+        prerequisite = { focus = WES_March_to_Versailles }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 4
+        cost = 10
+        available = {
+            AND = {
+                16 = { 
+                    controller = {
+                        OR = {
+                            tag = WES
+					        is_in_faction_with = WES
+                        }
+                    }
+                }
+                OR = {
+                    divisions_in_state = {
+                        type = infantry
+                        size > 5
+                        state = 16
+                    }
+                }
+            }
+
+        }
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            #country_event = { id = wes. }
+        }
+    }
+
+    focus = {
+        id = WES_Imperial_Conference  #帝国会議
+        icon = GFX_focus_fra_french_union
+        prerequisite = { focus = WES_hall_of_mirrors }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 5
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            add_research_slot = 1
+        }
+    }
+
+    focus = {
+        id = WES_Waterloo_again  #ワーテルロー再び
+        icon = GFX_focus_ger_break_anglo_french_colonial_hegemony
+        prerequisite = { focus = WES_Imperial_Conference }
+        relative_position_id = WES_admiration_for_Napoleon
+        x = 0
+        y = 6
+        cost = 10
+
+        search_filters = { FOCUS_FILTER_RESEARCH }
+
+        available_if_capitulated = yes
+
+        completion_reward = {
+            create_wargoal = {
+                type = annex_everything
+                target = GBR
+            }
+        }
+    }
+
+        #サハラ帝国ルート
+	#The Founding of the Saharan African Empire
+	focus = {
+		id = WES_the_founding_of_the_saharan_african_empire
+		icon = GFX_focus_rom_royal_dictatorship
+		x = -3
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		ai_will_do = {
+			factor = 100
+		}
+        prerequisite = { focus = WES_establishment_of_the_sgc }
+		mutually_exclusive = { focus = WES_republic_of_the_sahara  }
+		completion_reward = {
+            set_country_flag = WES_sahara_africa
+            set_cosmetic_tag = WES_Sahara_Africa_Empire
+			set_party_name = {
+			    ideology = neutrality
+			    long_name = WES_fascism_party_Saharan_imperialism_Party_long
+			    name = WES_fascism_party_Saharan_imperialism_Party
+			}
+			add_popularity = { ideology = neutrality popularity = 0.9}
+            set_politics = { ruling_party = neutrality elections_allowed = yes }
+            create_country_leader = {
+			    name = "El-Ouali Mustapha Sayed"
+			    picture = "gfx/leaders/WES/Portrait_Arabia_Generic_1.dds"
+		    	ideology = centrism
+		    }
+		}
+	}
+
+	#Conquest of Egypt
+	focus = {
+		id = WES_conquest_of_egypt
+		icon = GFX_goal_generic_major_war
+		x = -3
+		y = 2
+		cost = 10
+        ai_will_do = {
+			factor = 36.3
+		}
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+        mutually_exclusive = { focus = WES_Sahara_prefecture_of_Japan  }
+		prerequisite = { focus = WES_the_founding_of_the_saharan_african_empire  }
+		available = {
+			OR = {
+				NOT = { EGY = { is_in_faction_with =  WES } }
+			}
+		}
+
+		bypass = {
+			 EGY = {
+				OR = {
+					exists = no
+					is_in_faction_with =  WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			#limit wargoals to when it makes sense to give them. No faction, war or non exist
+			if = {
+				limit = {
+					country_exists = EGY
+					NOT = { EGY = { is_in_faction_with = WES } }
+					NOT = { has_war_with = EGY }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = EGY
+				}
+			}
+		}
+	}
+
+	#Amazon War
+	focus = {
+		id = WES_Amazon_war
+		icon = GFX_Amazon_War
+		x = -3
+		y = 3
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+        ai_will_do = {
+			factor = 30
+		}
+		prerequisite = { focus = WES_conquest_of_egypt  }
+		available = {
+			OR = {
+				NOT = { AMA = { is_in_faction_with = WES } }
+			}
+		}
+		bypass = {
+			AMA = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					country_exists = AMA
+					NOT = { AMA = { is_in_faction_with = WES } }
+					NOT = { has_war_with = AMA }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = AMA
+				}
+			}
+		}
+	}
+
+	#Invasion of Kenya
+	focus = {
+		id = WES_invasion_of_kenya
+		icon = GFX_focus_generic_provoke_border_clashes
+		x = -3
+		y = 4
+		cost = 10
+        ai_will_do = {
+			factor = 30
+		}
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = { focus = WES_Amazon_war  }
+
+		bypass = {
+			KEN = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			#limit wargoals to when it makes sense to give them. No faction, war or non exist
+			if = {
+				limit = {
+					country_exists = KEN
+					NOT = { KEN = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KEN }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = KEN
+				}
+			}
+		}
+	}
+
+	#Liberation from South Africa
+	focus = {
+		id = WES_liberation_from_south_africa
+		icon = GFX_goal_generic_position_armies
+		x = -3
+		y = 5
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+        ai_will_do = {
+			factor = 25
+		}
+		prerequisite = { focus = WES_invasion_of_kenya  }
+		available = {
+			OR = {
+				NOT = { ZAF = { is_in_faction_with = WES } }
+			}
+		}
+		bypass = {
+			ZAF = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			if =  {
+				limit = {
+					country_exists = ZAF
+					NOT = { ZAF = { is_in_faction_with = WES } }
+					NOT = { has_war_with = ZAF }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = ZAF
+				}
+			}
+		}
+	}
+
+	#African unification
+	focus = {
+		id = WES_african_unification
+		icon = GFX_focus_por_recover_latin_america
+		x = -3
+		y = 6
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = { focus = WES_liberation_from_south_africa  }
+        ai_will_do = {
+			factor = 150
+		}
+
+		available = {
+			OR = {
+				NOT = { MAR = { is_in_faction_with = WES } }
+				NOT = { KSM = { is_in_faction_with = WES } }
+				NOT = { KHM = { is_in_faction_with = WES } }
+			}
+		}
+		bypass = {
+			MAR = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			KSM = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+			KHM = {
+				OR = {
+					exists = no
+					is_in_faction_with = WES
+					has_war_with = ROOT
+				}
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					country_exists = MAR
+					NOT = { MAR = { is_in_faction_with = WES } }
+					NOT = { has_war_with = MAR }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = MAR
+				}
+			}
+			if = {
+				limit = {
+					country_exists = KSM
+					NOT = { KSM = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KSM }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = KSM
+				}
+			}
+			if =  {
+				limit = {
+					country_exists = KHM
+					NOT = { KHM = { is_in_faction_with = WES } }
+					NOT = { has_war_with = KHM }
+				}
+				create_wargoal = {
+					type = annex_everything
+					target = KHM
+				}
+			}
+            custom_effect_tooltip = WES_add_core_of_africa
+            hidden_effect = {
+    			#egypt
+				add_state_core = 446
+				add_state_core = 447
+				add_state_core = 452
+				add_state_core = 453
+				add_state_core = 456
+				add_state_core = 457
+				add_state_core = 552
+	    		#Kenya
+				add_state_core = 544
+				add_state_core = 545
+				add_state_core = 770
+				add_state_core = 771
+		    	#South Africa
+				add_state_core = 275
+				add_state_core = 681
+				add_state_core = 719
+			    #Morocco
+				add_state_core = 273
+				add_state_core = 448
+				add_state_core = 449
+				add_state_core = 450
+				add_state_core = 451
+				add_state_core = 661
+				add_state_core = 662
+				add_state_core = 663
+    			#Tunisia
+				add_state_core = 458
+				add_state_core = 459
+				add_state_core = 460
+				add_state_core = 513
+				add_state_core = 665
+	    		#Cambodia
+				add_state_core = 290
+				add_state_core = 461
+				add_state_core = 462
+				add_state_core = 557
+				add_state_core = 699
+				add_state_core = 783
+				add_state_core = 786
+		    	#Amazon(Angola)
+				add_state_core = 540
+				add_state_core = 541
+				add_state_core = 542
+				add_state_core = 796
+            }
+		}
+	}
+
+        #日本からの支援
+    focus = {
+        id = WES_investment_from_Japan
+        icon = GFX_focus_chi_collaboration_with_the_japanese
+        relative_position_id = WES_conquest_of_egypt
+        x = -2
+        y = 1
+        cost = 10
+        ai_will_do = {
+			factor = 37
+		}
+        prerequisite = {
+            focus = WES_conquest_of_egypt
+            focus = WES_Sahara_prefecture_of_Japan
+        }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+		add_offsite_building = { type = industrial_complex level = 3 }
+	}
+
+    }
+
+    focus = {
+        id = WES_cooperation_in_aircraft_carrier_development
+        icon = GFX_goal_generic_navy_carrier
+        relative_position_id = WES_conquest_of_egypt
+        x = -2
+        y = 2
+        cost = 10
+        ai_will_do = {
+			factor = 27
+		}
+        prerequisite = { focus = WES_investment_from_Japan }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+			add_ideas = WES_focus_on_aircraft_carriers
+		}
+
+    }
+
+    focus = {
+        id = WES_development_of_oxygen_torpedoes
+        icon = GFX_goal_generic_occupy_start_war
+        relative_position_id = WES_conquest_of_egypt
+        x = -2
+        y = 3
+        cost = 10
+        ai_will_do = {
+			factor = 17
+		}
+        prerequisite = { focus = WES_cooperation_in_aircraft_carrier_development }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+			add_ideas = WES_the_oxygen_torpedoes
+		}
+
+    }
+
+    focus = {
+        id = WES_bicycle_battalions
+        icon = GFX_goal_generic_special_forces
+        relative_position_id = WES_conquest_of_egypt
+        x = -2
+        y = 4
+        cost = 10
+        ai_will_do = {
+			factor = 16.1
+		}
+        prerequisite = { focus = WES_development_of_oxygen_torpedoes }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+			set_technology = { bicycle_infantry = 1 }
+		}
+
+    }
+
+    focus = {
+        id = WES_mastering_the_Japanese_Doctrine
+        icon = GFX_goal_generic_navy_doctrines_tactics
+        relative_position_id = WES_conquest_of_egypt
+        x = -2
+        y = 5
+        cost = 10
+        ai_will_do = {
+			factor = 15
+		}
+        prerequisite = { focus = WES_bicycle_battalions }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = land_doctrine
+            }
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = naval_doctrine
+            }
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = air_doctrine
+            }
+        }
+
+
+    }
+
+    focus = {
+        id = WES_join_Greater_East_Asia_Co_Prosperity_Sphere
+        icon = GFX_goal_generic_alliance
+        relative_position_id = WES_conquest_of_egypt
+        x = -2
+        y = 6
+        cost = 10
+        mutually_exclusive = { focus = WES_joining_the_United_Nations  }
+        mutually_exclusive = { focus = WES_joined_Axis_powers  }
+        mutually_exclusive = { focus = WES_continue_the_SGC_route  }
+        prerequisite = { focus = WES_mastering_the_Japanese_Doctrine }
+        prerequisite = { focus = WES_formation_of_the_Saharan_Union  focus = WES_african_unification }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            JPN = { add_to_faction = WES }
+        }
+
+    }
+
+
+    focus = {
+        id = WES_become_a_prefecture_of_Japan
+        icon = GFX_focus_jap_showa_restoration
+        relative_position_id = WES_conquest_of_egypt
+        x = -4
+        y = 7
+        cost = 10
+        prerequisite = { focus = WES_join_Greater_East_Asia_Co_Prosperity_Sphere }
+        prerequisite = { focus = WES_establishment_of_municipalities }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            if = {
+                limit = {
+                    WES = { has_idea = WES_Visitors_from_Japan}
+                }
+
+                custom_effect_tooltip = WES_sayama_tt
+
+                effect_tooltip = {
+                    JPN = { puppet = WES }
+                }
+                hidden_effect = {
+                    WES = {
+                        country_event = { id = WES.15 }
+                    }
+                }
+            }
+            else = {
+                JPN = { puppet = WES }
+            }
+        }
+
+    }
+
+        #軍需産業国家方針
+    focus = {
+        id = WES_progress_toward_a_nation_of_defense
+        icon = GFX_focus_generic_tank_production
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 3
+        y = 1
+        cost = 10
+        prerequisite = { focus = WES_the_founding_of_the_saharan_african_empire }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        ai_will_do = {
+			factor = 80
+		}
+
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = production_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size < 2
+                        include_locked = yes
+                    }
+                }
+            }
+        }
+
+        ai_will_do = {
+			factor = 1
+		}
+
+        complete_tooltip = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = arms_factory
+                level = 2
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 1
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 1
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = arms_factory
+                    level = 2
+                    instant_build = yes
+                }
+            }
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+            add_ideas = WES_focus_on_military_production
+        }
+
+    }
+
+    focus = {
+        id = WES_encourage_military_research
+        icon = GFX_focus_research
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 3
+        y = 2
+        cost = 10
+        ai_will_do = {
+			factor = 90
+		}
+        prerequisite = { focus = WES_progress_toward_a_nation_of_defense  }
+        search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_research_slot = 2
+		}
+
+    }
+    focus = {
+        id = WES_preparing_for_a_War_Economy
+        icon = GFX_goal_generic_construct_civ_factory
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 3
+        y = 3
+        cost = 10
+        ai_will_do = {
+			factor = 40
+		}
+        prerequisite = { focus = WES_encourage_military_research  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = construction_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size < 2
+                        include_locked = yes
+                    }
+                }
+            }
+        }
+        complete_tooltip = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = industrial_complex
+                level = 2
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size > 1
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = industrial_complex
+                                        size > 1
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 2
+                    instant_build = yes
+                }
+            }
+        }
+
+
+    }
+
+    focus = {
+        id = WES_investment_in_the_military_industry
+        icon = GFX_goal_generic_construct_mil_factory
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 3
+        y = 4
+        cost = 10
+        ai_will_do = {
+			factor = 35
+		}
+        prerequisite = { focus = WES_preparing_for_a_War_Economy  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = construction_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size < 2
+                        include_locked = yes
+                    }
+                }
+            }
+        }
+        complete_tooltip = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = arms_factory
+                level = 2
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 1
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 1
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = arms_factory
+                    level = 2
+                    instant_build = yes
+                }
+            }
+            if = {
+				limit = {
+					NOT = { has_idea = war_economy }
+					NOT = { has_idea = tot_economic_mobilisation }
+				}
+				add_ideas = war_economy
+			}
+        }
+
+    }
+    focus = {
+        id = WES_investment_in_the_military_industry_2
+        icon = GFX_goal_generic_construct_mil_factory
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 3
+        y = 5
+        cost = 10
+        ai_will_do = {
+			factor = 30
+		}
+        prerequisite = { focus = WES_investment_in_the_military_industry  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = construction_effort_tt
+                all_owned_state = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size < 2
+                        include_locked = yes
+                    }
+                }
+            }
+        }
+        complete_tooltip = {
+            add_extra_state_shared_building_slots = 2
+            add_building_construction = {
+                type = arms_factory
+                level = 2
+                instant_build = yes
+            }
+        }
+
+        completion_reward = {
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = arms_factory
+                        size > 1
+                        include_locked = yes
+                    }
+                    OR = {
+                        is_in_home_area = yes
+                        NOT = {
+                            owner = {
+                                any_owned_state = {
+                                    free_building_slots = {
+                                        building = arms_factory
+                                        size > 1
+                                        include_locked = yes
+                                    }
+                                    is_in_home_area = yes
+                                }
+                            }
+                        }
+                    }
+                }
+                add_extra_state_shared_building_slots = 2
+                add_building_construction = {
+                    type = arms_factory
+                    level = 2
+                    instant_build = yes
+                }
+            }
+        }
+
+    }
+
+        #ドイツからの支援
+    focus = {
+        id = WES_agreement_with_Germany
+        icon = GFX_focus_chi_mission_to_germany
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 6
+        y = 1
+        cost = 10
+        ai_will_do = {
+			factor = 38
+		}
+        prerequisite = { focus = WES_the_founding_of_the_saharan_african_empire }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+		add_offsite_building = { type = industrial_complex level = 3 }
+	}
+
+    }
+
+    focus = {
+        id = WES_industry_support_in_Germany
+        icon = GFX_goal_generic_construction
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 6
+        y = 2
+        cost = 10
+        ai_will_do = {
+			factor = 10
+		}
+        prerequisite = { focus = WES_agreement_with_Germany }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_tech_bonus = {
+                name = industrial_bonus
+                bonus = 1.0
+                uses = 2
+                category = industry
+            }
+        }
+
+    }
+
+    focus = {
+        id = WES_Germany_military_support
+        icon = GFX_goal_generic_army_tanks
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 6
+        y = 3
+        cost = 10
+        ai_will_do = {
+			factor = 10
+		}
+        prerequisite = { focus = WES_industry_support_in_Germany }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = land_doctrine
+            }
+            add_tech_bonus = {
+                name = armor_bonus
+                bonus = 1.0
+                uses = 1
+                category = armor
+            }
+		}
+
+    }
+
+
+
+    focus = {
+        id = WES_Germany_military_support_2
+        icon = GFX_goal_generic_army_doctrines
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 6
+        y = 5
+        cost = 10
+        ai_will_do = {
+			factor = 10
+		}
+        prerequisite = { focus = WES_industry_support_in_Germany_2 }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            add_doctrine_cost_reduction = {
+	            cost_reduction = 0.5
+	            uses = 1
+	            category = land_doctrine
+            }
+            add_tech_bonus = {
+                name = armor_bonus
+                bonus = 1.0
+                uses = 1
+                category = armor
+            }
+        }
+
+
+    }
+
+    focus = {
+        id = WES_joined_Axis_powers
+        icon = GFX_goal_support_fascism
+        relative_position_id = WES_the_founding_of_the_saharan_african_empire
+        x = 6
+        y = 7
+        cost = 10
+        ai_will_do = {
+			factor = 20
+		}
+        mutually_exclusive = { focus = WES_join_Greater_East_Asia_Co_Prosperity_Sphere  }
+        prerequisite = { focus = WES_Germany_military_support_2 }
+        mutually_exclusive = { focus = WES_joining_the_United_Nations  }
+        mutually_exclusive = { focus = WES_continue_the_SGC_route  }
+        search_filters = {
+            FOCUS_FILTER_POLITICAL
+        }
+        completion_reward = {
+            DEU = { add_to_faction = WES }
+        }
+
+    }
+}
