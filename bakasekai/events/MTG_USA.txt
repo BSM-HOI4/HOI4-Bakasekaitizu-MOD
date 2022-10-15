@@ -4288,25 +4288,25 @@ country_event = {
 
 	trigger = {
   		tag = CHN
- 		has_war_with = JAP
- 		# This next bit is to make sure that event only fires if JAP has conquered a fair bit of CHN first, so 
- 		# Panay incident doesn't fire if it's an arm-wrestle on the JAP/CHN border.
+ 		has_war_with = JPN
+ 		# This next bit is to make sure that event only fires if JPN has conquered a fair bit of CHN first, so 
+ 		# Panay incident doesn't fire if it's an arm-wrestle on the JPN/CHN border.
  		OR = {
- 			AND = { #JAP has made headway in the north
- 				608 = { is_controlled_by = JAP } #Beijing
-				614 = { is_controlled_by = JAP } #Hebei
-				597 = { is_controlled_by = JAP } #Shandong
-				598 = { is_controlled_by = JAP } #Jiangsu
+ 			AND = { #JPN has made headway in the north
+ 				608 = { is_controlled_by = JPN } #Beijing
+				614 = { is_controlled_by = JPN } #Hebei
+				597 = { is_controlled_by = JPN } #Shandong
+				598 = { is_controlled_by = JPN } #Jiangsu
 				}
-			OR = { #JAP has captured key coastal states in the south
-				597 = { is_controlled_by = JAP } #Shanghai
-				592 = { is_controlled_by = JAP } #Guangzhou
+			OR = { #JPN has captured key coastal states in the south
+				597 = { is_controlled_by = JPN } #Shanghai
+				592 = { is_controlled_by = JPN } #Guangzhou
 			}
 		}
-		NOT = { #Should only fire if JAP and USA/GBR aren't at war, and CHN and USA/GBR aren't at war.
+		NOT = { #Should only fire if JPN and USA/GBR aren't at war, and CHN and USA/GBR aren't at war.
 			OR = {
-				JAP = { has_war_with = USA }
-				JAP = { has_war_with = GBR }
+				JPN = { has_war_with = USA }
+				JPN = { has_war_with = GBR }
 				CHN = { has_war_with = USA }
 				CHN = { has_war_with = GBR }
 			}
@@ -4370,8 +4370,8 @@ country_event = {
 			}
 			add_political_power = 50
 		}
-		add_opinion_modifier = { target = JAP modifier = panay_inc_opinion_modifier }
-		hidden_effect = { JAP = { country_event = { id = panay_incident.6 days = 2 } } } #Info event for Japan
+		add_opinion_modifier = { target = JPN modifier = panay_inc_opinion_modifier }
+		hidden_effect = { JPN = { country_event = { id = panay_incident.6 days = 2 } } } #Info event for Japan
 	}
 	option = { #Pull forces out of China - medium or above war support
 		name = panay_incident.2.a
@@ -4385,8 +4385,8 @@ country_event = {
 			# }
 		}
 		add_war_support = -0.05
-		add_opinion_modifier = { target = JAP modifier = panay_inc_opinion_modifier }
-		hidden_effect = { JAP = { country_event = { id = panay_incident.6 days = 2 } } } #Info event for Japan
+		add_opinion_modifier = { target = JPN modifier = panay_inc_opinion_modifier }
+		hidden_effect = { JPN = { country_event = { id = panay_incident.6 days = 2 } } } #Info event for Japan
 	}
 	option = { #Demand compensation
 		name = panay_incident.2.b
@@ -4394,8 +4394,8 @@ country_event = {
 		ai_chance = { factor = 85 }
 		add_war_support = 0.05
 		set_country_flag = { flag = USA_panay_window days = 90 value = 1 }
-		hidden_effect = { JAP = { country_event = { id = panay_incident.3 days = 2 } } } #Delay added so events are spaced out - historically it took months to get JAP to agree to compensation, but that'd be a bit hard to follow in-game, so timelines compressed.
-		add_opinion_modifier = { target = JAP modifier = panay_inc_opinion_modifier }
+		hidden_effect = { JPN = { country_event = { id = panay_incident.3 days = 2 } } } #Delay added so events are spaced out - historically it took months to get JPN to agree to compensation, but that'd be a bit hard to follow in-game, so timelines compressed.
+		add_opinion_modifier = { target = JPN modifier = panay_inc_opinion_modifier }
 	}
 	option = { #War
 		name = panay_incident.2.c
@@ -4414,9 +4414,9 @@ country_event = {
 			add_war_support = -0.1
 			add_stability = -0.3
 		}
-		add_opinion_modifier = { target = JAP modifier = panay_inc_opinion_modifier }
+		add_opinion_modifier = { target = JPN modifier = panay_inc_opinion_modifier }
 		create_wargoal = {
-				target = JAP
+				target = JPN
 				type = topple_government
 			}
 		add_state_claim = 633
@@ -4425,11 +4425,11 @@ country_event = {
 		add_state_claim = 646
 		add_state_claim = 647
 		add_state_claim = 648
-		hidden_effect = { news_event = { id = news.335 } } #Triggers news event for war between JAP and USA
+		hidden_effect = { news_event = { id = news.335 } } #Triggers news event for war between JPN and USA
 	}
 }
 
-#Panay Incident - JAP gets demand for compensation
+#Panay Incident - JPN gets demand for compensation
 country_event = {
 	id = panay_incident.3
 	title = panay_incident.3.t
@@ -4459,7 +4459,7 @@ country_event = {
 	}
 }
 
-#Panay Incident - USA receives JAP compensation
+#Panay Incident - USA receives JPN compensation
 country_event = {
 	id = panay_incident.4
 	title = panay_incident.4.t
@@ -4474,7 +4474,7 @@ country_event = {
 	}
 }
 
-#Panay Incident - USA receives JAP refusal
+#Panay Incident - USA receives JPN refusal
 country_event = {
 	id = panay_incident.5
 	title = panay_incident.5.t
@@ -4510,7 +4510,7 @@ country_event = {
 			}
 		}
 		create_wargoal = {
-				target = JAP
+				target = JPN
 				type = topple_government
 			}
 		add_state_claim = 633
@@ -4519,7 +4519,7 @@ country_event = {
 		add_state_claim = 646
 		add_state_claim = 647
 		add_state_claim = 648
-		hidden_effect = { news_event = { id = news.335 } } #Triggers news event for war between JAP and USA
+		hidden_effect = { news_event = { id = news.335 } } #Triggers news event for war between JPN and USA
 	}
 }
 
