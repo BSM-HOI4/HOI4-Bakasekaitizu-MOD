@@ -6588,6 +6588,7 @@ focus = {
                     WES = {
                         country_event = { id = WES.15 }
                     }
+                    set_country_flag = WES_be_sayama
                 }
             }
             else = {
@@ -6598,61 +6599,85 @@ focus = {
     }
 
     focus = {
-        id = WES_Construction_plans_for_Sayama_Prefecture #佐山県の建設計画
-        icon = GFX_focus_generic_treaty
-        available = {
+		id = WES_Secured_construction_site_in_Sayama_Pref #佐山県建設地確保
+		icon = GFX_goal_generic_position_armies
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+        allow_branch = { 
             OR = {
-                has_completed_focus = WES_become_a_prefecture_of_Japan
+                has_country_flag = WES_be_sayama
             }
         }
-        allow_branch = { 
-            has_completed_focus = WES_become_a_prefecture_of_Japan
-        }
-        x = -7
-        y = 10
-        cost = 10
-
-        search_filters = { FOCUS_FILTER_RESEARCH }
-
-        available_if_capitulated = yes
-
-        completion_reward = {
-            add_political_power = 100
-        }
-    }
-
-    focus = {
-        id = WES_Return_to_Sayama #佐山への帰還
-        icon = GFX_focus_generic_treaty
-        prerequisite = { focus = WES_Construction_plans_for_Sayama_Prefecture}
-        x = -7
-        y = 11
-        cost = 10
-
-        search_filters = { FOCUS_FILTER_RESEARCH }
-
-        available_if_capitulated = yes
-
-        completion_reward = {
-			#limit wargoals to when it makes sense to give them. No faction, war or non exist
-			if = {
+        relative_position_id = WES_become_a_prefecture_of_Japan
+		prerequisite = { focus = WES_become_a_prefecture_of_Japan  }
+		available = {
+			OR = {
+				NOT = { JPN = { is_in_faction_with = WES } }
+                NOT = { JPN = { controls_state = 533 } }
+			}
+		}
+		completion_reward = {
+            custom_effect_tooltip = WES_sayama_letter_to_japan_tt
+            set_country_flag = WES_sayama_letter_to_japan
+			if =  {
 				limit = {
 					country_exists = JPN
-					NOT = { JPN = { is_in_faction_with = WES } }
+					NOT = { ZAF = { is_in_faction_with = WES } }
 					NOT = { has_war_with = JPN }
 				}
 				create_wargoal = {
-					type = annex_everything
+					type = take_state_focus
 					target = JPN
+                    generator = { 336 }
 				}
 			}
 		}
-    }
+	}
+
+    focus = {
+		id = WES_Return_to_Sayama #佐山への帰還
+		icon = GFX_goal_generic_position_armies
+		x = 0
+		y = 2
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+        relative_position_id = WES_become_a_prefecture_of_Japan
+		prerequisite = { focus = WES_Secured_construction_site_in_Sayama_Pref  }
+		available = {
+			OR = {
+				NOT = { JPN = { is_in_faction_with = WES } }
+                NOT = { JPN = { controls_state = 533 } }
+			}
+		}
+        bypass = { WES = { }}
+		completion_reward = {
+            custom_effect_tooltip = WES_sayama_letter_to_japan_tt
+            set_country_flag = WES_sayama_letter_to_japan
+			if =  {
+				limit = {
+					country_exists = JPN
+					NOT = { ZAF = { is_in_faction_with = WES } }
+					NOT = { has_war_with = JPN }
+				}
+				create_wargoal = {
+					type = take_state_focus
+					target = JPN
+                    generator = { 336 }
+				}
+			}
+		}
+	}
 
     focus = {
         id = WES_World_Capital_Sayamania #世界首都サヤマニア
         icon = GFX_focus_generic_treaty
-        prerequisite = { focus = WES_Construction_plans_for_Sayama_Prefecture}
+        prerequisite = { focus = WES_Return_to_Sayama}
         x = -7
         y = 12
         cost = 10
