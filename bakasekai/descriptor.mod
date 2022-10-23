@@ -1,9 +1,6 @@
 version="Alpha 0.1"
 picture="thumbnail.png"
-tags={
-	"Map"
-	"Alternative History"
-	"Gameplay"
+tags={"Map" "Alternative History" "Gameplay"
 }
 replace_path="common/ai_focuses"
 replace_path="common/ai_areas"
@@ -35,8 +32,7 @@ replace_path="history/general"
 replace_path="map"
 replace_path="map/strategicregions"
 name="+バカ世界地図(α版)"
-dependencies={
-	"Japanese Language mod"
+dependencies={ "Japanese Language mod"
 }
 supported_version="1.11.*"
 remote_file_id="2537929285"
