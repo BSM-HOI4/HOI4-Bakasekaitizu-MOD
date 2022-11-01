@@ -1,6 +1,4 @@
 ﻿add_namespace = lar_news
-
-
 # End of the Spanish Civil War (Nationalist/Carlist victory)
 news_event = {
 	id = lar_news.1
@@ -36,7 +34,9 @@ news_event = {
 		text = lar_news.1.desc_franco_unified
 		trigger = {
 			has_global_flag = SPR_franco_won
-			NOT = { has_global_flag = SPR_carlist_uprising_flag }
+			NOT = {
+				has_global_flag = SPR_carlist_uprising_flag
+			}
 			has_global_flag = scw_early_end
 		}
 	}
@@ -60,11 +60,8 @@ news_event = {
 		}
 	}
 	picture = GFX_news_event_033
-	
 	major = yes
-	
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			if = {
@@ -88,8 +85,8 @@ news_event = {
 			if = {
 				limit = {
 					OR = {
-						tag = SPA
-						tag = SPB
+						tag = ESP
+						tag = ADR
 					}
 				}
 				delete_unit_template_and_units = {
@@ -106,7 +103,7 @@ news_event = {
 				}
 				if = {
 					limit = {
-						tag = SPA
+						tag = ESP
 						has_completed_focus = SPA_the_fifth_column
 					}
 					delete_unit_template_and_units = {
@@ -117,7 +114,7 @@ news_event = {
 				if = {
 					limit = {
 						NOT = {
-							tag = SPB
+							tag = ADR
 						}
 					}
 					delete_unit_template_and_units = {
@@ -127,14 +124,14 @@ news_event = {
 				}
 				if = {
 					limit = {
-						tag = SPA
+						tag = ESP
 					}
 					every_state = {
 						limit = {
 							has_state_flag = SPR_core_of_spain_flag
 							has_state_flag = SPR_sided_with_nationalists_flag
 						}
-						remove_core_of = SPB
+						remove_core_of = ADR
 						remove_core_of = SPC
 						remove_core_of = SPD
 					}
@@ -143,8 +140,8 @@ news_event = {
 							has_state_flag = SPR_core_of_spain_flag
 							has_state_flag = SPR_sided_with_republicans_flag
 						}
-						remove_core_of = SPA
-						remove_core_of = SPB
+						remove_core_of = ESP
+						remove_core_of = ADR
 						remove_core_of = SPC
 						remove_core_of = SPD
 						start_resistance = yes
@@ -154,29 +151,29 @@ news_event = {
 							limit = {
 								is_controlled_by = ROOT
 							}
-							remove_core_of = SPB
+							remove_core_of = ADR
 							remove_core_of = SPD
 							remove_core_of = SPC
 							add_core_of = ROOT
 						}
 						else = {
-							remove_claim_by = SPB
+							remove_claim_by = ADR
 							remove_claim_by = SPC
 							remove_claim_by = SPD
-							add_claim_by = SPA
+							add_claim_by = ESP
 						}
 					}
 				}
 				if = {
 					limit = {
-						tag = SPB
+						tag = ADR
 					}
 					every_state = {
 						limit = {
 							has_state_flag = SPR_core_of_spain_flag
 							has_state_flag = SPR_sided_with_nationalists_flag
 						}
-						remove_core_of = SPA
+						remove_core_of = ESP
 						remove_core_of = SPC
 						remove_core_of = SPD
 					}
@@ -185,8 +182,8 @@ news_event = {
 							has_state_flag = SPR_core_of_spain_flag
 							has_state_flag = SPR_sided_with_republicans_flag
 						}
-						remove_core_of = SPB
-						remove_core_of = SPA
+						remove_core_of = ADR
+						remove_core_of = ESP
 						remove_core_of = SPC
 						remove_core_of = SPD
 						start_resistance = yes
@@ -196,21 +193,24 @@ news_event = {
 							limit = {
 								is_controlled_by = ROOT
 							}
-							remove_core_of = SPA
+							remove_core_of = ESP
 							remove_core_of = SPD
 							remove_core_of = SPC
-							add_core_of = ROOT							
+							add_core_of = ROOT
 						}
 						else = {
-							remove_claim_by = SPA
+							remove_claim_by = ESP
 							remove_claim_by = SPC
 							remove_claim_by = SPD
-							add_claim_by = SPB
+							add_claim_by = ADR
 						}
 					}
 				}
 				remove_ideas = SPA_death_before_surrender
-				add_timed_idea = { idea = SPA_recovering_from_civil_war days = 2190 }
+				add_timed_idea = {
+					idea = SPA_recovering_from_civil_war
+					days = 2190
+				}
 				if = {
 					limit = {
 						has_idea = SPA_foreign_training_staff
@@ -255,25 +255,38 @@ news_event = {
 			}
 		}
 	}
-	
 	option = {
 		name = lar_news.1.a
 		trigger = {
-			country_exists = SPB
-			SPB = { has_capitulated = no }
-			NOT = { tag = SPB }
-			NOT = { original_tag = ESP }
+			country_exists = ADR
+			ADR = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = ADR
+			}
+			NOT = {
+				original_tag = ESP
+			}
 			has_government = neutrality
 		}
 	}
 	option = {
 		name = lar_news.1.b
 		trigger = {
-			country_exists = SPB
-			SPB = { has_capitulated = no }
-			NOT = { tag = SPB }
-			NOT = { original_tag = ESP }
-			NOT = { has_government = neutrality }
+			country_exists = ADR
+			ADR = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = ADR
+			}
+			NOT = {
+				original_tag = ESP
+			}
+			NOT = {
+				has_government = neutrality
+			}
 		}
 	}
 	option = {
@@ -289,10 +302,16 @@ news_event = {
 					has_government = fascism
 				}
 			}
-			NOT = { original_tag = ESP }
-			country_exists = SPA
-			SPA = { has_capitulated = no }
-			NOT = { tag = SPA }
+			NOT = {
+				original_tag = ESP
+			}
+			country_exists = ESP
+			ESP = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = ESP
+			}
 		}
 	}
 	option = {
@@ -309,28 +328,40 @@ news_event = {
 				}
 				tag = SOV
 			}
-			NOT = { original_tag = ESP }
-			country_exists = SPA
-			SPA = { has_capitulated = no }
-			NOT = { tag = SPA }
+			NOT = {
+				original_tag = ESP
+			}
+			country_exists = ESP
+			ESP = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = ESP
+			}
 		}
 	}
 	option = {
 		name = lar_news.1.e
 		trigger = {
 			tag = SOV
-			country_exists = SPA
-			SPA = { has_capitulated = no }
-			NOT = { tag = SPA }
-			NOT = { original_tag = ESP }
+			country_exists = ESP
+			ESP = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = ESP
+			}
+			NOT = {
+				original_tag = ESP
+			}
 		}
 	}
 	option = {
 		name = lar_news.1.f
 		trigger = {
 			OR = {
-				tag = SPA
-				tag = SPB
+				tag = ESP
+				tag = ADR
 			}
 		}
 		effect_tooltip = {
@@ -348,7 +379,7 @@ news_event = {
 			}
 			if = {
 				limit = {
-					tag = SPA
+					tag = ESP
 					has_completed_focus = SPA_the_fifth_column
 				}
 				delete_unit_template_and_units = {
@@ -359,7 +390,7 @@ news_event = {
 			if = {
 				limit = {
 					NOT = {
-						tag = SPB
+						tag = ADR
 					}
 				}
 				delete_unit_template_and_units = {
@@ -374,7 +405,10 @@ news_event = {
 				}
 				remove_ideas = SPA_a_methodical_approach
 			}
-			add_timed_idea = { idea = SPA_recovering_from_civil_war days = 2190 }
+			add_timed_idea = {
+				idea = SPA_recovering_from_civil_war
+				days = 2190
+			}
 			if = {
 				limit = {
 					has_idea = SPA_foreign_training_staff
@@ -383,14 +417,14 @@ news_event = {
 			}
 			if = {
 				limit = {
-					tag = SPA
+					tag = ESP
 				}
 				every_state = {
 					limit = {
 						has_state_flag = SPR_core_of_spain_flag
 						has_state_flag = SPR_sided_with_republicans_flag
 					}
-					remove_core_of = SPA
+					remove_core_of = ESP
 					start_resistance = yes
 				}
 				118 = {
@@ -401,20 +435,20 @@ news_event = {
 						add_core_of = ROOT
 					}
 					else = {
-						add_claim_by = SPA
+						add_claim_by = ESP
 					}
 				}
 			}
 			if = {
 				limit = {
-					tag = SPB
+					tag = ADR
 				}
 				every_state = {
 					limit = {
 						has_state_flag = SPR_core_of_spain_flag
 						has_state_flag = SPR_sided_with_republicans_flag
 					}
-					remove_core_of = SPB
+					remove_core_of = ADR
 					start_resistance = yes
 				}
 				118 = {
@@ -425,13 +459,14 @@ news_event = {
 						add_core_of = ROOT
 					}
 					else = {
-						add_claim_by = SPB
+						add_claim_by = ADR
 					}
 				}
 			}
 		}
 	}
 }
+
 # End of the Spanish Civil War (Republican victory)
 news_event = {
 	id = lar_news.2
@@ -463,14 +498,20 @@ news_event = {
 		text = lar_news.2.desc_republic_no_help
 		trigger = {
 			has_global_flag = SPR_democrats_won
-			NOT = { SPD = {  has_completed_focus = SPR_expand_soviet_aid } }
+			NOT = {
+				SPD = {
+					has_completed_focus = SPR_expand_soviet_aid
+				}
+			}
 		}
 	}
 	desc = {
 		text = lar_news.2.desc_republic_soviet_help
 		trigger = {
 			has_global_flag = SPR_democrats_won
-			SPD = { has_completed_focus = SPR_expand_soviet_aid }
+			SPD = {
+				has_completed_focus = SPR_expand_soviet_aid
+			}
 		}
 	}
 	desc = {
@@ -492,11 +533,8 @@ news_event = {
 		}
 	}
 	picture = GFX_news_event_034
-	
 	major = yes
-	
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			if = {
@@ -533,9 +571,15 @@ news_event = {
 				if = {
 					limit = {
 						tag = SPC
-						SPC = { has_completed_focus = SPR_regional_defense_council_of_aragon }
+						SPC = {
+							has_completed_focus = SPR_regional_defense_council_of_aragon
+						}
 					}
-					set_global_flag = { flag = SPR_anarchist_victory_timer_flag value = 1 days = 365 }
+					set_global_flag = {
+						flag = SPR_anarchist_victory_timer_flag
+						value = 1
+						days = 365
+					}
 				}
 				delete_unit_template_and_units = {
 					division_template = "Guarnición Republicana"
@@ -565,12 +609,10 @@ news_event = {
 					division_template = "Brigada Anarquista"
 					disband = yes
 				}
-
 				if = {
 					limit = {
 						tag = SPC
 					}
-
 					# If POUM wins and Right Oppo Soviets aided them
 					if = {
 						limit = {
@@ -590,14 +632,13 @@ news_event = {
 							disband = yes
 						}
 					}
-
 					every_state = {
 						limit = {
 							has_state_flag = SPR_core_of_spain_flag
 							has_state_flag = SPR_sided_with_republicans_flag
 						}
-						remove_core_of = SPA
-						remove_core_of = SPB
+						remove_core_of = ESP
+						remove_core_of = ADR
 						remove_core_of = SPD
 					}
 					every_state = {
@@ -606,9 +647,9 @@ news_event = {
 							has_state_flag = SPR_sided_with_nationalists_flag
 						}
 						remove_core_of = SPC
-						remove_core_of = SPB
+						remove_core_of = ADR
 						remove_core_of = SPD
-						remove_core_of = SPA
+						remove_core_of = ESP
 						start_resistance = yes
 					}
 					118 = {
@@ -616,14 +657,14 @@ news_event = {
 							limit = {
 								is_controlled_by = ROOT
 							}
-							remove_core_of = SPA
-							remove_core_of = SPB
+							remove_core_of = ESP
+							remove_core_of = ADR
 							remove_core_of = SPD
 							add_core_of = ROOT
 						}
 						else = {
-							remove_claim_by = SPB
-							remove_claim_by = SPA
+							remove_claim_by = ADR
+							remove_claim_by = ESP
 							remove_claim_by = SPD
 							add_claim_by = SPC
 						}
@@ -638,8 +679,8 @@ news_event = {
 							has_state_flag = SPR_core_of_spain_flag
 							has_state_flag = SPR_sided_with_republicans_flag
 						}
-						remove_core_of = SPA
-						remove_core_of = SPB
+						remove_core_of = ESP
+						remove_core_of = ADR
 						remove_core_of = SPC
 					}
 					every_state = {
@@ -648,9 +689,9 @@ news_event = {
 							has_state_flag = SPR_sided_with_nationalists_flag
 						}
 						remove_core_of = SPD
-						remove_core_of = SPB
+						remove_core_of = ADR
 						remove_core_of = SPC
-						remove_core_of = SPA
+						remove_core_of = ESP
 						start_resistance = yes
 					}
 					118 = {
@@ -658,21 +699,24 @@ news_event = {
 							limit = {
 								is_controlled_by = ROOT
 							}
-							remove_core_of = SPA
-							remove_core_of = SPB
+							remove_core_of = ESP
+							remove_core_of = ADR
 							remove_core_of = SPC
 							add_core_of = ROOT
 						}
 						else = {
-							remove_claim_by = SPA
-							remove_claim_by = SPB
+							remove_claim_by = ESP
+							remove_claim_by = ADR
 							remove_claim_by = SPC
 							add_claim_by = SPD
 						}
 					}
 				}
 				remove_ideas = SPR_death_before_surrender
-				add_timed_idea = { idea = SPA_recovering_from_civil_war days = 2190 }
+				add_timed_idea = {
+					idea = SPA_recovering_from_civil_war
+					days = 2190
+				}
 				if = {
 					limit = {
 						has_idea = SPR_anarchist_public_transport
@@ -731,50 +775,75 @@ news_event = {
 						has_completed_focus = SPR_expand_soviet_aid
 					}
 					SOV = {
-						country_event = { id = lar_spain.81 hours = 6 }
+						country_event = {
+							id = lar_spain.81
+							hours = 6
+						}
 					}
-					country_event = { id = lar_spain.82 hours = 6 }
+					country_event = {
+						id = lar_spain.82
+						hours = 6
+					}
 				}
 			}
-
 			#If POUM supported by SOV and won and SOV has not won/bypasssed their civil war yet -> POUM will help SOV in their CW
 			if = {
 				limit = {
 					has_global_flag = SOV_covert_support_for_poum_flag
 					has_global_flag = SPR_poum_won
 					SOV = {
-						OR = { #Do not trigger if Soviet civil war has finished or was bypassed
-							NOT = {	has_completed_focus = SOV_coup_detat }
+						OR = {
+							#Do not trigger if Soviet civil war has finished or was bypassed
+							NOT = {
+								has_completed_focus = SOV_coup_detat
+							}
 							has_global_flag = SOV_soviet_civil_war
 						}
 					}
 				}
-				SOV = { country_event = { id = NSB_soviet_spanish_civil_war.6 days = 8 random_days = 4 } }
+				SOV = {
+					country_event = {
+						id = NSB_soviet_spanish_civil_war.6
+						days = 8
+						random_days = 4
+					}
+				}
 			}
 		}
 	}
-	
 	option = {
 		name = lar_news.2.a
 		trigger = {
 			country_exists = SPC
-			SPC = { has_capitulated = no }
-			NOT = { tag = SPC }
-			NOT = { original_tag = ESP }
-			SPC = { has_completed_focus = SPR_regional_defense_council_of_aragon }
+			SPC = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = SPC
+			}
+			NOT = {
+				original_tag = ESP
+			}
+			SPC = {
+				has_completed_focus = SPR_regional_defense_council_of_aragon
+			}
 		}
 	}
 	option = {
 		name = lar_news.2.b
 		trigger = {
-			NOT = { tag = SOV }
-			NOT = { original_tag = ESP }
+			NOT = {
+				tag = SOV
+			}
+			NOT = {
+				original_tag = ESP
+			}
 			NOT = {
 				AND = {
 					tag = MEX
 					has_country_leader = {
- 						character = MEX_leon_trotsky
- 					}
+						character = MEX_leon_trotsky
+					}
 				}
 			}
 			NOT = {
@@ -783,29 +852,39 @@ news_event = {
 					is_in_faction_with = MEX
 					MEX = {
 						has_country_leader = {
- 							character = MEX_leon_trotsky
- 						}
+							character = MEX_leon_trotsky
+						}
 					}
 				}
 			}
 			has_government = communism
 			country_exists = SPC
-			SPC = { has_capitulated = no }
-			NOT = { tag = SPC }
-			SPC = { has_completed_focus = SPR_hinder_nkvd_interference }
+			SPC = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = SPC
+			}
+			SPC = {
+				has_completed_focus = SPR_hinder_nkvd_interference
+			}
 		}
 	}
 	option = {
 		name = lar_news.2.c
 		trigger = {
-			NOT = { tag = SOV }
-			NOT = { original_tag = ESP }
+			NOT = {
+				tag = SOV
+			}
+			NOT = {
+				original_tag = ESP
+			}
 			NOT = {
 				AND = {
 					tag = MEX
 					has_country_leader = {
- 						character = MEX_leon_trotsky
- 					}
+						character = MEX_leon_trotsky
+					}
 				}
 			}
 			NOT = {
@@ -814,8 +893,8 @@ news_event = {
 					is_in_faction_with = MEX
 					MEX = {
 						has_country_leader = {
- 							character = MEX_leon_trotsky
- 						}
+							character = MEX_leon_trotsky
+						}
 					}
 				}
 			}
@@ -829,45 +908,63 @@ news_event = {
 					has_government = fascism
 				}
 			}
-			NOT = { has_government = communism }
+			NOT = {
+				has_government = communism
+			}
 			country_exists = SPC
-			SPC = { has_capitulated = no }
-			NOT = { tag = SPC }
-			SPC = { has_completed_focus = SPR_hinder_nkvd_interference }
+			SPC = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = SPC
+			}
+			SPC = {
+				has_completed_focus = SPR_hinder_nkvd_interference
+			}
 		}
 	}
 	option = {
 		name = lar_news.2.d
 		trigger = {
-			NOT = { original_tag = ESP }
+			NOT = {
+				original_tag = ESP
+			}
 			OR = {
 				tag = SOV
 				is_in_faction_with = SOV
 				AND = {
 					tag = MEX
 					has_country_leader = {
- 						character = MEX_leon_trotsky
- 					}
+						character = MEX_leon_trotsky
+					}
 				}
 				AND = {
 					is_in_faction_with = MEX
 					MEX = {
 						has_country_leader = {
- 							character = MEX_leon_trotsky
- 						}
+							character = MEX_leon_trotsky
+						}
 					}
 				}
 			}
 			country_exists = SPC
-			SPC = { has_capitulated = no }
-			NOT = { tag = SPC }
-			SPC = { has_completed_focus = SPR_hinder_nkvd_interference }
+			SPC = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = SPC
+			}
+			SPC = {
+				has_completed_focus = SPR_hinder_nkvd_interference
+			}
 		}
 	}
 	option = {
 		name = lar_news.2.e
 		trigger = {
-			NOT = { original_tag = ESP }
+			NOT = {
+				original_tag = ESP
+			}
 			NOT = {
 				tag = SOV
 				AND = {
@@ -883,47 +980,79 @@ news_event = {
 				has_government = communism
 			}
 			NOT = {
-				SPD = { has_completed_focus = SPR_the_stalinist_doctrine }
-				SPD = { has_completed_focus = SPR_expand_soviet_aid }
+				SPD = {
+					has_completed_focus = SPR_the_stalinist_doctrine
+				}
+				SPD = {
+					has_completed_focus = SPR_expand_soviet_aid
+				}
 			}
 			country_exists = SPD
-			SPD = { has_capitulated = no }
-			NOT = { tag = SPD }
+			SPD = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = SPD
+			}
 		}
 	}
 	option = {
 		name = lar_news.2.f
 		trigger = {
-			NOT = { original_tag = ESP }
+			NOT = {
+				original_tag = ESP
+			}
 			tag = SOV
 			NOT = {
-				SPD = { has_completed_focus = SPR_the_stalinist_doctrine }
-				SPD = { has_completed_focus = SPR_expand_soviet_aid }
+				SPD = {
+					has_completed_focus = SPR_the_stalinist_doctrine
+				}
+				SPD = {
+					has_completed_focus = SPR_expand_soviet_aid
+				}
 			}
 			country_exists = SPD
-			SPD = { has_capitulated = no }
-			NOT = { tag = SPD }
+			SPD = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = SPD
+			}
 		}
 	}
 	option = {
 		name = lar_news.2.g
 		trigger = {
-			NOT = { original_tag = ESP }
+			NOT = {
+				original_tag = ESP
+			}
 			tag = SOV
 			OR = {
-				SPD = { has_completed_focus = SPR_the_stalinist_doctrine }
-				SPD = { has_completed_focus = SPR_expand_soviet_aid }
+				SPD = {
+					has_completed_focus = SPR_the_stalinist_doctrine
+				}
+				SPD = {
+					has_completed_focus = SPR_expand_soviet_aid
+				}
 			}
 			country_exists = SPD
-			SPD = { has_capitulated = no }
-			NOT = { tag = SPD }
+			SPD = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = SPD
+			}
 		}
 	}
 	option = {
 		name = lar_news.2.h
 		trigger = {
-			NOT = { original_tag = ESP }
-			NOT = { has_government = communism }
+			NOT = {
+				original_tag = ESP
+			}
+			NOT = {
+				has_government = communism
+			}
 			NOT = {
 				AND = {
 					tag = DEU
@@ -935,18 +1064,28 @@ news_event = {
 				}
 			}
 			OR = {
-				SPD = { has_completed_focus = SPR_the_stalinist_doctrine }
-				SPD = { has_completed_focus = SPR_expand_soviet_aid }
+				SPD = {
+					has_completed_focus = SPR_the_stalinist_doctrine
+				}
+				SPD = {
+					has_completed_focus = SPR_expand_soviet_aid
+				}
 			}
 			country_exists = SPD
-			SPD = { has_capitulated = no }
-			NOT = { tag = SPD }
+			SPD = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = SPD
+			}
 		}
 	}
 	option = {
 		name = lar_news.1.e
 		trigger = {
-			NOT = { original_tag = ESP }
+			NOT = {
+				original_tag = ESP
+			}
 			OR = {
 				AND = {
 					tag = DEU
@@ -958,8 +1097,12 @@ news_event = {
 				}
 			}
 			country_exists = SPD
-			SPD = { has_capitulated = no }
-			NOT = { tag = SPD }
+			SPD = {
+				has_capitulated = no
+			}
+			NOT = {
+				tag = SPD
+			}
 		}
 	}
 	option = {
@@ -974,9 +1117,15 @@ news_event = {
 			if = {
 				limit = {
 					tag = SPC
-					SPC = { has_completed_focus = SPR_regional_defense_council_of_aragon }
+					SPC = {
+						has_completed_focus = SPR_regional_defense_council_of_aragon
+					}
 				}
-				set_global_flag = { flag = SPR_anarchist_victory_timer_flag value = 1 days = 365 }
+				set_global_flag = {
+					flag = SPR_anarchist_victory_timer_flag
+					value = 1
+					days = 365
+				}
 			}
 			delete_unit_template_and_units = {
 				division_template = "Guarnición Republicana"
@@ -1007,7 +1156,10 @@ news_event = {
 				disband = yes
 			}
 			remove_ideas = SPR_death_before_surrender
-			add_timed_idea = { idea = SPA_recovering_from_civil_war days = 2190 }
+			add_timed_idea = {
+				idea = SPA_recovering_from_civil_war
+				days = 2190
+			}
 			if = {
 				limit = {
 					has_idea = SPR_anarchist_public_transport
@@ -1051,7 +1203,7 @@ news_event = {
 						}
 						add_core_of = ROOT
 					}
-						else = {
+					else = {
 						add_claim_by = SPC
 					}
 				}
@@ -1083,39 +1235,39 @@ news_event = {
 		}
 	}
 }
+
 #news event - France - Congress of paris
 news_event = {
 	id = lar_news.3
 	title = lar_news.3.t
 	desc = lar_news.3.desc
 	picture = GFX_news_event_generic_sign_treaty3
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = lar_news.3.a
 		trigger = {
 			capital_scope = {
-				is_on_continent = africa #welp
+				is_on_continent = africa				#welp
 			}
-			NOT = { is_in_faction_with = FRA }
+			NOT = {
+				is_in_faction_with = FRA
+			}
 		}
 	}
 	option = {
-		name = lar_news.3.b #France and friends
+		name = lar_news.3.b		#France and friends
 		trigger = {
 			is_in_faction_with = FRA
 		}
 	}
 	option = {
-		name = lar_news.3.c #everyone else
+		name = lar_news.3.c		#everyone else
 		trigger = {
 			NOT = {
 				is_in_faction_with = FRA
 				capital_scope = {
-					is_on_continent = africa #welp
+					is_on_continent = africa					#welp
 				}
 			}
 		}
@@ -1128,27 +1280,28 @@ news_event = {
 	title = lar_news.4.t
 	desc = lar_news.4.desc
 	picture = GFX_news_event_021
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = lar_news.4.a
 		trigger = {
 			is_in_faction_with = VIC
-			NOT = { tag = VIC }
+			NOT = {
+				tag = VIC
+			}
 		}
 	}
 	option = {
-		name = lar_news.4.b #France friends
+		name = lar_news.4.b		#France friends
 		trigger = {
 			is_in_faction_with = FRA
-			NOT = { tag = FRA }
+			NOT = {
+				tag = FRA
+			}
 		}
 	}
 	option = {
-		name = lar_news.4.c #everyone else
+		name = lar_news.4.c		#everyone else
 		trigger = {
 			NOT = {
 				is_in_faction_with = FRA
@@ -1159,14 +1312,13 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.4.d #France
+		name = lar_news.4.d		#France
 		trigger = {
-			
 			tag = FRA
 		}
 	}
 	option = {
-		name = lar_news.4.e #Vichy
+		name = lar_news.4.e		#Vichy
 		trigger = {
 			tag = VIC
 		}
@@ -1179,11 +1331,8 @@ news_event = {
 	title = lar_news.5.t
 	desc = lar_news.5.desc
 	picture = GFX_news_event_generic_read_write
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = lar_news.5.a
 		trigger = {
@@ -1191,17 +1340,17 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.5.b #France friends
+		name = lar_news.5.b		#France friends
 		trigger = {
 			is_in_faction_with = FRA
-			NOT = { 
-				tag = FRA 
+			NOT = {
+				tag = FRA
 				tag = ITA
 			}
 		}
 	}
 	option = {
-		name = lar_news.5.c #everyone else
+		name = lar_news.5.c		#everyone else
 		trigger = {
 			NOT = {
 				is_in_faction_with = FRA
@@ -1212,13 +1361,13 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.5.d #France
+		name = lar_news.5.d		#France
 		trigger = {
 			tag = FRA
 		}
 	}
 	option = {
-		name = lar_news.5.e #Germany
+		name = lar_news.5.e		#Germany
 		trigger = {
 			tag = DEU
 		}
@@ -1231,11 +1380,8 @@ news_event = {
 	title = lar_news.6.t
 	desc = lar_news.6.desc
 	picture = GFX_news_event_067
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = lar_news.6.a
 		trigger = {
@@ -1247,11 +1393,11 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.6.b #France friends
+		name = lar_news.6.b		#France friends
 		trigger = {
 			is_in_faction_with = FRA
-			NOT = { 
-				tag = FRA 
+			NOT = {
+				tag = FRA
 				tag = CZE
 				tag = POL
 				tag = ROM
@@ -1259,7 +1405,7 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.6.c #everyone else
+		name = lar_news.6.c		#everyone else
 		trigger = {
 			NOT = {
 				is_in_faction_with = FRA
@@ -1273,13 +1419,13 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.6.d #France
+		name = lar_news.6.d		#France
 		trigger = {
 			tag = FRA
 		}
 	}
 	option = {
-		name = lar_news.6.e #Germany
+		name = lar_news.6.e		#Germany
 		trigger = {
 			OR = {
 				tag = DEU
@@ -1295,11 +1441,8 @@ news_event = {
 	title = lar_news.7.t
 	desc = lar_news.7.desc
 	picture = GFX_news_event_generic_sign_treaty1
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = lar_news.7.a
 		trigger = {
@@ -1311,11 +1454,11 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.7.b #France friends
+		name = lar_news.7.b		#France friends
 		trigger = {
 			is_in_faction_with = FRA
-			NOT = { 
-				tag = FRA 
+			NOT = {
+				tag = FRA
 				tag = DEU
 				tag = HOL
 				tag = BEL
@@ -1324,7 +1467,7 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.7.c #everyone else
+		name = lar_news.7.c		#everyone else
 		trigger = {
 			NOT = {
 				is_in_faction_with = FRA
@@ -1337,13 +1480,13 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.7.d #France
+		name = lar_news.7.d		#France
 		trigger = {
 			tag = FRA
 		}
 	}
 	option = {
-		name = lar_news.7.e #Germany
+		name = lar_news.7.e		#Germany
 		trigger = {
 			tag = DEU
 		}
@@ -1356,13 +1499,10 @@ news_event = {
 	title = lar_news.8.t
 	desc = lar_news.8.desc
 	picture = GFX_news_event_generic_parliament
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.8.a #royalists
+		name = lar_news.8.a		#royalists
 		trigger = {
 			OR = {
 				has_completed_focus = HUN_proclaim_the_restoration_of_austria_hungary
@@ -1376,19 +1516,19 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.8.b #commies
+		name = lar_news.8.b		#commies
 		trigger = {
 			has_government = communism
 		}
 	}
 	option = {
-		name = lar_news.8.c #democrats
+		name = lar_news.8.c		#democrats
 		trigger = {
 			has_government = democratic
 		}
 	}
 	option = {
-		name = lar_news.8.e #fascist and non-royalist unaligned
+		name = lar_news.8.e		#fascist and non-royalist unaligned
 		trigger = {
 			OR = {
 				has_government = fascism
@@ -1409,7 +1549,7 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.8.d #France
+		name = lar_news.8.d		#France
 		trigger = {
 			tag = FRA
 		}
@@ -1422,39 +1562,37 @@ news_event = {
 	title = lar_news.9.t
 	desc = lar_news.9.desc
 	picture = GFX_news_event_generic_rally2
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.9.a #unaligned
+		name = lar_news.9.a		#unaligned
 		trigger = {
 			has_government = neutrality
 		}
 	}
 	option = {
-		name = lar_news.9.b #commies
+		name = lar_news.9.b		#commies
 		trigger = {
 			has_government = communism
-			NOT = { tag = FRA }
+			NOT = {
+				tag = FRA
+			}
 		}
 	}
 	option = {
-		name = lar_news.9.c #democrats
+		name = lar_news.9.c		#democrats
 		trigger = {
 			has_government = democratic
 		}
 	}
 	option = {
-		name = lar_news.9.e #fascist 
+		name = lar_news.9.e		#fascist 
 		trigger = {
 			has_government = fascism
-
 		}
 	}
 	option = {
-		name = lar_news.9.d #France
+		name = lar_news.9.d		#France
 		trigger = {
 			tag = FRA
 		}
@@ -1468,7 +1606,9 @@ news_event = {
 	desc = {
 		text = lar_news.10.desc
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
+			NOT = {
+				has_global_flag = scw_early_end
+			}
 		}
 	}
 	desc = {
@@ -1478,104 +1618,109 @@ news_event = {
 		}
 	}
 	picture = GFX_news_event_spr_spanish_civil_war
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.10.a # Carlist
+		name = lar_news.10.a		# Carlist
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
-			tag = SPB
+			NOT = {
+				has_global_flag = scw_early_end
+			}
+			tag = ADR
 		}
 	}
 	option = {
-		name = lar_news.10.b # Falangist/Francoist or anyone helping them
+		name = lar_news.10.b		# Falangist/Francoist or anyone helping them
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
+			NOT = {
+				has_global_flag = scw_early_end
+			}
 			OR = {
-				tag = SPA
-				SPA = {
+				tag = ESP
+				ESP = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.10.b_2 # Falangist/Francoist
+		name = lar_news.10.b_2		# Falangist/Francoist
 		trigger = {
 			has_global_flag = scw_early_end
 			OR = {
-				tag = SPA
-				tag = SPB
+				tag = ESP
+				tag = ADR
 				has_country_flag = SPR_sent_volunteers_to_SPA_flag
 			}
 		}
 	}
 	option = {
-		name = lar_news.10.c # Republicans/Anarchists/anyone helping them
+		name = lar_news.10.c		# Republicans/Anarchists/anyone helping them
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
+			NOT = {
+				has_global_flag = scw_early_end
+			}
 			OR = {
 				tag = SPD
 				tag = SPC
 				SPD = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
 				SPC = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.10.c_2 # Supporters of Republicans
+		name = lar_news.10.c_2		# Supporters of Republicans
 		trigger = {
 			has_global_flag = scw_early_end
 			has_country_flag = SPR_sent_volunteers_to_SPD_flag
 		}
 	}
 	option = {
-		name = lar_news.10.d # Everyone else
+		name = lar_news.10.d		# Everyone else
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
 			NOT = {
-				tag = SPA
-				tag = SPB
+				has_global_flag = scw_early_end
+			}
+			NOT = {
+				tag = ESP
+				tag = ADR
 				tag = SPC
 				tag = SPD
-				SPA = {
+				ESP = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
 				SPD = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.10.d_2 # Everyone else
+		name = lar_news.10.d_2		# Everyone else
 		trigger = {
 			has_global_flag = scw_early_end
 			NOT = {
-				tag = SPA
-				tag = SPB
+				tag = ESP
+				tag = ADR
 				has_country_flag = SPR_sent_volunteers_to_SPD_flag
 			}
 		}
@@ -1589,7 +1734,9 @@ news_event = {
 	desc = {
 		text = lar_news.11.desc
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
+			NOT = {
+				has_global_flag = scw_early_end
+			}
 		}
 	}
 	desc = {
@@ -1599,50 +1746,51 @@ news_event = {
 		}
 	}
 	picture = GFX_news_event_spr_spanish_civil_war
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.11.a # Falangist/Francoist or anyone helping them
+		name = lar_news.11.a		# Falangist/Francoist or anyone helping them
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
+			NOT = {
+				has_global_flag = scw_early_end
+			}
 			OR = {
-				tag = SPA
-				tag = SPB
-				SPA = {
+				tag = ESP
+				tag = ADR
+				ESP = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
-				SPB = {
+				ADR = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.11.b # Republicans/anyone helping them
+		name = lar_news.11.b		# Republicans/anyone helping them
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
+			NOT = {
+				has_global_flag = scw_early_end
+			}
 			OR = {
 				tag = SPD
 				SPD = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.11.b_2 # Republican/Anarchist
+		name = lar_news.11.b_2		# Republican/Anarchist
 		trigger = {
 			has_global_flag = scw_early_end
 			OR = {
@@ -1653,51 +1801,55 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.11.c # Anarchists
+		name = lar_news.11.c		# Anarchists
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
+			NOT = {
+				has_global_flag = scw_early_end
+			}
 			tag = SPC
 		}
 	}
 	option = {
-		name = lar_news.10.c_2 # Supporters of Nationalists
+		name = lar_news.10.c_2		# Supporters of Nationalists
 		trigger = {
 			has_global_flag = scw_early_end
 			has_country_flag = SPR_sent_volunteers_to_SPA_flag
 		}
 	}
 	option = {
-		name = lar_news.11.d # Everyone else
+		name = lar_news.11.d		# Everyone else
 		trigger = {
-			NOT = { has_global_flag = scw_early_end }
 			NOT = {
-				tag = SPA
-				tag = SPB
+				has_global_flag = scw_early_end
+			}
+			NOT = {
+				tag = ESP
+				tag = ADR
 				tag = SPC
 				tag = SPD
-				SPA = {
+				ESP = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
-				SPB = {
+				ADR = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
 				SPD = {
 					has_volunteers_amount_from = {
-					    tag = ROOT
-					    count > 0
+						tag = ROOT
+						count > 0
 					}
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.10.d_2 # Everyone else
+		name = lar_news.10.d_2		# Everyone else
 		trigger = {
 			has_global_flag = scw_early_end
 			NOT = {
@@ -1715,19 +1867,16 @@ news_event = {
 	title = lar_news.12.t
 	desc = lar_news.12.desc
 	picture = GFX_news_event_generic_read_write
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.12.a # Spain
+		name = lar_news.12.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
 	}
 	option = {
-		name = lar_news.12.b # Allies
+		name = lar_news.12.b		# Allies
 		trigger = {
 			any_other_country = {
 				original_tag = ESP
@@ -1736,19 +1885,19 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.12.c # Enemies
+		name = lar_news.12.c		# Enemies
 		trigger = {
 			any_other_country = {
 				has_war_with = ROOT
 				OR = {
 					is_in_faction_with = SPD
-					is_in_faction_with = SPA
+					is_in_faction_with = ESP
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.12.d # Everyone else
+		name = lar_news.12.d		# Everyone else
 		trigger = {
 			NOT = {
 				original_tag = ESP
@@ -1760,7 +1909,7 @@ news_event = {
 					has_war_with = ROOT
 					OR = {
 						is_in_faction_with = SPD
-						is_in_faction_with = SPA
+						is_in_faction_with = ESP
 					}
 				}
 			}
@@ -1774,19 +1923,16 @@ news_event = {
 	title = lar_news.12.t
 	desc = lar_news.13.desc
 	picture = GFX_news_event_generic_read_write
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.12.a # Spain
+		name = lar_news.12.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
 	}
 	option = {
-		name = lar_news.12.b # Axis
+		name = lar_news.12.b		# Axis
 		trigger = {
 			any_other_country = {
 				original_tag = ESP
@@ -1795,19 +1941,19 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.12.c # Enemies
+		name = lar_news.12.c		# Enemies
 		trigger = {
 			any_other_country = {
 				has_war_with = ROOT
 				OR = {
 					is_in_faction_with = SPD
-					is_in_faction_with = SPA
+					is_in_faction_with = ESP
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.12.d # Everyone else
+		name = lar_news.12.d		# Everyone else
 		trigger = {
 			NOT = {
 				original_tag = ESP
@@ -1819,7 +1965,7 @@ news_event = {
 					has_war_with = ROOT
 					OR = {
 						is_in_faction_with = SPD
-						is_in_faction_with = SPA
+						is_in_faction_with = ESP
 					}
 				}
 			}
@@ -1833,39 +1979,38 @@ news_event = {
 	title = lar_news.14.t
 	desc = lar_news.14.desc
 	picture = GFX_news_event_soldiers_marching
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.14.a # Spain
+		name = lar_news.14.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
 	}
 	option = {
-		name = lar_news.14.b # Guilty France
+		name = lar_news.14.b		# Guilty France
 		trigger = {
 			original_tag = FRA
 			has_country_flag = surrendered_french_north_africa
 		}
 	}
 	option = {
-		name = lar_news.14.c # Other France
+		name = lar_news.14.c		# Other France
 		trigger = {
 			original_tag = FRA
-			NOT = { has_country_flag = surrendered_french_north_africa }
+			NOT = {
+				has_country_flag = surrendered_french_north_africa
+			}
 		}
 	}
 	option = {
-		name = lar_news.14.d # DEU
+		name = lar_news.14.d		# DEU
 		trigger = {
 			tag = DEU
 		}
 	}
 	option = {
-		name = lar_news.14.e # Everyone else
+		name = lar_news.14.e		# Everyone else
 		trigger = {
 			NOT = {
 				original_tag = ESP
@@ -1882,25 +2027,22 @@ news_event = {
 	title = lar_news.15.t
 	desc = lar_news.15.desc
 	picture = GFX_news_event_generic_sign_treaty3
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.15.a # Spain
+		name = lar_news.15.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
 	}
 	option = {
-		name = lar_news.15.b # France
+		name = lar_news.15.b		# France
 		trigger = {
 			original_tag = FRA
 		}
 	}
 	option = {
-		name = lar_news.15.c # Everyone else
+		name = lar_news.15.c		# Everyone else
 		trigger = {
 			NOT = {
 				original_tag = ESP
@@ -1916,19 +2058,16 @@ news_event = {
 	title = lar_news.16.t
 	desc = lar_news.16.desc
 	picture = GFX_news_event_generic_sign_treaty3
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.16.a # Spain
+		name = lar_news.16.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
 	}
 	option = {
-		name = lar_news.16.b # Everyone else
+		name = lar_news.16.b		# Everyone else
 		trigger = {
 			NOT = {
 				original_tag = ESP
@@ -1943,11 +2082,8 @@ news_event = {
 	title = lar_news.17.t
 	desc = lar_spain.35.desc
 	picture = GFX_news_event_royal_visit
-	
 	major = yes
-	
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			if = {
@@ -1971,8 +2107,12 @@ news_event = {
 				}
 				if = {
 					limit = {
-						NOT = { has_country_flag = SPB_xavier_king }
-						NOT = { has_global_flag = SPB_alfonso_xiii_dead }
+						NOT = {
+							has_country_flag = SPB_xavier_king
+						}
+						NOT = {
+							has_global_flag = SPB_alfonso_xiii_dead
+						}
 					}
 					create_country_leader = {
 						name = "Alfonso XIII"
@@ -1987,7 +2127,9 @@ news_event = {
 				}
 				if = {
 					limit = {
-						NOT = { has_country_flag = SPB_xavier_king }
+						NOT = {
+							has_country_flag = SPB_xavier_king
+						}
 						has_global_flag = SPB_alfonso_xiii_dead
 					}
 					create_country_leader = {
@@ -2004,9 +2146,8 @@ news_event = {
 			}
 		}
 	}
-	
 	option = {
-		name = lar_spain.35.a # Spain
+		name = lar_spain.35.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
@@ -2030,8 +2171,12 @@ news_event = {
 			}
 			if = {
 				limit = {
-					NOT = { has_country_flag = SPB_xavier_king }
-					NOT = { has_global_flag = SPB_alfonso_xiii_dead }
+					NOT = {
+						has_country_flag = SPB_xavier_king
+					}
+					NOT = {
+						has_global_flag = SPB_alfonso_xiii_dead
+					}
 				}
 				create_country_leader = {
 					name = "Alfonso XIII"
@@ -2046,7 +2191,9 @@ news_event = {
 			}
 			if = {
 				limit = {
-					NOT = { has_country_flag = SPB_xavier_king }
+					NOT = {
+						has_country_flag = SPB_xavier_king
+					}
 					has_global_flag = SPB_alfonso_xiii_dead
 				}
 				create_country_leader = {
@@ -2063,7 +2210,7 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.17.b # Everyone else
+		name = lar_news.17.b		# Everyone else
 		trigger = {
 			NOT = {
 				original_tag = ESP
@@ -2078,11 +2225,8 @@ news_event = {
 	title = lar_news.17.t
 	desc = lar_news.18.desc
 	picture = GFX_news_event_royal_visit
-	
 	major = yes
-	
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			if = {
@@ -2106,8 +2250,12 @@ news_event = {
 				}
 				if = {
 					limit = {
-						NOT = { has_country_flag = SPB_xavier_king }
-						NOT = { has_global_flag = SPB_alfonso_xiii_dead }
+						NOT = {
+							has_country_flag = SPB_xavier_king
+						}
+						NOT = {
+							has_global_flag = SPB_alfonso_xiii_dead
+						}
 					}
 					create_country_leader = {
 						name = "Alfonso XIII"
@@ -2122,7 +2270,9 @@ news_event = {
 				}
 				if = {
 					limit = {
-						NOT = { has_country_flag = SPB_xavier_king }
+						NOT = {
+							has_country_flag = SPB_xavier_king
+						}
 						has_global_flag = SPB_alfonso_xiii_dead
 					}
 					create_country_leader = {
@@ -2139,9 +2289,8 @@ news_event = {
 			}
 		}
 	}
-	
 	option = {
-		name = lar_news.18.a # Spain
+		name = lar_news.18.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
@@ -2163,8 +2312,12 @@ news_event = {
 			}
 			if = {
 				limit = {
-					NOT = { has_country_flag = SPB_xavier_king }
-					NOT = { has_global_flag = SPB_alfonso_xiii_dead }
+					NOT = {
+						has_country_flag = SPB_xavier_king
+					}
+					NOT = {
+						has_global_flag = SPB_alfonso_xiii_dead
+					}
 				}
 				create_country_leader = {
 					name = "Alfonso XIII"
@@ -2179,7 +2332,9 @@ news_event = {
 			}
 			if = {
 				limit = {
-					NOT = { has_country_flag = SPB_xavier_king }
+					NOT = {
+						has_country_flag = SPB_xavier_king
+					}
 					has_global_flag = SPB_alfonso_xiii_dead
 				}
 				create_country_leader = {
@@ -2196,7 +2351,7 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.18.b # Everyone else
+		name = lar_news.18.b		# Everyone else
 		trigger = {
 			NOT = {
 				original_tag = ESP
@@ -2211,22 +2366,19 @@ news_event = {
 	title = lar_news.19.t
 	desc = lar_news.19.desc
 	picture = GFX_news_event_generic_sign_treaty1
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.19.a # Spain or new allies
+		name = lar_news.19.a		# Spain or new allies
 		trigger = {
-			is_in_faction_with = SPA
+			is_in_faction_with = ESP
 		}
 	}
 	option = {
-		name = lar_news.19.b # Everyone else
+		name = lar_news.19.b		# Everyone else
 		trigger = {
 			NOT = {
-				is_in_faction_with = SPA
+				is_in_faction_with = ESP
 			}
 		}
 	}
@@ -2238,32 +2390,31 @@ news_event = {
 	title = lar_news.20.t
 	desc = lar_news.20.desc
 	picture = GFX_news_event_generic_parliament
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.20.a # Spain
+		name = lar_news.20.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
 	}
 	option = {
-		name = lar_news.20.b # Soviet Union
+		name = lar_news.20.b		# Soviet Union
 		trigger = {
 			original_tag = SOV
 		}
 	}
 	option = {
-		name = lar_news.20.c # Other enemies of Soviet Union
+		name = lar_news.20.c		# Other enemies of Soviet Union
 		trigger = {
-			NOT = { original_tag = ESP }
+			NOT = {
+				original_tag = ESP
+			}
 			has_war_with = SOV
 		}
 	}
 	option = {
-		name = lar_news.20.d # Everyone else
+		name = lar_news.20.d		# Everyone else
 		trigger = {
 			NOT = {
 				original_tag = SOV
@@ -2280,19 +2431,16 @@ news_event = {
 	title = lar_news.21.t
 	desc = lar_news.21.desc
 	picture = GFX_news_event_sign_treaty2
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.21.a # Spain
+		name = lar_news.21.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
 	}
 	option = {
-		name = lar_news.21.b # Soviet Union and MEX if they have Trotsky
+		name = lar_news.21.b		# Soviet Union and MEX if they have Trotsky
 		trigger = {
 			OR = {
 				tag = SOV
@@ -2300,31 +2448,33 @@ news_event = {
 				AND = {
 					tag = MEX
 					has_country_leader = {
- 						character = MEX_leon_trotsky
- 					}
+						character = MEX_leon_trotsky
+					}
 				}
 				AND = {
 					is_in_faction_with = MEX
 					MEX = {
 						has_country_leader = {
- 							character = MEX_leon_trotsky
- 						}
+							character = MEX_leon_trotsky
+						}
 					}
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.21.c # Unaligned Communists
+		name = lar_news.21.c		# Unaligned Communists
 		trigger = {
 			has_government = communism
-			NOT = { tag = SOV }
+			NOT = {
+				tag = SOV
+			}
 			NOT = {
 				AND = {
 					tag = MEX
 					has_country_leader = {
- 						character = MEX_leon_trotsky
- 					}
+						character = MEX_leon_trotsky
+					}
 				}
 			}
 			NOT = {
@@ -2333,15 +2483,15 @@ news_event = {
 					is_in_faction_with = MEX
 					MEX = {
 						has_country_leader = {
- 							character = MEX_leon_trotsky
- 						}
+							character = MEX_leon_trotsky
+						}
 					}
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.21.d # Everyone else
+		name = lar_news.21.d		# Everyone else
 		trigger = {
 			NOT = {
 				has_government = communism
@@ -2349,8 +2499,8 @@ news_event = {
 				AND = {
 					tag = MEX
 					has_country_leader = {
- 						character = MEX_leon_trotsky
- 					}
+						character = MEX_leon_trotsky
+					}
 				}
 				original_tag = ESP
 			}
@@ -2364,21 +2514,20 @@ news_event = {
 	title = lar_news.22.t
 	desc = lar_news.22.desc
 	picture = GFX_news_event_generic_rally2
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.22.a # Spain
+		name = lar_news.22.a		# Spain
 		trigger = {
 			original_tag = ESP
 		}
 	}
 	option = {
-		name = lar_news.22.b # Everyone else
+		name = lar_news.22.b		# Everyone else
 		trigger = {
-			NOT = { original_tag = ESP }
+			NOT = {
+				original_tag = ESP
+			}
 		}
 	}
 }
@@ -2389,13 +2538,10 @@ news_event = {
 	title = lar_news.23.t
 	desc = lar_news.23.desc
 	picture = GFX_news_event_por_salazar_franco
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.23.a #Portugal and Spanish Republic / Nationalist Spain
+		name = lar_news.23.a		#Portugal and Spanish Republic / Nationalist Spain
 		trigger = {
 			OR = {
 				tag = PRT
@@ -2404,14 +2550,14 @@ news_event = {
 					is_in_faction_with = PRT
 				}
 				AND = {
-					tag = SPA
+					tag = ESP
 					is_in_faction_with = PRT
 				}
 			}
 		}
 	}
 	option = {
-		name = lar_news.23.b #Axis
+		name = lar_news.23.b		#Axis
 		trigger = {
 			OR = {
 				is_in_faction_with = DEU
@@ -2420,20 +2566,25 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.23.c #Allies
+		name = lar_news.23.c		#Allies
 		trigger = {
 			OR = {
 				is_in_faction_with = GBR
 				tag = GBR
 			}
-			NOT = { tag = PRT }
-			NOT = { tag = SPD }
-			NOT = { tag = SPA }
-
+			NOT = {
+				tag = PRT
+			}
+			NOT = {
+				tag = SPD
+			}
+			NOT = {
+				tag = ESP
+			}
 		}
 	}
 	option = {
-		name = lar_news.23.d #Everyone else
+		name = lar_news.23.d		#Everyone else
 		trigger = {
 			NOT = {
 				is_in_faction_with = GBR
@@ -2446,7 +2597,7 @@ news_event = {
 					is_in_faction_with = PRT
 				}
 				AND = {
-					tag = SPA
+					tag = ESP
 					is_in_faction_with = PRT
 				}
 			}
@@ -2460,22 +2611,19 @@ news_event = {
 	title = lar_news.24.t
 	desc = lar_news.24.desc
 	picture = GFX_news_event_por_salazar_franco
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.24.a #Portugal and Nationalist Spain
+		name = lar_news.24.a		#Portugal and Nationalist Spain
 		trigger = {
 			OR = {
 				tag = PRT
-				tag = SPA
+				tag = ESP
 			}
 		}
 	}
 	option = {
-		name = lar_news.24.b #Axis
+		name = lar_news.24.b		#Axis
 		trigger = {
 			OR = {
 				tag = DEU
@@ -2484,19 +2632,22 @@ news_event = {
 		}
 	}
 	option = {
-		name = lar_news.24.c #Allies
+		name = lar_news.24.c		#Allies
 		trigger = {
 			OR = {
 				tag = GBR
 				is_in_faction_with = GBR
 			}
-			NOT = { tag = PRT }
-			NOT = { tag = SPA }
-
+			NOT = {
+				tag = PRT
+			}
+			NOT = {
+				tag = ESP
+			}
 		}
 	}
 	option = {
-		name = lar_news.24.d #Everyone else
+		name = lar_news.24.d		#Everyone else
 		trigger = {
 			NOT = {
 				is_in_faction_with = GBR
@@ -2504,7 +2655,7 @@ news_event = {
 				tag = GBR
 				tag = DEU
 				tag = PRT
-				tag = SPA
+				tag = ESP
 			}
 		}
 	}
@@ -2516,21 +2667,20 @@ news_event = {
 	title = lar_news.25.t
 	desc = lar_news.25.desc
 	picture = GFX_news_event_royal_visit
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.25.a #Portugal
+		name = lar_news.25.a		#Portugal
 		trigger = {
 			tag = PRT
 		}
 	}
 	option = {
-		name = lar_news.25.b #Everyone else
+		name = lar_news.25.b		#Everyone else
 		trigger = {
-			NOT = { tag = PRT }
+			NOT = {
+				tag = PRT
+			}
 		}
 	}
 }
@@ -2541,29 +2691,26 @@ news_event = {
 	title = lar_news.26.t
 	desc = lar_news.26.desc
 	picture = GFX_news_event_por_return_of_monarchy
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.26.a #Portugal
+		name = lar_news.26.a		#Portugal
 		trigger = {
 			tag = PRT
 		}
 	}
 	option = {
-		name = lar_news.26.b #countries at war with Portugal
+		name = lar_news.26.b		#countries at war with Portugal
 		trigger = {
 			has_war_with = PRT
 		}
 	}
 	option = {
-		name = lar_news.26.c #Everyone else
+		name = lar_news.26.c		#Everyone else
 		trigger = {
-			NOT = { 
+			NOT = {
 				has_war_with = PRT
-				tag = PRT 
+				tag = PRT
 			}
 		}
 	}
@@ -2575,34 +2722,34 @@ news_event = {
 	title = lar_news.27.t
 	desc = lar_news.27.desc
 	picture = GFX_news_event_generic_rally2
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
-		name = lar_news.27.a #Portugal
+		name = lar_news.27.a		#Portugal
 		trigger = {
 			tag = PRT
 		}
 	}
 	option = {
-		name = lar_news.27.b #Communists
+		name = lar_news.27.b		#Communists
 		trigger = {
-			NOT = { tag = PRT }
+			NOT = {
+				tag = PRT
+			}
 			has_government = communism
 		}
 	}
 	option = {
-		name = lar_news.27.c #Fascists
+		name = lar_news.27.c		#Fascists
 		trigger = {
-			NOT = { tag = PRT }
+			NOT = {
+				tag = PRT
+			}
 			has_government = fascism
 		}
 	}
-
 	option = {
-		name = lar_news.27.d #Everyone else
+		name = lar_news.27.d		#Everyone else
 		trigger = {
 			NOT = {
 				has_government = communism
@@ -2619,11 +2766,8 @@ news_event = {
 	title = lar_news.28.t
 	desc = lar_news.28.desc
 	picture = GFX_news_event_033
-	
 	major = yes
-	
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			set_global_flag = scw_early_end
@@ -2653,14 +2797,13 @@ news_event = {
 					remove_core_of = SPC
 				}
 				else = {
-					add_claim_by = SPA
+					add_claim_by = ESP
 					remove_claim_by = SPC
 					remove_claim_by = SPD
 				}
 			}
 		}
 	}
-
 	option = {
 		name = lar_news.28.a
 		trigger = {
@@ -2676,7 +2819,6 @@ news_event = {
 			}
 		}
 	}
-
 	option = {
 		name = lar_news.28.b
 		trigger = {
@@ -2690,22 +2832,20 @@ news_event = {
 					has_government = fascism
 				}
 				tag = SOV
-				tag = SPA
+				tag = ESP
 			}
 		}
 	}
-
 	option = {
 		name = lar_news.28.c
 		trigger = {
 			tag = SOV
 		}
 	}
-
 	option = {
 		name = lar_news.28.d
 		trigger = {
-			tag = SPA
+			tag = ESP
 			has_completed_focus = SPA_the_phalanx_ascendant
 		}
 		#effect_tooltip = {
@@ -2718,11 +2858,10 @@ news_event = {
 		#	}
 		#}
 	}
-
 	option = {
 		name = lar_news.28.e
 		trigger = {
-			tag = SPA
+			tag = ESP
 			has_completed_focus = SPA_unify_the_nationalist_front
 		}
 		#effect_tooltip = {
@@ -2735,11 +2874,10 @@ news_event = {
 		#	}
 		#}
 	}
-
 	option = {
 		name = lar_news.28.f
 		trigger = {
-			tag = SPA
+			tag = ESP
 			has_completed_focus = SPA_supremacy_of_the_communion
 		}
 		#effect_tooltip = {
@@ -2760,11 +2898,8 @@ news_event = {
 	title = lar_news.29.t
 	desc = lar_news.29.desc
 	picture = GFX_news_event_033
-	
 	major = yes
-	
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			set_global_flag = scw_early_end
@@ -2773,16 +2908,16 @@ news_event = {
 					has_state_flag = SPR_core_of_spain_flag
 					has_state_flag = SPR_sided_with_republicans_flag
 				}
-				remove_core_of = SPA
-				remove_core_of = SPB
+				remove_core_of = ESP
+				remove_core_of = ADR
 			}
 			every_state = {
 				limit = {
 					has_state_flag = SPR_core_of_spain_flag
 					has_state_flag = SPR_sided_with_nationalists_flag
 				}
-				remove_core_of = SPB
-				remove_core_of = SPA
+				remove_core_of = ADR
+				remove_core_of = ESP
 			}
 			118 = {
 				if = {
@@ -2790,19 +2925,19 @@ news_event = {
 						is_controlled_by = ROOT
 					}
 					add_core_of = ROOT
-					remove_core_of = SPA
-					remove_core_of = SPB
+					remove_core_of = ESP
+					remove_core_of = ADR
 				}
 				else = {
 					add_claim_by = SPD
-					remove_claim_by = SPA
-					remove_claim_by = SPB
+					remove_claim_by = ESP
+					remove_claim_by = ADR
 				}
 			}
 		}
 	}
-
-	option = { #DEU/ITA
+	option = {
+		#DEU/ITA
 		name = lar_news.28.c
 		trigger = {
 			OR = {
@@ -2817,7 +2952,6 @@ news_event = {
 			}
 		}
 	}
-
 	option = {
 		name = lar_news.28.b
 		trigger = {
@@ -2835,15 +2969,15 @@ news_event = {
 			}
 		}
 	}
-
-	option = { #SOV
+	option = {
+		#SOV
 		name = lar_news.28.a
 		trigger = {
 			tag = SOV
 		}
 	}
-
-	option = { # SPC
+	option = {
+		# SPC
 		name = lar_news.29.d
 		trigger = {
 			tag = SPD
@@ -2862,8 +2996,8 @@ news_event = {
 		#	}
 		#}
 	}
-
-	option = { # SPD
+	option = {
+		# SPD
 		name = lar_news.29.e
 		trigger = {
 			tag = SPD
@@ -2890,11 +3024,8 @@ news_event = {
 	title = lar_news.281.t
 	desc = lar_news.281.desc
 	picture = GFX_news_event_generic_parliament
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = lar_news.281.a
 		trigger = {
@@ -2904,7 +3035,9 @@ news_event = {
 	option = {
 		name = lar_news.281.b
 		trigger = {
-			NOT = { tag = FROM }
+			NOT = {
+				tag = FROM
+			}
 		}
 	}
 }
@@ -2925,16 +3058,15 @@ news_event = {
 		text = lar_news.291.desc
 		trigger = {
 			FROM = {
-				NOT = { original_tag = NZL }
+				NOT = {
+					original_tag = NZL
+				}
 			}
 		}
 	}
 	picture = GFX_news_event_generic_parliament
-	
 	major = yes
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = lar_news.291.a
 		trigger = {
@@ -2944,7 +3076,9 @@ news_event = {
 	option = {
 		name = lar_news.291.b
 		trigger = {
-			NOT = { tag = FROM }
+			NOT = {
+				tag = FROM
+			}
 		}
 	}
 }

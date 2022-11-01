@@ -373,9 +373,9 @@ focus_tree = {
 			focus = JPN_shengshennozhengzhijia
 		}
 		completion_reward = {
-			hidden_effect = { 
+			hidden_effect = {
 				add_stability = -0.2
-				add_manpower = 10 
+				add_manpower = 10
 			}
 			add_political_power = 1000
 		}
@@ -434,11 +434,11 @@ focus_tree = {
 			focus = JPN_zongnitu
 		}
 		completion_reward = {
+			add_political_power = 120
 			add_ideas = {
 				factory_plan
 			}
 		}
-
 	}
 	#北極への挑戦
 	focus = {
@@ -452,6 +452,24 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_yishinojiemo
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = PRK
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = USA
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = NOR
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = POL
+			}
 		}
 	}
 	#南進せよ
@@ -513,6 +531,9 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_ribenhengduangongyedidai
 		}
+		completion_reward = {
+			add_political_power = 300
+		}
 	}
 	#次期選挙
 	focus = {
@@ -557,6 +578,31 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_shenshengjiaoyu
+		}
+		available = {
+			has_country_flag = JPN_kami_flag
+		}
+		completion_reward = {
+			add_popularity = {
+				ideology = mythologicalism
+				popularity = 0.25
+			}
+			add_country_leader_role = {
+				character = JPN_Amaterasu
+				Promote_leader = yes
+				country_leader = {
+					ideology = shinto
+					expire = "9999.1.1.1"
+					traits = {
+						warrior_code
+						yurushite_hiyashinsu
+						barenakya_hanzaijya_nai
+					}
+				}
+			}
+			hidden_effect = {
+				complete_national_focus = JPN_gainianshangnozhidaozhe
+			}
 		}
 	}
 	#平和主義
@@ -660,7 +706,6 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_political_power = 300
-			
 		}
 	}
 	#縦に長い都市に投資
@@ -963,6 +1008,10 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_jinshendangnitoupiao
 		}
+		completion_reward = {
+			set_country_flag = JPN_kami_flag
+			add_political_power = 120
+		}
 	}
 	#概念上の指導者
 	focus = {
@@ -986,10 +1035,11 @@ focus_tree = {
 				add_country_leader_trait = JPN_tatenaga_trait
 				add_political_power = 100
 			}
-			else_if
-			{
+			else_if = {
 				limit = {
+					has_country_flag = JPN_kami_flag
 				}
+				add_country_leader_trait = JPN_kami_trait
 			}
 		}
 	}
@@ -1090,6 +1140,18 @@ focus_tree = {
 			focus = JPN_huangdaodangnitoupiao
 			focus = JPN_minzhengdangnitoupiao
 			focus = JPN_junbunotaitou
+		}
+		completion_reward = {
+			add_political_power = -90
+			add_timed_idea = {
+				idea = sudden_change_of_policy
+				days = 45
+			}
+			hidden_effect = {
+				news_event = {
+					id = jpn_news.1
+				}
+			}
 		}
 	}
 	#皇道党に投票
