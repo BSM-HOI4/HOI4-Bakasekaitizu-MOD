@@ -1,9 +1,6 @@
 version="Alpha 0.1"
 picture="thumbnail.png"
-tags={
-	"Map"
-	"Alternative History"
-	"Gameplay"
+tags={"Map" "Alternative History" "Gameplay"
 }
 replace_path="common/ai_focuses"
 replace_path="common/ai_areas"
@@ -32,6 +29,7 @@ replace_path="history/states"
 replace_path="history/units"
 replace_path="history/countries"
 replace_path="history/general"
+replace_path="gfx/loadingscreens"
 replace_path="map"
 replace_path="map/strategicregions"
 name="バカ世界地図テスト版"

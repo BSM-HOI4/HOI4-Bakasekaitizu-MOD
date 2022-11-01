@@ -1942,14 +1942,14 @@ focus_tree = {
 
 		available = {
 			any_other_country = {
-				original_tag = SPR
+				original_tag = ESP
 				exists = yes
 				has_war = no
 				NOT = { is_in_faction_with = GBR }
 				is_subject = no
 			}
 			NOT = { has_government = communism }
-		} #SPA/SPR not in a faction
+		} #SPA/ESP not in a faction
 		#prerequisite = { focus = uk_carrier_focus }
 		icon = GFX_goal_generic_demand_territory
 		x = -1
@@ -1961,14 +1961,14 @@ focus_tree = {
 		}
 		search_filters = {FOCUS_FILTER_POLITICAL}	
 		completion_reward = {
-			# + relations with SPA/SPR - they become more democratic and like fascist/commies less
+			# + relations with SPA/ESP - they become more democratic and like fascist/commies less
 			if = {
 				limit = {
 					has_government = democratic
 				}
 				every_other_country = {
 					limit = {
-						original_tag = SPR
+						original_tag = ESP
 					}
 					add_opinion_modifier = { target = GBR modifier = democratic_leanings_good }
 					add_timed_idea = { idea = democratic_influence days = 1095 }
@@ -1988,7 +1988,7 @@ focus_tree = {
 				}
 				every_other_country = {
 					limit = {
-						original_tag = SPR
+						original_tag = ESP
 					}
 					add_opinion_modifier = { target = GBR modifier = fascism_leanings_good }
 					add_timed_idea = { idea = fascist_influence days = 1095 }
@@ -2011,7 +2011,7 @@ focus_tree = {
 				}
 				every_other_country = {
 					limit = {
-						original_tag = SPR
+						original_tag = ESP
 					}
 					add_opinion_modifier = { target = GBR modifier = neutrality_leanings_good }
 					add_timed_idea = { idea = neutrality_influence days = 1095 }
@@ -2116,7 +2116,7 @@ focus_tree = {
 		}
 		bypass = {
 			NOT = {
-				country_exists = YUG
+				country_exists = MYS
 				country_exists = GRC
 				country_exists = ROM
 				country_exists = BUL
@@ -2135,7 +2135,7 @@ focus_tree = {
 			every_country = {
 				limit = {
 					OR = {
-						tag = YUG
+						tag = MYS
 						tag = GRC
 						tag = ROM
 					}
@@ -2158,7 +2158,7 @@ focus_tree = {
 				country_event = { id = generic.19 }
 				add_offsite_building = { type = arms_factory level = 2 }
 			}
-			YUG = { add_opinion_modifier = { target = GBR modifier = balkan_strategy_good } }
+			MYS = { add_opinion_modifier = { target = GBR modifier = balkan_strategy_good } }
 			GRC = { add_opinion_modifier = { target = GBR modifier = balkan_strategy_good } }
 			ROM = { add_opinion_modifier = { target = GBR modifier = balkan_strategy_good } }
 			BUL = { add_opinion_modifier = { target = GBR modifier = balkan_strategy_bad } }
@@ -3054,7 +3054,7 @@ focus_tree = {
 				}
 				random_other_country = {
 					limit = {
-						original_tag = SPR
+						original_tag = ESP
 						if = {
 							limit = {
 								country_exists = SPD
@@ -3088,7 +3088,7 @@ focus_tree = {
 						}
 						every_other_country = {
 							limit = {
-								original_tag = SPR
+								original_tag = ESP
 								exists = yes
 							}
 							118 = { add_core_of = PREV }
@@ -4835,10 +4835,10 @@ focus_tree = {
 		prerequisite = { focus = uk_asia_focus } 
 		available = {
 			CHN = { 
-				has_war_with = JAP 
+				has_war_with = JPN 
 				NOT = { has_war_with = GBR }
 			}
-			JAP = { NOT = { is_in_faction_with = GBR } }
+			JPN = { NOT = { is_in_faction_with = GBR } }
 		}
 
 		bypass = {
@@ -4976,7 +4976,7 @@ focus_tree = {
 				add_opinion_modifier = { target = GBR modifier = burma_road_good } 
 				country_event = britain.5
 			}
-			JAP = {
+			JPN = {
 				add_opinion_modifier = { target = GBR modifier = burma_road_bad } 
 			} 
 		}
@@ -4984,13 +4984,13 @@ focus_tree = {
 	focus = {
 		id = uk_sanction_japan_focus
 		available = {
-			JAP = { 
+			JPN = { 
 				ENG_focus_available_embargo_sanction = yes
 			}	
 			has_government = democratic
 		}
 		bypass = {
-			has_war_with = JAP
+			has_war_with = JPN
 		}
 		prerequisite = { focus = uk_burma_focus }
 		icon = GFX_goal_generic_trade
@@ -5005,7 +5005,7 @@ focus_tree = {
 		available_if_capitulated = yes
 
 		completion_reward = {
-			JAP = {
+			JPN = {
 				add_opinion_modifier = { target = GBR modifier = embargo }
 				add_opinion_modifier = { target = GBR modifier = sanctions_relations } 
 			}
@@ -5015,15 +5015,15 @@ focus_tree = {
 		id = ENG_war_with_japan
 		available = {
 			has_offensive_war = no
-			JAP = {
+			JPN = {
 				ENG_focus_available_war = yes
 			}	
 			has_government = democratic
 		}
 		bypass = {
-			has_war_with = JAP
+			has_war_with = JPN
 		}
-		will_lead_to_war_with = JAP
+		will_lead_to_war_with = JPN
 		prerequisite = { focus = uk_sanction_japan_focus }
 		prerequisite = { focus = peninsular_focus }
 		prerequisite = { focus = hk_air_focus }
@@ -5038,7 +5038,7 @@ focus_tree = {
 		completion_reward = {
 			create_wargoal = {
 				type = puppet_wargoal_focus
-				target = JAP
+				target = JPN
 				expire = 0
 			} 
 		}
@@ -5712,7 +5712,7 @@ focus_tree = {
 					}
 				}
 			}
-		} #counters JAP's indian army focus
+		} #counters JPN's indian army focus
 		icon = GFX_goal_generic_improve_relations
 		x = -1
 		y = 1
@@ -7652,7 +7652,7 @@ focus_tree = {
 					add_opinion_modifier = { target = GBR modifier = ENG_maintaining_imperial_integrity }
 				}
 			}
-			JAP = {
+			JPN = {
 				if = {
 					limit = { NOT = { is_in_faction_with = GBR } }
 					add_opinion_modifier = { target = GBR modifier = ENG_maintaining_imperial_integrity }
@@ -8936,17 +8936,17 @@ focus_tree = {
 				}
 				add_ai_strategy = {
 					type = alliance
-					id = YUG
+					id = MYS
 					value = -200
 				}
 				add_ai_strategy = {
 					type = befriend
-					id = YUG
+					id = MYS
 					value = -200
 				}
 				add_ai_strategy = {
 					type = protect
-					id = YUG
+					id = MYS
 					value = -200
 				}
 				add_ai_strategy = {
@@ -9133,7 +9133,7 @@ focus_tree = {
 					NOT = { has_dlc = "La Resistance" }
 				}
 				any_country = {
-					original_tag = SPR
+					original_tag = ESP
 					has_government = fascism
 					exists = yes
 					NOT = { is_in_faction_with = GBR }
@@ -9165,7 +9165,7 @@ focus_tree = {
 				}
 				random_country = {
 					limit = {
-						original_tag = SPR
+						original_tag = ESP
 						has_government = fascism
 					}
 					country_event = { id = mtg_britain.40 hours = 6 }
@@ -9193,7 +9193,7 @@ focus_tree = {
 					NOT = { has_dlc = "La Resistance" }
 				}
 				any_country = {
-					original_tag = SPR
+					original_tag = ESP
 					has_government = fascism
 					exists = yes
 					NOT = { is_in_faction_with = GBR }
@@ -9219,7 +9219,7 @@ focus_tree = {
 				}
 				NOT = {
 					any_country = {
-						original_tag = SPR
+						original_tag = ESP
 						has_government = fascism
 						exists = yes
 					}
@@ -9253,7 +9253,7 @@ focus_tree = {
 						NOT = { has_dlc = "La Resistance" }
 					}
 					any_country = {
-						original_tag = SPR
+						original_tag = ESP
 						has_government = fascism
 						exists = yes
 						is_in_faction_with = DEU
@@ -9278,7 +9278,7 @@ focus_tree = {
 				}
 				random_country = {
 					limit = {
-						original_tag = SPR
+						original_tag = ESP
 						has_government = fascism
 					}
 					GBR = {
@@ -10046,17 +10046,17 @@ focus_tree = {
 		prerequisite = { focus = ENG_bring_the_dominions_back_into_the_fold }	
 		available = {
 			is_subject = no
-			country_exists = JAP
-			NOT = { is_in_faction_with = JAP }
+			country_exists = JPN
+			NOT = { is_in_faction_with = JPN }
 			OR = {
-				JAP = { has_government = fascism }
-				JAP = { has_government = communism }
+				JPN = { has_government = fascism }
+				JPN = { has_government = communism }
 			}
 		}
 		bypass = {
-			has_war_with = JAP
+			has_war_with = JPN
 		}
-		will_lead_to_war_with = JAP
+		will_lead_to_war_with = JPN
 		icon = GFX_focus_attack_japan
 		x = 1
 		y = 1
@@ -10073,7 +10073,7 @@ focus_tree = {
 			ENG_mosley_pacifism_level_down = yes
 			create_wargoal = {
 				type = puppet_wargoal_focus
-				target = JAP
+				target = JPN
 				expire = 0
 			}
 		}
@@ -10698,17 +10698,17 @@ focus_tree = {
 							has_full_control_of_state = 525
 						}
 						AND = {
-							original_tag = JAP
+							original_tag = JPN
 							owns_state = 609
 							has_full_control_of_state = 609
 						}
 						AND = {
-							original_tag = JAP
+							original_tag = JPN
 							owns_state = 745
 							has_full_control_of_state = 745
 						}
 						AND = {
-							original_tag = JAP
+							original_tag = JPN
 							owns_state = 524
 							has_full_control_of_state = 524
 						}

@@ -18,7 +18,7 @@ country_event = {
 		NOT = {
 			has_dlc = "Death or Dishonor"
 		}
-		YUG = {
+		MYS = {
 			OR = {
 				is_in_faction_with = DEU
 				gives_military_access_to = DEU
@@ -42,7 +42,7 @@ country_event = {
 		hidden_effect = { 
 			remove_ideas = anti_german_military 
 			GBR = { set_country_flag = has_already_decided_yugo_coup_flag }
-			YUG = { set_country_flag = has_already_decided_yugo_coup_flag }
+			MYS = { set_country_flag = has_already_decided_yugo_coup_flag }
 		}
 	}
 
@@ -53,7 +53,7 @@ country_event = {
 	option = {
 		name = yugoslavia.1.a
 		add_political_power = -50
-		YUG = {
+		MYS = {
 			country_event = { id = yugoslavia.2 }
 		}
 	}
@@ -61,7 +61,7 @@ country_event = {
 	option = {
 		name = yugoslavia.1.b
 		ai_chance = { factor = 0 }
-		YUG = { remove_opinion_modifier = { target = GBR modifier = balkan_strategy_good } }
+		MYS = { remove_opinion_modifier = { target = GBR modifier = balkan_strategy_good } }
 	}
 }
 
@@ -118,13 +118,13 @@ country_event = {
 		}
 		if = {
 			limit = { is_in_faction_with = DEU }
-			DEU = { remove_from_faction = YUG }
+			DEU = { remove_from_faction = MYS }
 		}
 		if = {
 			limit = { gives_military_access_to = DEU }
 			DEU = {
 				diplomatic_relation = {
-					country = YUG
+					country = MYS
 					relation = military_access
 					active = no
 				}
@@ -148,7 +148,7 @@ country_event = {
 		}
 		random_country = {
 			limit = {
-				original_tag = YUG
+				original_tag = MYS
 				NOT = { tag = ROOT }
 				has_government = democratic
 			}
@@ -262,7 +262,7 @@ country_event = {
 			DEU = {
 				create_wargoal = {
 					type = take_state_focus
-					target = YUG
+					target = MYS
 					generator = { 102 853 }
 				}
 			}
@@ -285,7 +285,7 @@ country_event = {
 			DEU = {
 				create_wargoal = {
 					type = take_state_focus
-					target = YUG
+					target = MYS
 					generator = { 102 853 }
 				}
 			}
@@ -306,7 +306,7 @@ country_event = {
 		name = yugoslavia.5.a
 		ai_chance = {
 			factor = 90
-			modifier = { # Decrease chance YUG resists if AUS isn't taken first
+			modifier = { # Decrease chance MYS resists if AUS isn't taken first
 				AUS = { exists = yes }
 				factor = 0.5
 			}
@@ -339,7 +339,7 @@ country_event = {
 			effect_tooltip = {
 				create_wargoal = {
 					type = take_state_focus
-					target = YUG
+					target = MYS
 					generator = { 102 853 }
 				}
 			}
@@ -363,7 +363,7 @@ country_event = {
 			DEU = {
 				create_wargoal = {
 					type = take_state_focus
-					target = YUG
+					target = MYS
 					generator = { 102 853 }
 				}
 			}
@@ -393,7 +393,7 @@ country_event = {
 			effect_tooltip = {
 				create_wargoal = {
 					type = annex_everything
-					target = YUG
+					target = MYS
 				}
 			}
 		}
@@ -413,8 +413,8 @@ country_event = {
 				any_other_country = {
 					is_major = yes
 					OR = {
-						has_guaranteed = YUG
-						is_in_faction_with = YUG
+						has_guaranteed = MYS
+						is_in_faction_with = MYS
 					}
 				}
 			}
@@ -426,7 +426,7 @@ country_event = {
 			add_named_threat = { threat = 5 name = GER_fate_of_yugoslavia }
 			every_country = {
 				limit = {
-					is_subject_of = YUG
+					is_subject_of = MYS
 					OR = {
 						original_tag = BOS
 						original_tag = HRZ
@@ -441,7 +441,7 @@ country_event = {
 				}
 				DEU = { annex_country = { target = PREV transfer_troops = no } }
 			}
-			annex_country = { target = YUG transfer_troops = no }
+			annex_country = { target = MYS transfer_troops = no }
 
 			hidden_effect = {
 				set_global_flag = GER_fate_of_yugoslavia_annex_YUG
@@ -473,7 +473,7 @@ country_event = {
 			effect_tooltip = {
 				create_wargoal = {
 					type = annex_everything
-					target = YUG
+					target = MYS
 				}
 			}
 		}
@@ -490,8 +490,8 @@ country_event = {
 				any_other_country = {
 					is_major = yes
 					OR = {
-						has_guaranteed = YUG
-						is_in_faction_with = YUG
+						has_guaranteed = MYS
+						is_in_faction_with = MYS
 					}
 				}
 			}
@@ -502,7 +502,7 @@ country_event = {
 		}
 
 		trigger = { 
-			YUG = { 
+			MYS = { 
 				OR = { 
 					owns_state = 103
 					owns_state = 104
@@ -517,20 +517,20 @@ country_event = {
 			
 			CRO = {
 				if = {
-					limit = { YUG = { owns_state = 103 } }
+					limit = { MYS = { owns_state = 103 } }
 					transfer_state = 103
 				}
 				if = {
-					limit = { YUG = { owns_state = 104 } }
+					limit = { MYS = { owns_state = 104 } }
 					transfer_state = 104
 				}
 				if = {
-					limit = { YUG = { owns_state = 109 } }
+					limit = { MYS = { owns_state = 109 } }
 					transfer_state = 109
 				}						
 			}
 			puppet = CRO
-			annex_country = { target = YUG transfer_troops = no }
+			annex_country = { target = MYS transfer_troops = no }
 
 			hidden_effect = {
 				set_global_flag = GER_fate_of_yugoslavia_puppet_CRO_annex_YUG
@@ -560,7 +560,7 @@ country_event = {
 			effect_tooltip = {
 				create_wargoal = {
 					type = annex_everything
-					target = YUG
+					target = MYS
 				}
 			}
 		}
@@ -576,8 +576,8 @@ country_event = {
 				any_other_country = {
 					is_major = yes
 					OR = {
-						has_guaranteed = YUG
-						is_in_faction_with = YUG
+						has_guaranteed = MYS
+						is_in_faction_with = MYS
 					}
 				}
 			}
@@ -593,20 +593,20 @@ country_event = {
 			
 			CRO = {
 				if = {
-					limit = { YUG = { owns_state = 103 } }
+					limit = { MYS = { owns_state = 103 } }
 					transfer_state = 103
 				}
 				if = {
-					limit = { YUG = { owns_state = 104 } }
+					limit = { MYS = { owns_state = 104 } }
 					transfer_state = 104
 				}
 				if = {
-					limit = { YUG = { owns_state = 109 } }
+					limit = { MYS = { owns_state = 109 } }
 					transfer_state = 109
 				}						
 			}
 			puppet = CRO
-			puppet = YUG
+			puppet = MYS
 
 
 			hidden_effect = {
