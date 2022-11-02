@@ -32,8 +32,9 @@ replace_path="history/general"
 replace_path="gfx/loadingscreens"
 replace_path="map"
 replace_path="map/strategicregions"
-name="+バカ世界地図(α版)"
-dependencies={ "Japanese Language mod"
+name="バカ世界地図テスト版"
+dependencies={
+	"Japanese Language mod"
 }
-supported_version="1.11.*"
-remote_file_id="2537929285"
+supported_version="1.12.3"
+remote_file_id="2585391890"
