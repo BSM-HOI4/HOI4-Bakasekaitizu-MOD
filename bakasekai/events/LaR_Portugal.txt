@@ -1,7 +1,6 @@
 ﻿###########################
 # Portugal Events
 ###########################
-
 add_namespace = lar_portugal_iberian_summit
 add_namespace = lar_portugal_navy_mutiny
 add_namespace = lar_portugal_iberian_workers_united
@@ -11,8 +10,6 @@ add_namespace = lar_portugal_promote_monarchist_cause
 add_namespace = lar_portugal_spanish_civil_war
 add_namespace = lar_portugal_royal_iberian_alliance
 add_namespace = lar_portugal_overseas_provinces
-
-
 ######## IBERIAN SUMMIT ########
 # Iberian summit - country suggests joining axis
 country_event = {
@@ -20,54 +17,76 @@ country_event = {
 	title = lar_portugal_iberian_summit.1.t
 	desc = lar_portugal_iberian_summit.1.desc
 	picture = GFX_report_event_generic_read_write
-
 	is_triggered_only = yes
-
 	# Join immediately
 	option = {
 		name = lar_portugal_iberian_summit.1.a
-
 		ai_chance = {
 			base = 20
-			modifier = { 	# Opinion of Faction Leader
+			modifier = {
+				# Opinion of Faction Leader
 				add = 20
-				has_opinion = { target = DEU value > 40 }
+				has_opinion = {
+					target = DEU
+					value > 40
+				}
 			}
-			modifier = {	# Opinion of FROM
+			modifier = {
+				# Opinion of FROM
 				add = 20
-				has_opinion = { target = FROM value > 40 }
+				has_opinion = {
+					target = FROM
+					value > 40
+				}
 			}
-			modifier = {	# Faction strength ratio against its enemies
+			modifier = {
+				# Faction strength ratio against its enemies
 				add = 20
-				DEU = { 
-					has_war = yes 
+				DEU = {
+					has_war = yes
 					alliance_strength_ratio > 0.99
 				}
 			}
-			modifier = {	# Faction War Score
+			modifier = {
+				# Faction War Score
 				add = 20
 				DEU = {
-					has_war = yes 
+					has_war = yes
 					any_war_score > 49
 				}
 			}
-			modifier = {	# Very bad opinion of Faction Leader / FROM will lock this option
+			modifier = {
+				# Very bad opinion of Faction Leader / FROM will lock this option
 				factor = 0
 				OR = {
-					has_opinion = { target = DEU value < -20 }
-					has_opinion = { target = FROM value < -20 }
+					has_opinion = {
+						target = DEU
+						value < -20
+					}
+					has_opinion = {
+						target = FROM
+						value < -20
+					}
 					AND = {
 						tag = PRT
-						NOT = { has_completed_focus = POR_estado_novo }
+						NOT = {
+							has_completed_focus = POR_estado_novo
+						}
 					}
 				}
 			}
 		}
-		custom_effect_tooltip =  lar_portugal_iberian_summit.1_a_tt
+		custom_effect_tooltip = lar_portugal_iberian_summit.1_a_tt
 		effect_tooltip = {
-			DEU  = { country_event = lar_portugal_iberian_summit.4 }
+			DEU = {
+				country_event = lar_portugal_iberian_summit.4
+			}
 		}
-		hidden_effect = { FROM = { country_event = lar_portugal_iberian_summit.2 } }
+		hidden_effect = {
+			FROM = {
+				country_event = lar_portugal_iberian_summit.2
+			}
+		}
 		FROM = {
 			add_opinion_modifier = {
 				target = ROOT
@@ -81,34 +100,35 @@ country_event = {
 			}
 		}
 	}
-
 	# Join in 6 months
 	option = {
 		name = lar_portugal_iberian_summit.1.b
-
 		ai_chance = {
 			base = 40
-			modifier = {	# Faction strength ratio against its enemies
+			modifier = {
+				# Faction strength ratio against its enemies
 				add = 20
-				DEU = { 
-					has_war = yes 
+				DEU = {
+					has_war = yes
 					AND = {
 						alliance_strength_ratio > 0.74
 						alliance_strength_ratio < 1
 					}
 				}
 			}
-			modifier = {	# Faction War Score
+			modifier = {
+				# Faction War Score
 				add = 20
 				DEU = {
-					has_war = yes 
+					has_war = yes
 					AND = {
 						any_war_score > 29
 						any_war_score < 50
 					}
 				}
 			}
-			modifier = {	# Stronger faction member has WG or is justfying against ROOT
+			modifier = {
+				# Stronger faction member has WG or is justfying against ROOT
 				add = 20
 				DEU = {
 					any_allied_country = {
@@ -117,40 +137,65 @@ country_event = {
 							is_justifying_wargoal_against = ROOT
 						}
 						strength_ratio = {
-						    tag = ROOT
-						    ratio > 1.24
+							tag = ROOT
+							ratio > 1.24
 						}
 					}
 				}
 			}
-			modifier = {	# Wants to improve relations with Faction Leader in order to succeed
+			modifier = {
+				# Wants to improve relations with Faction Leader in order to succeed
 				add = 20
-				has_opinion = { target = DEU value > 0 }
-				has_opinion = { target = FROM value > 0 }
+				has_opinion = {
+					target = DEU
+					value > 0
+				}
+				has_opinion = {
+					target = FROM
+					value > 0
+				}
 				OR = {
-					DEU = { 
-						has_opinion =  { target = ROOT value < 0 }
+					DEU = {
+						has_opinion = {
+							target = ROOT
+							value < 0
+						}
 					}
-					DEU = { 
-						has_opinion =  { target = FROM value < 0 }
+					DEU = {
+						has_opinion = {
+							target = FROM
+							value < 0
+						}
 					}
 				}
 			}
-			modifier = {	# Very bad opinion of Faction Leader / FROM will lock this option
+			modifier = {
+				# Very bad opinion of Faction Leader / FROM will lock this option
 				factor = 0
 				OR = {
-					has_opinion = { target = DEU value < -30 }
-					has_opinion = { target = FROM value < -30 }
+					has_opinion = {
+						target = DEU
+						value < -30
+					}
+					has_opinion = {
+						target = FROM
+						value < -30
+					}
 					AND = {
 						tag = PRT
-						NOT = { has_completed_focus = POR_estado_novo }
+						NOT = {
+							has_completed_focus = POR_estado_novo
+						}
 					}
 				}
 			}
 		}
-		custom_effect_tooltip =  lar_portugal_iberian_summit.1_b_tt
-
-		hidden_effect = { FROM = { country_event = lar_portugal_iberian_summit.3 } }
+		custom_effect_tooltip = lar_portugal_iberian_summit.1_b_tt
+		hidden_effect = {
+			FROM = {
+				country_event = lar_portugal_iberian_summit.3
+			}
+		}
 		FROM = {
 			add_opinion_modifier = {
 				target = ROOT
@@ -170,32 +215,42 @@ country_event = {
 	# Don't join
 	option = {
 		name = lar_portugal_iberian_summit.1.c
-
 		ai_chance = {
 			base = 40
-			modifier = { 	# Opinion of Faction Leader
+			modifier = {
+				# Opinion of Faction Leader
 				add = 20
-				has_opinion = { target = DEU value < 0 }
+				has_opinion = {
+					target = DEU
+					value < 0
+				}
 			}
-			modifier = {	# Opinion of FROM
+			modifier = {
+				# Opinion of FROM
 				add = 20
-				has_opinion = { target = FROM value < 0 }
+				has_opinion = {
+					target = FROM
+					value < 0
+				}
 			}
-			modifier = {	# Faction strength ratio against its enemies
+			modifier = {
+				# Faction strength ratio against its enemies
 				add = 20
-				DEU = { 
-					has_war = yes 
+				DEU = {
+					has_war = yes
 					alliance_strength_ratio < 0.75
 				}
 			}
-			modifier = {	# Faction War Score
+			modifier = {
+				# Faction War Score
 				add = 20
 				DEU = {
-					has_war = yes 
+					has_war = yes
 					any_war_score < 30
 				}
 			}
-			modifier = {	# Weak faction member has WG or is justfying against ROOT
+			modifier = {
+				# Weak faction member has WG or is justfying against ROOT
 				add = 20
 				DEU = {
 					any_allied_country = {
@@ -204,21 +259,22 @@ country_event = {
 							is_justifying_wargoal_against = ROOT
 						}
 						strength_ratio = {
-						    tag = ROOT
-						    ratio < 1
+							tag = ROOT
+							ratio < 1
 						}
 					}
-
 				}
 			}
-			modifier = {	# Historical Focus will potentially enforce this option
+			modifier = {
+				# Historical Focus will potentially enforce this option
 				factor = 5
 				is_historical_focus_on = yes
 			}
 		}
-
 		hidden_effect = {
-			FROM = { country_event = lar_portugal_iberian_summit.9 }
+			FROM = {
+				country_event = lar_portugal_iberian_summit.9
+			}
 		}
 	}
 }
@@ -229,15 +285,15 @@ country_event = {
 	title = lar_portugal_iberian_summit.2.t
 	desc = lar_portugal_iberian_summit.2.desc
 	picture = GFX_report_event_generic_sign_treaty1
-
 	is_triggered_only = yes
-
 	option = {
-		name = lar_portugal_iberian_summit.2.a	
-
+		name = lar_portugal_iberian_summit.2.a
 		DEU = {
-			country_event = { id = lar_portugal_iberian_summit.4 days = 1 }
-		}	
+			country_event = {
+				id = lar_portugal_iberian_summit.4
+				days = 1
+			}
+		}
 		effect_tooltip = {
 			FROM = {
 				add_opinion_modifier = {
@@ -261,9 +317,7 @@ country_event = {
 	title = lar_portugal_iberian_summit.3.t
 	desc = lar_portugal_iberian_summit.3.desc
 	picture = GFX_report_event_generic_conference
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_iberian_summit.3.a
 		custom_effect_tooltip = lar_portugal_iberian_summit.1_b_tt
@@ -286,55 +340,67 @@ country_event = {
 	}
 }
 
-# Event for Germany - PRT & SPA asks to join Faction
+# Event for Germany - PRT & ESP asks to join Faction
 country_event = {
 	id = lar_portugal_iberian_summit.4
 	title = lar_portugal_iberian_summit.4.t
 	desc = lar_portugal_iberian_summit.4.desc
 	picture = GFX_report_event_por_salazar_franco1
-
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			save_event_target_as = alliance_inviter
 			clear_variable = global.POR_iberian_summit_target
 		}
 	}
-
 	# Accept them
 	option = {
-		name = lar_portugal_iberian_summit.4.a 
-
+		name = lar_portugal_iberian_summit.4.a
 		ai_chance = {
 			base = 50
-			modifier = {	# Good Opinion of Portugal
+			modifier = {
+				# Good Opinion of Portugal
 				add = 25
-				has_opinion = { target = PRT value > 10 }
+				has_opinion = {
+					target = PRT
+					value > 10
+				}
 			}
-			modifier = {	# Good Opinion of Spain
+			modifier = {
+				# Good Opinion of Spain
 				add = 25
-				has_opinion = { target = SPA value > 10 }
+				has_opinion = {
+					target = ESP
+					value > 10
+				}
 			}
-			modifier = {	# Bad strength ratio
+			modifier = {
+				# Bad strength ratio
 				factor = 1.5
 				alliance_strength_ratio < 1
-			}				
-			modifier = {	# Not making progress in wars
+			}
+			modifier = {
+				# Not making progress in wars
 				factor = 1.5
 				any_war_score < 50
 			}
 		}
-
 		hidden_effect = {
-			news_event = { id = lar_news.24 days = 3 random_days = 5 }
+			news_event = {
+				id = lar_news.24
+				days = 3
+				random_days = 5
+			}
 		}
-
 		add_to_faction = PRT
-		add_to_faction = SPA
+		add_to_faction = ESP
 		hidden_effect = {
-			PRT = { country_event = generic.3 }
-			SPA = { country_event = generic.3 }
+			PRT = {
+				country_event = generic.3
+			}
+			ESP = {
+				country_event = generic.3
+			}
 		}
 		clr_global_flag = POR_iberian_summit_in_progress_flag
 		set_global_flag = POR_iberian_summit_successful_flag
@@ -342,41 +408,53 @@ country_event = {
 	# Deny
 	option = {
 		name = lar_portugal_iberian_summit.4.b
-
 		ai_chance = {
 			base = 50
-			modifier = {	# Bad Opinion of Portugal
+			modifier = {
+				# Bad Opinion of Portugal
 				add = 25
-				has_opinion = { target = PRT value < -10 }
+				has_opinion = {
+					target = PRT
+					value < -10
+				}
 			}
-			modifier = {	# Bad Opinion of Spain
+			modifier = {
+				# Bad Opinion of Spain
 				add = 25
-				has_opinion = { target = SPA value < -10 }
-			}	
-			modifier = {	# Has War Goal or is justifying in Iberian countries
+				has_opinion = {
+					target = ESP
+					value < -10
+				}
+			}
+			modifier = {
+				# Has War Goal or is justifying in Iberian countries
 				factor = 100
 				OR = {
 					has_wargoal_against = PRT
 					is_justifying_wargoal_against = PRT
-					has_wargoal_against = SPA
-					is_justifying_wargoal_against = SPA
+					has_wargoal_against = ESP
+					is_justifying_wargoal_against = ESP
 				}
 			}
-			modifier = {	# Ally has War Goal or is justifying in Iberian countries
+			modifier = {
+				# Ally has War Goal or is justifying in Iberian countries
 				factor = 2
 				any_allied_country = {
 					OR = {
 						has_wargoal_against = PRT
 						is_justifying_wargoal_against = PRT
-						has_wargoal_against = SPA
-						is_justifying_wargoal_against = SPA
+						has_wargoal_against = ESP
+						is_justifying_wargoal_against = ESP
 					}
 				}
-			}			
+			}
 		}
-
-		PRT = { country_event = generic.4 }
-		SPA = { country_event = generic.4 }
+		PRT = {
+			country_event = generic.4
+		}
+		ESP = {
+			country_event = generic.4
+		}
 		clr_global_flag = POR_iberian_summit_in_progress_flag
 	}
 }
@@ -384,76 +462,97 @@ country_event = {
 # Iberian summit - country suggests joining allies
 country_event = {
 	id = lar_portugal_iberian_summit.5
-
 	title = lar_portugal_iberian_summit.5.t
 	desc = lar_portugal_iberian_summit.5.desc
 	picture = GFX_report_event_generic_read_write
-
 	is_triggered_only = yes
-
 	# join immediately
 	option = {
 		name = lar_portugal_iberian_summit.5.a
-
 		ai_chance = {
 			base = 20
-			modifier = { 	# Opinion of Faction Leader
+			modifier = {
+				# Opinion of Faction Leader
 				add = 20
-				has_opinion = { target = GBR value > 40 }
+				has_opinion = {
+					target = GBR
+					value > 40
+				}
 			}
-			modifier = {	# Opinion of FROM
+			modifier = {
+				# Opinion of FROM
 				add = 20
-				has_opinion = { target = FROM value > 40 }
+				has_opinion = {
+					target = FROM
+					value > 40
+				}
 			}
-			modifier = {	# Faction strength ratio against its enemies
+			modifier = {
+				# Faction strength ratio against its enemies
 				add = 20
-				GBR = { 
-					has_war = yes 
+				GBR = {
+					has_war = yes
 					alliance_strength_ratio > 0.99
 				}
 			}
-			modifier = {	# Faction War Score
+			modifier = {
+				# Faction War Score
 				add = 20
 				GBR = {
-					has_war = yes 
+					has_war = yes
 					any_war_score > 49
 				}
 			}
-
-			modifier = {	# Very bad opinion of Faction Leader or FROM will lock this option
+			modifier = {
+				# Very bad opinion of Faction Leader or FROM will lock this option
 				factor = 0
 				OR = {
-					has_opinion = { target = GBR value < 20 }
-					has_opinion = { target = FROM value < 20 }
+					has_opinion = {
+						target = GBR
+						value < 20
+					}
+					has_opinion = {
+						target = FROM
+						value < 20
+					}
 					AND = {
 						tag = PRT
-						NOT = { 
+						NOT = {
 							OR = {
-								has_completed_focus = POR_support_the_spanish_republic 
+								has_completed_focus = POR_support_the_spanish_republic
 								has_completed_focus = POR_strict_neutrality_in_the_spanish_civil_war
 							}
 						}
 					}
 					AND = {
-						tag = SPA
-						NOT = { 
+						tag = ESP
+						NOT = {
 							has_completed_focus = SPA_unify_the_nationalist_front
 						}
-						NOT = { has_government = fascism }
+						NOT = {
+							has_government = fascism
+						}
 					}
 					AND = {
 						tag = SPD
-						NOT = { has_completed_focus = SPR_maintain_the_second_republic }
+						NOT = {
+							has_completed_focus = SPR_maintain_the_second_republic
+						}
 					}
 				}
 			}
 		}
-
-		custom_effect_tooltip =  lar_portugal_iberian_summit.5_a_tt
+		custom_effect_tooltip = lar_portugal_iberian_summit.5_a_tt
 		effect_tooltip = {
-			GBR  = { country_event = lar_portugal_iberian_summit.8 }
+			GBR = {
+				country_event = lar_portugal_iberian_summit.8
+			}
 		}
-		hidden_effect = { FROM = { country_event = lar_portugal_iberian_summit.6 } }
+		hidden_effect = {
+			FROM = {
+				country_event = lar_portugal_iberian_summit.6
+			}
+		}
 		FROM = {
 			add_opinion_modifier = {
 				target = ROOT
@@ -467,34 +566,35 @@ country_event = {
 			}
 		}
 	}
-
 	# join in 6 months
 	option = {
 		name = lar_portugal_iberian_summit.5.b
-
 		ai_chance = {
 			base = 40
-			modifier = {	# Faction strength ratio against its enemies
+			modifier = {
+				# Faction strength ratio against its enemies
 				add = 20
-				GBR = { 
-					has_war = yes 
+				GBR = {
+					has_war = yes
 					AND = {
 						alliance_strength_ratio > 0.74
 						alliance_strength_ratio < 1
 					}
 				}
 			}
-			modifier = {	# Faction War Score
+			modifier = {
+				# Faction War Score
 				add = 20
 				GBR = {
-					has_war = yes 
+					has_war = yes
 					AND = {
 						any_war_score > 29
 						any_war_score < 50
 					}
 				}
 			}
-			modifier = {	# Stronger faction member has WG or is justfying against ROOT
+			modifier = {
+				# Stronger faction member has WG or is justfying against ROOT
 				add = 20
 				GBR = {
 					any_allied_country = {
@@ -503,56 +603,80 @@ country_event = {
 							is_justifying_wargoal_against = ROOT
 						}
 						strength_ratio = {
-						    tag = ROOT
-						    ratio > 1.24
+							tag = ROOT
+							ratio > 1.24
 						}
 					}
-
 				}
 			}
-			modifier = {	# Wants to improve relations with Faction Leader in order to succeed
+			modifier = {
+				# Wants to improve relations with Faction Leader in order to succeed
 				add = 20
-				has_opinion = { target = GBR value > 0 }
-				has_opinion = { target = FROM value > 0 }
+				has_opinion = {
+					target = GBR
+					value > 0
+				}
+				has_opinion = {
+					target = FROM
+					value > 0
+				}
 				OR = {
-					GBR = { 
-						has_opinion =  { target = ROOT value < 0 }
+					GBR = {
+						has_opinion = {
+							target = ROOT
+							value < 0
+						}
 					}
-					GBR = { 
-						has_opinion =  { target = FROM value < 0 }
+					GBR = {
+						has_opinion = {
+							target = FROM
+							value < 0
+						}
 					}
 				}
 			}
-			modifier = {	# Very bad opinion of Faction Leader or FROM will lock this option
+			modifier = {
+				# Very bad opinion of Faction Leader or FROM will lock this option
 				factor = 0
 				OR = {
-					has_opinion = { target = GBR value < 30 }
-					has_opinion = { target = FROM value < 30 }
+					has_opinion = {
+						target = GBR
+						value < 30
+					}
+					has_opinion = {
+						target = FROM
+						value < 30
+					}
 					AND = {
 						tag = PRT
-						NOT = { 
+						NOT = {
 							OR = {
-								has_completed_focus = POR_support_the_spanish_republic 
+								has_completed_focus = POR_support_the_spanish_republic
 								has_completed_focus = POR_strict_neutrality_in_the_spanish_civil_war
 							}
 						}
 					}
 					AND = {
-						tag = SPA
-						NOT = { 
+						tag = ESP
+						NOT = {
 							has_completed_focus = SPA_unify_the_nationalist_front
 						}
 					}
 					AND = {
 						tag = SPD
-						NOT = { has_completed_focus = SPR_maintain_the_second_republic }
+						NOT = {
+							has_completed_focus = SPR_maintain_the_second_republic
+						}
 					}
 				}
 			}
 		}
-
-		custom_effect_tooltip =  lar_portugal_iberian_summit.5_b_tt
-		hidden_effect = { FROM = { country_event = lar_portugal_iberian_summit.7 } }
+		custom_effect_tooltip = lar_portugal_iberian_summit.5_b_tt
+		hidden_effect = {
+			FROM = {
+				country_event = lar_portugal_iberian_summit.7
+			}
+		}
 		FROM = {
 			add_opinion_modifier = {
 				target = ROOT
@@ -572,32 +696,42 @@ country_event = {
 	# don't join
 	option = {
 		name = lar_portugal_iberian_summit.5.c
-
 		ai_chance = {
 			base = 40
-			modifier = { 	# Opinion of Faction Leader
+			modifier = {
+				# Opinion of Faction Leader
 				add = 20
-				has_opinion = { target = GBR value < 0 }
+				has_opinion = {
+					target = GBR
+					value < 0
+				}
 			}
-			modifier = {	# Opinion of FROM
+			modifier = {
+				# Opinion of FROM
 				add = 20
-				has_opinion = { target = FROM value < 0 }
+				has_opinion = {
+					target = FROM
+					value < 0
+				}
 			}
-			modifier = {	# Faction strength ratio against its enemies
+			modifier = {
+				# Faction strength ratio against its enemies
 				add = 20
-				GBR = { 
-					has_war = yes 
+				GBR = {
+					has_war = yes
 					alliance_strength_ratio < 0.75
 				}
 			}
-			modifier = {	# Faction War Score
+			modifier = {
+				# Faction War Score
 				add = 20
 				GBR = {
-					has_war = yes 
+					has_war = yes
 					any_war_score < 30
 				}
 			}
-			modifier = {	# Weak faction member has WG or is justfying against ROOT
+			modifier = {
+				# Weak faction member has WG or is justfying against ROOT
 				add = 20
 				GBR = {
 					any_allied_country = {
@@ -606,22 +740,22 @@ country_event = {
 							is_justifying_wargoal_against = ROOT
 						}
 						strength_ratio = {
-						    tag = ROOT
-						    ratio < 1
+							tag = ROOT
+							ratio < 1
 						}
 					}
-
 				}
 			}
-			modifier = {	# Historical Focus will potentially enforce this option
+			modifier = {
+				# Historical Focus will potentially enforce this option
 				factor = 5
 				is_historical_focus_on = yes
 			}
 		}
-
-		FROM = { country_event = lar_portugal_iberian_summit.9 }
+		FROM = {
+			country_event = lar_portugal_iberian_summit.9
+		}
 	}
-
 }
 
 # Join Allies Now
@@ -630,13 +764,14 @@ country_event = {
 	title = lar_portugal_iberian_summit.6.t
 	desc = lar_portugal_iberian_summit.6.desc
 	picture = GFX_report_event_generic_sign_treaty1
-
 	is_triggered_only = yes
-
 	option = {
-		name = lar_portugal_iberian_summit.6.a	
+		name = lar_portugal_iberian_summit.6.a
 		GBR = {
-			country_event = { id = lar_portugal_iberian_summit.8 days = 1 }
+			country_event = {
+				id = lar_portugal_iberian_summit.8
+				days = 1
+			}
 		}
 		effect_tooltip = {
 			FROM = {
@@ -661,13 +796,10 @@ country_event = {
 	title = lar_portugal_iberian_summit.7.t
 	desc = lar_portugal_iberian_summit.7.desc
 	picture = GFX_report_event_generic_conference
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_iberian_summit.7.a
-
-		custom_effect_tooltip =  lar_portugal_iberian_summit.5_b_tt
+		custom_effect_tooltip = lar_portugal_iberian_summit.5_b_tt
 		effect_tooltip = {
 			FROM = {
 				add_opinion_modifier = {
@@ -687,100 +819,129 @@ country_event = {
 	}
 }
 
-# Event for GBR - PRT & SPD/SPA asks to join Faction
+# Event for GBR - PRT & SPD/ESP asks to join Faction
 country_event = {
 	id = lar_portugal_iberian_summit.8
 	title = lar_portugal_iberian_summit.8.t
 	desc = lar_portugal_iberian_summit.8.desc
 	picture = GFX_report_event_por_salazar_franco1
-
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			save_event_target_as = alliance_inviter
 			clear_variable = global.POR_iberian_summit_target
 		}
 	}
-
 	# Accept them
 	option = {
-		name = lar_portugal_iberian_summit.8.a 
-
+		name = lar_portugal_iberian_summit.8.a
 		ai_chance = {
 			base = 50
-			modifier = {	# Good Opinion of Portugal
+			modifier = {
+				# Good Opinion of Portugal
 				add = 25
-				has_opinion = { target = PRT value > 10 }
+				has_opinion = {
+					target = PRT
+					value > 10
+				}
 			}
-			modifier = {	# Good Opinion of Spain
+			modifier = {
+				# Good Opinion of Spain
 				add = 25
 				OR = {
-					country_exists = SPA
-					has_opinion = { target = SPA value > 10 }
+					country_exists = ESP
+					has_opinion = {
+						target = ESP
+						value > 10
+					}
 				}
 				OR = {
 					country_exists = SPD
-					has_opinion = { target = SPD value > 10 }
-				}				
+					has_opinion = {
+						target = SPD
+						value > 10
+					}
+				}
 			}
-			modifier = {	# Bad strength ratio
+			modifier = {
+				# Bad strength ratio
 				factor = 1.5
 				alliance_strength_ratio < 1
-			}				
-			modifier = {	# Not making progress in wars
+			}
+			modifier = {
+				# Not making progress in wars
 				factor = 1.5
 				any_war_score < 50
 			}
 		}
-
 		hidden_effect = {
-			news_event = { id = lar_news.23 days = 3 random_days = 5 }
+			news_event = {
+				id = lar_news.23
+				days = 3
+				random_days = 5
+			}
 		}
-
 		add_to_faction = PRT
-		hidden_effect = { 
-			PRT = { country_event = generic.3 } 
+		hidden_effect = {
+			PRT = {
+				country_event = generic.3
+			}
 		}
 		if = {
-			limit = { country_exists = SPD }
+			limit = {
+				country_exists = SPD
+			}
 			add_to_faction = SPD
 			hidden_effect = {
-				SPD = { country_event = generic.3 }
+				SPD = {
+					country_event = generic.3
+				}
 			}
 		}
 		else = {
-			add_to_faction = SPA
-			hidden_effect = { 
-				SPA = { country_event = generic.3 }
+			add_to_faction = ESP
+			hidden_effect = {
+				ESP = {
+					country_event = generic.3
+				}
 			}
 		}
 		clr_global_flag = POR_iberian_summit_in_progress_flag
 		set_global_flag = POR_iberian_summit_successful_flag
-
 	}
 	# Deny
 	option = {
 		name = lar_portugal_iberian_summit.8.b
-
 		ai_chance = {
 			base = 50
-			modifier = {	# Bad Opinion of Portugal
+			modifier = {
+				# Bad Opinion of Portugal
 				add = 25
-				has_opinion = { target = PRT value < -10 }
+				has_opinion = {
+					target = PRT
+					value < -10
+				}
 			}
-			modifier = {	# Bad Opinion of Spain
+			modifier = {
+				# Bad Opinion of Spain
 				add = 25
 				OR = {
-					country_exists = SPA
-					has_opinion = { target = SPA value < -10 }
+					country_exists = ESP
+					has_opinion = {
+						target = ESP
+						value < -10
+					}
 				}
 				OR = {
 					country_exists = SPD
-					has_opinion = { target = SPD value < -10 }
+					has_opinion = {
+						target = SPD
+						value < -10
+					}
 				}
-			}	
-			modifier = {	# Has War Goal or is justifying in Iberian countries
+			}
+			modifier = {
+				# Has War Goal or is justifying in Iberian countries
 				factor = 100
 				OR = {
 					has_wargoal_against = PRT
@@ -789,7 +950,8 @@ country_event = {
 					is_justifying_wargoal_against = global.POR_iberian_summit_spanish_tag
 				}
 			}
-			modifier = {	# Ally has War Goal or is justifying in Iberian countries
+			modifier = {
+				# Ally has War Goal or is justifying in Iberian countries
 				factor = 2
 				any_allied_country = {
 					OR = {
@@ -799,16 +961,23 @@ country_event = {
 						is_justifying_wargoal_against = global.POR_iberian_summit_spanish_tag
 					}
 				}
-			}			
+			}
 		}
-		
-		PRT = { country_event = generic.4 }
+		PRT = {
+			country_event = generic.4
+		}
 		if = {
-		limit = { country_exists = SPD }
-			SPD = { country_event = generic.4 }
+			limit = {
+				country_exists = SPD
+			}
+			SPD = {
+				country_event = generic.4
+			}
 		}
 		else = {
-			SPA = { country_event = generic.4 }
+			ESP = {
+				country_event = generic.4
+			}
 		}
 		clr_global_flag = POR_iberian_summit_in_progress_flag
 	}
@@ -820,16 +989,12 @@ country_event = {
 	title = lar_portugal_iberian_summit.9.t
 	desc = lar_portugal_iberian_summit.9.desc
 	picture = GFX_report_event_por_estado_novo
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_iberian_summit.9.a
-
 		clr_global_flag = POR_iberian_summit_in_progress_flag
 	}
 }
-
 
 ######## NAVY MUTINY ########
 # Navy Mutiny - Mutineers want to help SPD in the SCW
@@ -838,153 +1003,199 @@ country_event = {
 	title = lar_portugal_navy_mutiny.1.t
 	desc = lar_portugal_navy_mutiny.1.desc
 	picture = GFX_report_event_destroyers
-
-	mean_time_to_happen = { days = 120 }
-
+	mean_time_to_happen = {
+		days = 120
+	}
 	fire_only_once = yes
-
 	trigger = {
 		original_tag = PRT
 		SPR_scw_in_progress = yes
 		country_exists = SPD
-		NOT = { has_completed_focus = POR_support_the_spanish_republic }
+		NOT = {
+			has_completed_focus = POR_support_the_spanish_republic
+		}
 	}
-
 	immediate = {
-		set_variable = { transfer_target = SPD }
-		set_variable = { POR_ships_revolted = 0 }
+		set_variable = {
+			transfer_target = SPD
+		}
+		set_variable = {
+			POR_ships_revolted = 0
+		}
 	}
-
 	# Allow them to leave port (Only Popular Front)
 	option = {
 		name = lar_portugal_navy_mutiny.1.a
-
 		ai_chance = {
 			base = 50
 		}
-
 		trigger = {
 			has_completed_focus = POR_popular_front
 		}
 		hidden_effect = {
 			transfer_ship = {
-			    prefer_name = "NRP Dão"
-			    type = destroyer
-			    target = transfer_target 
+				prefer_name = "NRP Dão"
+				type = destroyer
+				target = transfer_target
 			}
-			add_to_variable = { POR_ships_revolted = 1 } # 1
+			add_to_variable = {
+				POR_ships_revolted = 1
+			}			# 1
 			if = {
 				limit = {
 					communism > 0.1
 				}
 				transfer_ship = {
-				    type = destroyer
-				    prefer_name = "NRP Douro"
-				    target = transfer_target
+					type = destroyer
+					prefer_name = "NRP Douro"
+					target = transfer_target
 				}
-				add_to_variable = { POR_ships_revolted = 1 } # 2
+				add_to_variable = {
+					POR_ships_revolted = 1
+				}				# 2
 			}
 			if = {
 				limit = {
 					communism > 0.25
 				}
 				transfer_ship = {
-				    type = destroyer
-				    prefer_name = "NRP Tejo"
-				    target = transfer_target
+					type = destroyer
+					prefer_name = "NRP Tejo"
+					target = transfer_target
 				}
-				add_to_variable = { POR_ships_revolted = 1 } # 3
+				add_to_variable = {
+					POR_ships_revolted = 1
+				}				# 3
 			}
 			if = {
 				limit = {
 					communism > 0.4
 				}
 				transfer_ship = {
-				    type = destroyer
-				    prefer_name = "NRP Tamega"
-				    target = transfer_target
+					type = destroyer
+					prefer_name = "NRP Tamega"
+					target = transfer_target
 				}
-				add_to_variable = { POR_ships_revolted = 1 } # 4
+				add_to_variable = {
+					POR_ships_revolted = 1
+				}				# 4
 			}
 			if = {
 				limit = {
 					communism > 0.6
 				}
 				transfer_ship = {
-				    type = destroyer
-				    prefer_name = "NRP Vouga"
-				    target = transfer_target
+					type = destroyer
+					prefer_name = "NRP Vouga"
+					target = transfer_target
 				}
-				add_to_variable = { POR_ships_revolted = 1 } # 5
+				add_to_variable = {
+					POR_ships_revolted = 1
+				}				# 5
 			}
 			if = {
 				limit = {
 					communism > 0.75
 				}
 				transfer_ship = {
-				    type = destroyer
-				    prefer_name = "NRP Lima"
-				    target = transfer_target
+					type = destroyer
+					prefer_name = "NRP Lima"
+					target = transfer_target
 				}
-				add_to_variable = { POR_ships_revolted = 1 } # 6
+				add_to_variable = {
+					POR_ships_revolted = 1
+				}				# 6
 			}
-
-			set_variable = { POR_ships_revolted_not_including_dao = POR_ships_revolted }
-			add_to_variable = {POR_ships_revolted_not_including_dao = -1 }
-
+			set_variable = {
+				POR_ships_revolted_not_including_dao = POR_ships_revolted
+			}
+			add_to_variable = {
+				POR_ships_revolted_not_including_dao = -1
+			}
 			set_country_flag = POR_navy_mutiny_allowed_flag
-			SPD = { country_event = { id = lar_portugal_navy_mutiny.4 } }
-			country_event = { id = lar_portugal_navy_mutiny.2 days = 1 }
+			SPD = {
+				country_event = {
+					id = lar_portugal_navy_mutiny.4
+				}
+			}
+			country_event = {
+				id = lar_portugal_navy_mutiny.2
+				days = 1
+			}
 		}
 		custom_effect_tooltip = lar_portugal_navy_mutiny.1_allow_tt
 	}
-
 	# Stop those mutineers
 	option = {
 		name = lar_portugal_navy_mutiny.1.b
-
 		ai_chance = {
 			base = 50
 		}
-
 		hidden_effect = {
-			set_temp_variable = { opposition_factor = party_popularity@neutrality }
-			add_to_temp_variable = { opposition_factor = party_popularity@fascism }
-			add_to_temp_variable = { opposition_factor = party_popularity@democratic }
-			multiply_temp_variable = { opposition_factor = 100 }
-
-			set_temp_variable = { communist_factor = party_popularity@communism }
-			multiply_temp_variable = { communist_factor = 300 } #Probability to suceed
-
+			set_temp_variable = {
+				opposition_factor = party_popularity@neutrality
+			}
+			add_to_temp_variable = {
+				opposition_factor = party_popularity@fascism
+			}
+			add_to_temp_variable = {
+				opposition_factor = party_popularity@democratic
+			}
+			multiply_temp_variable = {
+				opposition_factor = 100
+			}
+			set_temp_variable = {
+				communist_factor = party_popularity@communism
+			}
+			multiply_temp_variable = {
+				communist_factor = 300
+			}			#Probability to suceed
 			random_list = {
 				temp_var:opposition_factor = {
 				}
 				temp_var:communist_factor = {
-					add_to_variable = { POR_ships_revolted = 1 } # 1
-
-					set_temp_variable = { communist_factor = party_popularity@communism }
-					multiply_temp_variable = { communist_factor = 250 } #Probability to suceed
+					add_to_variable = {
+						POR_ships_revolted = 1
+					}					# 1
+					set_temp_variable = {
+						communist_factor = party_popularity@communism
+					}
+					multiply_temp_variable = {
+						communist_factor = 250
+					}					#Probability to suceed
 					random_list = {
 						temp_var:opposition_factor = {
 						}
 						temp_var:communist_factor = {
-							add_to_variable = { POR_ships_revolted = 1 } # 2
-
-							set_temp_variable = { communist_factor = party_popularity@communism }
-							multiply_temp_variable = { communist_factor = 200 } #Probability to suceed
+							add_to_variable = {
+								POR_ships_revolted = 1
+							}							# 2
+							set_temp_variable = {
+								communist_factor = party_popularity@communism
+							}
+							multiply_temp_variable = {
+								communist_factor = 200
+							}							#Probability to suceed
 							random_list = {
 								temp_var:opposition_factor = {
 								}
 								temp_var:communist_factor = {
-									add_to_variable = { POR_ships_revolted = 1 } # 3
-
-									set_temp_variable = { communist_factor = party_popularity@communism }
-									multiply_temp_variable = { communist_factor = 100 } #Probability to suceed
+									add_to_variable = {
+										POR_ships_revolted = 1
+									}									# 3
+									set_temp_variable = {
+										communist_factor = party_popularity@communism
+									}
+									multiply_temp_variable = {
+										communist_factor = 100
+									}									#Probability to suceed
 									random_list = {
 										temp_var:opposition_factor = {
 										}
 										temp_var:communist_factor = {
-											add_to_variable = { POR_ships_revolted = 1 } # 4
+											add_to_variable = {
+												POR_ships_revolted = 1
+											}											# 4
 										}
 									}
 								}
@@ -993,7 +1204,10 @@ country_event = {
 					}
 				}
 			}
-			country_event = { id = lar_portugal_navy_mutiny.3 days = 1 }
+			country_event = {
+				id = lar_portugal_navy_mutiny.3
+				days = 1
+			}
 		}
 		custom_effect_tooltip = lar_portugal_navy_mutiny.1_stop_tt
 	}
@@ -1007,24 +1221,28 @@ country_event = {
 	desc = {
 		text = lar_portugal_navy_mutiny.2.desc
 		trigger = {
-			check_variable = { POR_ships_revolted = 1 }
+			check_variable = {
+				POR_ships_revolted = 1
+			}
 		}
 	}
 	# Desc when other ships follow Dão to SPD
 	desc = {
 		text = lar_portugal_navy_mutiny.2_extra.desc
 		trigger = {
-			check_variable = { POR_ships_revolted > 1 }			
+			check_variable = {
+				POR_ships_revolted > 1
+			}
 		}
 	}
 	picture = GFX_report_event_ast_navy
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_navy_mutiny.2.a
-		hidden_effect = { 
-			SPD = { set_country_flag = POR_got_portuguese_mutineers_flag }
+		hidden_effect = {
+			SPD = {
+				set_country_flag = POR_got_portuguese_mutineers_flag
+			}
 		}
 		# Add Dão (previously not added) to the array to transfer the correct ammount of ships back after SCW
 		custom_effect_tooltip = lar_portugal_navy_mutiny.2_tt
@@ -1039,75 +1257,88 @@ country_event = {
 	desc = {
 		text = lar_portugal_navy_mutiny.3.desc
 		trigger = {
-			check_variable = { POR_ships_revolted = 0 }	
+			check_variable = {
+				POR_ships_revolted = 0
+			}
 		}
 	}
 	# Desc when any ship makes it out of harbour
 	desc = {
 		text = lar_portugal_navy_mutiny.3_extra.desc
 		trigger = {
-			check_variable = { POR_ships_revolted > 0 }	
+			check_variable = {
+				POR_ships_revolted > 0
+			}
 		}
 	}
 	picture = GFX_report_event_portugal_navy_mutiny_prisoners
-
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
-			if = { 
-				limit = { 
-					check_variable = { POR_ships_revolted > 0 }
+			if = {
+				limit = {
+					check_variable = {
+						POR_ships_revolted > 0
+					}
 				}
 				transfer_ship = {
-				    type = destroyer
-				    prefer_name = "NRP Dão"
-				    target = transfer_target
+					type = destroyer
+					prefer_name = "NRP Dão"
+					target = transfer_target
 				}
 				if = {
 					limit = {
-						check_variable = { POR_ships_revolted > 1 }
+						check_variable = {
+							POR_ships_revolted > 1
+						}
 					}
 					transfer_ship = {
-					    type = destroyer
-					    prefer_name = "NRP Douro"
-					    target = transfer_target
+						type = destroyer
+						prefer_name = "NRP Douro"
+						target = transfer_target
 					}
 					if = {
 						limit = {
-							check_variable = { POR_ships_revolted > 2 }
+							check_variable = {
+								POR_ships_revolted > 2
+							}
 						}
 						transfer_ship = {
-						    type = destroyer
-						    prefer_name = "NRP Tejo"
-						    target = transfer_target
+							type = destroyer
+							prefer_name = "NRP Tejo"
+							target = transfer_target
 						}
 						if = {
 							limit = {
-								check_variable = { POR_ships_revolted > 3 }
+								check_variable = {
+									POR_ships_revolted > 3
+								}
 							}
 							transfer_ship = {
-							    type = destroyer
-							    prefer_name = "NRP Tamega"
-							    target = transfer_target
+								type = destroyer
+								prefer_name = "NRP Tamega"
+								target = transfer_target
 							}
 						}
 					}
 				}
-				SPD = { 
-					country_event = { id = lar_portugal_navy_mutiny.4 } 
+				SPD = {
+					country_event = {
+						id = lar_portugal_navy_mutiny.4
+					}
 					set_country_flag = POR_got_portuguese_mutineers_flag
 				}
 			}
 		}
 	}
-
-	option = { 
+	option = {
 		name = lar_portugal_navy_mutiny.3.a
 		add_manpower = -500
 		if = {
 			limit = {
-				check_variable = { POR_ships_revolted = 0 }
+				check_variable = {
+					POR_ships_revolted = 0
+				}
 			}
 			custom_effect_tooltip = lar_portugal_navy_mutiny.3_no_ships_tt
 		}
@@ -1121,28 +1352,30 @@ country_event = {
 country_event = {
 	id = lar_portugal_navy_mutiny.4
 	title = lar_portugal_navy_mutiny.4.t
-
-	desc = { #Mutiny allowed
+	desc = {
+		#Mutiny allowed
 		text = lar_portugal_navy_mutiny.4.desc
 		trigger = {
-			PRT = { has_country_flag = POR_navy_mutiny_allowed_flag }
+			PRT = {
+				has_country_flag = POR_navy_mutiny_allowed_flag
+			}
 		}
 	}
-
-	desc = { #Mutiny was not allowed
+	desc = {
+		#Mutiny was not allowed
 		text = lar_portugal_navy_mutiny.4_extra.desc
 		trigger = {
-			PRT = { NOT = { has_country_flag = POR_navy_mutiny_allowed_flag } }
+			PRT = {
+				NOT = {
+					has_country_flag = POR_navy_mutiny_allowed_flag
+				}
+			}
 		}
 	}
-
 	picture = GFX_report_event_ast_navy
-
 	is_triggered_only = yes
-
-	option = { 
+	option = {
 		name = lar_portugal_navy_mutiny.4.a
-
 		custom_effect_tooltip = lar_portugal_navy_mutiny.4_tt
 	}
 }
@@ -1151,26 +1384,21 @@ country_event = {
 country_event = {
 	id = lar_portugal_navy_mutiny.5
 	title = lar_portugal_navy_mutiny.5.t
-
 	desc = lar_portugal_navy_mutiny.5.desc
-
 	picture = GFX_report_event_ast_navy
-
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			random_country = {
 				limit = {
-					original_tag = SPR
+					original_tag = ESP
 					has_country_flag = POR_got_portuguese_mutineers_flag
 				}
 				country_event = lar_portugal_navy_mutiny.6
 			}
 		}
 	}
-
-	option = { 
+	option = {
 		name = lar_portugal_navy_mutiny.5.a
 		custom_effect_tooltip = lar_portugal_navy_mutiny.5_tt
 	}
@@ -1180,13 +1408,9 @@ country_event = {
 country_event = {
 	id = lar_portugal_navy_mutiny.6
 	title = lar_portugal_navy_mutiny.6.t
-
 	desc = lar_portugal_navy_mutiny.6.desc
-
 	picture = GFX_report_event_sailors_in_working_rig
-
 	is_triggered_only = yes
-
 	immediate = {
 		transfer_ship = {
 			type = destroyer
@@ -1196,7 +1420,9 @@ country_event = {
 		PRT = {
 			if = {
 				limit = {
-					check_variable = { POR_ships_revolted > 1 }
+					check_variable = {
+						POR_ships_revolted > 1
+					}
 				}
 				ROOT = {
 					transfer_ship = {
@@ -1207,7 +1433,9 @@ country_event = {
 				}
 				if = {
 					limit = {
-						check_variable = { POR_ships_revolted > 2 }
+						check_variable = {
+							POR_ships_revolted > 2
+						}
 					}
 					ROOT = {
 						transfer_ship = {
@@ -1218,7 +1446,9 @@ country_event = {
 					}
 					if = {
 						limit = {
-							check_variable = { POR_ships_revolted > 3 }
+							check_variable = {
+								POR_ships_revolted > 3
+							}
 						}
 						ROOT = {
 							transfer_ship = {
@@ -1232,8 +1462,7 @@ country_event = {
 			}
 		}
 	}
-
-	option = { 
+	option = {
 		name = lar_portugal_navy_mutiny.6.a
 		hidden_effect = {
 			clr_country_flag = POR_got_portuguese_mutineers_flag
@@ -1242,7 +1471,6 @@ country_event = {
 	}
 }
 
-
 ###### IBERIAN WORKERS UNITED #####
 # Iberian Workers United
 country_event = {
@@ -1250,15 +1478,28 @@ country_event = {
 	title = lar_portugal_iberian_workers_united.1.t
 	desc = lar_portugal_iberian_workers_united.1.desc
 	picture = GFX_report_event_generic_rifles
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_iberian_workers_united.1.a
-		hidden_effect = { add_timed_idea = { idea = POR_iberian_workers_united days = 730 } }
+		hidden_effect = {
+			add_timed_idea = {
+				idea = POR_iberian_workers_united
+				days = 730
+			}
+		}
 		effect_tooltip = {
-			PRT = { add_timed_idea = { idea = POR_iberian_workers_united days = 730 } }
-			SPD = { add_timed_idea = { idea = POR_iberian_workers_united days = 730 } }
+			PRT = {
+				add_timed_idea = {
+					idea = POR_iberian_workers_united
+					days = 730
+				}
+			}
+			SPD = {
+				add_timed_idea = {
+					idea = POR_iberian_workers_united
+					days = 730
+				}
+			}
 		}
 	}
 }
@@ -1269,80 +1510,97 @@ country_event = {
 	title = lar_portugal_iberian_workers_united.2.t
 	desc = lar_portugal_iberian_workers_united.2.desc
 	picture = GFX_report_event_generic_communist_congress
-
 	is_triggered_only = yes
-
-	option = { # Accept
+	option = {
+		# Accept
 		name = lar_portugal_iberian_workers_united.2.a
 		ai_chance = {
 			base = 100
-			modifier = {	# Not Stalinist - After Anarchist CW
+			modifier = {
+				# Not Stalinist - After Anarchist CW
 				add = 15
 				has_completed_focus = SPR_hinder_nkvd_interference
 			}
 		}
-
 		trigger = {
 			has_war = no
 		}
-
 		hidden_effect = {
 			if = {
-				limit = { 
-					NOT = { has_global_flag = POR_iberian_union_successful_flag }
+				limit = {
+					NOT = {
+						has_global_flag = POR_iberian_union_successful_flag
+					}
 				}
 				set_global_flag = POR_iberian_union_successful_flag
-				PRT = {	news_event = { id = lar_news.27 days = 3 random_days = 3 } }
+				PRT = {
+					news_event = {
+						id = lar_news.27
+						days = 3
+						random_days = 3
+					}
+				}
 			}
 		}
-
 		hidden_effect = {
 			every_owned_state = {
 				limit = {
 					is_core_of = ROOT
-					NOT = { has_state_flag = SPR_core_of_spain_flag }
+					NOT = {
+						has_state_flag = SPR_core_of_spain_flag
+					}
 				}
 				add_core_of = FROM
 			}
 			FROM = {
 				annex_country = {
-				    target = ROOT
-				    transfer_troops = yes
+					target = ROOT
+					transfer_troops = yes
 				}
 			}
 		}
 		custom_effect_tooltip = lar_portugal_iberian_workers_united.2.a_tt
 		custom_effect_tooltip = GAME_OVER_TT
 	}
-
-	option = { # Refuse
+	option = {
+		# Refuse
 		name = lar_portugal_iberian_workers_united.2.b
 		ai_chance = {
 			base = 0
-			modifier = {	# Democratic I
+			modifier = {
+				# Democratic I
 				add = 10
 				has_completed_focus = SPR_maintain_the_second_republic
 			}
-			modifier = {	# Democratic II
+			modifier = {
+				# Democratic II
 				add = 5
 				has_completed_focus = SPR_secure_democratic_principles
 			}
-			modifier = {	# Democratic III
+			modifier = {
+				# Democratic III
 				add = 5
 				has_completed_focus = SPR_war_of_independence
 			}
-			modifier = {	# Stalinist I
+			modifier = {
+				# Stalinist I
 				add = 10
 				has_completed_focus = SPR_the_stalinist_doctrine
 			}
-			modifier = {	# Stalinist II
+			modifier = {
+				# Stalinist II
 				add = 5
 				has_completed_focus = SPR_appeal_for_increased_autonomy
 			}
-			modifier = { # Spanish Releasables will be reluctant to accept if they have different Ideology
+			modifier = {
+				# Spanish Releasables will be reluctant to accept if they have different Ideology
 				add = 100
-				NOT = { tag = SPD }
-				NOT = { has_government = ROOT }
+				NOT = {
+					tag = SPD
+				}
+				NOT = {
+					has_government = ROOT
+				}
 			}
 		}
 		PRT = {
@@ -1354,7 +1612,6 @@ country_event = {
 	}
 }
 
-
 ######## REFUSE NAVAL BLOCKADE ########
 # Event for Major countries at war with GBR
 country_event = {
@@ -1362,14 +1619,14 @@ country_event = {
 	title = lar_portugal_naval_blockade.1.t
 	desc = lar_portugal_naval_blockade.1.desc
 	picture = GFX_report_event_merchant_ship_01
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_naval_blockade.1.a
 		custom_effect_tooltip = lar_portugal_naval_blockade.1_tt
 		every_country = {
-			limit = { has_war_with = GBR }
+			limit = {
+				has_war_with = GBR
+			}
 			unlock_decision_tooltip = POR_evade_blockade_with_portuguese_convoys
 		}
 	}
@@ -1381,18 +1638,21 @@ country_event = {
 	title = lar_portugal_naval_blockade.2.t
 	desc = lar_portugal_naval_blockade.2.desc
 	picture = GFX_report_event_merchant_ship_01
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_naval_blockade.2.a
 		add_equipment_to_stockpile = {
-            type = convoy_1
-            amount = -50
-        }
-		add_offsite_building = { type = industrial_complex  level = 1 }
+			type = convoy_1
+			amount = -50
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
 		FROM = {
-			effect_tooltip = { add_war_support = 0.1 }
+			effect_tooltip = {
+				add_war_support = 0.1
+			}
 		}
 	}
 }
@@ -1403,14 +1663,14 @@ country_event = {
 	title = lar_portugal_naval_blockade.3.t
 	desc = lar_portugal_naval_blockade.3.desc
 	picture = GFX_report_event_merchant_ship_01
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_naval_blockade.3.a
 		custom_effect_tooltip = lar_portugal_naval_blockade.1_tt
 		every_country = {
-			limit = { has_war_with = GBR }
+			limit = {
+				has_war_with = GBR
+			}
 			unlock_decision_tooltip = POR_evade_blockade_with_portuguese_convoys
 		}
 		effect_tooltip = {
@@ -1418,7 +1678,7 @@ country_event = {
 				target = PRT
 				modifier = POR_anglo_portuguese_alliance
 			}
-			PRT= {
+			PRT = {
 				remove_opinion_modifier = {
 					target = GBR
 					modifier = POR_anglo_portuguese_alliance
@@ -1428,7 +1688,6 @@ country_event = {
 	}
 }
 
-
 ######## PURCHASE SHIPS FROM BRITAIN / ITALY ########
 #Event for GBR/ITA to accept or reject Portuguese proposal to purchase ships
 country_event = {
@@ -1436,50 +1695,63 @@ country_event = {
 	title = lar_portugal_purchase_ships.1.t
 	desc = lar_portugal_purchase_ships.1.desc
 	picture = GFX_report_event_sailors_in_working_rig
-
 	is_triggered_only = yes
-
-	option = { #Accept
+	option = {
+		#Accept
 		name = lar_portugal_purchase_ships.1.a
-
 		ai_chance = {
 			base = 99
 			modifier = {
 				factor = 0
 				OR = {
-					has_opinion = { target = PRT value < 0 }
+					has_opinion = {
+						target = PRT
+						value < 0
+					}
 					has_civil_war = yes
 					has_capitulated = yes
 					has_war = yes
 					AND = {
 						tag = GBR
-						NOT = { owns_state = 126 } #Owns London
+						NOT = {
+							owns_state = 126
+						}						#Owns London
 					}
 					AND = {
 						tag = ITA
-						NOT = { owns_state = 2 } #Owns Rome
+						NOT = {
+							owns_state = 2
+						}						#Owns Rome
 					}
 				}
 			}
 		}
-
 		custom_effect_tooltip = lar_portugal_purchase_ships.1.a_tt
 		PRT = {
-			country_event = { id = lar_portugal_purchase_ships.2 hours = 8 random_hours = 4 }
+			country_event = {
+				id = lar_portugal_purchase_ships.2
+				hours = 8
+				random_hours = 4
+			}
 		}
 	}
-	option = { #Reject
+	option = {
+		#Reject
 		name = lar_portugal_purchase_ships.1.b
-
 		ai_chance = {
 			base = 1
 		}
-
 		PRT = {
-			country_event = { id = lar_portugal_purchase_ships.3 hours = 8 random_hours = 4 }
+			country_event = {
+				id = lar_portugal_purchase_ships.3
+				hours = 8
+				random_hours = 4
+			}
 			if = {
-				limit = { 
-					ROOT = { tag = GBR }
+				limit = {
+					ROOT = {
+						tag = GBR
+					}
 				}
 				set_country_flag = {
 					flag = POR_british_ships_purchase_rejected_flag
@@ -1488,8 +1760,10 @@ country_event = {
 				}
 			}
 			else_if = {
-				limit = { 
-					ROOT = { tag = ITA }
+				limit = {
+					ROOT = {
+						tag = ITA
+					}
 				}
 				set_country_flag = {
 					flag = POR_italian_ships_purchase_rejected_flag
@@ -1507,15 +1781,13 @@ country_event = {
 	title = lar_portugal_purchase_ships.2.t
 	desc = lar_portugal_purchase_ships.2.desc
 	picture = GFX_report_event_sailors_in_working_rig
-
 	is_triggered_only = yes
-
-	option = { # 3 Submarines - 1 Year
+	option = {
+		# 3 Submarines - 1 Year
 		name = lar_portugal_purchase_ships.2.a
 		ai_chance = {
 			base = 34
 		}
-
 		FROM = {
 			add_offsite_building = {
 				type = industrial_complex
@@ -1527,7 +1799,11 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { FROM = { tag = GBR } }
+			limit = {
+				FROM = {
+					tag = GBR
+				}
+			}
 			add_opinion_modifier = {
 				target = GBR
 				modifier = POR_sold_ships
@@ -1540,7 +1816,11 @@ country_event = {
 			set_country_flag = POR_purchase_british_submarines_flag
 		}
 		else_if = {
-			limit = { FROM = { tag = ITA } }
+			limit = {
+				FROM = {
+					tag = ITA
+				}
+			}
 			add_opinion_modifier = {
 				target = ITA
 				modifier = POR_sold_ships
@@ -1553,12 +1833,12 @@ country_event = {
 			set_country_flag = POR_purchase_italian_submarines_flag
 		}
 	}
-	option = { # 2 Destroyers - 2 Years
+	option = {
+		# 2 Destroyers - 2 Years
 		name = lar_portugal_purchase_ships.2.b
 		ai_chance = {
 			base = 33
 		}
-		
 		FROM = {
 			add_offsite_building = {
 				type = industrial_complex
@@ -1570,7 +1850,11 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { FROM = { tag = GBR } }
+			limit = {
+				FROM = {
+					tag = GBR
+				}
+			}
 			add_opinion_modifier = {
 				target = GBR
 				modifier = POR_sold_ships
@@ -1583,7 +1867,11 @@ country_event = {
 			set_country_flag = POR_purchase_british_destroyers_flag
 		}
 		else_if = {
-			limit = { FROM = { tag = ITA } }
+			limit = {
+				FROM = {
+					tag = ITA
+				}
+			}
 			add_opinion_modifier = {
 				target = ITA
 				modifier = POR_sold_ships
@@ -1596,12 +1884,12 @@ country_event = {
 			set_country_flag = POR_purchase_italian_destroyers_flag
 		}
 	}
-	option = { # 1 Light Cruiser - 3 Years
+	option = {
+		# 1 Light Cruiser - 3 Years
 		name = lar_portugal_purchase_ships.2.c
 		ai_chance = {
 			base = 33
 		}
-
 		FROM = {
 			add_offsite_building = {
 				type = industrial_complex
@@ -1613,7 +1901,11 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { FROM = { tag = GBR } }
+			limit = {
+				FROM = {
+					tag = GBR
+				}
+			}
 			add_opinion_modifier = {
 				target = GBR
 				modifier = POR_sold_ships
@@ -1626,7 +1918,11 @@ country_event = {
 			set_country_flag = POR_purchase_british_light_cruiser_flag
 		}
 		else_if = {
-			limit = { FROM = { tag = ITA } }
+			limit = {
+				FROM = {
+					tag = ITA
+				}
+			}
 			add_opinion_modifier = {
 				target = ITA
 				modifier = POR_sold_ships
@@ -1647,9 +1943,7 @@ country_event = {
 	title = lar_portugal_purchase_ships.3.t
 	desc = lar_portugal_purchase_ships.3.desc
 	picture = GFX_report_event_generic_sign_treaty2
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_purchase_ships.3.a
 		clr_country_flag = POR_ships_purchase_in_progress_flag
@@ -1662,9 +1956,7 @@ country_event = {
 	title = lar_portugal_purchase_ships.4.t
 	desc = lar_portugal_purchase_ships.4.desc
 	picture = GFX_report_event_ast_navy
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_purchase_ships.4.a
 		custom_effect_tooltip = lar_portugal_purchase_ships.4.a_tt
@@ -1677,9 +1969,7 @@ country_event = {
 	title = lar_portugal_purchase_ships.5.t
 	desc = lar_portugal_purchase_ships.5.desc
 	picture = GFX_report_event_ast_navy
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_purchase_ships.5.a
 		custom_effect_tooltip = lar_portugal_purchase_ships.5.a_tt
@@ -1692,15 +1982,12 @@ country_event = {
 	title = lar_portugal_purchase_ships.6.t
 	desc = lar_portugal_purchase_ships.6.desc
 	picture = GFX_report_event_ast_navy
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_purchase_ships.6.a
 		custom_effect_tooltip = lar_portugal_purchase_ships.6.a_tt
 	}
 }
-
 
 ######## PROMOTE MONARCHIST CAUSE ########
 # Event for Brazil when Portugal activates "Promote Monarchist Cause in Brazil" Decision
@@ -1709,9 +1996,7 @@ country_event = {
 	title = lar_portugal_promote_monarchist_cause.1.t
 	desc = lar_portugal_promote_monarchist_cause.1.desc
 	picture = GFX_report_event_generic_rally
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_promote_monarchist_cause.1.a
 		unlock_decision_tooltip = POR_repress_brazilian_monarchists
@@ -1724,45 +2009,55 @@ country_event = {
 	title = lar_portugal_promote_monarchist_cause.2.t
 	desc = lar_portugal_promote_monarchist_cause.2.desc
 	picture = GFX_report_event_por_president_military_inspection
-
 	is_triggered_only = yes
-
-	option = { # Accept
+	option = {
+		# Accept
 		name = lar_portugal_promote_monarchist_cause.2.a
 		ai_chance = {
 			factor = 80
-			modifier = { #Not non-aligned Brazil will never accept
+			modifier = {
+				#Not non-aligned Brazil will never accept
 				factor = 0
-				NOT = { has_government = neutrality }
+				NOT = {
+					has_government = neutrality
+				}
 			}
 		}
-		
 		hidden_effect = {
-			PRT = { news_event = { id = lar_news.26 days = 3 random_days = 5 } }
+			PRT = {
+				news_event = {
+					id = lar_news.26
+					days = 3
+					random_days = 5
+				}
+			}
 			every_state = {
-				limit = { is_core_of = BRA }
-				add_core_of  = PRT
+				limit = {
+					is_core_of = BRA
+				}
+				add_core_of = PRT
 			}
 		}
 		PRT = {
 			country_event = lar_portugal_promote_monarchist_cause.5
-			annex_country = { 
+			annex_country = {
 				target = ROOT
 				transfer_troops = yes
 			}
 			hidden_effect = {
-				set_cosmetic_tag = KPB_kingdom_portugal_and_brazil	
+				set_cosmetic_tag = KPB_kingdom_portugal_and_brazil
 			}
 		}
 		custom_effect_tooltip = POR_kingdom_reunited_tooltip_tt
 		custom_effect_tooltip = GAME_OVER_TT
 	}
-
-	option = { # Refuse
+	option = {
+		# Refuse
 		name = lar_portugal_promote_monarchist_cause.2.b
 		ai_chance = {
 			factor = 20
-			modifier = { # If PRT helped during the CW, Monarchist BRA will be willing to accept
+			modifier = {
+				# If PRT helped during the CW, Monarchist BRA will be willing to accept
 				factor = 0
 				has_global_flag = POR_portugal_joined_brazilian_civil_war_flag
 				has_government = neutrality
@@ -1770,11 +2065,13 @@ country_event = {
 		}
 		PRT = {
 			create_wargoal = {
-			  	target = ROOT
-			    type = annex_everything
+				target = ROOT
+				type = annex_everything
 			}
-			hidden_effect = { country_event = lar_portugal_promote_monarchist_cause.6 }
-		}		
+			hidden_effect = {
+				country_event = lar_portugal_promote_monarchist_cause.6
+			}
+		}
 	}
 }
 
@@ -1782,35 +2079,36 @@ country_event = {
 country_event = {
 	id = lar_portugal_promote_monarchist_cause.3
 	title = lar_portugal_promote_monarchist_cause.3.t
-
 	desc = {
-		text = lar_portugal_promote_monarchist_cause.3.desc #Pro-Monarchist
+		text = lar_portugal_promote_monarchist_cause.3.desc		#Pro-Monarchist
 		trigger = {
 			has_country_flag = POR_brazil_supports_monarchism_flag
 		}
 	}
-
 	desc = {
-		text = lar_portugal_promote_monarchist_cause.3.desc_anti_monarchist #Pro-Monarchist
+		text = lar_portugal_promote_monarchist_cause.3.desc_anti_monarchist		#Pro-Monarchist
 		trigger = {
-			NOT = { has_country_flag = POR_brazil_supports_monarchism_flag }
+			NOT = {
+				has_country_flag = POR_brazil_supports_monarchism_flag
+			}
 		}
 	}
-
 	picture = GFX_report_event_generic_rifles
-
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
-			if = { #BRA player is Monarchist
+			if = {
+				#BRA player is Monarchist
 				limit = {
 					has_country_flag = POR_brazil_supports_monarchism_flag
 				}
 				set_politics = {
 					ruling_party = neutrality
 				}
-				add_popularity = { ideology = neutrality popularity = 0.5 }
+				add_popularity = {
+					ideology = neutrality
+					popularity = 0.5
+				}
 				set_country_flag = EOB_empire_of_brazil_flag
 				set_cosmetic_tag = EOB_empire_brazil_neutrality
 				create_country_leader = {
@@ -1821,24 +2119,44 @@ country_event = {
 					ideology = despotism
 					traits = {
 						inexperienced_monarch
-					}					
+					}
 				}
-				set_temp_variable = { POR_bra_monarchist_cw_opposition = party_popularity@fascism }
-				add_to_temp_variable = { POR_bra_monarchist_cw_opposition = party_popularity@communism }
-				add_to_temp_variable = { POR_bra_monarchist_cw_opposition = party_popularity@democratic }
+				set_temp_variable = {
+					POR_bra_monarchist_cw_opposition = party_popularity@fascism
+				}
+				add_to_temp_variable = {
+					POR_bra_monarchist_cw_opposition = party_popularity@communism
+				}
+				add_to_temp_variable = {
+					POR_bra_monarchist_cw_opposition = party_popularity@democratic
+				}
 				start_civil_war = {
 					ideology = fascism
 					size = POR_bra_monarchist_cw_opposition
 					capital = 501
-					states = { 495 497 498 499 280 502 503 504 505 }
+					states = {
+						495
+						497
+						498
+						499
+						280
+						502
+						503
+						504
+						505
+					}
 				}
 				random_country = {
 					limit = {
 						original_tag = BRA
 						has_government = fascism
 					}
-					PRT = { 
-						add_to_war = { targeted_alliance = BRA enemy = PREV hostility_reason = asked_to_join }
+					PRT = {
+						add_to_war = {
+							targeted_alliance = BRA
+							enemy = PREV
+							hostility_reason = asked_to_join
+						}
 						hidden_effect = {
 							diplomatic_relation = {
 								country = BRA
@@ -1849,10 +2167,10 @@ country_event = {
 					}
 				}
 				BRA = {
-					set_party_name = { 
-					    ideology = fascism
-					    long_name = BRA_fascism_party_long
-					    name = BRA_fascism_party
+					set_party_name = {
+						ideology = fascism
+						long_name = BRA_fascism_party_long
+						name = BRA_fascism_party
 					}
 					create_country_leader = {
 						name = "Plínio Salgado"
@@ -1881,19 +2199,36 @@ country_event = {
 					set_global_flag = POR_portugal_joined_brazilian_civil_war_flag
 				}
 			}
-			else = { #BRA player is Anti-Monarchist
-				set_temp_variable = { POR_bra_monarchist_cw_opposition = party_popularity@neutrality }
-				add_to_temp_variable = { POR_bra_monarchist_cw_opposition = party_popularity@communism }
-				add_to_temp_variable = { POR_bra_monarchist_cw_opposition = party_popularity@democratic }
+			else = {
+				#BRA player is Anti-Monarchist
+				set_temp_variable = {
+					POR_bra_monarchist_cw_opposition = party_popularity@neutrality
+				}
+				add_to_temp_variable = {
+					POR_bra_monarchist_cw_opposition = party_popularity@communism
+				}
+				add_to_temp_variable = {
+					POR_bra_monarchist_cw_opposition = party_popularity@democratic
+				}
 				start_civil_war = {
 					ideology = neutrality
 					size = POR_bra_monarchist_cw_opposition
 					capital = 501
-					states = { 495 497 280 502 503 504 505 }
+					states = {
+						495
+						497
+						280
+						502
+						503
+						504
+						505
+					}
 				}
 				if = {
 					limit = {
-						NOT = { has_government = fascism }
+						NOT = {
+							has_government = fascism
+						}
 					}
 					set_politics = {
 						ruling_party = neutrality
@@ -1914,7 +2249,7 @@ country_event = {
 						ideology = despotism
 						traits = {
 							inexperienced_monarch
-						}					
+						}
 					}
 					create_country_leader = {
 						name = "Plínio Salgado"
@@ -1927,12 +2262,16 @@ country_event = {
 						}
 					}
 					set_party_name = {
-					    ideology = fascism
-					    long_name = BRA_fascism_party_long
-					    name = BRA_fascism_party
+						ideology = fascism
+						long_name = BRA_fascism_party_long
+						name = BRA_fascism_party
 					}
-					PRT = { 
-						add_to_war = { targeted_alliance = PREV enemy = BRA hostility_reason = asked_to_join }
+					PRT = {
+						add_to_war = {
+							targeted_alliance = PREV
+							enemy = BRA
+							hostility_reason = asked_to_join
+						}
 						effect_tooltip = {
 							give_military_access = PREV
 						}
@@ -1963,10 +2302,9 @@ country_event = {
 			}
 		}
 	}
-
-	option = { #CW - BRA player is Monarchist
+	option = {
+		#CW - BRA player is Monarchist
 		name = lar_portugal_promote_monarchist_cause.3.a
-		
 		trigger = {
 			has_country_flag = POR_brazil_supports_monarchism_flag
 		}
@@ -1974,7 +2312,10 @@ country_event = {
 			set_politics = {
 				ruling_party = neutrality
 			}
-			add_popularity = { ideology = neutrality popularity = 0.5 }
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.5
+			}
 			set_country_flag = EOB_empire_of_brazil_flag
 			set_cosmetic_tag = EOB_empire_brazil_neutrality
 			create_country_leader = {
@@ -1985,7 +2326,7 @@ country_event = {
 				ideology = despotism
 				traits = {
 					inexperienced_monarch
-				}					
+				}
 			}
 			start_civil_war = {
 				ideology = fascism
@@ -1995,8 +2336,12 @@ country_event = {
 					original_tag = BRA
 					has_government = fascism
 				}
-				PRT = { 
-					add_to_war = { targeted_alliance = BRA enemy = PREV hostility_reason = asked_to_join }
+				PRT = {
+					add_to_war = {
+						targeted_alliance = BRA
+						enemy = PREV
+						hostility_reason = asked_to_join
+					}
 					give_military_access = BRA
 				}
 			}
@@ -2010,21 +2355,23 @@ country_event = {
 		}
 		custom_effect_tooltip = lar_portugal_promote_monarchist_cause.3.a_tt
 	}
-
-	option = { #CW - BRA is Fascist
+	option = {
+		#CW - BRA is Fascist
 		name = lar_portugal_promote_monarchist_cause.3.b
-		
 		trigger = {
-			NOT = { has_country_flag = POR_brazil_supports_monarchism_flag }
+			NOT = {
+				has_country_flag = POR_brazil_supports_monarchism_flag
+			}
 		}
-		
 		effect_tooltip = {
 			start_civil_war = {
 				ideology = neutrality
 			}
 			if = {
 				limit = {
-					NOT = { has_government = fascism }
+					NOT = {
+						has_government = fascism
+					}
 				}
 				set_politics = {
 					ruling_party = neutrality
@@ -2045,10 +2392,14 @@ country_event = {
 					ideology = despotism
 					traits = {
 						inexperienced_monarch
-					}					
+					}
 				}
-				PRT = { 
-					add_to_war = { targeted_alliance = PREV enemy = BRA hostility_reason = asked_to_join }
+				PRT = {
+					add_to_war = {
+						targeted_alliance = PREV
+						enemy = BRA
+						hostility_reason = asked_to_join
+					}
 					give_military_access = PREV
 				}
 				give_military_access = PRT
@@ -2068,12 +2419,9 @@ country_event = {
 	title = lar_portugal_promote_monarchist_cause.4.t
 	desc = lar_portugal_promote_monarchist_cause.4.desc
 	picture = GFX_report_event_por_return_of_the_monarchy
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_promote_monarchist_cause.4.a
-		
 		add_stability = -0.2
 		set_country_flag = EOB_empire_of_brazil_flag
 		set_cosmetic_tag = EOB_empire_brazil_neutrality
@@ -2085,14 +2433,21 @@ country_event = {
 			ideology = despotism
 			traits = {
 				inexperienced_monarch
-			}					
+			}
 		}
 		if = {
-			limit = { NOT = { has_government = neutrality } }
+			limit = {
+				NOT = {
+					has_government = neutrality
+				}
+			}
 			set_politics = {
 				ruling_party = neutrality
 			}
-			add_popularity = { ideology = neutrality popularity = 0.15 }
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.15
+			}
 		}
 		create_country_leader = {
 			name = "Plínio Salgado"
@@ -2113,9 +2468,7 @@ country_event = {
 	title = lar_portugal_promote_monarchist_cause.5.t
 	desc = lar_portugal_promote_monarchist_cause.5.desc
 	picture = GFX_report_event_por_return_of_the_monarchy
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_promote_monarchist_cause.5.a
 	}
@@ -2127,15 +2480,13 @@ country_event = {
 	title = lar_portugal_promote_monarchist_cause.6.t
 	desc = lar_portugal_promote_monarchist_cause.6.desc
 	picture = GFX_report_event_por_return_of_the_monarchy
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_promote_monarchist_cause.6.a
 		effect_tooltip = {
 			create_wargoal = {
-			  	target = BRA
-			    type = annex_everything
+				target = BRA
+				type = annex_everything
 			}
 		}
 	}
@@ -2147,31 +2498,31 @@ country_event = {
 	title = lar_portugal_promote_monarchist_cause.7.t
 	desc = lar_portugal_promote_monarchist_cause.7.desc
 	picture = GFX_report_event_generic_riot
-
 	is_triggered_only = yes
-
-	option = { #Support Monarchism
+	option = {
+		#Support Monarchism
 		name = lar_portugal_promote_monarchist_cause.7.a
-
-		ai_chance = { #AI should always support Monarchism
+		ai_chance = {
+			#AI should always support Monarchism
 			factor = 100
 		}
-
 		custom_effect_tooltip = lar_portugal_promote_monarchist_cause.7.a_tt
-		hidden_effect = { set_country_flag = POR_brazil_supports_monarchism_flag }
+		hidden_effect = {
+			set_country_flag = POR_brazil_supports_monarchism_flag
+		}
 		add_timed_idea = {
-		    idea = POR_monarchists_on_the_rise
-		    days = 730
+			idea = POR_monarchists_on_the_rise
+			days = 730
 		}
-		set_party_name = { 
-		    ideology = neutrality
-		    long_name = BRA_monarchy_party_long
-		    name = BRA_monarchy_party
+		set_party_name = {
+			ideology = neutrality
+			long_name = BRA_monarchy_party_long
+			name = BRA_monarchy_party
 		}
-		set_party_name = { 
-		    ideology = fascism
-		    long_name = BRA_antimonarchist_coalition_long
-		    name = BRA_antimonarchist_coalition
+		set_party_name = {
+			ideology = fascism
+			long_name = BRA_antimonarchist_coalition_long
+			name = BRA_antimonarchist_coalition
 		}
 		if = {
 			limit = {
@@ -2179,7 +2530,7 @@ country_event = {
 					has_government = neutrality
 					has_government = democratic
 					has_government = communism
-				} 
+				}
 			}
 			set_politics = {
 				ruling_party = fascism
@@ -2191,47 +2542,50 @@ country_event = {
 			fascism = 80
 			communism = 0
 		}
-		hidden_effect = { retire_country_leader = yes }
-		BRA_getulio_vargas = {
-			remove_country_leader_role = {
-				ideology = despotism
-			}
-			add_country_leader_role = {
-				country_leader = {
-					expire = "1954.8.24"
-					ideology = fascism_ideology
-					traits = {
-						anti_communist
-					}
-				}
-				promote_leader = yes
-			}
+		hidden_effect = {
+			retire_country_leader = yes
 		}
-		promote_character = BRA_arlindo_veiga_dos_santos
+		# BRA_getulio_vargas = {
+		# 	# remove_country_leader_role = {
+		# 	# 	ideology = despotism
+		# 	# }
+		# 	add_country_leader_role = {
+		# 		country_leader = {
+		# 			expire = "1954.8.24"
+		# 			ideology = fascism_ideology
+		# 			traits = {
+		# 				anti_communist
+		# 			}
+		# 		}
+		# 		promote_leader = yes
+		# 	}
+		# }
+		# promote_character = BRA_arlindo_veiga_dos_santos
 	}
-
-	option = { #Support Anti-Monarchist Coalition
+	option = {
+		#Support Anti-Monarchist Coalition
 		name = lar_portugal_promote_monarchist_cause.7.b
-
-		ai_chance = { #AI should never go Anti-Monarchist
+		ai_chance = {
+			#AI should never go Anti-Monarchist
 			factor = 0
 		}
-
 		custom_effect_tooltip = lar_portugal_promote_monarchist_cause.7.b_tt
-		hidden_effect = { set_country_flag = POR_brazil_supports_fascist_coalition_flag }
+		hidden_effect = {
+			set_country_flag = POR_brazil_supports_fascist_coalition_flag
+		}
 		add_timed_idea = {
-		    idea = POR_monarchists_on_the_rise
-		    days = 730
+			idea = POR_monarchists_on_the_rise
+			days = 730
 		}
-		set_party_name = { 
-		    ideology = neutrality
-		    long_name = BRA_monarchy_party_long
-		    name = BRA_monarchy_party
+		set_party_name = {
+			ideology = neutrality
+			long_name = BRA_monarchy_party_long
+			name = BRA_monarchy_party
 		}
-		set_party_name = { 
-		    ideology = fascism
-		    long_name = BRA_antimonarchist_coalition_long
-		    name = BRA_antimonarchist_coalition
+		set_party_name = {
+			ideology = fascism
+			long_name = BRA_antimonarchist_coalition_long
+			name = BRA_antimonarchist_coalition
 		}
 		if = {
 			limit = {
@@ -2239,7 +2593,7 @@ country_event = {
 					has_government = neutrality
 					has_government = democratic
 					has_government = communism
-				} 
+				}
 			}
 			set_politics = {
 				ruling_party = fascism
@@ -2251,7 +2605,9 @@ country_event = {
 			fascism = 80
 			communism = 0
 		}
-		hidden_effect = { retire_country_leader = yes }
+		hidden_effect = {
+			retire_country_leader = yes
+		}
 		BRA_getulio_vargas = {
 			remove_country_leader_role = {
 				ideology = despotism
@@ -2271,17 +2627,14 @@ country_event = {
 	}
 }
 
-
 ######## JOIN THE SPANISH CIVIL WAR ########
-# Event for SPA, when Portugal completes focus "They Need our Help" 
+# Event for ESP, when Portugal completes focus "They Need our Help" 
 country_event = {
 	id = lar_portugal_spanish_civil_war.1
 	title = lar_portugal_spanish_civil_war.1.t
 	desc = lar_portugal_spanish_civil_war.1.desc
 	picture = GFX_report_event_por_salazar_military
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_spanish_civil_war.1.a
 		PRT = {
@@ -2297,9 +2650,7 @@ country_event = {
 	title = lar_portugal_spanish_civil_war.2.t
 	desc = lar_portugal_spanish_civil_war.2.desc
 	picture = GFX_report_event_por_salazar_franco2
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_spanish_civil_war.2.a
 		PRT = {
@@ -2309,15 +2660,13 @@ country_event = {
 	}
 }
 
-# Event for SPD & SPA, when Portugal completes focus "Support a Spanish Monarchy" 
+# Event for SPD & ESP, when Portugal completes focus "Support a Spanish Monarchy" 
 country_event = {
 	id = lar_portugal_spanish_civil_war.3
 	title = lar_portugal_spanish_civil_war.3.t
 	desc = lar_portugal_spanish_civil_war.3.desc
 	picture = GFX_report_event_por_salazar_franco2
-
 	is_triggered_only = yes
-
 	option = {
 		name = lar_portugal_spanish_civil_war.3.a
 		PRT = {
@@ -2327,48 +2676,52 @@ country_event = {
 	}
 }
 
-# Event for SPB, when Portugal completes focus "The Royal Iberian Alliance" and invites SPB to join faction 
+# Event for ADR, when Portugal completes focus "The Royal Iberian Alliance" and invites ADR to join faction 
 country_event = {
 	id = lar_portugal_royal_iberian_alliance.1
 	title = lar_portugal_royal_iberian_alliance.1.t
 	desc = lar_portugal_royal_iberian_alliance.1.desc
 	picture = GFX_report_event_por_president_military_inspection
-
 	is_triggered_only = yes
-
-	option = { #Accept
+	option = {
+		#Accept
 		name = lar_portugal_royal_iberian_alliance.1.a
-
 		ai_chance = {
 			base = 60
 			modifier = {
 				factor = 0
 				OR = {
-					strength_ratio = { tag = FROM ratio > 2 }
+					strength_ratio = {
+						tag = FROM
+						ratio > 2
+					}
 					is_in_faction = yes
 					has_war_with = FROM
 				}
-				
 			}
 			modifier = {
 				factor = 0.5
-				strength_ratio = { tag = FROM ratio > 1 }
+				strength_ratio = {
+					tag = FROM
+					ratio > 1
+				}
 			}
 			modifier = {
 				factor = 5
-				has_opinion = { target = FROM value > 99 }
+				has_opinion = {
+					target = FROM
+					value > 99
+				}
 			}
 		}
-
 		PRT = {
 			create_faction = POR_royal_iberian_alliance
 			add_to_faction = ROOT
 		}
 	}
-
-	option = { #Refuse
+	option = {
+		#Refuse
 		name = lar_portugal_royal_iberian_alliance.1.b
-
 		ai_chance = {
 			base = 40
 			modifier = {
@@ -2376,7 +2729,6 @@ country_event = {
 				has_completed_focus = SPA_restore_the_iberian_union
 			}
 		}
-
 		PRT = {
 			add_opinion_modifier = {
 				target = ROOT
@@ -2386,7 +2738,6 @@ country_event = {
 	}
 }
 
-
 ######## OVERSEAS PROVINCES ########
 # Event for PRT after integrating Angola (via decision)
 country_event = {
@@ -2394,28 +2745,29 @@ country_event = {
 	title = lar_portugal_overseas_provinces.1.t
 	desc = lar_portugal_overseas_provinces.1.desc
 	picture = GFX_report_event_por_estado_novo
-
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			if = {
-				limit = { has_idea = POR_colonial_assimilation_policy }
+				limit = {
+					has_idea = POR_colonial_assimilation_policy
+				}
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy
-	    			add_idea = POR_colonial_assimilation_policy_2
+					add_idea = POR_colonial_assimilation_policy_2
 				}
 			}
 			else_if = {
-				limit = { has_idea = POR_colonial_assimilation_policy_2 }
+				limit = {
+					has_idea = POR_colonial_assimilation_policy_2
+				}
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy_2
-	    			add_idea = POR_colonial_assimilation_policy_3
+					add_idea = POR_colonial_assimilation_policy_3
 				}
 			}
 		}
 	}
-
 	option = {
 		name = lar_portugal_overseas_provinces.1.a
 		add_stability = -0.1
@@ -2424,18 +2776,23 @@ country_event = {
 		add_state_core = 892
 		add_state_core = 891
 		effect_tooltip = {
-			if = { #Check for the idea added through immediate effect in order to show appropriate tt
-				limit = { has_idea = POR_colonial_assimilation_policy_2 }
+			if = {
+				#Check for the idea added through immediate effect in order to show appropriate tt
+				limit = {
+					has_idea = POR_colonial_assimilation_policy_2
+				}
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy
-	    			add_idea = POR_colonial_assimilation_policy_2
+					add_idea = POR_colonial_assimilation_policy_2
 				}
 			}
 			else_if = {
-				limit = { has_idea = POR_colonial_assimilation_policy_3 }
+				limit = {
+					has_idea = POR_colonial_assimilation_policy_3
+				}
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy_2
-	    			add_idea = POR_colonial_assimilation_policy_3
+					add_idea = POR_colonial_assimilation_policy_3
 				}
 			}
 		}
@@ -2448,28 +2805,29 @@ country_event = {
 	title = lar_portugal_overseas_provinces.2.t
 	desc = lar_portugal_overseas_provinces.2.desc
 	picture = GFX_report_event_por_estado_novo
-
 	is_triggered_only = yes
-
 	immediate = {
 		hidden_effect = {
 			if = {
-				limit = { has_idea = POR_colonial_assimilation_policy } 
+				limit = {
+					has_idea = POR_colonial_assimilation_policy
+				}
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy
-	    			add_idea = POR_colonial_assimilation_policy_2
+					add_idea = POR_colonial_assimilation_policy_2
 				}
 			}
 			else_if = {
-				limit = { has_idea = POR_colonial_assimilation_policy_2 }
+				limit = {
+					has_idea = POR_colonial_assimilation_policy_2
+				}
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy_2
-	    			add_idea = POR_colonial_assimilation_policy_3
+					add_idea = POR_colonial_assimilation_policy_3
 				}
 			}
 		}
 	}
-
 	option = {
 		name = lar_portugal_overseas_provinces.2.a
 		add_stability = -0.1
@@ -2477,18 +2835,23 @@ country_event = {
 		add_state_core = 896
 		add_state_core = 897
 		effect_tooltip = {
-			if = { #Check for the idea added through immediate effect in order to show appropriate tt
-				limit = { has_idea = POR_colonial_assimilation_policy_2 }
+			if = {
+				#Check for the idea added through immediate effect in order to show appropriate tt
+				limit = {
+					has_idea = POR_colonial_assimilation_policy_2
+				}
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy
-	    			add_idea = POR_colonial_assimilation_policy_2
+					add_idea = POR_colonial_assimilation_policy_2
 				}
 			}
 			else_if = {
-				limit = { has_idea = POR_colonial_assimilation_policy_3 }
+				limit = {
+					has_idea = POR_colonial_assimilation_policy_3
+				}
 				swap_ideas = {
 					remove_idea = POR_colonial_assimilation_policy_2
-	    			add_idea = POR_colonial_assimilation_policy_3
+					add_idea = POR_colonial_assimilation_policy_3
 				}
 			}
 		}

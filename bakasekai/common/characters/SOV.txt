@@ -2261,55 +2261,7 @@ characters = {
 		}
 	}
 
-	SOV_nikolay_yezhov = {
-		name = SOV_nikolay_yezhov
-		portraits = {
-			army = {
-				small = "GFX_idea_SOV_nikolay_yezhov"
-			}
-		}
 
-		allowed_civil_war = {
-			OR = {
-				#has_completed_focus = SOV_the_plan_for_the_coup #Goes to right oppo if aligned via Plan for the Coup
-				AND = { #If not aligned by Right oppo, then stays with Stalin
-					original_tag = SOV
-					NOT = { tag = SOV }
-					NOT = {
-						any_other_country = {
-							original_tag = SOV
-							#has_completed_focus = SOV_the_plan_for_the_coup
-						}
-					}
-				}
-			}
-			has_government = communism
-		}
-
-		advisor = {
-			slot = political_advisor
-			idea_token = SOV_nikolay_yezhov
-			removal_cost = -1
-			allowed = {
-				original_tag = SOV
-			}
-			available = {
-				NOT = { has_idea = SOV_genrikh_yagoda }
-				NOT = { has_idea = SOV_lavrenty_beriya }
-			}
-			traits = {
-				head_of_the_nkvd_yezhov_initial 
-			}
-			on_add = {
-				ROOT = { add_to_variable = { SOV_paranoia_weekly_modifiers_amount = 2 } }
-				SOV_paranoia_modifier_update_gui_tooltip = yes
-			}
-			on_remove = {
-				ROOT = { subtract_from_variable = { SOV_paranoia_weekly_modifiers_amount = 2 } }
-				SOV_paranoia_modifier_update_gui_tooltip = yes
-			}
-		}
-	}
 
 	SOV_lavrenty_beriya = {
 		#LA RESISTANCE
@@ -2346,8 +2298,6 @@ characters = {
 					}
 				}
 				available = {
-					NOT = { has_idea = SOV_nikolay_yezhov }
-					NOT = { has_idea = SOV_genrikh_yagoda }
 					NOT = { is_country_leader = yes }
 				}
 
@@ -2397,7 +2347,7 @@ characters = {
 					}
 				}
 				available = {
-					NOT = { has_idea = SOV_nikolay_yezhov }
+				
 					NOT = { has_idea = SOV_genrikh_yagoda }
 				}
 
