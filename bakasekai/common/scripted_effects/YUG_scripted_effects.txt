@@ -15,14 +15,17 @@
 #		example_effect = yes
 #	}
 #
-
 YUG_start_peters_coup = {
-	remove_ideas = { king_peter_1 }
+	remove_ideas = {
+		king_peter_1
+	}
 	if = {
 		limit = {
 			has_idea = anti_german_military
 		}
-		remove_ideas = { anti_german_military }
+		remove_ideas = {
+			anti_german_military
+		}
 	}
 	hidden_effect = {
 		set_country_flag = has_already_decided_yugo_coup_flag
@@ -31,21 +34,46 @@ YUG_start_peters_coup = {
 		limit = {
 			has_completed_focus = YUG_dissolve_serbia
 		}
-		start_civil_war = { ideology = democratic size = 0.6 capital = 107 states = { 108 803 } }
+		start_civil_war = {
+			ideology = democratic
+			size = 0.6
+			capital = 107
+			states = {
+				108
+				803
+			}
+		}
 	}
 	else = {
-		start_civil_war = { ideology = democratic size = 0.6 capital = 107 states = { 108 803 802 106 105 } }
+		start_civil_war = {
+			ideology = democratic
+			size = 0.6
+			capital = 107
+			states = {
+				108
+				803
+				802
+				106
+				105
+			}
+		}
 	}
 	random_country = {
 		limit = {
-			original_tag = YUG
-			NOT = { tag = ROOT }
+			original_tag = MYS
+			NOT = {
+				tag = ROOT
+			}
 			has_government = democratic
 		}
-		add_ideas = { king_peter_1 }
+		add_ideas = {
+			king_peter_1
+		}
 		if = {
 			limit = {
-				PREV = { has_completed_focus = YUG_dissolve_serbia }
+				PREV = {
+					has_completed_focus = YUG_dissolve_serbia
+				}
 			}
 			puppet = KOS
 			puppet = MNT
@@ -53,7 +81,9 @@ YUG_start_peters_coup = {
 		}
 		if = {
 			limit = {
-				PREV = { has_completed_focus = YUG_divide_bosnia }
+				PREV = {
+					has_completed_focus = YUG_divide_bosnia
+				}
 			}
 			puppet = HRZ
 		}
@@ -62,8 +92,8 @@ YUG_start_peters_coup = {
 				is_subject_of = PREV
 			}
 			set_country_flag = yugoslav_puppet_flag
-			add_to_war = { 
-				targeted_alliance = PREV 
+			add_to_war = {
+				targeted_alliance = PREV
 				enemy = PREV.PREV
 				hostility_reason = asked_to_join
 			}
@@ -72,8 +102,8 @@ YUG_start_peters_coup = {
 			limit = {
 				is_subject_of = PREV.PREV
 			}
-			set_country_flag = yugoslav_puppet_flag #transfer puppets at the end of the war
-			add_to_war = { 
+			set_country_flag = yugoslav_puppet_flag			#transfer puppets at the end of the war
+			add_to_war = {
 				targeted_alliance = PREV.PREV
 				enemy = PREV
 				hostility_reason = asked_to_join
@@ -94,14 +124,20 @@ YUG_start_peters_coup = {
 			fascism = 5
 			communism = 5
 		}
-		set_capital = { state = 107 }
+		set_capital = {
+			state = 107
+		}
 		if = {
 			limit = {
 				date < 1941.09.06
 			}
 			YUG_peter_ii = {
-				promote_character = { ideology = despotism }
-				promote_character = { ideology = conservatism }
+				promote_character = {
+					ideology = despotism
+				}
+				promote_character = {
+					ideology = conservatism
+				}
 			}
 		}
 		else = {
@@ -122,18 +158,22 @@ YUG_start_peters_coup = {
 					ideology = conservatism
 					trait = legitimate_heir
 				}
-				promote_character = { ideology = despotism }
-				promote_character = { ideology = conservatism }
+				promote_character = {
+					ideology = despotism
+				}
+				promote_character = {
+					ideology = conservatism
+				}
 			}
-			hidden_effect = { 
+			hidden_effect = {
 				set_country_flag = peter_is_of_age
-					YUG_peter_ii = {
-						set_portraits = {
-							civilian = {
-						    	large="GFX_portrait_yugoslavia_peter_ii_old"
-							}
+				YUG_peter_ii = {
+					set_portraits = {
+						civilian = {
+							large = "GFX_portrait_yugoslavia_peter_ii_old"
 						}
 					}
+				}
 			}
 		}
 	}
