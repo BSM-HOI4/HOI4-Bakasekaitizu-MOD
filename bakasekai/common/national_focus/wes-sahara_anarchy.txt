@@ -7,7 +7,34 @@ focus_tree = {
 	default = no
 
 
+		#Gone with the sand
+	focus = {
+		id = WES_destruction_of_the_government #政府の破壊
+		icon = GFX_focus_generic_support_the_left_right
+		x = 3
+		y = 0
+		cost = 1
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		mutually_exclusive = { focus = WES_establishment_of_the_sgc  }
+		completion_reward = {
+			add_ideas = WES_anarchy_idea
+			hidden_effect = {
+				WES = { country_event = { id = WES_a.1}}
+				if = {
+					limit = { WES = { has_stability < 0.25 } }
+					WES = { country_event = { id = WES.26}}
+				}
+			}
+			#set_party_name = {
+			#    ideology = fascism
+			 #   long_name = WES_fascism_party_Sand Party_long
+			  #  name = WES_fascism_party_Sand Party
+			#}
 
+		}
+	}
 		#Welcoming the Sands of the Middle East
 	focus = {
 		id = WES_civil_struggle #市民闘争
@@ -273,39 +300,5 @@ focus_tree = {
 			}
 		}
 	}
-
-
-		#Gone with the sand
-	focus = {
-		id = WES_destruction_of_the_government #政府の破壊
-		icon = GFX_focus_generic_support_the_left_right
-		x = 3
-		y = 0
-		cost = 1
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		mutually_exclusive = { focus = WES_establishment_of_the_sgc  }
-		completion_reward = {
-			add_ideas = WES_anarchy_idea
-			hidden_effect = {
-				WES = { country_event = { id = WES_a.1}}
-				if = {
-					limit = { WES = { has_stability < 0.25 } }
-					WES = { country_event = { id = WES.26}}
-				}
-			}
-			#set_party_name = {
-			#    ideology = fascism
-			 #   long_name = WES_fascism_party_Sand Party_long
-			  #  name = WES_fascism_party_Sand Party
-			#}
-
-		}
-	}
-
-
-
-
 
 }

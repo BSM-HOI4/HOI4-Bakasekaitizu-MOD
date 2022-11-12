@@ -154,22 +154,10 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				add_equipment_to_stockpile = {
-				    type = light_tank_chassis
-	   				amount = 20
-				    producer = WES
-				}
-			}
-			else = {
-				add_equipment_to_stockpile = {
-				    type = light_tank_equipment
-	   				amount = 20
-				    producer = WES
-				}
+            add_equipment_to_stockpile = {
+			    type = light_tank_chassis
+				amount = 20
+			    producer = WES
 			}
 		}
 
@@ -200,22 +188,10 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				add_equipment_to_stockpile = {
-				    type = medium_tank_chassis
-		  			amount = 15
-				    producer = WES
-				}
-			}
-			else = {
-				add_equipment_to_stockpile = {
-				    type = medium_tank_equipment
-		    		amount = 15
-				    producer = WES
-				}
+            add_equipment_to_stockpile = {
+			    type = medium_tank_chassis
+	  			amount = 15
+			    producer = WES
 			}
 		}
 		ai_will_do = {
@@ -245,29 +221,17 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				add_equipment_to_stockpile = {
-				    type = heavy_tank_chassis
-		   			amount = 10
-				    producer = WES
-				}
-			}
-			else = {
-				add_equipment_to_stockpile = {
-				    type = heavy_tank_equipment
-					amount = 10
-				    producer = WES
-				}
+            add_equipment_to_stockpile = {
+			    type = heavy_tank_chassis
+	   			amount = 10
+			    producer = WES
 			}
 		}
 		ai_will_do = {
 			factor = 10
 		}
     }
-    create_fighter_equipment = {
+    create_small_plane_airframe_equipment = {
 
 		icon = GFX_decision_generic_air
 
@@ -291,7 +255,7 @@ create_weapons = {
 
         complete_effect = {
             add_equipment_to_stockpile = {
-			    type = 	fighter_equipment
+			    type = 	small_plane_airframe
 			    amount = 15
 			    producer = WES
 			}
@@ -300,7 +264,7 @@ create_weapons = {
 			factor = 10
 		}
     }
-    create_CAS_equipment = {
+    create_medium_plane_airframe_equipment = {
 
 		icon = GFX_decision_generic_air
 
@@ -324,7 +288,7 @@ create_weapons = {
 
         complete_effect = {
             add_equipment_to_stockpile = {
-			    type = CAS_equipment
+			    type = medium_plane_airframe
 			    amount = 15
 			    producer = WES
 			}
@@ -505,7 +469,6 @@ create_weapons_auto = {
 			clr_country_flag = WES_create_fin
 		}
 
-
 		ai_will_do = {
 			factor = 20
 		}
@@ -593,22 +556,10 @@ create_weapons_auto = {
 				limit = {
 					has_country_flag = WES_cre_lt
 				}
-				if = {
-					limit = {
-						has_dlc = "No Step Back"
-					}
-					add_equipment_to_stockpile = {
-					    type = light_tank_chassis
-		   				amount = 20
-					    producer = WES
-					}
-				}
-				else = {
-					add_equipment_to_stockpile = {
-					    type = light_tank_equipment
-		   				amount = 20
-					    producer = WES
-					}
+				add_equipment_to_stockpile = {
+				    type = light_tank_chassis
+					amount = 20
+				    producer = WES
 				}
 				add_political_power = -50
 			}
@@ -616,22 +567,10 @@ create_weapons_auto = {
 				limit = {
 					has_country_flag = WES_cre_mt
 				}
-				if = {
-					limit = {
-						has_dlc = "No Step Back"
-					}
-					add_equipment_to_stockpile = {
-					    type = medium_tank_chassis
-		   				amount = 15
-					    producer = WES
-					}
-				}
-				else = {
-					add_equipment_to_stockpile = {
-					    type = medium_tank_equipment
-		    			amount = 15
-					    producer = WES
-					}
+				add_equipment_to_stockpile = {
+				    type = medium_tank_chassis
+					amount = 15
+				    producer = WES
 				}
 				add_political_power = -50
 			}
@@ -639,22 +578,10 @@ create_weapons_auto = {
 				limit = {
 					has_country_flag = WES_cre_ht
 				}
-				if = {
-					limit = {
-						has_dlc = "No Step Back"
-					}
-					add_equipment_to_stockpile = {
-					    type = heavy_tank_chassis
-		   				amount = 10
-					    producer = WES
-					}
-				}
-				else = {
-					add_equipment_to_stockpile = {
-					    type = heavy_tank_equipment
-		    			amount = 10
-					    producer = WES
-					}
+				add_equipment_to_stockpile = {
+				    type = heavy_tank_chassis
+					amount = 10
+				    producer = WES
 				}
 				add_political_power = -50
 			}
@@ -663,7 +590,7 @@ create_weapons_auto = {
 					has_country_flag = WES_cre_fight
 				}
 				add_equipment_to_stockpile = {
-				    type = 	fighter_equipment
+				    type = 	small_plane_airframe
 		    		amount = 15
 				    producer = WES
 				}
@@ -674,8 +601,8 @@ create_weapons_auto = {
 					has_country_flag = WES_cre_cas
 				}
 				add_equipment_to_stockpile = {
-				    type = CAS_equipment
-		    		amount = 15
+				    type = medium_plane_airframe
+		    		amount = 10
 				    producer = WES
 				}
 				add_political_power = -50
@@ -731,8 +658,11 @@ desertification = {
         }
         complete_effect = {
             every_state={limit={is_owned_by=WES} set_state_category=desert}
-            every_province={limit={is_owned_by=WES} set_province_terrain=desert}
-            #very_province={limit={is_owned_by=WES}  = { add_core_of = ROOT }}
+            #every_province={limit={is_owned_by=WES} set_province_terrain=desert}
+            every_state={
+				limit={is_fully_controlled_by =WES}
+				add_core_of = ROOT
+			}
 
         }
         visible = {
@@ -753,7 +683,11 @@ found_sand_country = {
         }
         fire_only_once = yes
         available = {
+			AND = {
             has_completed_focus = WES_founding_of_sandsand_stan
+			NOT = {
+        	    country_exists = NTS
+            }
 			custom_trigger_tooltip = {
 				toolip = WES_annex_NTS
 				WES = {
@@ -785,9 +719,7 @@ found_sand_country = {
 					controls_state = 831
 					controls_state = 832
 				}
-				NOT = {
-            	    country_exists = NTS
-            	}
+			}
 			}
 
         }
