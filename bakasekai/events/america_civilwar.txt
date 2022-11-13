@@ -27,9 +27,24 @@ country_event = {
 	immediate = {
 		dismantle_faction = yes
 		clr_country_flag = USABB
-        country_event={
-            id=US_C.2
-        }
+		every_country = {
+			limit = {
+				OR = {
+					tag = MEX
+					tag = DIS
+					tag = CLF
+					tag = LVE
+					tag = TEX
+					tag = NEV
+					tag = NYY
+					tag = HLW
+					tag = MAC
+				}
+			}
+			country_event = {
+				id = US_C.2
+			}
+		}
 	}
 }
 
@@ -39,7 +54,31 @@ country_event = {
 	desc = US_C.2.d
 	picture = GFX_report_event_soviet_soldiers
 	is_triggered_only = yes
-	option = {
-		name = US_C.2.a
+	hidden = no
+	immediate = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = MEX
+					tag = DIS
+					tag = CLF
+					tag = LVE
+					tag = TEX
+					tag = NEV
+					tag = NYY
+					tag = HLW
+					tag = MAC
+				}
+			}
+			ROOT = {
+				create_wargoal = {
+					target = PREV
+					type = annex_everything
+				}
+			}
+		}
+		option = {
+			name = US_C.2.a
+		}
 	}
 }
