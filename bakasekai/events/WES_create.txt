@@ -1,0 +1,365 @@
+add_namespace = WES_cre
+
+
+country_event = {
+	id = WES_cre.1
+	title = WES_cre.1.t
+	desc = WES_cre.1.desc
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES_cre.1.a	#歩兵銃
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_completed_focus = WES_sand_rifle
+		}
+		if = {
+			limit = {
+				has_country_flag = WES_cre_gun
+			}
+			clr_country_flag = WES_cre_gun
+		}
+		else = {
+			set_country_flag = WES_cre_gun
+		}
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.1.b	#支援装備
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_completed_focus = WES_sand_rifle
+		}
+		if = {
+			limit = {
+				has_country_flag = WES_cre_sup
+			}
+			clr_country_flag = WES_cre_sup
+		}
+		else = {
+			set_country_flag = WES_cre_sup
+		}
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.1.c	#野砲
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_completed_focus = WES_sand_rifle
+		}
+		if = {
+			limit = {
+				has_country_flag = WES_cre_art
+			}
+			clr_country_flag = WES_cre_art
+		}
+		else = {
+			set_country_flag = WES_cre_art
+		}
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.1.d	#次ページ
+		ai_chance = {
+			factor = 100
+		}
+		country_event = { id = WES_cre.2 }
+	}
+
+	
+}
+
+country_event = {
+	id = WES_cre.2
+	title = WES_cre.2.t
+	desc = WES_cre.2.desc
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES_cre.2.a	#軽戦車
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_completed_focus = WES_sand_car
+		}
+		if = {
+            limit = {
+                has_country_flag = WES_cre_lt
+            }
+            clr_country_flag = WES_cre_lt
+        }
+        else = {
+            set_country_flag = WES_cre_lt
+        }
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.2.b	#中戦車
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			AND = { 
+				has_completed_focus = WES_sand_car 
+				OR = {
+					has_tech = basic_medium_tank
+					has_tech = basic_medium_tank_chassis
+				}
+			}
+		}
+		if = {
+            limit = {
+                has_country_flag = WES_cre_mt
+            }
+            clr_country_flag = WES_cre_mt
+        }
+        else = {
+            set_country_flag = WES_cre_mt
+        }
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.2.c	#重戦車
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_completed_focus = WES_sand_car
+		}
+		if = {
+            limit = {
+                has_country_flag = WES_cre_ht
+            }
+            clr_country_flag = WES_cre_ht
+        }
+        else = {
+            set_country_flag = WES_cre_ht
+        }
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.2.d	#自ぺーじ
+		ai_chance = {
+			factor = 100
+		}
+		country_event = { id = WES_cre.3 }
+	}
+
+	
+}
+
+country_event = {
+	id = WES_cre.3
+	title = WES_cre.3.t
+	desc = WES_cre.3.desc
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES_cre.3.a	#自動車
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_completed_focus = WES_sand_car
+		}
+		if = {
+            limit = {
+                has_country_flag = WES_cre_mot
+            }
+            clr_country_flag = WES_cre_mot
+        }
+        else = {
+            set_country_flag = WES_cre_mot
+        }
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.3.b	#戦闘機
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_completed_focus = WES_sand_plane
+		}
+		if = {
+            limit = {
+                has_country_flag = WES_cre_fight
+            }
+            clr_country_flag = WES_cre_fight
+        }
+        else = {
+            set_country_flag = WES_cre_fight
+        }
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.3.c	#CAS
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_completed_focus = WES_sand_plane
+		}
+		if = {
+            limit = {
+                has_country_flag = WES_cre_cas
+            }
+            clr_country_flag = WES_cre_cas
+        }
+        else = {
+            set_country_flag = WES_cre_cas
+        }
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.3.d	#次ページ
+		ai_chance = {
+			factor = 100
+		}
+		country_event = { id = WES_cre.4 }
+	}
+
+	
+}
+
+country_event = {
+	id = WES_cre.4
+	title = WES_cre.4.t
+	desc = WES_cre.4.d
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES_cre.4.a	#輸送船
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_completed_focus = WES_sand_boat
+		}
+		if = {
+            limit = {
+                has_country_flag = WES_cre_convoy
+            }
+            clr_country_flag = WES_cre_convoy
+        }
+        else = {
+            set_country_flag = WES_cre_convoy
+        }
+		country_event = { id = WES_cre.5 }
+	}
+
+	option = {
+		name = WES_cre.4.b	#最初に戻る
+		ai_chance = {
+			factor = 100
+		}
+		country_event = { id = WES_cre.1 }
+	}
+
+	option = {
+		name = WES_cre.4.c	#終了
+		ai_chance = {
+			factor = 100
+		}
+		clr_country_flag = WES_create_fin
+		hidden_effect = {
+			activate_mission = WES_mefo_bills_mission
+		}
+	}
+
+	
+}
+
+country_event = {
+	id = WES_cre.5
+	title = WES_cre.5.t
+	desc = WES_cre.5.d
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+
+	}
+
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	option = {
+		name = WES_cre.5.a	#"緑化委員会に加盟する"
+		ai_chance = {
+			factor = 100
+		}
+		country_event = { id = WES_cre.1 }
+	}
+
+	option = {
+		name = WES_cre.5.b	#"緑化委員会に加盟する"
+		ai_chance = {
+			factor = 100
+		}
+		clr_country_flag = WES_create_fin
+		hidden_effect = {
+			activate_mission = WES_mefo_bills_mission
+		}
+	}
+
+	
+}
