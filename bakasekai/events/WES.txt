@@ -1639,3 +1639,72 @@ country_event = {
 			}
 	}
 }
+
+country_event = {
+	id = WES.35
+	title = WES.35.t #方針の決定
+	desc = WES.35.d #我が国は今後の軍事的方針を定めなければならない。最後は空軍だ。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {
+	}
+
+	option = {
+		name = WES.35.a	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			NOT = {
+			AND = {
+				WES = {has_country_flag = WES_sahara_africa }
+				NOT = {
+					AND = {
+						country_exists = MAR
+						country_exists = KSM
+						country_exists = KHM
+						country_exists = EGY
+						country_exists = ZAF
+						country_exists = KEN
+						country_exists = AMA
+					}
+				}
+			}
+			}
+
+		}
+		ROOT = {country_event = { days = 15 id = WES.35 }}
+		
+		
+	}
+
+	option = {
+		name = WES.35.b	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			AND = {
+				WES = {has_country_flag = WES_sahara_africa }
+				NOT = {
+					AND = {
+						country_exists = MAR
+						country_exists = KSM
+						country_exists = KHM
+						country_exists = EGY
+						country_exists = ZAF
+						country_exists = KEN
+						country_exists = AMA
+					}
+				}
+			}
+
+		}
+		ROOT = {country_event = { days = 1 id = baka_super.3 }}
+		
+	}
+}
