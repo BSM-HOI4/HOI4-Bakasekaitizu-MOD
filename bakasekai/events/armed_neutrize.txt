@@ -1,0 +1,114 @@
+add_namespace = an
+country_event = {
+	id = an.1
+	title = an.1.t
+	desc = an.1.d
+	picture = GFX_report_event_soviet_soldiers
+	fire_only_once=yes
+	is_triggered_only = no
+	trigger={
+		AND={
+			has_war=no
+			tag=CHN
+		any_country={
+			limit={
+				AND={
+					is_major=yes
+					has_war=yes
+					NOT={
+					OR = {
+					tag = MEX
+					tag = DIS
+					tag = CLF
+					tag = LVE
+					tag = TEX
+					tag = NEV
+					tag = NYY
+					tag = HLW
+					tag = MAC
+				}
+			}
+				}}
+				
+			
+				any_country={
+				limit={
+					AND={
+						is_major=yes
+						has_war_with=PREV
+						NOT={
+					OR = {
+					tag = MEX
+					tag = DIS
+					tag = CLF
+					tag = LVE
+					tag = TEX
+					tag = NEV
+					tag = NYY
+					tag = HLW
+					tag = MAC
+				}
+			}
+					}
+				}
+			}}
+		}
+	}
+	option = {
+        name=an.1.a
+		set_rule = {
+					can_create_factions = yes
+		}
+		create_faction=League_of_Armed_Neutrality
+		every_country={
+			limit={has_war=no}
+			country_event={
+				id=an.2
+			}
+		}
+	}
+
+}
+country_event = {
+	id = an.2
+	title = an.2.t
+	desc = an.2.d
+	picture = GFX_report_event_soviet_soldiers
+	
+	is_triggered_only = yes
+	
+	option = {
+        name=an.2.a
+		trigger={
+			has_government=communism
+		}
+		FROM = { add_to_faction = ROOT }
+	}
+	option = {
+        name=an.2.b
+		trigger={
+			AND={
+				NOT={has_government=communism}
+				is_ai=no
+				}
+		}
+		FROM = { add_to_faction = ROOT }
+	}
+		option = {
+        name=an.2.c
+		trigger={
+			AND={
+				is_ai=no
+				has_government=communism
+			}
+		}
+	}
+		option = {
+        name=an.2.b
+		trigger={
+			AND={
+				NOT={has_government=communism}
+				}
+		}
+	}
+}
