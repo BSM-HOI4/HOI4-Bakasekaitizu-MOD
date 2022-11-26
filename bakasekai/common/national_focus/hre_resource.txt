@@ -1,0 +1,1095 @@
+shared_focus = {
+    id = HRE_resource_import
+    icon = GFX_goal_generic_trade
+    x = 1
+    y = 3
+    cost = 10
+    prerequisite = {
+        focus = HRE_invest_to_infra_3
+        focus = HRE_invest_to_minju_3
+        focus = HRE_invest_to_gunju_3
+        focus = HRE_focus_to_electronics_3
+        focus = HRE_focus_central_industry_3
+        focus = HRE_focus_separate_industry_3
+    }
+    mutually_exclusive = {
+        focus = HRE_resource_mine
+    }
+    relative_position_id = HRE_research_slot_2
+    available = {
+        has_completed_focus = HRE_invest_foreign_country
+    }
+    completion_reward = {
+        WGR = {
+            add_relation_modifier = {
+                target = ROOT
+                modifier = resource_import_modifier
+            }
+        }
+        SOV = {
+            add_relation_modifier = {
+                target = ROOT
+                modifier = resource_import_modifier
+            }
+        }
+        custom_effect_tooltip = HRE_tooltip_can_import_more_resource_from_neutral
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_mine
+    icon = GFX_focus_SOV_the_road_of_life
+    x = -1
+    y = 3
+    cost = 10
+    prerequisite = {
+        focus = HRE_invest_to_infra_3
+        focus = HRE_invest_to_minju_3
+        focus = HRE_invest_to_gunju_3
+        focus = HRE_focus_to_electronics_3
+        focus = HRE_focus_central_industry_3
+        focus = HRE_focus_separate_industry_3
+    }
+    mutually_exclusive = {
+        focus = HRE_resource_import
+    }
+    relative_position_id = HRE_research_slot_2
+    available = {
+        has_completed_focus = HRE_invest_our_country
+    }
+    completion_reward = {
+        add_ideas = HRE_resource_mine
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_steel_1
+    icon = GFX_focus_generic_steel
+    x = -4
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_mine
+        focus = HRE_resource_import
+    }
+    relative_position_id = HRE_resource_mine
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_1
+            has_idea = HRE_resource_cost_b_1
+        }
+        num_of_civilian_factories_available_for_projects > 1
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = steel
+                    amount = 8
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = steel
+                    amount = 6
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_steel_1
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_steel_1
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_steel_2
+    icon = GFX_focus_generic_steel
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_steel_1
+    }
+    relative_position_id = HRE_resource_steel_1
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_2
+            has_idea = HRE_resource_cost_b_2
+        }
+        num_of_civilian_factories_available_for_projects > 3
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = steel
+                    amount = 16
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = steel
+                    amount = 12
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_steel_2
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_steel_2
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_steel_3
+    icon = GFX_focus_generic_steel
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_steel_2
+    }
+    relative_position_id = HRE_resource_steel_2
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_3
+            has_idea = HRE_resource_cost_b_3
+        }
+        num_of_civilian_factories_available_for_projects > 5
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = steel
+                    amount = 32
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = steel
+                    amount = 24
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_steel_3
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_steel_3
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_aluminium_1
+    icon = GFX_focus_generic_aluminum
+    x = -2
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_mine
+        focus = HRE_resource_import
+    }
+    relative_position_id = HRE_resource_mine
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_1
+            has_idea = HRE_resource_cost_b_1
+        }
+        num_of_civilian_factories_available_for_projects > 1
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = aluminium
+                    amount = 8
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = aluminium
+                    amount = 6
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_aluminium_1
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_aluminium_1
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_aluminium_2
+    icon = GFX_focus_generic_aluminum
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_aluminium_1
+    }
+    relative_position_id = HRE_resource_aluminium_1
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_2
+            has_idea = HRE_resource_cost_b_2
+        }
+        num_of_civilian_factories_available_for_projects > 3
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = aluminium
+                    amount = 16
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = aluminium
+                    amount = 12
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_aluminium_2
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_aluminium_2
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_aluminium_3
+    icon = GFX_focus_generic_aluminum
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_aluminium_2
+    }
+    relative_position_id = HRE_resource_aluminium_2
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_3
+            has_idea = HRE_resource_cost_b_3
+        }
+        num_of_civilian_factories_available_for_projects > 5
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = aluminium
+                    amount = 32
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = aluminium
+                    amount = 24
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_aluminium_3
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_aluminium_3
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_tungsten_1
+    icon = GFX_focus_generic_tungsten
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_mine
+        focus = HRE_resource_import
+    }
+    relative_position_id = HRE_resource_mine
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_1
+            has_idea = HRE_resource_cost_b_1
+        }
+        num_of_civilian_factories_available_for_projects > 1
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = tungsten
+                    amount = 8
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = tungsten
+                    amount = 6
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_tungsten_1
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_tungsten_1
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_tungsten_2
+    icon = GFX_focus_generic_tungsten
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_tungsten_1
+    }
+    relative_position_id = HRE_resource_tungsten_1
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_2
+            has_idea = HRE_resource_cost_b_2
+        }
+        num_of_civilian_factories_available_for_projects > 3
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = tungsten
+                    amount = 16
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = tungsten
+                    amount = 12
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_tungsten_2
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_tungsten_2
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_tungsten_3
+    icon = GFX_focus_generic_tungsten
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_tungsten_2
+    }
+    relative_position_id = HRE_resource_tungsten_2
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_3
+            has_idea = HRE_resource_cost_b_3
+        }
+        num_of_civilian_factories_available_for_projects > 5
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = tungsten
+                    amount = 32
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = tungsten
+                    amount = 24
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_tungsten_3
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_tungsten_3
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_chrome_1
+    icon = GFX_focus_BUL_plot_against_boris
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_mine
+        focus = HRE_resource_import
+    }
+    relative_position_id = HRE_resource_import
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_1
+            has_idea = HRE_resource_cost_b_1
+        }
+        num_of_civilian_factories_available_for_projects > 1
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = chromium
+                    amount = 8
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = chromium
+                    amount = 6
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_chromium_1
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_chromium_1
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_chrome_2
+    icon = GFX_focus_BUL_plot_against_boris
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_chrome_1
+    }
+    relative_position_id = HRE_resource_chrome_1
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_2
+            has_idea = HRE_resource_cost_b_2
+        }
+        num_of_civilian_factories_available_for_projects > 3
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = chromium
+                    amount = 16
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = chromium
+                    amount = 12
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_chromium_2
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_chromium_2
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_chrome_3
+    icon = GFX_focus_BUL_plot_against_boris
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_chrome_2
+    }
+    relative_position_id = HRE_resource_chrome_2
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_3
+            has_idea = HRE_resource_cost_b_3
+        }
+        num_of_civilian_factories_available_for_projects > 5
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = chromium
+                    amount = 32
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = chromium
+                    amount = 24
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_chromium_3
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_chromium_3
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_rubber_1
+    icon = GFX_focus_generic_rubber
+    x = 2
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_mine
+        focus = HRE_resource_import
+    }
+    relative_position_id = HRE_resource_import
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_1
+            has_idea = HRE_resource_cost_b_1
+        }
+        num_of_civilian_factories_available_for_projects > 1
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = rubber
+                    amount = 8
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = rubber
+                    amount = 6
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_rubber_1
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_rubber_1
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_rubber_2
+    icon = GFX_focus_generic_rubber
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_rubber_1
+    }
+    relative_position_id = HRE_resource_rubber_1
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_2
+            has_idea = HRE_resource_cost_b_2
+        }
+        num_of_civilian_factories_available_for_projects > 3
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = rubber
+                    amount = 16
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = rubber
+                    amount = 12
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_rubber_2
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_rubber_2
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_rubber_3
+    icon = GFX_focus_generic_rubber
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_rubber_2
+    }
+    relative_position_id = HRE_resource_rubber_2
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_3
+            has_idea = HRE_resource_cost_b_3
+        }
+        num_of_civilian_factories_available_for_projects > 5
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = rubber
+                    amount = 32
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = rubber
+                    amount = 24
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_rubber_3
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_rubber_3
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_oil_1
+    icon = GFX_goal_generic_oil_refinery
+    x = 4
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_mine
+        focus = HRE_resource_import
+    }
+    relative_position_id = HRE_resource_import
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_1
+            has_idea = HRE_resource_cost_b_1
+        }
+        num_of_civilian_factories_available_for_projects > 1
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = oil
+                    amount = 10
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_1
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = oil
+                    amount = 6
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_oil_1
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_oil_1
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_oil_2
+    icon = GFX_goal_generic_oil_refinery
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_oil_1
+    }
+    relative_position_id = HRE_resource_oil_1
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_2
+            has_idea = HRE_resource_cost_b_2
+        }
+        num_of_civilian_factories_available_for_projects > 3
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = oil
+                    amount = 20
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_2
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = oil
+                    amount = 12
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_oil_2
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_oil_2
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_resource_oil_3
+    icon = GFX_goal_generic_oil_refinery
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_resource_oil_2
+    }
+    relative_position_id = HRE_resource_oil_2
+    available = {
+        NOT = {
+            has_idea = HRE_resource_cost_a_3
+            has_idea = HRE_resource_cost_b_3
+        }
+        num_of_civilian_factories_available_for_projects > 5
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_resource_mine
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_a_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = oil
+                    amount = 40
+                }
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_resource_import
+            }
+            add_timed_idea = {
+                idea = HRE_resource_cost_b_3
+                days = 60
+            }
+            capital_scope = {
+                add_resource = {
+                    type = oil
+                    amount = 24
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_if_resource_mine
+            custom_effect_tooltip = HRE_tooltip_mine_oil_3
+            custom_effect_tooltip = HRE_tooltip_if_resource_import
+            custom_effect_tooltip = HRE_tooltip_import_oil_3
+        }
+    }
+}
