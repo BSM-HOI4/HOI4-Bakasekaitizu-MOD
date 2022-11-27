@@ -1,7 +1,5 @@
 ﻿capital = 271
-
-oob = "Default_oob" #"ETH_1936"
-
+oob = "Default_oob"#"ETH_1936"
 # Starting tech
 set_technology = {
 	infantry_weapons = 1
@@ -30,9 +28,16 @@ recruit_character = ETH_desta_damtew
 recruit_character = ETH_ras_imru_haile_selassie
 recruit_character = ETH_bedjironde_tekle_hawariate
 recruit_character = ETH_makonnen_endelkatchew
-
-
 set_convoys = 5
+if = {
+	limit = {
+		has_start_date < 1936.01.02
+	}
+	declare_war_on = {
+		target = PAL
+		type = annex_everything
+	}
+}
 
 1939.1.1 = {
 	#generic focuses
@@ -45,19 +50,15 @@ set_convoys = 5
 	complete_national_focus = industrial_effort
 	complete_national_focus = construction_effort
 	complete_national_focus = production_effort
-	
 	set_technology = {
-
 		#doctrines
 		grand_battle_plan = 1
 		trench_warfare = 1
-
 		#electronics
 		electronic_mechanical_engineering = 1
 		radio = 1
 		radio_detection = 1
 		mechanical_computing = 1
-
 		#industry
 		basic_machine_tools = 1
 		improved_machine_tools = 1
@@ -77,6 +78,7 @@ set_politics = {
 	election_frequency = 48
 	elections_allowed = no
 }
+
 set_popularities = {
 	neutrality = 100
 }
