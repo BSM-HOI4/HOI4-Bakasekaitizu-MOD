@@ -88,6 +88,9 @@ focus_tree = {
 			focus = JPN_qiangiribenwoqurilisu
 			focus = JPN_shenshengjiaoyu
 		}
+		completion_reward = {
+			add_political_power = 100
+		}
 	}
 	#①計画
 	focus = {
@@ -101,6 +104,9 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_wenhuahuodongnotuijiang
+		}
+		completion_reward = {
+			set_country_flag = JPN_maruiti
 		}
 	}
 	#下層文化の推進
@@ -116,6 +122,9 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_jihua
 		}
+		completion_reward = {
+			set_country_flag = JPN_maruiti_1
+		}
 	}
 	#教育改革
 	focus = {
@@ -129,6 +138,17 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_xiacengwenhuanotuijin
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = JAP_supremacy_of_technology
+				}
+				swap_ideas = {
+					remove_idea = JAP_supremacy_of_technology
+					add_idea = JAP_supremacy_of_technology_2
+				}
+			}
 		}
 	}
 	#四国大改造計画
@@ -565,6 +585,10 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_jinshendangnitoupiao
 		}
+		completion_reward = {
+			add_ideas = JAP_supremacy_of_technology
+			add_research_slot = 1
+		}
 	}
 	#可愛いリーダー
 	focus = {
@@ -585,7 +609,12 @@ focus_tree = {
 		completion_reward = {
 			add_popularity = {
 				ideology = mythologicalism
-				popularity = 0.25
+				popularity = 0.5
+			}
+			set_country_leader_ideology = mythologicalism
+			set_politics = {
+				ruling_party = mythologicalism
+				elections_allowed = yes
 			}
 			add_country_leader_role = {
 				character = JPN_Amaterasu
@@ -594,14 +623,13 @@ focus_tree = {
 					ideology = shinto
 					expire = "9999.1.1.1"
 					traits = {
-						warrior_code
-						yurushite_hiyashinsu
-						barenakya_hanzaijya_nai
+						JPN_kami_trait
 					}
 				}
 			}
 			hidden_effect = {
-				complete_national_focus = JPN_gainianshangnozhidaozhe
+				add_ideas = JAP_hirohito
+				# complete_national_focus = JPN_gainianshangnozhidaozhe
 			}
 		}
 	}
@@ -621,6 +649,10 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = JPN_kuozhangzhuyi
 		}
+		completion_reward = {
+			set_country_flag = JPN_heiwa
+			add_political_power = 100
+		}
 	}
 	#拡張主義
 	focus = {
@@ -638,6 +670,10 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = JPN_pinghezhuyi
 		}
+		completion_reward = {
+			set_country_flag = JPN_kakutyo
+			add_command_power = 120
+		}
 	}
 	#研究への投資
 	focus = {
@@ -652,6 +688,33 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_pinghezhuyi
 			focus = JPN_kuozhangzhuyi
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.25
+				uses = 2
+				category = electronics
+			}
+			if = {
+				limit = {
+					has_country_flag = JPN_heiwa
+				}
+				add_tech_bonus = {
+					bonus = 0.25
+					uses = 2
+					category = industry
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = JPN_kakutyo
+				}
+				add_tech_bonus = {
+					bonus = 0.25
+					uses = 2
+					category = infantry_tech
+				}
+			}
 		}
 	}
 	#アジア圏との協調
@@ -670,6 +733,63 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_yanjiuhenotouzi
 		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_country_flag = JPN_heiwa
+				}
+				add_political_power = 100
+			}
+			else_if = {
+				limit = {
+					has_country_flag = JPN_kakutyo
+				}
+				add_command_power = 60
+			}
+			hidden_effect = {
+				add_relation_modifier = {
+					target = CHI
+					modifier = azian_alignment
+				}
+				add_relation_modifier = {
+					target = SCC
+					modifier = azian_alignment
+				}
+				add_relation_modifier = {
+					target = UTP
+					modifier = azian_alignment
+				}
+				add_relation_modifier = {
+					target = SCC
+					modifier = azian_alignment
+				}
+				add_relation_modifier = {
+					target = IDN
+					modifier = azian_alignment
+				}
+				add_relation_modifier = {
+					target = BKK
+					modifier = azian_alignment
+				}
+				add_relation_modifier = {
+					target = VNM
+					modifier = azian_alignment
+				}
+				add_relation_modifier = {
+					target = HAW
+					modifier = azian_alignment
+				}
+				create_faction = asean_alignment
+				add_to_faction = CHI
+				add_to_faction = SCC
+				add_to_faction = UTP
+				add_to_faction = SCC
+				add_to_faction = IDN
+				add_to_faction = BKK
+				add_to_faction = VNM
+				add_to_faction = HAW
+			}
+		}
 	}
 	#楽園への侵攻
 	focus = {
@@ -686,6 +806,12 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_yanjiuhenotouzi
+		}
+		completion_reward = {
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = UTP
+			}
 		}
 	}
 	#生身の政治家
@@ -765,6 +891,9 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_jiaoyugaige
 		}
+		completion_reward = {
+			add_ideas = family_court
+		}
 	}
 	#子育て家庭への支援
 	focus = {
@@ -778,6 +907,9 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_jiatingcaipansuonoshezhi
+		}
+		completion_reward = {
+			add_ideas = famillllllllllly
 		}
 	}
 	#研究の加速
@@ -794,6 +926,9 @@ focus_tree = {
 			focus = JPN_leyuanhenoqingong
 			focus = JPN_aziaquantonoxiediao
 		}
+		completion_reward = {
+			add_research_slot = 1
+		}
 	}
 	#共栄圏の拡大
 	focus = {
@@ -807,7 +942,13 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_aziaquantonoxiediao
+		}
+		prerequisite = {
 			focus = JPN_yanjiunojiasu
+		}
+		completion_reward = {
+			add_ideas = JPN_large_asean
+			add_political_power = 777
 		}
 	}
 	#中小国を恫喝
@@ -826,6 +967,16 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_yanjiunojiasu
 		}
+		completion_reward = {
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = PRK
+			}
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = SOV
+			}
+		}
 	}
 	#古き同盟の回生
 	focus = {
@@ -842,6 +993,13 @@ focus_tree = {
 		}
 		mutually_exclusive = {
 			focus = JPN_zhudaolianhe
+		}
+		completion_reward = {
+			add_political_power = 100
+			country_event = {
+				id = jpn_pol.3
+				days = 1
+			}
 		}
 	}
 	#諸島連合
@@ -860,6 +1018,18 @@ focus_tree = {
 		mutually_exclusive = {
 			focus = JPN_gukitongmengnohuisheng
 		}
+		completion_reward = {
+			add_political_power = 100
+			set_country_flag = ASEAN
+			set_faction_name = ASEAN_2
+			add_to_faction = TWN
+			add_to_faction = NSI
+			add_to_faction = GMI
+			add_to_faction = HAW
+			add_to_faction = SJK
+			add_to_faction = DRS
+			add_to_faction = ECU
+		}
 	}
 	#合同演習
 	focus = {
@@ -874,6 +1044,44 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_gukitongmengnohuisheng
 			focus = JPN_zhudaolianhe
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_country_flag = JPN_ENG
+				}
+				GBR = {
+					army_experience = 100
+					air_experience = 100
+				}
+				every_country = {
+					limit = {
+						is_in_faction_with = JPN
+					}
+					army_experience = 100
+					air_experience = 100
+				}
+				every_country = {
+					limit = {
+						is_in_faction_with = GBR
+					}
+					army_experience = 100
+					air_experience = 100
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = ASEAN
+				}
+				every_country = {
+					limit = {
+						is_in_faction_with = ROOT
+					}
+					army_experience = 100
+					air_experience = 100
+				}
+				set_faction_spymaster = yes
+			}
 		}
 	}
 	#連合への港解放
@@ -892,6 +1100,17 @@ focus_tree = {
 		prerequisite = {
 			focus = JPN_hetongyanxi
 		}
+		completion_reward = {
+			give_military_access = GBR
+			navy_experience = 100
+			every_country = {
+				limit = {
+					is_in_faction_with = GBR
+				}
+				give_military_access = THIS
+				navy_experience = 100
+			}
+		}
 	}
 	#諸島港湾への投資
 	focus = {
@@ -908,6 +1127,8 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_hetongyanxi
+		}
+		completion_reward = {
 		}
 	}
 	#沖縄の放棄
@@ -1039,7 +1260,7 @@ focus_tree = {
 				limit = {
 					has_country_flag = JPN_kami_flag
 				}
-				add_country_leader_trait = JPN_kami_trait
+				complete_national_focus = JPN_keaiirida
 			}
 		}
 	}
@@ -1055,6 +1276,12 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_minzhengdangnitoupiao
+		}
+		completion_reward = {
+			country_event = {
+				id = jpn_pol.5
+				days = 0
+			}
 		}
 	}
 	#異界の指揮官
@@ -1207,6 +1434,11 @@ focus_tree = {
 			focus = JPN_junbunotaitou
 		}
 		completion_reward = {
+			hidden_effect = {
+				news_event = {
+					id = jpn_news.5
+				}
+			}
 		}
 	}
 	#軍部の台頭
@@ -1367,6 +1599,9 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = JPN_ziyutejiatinghenozhiyuan
+		}
+		completion_reward = {
+			add_political_power = 300
 		}
 	}
 }
