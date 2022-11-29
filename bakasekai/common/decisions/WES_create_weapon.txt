@@ -1211,3 +1211,40 @@ It_is_dream = {
 		}
     }
 }
+
+SAND_UNION = {
+    SAND_UNION_decision = {
+        icon = GFX_decision_generic_ignite_civil_war
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+        cost = 10
+        fire_only_once = no
+        days_re_enable = 100
+        available = {
+			AND = {
+            	has_completed_focus = WES_progress_of_desertification
+				OR = {
+					all_state = {
+						is_owned_by = WES
+					}
+					all_country = {
+						is_puppet_of = WES
+					}
+				}
+			}
+        }
+        complete_effect = {
+			set_cosmetic_tag = WES_SAND_UNION
+            every_state={ add_core_of = WES }
+
+        }
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+        ai_will_do = {
+			factor = 20
+		}
+    }
+}
