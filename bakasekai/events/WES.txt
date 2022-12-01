@@ -592,6 +592,11 @@ country_event = {
 			factor = 100
 		}
 		set_cosmetic_tag = WES_Sayama_Ken
+		load_focus_tree = {
+		    tree = wes_3
+		    keep_completed = yes
+	    }
+		mark_focus_tree_layout_dirty = yes
 
 		#hidden_effect = {
 		#	news_event = { id = news.193 }
@@ -897,7 +902,6 @@ country_event = {
 		}
 		trigger = {
 			WES = { has_idea = WES_private_use_of_public_funds}
-			WES = { has_country_flag = tiisara_allow }
 		}
 		hidden_effect = {
 			WES = { country_event = { days = 10 id = WES.23 } }
@@ -1682,10 +1686,8 @@ country_event = {
 			factor = 100
 		}
 		trigger = {
-			NOT = {
 			AND = {
 				WES = {has_country_flag = WES_sahara_africa }
-				NOT = {
 					OR = {
 						country_exists = MAR
 						country_exists = KSM
@@ -1695,8 +1697,6 @@ country_event = {
 						country_exists = KEN
 						country_exists = AMA
 					}
-				}
-			}
 			}
 
 		}
@@ -1981,6 +1981,7 @@ country_event = {
 		trigger = {
 			has_country_flag = WES_MAR_surrender
 		}
+		clr_country_flag = WES_MAR_surrender
 		effect_tooltip = {
 			annex_country = MAR
 		}
@@ -1996,6 +1997,7 @@ country_event = {
 		trigger = {
 			has_country_flag = WES_KSM_surrender
 		}
+		clr_country_flag = WES_KSM_surrender
 		effect_tooltip = {
 			annex_country = KSM
 		}
@@ -2011,9 +2013,119 @@ country_event = {
 		trigger = {
 			has_country_flag = WES_KHM_surrender
 		}
+		clr_country_flag = WES_KHM_surrender
 		effect_tooltip = {
 			annex_country = KHM
 		}
+		
+		
+	}
+}
+
+country_event = {
+	id = WES.40
+	title = WES.40.t #佐山県の要求
+	desc = WES.40.d #佐山県は我が国の東北地方を「佐山県」建設用地として割譲することを要求している。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = no
+
+	trigger = {
+		tag = JPN
+	}
+
+	option = {
+		name = WES.40.a	#"「自称」佐山県など一瞬で勝利を収められるだろう"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+		}
+		WES = { country_event = { id = WES.41 } }
+		effect_tooltip = {
+			WES = { 
+				create_wargoal = {
+					type = take_state_focus
+					target = JPN
+                    generator = { 533 }
+				}
+			}
+		}
+		
+		
+	}
+
+	option = {
+		name = WES.40.b	#"屈するべきだ"
+		ai_chance = {
+			factor = 0
+		}
+		trigger = {
+		}
+		WES = { country_event = { id = WES.42 } }
+		effect_tooltip = {
+			WES = {
+				transfer_state = 533
+			}
+		}
+		
+		
+		
+	}
+}
+country_event = {
+	id = WES.41
+	title = WES.41.t #交渉の失敗
+	desc = WES.41.d #日本は割譲を拒否することで我が国の計画を妨害してきた。力ずくで佐山の地を手に入れるべきだろう。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = no
+
+	trigger = {
+		tag = WES
+	}
+
+	option = {
+		name = WES.41.a	#"参戦布告だ"
+		ai_chance = {
+			factor = 100
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = JPN
+            generator = { 533 }
+		}
+		
+		
+	}
+}
+
+country_event = {
+	id = WES.42
+	title = WES.42.t #交渉の成立
+	desc = WES.42.d #日本は割譲を承認した。これで我が国は狭山建設プロジェクトを進めることができる。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = no
+
+	trigger = {
+		tag = WES
+	}
+
+	option = {
+		name = WES.42.a	#"やったぞ！"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+		}
+		transfer_state = 533
 		
 		
 	}

@@ -6622,26 +6622,15 @@ focus = {
         relative_position_id = WES_become_a_prefecture_of_Japan
 		prerequisite = { focus = WES_become_a_prefecture_of_Japan  }
 		available = {
-			OR = {
+		AND = {
 				NOT = { JPN = { is_in_faction_with = WES } }
-                NOT = { JPN = { controls_state = 533 } }
+                JPN = { controls_state = 533 } 
 			}
 		}
 		completion_reward = {
             custom_effect_tooltip = WES_sayama_letter_to_japan_tt
             set_country_flag = WES_sayama_letter_to_japan
-			if =  {
-				limit = {
-					country_exists = JPN
-					NOT = { ZAF = { is_in_faction_with = WES } }
-					NOT = { has_war_with = JPN }
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = JPN
-                    generator = { 336 }
-				}
-			}
+            JPN = { country_event = { id = WES.40}}
 		}
 	}
 
@@ -6657,27 +6646,18 @@ focus = {
         relative_position_id = WES_become_a_prefecture_of_Japan
 		prerequisite = { focus = WES_Secured_construction_site_in_Sayama_Pref  }
 		available = {
-			OR = {
-				NOT = { JPN = { is_in_faction_with = WES } }
-                NOT = { JPN = { controls_state = 533 } }
-			}
+            WES = { controls_state = 533 }
 		}
-        bypass = { WES = { }}
 		completion_reward = {
-            custom_effect_tooltip = WES_sayama_letter_to_japan_tt
-            set_country_flag = WES_sayama_letter_to_japan
-			if =  {
-				limit = {
-					country_exists = JPN
-					NOT = { ZAF = { is_in_faction_with = WES } }
-					NOT = { has_war_with = JPN }
-				}
-				create_wargoal = {
-					type = take_state_focus
-					target = JPN
-                    generator = { 336 }
-				}
-			}
+            add_victory_points = {
+            	province = 9859
+	            value = 50
+            }
+            set_province_name = {
+                id = 9859
+                name = LOC_SAYAMAOKI
+            }   
+            set_capital = {state = 533}
 		}
 	}
 
@@ -6694,6 +6674,10 @@ focus = {
         available_if_capitulated = yes
 
         prerequisite = { focus = WES_Return_to_Sayama }
+
+        available = {
+            num_of_factories > 750
+        }
 
         completion_reward = {
             add_political_power = 1000
