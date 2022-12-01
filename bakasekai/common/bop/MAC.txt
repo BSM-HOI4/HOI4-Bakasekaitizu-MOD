@@ -23,7 +23,7 @@ MAC_power_balance = {
 	### MCD
 	side = {
 		id = MAC_MCD_side	
-		icon = GFX_bop_MAC_grand_council_side
+		icon = GFX_MAC_bop_logo
 
 		range = {
 			id = MAC_MCD_low_control_range
@@ -60,20 +60,7 @@ MAC_power_balance = {
 			modifier = {
 			}
 			on_activate = {
-				#Depose the Duce or whoever is in charge because the dude sucks at it
-				if = {
-					limit = {
-						NOT = {
-							has_country_leader = {
-								character = MAC_grand_council
-								ruling_only = yes
-							}
-						}
-					}
-					hidden_effect = {
-						country_event = BBA_italy_council_deposes_duce.1
-					}
-				}
+			
 			}
 			on_deactivate = {
 				
@@ -86,23 +73,18 @@ MAC_power_balance = {
 			max = -0.9
 			modifier = {
 			on_activate = {
-				if = {
-					limit = {
-					}
-					hidden_effect = {
-						country_event = BBA_italy_civil_war.1
-					}
-					
-					effect_tooltip = {
-						start_civil_war = {
-							ideology = neutrality
-							size = 0.5
-						}
-					}
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_MCD_side
+					gfx = GFX_MAC_bop_logo_light
 				}
 			}
 			on_deactivate = {
-				
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_MCD_side
+					gfx = GFX_MAC_bop_logo
+				}
 			}
 			}
 		}
@@ -111,7 +93,7 @@ MAC_power_balance = {
 	### MAC
 	side = {
 		id = MAC_MAC_side	
-		icon = GFX_bop_MAC_MAC_side
+		icon = GFX_MAC_bop_logo
 
 		range = {
 			id = MAC_MAC_low_control_range
@@ -164,14 +146,14 @@ MAC_power_balance = {
 				set_power_balance_gfx = {
 					id = MAC_power_balance
 					side = MAC_MAC_side
-					gfx = GFX_bop_MAC_MAC_improved_side
+					gfx = GFX_MAC_bop_logo_light
 				}
 			}
 			on_deactivate = {
 				set_power_balance_gfx = {
 					id = MAC_power_balance
 					side = MAC_MAC_side
-					gfx = GFX_bop_MAC_MAC_side
+					gfx = GFX_MAC_bop_logo
 				}
 			}
 		}
