@@ -59,6 +59,17 @@ focus_tree = {
 			country_event = {
 				id = MCD.7
 			}
+			if = {
+				limit = {
+					AND = { 
+                        has_any_power_balance = no
+                    }
+				}
+                #MAC_initiate_balance_of_power_effect_2 = yes
+			}
+			else = {
+				#set_country_flag = MAC_start_bop_2
+			}
 		}
 	}
 	focus = {
@@ -527,13 +538,8 @@ focus_tree = {
 			has_completed_focus = MAC_unstoppable_rise
 		}
 		available = {
-			every_country = {
-				limit = {
-					NOT = {
-						tag = MAC
-					}
-				}
-				exists = no
+			all_country = {
+				tag = MAC
 			}
 		}
 		prerequisite = {

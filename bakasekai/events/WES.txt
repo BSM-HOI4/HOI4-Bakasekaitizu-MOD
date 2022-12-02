@@ -592,6 +592,11 @@ country_event = {
 			factor = 100
 		}
 		set_cosmetic_tag = WES_Sayama_Ken
+		load_focus_tree = {
+		    tree = wes_3
+		    keep_completed = yes
+	    }
+		mark_focus_tree_layout_dirty = yes
 
 		#hidden_effect = {
 		#	news_event = { id = news.193 }
@@ -633,12 +638,27 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
+		#if = {
+		#	limit = {
+		#		WES = { has_war_with = GBR }
+		#		ZAF = { is_in_faction_with = GBR }
+		#	}
+		#	GBR = { country_event = { id = WES.17 } }
+		#}
 		if = {
 			limit = {
-				WES = { has_war_with = GBR }
-				ZAF = { is_in_faction_with = GBR }
+				ZAF = { is_in_faction = yes }
 			}
-			GBR = { country_event = { id = WES.17 } }
+			every_country = {
+				limit = {
+					AND = {
+						is_in_faction_with = ZAF
+						is_faction_leader = yes
+						has_War_with = WES
+					}
+				}
+				country_event = { id = WES.17 }
+			}
 		}
 		else = {
 			ZAF = { country_event = { id = WES.17 } }
@@ -662,7 +682,7 @@ country_event = {
 	title = WES.17.t#サハラ政府はこれ以上の戦闘は不毛になると我々に降伏勧告を送ってきた。どう返すべきだろうか？
 	desc = WES.17.d
 
-	fire_only_once = yes
+	fire_only_once = no
 
 	major = no
 	is_triggered_only = yes
@@ -716,22 +736,26 @@ country_event = {
 
 	option = {
 		name = WES.18.a  #やったぞ！
-		transfer_state = 275
-		transfer_state = 681
-		transfer_state = 719
 		if = {
 			limit = {
-				WES = { has_war_with = GBR }
-				ZAF = { is_in_faction_with = GBR }
+				ZAF = { is_in_faction = yes }
 			}
 			every_country = { 
 				limit = {
-					is_in_faction_with = GBR
+					AND = {
+						is_in_faction_with = ZAF
+						is_puppet = no
+						is_faction_leader = no
+						has_war_with = WES
+					}
 				}
 				white_peace = PREV
 			}
 			
 		}
+		transfer_state = 275
+		transfer_state = 681
+		transfer_state = 719
 	}
 }
 
@@ -878,7 +902,6 @@ country_event = {
 		}
 		trigger = {
 			WES = { has_idea = WES_private_use_of_public_funds}
-			WES = { has_country_flag = tiisara_allow }
 		}
 		hidden_effect = {
 			WES = { country_event = { days = 10 id = WES.23 } }
@@ -1332,6 +1355,7 @@ country_event = {
 			factor = 100
 		}
 		set_country_flag = WES_elect_cat_mobile_warfare
+		country_event = { id = WES.31}
 	}
 
 	option = {
@@ -1340,6 +1364,7 @@ country_event = {
 			factor = 0
 		}
 		set_country_flag = WES_elect_cat_superior_firepower
+		country_event = { id = WES.31}
 	}
 
 	option = {
@@ -1348,14 +1373,16 @@ country_event = {
 			factor = 0
 		}
 		set_country_flag = WES_elect_cat_grand_battle_plan
+		country_event = { id = WES.31}
 	}
 
 	option = {
-		name = WES.30.d	#"縦深戦術やゲリラ戦術を行うべきだ"
+		name = WES.30.desc	#"縦深戦術やゲリラ戦術を行うべきだ"
 		ai_chance = {
 			factor = 0
 		}
 		set_country_flag = WES_elect_cat_mass_assault
+		country_event = { id = WES.31}
 	}
 }
 
@@ -1659,11 +1686,9 @@ country_event = {
 			factor = 100
 		}
 		trigger = {
-			NOT = {
 			AND = {
 				WES = {has_country_flag = WES_sahara_africa }
-				NOT = {
-					AND = {
+					OR = {
 						country_exists = MAR
 						country_exists = KSM
 						country_exists = KHM
@@ -1672,8 +1697,6 @@ country_event = {
 						country_exists = KEN
 						country_exists = AMA
 					}
-				}
-			}
 			}
 
 		}
@@ -1691,7 +1714,7 @@ country_event = {
 			AND = {
 				WES = {has_country_flag = WES_sahara_africa }
 				NOT = {
-					AND = {
+					OR= {
 						country_exists = MAR
 						country_exists = KSM
 						country_exists = KHM
@@ -1704,7 +1727,414 @@ country_event = {
 			}
 
 		}
-		ROOT = {country_event = { days = 1 id = baka_super.3 }}
+		if = {
+			limit = {
+				is_ai = no
+			}
+			ROOT = {country_event = { days = 1 id = baka_super.3 }}
+		}
+		if = {
+			limit = {
+				AND = {
+					has_country_flag = WES_KHM_surrender
+					has_country_flag = WES_KSM_surrender
+					has_country_flag = WES_MAR_surrender
+					WES = {has_country_flag = WES_sahara_africa }
+					all_neighbor_country = {
+						NOT = {has_war_with = WES}
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					has_war_with = WES
+				}
+				white_peace = WES
+			}
+		}
+		
+	}
+}
+
+country_event = {
+	id = WES.36
+	title = WES.36.t #方針の決定
+	desc = WES.36.d #我が国は今後の軍事的方針を定めなければならない。最後は空軍だ。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {
+		tag = WES
+		WES = {has_country_flag = WES_sahara_africa }
+		country_exists = KSM
+	}
+
+	option = {
+		name = WES.36.a	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			NOT = {
+				OR = {
+					KSM = {
+						surrender_progress > 0.99
+					}
+					WES = { has_war_with = KSM }
+					WES = {has_country_flag = WES_sahara_africa }
+				}
+			}
+		}
+		if = {
+			limit = {
+				country_exists = KSM
+			}
+			ROOT = {country_event = { days = 15 id = WES.36 }}
+		}
+		
+		
+	}
+
+	option = {
+		name = WES.36.b	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			AND = {
+				KSM = {
+					surrender_progress > 0.99
+				}
+				WES = { has_war_with = KSM }
+				WES = {has_country_flag = WES_sahara_africa }
+			}
+
+		}
+		set_country_flag = WES_KSM_surrender
+		if = {
+			limit = {
+				country_exists = KSM
+			}
+			ROOT = {country_event = { day = 2 id = WES.39 }}
+			annex_country = KSM
+		}
+		
+	}
+}
+
+country_event = {
+	id = WES.37
+	title = WES.37.t #方針の決定
+	desc = WES.37.d #我が国は今後の軍事的方針を定めなければならない。最後は空軍だ。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {
+		tag = WES
+		WES = {has_country_flag = WES_sahara_africa }
+		country_exists = KHM
+	}
+
+	option = {
+		name = WES.37.a	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			NOT = {
+				OR = {
+					KHM = {
+						surrender_progress > 0.99
+					}
+					WES = { has_war_with = KHM }
+					WES = {has_country_flag = WES_sahara_africa }
+				}
+			}
+		}
+		if = {
+			limit = {
+				country_exists = KHM
+			}
+			ROOT = {country_event = { days = 15 id = WES.37 }}
+		}
+		
+		
+		
+	}
+
+	option = {
+		name = WES.37.b	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			AND = {
+				KHM = {
+					surrender_progress > 0.99
+				}
+				WES = { has_war_with = KHM }
+				WES = {has_country_flag = WES_sahara_africa }
+			}
+
+		}
+		set_country_flag = WES_KHM_surrender
+		if = {
+			limit = {
+				country_exists = KHM
+			}
+			ROOT = {country_event = { day = 2 id = WES.39 }}
+			annex_country = KHM
+		}
+		
+	}
+}
+
+country_event = {
+	id = WES.38
+	title = WES.38.t #方針の決定
+	desc = WES.38.d #我が国は今後の軍事的方針を定めなければならない。最後は空軍だ。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = yes
+
+	trigger = {
+		tag = WES
+		WES = {has_country_flag = WES_sahara_africa }
+	}
+
+	option = {
+		name = WES.38.a	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			NOT = {
+				OR = {
+					MAR = {
+						surrender_progress > 0.99
+					}
+					WES = { has_war_with = MAR }
+					WES = {has_country_flag = WES_sahara_africa }
+				}
+			}
+		}
+		if = {
+			limit = {
+				country_exists = MAR
+			}
+			ROOT = {country_event = { days = 15 id = WES.38 }}
+		}
+		
+		
+	}
+
+	option = {
+		name = WES.38.b	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			AND = {
+				MAR = {
+					surrender_progress > 0.99
+				}
+				WES = { has_war_with = MAR }
+				WES = {has_country_flag = WES_sahara_africa }
+			}
+
+		}
+		set_country_flag = WES_MAR_surrender
+		if = {
+			limit = {
+				country_exists = MAR
+			}
+			ROOT = {country_event = { day = 2 id = WES.39 }}
+			annex_country = MAR
+		}
+		
+	}
+}
+
+country_event = {
+	id = WES.39
+	title = WES.39.t #交戦国の併合
+	desc = WES.39.d #我が国は敵国を降伏させ、併合した。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = no
+
+	trigger = {
+		tag = WES
+		WES = {has_country_flag = WES_sahara_africa }
+	}
+
+	option = {
+		name = WES.39.a	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = WES_MAR_surrender
+		}
+		clr_country_flag = WES_MAR_surrender
+		effect_tooltip = {
+			annex_country = MAR
+		}
+		
+		
+	}
+
+	option = {
+		name = WES.39.b	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = WES_KSM_surrender
+		}
+		clr_country_flag = WES_KSM_surrender
+		effect_tooltip = {
+			annex_country = KSM
+		}
+		
+		
+	}
+
+	option = {
+		name = WES.39.c	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = WES_KHM_surrender
+		}
+		clr_country_flag = WES_KHM_surrender
+		effect_tooltip = {
+			annex_country = KHM
+		}
+		
+		
+	}
+}
+
+country_event = {
+	id = WES.40
+	title = WES.40.t #佐山県の要求
+	desc = WES.40.d #佐山県は我が国の東北地方を「佐山県」建設用地として割譲することを要求している。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = no
+	fire_only_once = yes
+
+	trigger = {
+		tag = JPN
+	}
+
+	option = {
+		name = WES.40.a	#"「自称」佐山県など一瞬で勝利を収められるだろう"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+		}
+		WES = { country_event = { id = WES.41 } }
+		effect_tooltip = {
+			WES = { 
+				create_wargoal = {
+					type = take_state_focus
+					target = JPN
+                    generator = { 533 }
+				}
+			}
+		}
+		
+		
+	}
+
+	option = {
+		name = WES.40.b	#"屈するべきだ"
+		ai_chance = {
+			factor = 0
+		}
+		trigger = {
+		}
+		WES = { country_event = { id = WES.42 } }
+		effect_tooltip = {
+			WES = {
+				transfer_state = 533
+			}
+		}
+		
+		
+		
+	}
+}
+country_event = {
+	id = WES.41
+	title = WES.41.t #交渉の失敗
+	desc = WES.41.d #日本は割譲を拒否することで我が国の計画を妨害してきた。力ずくで佐山の地を手に入れるべきだろう。
+
+
+	major = no
+	is_triggered_only = yes
+	hidden = no
+	fire_only_once = yes
+
+	trigger = {
+		tag = WES
+	}
+
+	option = {
+		name = WES.41.a	#"参戦布告だ"
+		ai_chance = {
+			factor = 100
+		}
+		create_wargoal = {
+			type = take_state_focus
+			target = JPN
+            generator = { 533 }
+		}
+		
+		
+	}
+}
+
+country_event = {
+	id = WES.42
+	title = WES.42.t #交渉の成立
+	desc = WES.42.d #日本は割譲を承認した。これで我が国は狭山建設プロジェクトを進めることができる。
+
+
+	major = no
+	is_triggered_only = yes
+	fire_only_once = yes
+	hidden = no
+
+	trigger = {
+		tag = WES
+	}
+
+	option = {
+		name = WES.42.a	#"やったぞ！"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+		}
+		transfer_state = 533
+		
 		
 	}
 }
