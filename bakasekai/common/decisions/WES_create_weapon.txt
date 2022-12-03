@@ -1249,8 +1249,8 @@ SAND_UNION = {
     }
 }
 
-desertification = {
-    Desertification_of_territory = {
+Peace_Negotiations_with_Japan = {
+    peace_negotiations_1 = {
         icon = GFX_decision_generic_ignite_civil_war
         allowed = {
             original_tag = WES
@@ -1258,20 +1258,58 @@ desertification = {
         }
         fire_only_once = yes
         available = {
-            has_completed_focus = WES_progress_of_desertification
+			AND = {
+				has_completed_focus = WES_Secured_construction_site_in_Sayama_Pref
+				has_country_flag = WES_SAYAMA_WAR
+				controls_state = 533
+				has_war_with = JPN
+				NOT = { owns_state = 533 }
+			}
+            
         }
         complete_effect = {
-						JPN = { country_event ={ id = WES.4 } }
-            every_state={limit={is_owned_by=WES} set_state_category=desert}
-            #every_province={limit={is_owned_by=WES} set_province_terrain=desert}
-            every_state={
-				limit={is_fully_controlled_by =WES}
-				add_core_of = ROOT
-			}
+			JPN = { country_event ={ id = WES.43 } }
 
         }
         visible = {
-            has_completed_focus = WES_gone_with_the_sand
+            AND = {
+				has_completed_focus = WES_Secured_construction_site_in_Sayama_Pref
+				has_country_flag = WES_SAYAMA_WAR
+			}
+        }
+        ai_will_do = {
+			factor = 20
+		}
+    }
+
+	peace_negotiations_2 = {
+        icon = GFX_decision_generic_ignite_civil_war
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+        fire_only_once = yes
+        available = {
+			AND = {
+				has_completed_focus = WES_Secured_construction_site_in_Sayama_Pref
+				has_country_flag = WES_SAYAMA_WAR
+				has_country_flag = WES_JPN_surrender_no
+				controls_state = 533
+				has_war_with = JPN
+				JPN = { surrender_progress > 0.50 }
+				NOT = { owns_state = 533 }
+			}
+            
+        }
+        complete_effect = {
+			JPN = { country_event ={ id = WES.44 } }
+        }
+        visible = {
+            AND = {
+				has_completed_focus = WES_Secured_construction_site_in_Sayama_Pref
+				has_country_flag = WES_SAYAMA_WAR
+				has_country_flag = WES_JPN_surrender_no
+			}
         }
         ai_will_do = {
 			factor = 20
