@@ -1248,3 +1248,33 @@ SAND_UNION = {
 		}
     }
 }
+
+desertification = {
+    Desertification_of_territory = {
+        icon = GFX_decision_generic_ignite_civil_war
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+        fire_only_once = yes
+        available = {
+            has_completed_focus = WES_progress_of_desertification
+        }
+        complete_effect = {
+						JPN = { country_event ={ id = WES.4 } }
+            every_state={limit={is_owned_by=WES} set_state_category=desert}
+            #every_province={limit={is_owned_by=WES} set_province_terrain=desert}
+            every_state={
+				limit={is_fully_controlled_by =WES}
+				add_core_of = ROOT
+			}
+
+        }
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+        ai_will_do = {
+			factor = 20
+		}
+    }
+}
