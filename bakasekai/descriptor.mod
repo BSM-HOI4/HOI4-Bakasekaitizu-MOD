@@ -32,6 +32,7 @@ replace_path="history/general"
 replace_path="gfx/loadingscreens"
 replace_path="map"
 replace_path="map/strategicregions"
+replace_path="tests"
 name="バカ世界地図テスト版"
 dependencies={
 	"Japanese Language mod"
