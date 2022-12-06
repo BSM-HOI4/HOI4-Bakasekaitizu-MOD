@@ -758,51 +758,6 @@ ETH_upgrade_main_city = {
 }
 
 # Local resistance fighters rising up (historically some 50000 or so rose up in the North )
-ETH_arbegnoch_uprising = {
-	# ensure noone has tried creating a template in advance 
-	delete_unit_template_and_units = {
-		division_template = "Arbegnoch Fighters"
-		disband = yes		#will refund equipment and manpower
-	}
-	# Create the template 
-	division_template = {
-		name = "Arbegnoch Fighters"
-		is_locked = yes
-		division_names_group = ETH_ARB
-		priority = 0
-		template_counter = 0
-		regiments = {
-			irregular_infantry = {
-				x = 0
-				y = 0
-			}
-			irregular_infantry = {
-				x = 0
-				y = 1
-			}
-			irregular_infantry = {
-				x = 0
-				y = 2
-			}
-		}
-	}
-	every_owned_state = {
-		limit = {
-			check_variable = {
-				ETH_resistance_force_strength > 0
-			}
-		}
-		create_unit = {
-			# unit detauls 
-			division = "division_template = \"Arbegnoch Fighters\" start_experience_factor = 0.2  start_equipment_factor = 0.75"
-			# country to spawn unit for 
-			owner = ROOT
-			allow_spawning_on_enemy_provs = yes
-			count = ETH_resistance_force_strength
-		}
-	}
-}
-
 ETH_set_up_african_resistance_states = {
 	hidden_effect = {
 		for_each_scope_loop = {
@@ -1212,7 +1167,8 @@ ETH_create_federation = {
 					is_core_of = GMI
 					NOT = {
 						state = 271
-					}					# Avoid transferring Addis
+					}
+					# Avoid transferring Addis
 				}
 				GMI = {
 					transfer_state = PREV
