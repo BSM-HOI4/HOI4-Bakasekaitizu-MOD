@@ -671,75 +671,72 @@ country_event = {
 		}
 		round_variable = ETH.number_of_volunteers
 	}
-	# Forming brigades
-	option = {
-		name = BBA_italo_ethiopian_war_events.15.a
-		trigger = {
-			check_variable = {
-				ETH.number_of_volunteers > 0
-			}
-		}
-		division_template = {
-			name = "International brigade"
-			is_locked = yes
-			division_names_group = ETH_INT_BRIG
-			priority = 1
-			template_counter = 0
-			regiments = {
-				infantry = {
-					x = 0
-					y = 0
-				}
-				infantry = {
-					x = 0
-					y = 1
-				}
-				infantry = {
-					x = 0
-					y = 2
-				}
-				infantry = {
-					x = 0
-					y = 3
-				}
-				infantry = {
-					x = 0
-					y = 4
-				}
-			}
-		}
-		IF = {
-			limit = {
-				838 = {
-					is_controlled_by_ROOT_or_ally = yes
-				}
-			}
-			838 = {
-				create_unit = {
-					division = "division_template = \"International brigade\" start_experience_factor = 0.1 start_equipment_factor = 1"
-					owner = ETH
-					count = ETH.number_of_volunteers
-					prioritize_location = 13244
-				}
-			}
-		}
-		ELSE = {
-			random_owned_controlled_state = {
-				create_unit = {
-					division = "division_template = \"International brigade\" start_experience_factor = 0.1 start_equipment_factor = 1"
-					owner = ETH
-					count = ETH.number_of_volunteers
-				}
-			}
-		}
-	}
+	# # Forming brigades
+	# option = {
+	# 	name = BBA_italo_ethiopian_war_events.15.a
+	# 	trigger = {
+	# 		check_variable = {
+	# 			ETH.number_of_volunteers > 0
+	# 		}
+	# 	}
+	# 	division_template = {
+	# 		name = "International brigade"
+	# 		is_locked = yes
+	# 		division_names_group = ETH_INT_BRIG
+	# 		priority = 1
+	# 		template_counter = 0
+	# 		regiments = {
+	# 			infantry = {
+	# 				x = 0
+	# 				y = 0
+	# 			}
+	# 			infantry = {
+	# 				x = 0
+	# 				y = 1
+	# 			}
+	# 			infantry = {
+	# 				x = 0
+	# 				y = 2
+	# 			}
+	# 			infantry = {
+	# 				x = 0
+	# 				y = 3
+	# 			}
+	# 			infantry = {
+	# 				x = 0
+	# 				y = 4
+	# 			}
+	# 		}
+	# 	}
+	# 	IF = {
+	# 		limit = {
+	# 			838 = {
+	# 				is_controlled_by_ROOT_or_ally = yes
+	# 			}
+	# 		}
+	# 		838 = {
+	# 			create_unit = {
+	# 				division = "division_template = \"International brigade\" start_experience_factor = 0.1 start_equipment_factor = 1"
+	# 				owner = ETH
+	# 				count = ETH.number_of_volunteers
+	# 				prioritize_location = 13244
+	# 			}
+	# 		}
+	# 	}
+	# 	ELSE = {
+	# 		random_owned_controlled_state = {
+	# 			create_unit = {
+	# 				division = "division_template = \"International brigade\" start_experience_factor = 0.1 start_equipment_factor = 1"
+	# 				owner = ETH
+	# 				count = ETH.number_of_volunteers
+	# 			}
+	# 		}
+	# 	}
+	# }
 	# Sad... 
 	option = {
 		name = BBA_italo_ethiopian_war_events.15.b
 		trigger = {
-			check_variable = {
-				ETH.number_of_volunteers < 1
-			}
 		}
 		add_manpower = 1000
 	}

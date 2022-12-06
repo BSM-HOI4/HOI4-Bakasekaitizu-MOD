@@ -1,381 +1,110 @@
 debug_decisions = {
-
-	add_efficiency_growth_debug = {
-		icon = generic_research
-
-		available = {
-			is_ai = no
-			is_debug = yes
-		}
-
-		visible = {
-			always = yes
-		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			add_ideas = add_production_efficiency
-		}
-	}
-		
-	remove_efficiency_growth_debug = {
-		icon = generic_research
-
-		available = {
-			is_ai = no
-			is_debug = yes
-		}
-
-		visible = {
-			always = yes
-		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			if = {
-				limit = {
-					has_idea = add_production_efficiency
-				}
-				remove_ideas = add_production_efficiency
+	debug_chn_civilwar = {
+		icon = generic_independence
+		fire_only_once = yes
+		remove_effect = {
+			CHN = {
+				country_event = CHN_civil_war.1
 			}
-			if = {
-				limit = {
-					has_idea = decrease_production_efficiency
-				}
-				remove_ideas = decrease_production_efficiency
-			}	
+			set_global_flag = debug_chn_civilwar
 		}
 	}
-		
-	decrease_efficiency_growth_debug = {
-		icon = generic_research
-
-		available = {
-			is_ai = no
-			is_debug = yes
-		}
-
+	debug_chn_civilwar_2 = {
+		icon = generic_independence
+		fire_only_once = yes
 		visible = {
-			always = yes
+			has_global_flag = debug_chn_civilwar
 		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			add_ideas = decrease_production_efficiency
-		}
-
-		ai_will_do = {
-			base = 0
-		}
-	}
-	
-	history_entry_debug = {
-
-		icon = generic_research
-
-		available = {
-			always = yes
-		}
-
-		visible = {
-			always = yes
-		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			random_country_division = {
-
-				add_history_entry = {
-					key = custom_localized_key
-					subject = "Custom String (not localized)"
-					allow = yes
-				}
+		remove_effect = {
+			RAJ = {
+				country_event = CHN_civil_war.2
 			}
-			
-		}
-
-		ai_will_do = {
-			base = 0
+			clr_global_flag = debug_chn_civilwar
+			set_global_flag = debug_chn_civilwar_2
 		}
 	}
-
-	create_operative_debug = {
-
-		icon = generic_research
-
-		available = {
-			always = yes
-		}
-
+	debug_chn_civilwar_3 = {
+		icon = generic_independence
+		fire_only_once = yes
 		visible = {
-			always = yes
+			has_global_flag = debug_chn_civilwar_2
 		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			create_operative_leader = {
-				bypass_recruitment = yes
+		remove_effect = {
+			CHN = {
+				country_event = CHN_civil_war.3
 			}
+			clr_global_flag = debug_chn_civilwar_2
+			set_global_flag = debug_chn_civilwar_3
 		}
-
-		ai_will_do = {
-			base = 0
-		}
-		
-		power_balance = _test_balance
 	}
-
-
-	create_recruitable_operative_not_to_spy_master_debug = {
-		icon = generic_research
-
-		available = {
-			always = yes
-		}
-
+	debug_chn_civilwar_4 = {
+		icon = generic_independence
+		fire_only_once = yes
 		visible = {
-			always = yes
+			has_global_flag = debug_chn_civilwar_3
 		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			create_operative_leader = {
-				bypass_recruitment = no
-				available_to_spy_master = no
+		remove_effect = {
+			CHN = {
+				country_event = CHN_civil_war.4
 			}
-		}
-
-		ai_will_do = {
-			base = 0
+			clr_global_flag = debug_chn_civilwar_3
+			set_global_flag = debug_chn_civilwar_4
 		}
 	}
-
-	create_recruitable_operative_debug = {
-		icon = generic_research
-
-		available = {
-			always = yes
-		}
-
+	debug_chn_civilwar_5 = {
+		icon = generic_independence
+		fire_only_once = yes
 		visible = {
-			always = yes
+			has_global_flag = debug_chn_civilwar_4
 		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			create_operative_leader = {
-				bypass_recruitment = no
+		remove_effect = {
+			JAP = {
+				country_event = CHN_civil_war.5
 			}
-		}
-
-		ai_will_do = {
-			base = 0
+			clr_global_flag = debug_chn_civilwar_4
+			set_global_flag = debug_chn_civilwar_5
 		}
 	}
-
-
-	FRA_capture_operative_debug = {
-		available = {
-			NOT = { TAG = FRA }
-			num_of_operatives > 0
-		}
-
+	debug_chn_civilwar_6 = {
+		icon = generic_independence
+		fire_only_once = yes
 		visible = {
-			always = yes
+			has_global_flag = debug_chn_civilwar_5
 		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			random_operative = {
-				limit = {
-					is_operative_captured = no
-				}
-				capture_operative = {
-					captured_by = FRA
-				}
+		remove_effect = {
+			CHN = {
+				country_event = CHN_civil_war.6
 			}
+			clr_global_flag = debug_chn_civilwar_5
+			set_global_flag = debug_chn_civilwar_6
 		}
-
-		ai_will_do = {
-			base = 0
-		}
-
 	}
-
-	FRA_turn_operative_debug = {
-		available = {
-			NOT = { TAG = FRA }
-			num_of_operatives > 0
-		}
-
+	debug_chn_civilwar_7 = {
+		icon = generic_independence
+		fire_only_once = yes
 		visible = {
-			always = yes
+			has_global_flag = debug_chn_civilwar_6
 		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			random_operative = {
-				limit = {
-					is_operative_captured = no
-				}
-				set_nationality = FRA
-				operative_leader_event = {
-					id = lar_operative_event.5
-					set_from_from = DEU #tells the event which nationality to add
-				}
+		remove_effect = {
+			CHN = {
+				country_event = CHN_civil_war.7
 			}
+			clr_global_flag = debug_chn_civilwar_6
+			set_global_flag = debug_chn_civilwar_7
 		}
-
-		ai_will_do = {
-			base = 0
-		}
-
 	}
-
-	harm_operative_debug = {
-		available = {
-			num_of_operatives > 0
-		}
-
+	debug_chn_civilwar_8 = {
+		icon = generic_independence
+		fire_only_once = yes
 		visible = {
-			always = yes
+			has_global_flag = debug_chn_civilwar_7
 		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			random_operative = {
-				harm_operative_leader = 1
-				operative_leader_event = {
-					id = lar_operative_event.4
-					set_from_from = URG
-				}
+		remove_effect = {
+			CHN = {
+				country_event = CHN_civil_war.8
 			}
+			clr_global_flag = debug_chn_civilwar_7
+			set_global_flag = debug_chn_civilwar_8
 		}
-
-		ai_will_do = {
-			base = 0
-		}
-
-	}
-
-	add_random_nationality = {
-		available = {
-			num_of_operatives > 0
-		}
-
-		visible = {
-			always = yes
-		}
-
-		fire_only_once = no
-		cost = 0
-
-		complete_effect = {
-			random_country = {
-				limit = {
-					NOT = { tag = FROM }
-				}
-				FROM = {
-					random_operative = {
-						add_nationality = PREV.PREV
-					}
-				}
-			}
-		}
-
-		ai_will_do = {
-			base = 0
-		}
-
-	}
-
-	slot_machine = { # we pegi 18 now
-		available = {
-			always = yes
-		}
-
-		visible = {
-			always = yes
-		}
-
-		days_remove = 777
-
-		modifier = {
-			operative_slot = 99
-		}
-	}
-
-	decryption_tech_1 = {
-		days_remove = 100
-		modifier = {
-			decryption = 1
-		}
-	}
-
-	decryption_tech_2 = {
-		days_remove = 100
-		modifier = {
-			decryption = 1
-		}
-	}
-
-	decryption_tech_3 = {
-		days_remove = 100
-		modifier = {
-			decryption = 1
-		}
-	}
-
-	encryption_tech_1 = {
-		days_remove = 100
-		modifier = {
-			encryption = 1
-		}
-	}
-
-	encryption_tech_2 = {
-		days_remove = 100
-		modifier = {
-			encryption = 1
-		}
-	}
-
-	encryption_tech_3 = {
-		days_remove = 100
-		modifier = {
-			encryption = 1
-		}
-	}
-
-	plane_generator_test = {
-		complete_effect = {
-			set_variable = { fighter_buy_amount = 200 }
-			save_event_target_as = license_target
-			bba_get_fighter_GER_effect = yes
-			DEU = {
-				bba_create_fighter_license_effect = yes
-			}
-		}
-		
 	}
 }
