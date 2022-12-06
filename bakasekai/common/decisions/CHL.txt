@@ -1,0 +1,358 @@
+CHL_election_bop_category = {
+    anti_long_propaganda = {
+        cost = 150
+        fire_only_once = yes
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = -0.1
+            }
+        }
+    }
+    
+    love_hinnyuu_propaganda = {
+        cost = 150
+        fire_only_once = yes
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = 0.1
+            }
+        }
+    }
+    
+    policy_conquer_south_america = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_diplomacy
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_south_america
+                NOT = {
+                    has_country_flag = CHL_flag_policy_south_america
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = 0.1
+            }
+            set_country_flag = CHL_flag_policy_south_america
+            set_country_flag = CHL_flag_policy_conquer_south_america
+        }
+    }
+    
+    policy_ally_south_america = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_diplomacy
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_south_america
+                NOT = {
+                    has_country_flag = CHL_flag_policy_south_america
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = -0.1
+            }
+            set_country_flag = CHL_flag_policy_south_america
+            set_country_flag = CHL_flag_policy_ally_south_america
+        }
+    }
+    
+    policy_anti_usa = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_diplomacy
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_usa
+                NOT = {
+                    has_country_flag = CHL_flag_policy_usa
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = 0.1
+            }
+            set_country_flag = CHL_flag_policy_usa
+            set_country_flag = CHL_flag_policy_anti_usa
+        }
+    }
+    policy_friend_usa = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_diplomacy
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_usa
+                NOT = {
+                    has_country_flag = CHL_flag_policy_usa
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = -0.1
+            }
+            set_country_flag = CHL_flag_policy_usa
+            set_country_flag = CHL_flag_policy_friend_usa
+        }
+    }
+    policy_neutral_usa = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_diplomacy
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_usa
+                NOT = {
+                    has_country_flag = CHL_flag_policy_usa
+                }
+            }
+        }
+        complete_effect = {
+            custom_effect_tooltip = CHL_tooltop_go_bop_mid
+            if = {
+                limit = {
+                    power_balance_value = {
+                        id = CHL_election_balance
+                        value > 0
+                    }
+                }
+                add_power_balance_value = {
+                    id = CHL_election_balance
+                    value = -0.1
+                }
+            }
+            else = {
+                add_power_balance_value = {
+                    id = CHL_election_balance
+                    value = 0.1
+                }
+            }
+            
+            set_country_flag = CHL_flag_policy_usa
+            set_country_flag = CHL_flag_policy_neutral_usa
+        }
+    }
+    
+    policy_industry_civ = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_industry
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_industry
+                NOT = {
+                    has_country_flag = CHL_flag_policy_industry
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = -0.1
+            }
+            set_country_flag = CHL_flag_policy_industry
+            set_country_flag = CHL_flag_policy_industry_civ
+        }
+    }
+    
+    policy_industry_mil = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_industry
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_industry
+                NOT = {
+                    has_country_flag = CHL_flag_policy_industry
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = 0.1
+            }
+            set_country_flag = CHL_flag_policy_industry
+            set_country_flag = CHL_flag_policy_industry_mil
+        }
+    }
+    
+    policy_industry_complex = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_industry
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_industry
+                NOT = {
+                    has_country_flag = CHL_flag_policy_industry
+                }
+            }
+        }
+        complete_effect = {
+            custom_effect_tooltip = CHL_tooltop_go_bop_mid
+            if = {
+                limit = {
+                    power_balance_value = {
+                        id = CHL_election_balance
+                        value > 0
+                    }
+                }
+                add_power_balance_value = {
+                    id = CHL_election_balance
+                    value = -0.1
+                }
+            }
+            else = {
+                add_power_balance_value = {
+                    id = CHL_election_balance
+                    value = 0.1
+                }
+            }
+            set_country_flag = CHL_flag_policy_industry
+            set_country_flag = CHL_flag_policy_industry_complex
+        }
+    }
+    
+    policy_force_army = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_army
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_force
+                NOT = {
+                    has_country_flag = CHL_flag_policy_force
+                }
+            }
+        }
+        complete_effect = {
+            custom_effect_tooltip = CHL_tooltop_go_bop_mid
+            if = {
+                limit = {
+                    power_balance_value = {
+                        id = CHL_election_balance
+                        value > 0
+                    }
+                }
+                add_power_balance_value = {
+                    id = CHL_election_balance
+                    value = -0.1
+                }
+            }
+            else = {
+                add_power_balance_value = {
+                    id = CHL_election_balance
+                    value = 0.1
+                }
+            }
+            set_country_flag = CHL_flag_policy_force
+            set_country_flag = CHL_flag_policy_force_army
+        }
+    }
+    
+    policy_force_navy = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_army
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_force
+                NOT = {
+                    has_country_flag = CHL_flag_policy_force
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = 0.1
+            }
+            set_country_flag = CHL_flag_policy_force
+            set_country_flag = CHL_flag_policy_force_army
+        }
+    }
+    
+    policy_force_air = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_army
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_force
+                NOT = {
+                    has_country_flag = CHL_flag_policy_force
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = -0.1
+            }
+            set_country_flag = CHL_flag_policy_force
+            set_country_flag = CHL_flag_policy_force_air
+        }
+    }
+    
+    policy_tax_low = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_tax
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_tax
+                NOT = {
+                    has_country_flag = CHL_flag_policy_force
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = -0.1
+            }
+            set_country_flag = CHL_flag_policy_force
+            set_country_flag = CHL_flag_policy_force_air
+        }
+    }
+}
+
+
+# global_comic_market

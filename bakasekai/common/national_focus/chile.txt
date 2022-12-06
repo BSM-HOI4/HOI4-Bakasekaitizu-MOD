@@ -14,4 +14,153 @@ focus_tree = {
     
     shared_focus = HRE_prepare_army
     shared_focus = HRE_plan_four_years
+    
+    shared_focus = CHL_1936_election
+}
+
+shared_focus = {
+    id = CHL_1936_election
+    icon = GFX_goal_generic_political_pressure
+    x = 35
+    y = 0
+    cost = 1
+    completion_reward = {
+        add_political_power = 50
+        set_power_balance = {
+            id = CHL_election_balance
+        }
+        remove_ideas = CHL_before_election
+    }
+}
+
+shared_focus = {
+    id = CHL_election_diplomacy
+    icon = GFX_focus_generic_diplomatic_treaty
+    x = 0
+    y = 2
+    cost = 2
+    prerequisite = {
+        focus = CHL_1936_election
+    }
+    relative_position_id = CHL_1936_election
+    available = {
+    
+    }
+    completion_reward = {
+        add_political_power = 20
+        custom_effect_tooltip = CHL_tooltip_unlock_decision_on_bop
+    }
+}
+
+shared_focus = {
+    id = CHL_election_industry
+    icon = GFX_focus_generic_industry_2
+    x = -1
+    y = 1
+    cost = 3
+    prerequisite = {
+        focus = CHL_1936_election
+    }
+    relative_position_id = CHL_1936_election
+    available = {
+    
+    }
+    completion_reward = {
+        add_political_power = 30
+        add_stability = 0.01
+        custom_effect_tooltip = CHL_tooltip_unlock_decision_on_bop
+    }
+}
+
+shared_focus = {
+    id = CHL_election_army
+    icon = GFX_goal_generic_position_armies
+    x = 1
+    y = 1
+    cost = 3
+    prerequisite = {
+        focus = CHL_1936_election
+    }
+    relative_position_id = CHL_1936_election
+    available = {
+    
+    }
+    completion_reward = {
+        add_political_power = 30
+        add_stability = 0.01
+        custom_effect_tooltip = CHL_tooltip_unlock_decision_on_bop
+    }
+}
+
+shared_focus = {
+    id = CHL_election_tax
+    icon = GFX_focus_usa_reestablish_the_gold_standard
+    x = 2
+    y = 2
+    cost = 2
+    prerequisite = {
+        focus = CHL_1936_election
+    }
+    relative_position_id = CHL_1936_election
+    available = {
+    
+    }
+    completion_reward = {
+        add_political_power = 20
+        custom_effect_tooltip = CHL_tooltip_unlock_decision_on_bop
+    }
+}
+
+shared_focus = {
+    id = CHL_election_tech
+    icon = GFX_goal_tfv_generic_tech_sharing
+    x = -2
+    y = 2
+    cost = 2
+    prerequisite = {
+        focus = CHL_1936_election
+    }
+    relative_position_id = CHL_1936_election
+    available = {
+    
+    }
+    completion_reward = {
+        add_political_power = 20
+        custom_effect_tooltip = CHL_tooltip_unlock_decision_on_bop
+    }
+}
+
+shared_focus = {
+    id = CHL_result_of_election
+    icon = GFX_focus_generic_treaty
+    x = 0
+    y = 1
+    cost = 2
+    prerequisite = {
+        focus = CHL_election_army
+    }
+    prerequisite = {
+        focus = CHL_election_industry
+    }
+    prerequisite = {
+        focus = CHL_election_tech
+    }
+    prerequisite = {
+        focus = CHL_election_diplomacy
+    }
+    prerequisite = {
+        focus = CHL_election_tax
+    }
+    
+    relative_position_id = CHL_election_diplomacy
+    available = {
+        custom_trigger_tooltip = {
+            tooltip = CHL_tooptip_trigger_end_election
+            has_country_flag = CHL_flag_end_election
+        }
+    }
+    completion_reward = {
+        add_stability = 0.1
+        
+    }
 }
