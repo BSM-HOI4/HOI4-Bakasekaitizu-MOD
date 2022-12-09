@@ -793,6 +793,7 @@ MAC_balance_of_power_category = {
 				custom_effect_tooltip = MAC_may_start_civil_war_bop
 				country_event = { id = MCD.8 }
 			}
+			MAC_bop_remove_bop_effect = yes
 			if = {
 				limit = {
 					has_country_flag = MAC_start_bop_2
@@ -845,6 +846,7 @@ MAC_balance_of_power_category = {
 				custom_effect_tooltip = MAC_may_start_civil_war_bop
 				country_event = { id = MCD.8 }
 			}
+			MAC_bop_remove_bop_effect = yes
 			if = {
 				limit = {
 					has_country_flag = MAC_start_bop_2
@@ -910,6 +912,35 @@ MAC_balance_of_power_category = {
 		complete_effect = {
 			custom_effect_tooltip = MAC_restart_MAC_MCD_bop
 			clr_country_flag = MAC_stop_bop_1
+		}
+	}
+
+	MAC_Cessation_of_Conflict_forever = {
+		allowed = {
+            original_tag = MAC
+            always = yes
+        }
+
+		available = {
+			AND = { 
+				has_country_flag = MAC_bop1_start_flag
+				NOT= {has_country_flag = MAC_finish_bop_1}
+				NOT= {has_country_flag = MAC_stop_bop_1}
+			}
+		}
+        visible = {
+			AND = { 
+				has_country_flag = MAC_bop1_start_flag
+				NOT= {has_country_flag = MAC_finish_bop_1}
+			}
+        }
+
+		cost = 40
+
+		complete_effect = {
+			custom_effect_tooltip = MAC_finish_MAC_MCD_bop
+			set_country_flag = MAC_finish_bop_1
+			MAC_bop_remove_bop_effect = yes
 		}
 	}
 
