@@ -1728,9 +1728,9 @@ country_event = {
 		if = {
 			limit = {
 				AND = {
-					has_country_flag = WES_KHM_surrender
-					has_country_flag = WES_KSM_surrender
-					has_country_flag = WES_MAR_surrender
+					#has_country_flag = WES_KHM_surrender
+					#has_country_flag = WES_KSM_surrender
+					#has_country_flag = WES_MAR_surrender
 					WES = {has_country_flag = WES_sahara_africa }
 					all_neighbor_country = {
 						NOT = {has_war_with = WES}
@@ -1784,7 +1784,7 @@ country_event = {
 			limit = {
 				country_exists = KSM
 			}
-			ROOT = {country_event = { days = 15 id = WES.36 }}
+			ROOT = {country_event = { days = 30 id = WES.36 }}
 		}
 		
 		
@@ -1812,6 +1812,32 @@ country_event = {
 			}
 			ROOT = {country_event = { days = 2 id = WES.39 }}
 			annex_country = { target = KSM }
+		}
+		
+	}
+
+	option = {
+		name = WES.36.c	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			AND = {
+				NOT = {WES = { has_war_with = KSM }}
+				country_exists = KSM
+			}
+		}
+		ROOT = {country_event = { days = 30 id = WES.36 }}
+		
+	}
+
+	option = {
+		name = WES.36.d	#"航空優勢の確保を最優先すべきだ"
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			NOT = { country_exists = KSM }
 		}
 		
 	}
@@ -1968,6 +1994,11 @@ country_event = {
 	trigger = {
 		tag = WES
 		WES = {has_country_flag = WES_sahara_africa }
+		OR = {
+			has_country_flag = WES_MAR_surrender
+			has_country_flag = WES_KSM_surrender
+			has_country_flag = WES_KHM_surrender
+		}
 	}
 
 	option = {
