@@ -153,6 +153,25 @@ country_event = {
 	}
 	is_triggered_only = yes
 	fire_only_once = yes
+
+	option = {
+		name = kpo.2.a
+		BTP = {
+			change_tag_from = BTL
+		}
+	}
+	option = {
+		name = kpo.2.b
+		BTY = {
+			change_tag_from = BTL
+		}
+	}
+	option = {
+		name = kpo.2.c
+		BTG = {
+			change_tag_from = BTL
+		}
+	}
 	option = {
 		name = kpo.2.d
 		ai_chance = {
@@ -160,27 +179,9 @@ country_event = {
 		}
 	}
 	option = {
-		name = kpo.2.a
-		BTP = {
-			change_tag_from = BTG
-		}
-	}
-	option = {
-		name = kpo.2.b
-		BTY = {
-			change_tag_from = BTG
-		}
-	}
-	option = {
-		name = kpo.2.c
-		BTL = {
-			change_tag_from = BTG
-		}
-	}
-	option = {
 		name = kpo.2.e
 		BTW = {
-			change_tag_from = BTG
+			change_tag_from = BTL
 		}
 	}
 }
@@ -191,6 +192,9 @@ country_event = {
 	desc = kpo.3.t.d
 	timeout_days = 10
 	major = no
+	trigger={
+		always=no
+	}
 	mean_time_to_happen = {
 		days = 0
 	}
@@ -231,30 +235,30 @@ country_event = {
 	title = kpo.4.t
 	desc = kpo.4.d
 	picture = GFX_event_test
-	is_triggered_only = no
+	is_triggered_only = yes #開発中
 	fire_only_once = yes
 	trigger = {
 		tag = RUS
-		SOV = {
+		RUS = {
 			is_faction_leader = yes
 		}
 		any_country = {
 			AND = {
-				has_war_with = SOV
+				has_war_with = RUS
 				controls_state = 219
 			}
 		}
 		#Moscow
 		any_country = {
 			AND = {
-				has_war_with = SOV
+				has_war_with = RUS
 				controls_state = 195
 			}
 		}
 		#Leningrad
 		any_country = {
 			AND = {
-				has_war_with = SOV
+				has_war_with = RUS
 				controls_state = 217
 			}
 		}
@@ -268,7 +272,7 @@ country_event = {
 		ai_chance = {
 			factor = 85
 		}
-		CHI = {
+		CHN = {
 			leave_faction = yes
 		}
 		every_country = {
@@ -390,23 +394,5 @@ country_event = {
 			target = FROM
 			type = puppet_wargoal_focus
 		}
-	}
-}
-
-country_event = {
-	id = kpo.8
-	title = kpo.8.t
-	desc = kpo.9.d
-	fire_only_once = yes
-	trigger = {
-		AND = {
-			NOT = {
-				has_country_flag = "国内問題に対処"
-			}
-			date>1937.1.1
-		}
-	}
-	option = {
-		name = kpo.1.a
 	}
 }
