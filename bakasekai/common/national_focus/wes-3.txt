@@ -6835,13 +6835,13 @@ focus_tree = {
 	}
 	focus = {
 		id = WES_Toward_Integration #統合に向けて
-		icon = GFX_focus_research
+		icon = GFX_goal_generic_major_alliance
 		prerequisite = {
-			focus = WES_economic_community
+			focus = WES_extra_tech_slot_2
 		}
 		relative_position_id = WES_achievement_of_major_project
 		x = 0
-		y = 3
+		y = 4
 		cost = 10
 		ai_will_do = {
 			factor = 100
@@ -6862,6 +6862,40 @@ focus_tree = {
 					}
 				}
 				add_core_of = WES
+			}
+		}
+	}
+	focus = {
+		id = WES_Challenge_to_the_Powers_That_Be #列強への挑戦
+		icon = GFX_focus_research
+		prerequisite = {
+			focus = WES_Toward_Integration
+		}
+		relative_position_id = WES_achievement_of_major_project
+		x = 0
+		y = 5
+		cost = 10
+		ai_will_do = {
+			factor = 100
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			every_country = {
+				limit = {
+					AND = {
+						is_major = yes
+						NOT = { tag = WES }
+					}
+				}
+				WES = {
+					create_wargoal = {
+						type = annex_everything
+						target = PREV
+					}
+				}
 			}
 		}
 	}
