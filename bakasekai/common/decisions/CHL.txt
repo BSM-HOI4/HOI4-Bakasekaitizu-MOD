@@ -339,7 +339,7 @@ CHL_election_bop_category = {
             custom_trigger_tooltip = {
                 tooltip = CHL_tooltip_policy_tax
                 NOT = {
-                    has_country_flag = CHL_flag_policy_force
+                    has_country_flag = CHL_flag_policy_tax
                 }
             }
         }
@@ -348,8 +348,80 @@ CHL_election_bop_category = {
                 id = CHL_election_balance
                 value = -0.1
             }
-            set_country_flag = CHL_flag_policy_force
-            set_country_flag = CHL_flag_policy_force_air
+            set_country_flag = CHL_flag_policy_tax
+            set_country_flag = CHL_flag_policy_tax_low
+        }
+    }
+    
+    policy_tax_high = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_tax
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_tax
+                NOT = {
+                    has_country_flag = CHL_flag_policy_tax
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = 0.1
+            }
+            set_country_flag = CHL_flag_policy_tax
+            set_country_flag = CHL_flag_policy_tax_high
+        }
+    }
+    
+    policy_tech_industry = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_tech
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_tech
+                NOT = {
+                    has_country_flag = CHL_flag_policy_tech
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = -0.1
+            }
+            set_country_flag = CHL_flag_policy_tech
+            set_country_flag = CHL_flag_policy_tech_industry
+        }
+    }
+    
+    policy_tech_army = {
+        cost = 0
+        fire_only_once = yes
+        visible = {
+            has_completed_focus = CHL_election_tech
+        }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = CHL_tooltip_policy_tech
+                NOT = {
+                    has_country_flag = CHL_flag_policy_tech
+                }
+            }
+        }
+        complete_effect = {
+            add_power_balance_value = {
+                id = CHL_election_balance
+                value = 0.1
+            }
+            set_country_flag = CHL_flag_policy_tech
+            set_country_flag = CHL_flag_policy_tech_army
         }
     }
 }
