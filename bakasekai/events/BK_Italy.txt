@@ -88,36 +88,36 @@ country_event = {
 
 		custom_effect_tooltip = ITA_get_iberiatt
 		hidden_effect = {
-			165 = { transfer_state = ROOT }
-			166 = { transfer_state = ROOT }
-			167 = { transfer_state = ROOT }
-			177 = { transfer_state = ROOT }
-			171 = { transfer_state = ROOT }
-			174 = { transfer_state = ROOT }
-			172 = { transfer_state = ROOT }
-			176 = { transfer_state = ROOT }
-			170 = { transfer_state = ROOT }
-			41 = { transfer_state = ROOT }
-			175 = { transfer_state = ROOT }
-			169 = { transfer_state = ROOT }
-			173 = { transfer_state = ROOT }
-			168 = { transfer_state = ROOT }
-			290 = { transfer_state = ROOT }
-			788 = { transfer_state = ROOT }
-			789 = { transfer_state = ROOT }
-			790 = { transfer_state = ROOT }
-			791 = { transfer_state = ROOT }
-			792 = { transfer_state = ROOT }
-			793 = { transfer_state = ROOT }
-			794 = { transfer_state = ROOT }
-			118 = { transfer_state = ROOT }
+			165 = { transfer_state_to = ROOT }
+			166 = { transfer_state_to = ROOT }
+			167 = { transfer_state_to = ROOT }
+			177 = { transfer_state_to = ROOT }
+			171 = { transfer_state_to = ROOT }
+			174 = { transfer_state_to = ROOT }
+			172 = { transfer_state_to = ROOT }
+			176 = { transfer_state_to = ROOT }
+			170 = { transfer_state_to = ROOT }
+			41 = { transfer_state_to = ROOT }
+			175 = { transfer_state_to = ROOT }
+			169 = { transfer_state_to = ROOT }
+			173 = { transfer_state_to = ROOT }
+			168 = { transfer_state_to = ROOT }
+			290 = { transfer_state_to = ROOT }
+			788 = { transfer_state_to = ROOT }
+			789 = { transfer_state_to = ROOT }
+			790 = { transfer_state_to = ROOT }
+			791 = { transfer_state_to = ROOT }
+			792 = { transfer_state_to = ROOT }
+			793 = { transfer_state_to = ROOT }
+			794 = { transfer_state_to = ROOT }
+			118 = { transfer_state_to = ROOT }
 		}
 		hidden_effect = {
-			180 = { transfer_state = ROOT }
-			181 = { transfer_state = ROOT }
-			112 = { transfer_state = ROOT }
-			179 = { transfer_state = ROOT }
-			795 = { transfer_state = ROOT }
+			180 = { transfer_state_to = ROOT }
+			181 = { transfer_state_to = ROOT }
+			112 = { transfer_state_to = ROOT }
+			179 = { transfer_state_to = ROOT }
+			795 = { transfer_state_to = ROOT }
 		}
 		
 
@@ -251,7 +251,7 @@ country_event = {
 			category = armor
 		}
 		ITA = {
-			add_opinion_modifier = { target = GER modifier = ger_ita_tech_treaty }
+			add_opinion_modifier = { target = DEU modifier = ger_ita_tech_treaty }
 		}
 	}
 }
@@ -268,7 +268,7 @@ country_event = {
 	option = {
 		name = BAKA_italy.7.a
 		ITA = {
-			add_opinion_modifier = { target = GER modifier = ger_ita_tech_treaty_rejected }
+			add_opinion_modifier = { target = DEU modifier = ger_ita_tech_treaty_rejected }
 		}
 	}
 }
@@ -288,7 +288,7 @@ country_event = {
 		}
 
 		effect_tooltip = {
-			ITA = {annex_country = ROOT}
+			ITA = { annex_country = { target = ROOT } }
 		}
 
 		
@@ -316,7 +316,7 @@ country_event = {
 	option = {
 		name = BAKA_italy.9.a
 		add_ideas = ITA_buy_Iberian_Peninsula_idea
-		ITA = {annex_country = GRE}
+		ITA = {annex_country = { target = GRC } }
 
         47 = { add_core_of = ROOT }
 		182 = { add_core_of = ROOT }
@@ -364,8 +364,8 @@ country_event = {
 		ITA = {
 			add_political_power = -100
 			if = { limit = { is_faction_leader = yes }
-				add_to_faction = YUG
-				YUG = {
+				add_to_faction = MYS
+				MYS = {
 					add_ai_strategy = {
 						type = alliance
 						id = "ITA"
@@ -384,8 +384,8 @@ country_event = {
 					}
 				}
 				create_faction = BAKA_italy_empire_faction
-				add_to_faction = YUG
-				YUG = {
+				add_to_faction = MYS
+				MYS = {
 					add_ai_strategy = {
 						type = alliance
 						id = "ITA"
@@ -394,15 +394,15 @@ country_event = {
 				}
 			}			
 		}
-		GER = { country_event = { id = germany.96 hours = 6 } }
-		YUG = { country_event = { id = yugoslavia.6 hours = 6 } }
+		DEU = { country_event = { id = germany.96 hours = 6 } }
+		MYS = { country_event = { id = yugoslavia.6 hours = 6 } }
 	}	
 	option = {
 		ai_chance = {
 			factor = 100
 		}	
 		name = BAKA_italy.12.b
-		YUG = {
+		MYS = {
 			add_opinion_modifier = { target = ITA modifier = western_betrayal }
 			country_event = { id = yugoslavia.5 hours = 6 }
 		}
@@ -470,7 +470,7 @@ country_event = {
 	option = {
 		ai_chance = { factor = 25 }
 		name = BAKA_italy.14.a
-		GER = { 
+		DEU = { 
 			remove_from_faction = ITA 
 			country_event = germany.105
 		}

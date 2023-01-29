@@ -32,6 +32,37 @@
  ##  ##   ### ##     ## ##     ## ##    ##    ##    ##    ##   ##  ##     ## ##       
 #### ##    ## ########   #######   ######     ##    ##     ## #### ##     ## ######## 
 
+	focus = {
+		id = ITA_rule_by_Mussolini
+		icon = GFX_focus_ger_assassinate_mussolini
+		mutually_exclusive = { focus = ITA_Rome_again }
+		mutually_exclusive = { focus = ITA_Reestablishment_of_the_Papal_States }
+		mutually_exclusive = { focus = ITA_Criticism_of_the_ID_theory}
+		mutually_exclusive = { focus = ITA_Mysticism_of_Aleister}
+		available = {
+			
+		}
+		
+		bypass = {
+			
+		}
+
+		available_if_capitulated = yes
+
+		x = 15
+		y = 8
+		cost = 10
+		ai_will_do = {
+			factor = 1
+		}	
+		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
+
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = 0.1
+			add_political_power = 150
+		}
+	}
 
 
 	focus = {
@@ -2500,13 +2531,13 @@
 			air_experience = 15
 			if = {
 				limit = {
-					country_exists = GER
-					NOT = { has_war_with = GER }
+					country_exists = DEU
+					NOT = { has_war_with = DEU }
 				}
 				add_equipment_to_stockpile = { 
 					type = small_plane_cas_airframe_1
 					amount = 100
-					producer = GER
+					producer = DEU
 					variant_name = "Ju 87"
 				}
 			}
@@ -3902,13 +3933,13 @@
 				category = tp_tech
 			}
 
-			if = {
-				limit = {
-					NOT = { has_completed_focus = ITA_strengthen_ascari_corps }
-					NOT = { has_completed_focus = ITA_forza_navale_especiale }
-				}
-				custom_effect_tooltip = ITA_strengthen_ascari_corps_ibrahim_farag_mohammed_tt
-			}
+			#if = {
+			#	limit = {
+			#		NOT = { has_completed_focus = ITA_strengthen_ascari_corps }
+			#		NOT = { has_completed_focus = ITA_forza_navale_especiale }
+			#	}
+			#	custom_effect_tooltip = ITA_strengthen_ascari_corps_ibrahim_farag_mohammed_tt
+			#}
 			show_unit_leaders_tooltip = ITA_ibrahim_farag_mohammed
 		}
 	}
@@ -7072,36 +7103,36 @@
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = ITA_greece_friend focus = ITA_greece_war_goal}
 		available = {
-			NOT = { has_war_with = GER }
+			NOT = { has_war_with = DEU }
 			custom_trigger_tooltip = {
 				tooltip = ITA_germ_italy_same_tt
 				OR = {
 					AND = {
 						has_government = fascism
-						GER = { 
+						DEU = { 
 							has_government = fascism 
-							country_exists = GER
+							country_exists = DEU
 						}
 					}
 					AND = {
 						has_government = neutrality
-						GER = { 
+						DEU = { 
 							has_government = neutrality
-							country_exists = GER
+							country_exists = DEU
 						}
 					}
 					AND = {
 						has_government = communism
-						GER = { 
+						DEU = { 
 							has_government = communism
-							country_exists = GER
+							country_exists = DEU
 						}
 					}
 					AND = {
 						has_government = democratic
-						GER = { 
+						DEU = { 
 							has_government = democratic
-							country_exists = GER
+							country_exists = DEU
 						}
 					}
 				}
@@ -7111,7 +7142,7 @@
 		}
 		bypass = {
 			is_in_faction = yes
-			is_in_faction_with = GER
+			is_in_faction_with = DEU
 		}
 		x = 1
 		y = 1
@@ -7138,13 +7169,13 @@
 			modifier = {
 				factor = 0
 				OR = {
-					GER = { has_completed_focus = GER_reestablish_free_elections }
-					GER = { has_completed_focus = GER_expatriate_the_communists }
+					DEU = { has_completed_focus = GER_reestablish_free_elections }
+					DEU = { has_completed_focus = GER_expatriate_the_communists }
 				}
 			}
 		}
 		completion_reward = {
-			GER = {
+			DEU = {
 				add_opinion_modifier = { target = ITA modifier = pact_of_steel_opinion }
 			}
 			hidden_effect = {
@@ -7159,7 +7190,7 @@
 		prerequisite = { focus = ITA_pact_of_steel }
 
 		available = {
-			NOT = { has_war_with = GER }
+			NOT = { has_war_with = DEU }
 			NOT = { has_country_flag = ENG_ditched_by_the_germans_flag }
 		}
 		
@@ -7276,7 +7307,7 @@
 			
 		}
 		completion_reward = {
-			GRE = { country_event = { id = BAKA_italy.8 days = 1}}
+			GRC = { country_event = { id = BAKA_italy.8 days = 1}}
 		}
 	}
 
@@ -9219,12 +9250,12 @@
 		icon = GFX_focus_generic_attack_greece
 		prerequisite = { focus = ITA_Iberian_Peninsula_claims}
 		available = {
-			NOT = { is_in_faction_with = GRE }
-			NOT = { has_war_with = GRE }
-			GRE = { NOT = { is_puppet_of = ITA } }
-			country_exists = GRE
+			NOT = { is_in_faction_with = GRC }
+			NOT = { has_war_with = GRC }
+			GRC = { NOT = { is_puppet_of = ITA } }
+			country_exists = GRC
 		}
-		will_lead_to_war_with = GRE
+		will_lead_to_war_with = GRC
 		x = 0
 		y = 7
 		relative_position_id = ITA_the_glory_of_empire
@@ -9235,7 +9266,7 @@
 		completion_reward = {
 			create_wargoal = {
 				type = take_state_focus
-				target = GRE
+				target = GRC
 				expire = 0
 				generator = { 47 } # Athens
 			}
@@ -9314,12 +9345,12 @@
 		icon = GFX_focus_SOV_panslavic_nationalism
 		prerequisite = { focus = ITA_conquest_in_Anatolia }
 		available = {
-			NOT = { is_in_faction_with = GRE }
-			NOT = { has_war_with = GRE }
-			GRE = { NOT = { is_puppet_of = ITA } }
-			country_exists = GRE
+			NOT = { is_in_faction_with = GRC }
+			NOT = { has_war_with = GRC }
+			GRC = { NOT = { is_puppet_of = ITA } }
+			country_exists = GRC
 		}
-		will_lead_to_war_with = GRE
+		will_lead_to_war_with = GRC
 		x = 0
 		y = 10
 		relative_position_id = ITA_Rome_again
@@ -9345,7 +9376,7 @@
 		bypass = {
 			OR = {
 				has_war_with = ENG
-				is_in_faction_with = GER
+				is_in_faction_with = DEU
 				NOT = { country_exists = ENG }
 			}
 		}
@@ -9388,7 +9419,7 @@
 		bypass = {
 			OR = {
 				has_war_with = ENG
-				is_in_faction_with = GER
+				is_in_faction_with = DEU
 				NOT = { country_exists = ENG }
 			}
 		}
@@ -9443,7 +9474,7 @@
 		}
 		complete_tooltip = {
 			every_state = {
-				limit = { has_state_flag = GER_german_war_economy }
+				limit = { has_state_flag = DEU_german_war_economy }
 				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = arms_factory
@@ -9475,7 +9506,7 @@
 					level = 2
 					instant_build = yes
 				}
-				set_state_flag = GER_german_war_economy
+				set_state_flag = DEU_german_war_economy
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -9491,7 +9522,7 @@
 					level = 2
 					instant_build = yes
 				}
-				set_state_flag = GER_german_war_economy
+				set_state_flag = DEU_german_war_economy
 			}
 			random_owned_controlled_state = {
 				limit = {
@@ -9507,7 +9538,7 @@
 					level = 2
 					instant_build = yes
 				}
-				set_state_flag = GER_german_war_economy
+				set_state_flag = DEU_german_war_economy
 			}
 		}
 	}
@@ -9884,7 +9915,7 @@
 		available = {
 			NOT = { has_country_flag = ENG_ditched_by_the_germans_flag }
 		}
-		cancel = { has_war_with = GER }
+		cancel = { has_war_with = DEU }
 		x = -2
 		y = 1
 		relative_position_id = ITA_pact_of_steel
@@ -9897,7 +9928,7 @@
 		search_filters = { FOCUS_FILTER_RESEARCH }
 
 		completion_reward = {
-			GER = {
+			DEU = {
 				country_event = { id = BAKA_italy.5 days = 1 }
 				custom_effect_tooltip = needs_approval
 			}
@@ -9959,12 +9990,12 @@
 		prerequisite = { focus = ITA_yugoslavia_friend focus = ITA_slovenia_dalmatia_claims}
 		mutually_exclusive = { focus = ITA_greece_friend }
 		available = {
-			NOT = { is_in_faction_with = GRE }
-			NOT = { has_war_with = GRE }
-			GRE = { NOT = { is_puppet_of = ITA } }
-			country_exists = GRE
+			NOT = { is_in_faction_with = GRC }
+			NOT = { has_war_with = GRC }
+			GRC = { NOT = { is_puppet_of = ITA } }
+			country_exists = GRC
 		}
-		will_lead_to_war_with = GRE
+		will_lead_to_war_with = GRC
 		x = 0
 		y = 1
 		relative_position_id = ITA_yugoslavia_friend
@@ -9975,7 +10006,7 @@
 		completion_reward = {
 			create_wargoal = {
 				type = take_state_focus
-				target = GRE
+				target = GRC
 				expire = 0
 				generator = { 47 } # Athens
 			}
@@ -9999,19 +10030,19 @@
 			factor = 1
 		}
 		available = {
-			country_exists = GRE
+			country_exists = GRC
 			NOT = {
-				has_war_with = GRE
+				has_war_with = GRC
 			}
 			has_government = fascism
 		}
 
 		bypass = {
-			NOT = { country_exists = GRE }
+			NOT = { country_exists = GRC }
 		}
 
 		completion_reward = {
-			GRE = {
+			GRC = {
 				add_opinion_modifier = { target = ITA modifier = ita_diplomacy_focus }
 				if = {
 					limit = { ROOT = { has_government = fascism } }
@@ -10041,10 +10072,10 @@
 		prerequisite = { focus = ITA_pact_of_steel }
 		available = {
 			is_puppet = no
-			is_in_faction_with = GER
-			GER = { 
+			is_in_faction_with = DEU
+			DEU = { 
 				controls_state = 16 				
-				GER = { is_faction_leader = yes }
+				DEU = { is_faction_leader = yes }
 			}
 			custom_trigger_tooltip = {
 			 tooltip = ITA_claims_on_france_tt
@@ -10102,7 +10133,7 @@
 				set_global_flag = ITA_claims_on_france_1
 			}
 
-			GER = { country_event = germany.104 }			
+			DEU = { country_event = germany.104 }			
 		}
 	}
 	
@@ -10118,7 +10149,7 @@
 		bypass = {
 			OR = {
 				has_war_with = ENG
-				is_in_faction_with = GER
+				is_in_faction_with = DEU
 				NOT = { country_exists = ENG }
 			}
 		}
