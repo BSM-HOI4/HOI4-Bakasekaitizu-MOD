@@ -7,6 +7,97 @@ on_actions = {
                 }
                 country_event = start.0
             }
+			every_country = {
+                limit = {
+                    is_neighbor_of = MYS
+                }
+				random_list = {
+					75 = {
+						country_event = { days = 10 id = MYS.1}
+					}
+					25 = {
+						country_event = { days = 10 id = MYS.2}
+					}
+				}
+            }
+			WES = {
+				if = {
+					limit = {
+						OR = {
+							AND = {
+								is_historical_focus_on = no
+								has_game_rule = {
+									rule = AI_NF_choice
+									option = KHAOS
+								}
+							}
+							has_game_rule = {
+								rule = AI_NF_choice
+								option = KHAOS
+							}
+						}
+					}
+					random_list = {
+						60 = {
+							WES = {
+								set_country_flag = WES_AI_RANDOM_SAND
+							}
+						}
+						40 = {
+							WES = {
+								set_country_flag = WES_AI_RANDOM_DEMOCRATIC
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							AND = {
+								is_historical_focus_on = no
+								has_game_rule = {
+									rule = AI_NF_choice
+									option = DEFAULT
+								}
+							}
+							has_game_rule = {
+								rule = AI_NF_choice
+								option = DEFAULT
+							}
+						}
+					}
+					random_list = {
+						90 = {
+							WES = {
+								set_country_flag = WES_AI_RANDOM_EMPIRE
+							}
+						}
+						10 = {
+							WES = {
+								set_country_flag = WES_AI_RANDOM_DEMOCRATIC
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							AND = {
+								is_historical_focus_on = no
+								has_game_rule = {
+									rule = AI_NF_choice
+									option = BAKA
+								}
+							}
+							has_game_rule = {
+								rule = AI_NF_choice
+								option = BAKA
+							}
+						}
+					}
+					WES = { set_country_flag = WES_AI_RANDOM_EMPIRE }
+				}
+			}
 		}
 	}
 	on_declare_war = {
