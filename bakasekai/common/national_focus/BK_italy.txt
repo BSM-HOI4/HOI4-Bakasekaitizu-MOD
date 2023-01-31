@@ -6969,7 +6969,7 @@
 		prerequisite = { focus = ITA_submarine_effort }
 		prerequisite = { focus = ITA_german_millitary_cooperation }
 		available = {
-			NOT = { has_country_flag = ENG_ditched_by_the_germans_flag }
+			NOT = { has_country_flag = GBR_ditched_by_the_germans_flag }
 		}
 		x = -1
 		y = 3
@@ -6996,38 +6996,6 @@
 				uses = 2
 				category = naval_doctrine
 			}
-		}
-	}
-
-	focus = {
-		id = ITA_rule_by_Mussolini
-		icon = GFX_focus_ger_assassinate_mussolini
-		mutually_exclusive = { focus = ITA_Rome_again }
-		mutually_exclusive = { focus = ITA_Reestablishment_of_the_Papal_States }
-		mutually_exclusive = { focus = ITA_Criticism_of_the_ID_theory}
-		mutually_exclusive = { focus = ITA_Mysticism_of_Aleister}
-		available = {
-			
-		}
-		
-		bypass = {
-			
-		}
-
-		available_if_capitulated = yes
-
-		x = 15
-		y = 8
-		cost = 10
-		ai_will_do = {
-			factor = 1
-		}	
-		search_filters = { FOCUS_FILTER_STABILITY FOCUS_FILTER_WAR_SUPPORT}
-
-		completion_reward = {
-			add_stability = 0.1
-			add_war_support = 0.1
-			add_political_power = 150
 		}
 	}
 	
@@ -7137,7 +7105,7 @@
 					}
 				}
 			}
-			NOT = { has_country_flag = ENG_ditched_by_the_germans_flag }
+			NOT = { has_country_flag = GBR_ditched_by_the_germans_flag }
 			is_in_faction = no
 		}
 		bypass = {
@@ -7191,7 +7159,7 @@
 
 		available = {
 			NOT = { has_war_with = DEU }
-			NOT = { has_country_flag = ENG_ditched_by_the_germans_flag }
+			NOT = { has_country_flag = GBR_ditched_by_the_germans_flag }
 		}
 		
 		x = -4
@@ -7223,7 +7191,7 @@
 		y = 0
 		cost = 10
 		ai_will_do = {
-			factor = 1
+			factor = 0
 		}
 		available = {
 			
@@ -9281,6 +9249,13 @@
 
 			hidden_effect = {
 				news_event = { hours = 6 id = news.186 } 
+				every_state = {
+					limit = {
+						is_core_of = GRC
+						is_owned_by = MYS
+					}
+					transfer_state_to = GRC
+				}
 			}
 		}
 	}
@@ -9371,16 +9346,16 @@
 		icon = GFX_focus_ITA_mare_nostrum
 		prerequisite = { focus = ITA_completion_of_Rome }	
 		available = {
-			NOT = { is_in_faction_with = ENG }
+			NOT = { is_in_faction_with = GBR }
 		}	
 		bypass = {
 			OR = {
-				has_war_with = ENG
+				has_war_with = GBR
 				is_in_faction_with = DEU
-				NOT = { country_exists = ENG }
+				NOT = { country_exists = GBR }
 			}
 		}
-		will_lead_to_war_with = ENG
+		will_lead_to_war_with = GBR
 		x = 0
 		y = 11
 		relative_position_id = ITA_Rome_again
@@ -9414,16 +9389,16 @@
 		icon = GFX_focus_ger_break_anglo_french_colonial_hegemony
 		prerequisite = { focus = ITA_turning_the_Mediterranean_into_an_inland_sea }	
 		available = {
-			NOT = { is_in_faction_with = ENG }
+			NOT = { is_in_faction_with = GBR }
 		}	
 		bypass = {
 			OR = {
-				has_war_with = ENG
+				has_war_with = GBR
 				is_in_faction_with = DEU
-				NOT = { country_exists = ENG }
+				NOT = { country_exists = GBR }
 			}
 		}
-		will_lead_to_war_with = ENG
+		will_lead_to_war_with = GBR
 		x = 0
 		y = 12
 		relative_position_id = ITA_Rome_again
@@ -9449,7 +9424,7 @@
 		completion_reward = {
 			create_wargoal = {
 				type = take_state_focus
-				target = ENG
+				target = GBR
 				expire = 0
 				generator = { 118 453 116 183 } # Gibraltar, Suez, Malta, Cyprus
 			}
@@ -9913,7 +9888,7 @@
 		icon = GFX_goal_generic_scientific_exchange
 		prerequisite = { focus = ITA_pact_of_steel }
 		available = {
-			NOT = { has_country_flag = ENG_ditched_by_the_germans_flag }
+			NOT = { has_country_flag = GBR_ditched_by_the_germans_flag }
 		}
 		cancel = { has_war_with = DEU }
 		x = -2
@@ -9957,7 +9932,7 @@
 		text = secret_weapons
 		prerequisite = { focus = ITA_german_millitary_cooperation }
 		available = {
-			NOT = { has_country_flag = ENG_ditched_by_the_germans_flag }
+			NOT = { has_country_flag = GBR_ditched_by_the_germans_flag }
 		}
 		x = 1
 		y = 1
@@ -10005,10 +9980,9 @@
 		}	
 		completion_reward = {
 			create_wargoal = {
-				type = take_state_focus
+				type = annex_everything
 				target = GRC
 				expire = 0
-				generator = { 47 } # Athens
 			}
 
 			hidden_effect = {
@@ -10144,16 +10118,16 @@
 		icon = GFX_goal_generic_major_war
 		prerequisite = { focus = ITA_pact_of_steel }	
 		available = {
-			NOT = { is_in_faction_with = ENG }
+			NOT = { is_in_faction_with = GBR }
 		}	
 		bypass = {
 			OR = {
-				has_war_with = ENG
+				has_war_with = GBR
 				is_in_faction_with = DEU
-				NOT = { country_exists = ENG }
+				NOT = { country_exists = GBR }
 			}
 		}
-		will_lead_to_war_with = ENG
+		will_lead_to_war_with = GBR
 		x = 2
 		y = 1
 		relative_position_id = ITA_pact_of_steel
@@ -10179,7 +10153,7 @@
 		completion_reward = {
 			create_wargoal = {
 				type = take_state_focus
-				target = ENG
+				target = GBR
 				expire = 0
 				generator = { 118 453 116 183 } # Gibraltar, Suez, Malta, Cyprus
 			}
