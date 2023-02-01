@@ -1,0 +1,84 @@
+add_namespace = US_C
+country_event = {
+	id = US_C.1
+	title = US_C.1.t
+	desc = US_C.1.d
+	picture = GFX_report_event_soviet_soldiers
+	trigger = {
+		AND = {
+			date>1937.2.1
+			OR = {
+				tag = MEX
+				tag = DIS
+				tag = CLF
+				tag = LVE
+				tag = TEX
+				tag = NEV
+				tag = NYY
+				tag = HLW
+				tag = MAC
+			}
+			is_faction_leader = yes
+			has_war = no
+		}
+	}
+	hidden = yes
+	fire_only_once = yes
+	immediate = {
+		dismantle_faction = yes
+		clr_country_flag = USABB
+		every_country = {
+			limit = {
+				OR = {
+					tag = MEX
+					tag = DIS
+					tag = CLF
+					tag = LVE
+					tag = TEX
+					tag = NEV
+					tag = NYY
+					tag = HLW
+					tag = MAC
+				}
+			}
+			country_event = {
+				id = US_C.2
+			}
+		}
+	}
+}
+
+country_event = {
+	id = US_C.2
+	title = US_C.2.t
+	desc = US_C.2.d
+	picture = GFX_report_event_soviet_soldiers
+	is_triggered_only = yes
+	hidden = no
+	immediate = {
+		every_country = {
+			limit = {
+				OR = {
+					tag = MEX
+					tag = DIS
+					tag = CLF
+					tag = LVE
+					tag = TEX
+					tag = NEV
+					tag = NYY
+					tag = HLW
+					tag = MAC
+				}
+			}
+			ROOT = {
+				create_wargoal = {
+					target = PREV
+					type = annex_everything
+				}
+			}
+		}
+		option = {
+			name = US_C.2.a
+		}
+	}
+}

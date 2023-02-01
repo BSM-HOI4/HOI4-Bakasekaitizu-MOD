@@ -1,6 +1,9 @@
 version="Alpha 0.1"
 picture="thumbnail.png"
-tags={"Map" "Alternative History" "Gameplay"
+tags={
+	"Map"
+	"Alternative History"
+	"Gameplay"
 }
 replace_path="common/ai_focuses"
 replace_path="common/ai_areas"
@@ -29,10 +32,13 @@ replace_path="history/states"
 replace_path="history/units"
 replace_path="history/countries"
 replace_path="history/general"
+replace_path="gfx/loadingscreens"
 replace_path="map"
 replace_path="map/strategicregions"
-name="+バカ世界地図(α版)"
-dependencies={ "Japanese Language mod"
+replace_path="tests"
+name="バカ世界地図テスト版"
+dependencies={
+	"Japanese Language mod"
 }
-supported_version="1.11.*"
-remote_file_id="2537929285"
+supported_version="1.12.7"
+remote_file_id="2585391890"

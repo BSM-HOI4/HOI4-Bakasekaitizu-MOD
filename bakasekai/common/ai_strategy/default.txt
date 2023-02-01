@@ -1039,3 +1039,33 @@ default_produce_floating_harbors = {
 		value = 10
 	}
 }
+default_naval_invasion = {#ai海水浴
+	enable = {
+		has_war = yes
+		any_owned_state = {
+			is_coastal = yes
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = naval_invasion_focus
+		value = 50
+	}
+}
+
+JAP_naval_invasion = {#ai日本は他国よりも海水浴が好き
+	enable = {
+		has_war = yes
+		OR = {
+			tag = JPN
+			tag = JAP
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = naval_invasion_focus
+		value = 300
+	}
+}

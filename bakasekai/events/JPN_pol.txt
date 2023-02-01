@@ -1,5 +1,6 @@
 add_namespace = jpn_pol
 add_namespace = jpn_news
+add_namespace = comic_market
 country_event = {
 	id = jpn_pol.1
 	title = JP_senkyo_1936.t
@@ -12,9 +13,8 @@ country_event = {
 		}
 		add_popularity = {
 			ideology = longitudinalism
-			popularity = 0.25
+			popularity = 0.75
 		}
-		set_country_leader_ideology = longitudinalism
 		set_politics = {
 			ruling_party = longitudinalism
 			elections_allowed = yes
@@ -29,11 +29,6 @@ country_event = {
 		add_popularity = {
 			ideology = mythologicalism
 			popularity = 0.25
-		}
-		set_country_leader_ideology = mythologicalism
-		set_politics = {
-			ruling_party = mythologicalism
-			elections_allowed = yes
 		}
 		complete_national_focus = JPN_jinshendangnitoupiao
 	}
@@ -52,9 +47,9 @@ country_event = {
 		}
 		add_popularity = {
 			ideology = civilism
-			popularity = 0.25
+			popularity = 0.75
 		}
-		set_country_leader_ideology = civilism
+		# set_country_leader_ideology = civilism
 		set_politics = {
 			ruling_party = civilism
 			elections_allowed = yes
@@ -76,13 +71,450 @@ country_event = {
 	}
 }
 
+country_event = {
+	id = jpn_pol.6
+	title = JP_senkyo_1936.t
+	desc = JP_senkyo_1936.desc
+	is_triggered_only = yes
+	option = {
+		name = JP_senkyo_1936.1.n
+		ai_chance = {
+			factor = 50
+		}
+		add_popularity = {
+			ideology = longitudinalism
+			popularity = 0.75
+		}
+		# set_country_leader_ideology = longitudinalism
+		set_politics = {
+			ruling_party = longitudinalism
+			elections_allowed = yes
+		}
+		complete_national_focus = JPN_zongchangdangwozhichi
+	}
+	option = {
+		name = JP_senkyo_1936.2.n
+		ai_chance = {
+			factor = 100
+		}
+		add_popularity = {
+			ideology = mythologicalism
+			popularity = 0.25
+		}
+		complete_national_focus = JPN_jinshendangnitoupiao
+	}
+	option = {
+		name = JP_senkyo_1936.3.n
+		ai_chance = {
+			factor = 250
+		}
+		add_political_power = 120
+		complete_national_focus = JPN_minzhengdangnitoupiao
+	}
+}
+
+country_event = {
+	is_triggered_only = yes
+	id = jpn_pol.7
+	title = jpn_pol.7.t
+	desc = jpn_pol.7.desc
+	option = {
+		add_political_power = -500
+		hidden_effect = {
+			load_focus_tree = japanv
+		}
+		complete_national_focus = BJPN_senkyo
+	}
+}
+
+country_event = {
+	id = jpn_pol.3
+	title = JP_ENG_j.t
+	desc = JP_ENG_j.desc
+	is_triggered_only = yes
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		name = JP_ENG_j.1.n
+		GBR = {
+			country_event = {
+				id = jpn_pol.4
+				days = 1
+			}
+		}
+	}
+	option = {
+		ai_chance = {
+			factor = 1
+		}
+		name = JP_ENG_j.2.n
+		GBR = {
+			country_event = {
+				id = jpn_pol.4
+				days = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = jpn_pol.4
+	title = JP_ENG_e.t
+	desc = JP_ENG_e.desc
+	is_triggered_only = yes
+	option = {
+		name = JP_ENG_e.n
+		every_country = {
+			limit = {
+				is_in_faction_with = JPN
+			}
+			every_country = {
+				limit = {
+					is_in_faction_with = GBR
+				}
+				give_guarantee = PREV
+			}
+		}
+		every_country = {
+			limit = {
+				is_in_faction_with = GBR
+			}
+			every_country = {
+				limit = {
+					is_in_faction_with = JPN
+				}
+				give_guarantee = PREV
+			}
+		}
+		hidden_effect = {
+			news_event = {
+				id = jpn_news.4
+			}
+		}
+	}
+}
+
+country_event = {
+	id = jpn_pol.5
+	title = JP_dem.t
+	desc = JP_dem.desc
+	is_triggered_only = yes
+	option = {
+		name = JP_dem.n.1
+		promote_character = {
+			character = JPN_koizumi_j
+			ideology = constitutional_emperor
+		}
+	}
+	option = {
+		name = JP_dem.n.2
+		promote_character = {
+			character = JPN_koizumi_s
+			ideology = constitutional_emperor
+		}
+	}
+	option = {
+		name = JP_dem.n.3
+		promote_character = {
+			character = JPN_Tanaka
+			ideology = constitutional_emperor
+		}
+	}
+	option = {
+		name = JP_dem.n.4
+		promote_character = {
+			character = JPN_konoe
+			ideology = constitutional_emperor
+		}
+	}
+}
+
+country_event = {
+	id = comic_market.1
+	title = comic_market.t
+	desc = comic_market.desc
+	is_triggered_only = yes
+	option = {
+		name = comic_market.n.1
+		ai_chance = {
+			factor = 0
+		}
+		set_country_flag = comic_market_1
+		country_event = {
+			id = comic_market.2
+			days = 14
+		}
+	}
+	option = {
+		ai_chance = {
+			factor = 10
+		}
+		name = comic_market.n.2
+		set_country_flag = comic_market_2
+		country_event = {
+			id = comic_market.2
+			days = 14
+		}
+	}
+	option = {
+		ai_chance = {
+			factor = 30
+		}
+		name = comic_market.n.3
+		set_country_flag = comic_market_3
+		country_event = {
+			id = comic_market.2
+			days = 14
+		}
+	}
+	option = {
+		ai_chance = {
+			factor = 200
+		}
+		name = comic_market.n.4
+		set_country_flag = comic_market_4
+		country_event = {
+			id = comic_market.2
+			days = 14
+		}
+	}
+}
+
+country_event = {
+	id = comic_market.2
+	title = comic_market.2.t
+	desc = comic_market.2.desc
+	is_triggered_only = yes
+	option = {
+		name = comic_market.2.n.1
+		set_country_flag = comic_market_5
+		country_event = {
+			id = comic_market.3
+			days = 14
+		}
+	}
+	option = {
+		name = comic_market.2.n.2
+		set_country_flag = comic_market_6
+		country_event = {
+			id = comic_market.3
+			days = 14
+		}
+	}
+	option = {
+		name = comic_market.2.n.3
+		set_country_flag = comic_market_7
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = comic_market_4
+				}
+				country_event = {
+					id = comic_market.4
+					days = 7
+				}
+			}
+		}
+		country_event = {
+			id = comic_market.3
+			days = 14
+		}
+	}
+}
+
+country_event = {
+	id = comic_market.3
+	title = comic_market.3.t
+	desc = comic_market.3.desc
+	is_triggered_only = yes
+	option = {
+		name = comic_market.3.n.1
+		add_political_power = -20
+		hidden_effect = {
+			set_country_flag = cheep_cm
+			country_event = {
+				id = comic_market.5
+				days = 14
+			}
+		}
+	}
+	option = {
+		name = comic_market.3.n.2
+		add_political_power = -100
+		hidden_effect = {
+			set_country_flag = rich_cm
+			country_event = {
+				id = comic_market.5
+				days = 14
+			}
+		}
+	}
+}
+
+country_event = {
+	id = comic_market.4
+	title = comic_market.4.t
+	desc = comic_market.4.desc
+	is_triggered_only = yes
+	option = {
+		name = comic_market.4.n.1
+		clr_country_flag = comic_market_4
+	}
+	option = {
+		name = comic_market.4.n.2
+		add_political_power = -100
+	}
+}
+
+country_event = {
+	id = comic_market.5
+	title = comic_market.5.t
+	desc = comic_market.5.desc.2
+	is_triggered_only = yes
+	option = {
+		name = comic_market.5.n.1
+		if = {
+			limit = {
+				has_country_flag = cheep_cm
+			}
+			clr_country_flag = cheep_cm
+			add_ideas = comic_market_cheep
+		}
+		else_if = {
+			limit = {
+				has_country_flag = rich_cm
+			}
+			clr_country_flag = rich_cm
+			add_ideas = comic_market_rich
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = comic_market_4
+				}
+				set_global_flag = global_comic_market
+				news_event = {
+					news_event = {
+						id = jpn_news.6
+						days = 1
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = comic_market_1
+				}
+				clr_country_flag = comic_market_1
+			}
+			if = {
+				limit = {
+					has_country_flag = comic_market_2
+				}
+				clr_country_flag = comic_market_2
+			}
+			if = {
+				limit = {
+					has_country_flag = comic_market_3
+				}
+				clr_country_flag = comic_market_3
+			}
+			if = {
+				limit = {
+					has_country_flag = comic_market_4
+				}
+				clr_country_flag = comic_market_4
+			}
+			if = {
+				limit = {
+					has_country_flag = comic_market_5
+				}
+				clr_country_flag = comic_market_5
+			}
+			if = {
+				limit = {
+					has_country_flag = comic_market_6
+				}
+				clr_country_flag = comic_market_6
+			}
+			if = {
+				limit = {
+					has_country_flag = comic_market_7
+				}
+				clr_country_flag = comic_market_7
+			}
+		}
+	}
+}
+
 news_event = {
 	id = jpn_news.1
 	title = jpn_news.title
 	desc = jpn_news.desc
+	picture = GFX_news_event_tate
 	is_triggered_only = yes
 	major = yes
 	option = {
 		name = jpn_news.name
+	}
+}
+
+news_event = {
+	id = jpn_news.2
+	title = jpn_news.title.2
+	desc = jpn_news.desc.2
+	picture = GFX_news_event_shinto
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = jpn_news.name.2
+	}
+}
+
+news_event = {
+	id = jpn_news.3
+	title = jpn_news.title.3
+	desc = jpn_news.desc.3
+	picture = GFX_news_event_noomal
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = jpn_news.name.3
+	}
+}
+
+news_event = {
+	id = jpn_news.4
+	title = jpn_news.title.4
+	desc = jpn_news.desc.4
+	picture = GFX_news_event_noomal
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = jpn_news.name.4
+	}
+}
+
+news_event = {
+	id = jpn_news.5
+	title = jpn_news.title.5
+	desc = jpn_news.desc.5
+	picture = GFX_news_event_noomal
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = jpn_news.name.5
+	}
+}
+
+news_event = {
+	id = jpn_news.6
+	title = jpn_news.title.6
+	desc = jpn_news.desc.6
+	picture = GFX_comic
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = jpn_news.name.6
 	}
 }

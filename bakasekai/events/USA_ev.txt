@@ -4,7 +4,7 @@ country_event = {
 	title = USAB.1.t
 	desc = USAB.1.d
 	timeout_days = 5
-	
+	picture=GFX_us_civilwar
 	is_triggered_only=yes
 	fire_only_once=no
 	trigger ={AND={NOT={has_country_flag=nemui} is_faction_leader=no}}
@@ -57,9 +57,13 @@ country_event = {
 		is_triggered_only=yes
 	option={
 		name=USAB.2.a
+		set_rule={
+			can_join_opposite_faction=yes
+		}
 		ai_will_do={factor=2}
 		random_country={limit={has_country_flag=NATO1}
 		add_to_faction=ROOT}
+		
 		set_country_flag=NATO2
 		FROM={country_event={id=USAB.5}}
 	}
@@ -79,6 +83,9 @@ country_event = {
 		hidden=no
 		is_triggered_only=yes
 	option={
+		set_rule={
+			can_join_opposite_faction=yes
+		}
 		name=USAB.3.a
 		ai_will_do={factor=2}
 		random_country={limit={has_country_flag=SATO1}

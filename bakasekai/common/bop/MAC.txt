@@ -1,0 +1,551 @@
+
+MAC_power_balance = {
+	initial_value = 0
+	left_side = MAC_MCD_side	
+	right_side = MAC_MAC_side	
+	decision_category = MAC_balance_of_power_category
+
+	### Neutral status
+	range = {
+		id = MAC_balance_range
+		min = -0.10
+		max = 0.10
+		modifier = {
+		}
+		on_activate = {
+
+		}
+		on_deactivate = {
+			
+		}
+	}
+
+	### MCD
+	side = {
+		id = MAC_MCD_side	
+		icon = GFX_MAC_bop_logo
+
+		range = {
+			id = MAC_MCD_low_control_range
+			min = -0.3
+			max = -0.1
+			modifier = {
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_MCD_medium_control_range
+			min = -0.6
+			max = -0.3
+			modifier = {
+			}
+			on_activate = {
+				custom_effect_tooltip = MAC_bop_cap_for_colonies_impact_tt
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_MCD_high_control_range
+			min = -0.9
+			max = -0.6
+			modifier = {
+			}
+			on_activate = {
+			
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_MCD_total_control_range
+			min = -1
+			max = -0.9
+			modifier = {
+			}
+			on_activate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_MCD_side
+					gfx = GFX_MAC_bop_logo_light
+				}
+			}
+			on_deactivate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_MCD_side
+					gfx = GFX_MAC_bop_logo
+				}
+			}
+		}
+	}
+
+	### MAC
+	side = {
+		id = MAC_MAC_side	
+		icon = GFX_MAC_bop_logo
+
+		range = {
+			id = MAC_MAC_low_control_range
+			min = 0.1
+			max = 0.3
+			modifier = {
+			}
+			on_activate = {
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_MAC_medium_control_range
+			min = 0.3
+			max = 0.6
+			modifier = {
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_MAC_high_control_range
+			min = 0.6
+			max = 0.9
+			modifier = {
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_MAC_total_control_range
+			min = 0.9
+			max = 1
+			modifier = {
+			}
+			on_activate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_MAC_side
+					gfx = GFX_MAC_bop_logo_light
+				}
+			}
+			on_deactivate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_MAC_side
+					gfx = GFX_MAC_bop_logo
+				}
+			}
+		}
+	}
+
+	### coca
+	side = {
+		id = MAC_coca_side	
+		icon = GFX_MAC_bop_coka_logo
+
+		range = {
+			id = MAC_coca_low_control_range
+			min = -0.1
+			max = -0.3
+			modifier = {
+				experience_gain_army = 0.05 #Good
+				experience_gain_air = 0.05 #Good
+				power_balance_daily = -0.01
+			}
+			on_activate = {
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_coca_medium_control_range
+			min = -0.3
+			max = -0.6
+			modifier = {
+				experience_gain_army = 0.05 #Good
+				experience_gain_air = 0.05 #Good
+				industrial_capacity_factory = 0.05 #Good
+				production_speed_buildings_factor = -0.05 #Bad
+				power_balance_daily = -0.01
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_coca_high_control_range
+			min = -0.6
+			max = -0.9
+			modifier = {
+				experience_gain_army = 0.1 #Good
+				experience_gain_air = 0.1 #Good
+				industrial_capacity_factory = 0.1 #Good
+				production_speed_buildings_factor = -0.05 #Bad
+				power_balance_daily = -0.025
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_coca_total_control_range
+			min = -0.9
+			max = -1
+			modifier = {
+				experience_gain_army = 0.1 #Good
+				experience_gain_air = 0.1 #Good
+				industrial_capacity_factory = 0.1 #Good
+				production_lack_of_resource_penalty_factor = -0.15 #Good
+				production_speed_buildings_factor = -0.05 #Bad
+				consumer_goods_factor = 0.025 #Bad
+				power_balance_daily = -0.025
+			}
+			on_activate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_coca_side
+					gfx = GFX_MAC_bop_coka_logo_light
+				}
+			}
+			on_deactivate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_coca_side
+					gfx = GFX_MAC_bop_coka_logo
+				}
+			}
+		}
+	}
+
+	### pepsi
+	side = {
+		id = MAC_pepsi_side
+		icon = GFX_MAC_bop_pepsi_logo
+
+		range = {
+			id = MAC_pepsi_low_control_range
+			min = 0.1
+			max = 0.3
+			modifier = {
+				trade_laws_cost_factor = -0.1 #Good
+				mobilization_laws_cost_factor = -0.1 #Good
+				economy_cost_factor = -0.1 #Good
+			}
+			on_activate = {
+				if = {
+					limit = {
+						NOT = {
+							has_country_leader = {
+								character = MAC_dino_grandi
+							}
+						}
+					}
+					promote_character = {
+						character = MAC_dino_grandi
+						ideology = fascism
+					}
+				}
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_pepsi_medium_control_range
+			min = 0.3
+			max = 0.6
+			modifier = {
+				trade_laws_cost_factor = -0.15 #Good
+				mobilization_laws_cost_factor = -0.15 #Good
+				economy_cost_factor = -0.15 #Good
+				equipment_conversion_speed = -0.03 #Bad
+				production_speed_buildings_factor = 0.05 #Good
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_pepsi_high_control_range
+			min = 0.6
+			max = 0.9
+			modifier = {
+				trade_laws_cost_factor = -0.20 #Good
+				mobilization_laws_cost_factor = -0.20 #Good
+				economy_cost_factor = -0.20 #Good
+				equipment_conversion_speed = -0.05 #Bad
+				production_speed_buildings_factor = 0.075 #Good
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_pepsi_total_control_range
+			min = 0.9
+			max = 1
+			modifier = {
+				trade_laws_cost_factor = -0.3 #Good
+				mobilization_laws_cost_factor = -0.3 #Good
+				economy_cost_factor = -0.3 #Good
+				equipment_conversion_speed = -0.05 #Bad
+				production_speed_buildings_factor = 0.1 #Good
+				training_time_factor = 0.05 #Bad
+			}
+			on_activate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_pepsi_side
+					gfx = GFX_MAC_bop_pepsi_logo_light
+				}
+			}
+			on_deactivate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_pepsi_side
+					gfx = GFX_MAC_bop_pepsi_logo
+				}
+			}
+		}
+	}
+
+	### Democratic
+	side = {
+		id = MAC_democratic_side
+		icon = GFX_bop_MAC_democratic_side
+
+		range = {
+			id = MAC_democratic_low_control_range
+			min = 0.1
+			max = 0.3
+			modifier = {
+				democratic_drift = 0.01
+				civil_war_involvement_tension = -0.02
+				guarantee_tension = -0.02
+				puppet_cost_factor = -0.3
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_democratic_medium_control_range
+			min = 0.3
+			max = 0.6
+			modifier = {
+				democratic_drift = 0.02
+				civil_war_involvement_tension = -0.04
+				guarantee_tension = -0.04
+				puppet_cost_factor = -0.6
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_democratic_high_control_range
+			min = 0.6
+			max = 0.9
+			modifier = {
+				democratic_drift = 0.03
+				civil_war_involvement_tension = -0.06
+				guarantee_tension = -0.06
+				puppet_cost_factor = -0.9
+				starting_compliance = 0.1
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_democratic_total_control_range
+			min = 0.9
+			max = 1
+			modifier = {
+				democratic_drift = 0.04
+				civil_war_involvement_tension = -0.1
+				guarantee_tension = -0.1
+				puppet_cost_factor = -0.15
+				starting_compliance = 0.2
+			}
+			on_activate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_democratic_side
+					gfx = GFX_bop_MAC_democratic_improved_side
+				}
+			}
+			on_deactivate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_democratic_side
+					gfx = GFX_bop_MAC_democratic_side
+				}
+			}
+		}
+	}
+
+	### Pope
+	side = {
+		id = MAC_pope_side	
+		icon = GFX_bop_MAC_pope_side
+
+		range = {
+			id = MAC_pope_low_control_range
+			min = -0.3
+			max = -0.1
+			modifier = {
+				stability_factor = 0.02
+				political_power_factor = 0.02
+				neutrality_drift = 0.02
+				war_support_factor = -0.05
+				offensive_war_stability_factor = -0.1
+				political_advisor_cost_factor = 0.05
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_pope_medium_control_range
+			min = -0.6
+			max = -0.3
+			modifier = {
+				stability_factor = 0.04
+				political_power_factor = 0.04
+				neutrality_drift = 0.04
+				war_support_factor = -0.05
+				offensive_war_stability_factor = -0.1
+				political_advisor_cost_factor = 0.1
+			}
+			on_activate = {
+				
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_pope_high_control_range
+			min = -0.9
+			max = -0.6
+			modifier = {
+				stability_factor = 0.06
+				political_power_factor = 0.06
+				neutrality_drift = 0.06
+				enemy_justify_war_goal_time = 0.15
+				war_support_factor = -0.05
+				offensive_war_stability_factor = -0.1
+				political_advisor_cost_factor = 0.15
+			}
+			on_activate = {
+				#Depose whoever is in charge because it's Pope time
+				if = {
+					limit = {
+						NOT = {
+							has_country_leader = {
+								character = MAC_papa_pio_xi
+								ruling_only = yes
+							}
+							has_country_leader = {
+								character = MAC_papa_pio_xii
+								ruling_only = yes
+							}
+						}
+					}
+					country_event = BBA_italy_interaction_events.38
+				}
+			}
+			on_deactivate = {
+				
+			}
+		}
+
+		range = {
+			id = MAC_pope_total_control_range
+			min = -1
+			max = -0.9
+			modifier = {
+				stability_factor = 0.1
+				political_power_factor = 0.1
+				neutrality_drift = 0.1
+				enemy_justify_war_goal_time = 0.25
+				generate_wargoal_tension_against = -0.5
+				political_advisor_cost_factor = 0.15
+			}
+			on_activate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_pope_side
+					gfx = GFX_bop_MAC_pope_improved_side
+				}
+			}
+			on_deactivate = {
+				set_power_balance_gfx = {
+					id = MAC_power_balance
+					side = MAC_pope_side
+					gfx = GFX_bop_MAC_pope_side
+				}
+			}
+		}
+	}
+}
+
+

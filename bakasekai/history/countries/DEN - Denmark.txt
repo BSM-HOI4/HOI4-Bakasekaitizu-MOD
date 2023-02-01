@@ -1,14 +1,16 @@
 ﻿capital = 37
-
-oob = "Default_oob" #"DEN_1936"
+oob = "Default_oob"
 if = {
-	limit = { has_dlc = "Man the Guns" }
-		set_naval_oob = "DEN_1936_naval_mtg"
+	limit = {
+		has_dlc = "Man the Guns"
+	}
+	set_naval_oob = "DEN_1936_naval_mtg"
 	else = {
 		set_naval_oob = "DEN_1936_naval_legacy"
 	}
 }
 
+recruit_character = DEN_CX
 recruit_character = DEN_thorvald_stauning
 recruit_character = DEN_frits_clausen
 recruit_character = DEN_aksel_larsen
@@ -29,15 +31,13 @@ recruit_character = DEN_wilhelm_prior
 recruit_character = DEN_ejnar_warum
 recruit_character = DEN_viggo_kampman
 recruit_character = DEN_knud_kristensen
-
-
 set_research_slots = 3
 set_stability = 0.9
 set_war_support = 0.1
 set_technology = {
 	infantry_weapons = 1
 	infantry_weapons1 = 1
-	tech_support = 1		
+	tech_support = 1
 	tech_recon = 1
 	tech_engineers = 1
 	gw_artillery = 1
@@ -45,8 +45,13 @@ set_technology = {
 	early_fighter = 1
 	cv_early_fighter = 1
 }
+
 if = {
-	limit = { not = { has_dlc = "Man the Guns" } }
+	limit = {
+		not = {
+			has_dlc = "Man the Guns"
+		}
+	}
 	set_technology = {
 		early_submarine = 1
 		early_destroyer = 1
@@ -54,8 +59,11 @@ if = {
 		transport = 1
 	}
 }
+
 if = {
-	limit = { has_dlc = "Man the Guns" }
+	limit = {
+		has_dlc = "Man the Guns"
+	}
 	set_technology = {
 		basic_naval_mines = 1
 		submarine_mine_laying = 1
@@ -71,119 +79,38 @@ if = {
 	}
 }
 
-
-1939.1.1 = {
-
-	add_political_power = 1198
-	add_command_power = 100
-	
-	#generic focuses
-	complete_national_focus = army_effort
-	complete_national_focus = equipment_effort
-	complete_national_focus = motorization_effort
-	complete_national_focus = aviation_effort
-	complete_national_focus = naval_effort
-	complete_national_focus = flexible_navy
-	complete_national_focus = industrial_effort
-	complete_national_focus = construction_effort
-	complete_national_focus = production_effort
-	
-	oob = "Default_oob" #"DEN_1939"
-	if = {
-		limit = { has_dlc = "Man the Guns" }
-			set_naval_oob = "DEN_1939_naval_mtg"
-		else = {
-			set_naval_oob = "DEN_1939_naval_legacy"
-		}
-	}
-
-	set_technology = {
-		early_bomber = 1
-		gw_artillery = 1
-		interwar_artillery = 1
-		infantry_weapons2 = 1
-		support_weapons = 1
-
-		#doctrines
-		air_superiority = 1
-		grand_battle_plan = 1
-		trench_warfare = 1
-		fleet_in_being = 1
-		convoy_sailing = 1
-		submarine_operations = 1
-
-		#electronics
-		electronic_mechanical_engineering = 1
-		radio = 1
-		radio_detection = 1
-		mechanical_computing = 1
-		computing_machine = 1
-
-		#industry
-		basic_machine_tools = 1
-		improved_machine_tools = 1
-		advanced_machine_tools = 1
-		synth_oil_experiments = 1
-		fuel_silos = 1
-		oil_processing = 1
-		improved_oil_processing = 1
-		construction1 = 1
-		construction2 = 1
-		construction3 = 1
-		dispersed_industry = 1
-		dispersed_industry2 = 1
-		dispersed_industry3 = 1
-	}
-	if = {
-		limit = { not = { has_dlc = "Man the Guns" } }
-		set_technology = {
-			basic_submarine = 1
-		}
-	}
-	if = {
-		limit = { has_dlc = "Man the Guns" }
-		set_technology = {
-			basic_ship_hull_submarine = 1
-		}
-	}
-}
-
-
 set_politics = {
-	ruling_party = democratic
+	ruling_party = constitutional_monarchy
 	last_election = "1935.10.22"
 	election_frequency = 48
 	elections_allowed = yes
 }
+
 set_popularities = {
-	democratic = 97
+	constitutional_monarchy = 97
 	fascism = 1
 	communism = 2
 }
 
-
-1939.1.1 = {
-	set_politics = {
-		ruling_party = democratic
-		last_election = "1939.4.3"
-		election_frequency = 48
-		elections_allowed = yes
-	}
-}
-
 set_convoys = 40
-
 ### VARIANTS ###
 # 1936 Start #
 if = {
-	limit = { not = { has_dlc = "Man the Guns" } }
+	limit = {
+		not = {
+			has_dlc = "Man the Guns"
+		}
+	}
 	### Ship Variants ###
 }
+
 if = {
-	limit = { has_dlc = "Man the Guns" }
+	limit = {
+		has_dlc = "Man the Guns"
+	}
 	# Submarines #
 	create_equipment_variant = {
-		name = "Rota Class"								# represents Rota and Daphne classes
+		name = "Rota Class"		# represents Rota and Daphne classes
 		type = ship_hull_submarine_1
 		name_group = DEN_DD_HISTORICAL
 		parent_version = 0
@@ -195,7 +122,7 @@ if = {
 	}
 	# Heavy Cruisers #
 	create_equipment_variant = {
-		name = "Herluf Trolle Class"				
+		name = "Herluf Trolle Class"
 		type = ship_hull_cruiser_coastal_defense_ship
 		name_group = DEN_CA_HISTORICAL
 		parent_version = 0
@@ -214,7 +141,7 @@ if = {
 		obsolete = yes
 	}
 	create_equipment_variant = {
-		name = "Niels Iuel Class"				
+		name = "Niels Iuel Class"
 		type = ship_hull_cruiser_coastal_defense_ship
 		name_group = DEN_CA_HISTORICAL
 		parent_version = 0

@@ -1,7 +1,5 @@
 ﻿capital = 271
-
-oob = "Default_oob" #"ETH_1936"
-
+oob = "Default_oob"
 # Starting tech
 set_technology = {
 	infantry_weapons = 1
@@ -30,53 +28,24 @@ recruit_character = ETH_desta_damtew
 recruit_character = ETH_ras_imru_haile_selassie
 recruit_character = ETH_bedjironde_tekle_hawariate
 recruit_character = ETH_makonnen_endelkatchew
-
-
 set_convoys = 5
-
-1939.1.1 = {
-	#generic focuses
-	complete_national_focus = army_effort
-	complete_national_focus = equipment_effort
-	complete_national_focus = motorization_effort
-	complete_national_focus = aviation_effort
-	complete_national_focus = naval_effort
-	complete_national_focus = flexible_navy
-	complete_national_focus = industrial_effort
-	complete_national_focus = construction_effort
-	complete_national_focus = production_effort
-	
-	set_technology = {
-
-		#doctrines
-		grand_battle_plan = 1
-		trench_warfare = 1
-
-		#electronics
-		electronic_mechanical_engineering = 1
-		radio = 1
-		radio_detection = 1
-		mechanical_computing = 1
-
-		#industry
-		basic_machine_tools = 1
-		improved_machine_tools = 1
-		advanced_machine_tools = 1
-		fuel_silos = 1
-		construction1 = 1
-		construction2 = 1
-		dispersed_industry = 1
-		dispersed_industry2 = 1
+if = {
+	limit = {
+		has_start_date < 1936.01.02
+	}
+	declare_war_on = {
+		target = PAL
+		type = annex_everything
 	}
 }
 
-# A colony of Italy in 1939, however if independent it would have the same politics as in 1936
 set_politics = {
 	ruling_party = neutrality
 	last_election = "1936.1.1"
 	election_frequency = 48
 	elections_allowed = no
 }
+
 set_popularities = {
 	neutrality = 100
 }

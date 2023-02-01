@@ -154,22 +154,10 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				add_equipment_to_stockpile = {
-				    type = light_tank_chassis
-	   				amount = 20
-				    producer = WES
-				}
-			}
-			else = {
-				add_equipment_to_stockpile = {
-				    type = light_tank_equipment
-	   				amount = 20
-				    producer = WES
-				}
+            add_equipment_to_stockpile = {
+			    type = light_tank_chassis
+				amount = 20
+			    producer = WES
 			}
 		}
 
@@ -200,22 +188,10 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				add_equipment_to_stockpile = {
-				    type = medium_tank_chassis
-		  			amount = 15
-				    producer = WES
-				}
-			}
-			else = {
-				add_equipment_to_stockpile = {
-				    type = medium_tank_equipment
-		    		amount = 15
-				    producer = WES
-				}
+            add_equipment_to_stockpile = {
+			    type = medium_tank_chassis
+	  			amount = 15
+			    producer = WES
 			}
 		}
 		ai_will_do = {
@@ -245,29 +221,17 @@ create_weapons = {
         #visible = {has_country_flag=gone_sand}
 
         complete_effect = {
-            if = {
-				limit = {
-					has_dlc = "No Step Back"
-				}
-				add_equipment_to_stockpile = {
-				    type = heavy_tank_chassis
-		   			amount = 10
-				    producer = WES
-				}
-			}
-			else = {
-				add_equipment_to_stockpile = {
-				    type = heavy_tank_equipment
-					amount = 10
-				    producer = WES
-				}
+            add_equipment_to_stockpile = {
+			    type = heavy_tank_chassis
+	   			amount = 10
+			    producer = WES
 			}
 		}
 		ai_will_do = {
 			factor = 10
 		}
     }
-    create_fighter_equipment = {
+    create_small_plane_airframe_equipment = {
 
 		icon = GFX_decision_generic_air
 
@@ -291,7 +255,7 @@ create_weapons = {
 
         complete_effect = {
             add_equipment_to_stockpile = {
-			    type = 	fighter_equipment
+			    type = 	small_plane_airframe
 			    amount = 15
 			    producer = WES
 			}
@@ -300,7 +264,7 @@ create_weapons = {
 			factor = 10
 		}
     }
-    create_CAS_equipment = {
+    create_medium_plane_airframe_equipment = {
 
 		icon = GFX_decision_generic_air
 
@@ -324,7 +288,7 @@ create_weapons = {
 
         complete_effect = {
             add_equipment_to_stockpile = {
-			    type = CAS_equipment
+			    type = medium_plane_airframe
 			    amount = 15
 			    producer = WES
 			}
@@ -477,9 +441,6 @@ create_weapons_auto = {
 				#has_country_flag = ger_has_cancelled_mefo
 				AND = {
 					has_country_flag = WES_create_fin
-					NOT = {
-						has_country_flag = WES_create_first
-					}
 				}
 			}
 		}
@@ -500,11 +461,9 @@ create_weapons_auto = {
 			country_event = {
 				id = WES_cre.1
 			}
-			set_country_flag = WES_create_first
 			clr_country_flag = WES_create_end
 			clr_country_flag = WES_create_fin
 		}
-
 
 		ai_will_do = {
 			factor = 20
@@ -593,22 +552,10 @@ create_weapons_auto = {
 				limit = {
 					has_country_flag = WES_cre_lt
 				}
-				if = {
-					limit = {
-						has_dlc = "No Step Back"
-					}
-					add_equipment_to_stockpile = {
-					    type = light_tank_chassis
-		   				amount = 20
-					    producer = WES
-					}
-				}
-				else = {
-					add_equipment_to_stockpile = {
-					    type = light_tank_equipment
-		   				amount = 20
-					    producer = WES
-					}
+				add_equipment_to_stockpile = {
+				    type = light_tank_chassis
+					amount = 20
+				    producer = WES
 				}
 				add_political_power = -50
 			}
@@ -616,22 +563,10 @@ create_weapons_auto = {
 				limit = {
 					has_country_flag = WES_cre_mt
 				}
-				if = {
-					limit = {
-						has_dlc = "No Step Back"
-					}
-					add_equipment_to_stockpile = {
-					    type = medium_tank_chassis
-		   				amount = 15
-					    producer = WES
-					}
-				}
-				else = {
-					add_equipment_to_stockpile = {
-					    type = medium_tank_equipment
-		    			amount = 15
-					    producer = WES
-					}
+				add_equipment_to_stockpile = {
+				    type = medium_tank_chassis
+					amount = 15
+				    producer = WES
 				}
 				add_political_power = -50
 			}
@@ -639,22 +574,10 @@ create_weapons_auto = {
 				limit = {
 					has_country_flag = WES_cre_ht
 				}
-				if = {
-					limit = {
-						has_dlc = "No Step Back"
-					}
-					add_equipment_to_stockpile = {
-					    type = heavy_tank_chassis
-		   				amount = 10
-					    producer = WES
-					}
-				}
-				else = {
-					add_equipment_to_stockpile = {
-					    type = heavy_tank_equipment
-		    			amount = 10
-					    producer = WES
-					}
+				add_equipment_to_stockpile = {
+				    type = heavy_tank_chassis
+					amount = 10
+				    producer = WES
 				}
 				add_political_power = -50
 			}
@@ -663,7 +586,7 @@ create_weapons_auto = {
 					has_country_flag = WES_cre_fight
 				}
 				add_equipment_to_stockpile = {
-				    type = 	fighter_equipment
+				    type = 	small_plane_airframe
 		    		amount = 15
 				    producer = WES
 				}
@@ -674,8 +597,8 @@ create_weapons_auto = {
 					has_country_flag = WES_cre_cas
 				}
 				add_equipment_to_stockpile = {
-				    type = CAS_equipment
-		    		amount = 15
+				    type = medium_plane_airframe
+		    		amount = 10
 				    producer = WES
 				}
 				add_political_power = -50
@@ -730,9 +653,12 @@ desertification = {
             has_completed_focus = WES_progress_of_desertification
         }
         complete_effect = {
-            every_state={limit={is_owned_by=WES} set_state_category=desert}
-            every_province={limit={is_owned_by=WES} set_province_terrain=desert}
-            #very_province={limit={is_owned_by=WES}  = { add_core_of = ROOT }}
+            #every_state={limit={is_owned_by=WES} set_state_category=desert}
+            #every_province={limit={is_owned_by=WES} set_province_terrain=desert}
+            every_state={
+				limit={is_fully_controlled_by =WES}
+				add_core_of = ROOT
+			}
 
         }
         visible = {
@@ -753,9 +679,13 @@ found_sand_country = {
         }
         fire_only_once = yes
         available = {
+			AND = {
             has_completed_focus = WES_founding_of_sandsand_stan
+			NOT = {
+        	    country_exists = NTS
+            }
 			custom_trigger_tooltip = {
-				toolip = WES_annex_NTS
+				tooltip = WES_annex_NTS
 				WES = {
 					controls_state = 267
 			    	controls_state = 402
@@ -785,9 +715,7 @@ found_sand_country = {
 					controls_state = 831
 					controls_state = 832
 				}
-				NOT = {
-            	    country_exists = NTS
-            	}
+			}
 			}
 
         }
@@ -918,7 +846,7 @@ public_works = {
 
         available = {
 			custom_trigger_tooltip = {
-				toolip = WES_train_1_fin
+				tooltip = WES_train_1_fin
 				WES = {
 					has_country_flag = WES_train_1
 				}
@@ -981,7 +909,7 @@ public_works = {
 
         available = {
             custom_trigger_tooltip = {
-				toolip = WES_train_2_fin
+				tooltip = WES_train_2_fin
 				WES = {
 					has_country_flag = WES_train_2
 				}
@@ -1280,6 +1208,111 @@ It_is_dream = {
 		}
 		ai_will_do = {
 			factor = 100
+		}
+    }
+}
+
+SAND_UNION = {
+    SAND_UNION_decision = {
+        icon = GFX_decision_generic_ignite_civil_war
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+        cost = 10
+        fire_only_once = no
+        days_re_enable = 100
+        available = {
+			AND = {
+            	has_completed_focus = WES_progress_of_desertification
+				OR = {
+					all_state = {
+						is_owned_by = WES
+					}
+					all_other_country = {
+						is_puppet_of = WES
+					}
+				}
+			}
+        }
+        complete_effect = {
+			set_cosmetic_tag = WES_SAND_UNION
+            every_state={ add_core_of = WES }
+
+        }
+        visible = {
+            has_completed_focus = WES_gone_with_the_sand
+        }
+        ai_will_do = {
+			factor = 20
+		}
+    }
+}
+
+Peace_Negotiations_with_Japan = {
+    peace_negotiations_1 = {
+        icon = GFX_decision_generic_ignite_civil_war
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+        fire_only_once = yes
+        available = {
+			AND = {
+				has_completed_focus = WES_Secured_construction_site_in_Sayama_Pref
+				has_country_flag = WES_SAYAMA_WAR
+				controls_state = 533
+				has_war_with = JPN
+				NOT = { owns_state = 533 }
+			}
+            
+        }
+        complete_effect = {
+			JPN = { country_event ={ id = WES.43 } }
+
+        }
+        visible = {
+            AND = {
+				has_completed_focus = WES_Secured_construction_site_in_Sayama_Pref
+				has_country_flag = WES_SAYAMA_WAR
+			}
+        }
+        ai_will_do = {
+			factor = 20
+		}
+    }
+
+	peace_negotiations_2 = {
+        icon = GFX_decision_generic_ignite_civil_war
+        allowed = {
+            original_tag = WES
+            always = yes
+        }
+        fire_only_once = yes
+        available = {
+			AND = {
+				has_completed_focus = WES_Secured_construction_site_in_Sayama_Pref
+				has_country_flag = WES_SAYAMA_WAR
+				has_country_flag = WES_JPN_surrender_no
+				controls_state = 533
+				has_war_with = JPN
+				JPN = { surrender_progress > 0.50 }
+				NOT = { owns_state = 533 }
+			}
+            
+        }
+        complete_effect = {
+			JPN = { country_event ={ id = WES.44 } }
+        }
+        visible = {
+            AND = {
+				has_completed_focus = WES_Secured_construction_site_in_Sayama_Pref
+				has_country_flag = WES_SAYAMA_WAR
+				has_country_flag = WES_JPN_surrender_no
+			}
+        }
+        ai_will_do = {
+			factor = 20
 		}
     }
 }

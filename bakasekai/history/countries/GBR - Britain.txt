@@ -1,14 +1,23 @@
 capital = 126
-
-oob = "Default_oob" #"Default_oob"
-
-
+oob = "Default_oob"
+if = {
+	limit = {
+		NOT = {
+			has_dlc = "No Step Back"
+		}
+	}
+	set_oob = "ENG_1936"
+}
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	set_oob = "ENG_1936_nsb"
+}
 set_research_slots = 4
-
 set_stability = 0.6
 set_war_support = 0.1
 add_command_power = 20
-
 # Starting tech
 set_technology = {
 	infantry_weapons = 1
@@ -37,13 +46,16 @@ set_technology = {
 
 if = {
 	limit = {
-		NOT = { has_dlc = "No Step Back" }
+		NOT = {
+			has_dlc = "No Step Back"
+		}
 	}
 	set_technology = {
 		gwtank = 1
 		basic_light_tank = 1
 	}
 }
+
 if = {
 	limit = {
 		has_dlc = "No Step Back"
@@ -58,11 +70,16 @@ if = {
 	limit = {
 		has_dlc = "Battle for the Bosporus"
 	}
-	set_technology = { camelry = 1 }
+	set_technology = {
+		camelry = 1
+	}
 }
+
 if = {
 	limit = {
-		not = { has_dlc = "Man the Guns" }
+		not = {
+			has_dlc = "Man the Guns"
+		}
 	}
 	set_technology = {
 		early_submarine = 1
@@ -76,6 +93,7 @@ if = {
 		transport = 1
 	}
 }
+
 if = {
 	limit = {
 		has_dlc = "Man the Guns"
@@ -108,7 +126,10 @@ if = {
 	}
 	add_ideas = MTG_naval_treaty_adherent
 	set_global_flag = MTG_second_london_conference
-	set_global_flag = { flag = MTG_naval_treaty_signatories value = 5 }
+	set_global_flag = {
+		flag = MTG_naval_treaty_signatories
+		value = 5
+	}
 }
 
 if = {
@@ -120,15 +141,18 @@ if = {
 	}
 }
 
-set_variable = { var = eng_gateway_to_europe_influence value = 0 }
+set_variable = {
+	var = eng_gateway_to_europe_influence
+	value = 0
+}
 
 add_ideas = {
 	stiff_upper_lip
 	ENG_the_war_to_end_all_wars
 	george_v
 }
-set_convoys = 800
 
+set_convoys = 800
 # DIPLOMACY
 if = {
 	limit = {
@@ -149,7 +173,7 @@ if = {
 	set_autonomy = {
 		target = MDV
 		autonomous_state = autonomy_dominion
-		freedom_level = 0.0
+		freedom_level = 0
 	}
 	set_autonomy = {
 		target = ERO
@@ -157,25 +181,29 @@ if = {
 		freedom_level = 0.4
 	}
 	set_autonomy = {
-		target = GMI
+		target = IND
 		autonomous_state = autonomy_dominion
 		freedom_level = 0.2
 	}
 	set_autonomy = {
-		target = IND
+		target = LON
 		autonomous_state = autonomy_dominion
 		freedom_level = 0.2
 	}
 	else = {
 		puppet = CAN
 		puppet = IND
+		puppet = ERO
+		puppet = MDV
+		puppet = ZAF
+		puppet = LON
 	}
 }
 
-
 if = {
-	limit = { has_dlc = "Together for Victory" }
-
+	limit = {
+		has_dlc = "Together for Victory"
+	}
 	add_to_tech_sharing_group = commonwealth_research
 }
 
@@ -186,23 +214,35 @@ add_to_faction = GMI
 add_to_faction = MDV
 add_to_faction = NZL
 add_to_faction = ZAF
-
 # give_military_access = IND
-add_to_faction = IND		
+add_to_faction = IND
 add_to_faction = ERO
-
-
+add_to_faction = LON
 set_politics = {
 	ruling_party = democratic
 	last_election = "1935.11.14"
 	election_frequency = 48
-	elections_allowed = yes ##suspended through duration of war, which is handled via event
+	elections_allowed = yes	##suspended through duration of war, which is handled via event
 }
+
+every_country = {
+	limit = {
+		is_in_faction_with = GBR
+	}
+	every_country = {
+		limit = {
+			is_in_faction_with = GBR
+		}
+		give_guarantee = PREV
+	}
+}
+
 set_popularities = {
 	democratic = 97
 	fascism = 2
 	communism = 1
 }
+
 recruit_character = ENG_oswald_mosley
 recruit_character = ENG_stanley_baldwin
 recruit_character = ENG_winston_churchill
@@ -264,9 +304,6 @@ recruit_character = ENG_frederick_bowhill
 recruit_character = ENG_cyril_newall
 recruit_character = ENG_sholto_douglas
 recruit_character = ENG_edward_ellington
-
-
-
 recruit_character = ENG_john_beckett
 recruit_character = ENG_corgis_1
 recruit_character = ENG_corgis_2
@@ -297,9 +334,6 @@ recruit_character = ENG_sylvia_pankhurst
 recruit_character = ENG_stewart_menzies
 recruit_character = ENG_maxwell_aitken
 recruit_character = ENG_thomas_moore
-
-
-
 if = {
 	limit = {
 		has_dlc = "La Resistance"
@@ -307,46 +341,63 @@ if = {
 	create_operative_leader = {
 		name = "Nancy Wake"
 		GFX = GFX_portrait_nancy_wake
-		traits = { operative_escape_artist }
+		traits = {
+			operative_escape_artist
+		}
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		female = yes
-		nationalities = { GBR }
+		nationalities = {
+			GBR
+		}
 	}
-
 	create_operative_leader = {
 		name = "Diana Rowden"
 		GFX = GFX_portrait_diana_rowden
-		traits = { }
+		traits = {
+		}
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		female = yes
-		nationalities = { GBR }
+		nationalities = {
+			GBR
+		}
 	}
-
 	create_operative_leader = {
 		name = "Juan Pujol"
 		GFX = GFX_portrait_juan_pujol
-		traits = { operative_double_agent }
+		traits = {
+			operative_double_agent
+		}
 		bypass_recruitment = no
 		available_to_spy_master = yes
-		nationalities = { GBR DEU }
+		nationalities = {
+			GBR
+			DEU
+		}
 	}
-
 	create_operative_leader = {
 		name = "Dusko Popov"
 		GFX = GFX_portrait_dusko_popov
-		traits = { operative_double_agent }
+		traits = {
+			operative_double_agent
+		}
 		bypass_recruitment = no
 		available_to_spy_master = yes
-		nationalities = { GBR DEU MYS }
+		nationalities = {
+			GBR
+			DEU
+			MYS
+		}
 	}
 }
 
-
-
 if = {
-	limit = { not = { has_dlc = "Man the Guns" } }
+	limit = {
+		not = {
+			has_dlc = "Man the Guns"
+		}
+	}
 	### Variants ###
 	# Submarines #
 	create_equipment_variant = {
@@ -476,7 +527,7 @@ if = {
 			tank_nsb_armor_upgrade = 1
 		}
 		icon = "GFX_ENG_basic_light_tank_medium"
-		obsolete = yes #used for oob
+		obsolete = yes		#used for oob
 	}
 	create_equipment_variant = {
 		name = "Light Tank Mk. VI"
@@ -497,7 +548,6 @@ if = {
 			tank_nsb_armor_upgrade = 2
 		}
 	}
-
 	create_equipment_variant = {
 		name = "Medium Mk. II"
 		type = medium_tank_chassis_0
@@ -516,7 +566,6 @@ if = {
 		}
 		icon = "GFX_ENG_basic_light_tank_medium"
 	}
-
 	create_equipment_variant = {
 		name = "Vickers 6 ton A"
 		type = light_tank_chassis_0
@@ -534,9 +583,8 @@ if = {
 			tank_nsb_engine_upgrade = 2
 		}
 		icon = "GFX_ENG_light_BAB_camo"
-		obsolete = yes #export only
+		obsolete = yes		#export only
 	}
-
 	create_equipment_variant = {
 		name = "Vickers 6 ton B"
 		type = light_tank_chassis_0
@@ -553,11 +601,14 @@ if = {
 			tank_nsb_engine_upgrade = 2
 		}
 		icon = "GFX_ENG_light_BAB_camo"
-		obsolete = yes #export only
+		obsolete = yes		#export only
 	}
 }
+
 if = {
-	limit = { has_dlc = "Man the Guns" }
+	limit = {
+		has_dlc = "Man the Guns"
+	}
 	### Variants ###
 	# Submarines #
 	create_equipment_variant = {
@@ -724,7 +775,7 @@ if = {
 		}
 	}
 	create_equipment_variant = {
-		name = "Adventure Class"						# cruiser minelayer
+		name = "Adventure Class"		# cruiser minelayer
 		type = ship_hull_cruiser_1
 		name_group = ENG_MINELAYERS_HISTORICAL
 		parent_version = 0
@@ -741,23 +792,23 @@ if = {
 		}
 	}
 	create_equipment_variant = {
-			name = "Town Class"
-			type = ship_hull_cruiser_2
-			name_group = ENG_CL_HISTORICAL
-			parent_version = 0
-			modules = {
-				fixed_ship_battery_slot = ship_light_medium_battery_2
-				fixed_ship_anti_air_slot = ship_anti_air_2
-				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-				fixed_ship_radar_slot = empty
-				fixed_ship_engine_slot = cruiser_ship_engine_2
-				fixed_ship_armor_slot = ship_armor_cruiser_2
-				front_1_custom_slot = ship_anti_air_2
-				mid_1_custom_slot = ship_torpedo_1
-				mid_2_custom_slot = ship_secondaries_2
-				rear_1_custom_slot = ship_light_medium_battery_2
-			}
+		name = "Town Class"
+		type = ship_hull_cruiser_2
+		name_group = ENG_CL_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_light_medium_battery_2
+			fixed_ship_anti_air_slot = ship_anti_air_2
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_2
+			fixed_ship_armor_slot = ship_armor_cruiser_2
+			front_1_custom_slot = ship_anti_air_2
+			mid_1_custom_slot = ship_torpedo_1
+			mid_2_custom_slot = ship_secondaries_2
+			rear_1_custom_slot = ship_light_medium_battery_2
 		}
+	}
 	# Heavy Cruisers #
 	create_equipment_variant = {
 		name = "County Class"
@@ -853,7 +904,6 @@ if = {
 			rear_1_custom_slot = ship_heavy_battery_1
 		}
 	}
-
 	create_equipment_variant = {
 		name = "G3 Design"
 		type = ship_hull_heavy_1
@@ -949,7 +999,6 @@ if = {
 		}
 		obsolete = yes
 	}
-	
 	create_equipment_variant = {
 		name = "Hermes Class"
 		type = ship_hull_carrier_conversion_ca
@@ -982,21 +1031,18 @@ if = {
 		obsolete = yes
 	}
 	create_equipment_variant = {
-			name = "Ark Royal Class"
-			type = ship_hull_carrier_1
-			name_group = ENG_CV_HISTORICAL
-			parent_version = 0
-			modules = {
-				fixed_ship_deck_slot_1 = ship_deck_space
-				fixed_ship_deck_slot_2 = ship_deck_space
-				fixed_ship_anti_air_slot = ship_anti_air_1
-				fixed_ship_radar_slot = empty
-				fixed_ship_engine_slot = carrier_ship_engine_2
-				fixed_ship_secondaries_slot = ship_secondaries_2
-				front_1_custom_slot = ship_deck_space
-			}
+		name = "Ark Royal Class"
+		type = ship_hull_carrier_1
+		name_group = ENG_CV_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_deck_slot_1 = ship_deck_space
+			fixed_ship_deck_slot_2 = ship_deck_space
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = carrier_ship_engine_2
+			fixed_ship_secondaries_slot = ship_secondaries_2
+			front_1_custom_slot = ship_deck_space
 		}
-	
+	}
 }
-
-

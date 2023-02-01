@@ -1,20 +1,28 @@
 ﻿capital = 64
-
-oob = "Default_oob" #"Default_oob"
-
-
-
+oob = "Default_oob"
+if = {
+	limit = {
+		NOT = {
+			has_dlc = "No Step Back"
+		}
+	}
+	set_oob = "GER_1936"
+}
+if = {
+	limit = {
+		has_dlc = "No Step Back"
+	}
+	set_oob = "GER_1936_nsb"
+}
 starting_train_buffer = 2
 set_fuel_ratio = 0.8
-
 # starting_truck_buffer = 0.8
-
 # Starting tech
 set_technology = {
 	infantry_weapons = 1
 	infantry_weapons1 = 1
 	tech_recon = 1
-	tech_support = 1		
+	tech_support = 1
 	tech_engineers = 1
 	tech_mountaineers = 1
 	motorised_infantry = 1
@@ -35,9 +43,12 @@ set_technology = {
 	fuel_silos = 1
 	fuel_refining = 1
 }
+
 if = {
 	limit = {
-		NOT = { has_dlc = "No Step Back" }
+		NOT = {
+			has_dlc = "No Step Back"
+		}
 	}
 	set_technology = {
 		gwtank = 1
@@ -46,6 +57,7 @@ if = {
 		basic_heavy_tank = 1
 	}
 }
+
 if = {
 	limit = {
 		has_dlc = "No Step Back"
@@ -58,9 +70,12 @@ if = {
 		engine_tech_1 = 1
 	}
 }
+
 if = {
 	limit = {
-		not = { has_dlc = "Man the Guns" }
+		not = {
+			has_dlc = "Man the Guns"
+		}
 	}
 	set_technology = {
 		early_submarine = 1
@@ -78,6 +93,7 @@ if = {
 	}
 	# set_naval_oob = "GER_1936_naval"
 }
+
 if = {
 	limit = {
 		has_dlc = "Man the Guns"
@@ -110,6 +126,7 @@ if = {
 	}
 	# set_naval_oob = "GER_1936_naval_mtg"
 }
+
 if = {
 	limit = {
 		has_dlc = "La Resistance"
@@ -119,27 +136,39 @@ if = {
 	}
 }
 
-set_variable = { var = ger_gateway_to_europe_influence value = 0 }
+set_variable = {
+	var = ger_gateway_to_europe_influence
+	value = 0
+}
 
-set_variable = { var = wehrmacht_anger value = 0 }
-set_variable = { var = ss_anger value = 0 }
+set_variable = {
+	var = wehrmacht_anger
+	value = 0
+}
+
+set_variable = {
+	var = ss_anger
+	value = 0
+}
+
 set_research_slots = 4
 set_convoys = 200
-set_stability = 0.75 
+set_stability = 0.75
 set_war_support = 0.3
-
 #Trade
 create_import = {
-		resource = tungsten
-		factories = 1
-		exporter = NKA
+	resource = tungsten
+	factories = 1
+	exporter = NKA
 }
+
 set_politics = {
 	ruling_party = fascism
 	last_election = "1933.3.5"
 	election_frequency = 48
 	elections_allowed = no
 }
+
 set_popularities = {
 	democratic = 20
 	fascism = 60
@@ -153,10 +182,9 @@ add_ideas = {
 	limited_conscription
 	partial_economic_mobilisation
 }
+
 add_ideas = GER_mefo_bills_1
-
 activate_mission = GER_mefo_bills_mission
-
 recruit_character = GER_wilhelm_pieck
 recruit_character = GER_konrad_adenauer
 recruit_character = GER_adolf_hitler
@@ -210,10 +238,8 @@ recruit_character = GER_werner_von_fritsch
 recruit_character = GER_wilhelm_keitel
 recruit_character = GER_wilhelm_list
 recruit_character = GER_wilhelm_marschall
-
 recruit_character = GER_wilhelm_ritter_von_leeb
 recruit_character = GER_wolfram_von_richthofen
-
 recruit_character = GER_heinrich_himmler
 recruit_character = GER_walther_funk
 recruit_character = GER_hjalmar_schacht
@@ -235,10 +261,7 @@ recruit_character = GER_wilhelm_ii
 recruit_character = GER_wilhelm_iii
 recruit_character = GER_victoria
 recruit_character = GER_august_von_mackensen
-
-recruit_character = GER_alexander_von_falkenhausen #Not visible unless recalled from China
-
-
+recruit_character = GER_alexander_von_falkenhausen#Not visible unless recalled from China
 if = {
 	limit = {
 		has_dlc = "Waking the Tiger"
@@ -253,33 +276,47 @@ if = {
 	create_operative_leader = {
 		name = "Otto Skorzeny"
 		GFX = GFX_portrait_otto_skorenzy
-		traits = { operative_commando }
+		traits = {
+			operative_commando
+		}
 		bypass_recruitment = no
 		available_to_spy_master = yes
-		nationalities = { DEU }
+		nationalities = {
+			DEU
+		}
 	}
-
 	create_operative_leader = {
 		name = "Nikolaus Ritter"
 		GFX = GFX_portrait_nikolaus_ritter
-		traits = { operative_safe_cracker }
+		traits = {
+			operative_safe_cracker
+		}
 		bypass_recruitment = no
 		available_to_spy_master = yes
-		nationalities = { DEU }
+		nationalities = {
+			DEU
+		}
 	}
 	create_operative_leader = {
 		name = "Eleysa Bazna"
 		GFX = GFX_portrait_eleysa_bazna
-		traits = { operative_infiltrator }
+		traits = {
+			operative_infiltrator
+		}
 		bypass_recruitment = no
 		available_to_spy_master = yes
-		nationalities = { DEU TUR }
+		nationalities = {
+			DEU
+			TUR
+		}
 	}
 }
 
 if = {
 	limit = {
-		not = { has_dlc = "Man the Guns" }
+		not = {
+			has_dlc = "Man the Guns"
+		}
 	}
 	### Ship Variants ###
 	## 1936 Start ##
@@ -309,6 +346,7 @@ if = {
 		}
 	}
 }
+
 if = {
 	limit = {
 		has_dlc = "No Step Back"
@@ -391,15 +429,18 @@ if = {
 		icon = "GFX_GER_improved_light_tank_medium"
 	}
 }
+
 if = {
-	limit = { has_dlc = "Man the Guns" }
+	limit = {
+		has_dlc = "Man the Guns"
+	}
 	create_equipment_variant = {
 		name = "Deutschland Class"
 		type = ship_hull_cruiser_panzerschiff
 		name_group = GER_CA_HISTORICAL
 		parent_version = 0
 		modules = {
-        	fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_anti_air_slot = ship_anti_air_1
 			fixed_ship_battery_slot = ship_heavy_battery_2
 			fixed_ship_secondaries_slot = ship_secondaries_1
 			fixed_ship_armor_slot = ship_armor_cruiser_1
@@ -407,7 +448,7 @@ if = {
 			fixed_ship_engine_slot = cruiser_ship_engine_1
 			rear_1_custom_slot = ship_torpedo_1
 			mid_1_custom_slot = ship_airplane_launcher_1
-    	}
+		}
 	}
 	create_equipment_variant = {
 		name = "Type 24 Class"
@@ -633,5 +674,3 @@ create_equipment_variant = {
 	}
 	obsolete = yes
 }
-
-

@@ -1,12 +1,11 @@
 ﻿capital = 361
-
-oob = "Default_oob" #"USA_1936"
-
+oob = "Default_oob"
 starting_train_buffer = 5
-
 if = {
-	limit = { has_dlc = "Man the Guns" }
-		set_naval_oob = "USA_1936_naval_mtg"
+	limit = {
+		has_dlc = "Man the Guns"
+	}
+	set_naval_oob = "USA_1936_naval_mtg"
 	else = {
 		set_naval_oob = "USA_1936_naval_legacy"
 	}
@@ -16,18 +15,53 @@ set_research_slots = 4
 set_stability = 0.75
 set_war_support = 0
 add_command_power = 20
-set_variable = { var = senators_support value = 48 }
-set_variable = { var = senators_total value = 96 }
-set_variable = { var = representatives_support value = 218 }
-set_variable = { var = representatives_total value = 435 }
-set_variable = { var = quorum_low value = 39 }
-set_variable = { var = quorum_medium value = 49 }
-set_variable = { var = quorum_high value = 58 }
+set_variable = {
+	var = senators_support
+	value = 48
+}
+
+set_variable = {
+	var = senators_total
+	value = 96
+}
+
+set_variable = {
+	var = representatives_support
+	value = 218
+}
+
+set_variable = {
+	var = representatives_total
+	value = 435
+}
+
+set_variable = {
+	var = quorum_low
+	value = 39
+}
+
+set_variable = {
+	var = quorum_medium
+	value = 49
+}
+
+set_variable = {
+	var = quorum_high
+	value = 58
+}
+
 USA_recalc_congress_icon_frames = yes
 USA = {
-	country_event = { id = usa.50 days = 2 }
-	country_event = { id = usa.51 days = 2 }
+	country_event = {
+		id = usa.50
+		days = 2
+	}
+	country_event = {
+		id = usa.51
+		days = 2
+	}
 }
+
 # Starting tech
 set_technology = {
 	infantry_weapons = 1
@@ -52,16 +86,19 @@ set_technology = {
 	marines = 1
 	basic_train = 1
 }
+
 puppet = GRL
 if = {
 	limit = {
-		NOT = { has_dlc = "No Step Back" }
+		NOT = {
+			has_dlc = "No Step Back"
+		}
 	}
 	set_technology = {
 		gwtank = 1
-
 	}
 }
+
 if = {
 	limit = {
 		has_dlc = "No Step Back"
@@ -74,7 +111,11 @@ if = {
 }
 
 if = {
-	limit = { not = { has_dlc = "Man the Guns" } }
+	limit = {
+		not = {
+			has_dlc = "Man the Guns"
+		}
+	}
 	set_technology = {
 		early_submarine = 1
 		basic_submarine = 1
@@ -89,8 +130,11 @@ if = {
 		transport = 1
 	}
 }
+
 if = {
-	limit = { has_dlc = "Man the Guns" }
+	limit = {
+		has_dlc = "Man the Guns"
+	}
 	set_technology = {
 		basic_naval_mines = 1
 		submarine_mine_laying = 1
@@ -142,153 +186,14 @@ give_guarantee = CHL
 give_guarantee = PAR
 give_guarantee = ARG
 give_guarantee = URG
-
-1939.1.1 = {
-
-	add_political_power = 1199
-	add_command_power = 100
-
-	#adding ministers
-	add_ideas = {
-		USA_robert_taft
-		carl_spaatz
-		jimmy_doolittle
-		army_ordnance_department
-		general_electric
-		robert_goddard
-		USA_war_department
-		USA_intervention_in_europe
-		#laws
-		isolation
-		volunteer_only
-		great_depression_3
-		new_deal
-	}
-	remove_ideas = {
-		great_depression
-	}
-
-	#focuses
-	unlock_national_focus = USA_continue_the_new_deal
-	unlock_national_focus = USA_wpa
-	complete_national_focus = USA_war_department
-	complete_national_focus = USA_air_war_plans_division
-	complete_national_focus = USA_war_plans_division
-	complete_national_focus = USA_agricultural_adjustment_act
-	complete_national_focus = USA_neutrality_act
-	complete_national_focus = USA_intervention_in_asia
-	complete_national_focus = USA_war_plan_orange
-	complete_national_focus = USA_intervention_in_europe
-	complete_national_focus = USA_war_plan_black
-	complete_national_focus = USA_strategic_bombing
- 	complete_national_focus = USA_fair_labour_standards_act
-
-	set_global_flag = earhart_disappeared
-	oob = "Default_oob" #"USA_1939"
-	if = {
-		limit = { has_dlc = "Man the Guns" }
-			set_naval_oob = "USA_1939_naval_mtg"
-		else = {
-			set_naval_oob = "USA_1939_naval_legacy"
-		}
-	}
-
-	set_technology = {
-		fighter1 = 1
-		cv_fighter1 = 1
-		heavy_fighter1 = 1
-		tactical_bomber1 = 1
-		CAS2 = 1
-		strategic_bomber1 = 1
-		interwar_artillery = 1
-		interwar_antitank = 1
-		infantry_weapons2 = 1
-		support_weapons = 1
-		support_weapons2 = 1
-		marines = 1
-
-		#doctrines
-		#Air
-		air_superiority = 1
-		infrastructure_destruction = 1
-		naval_strike_tactics = 1
-
-		sup_delay = 1
-		submarine_operations_bs = 1
-		carrier_primacy = 1
-
-		#electronics
-		electronic_mechanical_engineering = 1
-		radio = 1
-		radio_detection = 1
-		mechanical_computing = 1
-		computing_machine = 1
-		basic_encryption = 1
-		basic_decryption = 1
-
-		#industry
-		basic_machine_tools = 1
-		improved_machine_tools = 1
-		advanced_machine_tools = 1
-		synth_oil_experiments = 1
-		oil_processing = 1
-		fuel_refining2 = 1
-		fuel_refining3 = 1
-		construction1 = 1
-		construction2 = 1
-		construction3 = 1
-		dispersed_industry = 1
-		dispersed_industry2 = 1
-		dispersed_industry3 = 1
-	}
-	if = {
-		limit = { not = { has_dlc = "Man the Guns" } }
-		set_technology = {
-			improved_submarine = 1
-			basic_destroyer = 1
-			basic_heavy_cruiser = 1
-			basic_battlecruiser = 1
-		}
-	}
-	if = {
-		limit = { has_dlc = "Man the Guns" }
-		set_technology = {
-			improved_ship_hull_light = 1
-			basic_ship_hull_heavy = 1
-			improved_ship_hull_heavy = 1
-			improved_sonar = 1
-			improved_ship_torpedo_launcher = 1
-			improved_cruiser_armor_scheme = 1
-			improved_heavy_battery = 1
-			#dp_secondary_battery = 1
-		}
-		remove_ideas = MTG_naval_treaty_adherent
-		add_ideas = MTG_naval_treaty_adherent_reduced
-	}
-	create_equipment_variant = {
-		name = "Martin M166"
-		type = tac_bomber_equipment_0
-		upgrades = {
-			plane_tac_bomb_upgrade = 2
-			plane_range_upgrade = 1
-			plane_engine_upgrade = 2
-			plane_reliability_upgrade = 3
-		}
-	}
-}
-
-
-
-
 set_convoys = 500
-
-
 set_politics = {
 	ruling_party = democratic
 	last_election = "1932.11.8"
 	election_frequency = 48
 	elections_allowed = yes
 }
+
 set_popularities = {
 	democratic = 99
 	communism = 1
@@ -302,20 +207,10 @@ add_ideas = {
 	home_of_the_free
 }
 
-
 # DIPLOMACY
 set_autonomy = {
 	target = PHI
-	autonomous_state =  autonomy_puppet
-}
-
-1939.1.1 = {
-	set_politics = {
-		ruling_party = democratic
-		last_election = "1936.11.3"
-		election_frequency = 48
-		elections_allowed = yes
-	}
+	autonomous_state = autonomy_puppet
 }
 
 recruit_character = USA_earl_browder
@@ -383,36 +278,46 @@ recruit_character = USA_henry_stimson
 recruit_character = USA_victor_perlo
 recruit_character = USA_charles_coughlin
 recruit_character = USA_harry_white
-
-
 if = {
-	limit = { has_dlc = "La Resistance" }
+	limit = {
+		has_dlc = "La Resistance"
+	}
 	create_operative_leader = {
 		name = "Josephine Baker"
 		GFX = GFX_portrait_josephine_baker
-		traits = { operative_well_groomed }
+		traits = {
+			operative_well_groomed
+		}
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		female = yes
-		nationalities = { USA }
+		nationalities = {
+			USA
+		}
 	}
-
 	create_operative_leader = {
 		name = "Virginia Hall"
 		GFX = GFX_portrait_virginia_hall
-		traits = { operative_demolition_expert }
+		traits = {
+			operative_demolition_expert
+		}
 		bypass_recruitment = no
 		available_to_spy_master = yes
 		female = yes
-		nationalities = { USA }
+		nationalities = {
+			USA
+		}
 	}
 }
-
 
 ### VARIANTS ###
 # 1936 Start #
 if = {
-	limit = { not = { has_dlc = "Man the Guns" } }
+	limit = {
+		not = {
+			has_dlc = "Man the Guns"
+		}
+	}
 	### Ship Variants ###
 	create_equipment_variant = {
 		name = "Barracuda Class"
@@ -425,7 +330,6 @@ if = {
 		}
 		obsolete = yes
 	}
-
 	create_equipment_variant = {
 		name = "Farragut Class"
 		type = destroyer_1
@@ -436,7 +340,6 @@ if = {
 			ship_anti_air_upgrade = 3
 		}
 	}
-
 	create_equipment_variant = {
 		name = "Portland Class"
 		type = heavy_cruiser_1
@@ -447,7 +350,6 @@ if = {
 			ship_gun_upgrade = 2
 		}
 	}
-
 	create_equipment_variant = {
 		name = "Pennsylvania Class"
 		type = battleship_1
@@ -459,7 +361,6 @@ if = {
 		}
 		obsolete = yes
 	}
-
 	create_equipment_variant = {
 		name = "New Mexico Class"
 		type = battleship_1
@@ -470,7 +371,6 @@ if = {
 			ship_gun_upgrade = 2
 		}
 	}
-
 	create_equipment_variant = {
 		name = "Colorado Class"
 		type = battleship_1
@@ -481,7 +381,6 @@ if = {
 			ship_gun_upgrade = 4
 		}
 	}
-
 	create_equipment_variant = {
 		name = "Yorktown Class"
 		type = carrier_2
@@ -536,10 +435,14 @@ if = {
 		icon = "GFX_USA_basic_light_tank_medium"
 	}
 }
+
 if = {
-	limit = { has_dlc = "Man the Guns" }
+	limit = {
+		has_dlc = "Man the Guns"
+	}
 	# Submarines #
-	create_equipment_variant = {			# represents O/R class, S class
+	create_equipment_variant = {
+		# represents O/R class, S class
 		name = "S Class"
 		type = ship_hull_submarine_1
 		name_group = USA_SS_HISTORICAL
@@ -552,7 +455,7 @@ if = {
 		obsolete = yes
 	}
 	create_equipment_variant = {
-		name = "Barracuda Class"			# represents Barracuda, Dolphin, Cachalot classes
+		name = "Barracuda Class"		# represents Barracuda, Dolphin, Cachalot classes
 		type = ship_hull_submarine_2
 		name_group = USA_SS_HISTORICAL
 		parent_version = 0
@@ -564,7 +467,7 @@ if = {
 		obsolete = yes
 	}
 	create_equipment_variant = {
-		name = "Porpoise Class"				# represents Porpoise, Shark, and Perch classes
+		name = "Porpoise Class"		# represents Porpoise, Shark, and Perch classes
 		type = ship_hull_submarine_2
 		name_group = USA_SS_HISTORICAL
 		parent_version = 0
@@ -576,7 +479,7 @@ if = {
 	}
 	# Destroyers #
 	create_equipment_variant = {
-		name = "Clemson Class"				# represents Sampson, Caldwell, Clemson, and Wickes classes
+		name = "Clemson Class"		# represents Sampson, Caldwell, Clemson, and Wickes classes
 		type = ship_hull_light_1
 		name_group = USA_DD_HISTORICAL
 		parent_version = 0
@@ -593,7 +496,7 @@ if = {
 		obsolete = yes
 	}
 	create_equipment_variant = {
-		name = "Farragut Class"				# represents Farragut, Porter, Mahan classes
+		name = "Farragut Class"		# represents Farragut, Porter, Mahan classes
 		type = ship_hull_light_1
 		name_group = USA_DD_HISTORICAL
 		parent_version = 0
@@ -647,7 +550,7 @@ if = {
 		}
 	}
 	create_equipment_variant = {
-		name = "Oglala Class"				#cruiser minelayers
+		name = "Oglala Class"		#cruiser minelayers
 		type = ship_hull_cruiser_1
 		name_group = USA_MINELAYERS_HISTORICAL
 		parent_version = 0
@@ -665,7 +568,7 @@ if = {
 	}
 	# Heavy Cruisers #
 	create_equipment_variant = {
-		name = "Pensacola Class"			# Pensacola and Northampton classes
+		name = "Pensacola Class"		# Pensacola and Northampton classes
 		type = ship_hull_cruiser_1
 		name_group = USA_CA_HISTORICAL
 		parent_version = 0
@@ -684,7 +587,7 @@ if = {
 		obsolete = yes
 	}
 	create_equipment_variant = {
-		name = "Portland Class"				# Portland and New Orleans classes
+		name = "Portland Class"		# Portland and New Orleans classes
 		type = ship_hull_cruiser_2
 		name_group = USA_CA_HISTORICAL
 		parent_version = 0
@@ -721,26 +624,26 @@ if = {
 		}
 	}
 	# Heavy Cruisers #
-		create_equipment_variant = {
-			name = "Wichita Class"
-			type = ship_hull_cruiser_2
-			name_group = USA_CA_HISTORICAL
-			parent_version = 0
-			modules = {
-				fixed_ship_battery_slot = ship_medium_battery_2
-				fixed_ship_anti_air_slot = ship_anti_air_1
-				fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-				fixed_ship_radar_slot = empty
-				fixed_ship_engine_slot = cruiser_ship_engine_2
-				fixed_ship_armor_slot = ship_armor_cruiser_3
-				mid_1_custom_slot = ship_airplane_launcher_1
-				mid_2_custom_slot = ship_anti_air_1
-				rear_1_custom_slot = ship_medium_battery_2
-			}
+	create_equipment_variant = {
+		name = "Wichita Class"
+		type = ship_hull_cruiser_2
+		name_group = USA_CA_HISTORICAL
+		parent_version = 0
+		modules = {
+			fixed_ship_battery_slot = ship_medium_battery_2
+			fixed_ship_anti_air_slot = ship_anti_air_1
+			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+			fixed_ship_radar_slot = empty
+			fixed_ship_engine_slot = cruiser_ship_engine_2
+			fixed_ship_armor_slot = ship_armor_cruiser_3
+			mid_1_custom_slot = ship_airplane_launcher_1
+			mid_2_custom_slot = ship_anti_air_1
+			rear_1_custom_slot = ship_medium_battery_2
 		}
+	}
 	# Battleships #
 	create_equipment_variant = {
-		name = "New York Class"					# represents Wyoming (Arkansas) and New York classes
+		name = "New York Class"		# represents Wyoming (Arkansas) and New York classes
 		type = ship_hull_heavy_1
 		name_group = USA_BB_HISTORICAL
 		parent_version = 0
@@ -760,7 +663,7 @@ if = {
 		obsolete = yes
 	}
 	create_equipment_variant = {
-		name = "Pennsylvania Class"				# represents Pennsylvania, Nevada, Tennessee, and New Mexico classes
+		name = "Pennsylvania Class"		# represents Pennsylvania, Nevada, Tennessee, and New Mexico classes
 		type = ship_hull_heavy_1
 		name_group = USA_BB_HISTORICAL
 		parent_version = 0
@@ -828,7 +731,6 @@ if = {
 			fixed_ship_engine_slot = carrier_ship_engine_1
 			fixed_ship_secondaries_slot = empty
 			front_1_custom_slot = ship_deck_space
-
 		}
 		obsolete = yes
 	}
@@ -848,4 +750,3 @@ if = {
 		}
 	}
 }
-

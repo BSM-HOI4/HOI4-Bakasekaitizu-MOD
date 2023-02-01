@@ -1,0 +1,398 @@
+add_namespace = kpo
+country_event = {
+	id = kpo.1
+	title = kpo.1.t
+	desc = kpo.1.d
+	timeout_days = 10
+	hidden = no
+	major = no
+	fire_only_once = yes
+	trigger = {
+		AND = {
+			always = no
+			has_country_flag = naisennbattle
+			NOT = {
+				has_global_flag = kpohossoku
+			}
+			OR = {
+				BTL = {
+					has_war_with = SOV
+				}
+				BTY = {
+					has_war_with = SOV
+				}
+				BTP = {
+					has_war_with = SOV
+				}
+				BTW = {
+					has_war_with = SOV
+				}
+				BTG = {
+					has_war_with = SOV
+				}
+			}
+			OR = {
+				BTL = {
+					has_capitulated = no
+				}
+				BTY = {
+					has_capitulated = no
+				}
+				BTP = {
+					has_capitulated = no
+				}
+				BTW = {
+					has_capitulated = no
+				}
+				BTG = {
+					has_capitulated = no
+				}
+			}
+			OR = {
+				tag = BTY
+				tag = BTP
+				tag = BTW
+				tag = BTL
+				tag = BTG
+			}
+			controls_state = 194
+			has_idea = battle3_naisen
+			NOT = {
+				has_idea = flag_1
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	immediate = {
+		add_ideas = flag_1
+		set_global_flag = kpohossoku
+	}
+	option = {
+		name = kpo.1.a
+		trigger = {
+			NOT = {
+				controls_state = 194
+			}
+		}
+		ai_chance = {
+			factor = 10
+		}
+	}
+	option = {
+		name = kpo.1.c
+		trigger = {
+			AND = {
+				controls_state = 194
+			}
+		}
+		ai_chance = {
+			factor = 10
+		}
+		set_rule = {
+			can_create_factions = yes
+		}
+		white_peace = {
+			tag = BTG
+		}
+		white_peace = {
+			tag = BTL
+		}
+		white_peace = {
+			tag = BTY
+		}
+		white_peace = {
+			tag = BTP
+		}
+		white_peace = {
+			tag = BTW
+		}
+		declare_war_on = {
+			target = RUS
+			type = annex_everything
+		}
+		create_faction = Kiev_Pact_Organization
+		every_country = {
+			limit = {
+				AND = {
+					OR = {
+						tag = BTG
+						tag = BTL
+						tag = BTY
+						tag = BTP
+						tag = BTW
+					}
+					NOT = {
+						tag = ROOT
+					}
+				}
+			}
+			country_event = {
+				id = kpo.3
+			}
+		}
+	}
+	option = {
+		name = kpo.1.b
+		trigger = {
+			is_ai = no
+		}
+	}
+}
+
+country_event = {
+	id = kpo.2
+	title = kpo.2.t
+	desc = kpo.2.t.d
+	timeout_days = 10
+	major = no
+	picture=GFX_tv_machinegunner
+	mean_time_to_happen = {
+		days = 0
+	}
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = kpo.2.a
+		BTP = {
+			change_tag_from = BTL
+		}
+	}
+	option = {
+		name = kpo.2.b
+		BTY = {
+			change_tag_from = BTL
+		}
+	}
+	option = {
+		name = kpo.2.c
+		BTG = {
+			change_tag_from = BTL
+		}
+	}
+	option = {
+		name = kpo.2.d
+		ai_chance = {
+			factor = 999
+		}
+	}
+	option = {
+		name = kpo.2.e
+		BTW = {
+			change_tag_from = BTL
+		}
+	}
+}
+
+country_event = {
+	id = kpo.3
+	title = kpo.3.t
+	desc = kpo.3.t.d
+	timeout_days = 10
+	major = no
+	trigger={
+		always=no
+	}
+	mean_time_to_happen = {
+		days = 0
+	}
+	is_triggered_only = yes
+	option = {
+		name = kpo.2.a
+		white_peace = {
+			tag = BTG
+		}
+		white_peace = {
+			tag = BTL
+		}
+		white_peace = {
+			tag = BTY
+		}
+		white_peace = {
+			tag = BTP
+		}
+		white_peace = {
+			tag = BTW
+		}
+		declare_war_on = {
+			target = RUS
+			type = annex_everything
+		}
+		add_to_faction = FROM
+	}
+	option = {
+		name = kpo.3.b
+		trigger = {
+			is_ai = no
+		}
+	}
+}
+
+country_event = {
+	id = kpo.4
+	title = kpo.4.t
+	desc = kpo.4.d
+	picture = GFX_event_test
+	is_triggered_only = yes #開発中
+	fire_only_once = yes
+	trigger = {
+		tag = RUS
+		RUS = {
+			is_faction_leader = yes
+		}
+		any_country = {
+			AND = {
+				has_war_with = RUS
+				controls_state = 219
+			}
+		}
+		#Moscow
+		any_country = {
+			AND = {
+				has_war_with = RUS
+				controls_state = 195
+			}
+		}
+		#Leningrad
+		any_country = {
+			AND = {
+				has_war_with = RUS
+				controls_state = 217
+			}
+		}
+		#Stalingrad
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	option = {
+		name = kpo.4.a
+		ai_chance = {
+			factor = 85
+		}
+		CHN = {
+			leave_faction = yes
+		}
+		every_country = {
+			limit = {
+				AND = {
+					NOT = {
+						tag = JPN
+					}
+					has_war_with = SOV
+				}
+			}
+			white_peace = CHI
+		}
+		SOV = {
+			add_national_unity = -1
+		}
+		SOV = {
+			add_timed_idea = {
+				idea = kohukus
+				days = 30
+			}
+		}
+		every_country = {
+			limit = {
+				AND = {
+					has_war_with = SOV
+				}
+			}
+			country_event = {
+				id = kpo.5
+			}
+		}
+	}
+	option = {
+		name = kpo.4.b
+		trigger = {
+			is_ai = no
+		}
+		ai_chance = {
+			factor = 15
+		}
+	}
+}
+
+country_event = {
+	id = kpo.5
+	title = kpo.5.t
+	desc = kpo.5.d
+	picture = GFX_event_test
+	is_triggered_only = yes
+	option = {
+		name = kpo.5.a
+	}
+}
+
+#KPO
+country_event = {
+	id = kpo.6
+	title = kpo.6.t
+	desc = kpo.6.d
+	timeout_days = 10
+	hidden = no
+	major = no
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = kpo.6.a
+		ai_chance = {
+			base = FROM.num_divisions
+			factor = 1
+		}
+		FROM = {
+			puppet = PREV
+			country_event = {
+				id = kpo.7
+			}
+		}
+	}
+	option = {
+		name = kpo.6.b
+		ai_chance = {
+			base = num_divisions
+			factor = 2
+		}
+		FROM = {
+			country_event = {
+				id = kpo.8
+			}
+		}
+	}
+}
+
+country_event = {
+	id = kpo.7
+	title = kpo.7.t
+	desc = kpo.7.d
+	timeout_days = 10
+	hidden = no
+	major = no
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = kpo.7.a
+	}
+}
+
+country_event = {
+	id = kpo.8
+	title = kpo.8.t
+	desc = kpo.8.d
+	timeout_days = 10
+	hidden = no
+	major = no
+	is_triggered_only = yes
+	fire_only_once = no
+	option = {
+		name = kpo.8.a
+		create_wargoal = {
+			target = FROM
+			type = puppet_wargoal_focus
+		}
+	}
+}
