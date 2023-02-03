@@ -1,16 +1,12 @@
 focus_tree = {
 	id = inka_focus
-	
 	country = {
 		factor = 0
-		
 		modifier = {
 			add = -10
-			tag  = INK
-
+			tag = INK
 		}
 	}
-
 	# クスコ動乱
 	focus = {
 		id = PRU_cusco_upheaval
@@ -18,14 +14,14 @@ focus_tree = {
 		x = 9
 		y = 0
 		cost = 10
-		search_filters = {  FOCUS_FILTER_POLITICAL }
-
-		available_if_capitulated = no
-
-		completion_reward = {
-		country_event = {
-			id = cusco_upheaval
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
 		}
+		available_if_capitulated = no
+		completion_reward = {
+			country_event = {
+				id = cusco_upheaval
+			}
 		}
 	}
 	focus = {
@@ -34,20 +30,26 @@ focus_tree = {
 		x = 6
 		y = 1
 		cost = 10
-		search_filters = {  FOCUS_FILTER_POLITICAL }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
 		relative_position_id = PRU_cusco_upheaval
-		prerequisite = { focus = PRU_cusco_upheaval }
-		mutually_exclusive = { focus = PRU_Abolition_social_division }
+		prerequisite = {
+			focus = PRU_cusco_upheaval
+		}
+		mutually_exclusive = {
+			focus = PRU_Abolition_social_division
+		}
 		available_if_capitulated = no
 		completion_reward = {
 			add_popularity = {
-			ideology = fascism
-			popularity = 0.05
+				ideology = fascism
+				popularity = 0.05
 			}
 			add_stability = 0.05
 			add_war_support = 0.05
 			country_event = {
-			id = PRU_traditional_religion
+				id = PRU_traditional_religion
 			}
 		}
 	}
@@ -58,14 +60,21 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_cusco_upheaval
-		prerequisite = { focus = PRU_cusco_upheaval }
-		mutually_exclusive = { focus = PRU_worship_of_inti }
+		prerequisite = {
+			focus = PRU_cusco_upheaval
+		}
+		mutually_exclusive = {
+			focus = PRU_worship_of_inti
+		}
 		available_if_capitulated = no
 		completion_reward = {
 			add_stability = 0.1
 			add_war_support = 0.1
-			conscription_factor = -0.05
-			consumer_goods_factor = -0.05
+			hidden_effect = {
+				add_ideas = {
+					PRU_Abolition_social_division_ef
+				}
+			}
 		}
 	}
 	focus = {
@@ -75,11 +84,13 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_Abolition_social_division
-		prerequisite = { focus = PRU_Abolition_social_division }
+		prerequisite = {
+			focus = PRU_Abolition_social_division
+		}
 		available_if_capitulated = no
 		completion_reward = {
 			country_event = {
-			id = PRU_Correspondence_red
+				id = PRU_Correspondence_red
 			}
 		}
 	}
@@ -90,13 +101,18 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_opening_parliament
-		prerequisite = { focus = PRU_opening_parliament }
+		prerequisite = {
+			focus = PRU_opening_parliament
+		}
 		available_if_capitulated = no
 		completion_reward = {
 			add_stability = 0.05
 			add_war_support = 0.05
-			conscription_factor = 0.03
-			consumer_goods_factor = 0.02
+			hidden_effect = {
+				add_ideas = {
+					PRU_social_security_ef
+				}
+			}
 		}
 	}
 	focus = {
@@ -106,12 +122,16 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_social_security
-		prerequisite = { focus = PRU_social_security }
-		mutually_exclusive = { focus = PRU_dawn_democracy }
+		prerequisite = {
+			focus = PRU_social_security
+		}
+		mutually_exclusive = {
+			focus = PRU_dawn_democracy
+		}
 		available_if_capitulated = no
 		completion_reward = {
 			country_event = {
-			id = PRU_labor_army
+				id = PRU_labor_army
 			}
 		}
 	}
@@ -122,12 +142,16 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_social_security
-		prerequisite = { focus = PRU_social_security }
-		mutually_exclusive = { focus = PRU_uprising }
+		prerequisite = {
+			focus = PRU_social_security
+		}
+		mutually_exclusive = {
+			focus = PRU_uprising
+		}
 		available_if_capitulated = no
 		completion_reward = {
 			country_event = {
-			id = PRU_labor_army
+				id = PRU_labor_army
 			}
 		}
 	}
@@ -139,7 +163,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_uprising
-		prerequisite = { focus = PRU_uprising }
+		prerequisite = {
+			focus = PRU_uprising
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -151,23 +177,27 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_inca_commune
-		prerequisite = { focus = PRU_inca_commune }
+		prerequisite = {
+			focus = PRU_inca_commune
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
 	}
-	focus = {
-		id = PRU_revolutionary_wave
-		icon = GFX_focus_generic_military_mission
-		x = 0
-		y = 1
-		cost = 10
-		relative_position_id = PRU_inca_commune
-		prerequisite = { focus = PRU_inca_commune }
-		available_if_capitulated = no
-		completion_reward = {
-		}
-	}
+	# focus = {
+	# 	id = PRU_revolutionary_wave
+	# 	icon = GFX_focus_generic_military_mission
+	# 	x = 0
+	# 	y = 1
+	# 	cost = 10
+	# 	relative_position_id = PRU_inca_commune
+	# 	prerequisite = {
+	# 		focus = PRU_inca_commune
+	# 	}
+	# 	available_if_capitulated = no
+	# 	completion_reward = {
+	# 	}
+	# }
 	focus = {
 		id = PRU_liberation_south
 		icon = GFX_focus_por_recover_latin_america
@@ -175,7 +205,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_revolutionary_wave
-		prerequisite = { focus = PRU_revolutionary_wave }
+		prerequisite = {
+			focus = PRU_revolutionary_wave
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -188,8 +220,12 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_dawn_democracy
-		prerequisite = { focus = PRU_dawn_democracy }
-		mutually_exclusive = { focus = PRU_with_pmperor }
+		prerequisite = {
+			focus = PRU_dawn_democracy
+		}
+		mutually_exclusive = {
+			focus = PRU_with_pmperor
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -201,7 +237,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_fate_emperor
-		prerequisite = { focus = PRU_fate_emperor }
+		prerequisite = {
+			focus = PRU_fate_emperor
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -213,7 +251,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_people_country
-		prerequisite = { focus = PRU_people_country }
+		prerequisite = {
+			focus = PRU_people_country
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -226,8 +266,12 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_dawn_democracy
-		prerequisite = { focus = PRU_dawn_democracy }
-		mutually_exclusive = { focus = PRU_fate_emperor }
+		prerequisite = {
+			focus = PRU_dawn_democracy
+		}
+		mutually_exclusive = {
+			focus = PRU_fate_emperor
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -239,7 +283,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_with_emperor
-		prerequisite = { focus = PRU_with_emperor }
+		prerequisite = {
+			focus = PRU_with_emperor
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -251,7 +297,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_constitution
-		prerequisite = { focus = PRU_constitution }
+		prerequisite = {
+			focus = PRU_constitution
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -264,7 +312,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_worship_of_inti
-		prerequisite = { focus = PRU_worship_of_inti }
+		prerequisite = {
+			focus = PRU_worship_of_inti
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -276,8 +326,12 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_kapakocha
-		prerequisite = { focus = PRU_kapakocha }
-		mutually_exclusive = { focus = PRU_Pure_blood }
+		prerequisite = {
+			focus = PRU_kapakocha
+		}
+		mutually_exclusive = {
+			focus = PRU_Pure_blood
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -289,8 +343,12 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_kapakocha
-		prerequisite = { focus = PRU_kapakocha }
-		mutually_exclusive = { focus = PRU_sun_god }
+		prerequisite = {
+			focus = PRU_kapakocha
+		}
+		mutually_exclusive = {
+			focus = PRU_sun_god
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -303,7 +361,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_sun_god
-		prerequisite = { focus = PRU_sun_god }
+		prerequisite = {
+			focus = PRU_sun_god
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -315,7 +375,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_second_ocllo
-		prerequisite = { focus = PRU_second_ocllo }
+		prerequisite = {
+			focus = PRU_second_ocllo
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -327,7 +389,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_territory_recapture
-		prerequisite = { focus = PRU_territory_recapture }
+		prerequisite = {
+			focus = PRU_territory_recapture
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -340,7 +404,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_pure_blood
-		prerequisite = { focus = PRU_pure_blood }
+		prerequisite = {
+			focus = PRU_pure_blood
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -352,7 +418,9 @@ focus_tree = {
 		y = 1
 		cost = 10
 		relative_position_id = PRU_natural_scenery
-		prerequisite = { focus = PRU_natural_scenery }
+		prerequisite = {
+			focus = PRU_natural_scenery
+		}
 		available_if_capitulated = no
 		completion_reward = {
 		}
@@ -364,40 +432,37 @@ focus_tree = {
 		x = 4
 		y = 0
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_RESEARCH }
-		
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+			FOCUS_FILTER_RESEARCH
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = industrial_bonus
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = industry
 			}
 		}
 	}
-
 	focus = {
 		id = construction_effort_PRU
 		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = industrial_effort_PRU }
+		prerequisite = {
+			focus = industrial_effort_PRU
+		}
 		x = -1
 		y = 1
 		relative_position_id = industrial_effort_PRU
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_INDUSTRY  }
-		
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		available_if_capitulated = yes
-
-
-		
 		ai_will_do = {
 			factor = 2
 		}
-
 		bypass = {
 			custom_trigger_tooltip = {
 				tooltip = construction_effort_PRU_tt
@@ -406,20 +471,18 @@ focus_tree = {
 						building = industrial_complex
 						size < 1
 						include_locked = yes
-					}					
+					}
 				}
 			}
 		}
-
 		complete_tooltip = {
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
 				type = industrial_complex
 				level = 1
 				instant_build = yes
-			}			
+			}
 		}
-
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -453,25 +516,23 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = production_effort_PRU
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = industrial_effort_PRU }
+		prerequisite = {
+			focus = industrial_effort_PRU
+		}
 		x = 1
 		y = 1
 		relative_position_id = industrial_effort_PRU
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_INDUSTRY  }
-		
-		available_if_capitulated = yes
-
-
-		ai_will_do = {
-			factor = 2			
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
 		}
-
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 2
+		}
 		bypass = {
 			custom_trigger_tooltip = {
 				tooltip = production_effort_PRU_tt
@@ -484,7 +545,6 @@ focus_tree = {
 				}
 			}
 		}
-
 		complete_tooltip = {
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
@@ -493,7 +553,6 @@ focus_tree = {
 				instant_build = yes
 			}
 		}
-
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -527,25 +586,23 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = construction_effort_PRU_2
 		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = construction_effort_PRU }
+		prerequisite = {
+			focus = construction_effort_PRU
+		}
 		x = 0
 		y = 1
 		relative_position_id = construction_effort_PRU
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_INDUSTRY  }
-		
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		available_if_capitulated = yes
-
-
 		ai_will_do = {
 			factor = 2
 		}
-
 		bypass = {
 			custom_trigger_tooltip = {
 				tooltip = construction_effort_PRU_tt
@@ -558,7 +615,6 @@ focus_tree = {
 				}
 			}
 		}
-
 		complete_tooltip = {
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
@@ -566,8 +622,7 @@ focus_tree = {
 				level = 1
 				instant_build = yes
 			}
-		}		
-
+		}
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -601,25 +656,23 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = production_effort_PRU_2
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = production_effort_PRU }
+		prerequisite = {
+			focus = production_effort_PRU
+		}
 		x = 0
 		y = 1
 		relative_position_id = production_effort_PRU
 		cost = 10
-		
-		search_filters = { FOCUS_FILTER_INDUSTRY  }
-
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		available_if_capitulated = yes
-
-
 		ai_will_do = {
 			factor = 2
 		}
-
 		bypass = {
 			custom_trigger_tooltip = {
 				tooltip = production_effort_PRU_tt
@@ -632,7 +685,6 @@ focus_tree = {
 				}
 			}
 		}
-
 		complete_tooltip = {
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
@@ -640,8 +692,7 @@ focus_tree = {
 				level = 1
 				instant_build = yes
 			}
-		}		
-
+		}
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -675,24 +726,24 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = infrastructure_effort_PRU
 		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = construction_effort_PRU_2 }
+		prerequisite = {
+			focus = construction_effort_PRU_2
+		}
 		x = 0
 		y = 1
 		relative_position_id = construction_effort_PRU_2
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		available_if_capitulated = yes
-
 		bypass = {
 			custom_trigger_tooltip = {
 				tooltip = infrastructure_effort_PRU_tt
-				all_owned_state = {			
+				all_owned_state = {
 					free_building_slots = {
 						building = infrastructure
 						size < 1
@@ -700,7 +751,6 @@ focus_tree = {
 				}
 			}
 		}
-
 		complete_tooltip = {
 			add_building_construction = {
 				type = infrastructure
@@ -713,7 +763,6 @@ focus_tree = {
 				instant_build = yes
 			}
 		}
-
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -771,25 +820,23 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = production_effort_PRU_3
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = production_effort_PRU_2 }
+		prerequisite = {
+			focus = production_effort_PRU_2
+		}
 		x = 0
 		y = 1
 		relative_position_id = production_effort_PRU_2
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_INDUSTRY  }
-		
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		available_if_capitulated = yes
-
-
 		ai_will_do = {
 			factor = 2
 		}
-
 		bypass = {
 			custom_trigger_tooltip = {
 				tooltip = production_effort_PRU_tt
@@ -798,11 +845,10 @@ focus_tree = {
 						building = arms_factory
 						size < 1
 						include_locked = yes
-					}					
+					}
 				}
 			}
 		}
-
 		complete_tooltip = {
 			add_extra_state_shared_building_slots = 1
 			add_building_construction = {
@@ -810,8 +856,7 @@ focus_tree = {
 				level = 1
 				instant_build = yes
 			}
-		}		
-
+		}
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -845,24 +890,24 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = infrastructure_effort_PRU_2
 		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = infrastructure_effort_PRU }
+		prerequisite = {
+			focus = infrastructure_effort_PRU
+		}
 		x = 0
 		y = 1
 		relative_position_id = infrastructure_effort_PRU
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_INDUSTRY }
-		
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		available_if_capitulated = yes
-
 		bypass = {
 			custom_trigger_tooltip = {
 				tooltip = infrastructure_effort_PRU_tt
-				all_owned_state = {			
+				all_owned_state = {
 					free_building_slots = {
 						building = infrastructure
 						size < 1
@@ -870,7 +915,6 @@ focus_tree = {
 				}
 			}
 		}
-
 		complete_tooltip = {
 			add_building_construction = {
 				type = infrastructure
@@ -883,7 +927,6 @@ focus_tree = {
 				instant_build = yes
 			}
 		}
-
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -941,25 +984,23 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = construction_effort_PRU_3
 		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = infrastructure_effort_PRU }
+		prerequisite = {
+			focus = infrastructure_effort_PRU
+		}
 		x = 2
 		y = 1
 		relative_position_id = infrastructure_effort_PRU
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_INDUSTRY  }
-		
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
 		available_if_capitulated = yes
-
-
 		ai_will_do = {
 			factor = 2
 		}
-
 		bypass = {
 			custom_trigger_tooltip = {
 				tooltip = construction_effort_PRU_tt
@@ -972,7 +1013,6 @@ focus_tree = {
 				}
 			}
 		}
-
 		complete_tooltip = {
 			add_extra_state_shared_building_slots = 2
 			add_building_construction = {
@@ -981,7 +1021,6 @@ focus_tree = {
 				instant_build = yes
 			}
 		}
-
 		completion_reward = {
 			random_owned_controlled_state = {
 				limit = {
@@ -1015,20 +1054,20 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = nuclear_effort_PRU
 		icon = GFX_focus_wonderweapons
-		prerequisite = { focus = infrastructure_effort_PRU_2 }
+		prerequisite = {
+			focus = infrastructure_effort_PRU_2
+		}
 		x = -2
 		y = 1
 		relative_position_id = infrastructure_effort_PRU_2
 		cost = 10
-		
-		search_filters = { FOCUS_FILTER_RESEARCH } 
-
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = nuclear_bonus
@@ -1036,7 +1075,6 @@ focus_tree = {
 				category = nuclear
 			}
 		}
-
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -1045,29 +1083,30 @@ focus_tree = {
 			}
 		}
 	}
-
 	focus = {
 		id = extra_tech_slot_PRU
 		icon = GFX_focus_research
-		prerequisite = { focus = infrastructure_effort_PRU_2 }
+		prerequisite = {
+			focus = infrastructure_effort_PRU_2
+		}
 		x = 0
 		y = 1
 		relative_position_id = infrastructure_effort_PRU_2
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_RESEARCH } 
-		
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_research_slot = 1
 		}
 	}
-
 	focus = {
 		id = extra_tech_slot_PRU_2
 		icon = GFX_focus_research
-		prerequisite = { focus = extra_tech_slot_PRU }
+		prerequisite = {
+			focus = extra_tech_slot_PRU
+		}
 		available = {
 			num_of_factories > 50
 		}
@@ -1077,40 +1116,38 @@ focus_tree = {
 		y = 1
 		relative_position_id = extra_tech_slot_PRU
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_RESEARCH } 
-		
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_research_slot = 1
 		}
-	}	
-
+	}
 	focus = {
 		id = secret_weapons_PRU
 		icon = GFX_goal_generic_secret_weapon
-		prerequisite = { focus = infrastructure_effort_PRU_2 }
+		prerequisite = {
+			focus = infrastructure_effort_PRU_2
+		}
 		x = 2
 		y = 1
 		relative_position_id = infrastructure_effort_PRU_2
 		cost = 10
-
-		search_filters = { FOCUS_FILTER_RESEARCH } 
-		
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
 		available_if_capitulated = yes
-
 		completion_reward = {
 			add_tech_bonus = {
 				name = secret_bonus
-				bonus = 1.0
+				bonus = 1
 				uses = 4
 				category = electronics
 				category = nuclear
 				category = rocketry
 			}
 		}
-
 		ai_will_do = {
 			factor = 1
 			modifier = {
