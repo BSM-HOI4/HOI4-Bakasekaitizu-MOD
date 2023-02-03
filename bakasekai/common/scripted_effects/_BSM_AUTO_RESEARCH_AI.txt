@@ -1,0 +1,260 @@
+land_auto_researcher = {
+	IF = {
+		limit = {
+			has_country_flag = research_infantry_weapons1
+		}
+		set_variable = {
+			RIW = 6
+		}
+	}
+	IF = {
+		limit = {
+			has_country_flag = research_infantry_weapons2
+		}
+		set_variable = {
+			RIW = 5
+		}
+	}
+	IF = {
+		limit = {
+			has_country_flag = research_infantry_weapons3
+		}
+		set_variable = {
+			RIW = 4
+		}
+	}
+	IF = {
+		limit = {
+			has_country_flag = research_infantry_weapons4
+		}
+		set_variable = {
+			RIW = 3
+		}
+	}
+	IF = {
+		limit = {
+			has_country_flag = research_infantry_weapons5
+		}
+		set_variable = {
+			RIW = 2
+		}
+	}
+	IF = {
+		limit = {
+			has_country_flag = research_infantry_weapons6
+		}
+		set_variable = {
+			RIW = 1
+		}
+	}
+	IF = {
+		limit = {
+			has_country_flag = research_support_weapons1
+		}
+		set_variable = {
+			RISW = 7
+		}
+	}
+	IF = {
+		limit = {
+			has_country_flag = research_support_weapons2
+		}
+		set_variable = {
+			RISW = 6
+		}
+	}
+	IF = {
+		limit = {
+			has_country_flag = research_support_weapons3
+		}
+		set_variable = {
+			RISW = 3
+		}
+	}
+	IF = {
+		limit = {
+			has_country_flag = research_support_weapons4
+		}
+		set_variable = {
+			RISW = 2
+		}
+	}
+}
+
+land_auto_researcher_mother = {
+	IF = {
+		limit = {
+			check_variable = {
+				RIW > RISW
+			}
+		}
+		land_auto_researcher_1 = yes
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				RIW < RISW
+			}
+		}
+		lar_support_weapons_1 = yes
+	}
+}
+
+land_auto_researcher_1 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = infantry_weapons1
+				has_tech = infantry_weapons1
+			}
+		}
+		land_auto_researcher_2 = yes
+		clr_country_flag = research_infantry_weapons1
+	}
+	else = {
+		set_country_flag = research_infantry_weapons1
+	}
+}
+
+land_auto_researcher_2 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = infantry_weapons2
+				has_tech = infantry_weapons2
+			}
+		}
+		land_auto_researcher_3 = yes
+		clr_country_flag = research_infantry_weapons2
+	}
+	else = {
+		set_country_flag = research_infantry_weapons2
+	}
+}
+
+land_auto_researcher_3 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = improved_infantry_weapons
+				has_tech = improved_infantry_weapons
+			}
+		}
+		land_auto_researcher_4 = yes
+		clr_country_flag = research_infantry_weapons3
+	}
+	else = {
+		set_country_flag = research_infantry_weapons3
+	}
+}
+
+land_auto_researcher_4 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = improved_infantry_weapons_2
+				has_tech = improved_infantry_weapons_2
+			}
+		}
+		land_auto_researcher_5 = yes
+		clr_country_flag = research_infantry_weapons4
+	}
+	else = {
+		set_country_flag = research_infantry_weapons4
+	}
+}
+
+land_auto_researcher_5 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = advanced_infantry_weapons
+				has_tech = advanced_infantry_weapons
+			}
+		}
+		land_auto_researcher_6 = yes
+		clr_country_flag = research_infantry_weapons5
+	}
+	else = {
+		set_country_flag = research_infantry_weapons5
+	}
+}
+
+land_auto_researcher_6 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = advanced_infantry_weapons2
+				has_tech = advanced_infantry_weapons2
+			}
+		}
+		clr_country_flag = research_infantry_weapons6
+	}
+	else = {
+		set_country_flag = research_infantry_weapons6
+	}
+}
+
+lar_support_weapons_1 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = support_weapons
+				has_tech = support_weapons
+			}
+		}
+		lar_support_weapons_2 = yes
+		clr_country_flag = research_support_weapons1
+	}
+	else = {
+		set_country_flag = research_support_weapons1
+	}
+}
+
+lar_support_weapons_2 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = support_weapons2
+				has_tech = support_weapons2
+			}
+		}
+		lar_support_weapons_3 = yes
+		clr_country_flag = research_support_weapons2
+	}
+	else = {
+		set_country_flag = research_support_weapons2
+	}
+}
+
+lar_support_weapons_3 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = support_weapons3
+				has_tech = support_weapons3
+			}
+		}
+		lar_support_weapons_4 = yes
+		clr_country_flag = research_support_weapons3
+	}
+	else = {
+		set_country_flag = research_support_weapons3
+	}
+}
+
+lar_support_weapons_4 = {
+	IF = {
+		limit = {
+			OR = {
+				is_researching_technology = support_weapons4
+				has_tech = support_weapons4
+			}
+		}
+		# land_auto_researcher_2 = yes
+		clr_country_flag = research_support_weapons4
+	}
+	else = {
+		set_country_flag = research_support_weapons4
+	}
+}
