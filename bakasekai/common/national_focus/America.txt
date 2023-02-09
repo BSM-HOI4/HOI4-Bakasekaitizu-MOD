@@ -39,22 +39,26 @@ focus_tree = {
 				amount = 10000
 			}
 			ROOT = {
-				limit = {
-					tag = NYY
-				}
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = 10000
+				if = {
+					limit = {
+						tag = NYY
+					}
+					add_equipment_to_stockpile = {
+						type = infantry_equipment
+						amount = 10000
+					}
 				}
 			}
 			ROOT = {
-				limit = {
-					tag = MEX
-				}
-				NYY = {
-					add_timed_idea = {
-						idea = USAB_S
-						days = 400
+				if = {
+					limit = {
+						tag = MEX
+					}
+					NYY = {
+						add_timed_idea = {
+							idea = USAB_S
+							days = 400
+						}
 					}
 				}
 				random_country = {
@@ -83,36 +87,40 @@ focus_tree = {
 					set_country_flag = nemui
 				}
 				random_country = {
-					limit = {
-						AND = {
-							is_ai = no
-							NOT = {
-								has_country_flag = nemui
-							}
-							OR = {
-								tag = MEX
-								tag = DIS
-								tag = CLF
-								tag = LVE
-								tag = TEX
-								tag = NEV
-								tag = NYY
-								tag = HLW
-								tag = MAC
+					if = {
+						limit = {
+							AND = {
+								is_ai = no
+								NOT = {
+									has_country_flag = nemui
+								}
+								OR = {
+									tag = MEX
+									tag = DIS
+									tag = CLF
+									tag = LVE
+									tag = TEX
+									tag = NEV
+									tag = NYY
+									tag = HLW
+									tag = MAC
+								}
 							}
 						}
-					}
-					country_event = {
-						id = USAB.1
-						days = 5
+						country_event = {
+							id = USAB.1
+							days = 5
+						}
 					}
 					set_country_flag = nemui
 				}
 				TEX = {
-					limit = {
-						is_ai = yes
+					if = {
+						limit = {
+							is_ai = yes
+						}
+						clr_country_flag = nemui
 					}
-					clr_country_flag = nemui
 					country_event = {
 						id = USAB.1
 						days = 12
@@ -120,10 +128,12 @@ focus_tree = {
 					}
 				}
 				NYY = {
-					limit = {
-						is_ai = yes
+					if = {
+						limit = {
+							is_ai = yes
+						}
+						clr_country_flag = nemui
 					}
-					clr_country_flag = nemui
 					country_event = {
 						id = USAB.1
 						days = 11
@@ -131,52 +141,56 @@ focus_tree = {
 					}
 				}
 				random_country = {
-					limit = {
-						AND = {
-							is_ai = yes
-							NOT = {
-								has_country_flag = nemui
-							}
-							OR = {
-								tag = MEX
-								tag = DIS
-								tag = CLF
-								tag = LVE
-								tag = TEX
-								tag = NEV
-								tag = NYY
-								tag = HLW
-								tag = MAC
+					if = {
+						limit = {
+							AND = {
+								is_ai = yes
+								NOT = {
+									has_country_flag = nemui
+								}
+								OR = {
+									tag = MEX
+									tag = DIS
+									tag = CLF
+									tag = LVE
+									tag = TEX
+									tag = NEV
+									tag = NYY
+									tag = HLW
+									tag = MAC
+								}
 							}
 						}
+						clr_country_flag = nemui
 					}
-					clr_country_flag = nemui
 					country_event = {
 						id = USAB.1
 						days = 13
 					}
 				}
 				random_country = {
-					limit = {
-						AND = {
-							is_ai = yes
-							NOT = {
-								has_country_flag = nemui
-							}
-							OR = {
-								tag = MEX
-								tag = DIS
-								tag = CLF
-								tag = LVE
-								tag = TEX
-								tag = NEV
-								tag = NYY
-								tag = HLW
-								tag = MAC
+					if = {
+						limit = {
+							AND = {
+								is_ai = yes
+								NOT = {
+									has_country_flag = nemui
+								}
+								OR = {
+									tag = MEX
+									tag = DIS
+									tag = CLF
+									tag = LVE
+									tag = TEX
+									tag = NEV
+									tag = NYY
+									tag = HLW
+									tag = MAC
+								}
 							}
 						}
+						clr_country_flag = nemui
 					}
-					clr_country_flag = nemui
 					country_event = {
 						id = USAB.1
 						days = 14
@@ -189,12 +203,14 @@ focus_tree = {
 			clr_country_flag = USAC
 			add_war_support = 0.3
 			every_country = {
-				limit = {
-					has_country_flag = SATO2
-				}
-				add_timed_idea = {
-					idea = USAB_M
-					days = 150
+				if = {
+					limit = {
+						has_country_flag = SATO2
+					}
+					add_timed_idea = {
+						idea = USAB_M
+						days = 150
+					}
 				}
 			}
 			ROOT = {
@@ -213,16 +229,18 @@ focus_tree = {
 				id = USAB.4
 			}
 			every_country = {
-				limit = {
-					has_country_flag = SATO1
-				}
-				every_country = {
+				if = {
 					limit = {
-						has_country_flag = NATO1
+						has_country_flag = SATO1
 					}
-					declare_war_on = {
-						target = PREV
-						type = annex_everything
+					every_country = {
+						limit = {
+							has_country_flag = NATO1
+						}
+						declare_war_on = {
+							target = PREV
+							type = annex_everything
+						}
 					}
 				}
 			}
