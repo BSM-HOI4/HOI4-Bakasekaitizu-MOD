@@ -271,8 +271,8 @@ country_event = {
 	option = {
 		name = lar_france_political_violence.1.a #ignore
 		add_stability = -0.05
-		add_popularity = { ideology = fascism popularity = 0.025 }
-		add_popularity = { ideology = neutrality popularity = 0.025 }
+		add_popularity = { ideology = fascism_ideology popularity = 0.025 }
+		add_popularity = { ideology = neutrality_ideology popularity = 0.025 }
 	}
 
 	option = {
@@ -292,7 +292,7 @@ country_event = {
 	option = {
 		name = lar_france_political_violence.1.a #ignore
 		add_stability = -0.05
-		add_popularity = { ideology = communism popularity = 0.025 }
+		add_popularity = { ideology = communism_ideology popularity = 0.025 }
 	}
 
 	option = {
@@ -312,8 +312,8 @@ country_event = {
 	option = {
 		name = lar_france_political_violence.3.a #ignore
 		add_stability = -0.1
-		add_popularity = { ideology = fascism popularity = 0.05 }
-		add_popularity = { ideology = neutrality popularity = 0.05 }
+		add_popularity = { ideology = fascism_ideology popularity = 0.05 }
+		add_popularity = { ideology = neutrality_ideology popularity = 0.05 }
 	}
 
 	option = {
@@ -3046,7 +3046,7 @@ country_event = {
 		random_other_country = {
 			limit = { 
 				original_tag = FRA 
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 			country_event = lar_end_the_occupation.4
 			effect_tooltip = { annex_country = { target = VIC transfer_troops = yes } }
@@ -3183,7 +3183,7 @@ country_event = {
 			factor = 80
 		}
 		start_civil_war = {
-			ideology = communism
+			ideology = communism_ideology
 			size = 0.5
 		}
 	}
@@ -3205,7 +3205,7 @@ country_event = {
 			factor = 80
 		}
 		start_civil_war = {
-			ideology = fascism
+			ideology = fascism_ideology
 			size = 0.5
 		}
 	}
@@ -3384,21 +3384,21 @@ country_event = {
 	picture = GFX_report_event_spain_civil_war_volunteers_01
 	immediate = {
 		if = {
-			limit = { has_government = fascism }
-			set_variable = { volunteer_strength = FRA.party_popularity@fascism }
+			limit = { has_government = fascism_ideology }
+			set_variable = { volunteer_strength = FRA.party_popularity@fascism_ideology }
 		}
 		else_if = {
-			limit = { has_government = communism }
-			set_variable = { volunteer_strength = FRA.party_popularity@communism }
+			limit = { has_government = communism_ideology }
+			set_variable = { volunteer_strength = FRA.party_popularity@communism_ideology }
 		}
 		else_if = {
-			limit = { has_government = democratic }
-			set_variable = { volunteer_strength = FRA.party_popularity@democratic }
-			multiply_variable = { volunteer_strength = 0.5 } #special modifier to reduce impact of democratic support [no longer war support, or we reach 0 often, also it is HIDDEN]
+			limit = { has_government = democratic_ideology }
+			set_variable = { volunteer_strength = FRA.party_popularity@democratic_ideology }
+			multiply_variable = { volunteer_strength = 0.5 } #special modifier to reduce impact of democratic_ideology support [no longer war support, or we reach 0 often, also it is HIDDEN]
 		}
 		else_if = {
-			limit = { has_government = neutrality }
-			set_variable = { volunteer_strength = FRA.party_popularity@neutrality }
+			limit = { has_government = neutrality_ideology }
+			set_variable = { volunteer_strength = FRA.party_popularity@neutrality_ideology }
 		}
 		multiply_variable = { volunteer_strength = 1000 }
 	}
@@ -3447,37 +3447,37 @@ country_event = {
 		if = {
 			limit = {
 				FROM = {
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 			}
-			add_popularity = { ideology = fascism popularity = 0.05 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.05 }
 			army_experience = 10
 		}
 		else_if = {
 			limit = {
 				FROM = {
-					has_government = communism
+					has_government = communism_ideology
 				}
 			}
-			add_popularity = { ideology = communism popularity = 0.05 }
+			add_popularity = { ideology = communism_ideology popularity = 0.05 }
 			army_experience = 10
 		}
 		else_if = {
 			limit = {
 				FROM = {
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 			}
-			add_popularity = { ideology = democratic popularity = 0.05 }
+			add_popularity = { ideology = democratic_ideology popularity = 0.05 }
 			army_experience = 10
 		}
 		else_if = {
 			limit = {
 				FROM = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 			}
-			add_popularity = { ideology = neutrality popularity = 0.05 }
+			add_popularity = { ideology = neutrality_ideology popularity = 0.05 }
 			army_experience = 10
 		}
 	}
@@ -3490,40 +3490,40 @@ country_event = {
 		if = {
 			limit = {
 				FROM = {
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 			}
-			set_temp_variable = { stability_impact = party_popularity@fascism }
+			set_temp_variable = { stability_impact = party_popularity@fascism_ideology }
 			multiply_temp_variable = { stability_impact = 0.1 }
 			add_stability = stability_impact
 		}
 		else_if = {
 			limit = {
 				FROM = {
-					has_government = communism
+					has_government = communism_ideology
 				}
 			}
-			set_temp_variable = { stability_impact = party_popularity@communism }
+			set_temp_variable = { stability_impact = party_popularity@communism_ideology }
 			multiply_temp_variable = { stability_impact = 0.1 }
 			add_stability = stability_impact
 		}
 		else_if = {
 			limit = {
 				FROM = {
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 			}
-			set_temp_variable = { stability_impact = party_popularity@democratic }
+			set_temp_variable = { stability_impact = party_popularity@democratic_ideology }
 			multiply_temp_variable = { stability_impact = 0.1 }
 			add_stability = stability_impact
 		}
 		else_if = {
 			limit = {
 				FROM = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 			}
-			set_temp_variable = { stability_impact = party_popularity@neutrality }
+			set_temp_variable = { stability_impact = party_popularity@neutrality_ideology }
 			multiply_temp_variable = { stability_impact = 0.1 }
 			add_stability = stability_impact
 		}
@@ -3612,7 +3612,7 @@ country_event = {
 	hidden = yes
 	trigger = {
 		has_idea = FRA_communist_cooperation
-		communism > 0.15
+		communism_ideology > 0.15
 	}
 	fire_only_once = yes
 	immediate = {

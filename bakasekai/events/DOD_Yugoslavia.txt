@@ -19,7 +19,7 @@ country_event = {
 		is_in_faction_with = DEU
 		has_idea = anti_german_military
 		DEU = {
-			has_government = fascism
+			has_government = fascism_ideology
 			is_faction_leader = yes
 		}
 		NOT = { has_country_flag = has_already_decided_yugo_coup_flag }
@@ -81,7 +81,7 @@ country_event = {
 				retire_character = YUG_milan_grol
 			}
 			set_party_name = { 
-				ideology = neutrality 
+				ideology = neutrality_ideology 
 				long_name = YUG_royal_party
 				name = YUG_royal_party
 			}
@@ -95,7 +95,7 @@ country_event = {
 				}
 				if = {
 					limit = {
-						has_government = neutrality
+						has_government = neutrality_ideology
 					}
 					remove_trait = {
 						character = YUG_peter_ii
@@ -110,7 +110,7 @@ country_event = {
 				}
 				if = {
 					limit = {
-						has_government = democratic
+						has_government = democratic_ideology
 					}
 					remove_trait = {
 						character = YUG_peter_ii
@@ -146,11 +146,11 @@ country_event = {
 		}
 		if = {
 			limit = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
-			set_politics = { ruling_party = neutrality elections_allowed = no }
-			add_popularity = { ideology = neutrality popularity = 0.5 }
-			set_party_name = { ideology = neutrality long_name = YUG_royal_party name = YUG_royal_party }
+			set_politics = { ruling_party = neutrality_ideology elections_allowed = no }
+			add_popularity = { ideology = neutrality_ideology popularity = 0.5 }
+			set_party_name = { ideology = neutrality_ideology long_name = YUG_royal_party name = YUG_royal_party }
 		}
 	}
 	option = { #resistance to the coup, call on Germans for support
@@ -232,7 +232,7 @@ country_event = {
 		has_idea = YUG_idea_croatian_opposition
 		has_war_with = DEU
 		DEU = {
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 		OR = {
 			AND = {
@@ -1136,7 +1136,7 @@ country_event = {
 	trigger = {
 		tag = GBR
 		is_historical_focus_on = no
-		has_government = democratic
+		has_government = democratic_ideology
 		has_war_with = DEU
 		NOT = { has_war_with = MYS }
 		NOT = { is_in_faction_with = MYS }
@@ -1193,7 +1193,7 @@ country_event = {
 	fire_only_once = yes 
 	trigger = {
 		tag = GBR
-		has_government = democratic
+		has_government = democratic_ideology
 		MYS = { is_in_faction = no }
 		MYS = { exists = yes }
 		has_war_with = DEU
@@ -4728,7 +4728,7 @@ country_event = {
 		}
 		set_variable = {
 			var = yug_total_com_size
-			value = party_popularity@communism
+			value = party_popularity@communism_ideology
 		}
 		add_to_variable = {
 			var = yug_total_com_size
@@ -4749,7 +4749,7 @@ country_event = {
 	immediate = {
 		set_variable = {
 			var = yug_total_com_size
-			value = party_popularity@communism
+			value = party_popularity@communism_ideology
 		}
 		add_to_variable = {
 			var = yug_total_com_size
@@ -4767,7 +4767,7 @@ country_event = {
 		}
 		set_country_flag = had_yugo_civil_war_flag
 		start_civil_war = {
-			ideology = communism
+			ideology = communism_ideology
 			size = yug_total_com_size
 		}
 		hidden_effect = {
@@ -4797,11 +4797,11 @@ country_event = {
 			factor = 0
 		}
 		set_politics = {
-			ruling_party = communism
+			ruling_party = communism_ideology
 			elections_allowed = no
 		}
 		add_popularity = {
-			ideology = communism 
+			ideology = communism_ideology 
 			popularity = yug_additional_communist_support
 		}
 		hidden_effect = {
@@ -4868,7 +4868,7 @@ country_event = {
 		name = DOD_yugoslavia.19.a
 		swap_ruler_traits = { remove = underage_monarch add = legitimate_heir }	
 		set_party_name = { 
-			ideology = neutrality 
+			ideology = neutrality_ideology 
 			long_name = YUG_royal_party
 			name = YUG_royal_party
 		}
@@ -4882,7 +4882,7 @@ country_event = {
 			}
 			if = {
 				limit = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				remove_trait = {
 					character = YUG_peter_ii
@@ -4897,7 +4897,7 @@ country_event = {
 			}
 			if = {
 				limit = {
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				remove_trait = {
 					character = YUG_peter_ii
@@ -4938,13 +4938,13 @@ country_event = {
 			any_other_country = {
 				original_tag = ITA
 				NOT = { has_war_with = ROOT }
-				NOT = { has_government = communism }
+				NOT = { has_government = communism_ideology }
 			}
 		}
 		random_country = {
 			limit = {
 				original_tag = ITA
-				NOT = { has_government = communism }
+				NOT = { has_government = communism_ideology }
 			}
 			country_event = {
 				id = DOD_yugoslavia.501
@@ -5070,7 +5070,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 2
-				has_government = neutrality
+				has_government = neutrality_ideology
 			}
 		}
 		FROM = {
@@ -5100,7 +5100,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 2
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 		}
 		MYS = {
@@ -5216,12 +5216,12 @@ country_event = {
 				}
 			}
 			set_party_name = { 
-				ideology = fascism
+				ideology = fascism_ideology
 				name = YUG_kardocevik
 				long_name = YUG_kardocevik
 			}
 			set_party_name = { 
-				ideology = neutrality
+				ideology = neutrality_ideology
 				name = YUG_peters_loyalists
 				long_name = YUG_peters_loyalists
 			}
@@ -5237,19 +5237,19 @@ country_event = {
 							is_on_continent = europe
 						}
 						NOT = { original_tag = MYS }
-						has_government = neutrality
+						has_government = neutrality_ideology
 						is_subject_of = ROOT
 					}
 					set_variable = {
 						var = monarchist_support_var
-						value = party_popularity@neutrality
+						value = party_popularity@neutrality_ideology
 					}
 					add_popularity = {
-						ideology = fascism
+						ideology = fascism_ideology
 						popularity = monarchist_support_var
 					}
 					set_politics = {
-						ruling_party = fascism
+						ruling_party = fascism_ideology
 					}
 				}
 			}
@@ -5275,21 +5275,21 @@ country_event = {
 			}
 			if = {
 				limit = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				hidden_effect = {
 					set_variable = {
 						var = monarchist_support_var
-						value = party_popularity@neutrality
+						value = party_popularity@neutrality_ideology
 					}
 					add_popularity = {
-						ideology = fascism
+						ideology = fascism_ideology
 						popularity = monarchist_support_var
 					}
 				}
 				custom_effect_tooltip = neutral_to_fascist_tt
 				set_politics = {
-					ruling_party = fascism
+					ruling_party = fascism_ideology
 				}
 			}
 		}
@@ -5320,7 +5320,7 @@ country_event = {
 			limit = { 
 				GBR = {
 					is_faction_leader = yes
-					has_government = democratic
+					has_government = democratic_ideology
 					NOT = { has_country_flag = has_already_decided_yugo_coup_flag }
 				}
 			}
@@ -5350,7 +5350,7 @@ country_event = {
 		text = DOD_yugoslavia.701.tripartite_rejection
 		trigger = {
 			FROM = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 		}
 	}
@@ -5358,7 +5358,7 @@ country_event = {
 		text = DOD_yugoslavia.701.allied_objection
 		trigger = {
 			FROM = {
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 		}
 	}
@@ -5382,7 +5382,7 @@ country_event = {
 		if = {
 			limit = {
 				FROM = {
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 			}
 			add_opinion_modifier = { target = FROM modifier = small_decrease }
@@ -5394,7 +5394,7 @@ country_event = {
 					DEU = {
 						exists = yes
 						has_capitulated = no
-						has_government = fascism
+						has_government = fascism_ideology
 						is_faction_leader = yes
 					}
 				}
@@ -5422,7 +5422,7 @@ country_event = {
 		name = DOD_yugoslavia.701.b #resist Britain's response
 		trigger = {
 			FROM = {
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 		}
 		ai_chance = {
@@ -5689,7 +5689,7 @@ country_event = {
 				DEU = {
 					exists = yes
 					has_capitulated = no
-					has_government = fascism
+					has_government = fascism_ideology
 					is_faction_leader = yes
 				}
 			}

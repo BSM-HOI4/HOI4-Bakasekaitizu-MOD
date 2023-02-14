@@ -180,7 +180,7 @@ country_event = {
 	trigger = {
 		tag = FRA
 		has_war_with = DEU
-		has_government = democratic
+		has_government = democratic_ideology
 		16 = { is_controlled_by = DEU }
 		is_in_faction_with = GBR
 		GBR = { has_war_with = DEU }
@@ -188,7 +188,7 @@ country_event = {
 		DEU = {
 			OR = {
 				is_faction_leader = yes
-				has_government = neutrality
+				has_government = neutrality_ideology
 			}
 		}
 		has_civil_war = no
@@ -431,7 +431,7 @@ country_event = {
 			factor = 50
 		}
 		trigger = {
-			has_government = fascism
+			has_government = fascism_ideology
 			not = { has_dlc = "La Resistance" }
 		}
 		#Set same cosmetic tag they would get on capitulation
@@ -688,7 +688,7 @@ country_event = {
 				}
 			}
 			start_civil_war = {
-				ideology = fascism
+				ideology = fascism_ideology
 				size = 0.9
 				capital = 26
 				states = { 26 21 22 31 25 20 32 33 1 735 677 680 554 458 462 461 513 459 460 665 553 272 556 543 706 708 713 268 557 514 515 776 777 778 779 780 781 782 786 851 }
@@ -720,17 +720,17 @@ country_event = {
 			}
 		}
 		random_other_country = {
-			limit = { original_tag = FRA has_government = fascism }
+			limit = { original_tag = FRA has_government = fascism_ideology }
 			ROOT = { puppet = PREV }
 			set_capital = { state = 26 }
 			set_politics = {
-				ruling_party = fascism
+				ruling_party = fascism_ideology
 				elections_allowed = no
 			}
 			set_popularities = {
-				democratic = 22
-				fascism = 76
-				communism = 2
+				democratic_ideology = 22
+				fascism_ideology = 76
+				communism_ideology = 2
 			}
 			every_unit_leader = {
 				limit = {
@@ -752,13 +752,13 @@ country_event = {
 		}
 	}
 
-	option = { # Agree - Neutrality
+	option = { # Agree - neutrality_ideology
 		name = france.14.c
 		ai_chance = {
 			factor = 50
 		}
 		trigger = {
-			has_government = neutrality
+			has_government = neutrality_ideology
 		}
 		#Set same cosmetic tag they would get on capitulation
 		FRA = {
@@ -1031,7 +1031,7 @@ country_event = {
 					}
 			}
 			start_civil_war = {
-				ideology = neutrality
+				ideology = neutrality_ideology
 				size = 0.5
 				capital = 26
 				states = { 26 21 22 31 25 20 32 33 1 735 677 680 554 458 462 461 513 459 460 665 553 272 556 543 706 708 713 268 557 514 515 851 }
@@ -1063,18 +1063,18 @@ country_event = {
 			}
 		}
 		random_other_country = {
-			limit = { original_tag = FRA has_government = neutrality }
+			limit = { original_tag = FRA has_government = neutrality_ideology }
 			ROOT = { puppet = PREV }
 			set_capital = { state = 26 }
 			set_politics = {
-				ruling_party = neutrality
+				ruling_party = neutrality_ideology
 				elections_allowed = no
 			}
 			set_popularities = {
-				democratic = 22
-				neutrality = 60
-				fascism = 16
-				communism = 2
+				democratic_ideology = 22
+				neutrality_ideology = 60
+				fascism_ideology = 16
+				communism_ideology = 2
 			}
 			# FRA Player Switches to Vichy
 			if = {
@@ -1095,7 +1095,7 @@ country_event = {
 			factor = 50 
 		}
 		trigger = {
-			has_government = fascism
+			has_government = fascism_ideology
 			has_dlc = "La Resistance"
 		}
 		FRA = { 
@@ -1218,14 +1218,14 @@ country_event = {
 				}
 				set_capital = { state = 26 }
 				set_politics = {
-					ruling_party = fascism
+					ruling_party = fascism_ideology
 					elections_allowed = no
 				}
 				set_popularities = {
-					democratic = 22
-					fascism = 46
-					neutrality = 30
-					communism = 2
+					democratic_ideology = 22
+					fascism_ideology = 46
+					neutrality_ideology = 30
+					communism_ideology = 2
 				}
 				set_cosmetic_tag = FRA_VICHY
 				FRA = {
@@ -1456,7 +1456,7 @@ country_event = {
 	picture = GFX_report_event_worker_protests
 	
 	trigger = {
-		NOT = { has_government = communism }
+		NOT = { has_government = communism_ideology }
 		NOT = { has_idea = FRA_matignon_agreements }
 		has_completed_focus = FRA_form_the_popular_front
 		NOT = { has_country_flag = FRA_popular_front_cooldown }
@@ -1529,7 +1529,7 @@ country_event = {
 	}
 }
 
-# French ban on communism
+# French ban on communism_ideology
 #country_event = {
 #	id = france.24
 #	title = france.24.t
@@ -1539,9 +1539,9 @@ country_event = {
 #
 #	trigger = {
 #		tag = FRA
-#		SOV = { has_government = communism }
-#		has_government = democratic
-#		communism < 0.5
+#		SOV = { has_government = communism_ideology }
+#		has_government = democratic_ideology
+#		communism_ideology < 0.5
 #		has_global_flag = sov_yes_pact
 #	}
 #
@@ -1554,7 +1554,7 @@ country_event = {
 #		add_political_power = -20
 #		name = france.24.a
 #		add_popularity = {
-#			ideology = communism
+#			ideology = communism_ideology
 #			popularity = -0.3
 #		}
 #		add_ideas = FRA_communism_banned
@@ -1566,7 +1566,7 @@ country_event = {
 #		
 #		every_other_country = {
 #			limit = { 
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #			add_opinion_modifier = {
 #				target = FRA
@@ -1871,7 +1871,7 @@ country_event = {
 			random_other_country = {
 				limit = {
 					original_tag = FRA
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				if = {
 					limit = { ROOT = { owns_state = 554 } }
@@ -1946,7 +1946,7 @@ country_event = {
 
 	trigger = {
 		original_tag = FRA
-		has_government = democratic
+		has_government = democratic_ideology
 		has_global_flag = fall_of_france
 		NOT = { has_country_flag = france_de_gaulle }
 	} 
@@ -1989,7 +1989,7 @@ country_event = {
     		random_other_country = {
 				limit = {
 					original_tag = ESP
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 				FRA = {
 					add_ai_strategy = {
@@ -2020,7 +2020,7 @@ country_event = {
 }
 
 # Britain is at peace after annexing France in the Franco-British Union
-# AI will tend to release France if historic mode is on or they are democratic
+# AI will tend to release France if historic mode is on or they are democratic_ideology
 
 country_event = {
 	id = france.33
@@ -2061,66 +2061,66 @@ country_event = {
 			}
 			if = {
 				limit = {
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				FRA = {
 					set_politics = {
-						ruling_party = democratic
+						ruling_party = democratic_ideology
 						elections_allowed = yes
 					}
 					set_popularities = {
-						democratic = 60
-						fascism = 20
-						communism = 20
+						democratic_ideology = 60
+						fascism_ideology = 20
+						communism_ideology = 20
 					}
 				}
 			}
 			if = {
 				limit = {
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 				FRA = {
 					set_politics = {
-						ruling_party = fascism
+						ruling_party = fascism_ideology
 						elections_allowed = no
 					}
 					set_popularities = {
-						democratic = 20
-						fascism = 60
-						communism = 20
+						democratic_ideology = 20
+						fascism_ideology = 60
+						communism_ideology = 20
 					}
 				}
 			}
 			if = {
 				limit = {
-					has_government = communism
+					has_government = communism_ideology
 				}
 				FRA = {
 					set_politics = {
-						ruling_party = communism
+						ruling_party = communism_ideology
 						elections_allowed = no
 					}
 					set_popularities = {
-						democratic = 20
-						fascism = 20
-						communism = 60
+						democratic_ideology = 20
+						fascism_ideology = 20
+						communism_ideology = 60
 					}
 				}
 			}
 			if = {
 				limit = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				FRA = {
 					set_politics = {
-						ruling_party = neutrality
+						ruling_party = neutrality_ideology
 						elections_allowed = no
 					}
 					set_popularities = {
-						democratic = 15
-						neutrality = 55
-						fascism = 15
-						communism = 15
+						democratic_ideology = 15
+						neutrality_ideology = 55
+						fascism_ideology = 15
+						communism_ideology = 15
 					}
 				}
 			}
@@ -2182,7 +2182,7 @@ country_event = {
 			
 			modifier = {
 				factor = 2
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 		}
 	}
@@ -2223,7 +2223,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 2
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 			modifier = {
 				factor = 0.5

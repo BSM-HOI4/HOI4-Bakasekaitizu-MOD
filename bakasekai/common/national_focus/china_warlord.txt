@@ -632,7 +632,7 @@
 			is_subject = no
 			if = {
 				limit = { is_subject = yes }
-				OVERLORD = { has_government = communism }
+				OVERLORD = { has_government = communism_ideology }
 			}
 		}
 
@@ -769,7 +769,7 @@
 		}
 
 		available = {
-			communism > 0.4
+			communism_ideology > 0.4
 			if = {
 				limit = { NOT = { tag = SIK } }
 				any_neighbor_country = {
@@ -778,7 +778,7 @@
 			}			
 			NOT = { has_war_with = PRC }
 			NOT = { has_war_with = SOV }
-			SOV = { has_government = communism }			
+			SOV = { has_government = communism_ideology }			
 			is_subject = no
 		}
 
@@ -791,7 +791,7 @@
 		available_if_capitulated = no
 
 		completion_reward = {
-			set_politics = { ruling_party = communism elections_allowed = no }
+			set_politics = { ruling_party = communism_ideology elections_allowed = no }
 			add_opinion_modifier = { target = SOV modifier = CHI_join_the_chinese_soviet }
 			SOV = { add_opinion_modifier = { target = ROOT modifier = CHI_join_the_chinese_soviet } }
 
@@ -839,7 +839,7 @@
 			is_subject = no
 			NOT = { has_war_with = PRC }
 			NOT = { has_war_with = SOU }
-			SOU = { has_government = communism }
+			SOU = { has_government = communism_ideology }
 		}
 
 		bypass = {
@@ -1381,10 +1381,10 @@
 			if = {
 				limit = {
 					OR = {
-						has_government = communism
-						communism > 0.5
+						has_government = communism_ideology
+						communism_ideology > 0.5
 					}
-					NOT = { neutrality > 0.5 }
+					NOT = { neutrality_ideology > 0.5 }
 				}
 				load_focus_tree = china_communist_focus
 			}
