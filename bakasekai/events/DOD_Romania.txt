@@ -3931,20 +3931,20 @@ country_event = {
 							}
 						}
 						if = {
-							limit = { MOL = { exists = no } }
-							release_puppet = MOL 
-							MOL = { save_event_target_as = released_nation_target }
+							limit = { RDM = { exists = no } }
+							release_puppet = RDM 
+							RDM = { save_event_target_as = released_nation_target }
 						}
 						else = {
 							create_dynamic_country = {
-								original_tag = MOL
+								original_tag = RDM
 								save_event_target_as = released_nation_target
 							}
 						}
 						event_target:released_nation_target = {
 							every_state = {
 								limit = {
-									is_core_of = MOL
+									is_core_of = RDM
 									controller = { tag = event_target:romania_third_party_target }
 								}
 								PREV = { transfer_state = PREV }
@@ -3977,7 +3977,7 @@ country_event = {
 							every_state = {
 								limit = {
 									is_core_of = FROM
-									NOT = { is_core_of = MOL }
+									NOT = { is_core_of = RDM }
 									controller = { tag = event_target:romania_third_party_target }
 								}
 								PREV = { transfer_state = PREV }
