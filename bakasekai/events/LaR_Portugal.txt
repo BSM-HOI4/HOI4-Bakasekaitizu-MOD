@@ -530,7 +530,7 @@ country_event = {
 							has_completed_focus = SPA_unify_the_nationalist_front
 						}
 						NOT = {
-							has_government = fascism
+							has_government = fascism_ideology
 						}
 					}
 					AND = {
@@ -1044,7 +1044,7 @@ country_event = {
 			# 1
 			if = {
 				limit = {
-					communism > 0.1
+					communism_ideology > 0.1
 				}
 				transfer_ship = {
 					type = destroyer
@@ -1058,7 +1058,7 @@ country_event = {
 			}
 			if = {
 				limit = {
-					communism > 0.25
+					communism_ideology > 0.25
 				}
 				transfer_ship = {
 					type = destroyer
@@ -1072,7 +1072,7 @@ country_event = {
 			}
 			if = {
 				limit = {
-					communism > 0.4
+					communism_ideology > 0.4
 				}
 				transfer_ship = {
 					type = destroyer
@@ -1086,7 +1086,7 @@ country_event = {
 			}
 			if = {
 				limit = {
-					communism > 0.6
+					communism_ideology > 0.6
 				}
 				transfer_ship = {
 					type = destroyer
@@ -1100,7 +1100,7 @@ country_event = {
 			}
 			if = {
 				limit = {
-					communism > 0.75
+					communism_ideology > 0.75
 				}
 				transfer_ship = {
 					type = destroyer
@@ -1139,19 +1139,19 @@ country_event = {
 		}
 		hidden_effect = {
 			set_temp_variable = {
-				opposition_factor = party_popularity@neutrality
+				opposition_factor = party_popularity@neutrality_ideology
 			}
 			add_to_temp_variable = {
-				opposition_factor = party_popularity@fascism
+				opposition_factor = party_popularity@fascism_ideology
 			}
 			add_to_temp_variable = {
-				opposition_factor = party_popularity@democratic
+				opposition_factor = party_popularity@democratic_ideology
 			}
 			multiply_temp_variable = {
 				opposition_factor = 100
 			}
 			set_temp_variable = {
-				communist_factor = party_popularity@communism
+				communist_factor = party_popularity@communism_ideology
 			}
 			multiply_temp_variable = {
 				communist_factor = 300
@@ -1166,7 +1166,7 @@ country_event = {
 					}
 					# 1
 					set_temp_variable = {
-						communist_factor = party_popularity@communism
+						communist_factor = party_popularity@communism_ideology
 					}
 					multiply_temp_variable = {
 						communist_factor = 250
@@ -1181,7 +1181,7 @@ country_event = {
 							}
 							# 2
 							set_temp_variable = {
-								communist_factor = party_popularity@communism
+								communist_factor = party_popularity@communism_ideology
 							}
 							multiply_temp_variable = {
 								communist_factor = 200
@@ -1196,7 +1196,7 @@ country_event = {
 									}
 									# 3
 									set_temp_variable = {
-										communist_factor = party_popularity@communism
+										communist_factor = party_popularity@communism_ideology
 									}
 									multiply_temp_variable = {
 										communist_factor = 100
@@ -2035,7 +2035,7 @@ country_event = {
 				#Not non-aligned Brazil will never accept
 				factor = 0
 				NOT = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 			}
 		}
@@ -2076,7 +2076,7 @@ country_event = {
 				# If PRT helped during the CW, Monarchist BRA will be willing to accept
 				factor = 0
 				has_global_flag = POR_portugal_joined_brazilian_civil_war_flag
-				has_government = neutrality
+				has_government = neutrality_ideology
 			}
 		}
 		PRT = {
@@ -2119,10 +2119,10 @@ country_event = {
 					has_country_flag = POR_brazil_supports_monarchism_flag
 				}
 				set_politics = {
-					ruling_party = neutrality
+					ruling_party = neutrality_ideology
 				}
 				add_popularity = {
-					ideology = neutrality
+					ideology = neutrality_ideology
 					popularity = 0.5
 				}
 				set_country_flag = EOB_empire_of_brazil_flag
@@ -2138,16 +2138,16 @@ country_event = {
 					}
 				}
 				set_temp_variable = {
-					POR_bra_monarchist_cw_opposition = party_popularity@fascism
+					POR_bra_monarchist_cw_opposition = party_popularity@fascism_ideology
 				}
 				add_to_temp_variable = {
-					POR_bra_monarchist_cw_opposition = party_popularity@communism
+					POR_bra_monarchist_cw_opposition = party_popularity@communism_ideology
 				}
 				add_to_temp_variable = {
-					POR_bra_monarchist_cw_opposition = party_popularity@democratic
+					POR_bra_monarchist_cw_opposition = party_popularity@democratic_ideology
 				}
 				start_civil_war = {
-					ideology = fascism
+					ideology = fascism_ideology
 					size = POR_bra_monarchist_cw_opposition
 					capital = 501
 					states = {
@@ -2165,7 +2165,7 @@ country_event = {
 				random_country = {
 					limit = {
 						original_tag = BRA
-						has_government = fascism
+						has_government = fascism_ideology
 					}
 					PRT = {
 						add_to_war = {
@@ -2184,7 +2184,7 @@ country_event = {
 				}
 				BRA = {
 					set_party_name = {
-						ideology = fascism
+						ideology = fascism_ideology
 						long_name = BRA_fascism_party_long
 						name = BRA_fascism_party
 					}
@@ -2218,16 +2218,16 @@ country_event = {
 			else = {
 				#BRA player is Anti-Monarchist
 				set_temp_variable = {
-					POR_bra_monarchist_cw_opposition = party_popularity@neutrality
+					POR_bra_monarchist_cw_opposition = party_popularity@neutrality_ideology
 				}
 				add_to_temp_variable = {
-					POR_bra_monarchist_cw_opposition = party_popularity@communism
+					POR_bra_monarchist_cw_opposition = party_popularity@communism_ideology
 				}
 				add_to_temp_variable = {
-					POR_bra_monarchist_cw_opposition = party_popularity@democratic
+					POR_bra_monarchist_cw_opposition = party_popularity@democratic_ideology
 				}
 				start_civil_war = {
-					ideology = neutrality
+					ideology = neutrality_ideology
 					size = POR_bra_monarchist_cw_opposition
 					capital = 501
 					states = {
@@ -2243,17 +2243,17 @@ country_event = {
 				if = {
 					limit = {
 						NOT = {
-							has_government = fascism
+							has_government = fascism_ideology
 						}
 					}
 					set_politics = {
-						ruling_party = neutrality
+						ruling_party = neutrality_ideology
 					}
 				}
 				random_country = {
 					limit = {
 						original_tag = BRA
-						has_government = neutrality
+						has_government = neutrality_ideology
 					}
 					set_country_flag = EOB_empire_of_brazil_flag
 					set_cosmetic_tag = EOB_empire_brazil_neutrality
@@ -2278,7 +2278,7 @@ country_event = {
 						}
 					}
 					set_party_name = {
-						ideology = fascism
+						ideology = fascism_ideology
 						long_name = BRA_fascism_party_long
 						name = BRA_fascism_party
 					}
@@ -2326,10 +2326,10 @@ country_event = {
 		}
 		effect_tooltip = {
 			set_politics = {
-				ruling_party = neutrality
+				ruling_party = neutrality_ideology
 			}
 			add_popularity = {
-				ideology = neutrality
+				ideology = neutrality_ideology
 				popularity = 0.5
 			}
 			set_country_flag = EOB_empire_of_brazil_flag
@@ -2345,12 +2345,12 @@ country_event = {
 				}
 			}
 			start_civil_war = {
-				ideology = fascism
+				ideology = fascism_ideology
 			}
 			random_country = {
 				limit = {
 					original_tag = BRA
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 				PRT = {
 					add_to_war = {
@@ -2381,22 +2381,22 @@ country_event = {
 		}
 		effect_tooltip = {
 			start_civil_war = {
-				ideology = neutrality
+				ideology = neutrality_ideology
 			}
 			if = {
 				limit = {
 					NOT = {
-						has_government = fascism
+						has_government = fascism_ideology
 					}
 				}
 				set_politics = {
-					ruling_party = neutrality
+					ruling_party = neutrality_ideology
 				}
 			}
 			random_country = {
 				limit = {
 					original_tag = BRA
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				set_country_flag = EOB_empire_of_brazil_flag
 				set_cosmetic_tag = EOB_empire_brazil_neutrality
@@ -2454,14 +2454,14 @@ country_event = {
 		if = {
 			limit = {
 				NOT = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 			}
 			set_politics = {
-				ruling_party = neutrality
+				ruling_party = neutrality_ideology
 			}
 			add_popularity = {
-				ideology = neutrality
+				ideology = neutrality_ideology
 				popularity = 0.15
 			}
 		}
@@ -2531,32 +2531,32 @@ country_event = {
 			days = 730
 		}
 		set_party_name = {
-			ideology = neutrality
+			ideology = neutrality_ideology
 			long_name = BRA_monarchy_party_long
 			name = BRA_monarchy_party
 		}
 		set_party_name = {
-			ideology = fascism
+			ideology = fascism_ideology
 			long_name = BRA_antimonarchist_coalition_long
 			name = BRA_antimonarchist_coalition
 		}
 		if = {
 			limit = {
 				OR = {
-					has_government = neutrality
-					has_government = democratic
-					has_government = communism
+					has_government = neutrality_ideology
+					has_government = democratic_ideology
+					has_government = communism_ideology
 				}
 			}
 			set_politics = {
-				ruling_party = fascism
+				ruling_party = fascism_ideology
 			}
 		}
 		set_popularities = {
-			democratic = 0
-			neutrality = 20
-			fascism = 80
-			communism = 0
+			democratic_ideology = 0
+			neutrality_ideology = 20
+			fascism_ideology = 80
+			communism_ideology = 0
 		}
 		hidden_effect = {
 			retire_country_leader = yes
@@ -2594,32 +2594,32 @@ country_event = {
 			days = 730
 		}
 		set_party_name = {
-			ideology = neutrality
+			ideology = neutrality_ideology
 			long_name = BRA_monarchy_party_long
 			name = BRA_monarchy_party
 		}
 		set_party_name = {
-			ideology = fascism
+			ideology = fascism_ideology
 			long_name = BRA_antimonarchist_coalition_long
 			name = BRA_antimonarchist_coalition
 		}
 		if = {
 			limit = {
 				OR = {
-					has_government = neutrality
-					has_government = democratic
-					has_government = communism
+					has_government = neutrality_ideology
+					has_government = democratic_ideology
+					has_government = communism_ideology
 				}
 			}
 			set_politics = {
-				ruling_party = fascism
+				ruling_party = fascism_ideology
 			}
 		}
 		set_popularities = {
-			democratic = 0
-			neutrality = 20
-			fascism = 80
-			communism = 0
+			democratic_ideology = 0
+			neutrality_ideology = 20
+			fascism_ideology = 80
+			communism_ideology = 0
 		}
 		hidden_effect = {
 			retire_country_leader = yes

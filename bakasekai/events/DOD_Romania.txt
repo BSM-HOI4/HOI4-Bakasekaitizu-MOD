@@ -229,19 +229,13 @@ country_event = {
 	desc = {
 		text = DOD_romania.30.desc
 		trigger = {
-			SOV = {
-				has_government = communism
-			}
+			SOV = { has_government = communism_ideology }
 		}
 	}
 	desc = {
 		text = DOD_romania.30.desc_alt
 		trigger = {
-			NOT = {
-				SOV = {
-					has_government = communism
-				}
-			}
+			NOT = { SOV = { has_government = communism_ideology } }
 		}
 	}
 	picture = GFX_report_event_aid_pact
@@ -253,9 +247,7 @@ country_event = {
 		ai_chance = {
 			factor = 70
 			modifier = {
-				ROM = {
-					has_government = communism
-				}
+				ROM = { has_government = communism_ideology }
 				factor = 3
 			}
 			modifier = {
@@ -1746,7 +1738,7 @@ country_event = {
 			modifier = {
 				add = -10
 				AND = {
-					neutrality < 0.5
+					neutrality_ideology < 0.5
 					has_war = no
 					NOT = {
 						has_idea = ROM_mihail_sturdza
@@ -1756,14 +1748,8 @@ country_event = {
 			}
 		}
 		add_stability = -0.05
-		add_popularity = {
-			ideology = fascism
-			popularity = 0.05
-		}		#because she is Jewish
-		add_popularity = {
-			ideology = democratic
-			popularity = 0.05
-		}		#because Freedom of the Press
+		add_popularity = { ideology = fascism_ideology popularity = 0.05 } #because she is Jewish
+		add_popularity = { ideology = democratic_ideology popularity = 0.05 } #because Freedom of the Press
 		hidden_effect = {
 			country_event = {
 				id = DOD_romania.80
@@ -4960,32 +4946,21 @@ country_event = {
 							}
 						}
 						if = {
-							limit = {
-								MOL = {
-									exists = no
-								}
-							}
-							release_puppet = MOL
-							MOL = {
-								save_event_target_as = released_nation_target
-							}
+							limit = { RDM = { exists = no } }
+							release_puppet = RDM 
+							RDM = { save_event_target_as = released_nation_target }
 						}
 						else = {
 							create_dynamic_country = {
-								original_tag = MOL
+								original_tag = RDM
 								save_event_target_as = released_nation_target
 							}
 						}
 						event_target:released_nation_target = {
 							every_state = {
 								limit = {
-									is_core_of = MOL
-									controller = {
-										tag = event_target:romania_third_party_target
-									}
-								}
-								PREV = {
-									transfer_state = PREV
+									is_core_of = RDM
+									controller = { tag = event_target:romania_third_party_target }
 								}
 							}
 							PREV = {
@@ -5028,15 +5003,8 @@ country_event = {
 							every_state = {
 								limit = {
 									is_core_of = FROM
-									NOT = {
-										is_core_of = MOL
-									}
-									controller = {
-										tag = event_target:romania_third_party_target
-									}
-								}
-								PREV = {
-									transfer_state = PREV
+									NOT = { is_core_of = RDM }
+									controller = { tag = event_target:romania_third_party_target }
 								}
 							}
 							PREV = {
@@ -5137,15 +5105,15 @@ country_event = {
 		name = DOD_romania.163.a
 		add_stability = -0.05
 		add_popularity = {
-			ideology = fascism
+			ideology = fascism_ideology
 			popularity = 0.05
 		}
-		kill_ideology_leader = fascism
+		kill_ideology_leader = fascism_ideology
 		promote_character = ROM_octavian_goga
-		set_party_name = {
-			ideology = fascism
-			long_name = ROM_fascism_party2_long
-			name = ROM_fascism_party2
+		set_party_name = { 
+		    ideology = fascism_ideology
+		    long_name = ROM_fascism_party2_long
+		    name = ROM_fascism_party2
 		}
 	}
 }

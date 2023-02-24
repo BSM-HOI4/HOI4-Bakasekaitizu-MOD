@@ -28,7 +28,7 @@ country_event = {
 				OR = {
 					has_game_rule = {
 						rule = ENG_ai_behavior 
-						option = NEUTRALITY
+						option = neutrality_ideology
 					}
 					has_country_flag = ENG_AI_RANDOM_NEUTRALITY
 				}
@@ -96,7 +96,7 @@ country_event = {
 			}
 		}
 		add_stability = -0.05
-		add_popularity = { ideology = neutrality popularity = 0.05 }
+		add_popularity = { ideology = neutrality_ideology popularity = 0.05 }
 		custom_effect_tooltip = mtg_britain.1_tt
 		activate_mission = ENG_abdication_crisis
 		hidden_effect = { 
@@ -171,7 +171,7 @@ country_event = {
 			}
 		}
 		add_stability = -0.15
-		add_popularity = { ideology = neutrality popularity = 0.1 }
+		add_popularity = { ideology = neutrality_ideology popularity = 0.1 }
 		add_political_power = -25
 		custom_effect_tooltip = mtg_britain.1_tt
 		activate_mission = ENG_abdication_crisis
@@ -203,7 +203,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_britain.2.a
-		add_popularity = { ideology = neutrality popularity = 0.1 }
+		add_popularity = { ideology = neutrality_ideology popularity = 0.1 }
 		add_political_power = 100
 		add_timed_idea = { idea = ENG_support_for_the_king_idea days = 150 }
 		custom_effect_tooltip = mtg_britain.2_tt
@@ -485,7 +485,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_britain.5.a
-		add_popularity = { ideology = neutrality popularity = 0.05 }
+		add_popularity = { ideology = neutrality_ideology popularity = 0.05 }
 		add_stability = 0.05
 		add_political_power = 50
 	}
@@ -607,7 +607,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_britain.7.a
-		add_popularity = { ideology = neutrality popularity = 0.02 }
+		add_popularity = { ideology = neutrality_ideology popularity = 0.02 }
 		add_stability = 0.05
 		hidden_effect = { country_event = { id = mtg_britain.6 days = 20 random_days = 10 } }
 		clr_country_flag = ENG_newspapers_against
@@ -655,7 +655,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_britain.8.a
-		add_popularity = { ideology = neutrality popularity = -0.02 }
+		add_popularity = { ideology = neutrality_ideology popularity = -0.02 }
 		add_stability = -0.05
 		hidden_effect = { country_event = { id = mtg_britain.6 days = 20 random_days = 10 } }
 		clr_country_flag = ENG_newspapers_in_favor
@@ -797,7 +797,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_britain.11.a
-		add_popularity = { ideology = neutrality popularity = -0.02 }
+		add_popularity = { ideology = neutrality_ideology popularity = -0.02 }
 		add_stability = -0.05
 		add_political_power = -25
 		hidden_effect = { country_event = { id = mtg_britain.6 days = 20 random_days = 10 } }
@@ -845,7 +845,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_britain.12.a
-		add_popularity = { ideology = neutrality popularity = 0.02 }
+		add_popularity = { ideology = neutrality_ideology popularity = 0.02 }
 		add_stability = 0.05
 		hidden_effect = { country_event = { id = mtg_britain.6 days = 20 random_days = 10 } }
 		clr_country_flag = ENG_newspapers_in_favor
@@ -893,7 +893,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_britain.13.a
-		add_popularity = { ideology = neutrality popularity = 0.05 }
+		add_popularity = { ideology = neutrality_ideology popularity = 0.05 }
 		add_stability = 0.1
 		add_political_power = 50
 		set_country_flag = ENG_abdication_crisis_held_radio_speech
@@ -1754,7 +1754,7 @@ country_event = {
 	trigger = {
 		tag = GBR
 		has_completed_focus = ENG_organize_the_blackshirts
-		NOT = { has_government = fascism }
+		NOT = { has_government = fascism_ideology }
 		has_stability < 0.5
 	}
 	
@@ -1779,8 +1779,8 @@ country_event = {
 				GBR = { set_capital = { state = PREV } }
 			}
 			start_civil_war = {
-				ruling_party = fascism
-				ideology = democratic
+				ruling_party = fascism_ideology
+				ideology = democratic_ideology
 				size = 0.5
 				states = all
 				states_filter = {
@@ -1788,25 +1788,25 @@ country_event = {
 				}
 			}
 			set_politics = {
-				ruling_party = fascism
+				ruling_party = fascism_ideology
 				elections_allowed = no
 			}
 			add_popularity = {
-				ideology = fascism
+				ideology = fascism_ideology
 				popularity = 0.51
 			}
 			add_popularity = {
-				ideology = communism
+				ideology = communism_ideology
 				popularity = 0.05
 			}
 			add_popularity = {
-				ideology = democratic
+				ideology = democratic_ideology
 				popularity = 0.15
 			}
 			random_other_country = {
 				limit = {
 					original_tag = GBR
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				save_event_target_as = democratic_uk_civil_war
 				every_unit_leader = {
@@ -2026,7 +2026,7 @@ country_event = {
 	# Ok
 	option = {
 		name = mtg_britain.35.a
-		set_politics = { ruling_party = fascism elections_allowed = no }
+		set_politics = { ruling_party = fascism_ideology elections_allowed = no }
 		add_timed_idea = { idea = ENG_restoring_public_order days = 365 }
 	}
 }
@@ -2556,16 +2556,16 @@ country_event = {
 		}
 		if = {
 			limit = {
-				INS = {
+				IDN = {
 					is_subject_of = ROOT
 				}
 			}
-			set_autonomy = { target = INS autonomy_state = autonomy_free }
-			INS = { leave_faction = yes }
+			set_autonomy = { target = IDN autonomy_state = autonomy_free }
+			IDN = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = INS }
+				NOT = { original_tag = IDN }
 				owns_state = 335
 				has_full_control_of_state = 335
 				owns_state = 672
@@ -2585,7 +2585,7 @@ country_event = {
 				owns_state = 669
 				has_full_control_of_state = 669
 			}
-			release = INS
+			release = IDN
 		}
 		if = {
 			limit = {
@@ -2650,20 +2650,20 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = GDL }
+				NOT = { original_tag = GDR }
 				owns_state = 694
 				has_full_control_of_state = 694
 			}
-			release = GDL
+			release = GDR
 		}
 		if = {
 			limit = {
-				GDL = {
+				GDR = {
 					is_subject_of = ROOT
 				}
 			}
-			set_autonomy = { target = GDL autonomy_state = autonomy_free }
-			GDL = { leave_faction = yes }
+			set_autonomy = { target = GDR autonomy_state = autonomy_free }
+			GDR = { leave_faction = yes }
 		}
 		if = {
 			limit = {
@@ -2739,22 +2739,22 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = MOR }
+				NOT = { original_tag = MAR }
 				owns_state = 461
 				has_full_control_of_state = 461
 				owns_state = 462
 				has_full_control_of_state = 462
 			}
-			release = MOR
+			release = MAR
 		}
 		if = {
 			limit = {
-				MOR = {
+				MAR = {
 					is_subject_of = ROOT
 				}
 			}
-			set_autonomy = { target = MOR autonomy_state = autonomy_free }
-			MOR = { leave_faction = yes }
+			set_autonomy = { target = MAR autonomy_state = autonomy_free }
+			MAR = { leave_faction = yes }
 		}
 		if = {
 			limit = {
@@ -3078,39 +3078,39 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = CAM }
+				NOT = { original_tag = KHM }
 				owns_state = 741
 				has_full_control_of_state = 741
 			}
-			release = CAM
+			release = KHM
 		}
 		if = {
 			limit = {
-				CAM = {
+				KHM = {
 					is_subject_of = ROOT
 				}
 			}
-			set_autonomy = { target = CAM autonomy_state = autonomy_free }
-			CAM = { leave_faction = yes }
+			set_autonomy = { target = KHM autonomy_state = autonomy_free }
+			KHM = { leave_faction = yes }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = VIN }
+				NOT = { original_tag = VNM }
 				owns_state = 671
 				has_full_control_of_state = 671
 				owns_state = 286
 				has_full_control_of_state = 286
 			}
-			release = VIN
+			release = VNM
 		}
 		if = {
 			limit = {
-				VIN = {
+				VNM = {
 					is_subject_of = ROOT
 				}
 			}
-			set_autonomy = { target = VIN autonomy_state = autonomy_free }
-			VIN = { leave_faction = yes }
+			set_autonomy = { target = VNM autonomy_state = autonomy_free }
+			VNM = { leave_faction = yes }
 		}
 		# if = {
 		# 	limit = {
@@ -3189,11 +3189,11 @@ country_event = {
 		# }
 		if = {
 			limit = {
-				NOT = { original_tag = INS }
+				NOT = { original_tag = IDN }
 				owns_state = 721
 				has_full_control_of_state = 721
 			}
-			INS = { transfer_state = 721 }
+			IDN = { transfer_state = 721 }
 		}
 		if = {
 			limit = {
@@ -3231,19 +3231,19 @@ country_event = {
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = MOR }
+				NOT = { original_tag = MAR }
 				owns_state = 290
 				has_full_control_of_state = 290
 			}
-			MOR = { transfer_state = 290 }
+			MAR = { transfer_state = 290 }
 		}
 		if = {
 			limit = {
-				NOT = { original_tag = MOR }
+				NOT = { original_tag = MAR }
 				owns_state = 783
 				has_full_control_of_state = 783
 			}
-			MOR = { transfer_state = 783 }
+			MAR = { transfer_state = 783 }
 		}
 		if = {
 			limit = {
@@ -3643,7 +3643,7 @@ country_event = {
 	#	tag = GBR
 	#	has_completed_focus = ENG_concessions_to_the_trade_unions
 	#	NOT = { has_completed_focus = ENG_decolonization }
-	#	has_government = communism
+	#	has_government = communism_ideology
 	#	has_country_flag = ENG_switched_to_communism_civil_war_flag
 	#	NOT = { has_country_flag = ENG_switched_to_communism_civil_war_timer_flag }
 	#}
@@ -3677,7 +3677,7 @@ country_event = {
 			set_country_flag = ENG_communist_civil_war
 			set_variable = {
 				var = civil_war_size_var
-				value = party_popularity@communism
+				value = party_popularity@communism_ideology
 			}
 			if = {
 				limit = {
@@ -3693,14 +3693,14 @@ country_event = {
 				}
 			}
 			start_civil_war = {
-				ruling_party = communism
-				ideology = communism
+				ruling_party = communism_ideology
+				ideology = communism_ideology
 				size = civil_war_size_var
 			}
 			random_other_country = {
 				limit = {
 					original_tag = GBR
-					has_government = communism
+					has_government = communism_ideology
 				}
 				retire_country_leader = yes
 				retire_country_leader = yes
@@ -3709,15 +3709,15 @@ country_event = {
 				civil_war_anti_exploiter_punitive_action = yes
 			}
 			add_popularity = {
-				ideology = communism
+				ideology = communism_ideology
 				popularity = 0.4
 			}
 			add_popularity = {
-				ideology = fascism
+				ideology = fascism_ideology
 				popularity = 0.1
 			}
 			add_popularity = {
-				ideology = neutrality
+				ideology = neutrality_ideology
 				popularity = 0.2
 			}
 			if = {
@@ -3796,7 +3796,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_northern_ireland
 			}
 			add_stability = -0.041
-			add_popularity = { ideology = fascism popularity = 0.027 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.027 }
 			119 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3805,7 +3805,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_highlands
 			}
 			add_stability = -0.009
-			add_popularity = { ideology = fascism popularity = 0.006 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.006 }
 			120 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3814,7 +3814,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_aberdeenshire
 			}
 			add_stability = -0.026
-			add_popularity = { ideology = fascism popularity = 0.017 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.017 }
 			136 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3823,7 +3823,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_lanark
 			}
 			add_stability = -0.077
-			add_popularity = { ideology = fascism popularity = 0.051 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.051 }
 			133 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3832,7 +3832,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_lothian
 			}
 			add_stability = -0.048
-			add_popularity = { ideology = fascism popularity = 0.032 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.032 }
 			121 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3841,7 +3841,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_northern_england
 			}
 			add_stability = -0.072
-			add_popularity = { ideology = fascism popularity = 0.048 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.048 }
 			131 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3850,7 +3850,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_yorkshire
 			}
 			add_stability = -0.157
-			add_popularity = { ideology = fascism popularity = 0.101 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.101 }
 			130 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3859,7 +3859,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_lancashire
 			}
 			add_stability = -0.195
-			add_popularity = { ideology = fascism popularity = 0.13 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.13 }
 			132 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3868,7 +3868,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_wales
 			}
 			add_stability = -0.078
-			add_popularity = { ideology = fascism popularity = 0.052 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.052 }
 			122 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3877,7 +3877,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_west_midlands
 			}
 			add_stability = -0.125
-			add_popularity = { ideology = fascism popularity = 0.083 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.083 }
 			128 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3886,7 +3886,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_east_midlands
 			}
 			add_stability = -0.075
-			add_popularity = { ideology = fascism popularity = 0.05 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.05 }
 			129 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3895,7 +3895,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_east_anglia
 			}
 			add_stability = -0.047
-			add_popularity = { ideology = fascism popularity = 0.031 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.031 }
 			125 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3904,7 +3904,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_gloucestershire
 			}
 			add_stability = -0.062
-			add_popularity = { ideology = fascism popularity = 0.041 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.041 }
 			338 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3913,7 +3913,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_london
 			}
 			add_stability = -0.333
-			add_popularity = { ideology = fascism popularity = 0.222 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.222 }
 			126 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3922,7 +3922,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_cornwall
 			}
 			add_stability = -0.042
-			add_popularity = { ideology = fascism popularity = 0.028 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.028 }
 			123 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3931,7 +3931,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_sussex
 			}
 			add_stability = -0.108
-			add_popularity = { ideology = fascism popularity = 0.072 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.072 }
 			127 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3973,7 +3973,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_northern_ireland
 			}
 			add_stability = -0.054
-			add_popularity = { ideology = fascism popularity = 0.027 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.027 }
 			119 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3982,7 +3982,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_highlands
 			}
 			add_stability = -0.012
-			add_popularity = { ideology = fascism popularity = 0.006 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.006 }
 			120 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -3991,7 +3991,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_aberdeenshire
 			}
 			add_stability = -0.034
-			add_popularity = { ideology = fascism popularity = 0.017 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.017 }
 			136 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4000,7 +4000,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_lanark
 			}
 			add_stability = -0.102
-			add_popularity = { ideology = fascism popularity = 0.051 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.051 }
 			133 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4009,7 +4009,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_lothian
 			}
 			add_stability = -0.064
-			add_popularity = { ideology = fascism popularity = 0.032 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.032 }
 			121 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4018,7 +4018,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_northern_england
 			}
 			add_stability = -0.096
-			add_popularity = { ideology = fascism popularity = 0.048 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.048 }
 			131 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4027,7 +4027,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_yorkshire
 			}
 			add_stability = -0.202
-			add_popularity = { ideology = fascism popularity = 0.101 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.101 }
 			130 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4036,7 +4036,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_lancashire
 			}
 			add_stability = -0.26
-			add_popularity = { ideology = fascism popularity = 0.13 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.13 }
 			132 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4045,7 +4045,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_wales
 			}
 			add_stability = -0.104
-			add_popularity = { ideology = fascism popularity = 0.052 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.052 }
 			122 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4054,7 +4054,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_west_midlands
 			}
 			add_stability = -0.166
-			add_popularity = { ideology = fascism popularity = 0.083 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.083 }
 			128 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4063,7 +4063,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_east_midlands
 			}
 			add_stability = -0.1
-			add_popularity = { ideology = fascism popularity = 0.05 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.05 }
 			129 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4072,7 +4072,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_east_anglia
 			}
 			add_stability = -0.062
-			add_popularity = { ideology = fascism popularity = 0.031 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.031 }
 			125 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4081,7 +4081,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_gloucestershire
 			}
 			add_stability = -0.082
-			add_popularity = { ideology = fascism popularity = 0.041 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.041 }
 			338 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4090,7 +4090,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_london
 			}
 			add_stability = -0.444
-			add_popularity = { ideology = fascism popularity = 0.222 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.222 }
 			126 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4099,7 +4099,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_cornwall
 			}
 			add_stability = -0.056
-			add_popularity = { ideology = fascism popularity = 0.028 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.028 }
 			123 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4108,7 +4108,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_sussex
 			}
 			add_stability = -0.144
-			add_popularity = { ideology = fascism popularity = 0.072 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.072 }
 			127 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4150,7 +4150,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_northern_ireland
 			}
 			add_stability = -0.081
-			add_popularity = { ideology = fascism popularity = 0.027 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.027 }
 			119 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4159,7 +4159,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_highlands
 			}
 			add_stability = -0.018
-			add_popularity = { ideology = fascism popularity = 0.006 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.006 }
 			120 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4168,7 +4168,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_aberdeenshire
 			}
 			add_stability = -0.051
-			add_popularity = { ideology = fascism popularity = 0.017 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.017 }
 			136 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4177,7 +4177,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_lanark
 			}
 			add_stability = -0.153
-			add_popularity = { ideology = fascism popularity = 0.051 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.051 }
 			133 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4186,7 +4186,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_lothian
 			}
 			add_stability = -0.096
-			add_popularity = { ideology = fascism popularity = 0.032 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.032 }
 			121 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4195,7 +4195,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_northern_england
 			}
 			add_stability = -0.144
-			add_popularity = { ideology = fascism popularity = 0.048 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.048 }
 			131 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4204,7 +4204,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_yorkshire
 			}
 			add_stability = -0.303
-			add_popularity = { ideology = fascism popularity = 0.101 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.101 }
 			130 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4213,7 +4213,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_lancashire
 			}
 			add_stability = -0.39
-			add_popularity = { ideology = fascism popularity = 0.13 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.13 }
 			132 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4222,7 +4222,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_wales
 			}
 			add_stability = -0.156
-			add_popularity = { ideology = fascism popularity = 0.052 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.052 }
 			122 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4231,7 +4231,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_west_midlands
 			}
 			add_stability = -0.249
-			add_popularity = { ideology = fascism popularity = 0.083 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.083 }
 			128 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4240,7 +4240,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_east_midlands
 			}
 			add_stability = -0.15
-			add_popularity = { ideology = fascism popularity = 0.05 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.05 }
 			129 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4249,7 +4249,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_east_anglia
 			}
 			add_stability = -0.093
-			add_popularity = { ideology = fascism popularity = 0.031 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.031 }
 			125 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4258,7 +4258,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_gloucestershire
 			}
 			add_stability = -0.123
-			add_popularity = { ideology = fascism popularity = 0.041 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.041 }
 			338 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4267,7 +4267,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_london
 			}
 			add_stability = -0.666
-			add_popularity = { ideology = fascism popularity = 0.222 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.222 }
 			126 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4276,7 +4276,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_cornwall
 			}
 			add_stability = -0.084
-			add_popularity = { ideology = fascism popularity = 0.028 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.028 }
 			123 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4285,7 +4285,7 @@ country_event = {
 				has_country_flag = ENG_march_temp_sussex
 			}
 			add_stability = -0.216
-			add_popularity = { ideology = fascism popularity = 0.072 }
+			add_popularity = { ideology = fascism_ideology popularity = 0.072 }
 			127 = { set_state_flag = ENG_has_blackshirt_support }
 			custom_effect_tooltip = ENG_blackshirt_march_tt
 		}
@@ -4388,21 +4388,21 @@ country_event = {
 		effect_tooltip = {
 			if = {
 				limit = {
-					GBR = { has_government = fascism }
+					GBR = { has_government = fascism_ideology }
 				}
 				add_timed_idea = { idea = ENG_dominion_fascist_propaganda days = 90 }
 			}
 			if = {
 				limit = {
-					GBR = { has_government = communism }
+					GBR = { has_government = communism_ideology }
 				}
 				add_timed_idea = { idea = ENG_dominion_communist_propaganda days = 90 }
 			}
 		}
 		if = {
 			limit = {
-				GBR = { has_government = communism }
-				NOT = { USA = { has_government = communism } }
+				GBR = { has_government = communism_ideology }
+				NOT = { USA = { has_government = communism_ideology } }
 				tag = CAN
 			}
 			USA = { country_event = { id = mtg_britain.68 days = 1 } }
@@ -4425,18 +4425,18 @@ country_event = {
 		effect_tooltip = {
 			if = {
 				limit = {
-					GBR = { has_government = fascism }
+					GBR = { has_government = fascism_ideology }
 				}
-				set_politics = { ruling_party = fascism elections_allowed = no }
-				add_popularity = { ideology = fascism popularity = 0.2 }
+				set_politics = { ruling_party = fascism_ideology elections_allowed = no }
+				add_popularity = { ideology = fascism_ideology popularity = 0.2 }
 				add_ideas = fascist_influence
 			}
 			if = {
 				limit = {
-					GBR = { has_government = communism }
+					GBR = { has_government = communism_ideology }
 				}
-				set_politics = { ruling_party = communism elections_allowed = no }
-				add_popularity = { ideology = communism popularity = 0.2 }
+				set_politics = { ruling_party = communism_ideology elections_allowed = no }
+				add_popularity = { ideology = communism_ideology popularity = 0.2 }
 				add_ideas = communist_influence
 			}
 		}
@@ -4461,8 +4461,8 @@ country_event = {
 		}
 		is_subject_of = GBR
 		OR = {
-			GBR = { has_government = fascism }
-			GBR = { has_government = communism }
+			GBR = { has_government = fascism_ideology }
+			GBR = { has_government = communism_ideology }
 		}
 		GBR = { has_civil_war = no }
 		NOT = { has_country_flag = ENG_cannot_leave_faction }
@@ -4580,7 +4580,7 @@ country_event = {
 	}
 }
 
-# Event for USA notifying that Britain is forcing through communism in Canada
+# Event for USA notifying that Britain is forcing through communism_ideology in Canada
 country_event = {
 	id = mtg_britain.68
 	title = mtg_britain.68.t
@@ -4656,7 +4656,7 @@ country_event = {
 	}
 }
 
-# Event for Britain notifying that USA objects to them forcing through communism in Canada
+# Event for Britain notifying that USA objects to them forcing through communism_ideology in Canada
 country_event = {
 	id = mtg_britain.69
 	title = mtg_britain.69.t
@@ -7246,7 +7246,7 @@ country_event = {
 					has_dlc = "Together for Victory"
 					AND = {
 						has_dlc = "Death or Dishonor"
-						has_government = fascism
+						has_government = fascism_ideology
 					}
 				}
 			}
@@ -7337,7 +7337,7 @@ country_event = {
 					has_dlc = "Together for Victory"
 					AND = {
 						has_dlc = "Death or Dishonor"
-						has_government = fascism
+						has_government = fascism_ideology
 					}
 				}
 			}
@@ -7668,7 +7668,7 @@ country_event = {
 	
 	trigger = {
 		original_tag = GBR
-		has_government = neutrality
+		has_government = neutrality_ideology
 		date > 1941.1.1
 		has_country_leader = { ruling_only = yes name = "George VI" }
 	}
@@ -7691,7 +7691,7 @@ country_event = {
 				inexperienced_monarch headstrong popular_queen
 			}
 		}
-		set_party_name = { ideology = neutrality long_name = ENG_neutrality_party_queens_party_long name = ENG_neutrality_party_queens_party }
+		set_party_name = { ideology = neutrality_ideology long_name = ENG_neutrality_party_queens_party_long name = ENG_neutrality_party_queens_party }
 		hidden_effect = { news_event = { id = mtg_news.59 days = 1 } }
 	}
 }

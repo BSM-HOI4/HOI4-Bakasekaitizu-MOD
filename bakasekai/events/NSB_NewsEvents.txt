@@ -14,7 +14,7 @@ news_event = {
 	option = { #Communist nations
 		name = nsb_news.1.a
 		trigger = {
-			has_government = communism
+			has_government = communism_ideology
 			NOT = { tag = POL }
 		}
 	}
@@ -38,7 +38,7 @@ news_event = {
 	option = { #Fascist Germany revels at Poland tearing itself apart
 		name = nsb_news.1.d
 		trigger = {
-			has_government = fascism
+			has_government = fascism_ideology
 			original_tag = DEU
 		}
 	}
@@ -46,14 +46,14 @@ news_event = {
 	option = { #Fallback - Others
 		name = nsb_news.1.e
 		trigger = {
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			OR = {
 				NOT = {
 					original_tag = POL
 				}
 				AND = {
 					original_tag = DEU
-					NOT = { has_government = fascism }
+					NOT = { has_government = fascism_ideology }
 				}
 			}
 		}
@@ -67,13 +67,13 @@ news_event = {
 	desc = {
 		text = nsb_news.2.desc.dem
 		trigger = {
-			POL = { NOT = { has_government = communism } }
+			POL = { NOT = { has_government = communism_ideology } }
 		}
 	}
 	desc = {
 		text = nsb_news.2.desc.com
 		trigger = {
-			POL = { has_government = communism }
+			POL = { has_government = communism_ideology }
 		}
 	}
 	picture = GFX_news_event_imro
@@ -114,7 +114,7 @@ news_event = {
 				original_tag = POL
 				original_tag = LIB
 				original_tag = USA
-				has_government = communism
+				has_government = communism_ideology
 			}
 		}
 	}
@@ -122,8 +122,8 @@ news_event = {
 	option = { #Communist nations and Poland is not Communist
 		name = nsb_news.2.e
 		trigger = {
-			has_government = communism
-			POL = { NOT = { has_government = communism } }
+			has_government = communism_ideology
+			POL = { NOT = { has_government = communism_ideology } }
 			NOT = { tag = POL }
 		}
 	}
@@ -131,8 +131,8 @@ news_event = {
 	option = { #Communist nations and Poland is Communist
 		name = nsb_news.2.f
 		trigger = {
-			has_government = communism
-			POL = { has_government = communism }
+			has_government = communism_ideology
+			POL = { has_government = communism_ideology }
 			NOT = { tag = POL }
 			NOT = { tag = LIB }
 		}
@@ -185,7 +185,7 @@ news_event = {
 		name = nsb_news.4.b
 		trigger = {
 			NOT = { tag = FROM }
-			has_government = democratic
+			has_government = democratic_ideology
 			DEU = {
 				NOT = {
 					OR = {
@@ -200,7 +200,7 @@ news_event = {
 		name = nsb_news.4.c
 		trigger = {
 			NOT = { tag = FROM }
-			has_government = democratic
+			has_government = democratic_ideology
 			DEU = {
 				OR = {
 					has_completed_focus = GER_rhineland
@@ -213,7 +213,7 @@ news_event = {
 		name = nsb_news.4.d
 		trigger = {
 			tag = DEU
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 		}
 	}
 	option = {
@@ -221,7 +221,7 @@ news_event = {
 		trigger = {
 			NOT = { tag = DEU }
 			NOT = { tag = FROM }
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 		}
 	}
 }
@@ -321,14 +321,14 @@ news_event = {
 		name = nsb_news.6.b
 		trigger = {
 			NOT = { tag = FROM }
-			has_government = democratic
+			has_government = democratic_ideology
 		}
 	}
 	option = {
 		name = nsb_news.4.e
 		trigger = {
 			NOT = { tag = FROM }
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 		}
 	}
 }
@@ -379,7 +379,7 @@ news_event = {
 		name = nsb_news.8.a
 		trigger = {
 			NOT = { tag = POL }
-			has_government = communism
+			has_government = communism_ideology
 		}
 	}
 	
@@ -403,7 +403,7 @@ news_event = {
 			NOT = {
 				tag = LIT
 				tag = POL
-				has_government = communism
+				has_government = communism_ideology
 			}
 		}
 	}
@@ -449,8 +449,8 @@ news_event = {
 		name = nsb_news.9.b
 		trigger = {
 			NOT = { tag = FROM }
-			has_government = democratic
-			SOV = { has_government = communism }
+			has_government = democratic_ideology
+			SOV = { has_government = communism_ideology }
 		}
 	}
 	option = {
@@ -458,11 +458,11 @@ news_event = {
 		trigger = {
 			NOT = { tag = FROM }
 			OR = {
-				has_government = fascism
-				has_government = neutrality 
+				has_government = fascism_ideology
+				has_government = neutrality_ideology 
 			}
 			NOT = { has_country_leader_ideology = anarchism}
-			SOV = { has_government = communism }
+			SOV = { has_government = communism_ideology }
 		}
 	}
 	option = {
@@ -470,16 +470,16 @@ news_event = {
 		trigger = {
 			NOT = { tag = FROM }
 			has_country_leader_ideology = stalinism
-			SOV = { has_government = communism }
+			SOV = { has_government = communism_ideology }
 		}
 	}
 	option = {
 		name = nsb_news.9.e
 		trigger = {
 			NOT = { tag = FROM }
-			has_government = communism 
+			has_government = communism_ideology 
 			NOT = { has_country_leader_ideology = stalinism }
-			SOV = { has_government = communism }
+			SOV = { has_government = communism_ideology }
 		}
 	}
 	option = {
@@ -493,26 +493,26 @@ news_event = {
 		name = nsb_news.9.g
 		trigger = {
 			NOT = { tag = FROM }
-			has_government = democratic
-			SOV = { NOT = { has_government = communism } }
+			has_government = democratic_ideology
+			SOV = { NOT = { has_government = communism_ideology } }
 		}
 	}
 	option = {
 		name = nsb_news.9.h
 		trigger = {
 			NOT = { tag = FROM }
-			has_government = communism
-			SOV = { NOT = { has_government = communism } }
+			has_government = communism_ideology
+			SOV = { NOT = { has_government = communism_ideology } }
 		}
 	}
 	option = {
 		name = nsb_news.9.i
 		trigger = {
 			NOT = { tag = FROM }
-			NOT = { has_government = communism } 
-			NOT = { has_government = democratic } 
+			NOT = { has_government = communism_ideology } 
+			NOT = { has_government = democratic_ideology } 
 			NOT = { has_country_leader_ideology = anarchism }
-			SOV = { NOT = { has_government = communism } }
+			SOV = { NOT = { has_government = communism_ideology } }
 		}
 	}
 }
@@ -573,9 +573,9 @@ news_event = {
 		trigger = {
 			NOT = { tag = FROM }
 			ROOT = { 
-				has_government = communism
+				has_government = communism_ideology
 			}
-			SOV = { NOT = { has_government = communism } }
+			SOV = { NOT = { has_government = communism_ideology } }
 		}
 	}
 	# Democracies 
@@ -584,9 +584,9 @@ news_event = {
 		trigger = {
 			NOT = { tag = FROM }
 			ROOT = { 
-				has_government = democratic
+				has_government = democratic_ideology
 			}
-			SOV = { NOT = { has_government = communism } }
+			SOV = { NOT = { has_government = communism_ideology } }
 		}
 	}	
 	# Others
@@ -595,10 +595,10 @@ news_event = {
 		trigger = {
 			NOT = { tag = FROM }
 			ROOT = { 
-				NOT = { has_government = democratic }
-				NOT = { has_government = communism }
+				NOT = { has_government = democratic_ideology }
+				NOT = { has_government = communism_ideology }
 			}
-			SOV = { NOT = { has_government = communism } }
+			SOV = { NOT = { has_government = communism_ideology } }
 		}
 	}
 	### Communist Victory 	
@@ -608,10 +608,10 @@ news_event = {
 		trigger = {
 			NOT = { tag = FROM }
 			ROOT = { 
-				has_government = communism
+				has_government = communism_ideology
 				NOT = { has_country_leader_ideology = stalinism }
 			}
-			SOV = { has_government = communism } 
+			SOV = { has_government = communism_ideology } 
 		}
 	}	
 	# Stalinist Communist countries
@@ -620,10 +620,10 @@ news_event = {
 		trigger = {
 			NOT = { tag = FROM }
 			ROOT = { 
-				has_government = communism
+				has_government = communism_ideology
 				has_country_leader_ideology = stalinism
 			}
-			SOV = { has_government = communism  }
+			SOV = { has_government = communism_ideology  }
 		}
 	}
 	# Others
@@ -632,9 +632,9 @@ news_event = {
 		trigger = {
 			NOT = { tag = FROM }
 			ROOT = { 
-				NOT = { has_government = communism }
+				NOT = { has_government = communism_ideology }
 			}
-			SOV = { has_government = communism }
+			SOV = { has_government = communism_ideology }
 		}
 	}		
 }
@@ -922,7 +922,7 @@ news_event = {
 
 	trigger = {
 		NOT = { has_global_flag = SOV_fourth_international_fired }
-		SOV = {	has_government = communism }
+		SOV = {	has_government = communism_ideology }
 		OR = {
 			SOV = { has_completed_focus = SOV_the_fourth_international }
 			AND = {
@@ -960,37 +960,37 @@ news_event = {
 	option = {
 		name = news.173.a
 		trigger = { NOT = {	tag = SOV } }
-		#Commie countries or countries with more than 30% communism get +10% support
+		#Commie countries or countries with more than 30% communism_ideology get +10% support
 		if = {
 			limit = {
 				NOT = { has_country_leader_ideology = stalinism }
 				OR = {
-					has_government = communism
-					communism > 0.3
+					has_government = communism_ideology
+					communism_ideology > 0.3
 				}
 				NOT = { has_country_flag = banned_communism_flag }
 			}
 			add_popularity = {
-				ideology = communism
+				ideology = communism_ideology
 				popularity = 0.1
 			}
 		}
-		#Countries with more than 10% communism get +5% support
+		#Countries with more than 10% communism_ideology get +5% support
 		else_if = {
 			limit = {
 				NOT = { has_country_leader_ideology = stalinism }
-				communism > 0.1
+				communism_ideology > 0.1
 				NOT = { has_country_flag = banned_communism_flag }
 			}
 			add_popularity = {
-				ideology = communism
+				ideology = communism_ideology
 				popularity = 0.05
 			}
 		}
 
 		if = {
 			limit = {
-				has_government = communism
+				has_government = communism_ideology
 				NOT = { has_country_leader_ideology = stalinism }
 			}
 			add_opinion_modifier = {
@@ -1191,14 +1191,14 @@ news_event = {
 		name = nsb_news.400.b
 		trigger = {
 			NOT = { tag = FROM }
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 		}
 	}
 	option = {
 		name = nsb_news.400.c
 		trigger = {
 			NOT = { tag = FROM }
-			has_government = communism
+			has_government = communism_ideology
 		}
 	}
 }
@@ -1224,14 +1224,14 @@ news_event = {
 		name = nsb_news.401.b
 		trigger = {
 			NOT = { tag = FROM }
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 		}
 	}
 	option = {
 		name = nsb_news.401.c
 		trigger = {
 			NOT = { tag = FROM }
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 	}
 }
@@ -1266,7 +1266,7 @@ news_event = {
 				tag = FROM
 				tag = DEU
 			}
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 	}
 	option = {
@@ -1276,7 +1276,7 @@ news_event = {
 				tag = FROM
 				tag = DEU
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 		}
 	}
 }
@@ -1311,7 +1311,7 @@ news_event = {
 				tag = FROM
 				tag = USA
 			}
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 	}
 	option = {
@@ -1321,7 +1321,7 @@ news_event = {
 				tag = FROM
 				tag = USA
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 		}
 	}
 }

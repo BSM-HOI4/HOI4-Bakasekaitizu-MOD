@@ -4,8 +4,8 @@ FRA_civil_unrest_category = {
 		available = {
 			OR = {
 				has_stability > 0.25
-				communism < 0.01
-				has_government = communism
+				communism_ideology < 0.01
+				has_government = communism_ideology
 				has_completed_focus = FRA_form_the_popular_front
 				custom_trigger_tooltip = {
 					tooltip = french_communist_civil_war_intervention_tt
@@ -27,7 +27,7 @@ FRA_civil_unrest_category = {
 		days_remove = 0
 		activation = {
 			has_stability < 0.25
-			communism > 0
+			communism_ideology > 0
 			OR = {
 				has_war = no
 				AND = {
@@ -65,7 +65,7 @@ FRA_civil_unrest_category = {
 		available = {
 			OR = {
 				has_stability > 0.25
-				has_government = fascism
+				has_government = fascism_ideology
 				has_completed_focus = FRA_destroy_the_counter_revolution
 				custom_trigger_tooltip = {
 					tooltip = french_communist_civil_war_intervention_tt
@@ -126,7 +126,7 @@ FRA_vichy_france = {
 	FRA_scuttle_the_fleet = {
 		icon = generic_ignite_civil_war
 		available = {
-			has_government = fascism
+			has_government = fascism_ideology
 			NOT = {
 				DEU = {
 					divisions_in_state = {
@@ -146,7 +146,7 @@ FRA_vichy_france = {
 			factor = 200
 		}
 		visible = {
-			has_government = fascism
+			has_government = fascism_ideology
 			has_country_flag = case_anton
 		}
 		complete_effect = {
@@ -183,7 +183,7 @@ FRA_vichy_france = {
 		fire_only_once = yes
 		activation = {
 			original_tag = FRA
-			has_government = fascism
+			has_government = fascism_ideology
 			OR = {
 				is_subject_of = DEU
 				has_focus_tree = vichy_french_focus
@@ -329,8 +329,8 @@ category_test_decisions = {
 						is_controlled_by = ROOT
 						OR = {
 							is_on_continent = africa
-							is_core_of = VIN
-							is_core_of = CAM
+							is_core_of = VNM
+							is_core_of = KHM
 							is_core_of = LAO
 							is_core_of = LEB
 							is_core_of = SYR
@@ -375,14 +375,14 @@ category_test_decisions = {
 					state = 26
 				}
 				set_politics = {
-					ruling_party = fascism
+					ruling_party = fascism_ideology
 					elections_allowed = no
 				}
 				set_popularities = {
-					democratic = 0
-					neutrality = 20
-					fascism = 80
-					communism = 0
+					democratic_ideology = 0
+					neutrality_ideology = 20
+					fascism_ideology = 80
+					communism_ideology = 0
 				}
 				FRA = {
 					FRA_philippe_petain = {
@@ -742,7 +742,7 @@ FRA_spanish_intervention_category = {
 			factor = 1
 			modifier = {
 				not = {
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				factor = 0
 			}
@@ -1331,7 +1331,7 @@ economy_decisions = {
 			remove_ideas = FRA_matignon_agreements
 			if = {
 				limit = {
-					communism > 0.25
+					communism_ideology > 0.25
 				}
 				country_event = lar_france_political_violence.2
 			}
@@ -1537,17 +1537,17 @@ political_actions = {
 		visible = {
 			has_completed_focus = FRA_utilize_the_leagues
 			NOT = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 		}
 		days_re_enable = 60
 		complete_effect = {
 			add_popularity = {
-				ideology = fascism
+				ideology = fascism_ideology
 				popularity = 0.05
 			}
 			add_popularity = {
-				ideology = neutrality
+				ideology = neutrality_ideology
 				popularity = 0.05
 			}
 			add_stability = -0.03
@@ -1566,13 +1566,13 @@ political_actions = {
 		visible = {
 			has_completed_focus = FRA_utilize_the_leagues
 			NOT = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 		}
 		days_re_enable = 30
 		complete_effect = {
 			add_popularity = {
-				ideology = fascism
+				ideology = fascism_ideology
 				popularity = 0.1
 			}
 			add_stability = -0.075
@@ -3035,16 +3035,16 @@ FRA_decolonization = {
 	FRA_independence_for_indochina_mission = {
 		available = {
 			country_exists = LAO
-			country_exists = CAM
-			country_exists = VIN
+			country_exists = KHM
+			country_exists = VNM
 		}
 		activation = {
 			has_country_flag = FRA_indochina_promised_independence
 			has_war = no
 			NOT = {
-				country_exists = CAM
+				country_exists = KHM
 				country_exists = LAO
-				country_exists = VIN
+				country_exists = VNM
 			}
 			671 = {
 				is_controlled_by = ROOT
@@ -3065,8 +3065,8 @@ FRA_decolonization = {
 				limit = {
 					OR = {
 						is_core_of = LAO
-						is_core_of = CAM
-						is_core_of = VIN
+						is_core_of = KHM
+						is_core_of = VNM
 					}
 				}
 				add_resistance_target = {
@@ -3103,14 +3103,14 @@ FRA_decolonization = {
 	FRA_independence_for_north_africa_mission = {
 		available = {
 			country_exists = ALG
-			country_exists = MOR
+			country_exists = MAR
 			country_exists = TUN
 		}
 		activation = {
 			has_country_flag = FRA_north_africa_promised_independence
 			has_war = no
 			NOT = {
-				country_exists = MOR
+				country_exists = MAR
 				country_exists = ALG
 				country_exists = TUN
 			}
@@ -3142,7 +3142,7 @@ FRA_decolonization = {
 				limit = {
 					OR = {
 						is_core_of = ALG
-						is_core_of = MOR
+						is_core_of = MAR
 						is_core_of = TUN
 					}
 				}

@@ -526,7 +526,7 @@ BUL_communists_try_to_form_ff_effect = {
 			add_to_variable = { BUL_ff_forming_probability = 10 }
 			if = { #Having war against communist SOV is very important
 				limit = {
-					SOV = { has_government = communism }
+					SOV = { has_government = communism_ideology }
 				}
 				add_to_variable = { BUL_ff_forming_probability = 50 }
 			}
@@ -542,7 +542,7 @@ BUL_communists_try_to_form_ff_effect = {
 		add_to_variable = { BUL_ff_forming_probability = 25 }
 		if = { #If SOV is communist then it becomes very important
 			limit = {
-				SOV = { has_government = communism }
+				SOV = { has_government = communism_ideology }
 			}
 			add_to_variable = { BUL_ff_forming_probability = 75 }
 		}
@@ -553,7 +553,7 @@ BUL_communists_try_to_form_ff_effect = {
 			any_neighbor_country = {
 				tag = SOV
 			}
-			SOV = { has_government = communism }
+			SOV = { has_government = communism_ideology }
 		}
 		add_to_variable = { BUL_ff_forming_probability = 15 }
 		if= { #Neighbor SOV being at war with Bulgaria or her allies is critical
@@ -571,7 +571,7 @@ BUL_communists_try_to_form_ff_effect = {
 
 	if = { #SOV being communist is relatively important
 		limit = {
-			SOV = { has_government = communism }
+			SOV = { has_government = communism_ideology }
 		}
 		add_to_variable = { BUL_ff_forming_probability = 15 }
 	}
@@ -649,7 +649,7 @@ BUL_ff_tries_to_stage_a_coup_effect = {
 				add_to_variable = { BUL_ff_coup_probability = 10 }
 				if = { #Having war against communist SOV is very important
 					limit = {
-						SOV = { has_government = communism }
+						SOV = { has_government = communism_ideology }
 					}
 					add_to_variable = { BUL_ff_coup_probability = 40 } #Prev 50
 				}
@@ -665,7 +665,7 @@ BUL_ff_tries_to_stage_a_coup_effect = {
 			add_to_variable = { BUL_ff_coup_probability = 10 } #Prev 25
 			if = { #If SOV is communist then it becomes very important
 				limit = {
-					SOV = { has_government = communism }
+					SOV = { has_government = communism_ideology }
 				}
 				add_to_variable = { BUL_ff_coup_probability = 15 } #Prev 75
 			}
@@ -676,7 +676,7 @@ BUL_ff_tries_to_stage_a_coup_effect = {
 				any_neighbor_country = {
 					tag = SOV
 				}
-				has_government = communism
+				has_government = communism_ideology
 			}
 			add_to_variable = { BUL_ff_coup_probability = 5 }
 			if = { #SOV controls one of our key states
@@ -745,7 +745,7 @@ BUL_ff_tries_to_stage_a_coup_effect = {
 
 		if = { #SOV being communist is relatively important
 			limit = {
-				SOV = { has_government = communism }
+				SOV = { has_government = communism_ideology }
 			}
 			add_to_variable = { BUL_ff_coup_probability = 10 } #Prev 15
 		}
@@ -773,7 +773,7 @@ BUL_ff_tries_to_stage_a_coup_effect = {
 }
 
 BUL_start_ff_civil_war = {
-	set_variable = { BUL_communist_support_before_cw = party_popularity@communism }
+	set_variable = { BUL_communist_support_before_cw = party_popularity@communism_ideology }
 	set_variable = { BUL_ff_coup_size = 0.15 }
 	#Default state
 	if = {
@@ -921,7 +921,7 @@ BUL_start_ff_civil_war = {
 		}
 		#START CIVIL WAR
 		start_civil_war = {
-			ideology = communism
+			ideology = communism_ideology
 			size = BUL_ff_coup_size
 			capital = 48
 			states = all
@@ -936,7 +936,7 @@ BUL_start_ff_civil_war = {
 		}
 		#START CIVIL WAR
 		start_civil_war = {
-			ideology = communism
+			ideology = communism_ideology
 			size = BUL_ff_coup_size
 			capital = 212
 			states = all
@@ -948,7 +948,7 @@ BUL_start_ff_civil_war = {
 	else = {	#Varna is FF's capital
 		#START CIVIL WAR
 		start_civil_war = {
-			ideology = communism
+			ideology = communism_ideology
 			size = BUL_ff_coup_size
 			capital = 211
 			states = all
@@ -963,7 +963,7 @@ BUL_start_ff_civil_war = {
 	random_country = {
 		limit = {
 			original_tag = BUL
-			has_government = communism
+			has_government = communism_ideology
 			NOT = { has_country_flag = BUL_ff_civil_war_flag }
 		}
 		set_country_flag = BUL_fatherland_front_flag
@@ -1199,7 +1199,7 @@ BUL_start_ff_civil_war = {
 		limit = {
 			country_exists = SOV
 			has_war_with = SOV
-			SOV = { has_government = communism }
+			SOV = { has_government = communism_ideology }
 		}
 		if = {
 			limit = {
@@ -1995,19 +1995,19 @@ BUL_tsar_boris_may_die_effect = {
 
 	if = { #Low Non-Aligned support is important
 		limit = {
-			neutrality < 0.1
+			neutrality_ideology < 0.1
 		}
 		add_to_variable = { BUL_tsar_boris_death_probability = 25 }
 	}
 	else_if = {
 		limit = {
-			neutrality < 0.25
+			neutrality_ideology < 0.25
 		}
 		add_to_variable = { BUL_tsar_boris_death_probability = 20 }
 	}
 	else_if = {
 		limit = {
-			neutrality < 0.5
+			neutrality_ideology < 0.5
 		}
 		add_to_variable = { BUL_tsar_boris_death_probability = 15 }
 	}
@@ -2119,15 +2119,15 @@ BUL_set_appropriate_cosmetic_tag = {
 		if = {
 			limit = { has_country_flag = BUL_tbe_flag }
 			if = {
-				limit = { has_government = communism }
+				limit = { has_government = communism_ideology }
 				set_cosmetic_tag = TBE_third_bulgarian_empire_communism
 			}
 			else_if = {
-				limit = { has_government = democratic }
+				limit = { has_government = democratic_ideology }
 				set_cosmetic_tag = TBE_third_bulgarian_empire_democratic
 			}
 			else_if = {
-				limit = { has_government = fascism }
+				limit = { has_government = fascism_ideology }
 				set_cosmetic_tag = TBE_third_bulgarian_empire_fascism
 			}
 			else = {
@@ -2137,15 +2137,15 @@ BUL_set_appropriate_cosmetic_tag = {
 		else_if = {
 			limit = { has_country_flag = BUL_ubf_flag }
 			if = {
-				limit = { has_government = communism }
+				limit = { has_government = communism_ideology }
 				set_cosmetic_tag = UBF_united_balkan_federation_communism
 			}
 			else_if = {
-				limit = { has_government = democratic }
+				limit = { has_government = democratic_ideology }
 				set_cosmetic_tag = UBF_united_balkan_federation_democratic
 			}
 			else_if = {
-				limit = { has_government = fascism }
+				limit = { has_government = fascism_ideology }
 				set_cosmetic_tag = UBF_united_balkan_federation_fascism
 			}
 			else = {

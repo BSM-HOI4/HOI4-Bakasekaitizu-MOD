@@ -314,7 +314,7 @@ POL_sanation_decisions = {
 		}
 		modifier = {
 			political_power_gain = -0.05
-			neutrality_drift = 0.1
+			neutrality_ideology_drift = 0.1
 		}
 		complete_effect = {
 			POL_sanation_left_opposition_down = yes
@@ -344,7 +344,7 @@ POL_sanation_decisions = {
 		}
 		modifier = {
 			political_power_gain = -0.05
-			neutrality_drift = 0.1
+			neutrality_ideology_drift = 0.1
 		}
 		complete_effect = {
 			POL_sanation_left_opposition_up = yes
@@ -442,7 +442,7 @@ POL_peasant_strike_category = {
 						}
 					}
 					start_civil_war = {
-						ideology = democratic
+						ideology = democratic_ideology
 						size = 0.6
 						capital = 10
 						states = { 
@@ -452,7 +452,7 @@ POL_peasant_strike_category = {
 				}
 				else = { #Regular CW starting in Krakow
 					start_civil_war = {
-						ideology = democratic
+						ideology = democratic_ideology
 						size = 0.6
 						capital = 88
 						states = { 
@@ -466,14 +466,14 @@ POL_peasant_strike_category = {
 						limit = {
 							original_tag = ROOT
 							NOT = { tag = ROOT }
-							has_government = democratic
+							has_government = democratic_ideology
 						}
 						promote_character = POL_stanislaw_mikolajczyk
 						set_cosmetic_tag = POL_PEASANT
 						save_event_target_as = peasant_poland_target
 						set_popularities = { #The strike was mostly a coalition of SocDems, Socialists, and Communists
-							democratic = 65
-							communism = 35
+							democratic_ideology = 65
+							communism_ideology = 35
 						}
 					}
 				}
@@ -541,7 +541,7 @@ POL_peasant_strike_category = {
 				}
 				set_capital = { state = 88 } #Move the capital to Krakow
 				start_civil_war = {
-					ruling_party = democratic
+					ruling_party = democratic_ideology
 					ideology = ROOT
 					size = civil_war_size_var
 					capital = 10 #The old government is moved to Warsaw
@@ -584,9 +584,9 @@ POL_peasant_strike_category = {
 					value = pol_peasant_communism
 				}
 				set_popularities = {
-					democratic = pol_peasant_democracy
-					communism = pol_peasant_communism
-					neutrality = pol_peasant_neutrality
+					democratic_ideology = pol_peasant_democracy
+					communism_ideology = pol_peasant_communism
+					neutrality_ideology = pol_peasant_neutrality
 				}
 				promote_character = POL_stanislaw_mikolajczyk
 				hidden_effect = {
@@ -2325,7 +2325,7 @@ POL_anti_capitalist_decisions = {
 		target_trigger = {
 			FROM = {
 				is_major = yes
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 		}
 
@@ -2337,9 +2337,9 @@ POL_anti_capitalist_decisions = {
 			FROM = {
 				OR = {
 					is_major = no
-					has_government = communism
-					has_government = fascism
-					has_government = neutrality
+					has_government = communism_ideology
+					has_government = fascism_ideology
+					has_government = neutrality_ideology
 				}
 			}
 		}
@@ -2380,7 +2380,7 @@ POL_anti_fascist_revolution_category = {
 		target_trigger = {
 			FROM = {
 				is_major = yes
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 		}
 
@@ -2392,7 +2392,7 @@ POL_anti_fascist_revolution_category = {
 			FROM = {
 				OR = {
 					is_major = no
-					NOT = { has_government = fascism }
+					NOT = { has_government = fascism_ideology }
 				}
 			}
 		}
@@ -3315,7 +3315,7 @@ POL_sanacja_falanga_decisions = {
 		
 		
 		visible = {
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 		}
 		
 		fire_only_once = no
@@ -3324,7 +3324,7 @@ POL_sanacja_falanga_decisions = {
 		days_remove = 70
 		
 		modifier = {
-			fascism_drift = 0.1
+			fascism_ideology_drift = 0.1
 			stability_weekly = -0.02
 		}
 		
@@ -3352,7 +3352,7 @@ POL_sanacja_falanga_decisions = {
 		
 		
 		visible = {
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 		}
 		
 		fire_only_once = no
@@ -3361,7 +3361,7 @@ POL_sanacja_falanga_decisions = {
 		days_remove = 70
 		
 		modifier = {
-			fascism_drift = 0.1
+			fascism_ideology_drift = 0.1
 			political_power_factor = -0.5
 		}
 		
@@ -3412,7 +3412,7 @@ POL_promote_falangism_decisions = {
 							ROOT = { NOT = { has_completed_focus = POL_support_falangists_in_the_americas } }
 						}
 					}
-					NOT = { has_government = fascism }
+					NOT = { has_government = fascism_ideology }
 					NOT = { has_country_flag = banned_fascism_flag }
 				}
 				is_capital = yes
@@ -3465,7 +3465,7 @@ POL_promote_falangism_decisions = {
 						original_tag = PRU
 					}
 					ROOT = { NOT = { has_completed_focus = POL_support_falangists_in_the_americas } }
-					NOT = { has_government = fascism }
+					NOT = { has_government = fascism_ideology }
 					NOT = { has_country_flag = banned_fascism_flag }
 				}
 				is_capital = yes

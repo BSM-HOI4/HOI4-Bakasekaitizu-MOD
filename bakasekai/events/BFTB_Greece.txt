@@ -42,13 +42,13 @@ country_event = {
 		name = bftb_greece.2.a
 		custom_effect_tooltip = GRE_republican_victory_tt
 		set_politics = { 
-			ruling_party = democratic
+			ruling_party = democratic_ideology
 			elections_allowed = yes
 			election_frequency = 60
 		}
 		hidden_effect = {
 			add_popularity = {  
-				ideology = democratic
+				ideology = democratic_ideology
 				popularity = 0.05
 			}
 			swap_ideas = {
@@ -95,7 +95,7 @@ country_event = {
 				}
 			}
 			set_party_name = { 
-				ideology = fascism 
+				ideology = fascism_ideology 
 				long_name = GRE_byzantine_party_long 
 				name = GRE_byzantine_party 
 			}
@@ -103,18 +103,18 @@ country_event = {
 			GRE_political_instability_update_effect = yes
 			set_temp_variable = {
 				var = GRE_monarchist_support_var
-				value = party_popularity@neutrality
+				value = party_popularity@neutrality_ideology
 			}
 			divide_temp_variable = {
 				var = GRE_monarchist_support_var
 				value = 2
 			}
 			add_popularity = {
-				ideology = democratic
+				ideology = democratic_ideology
 				popularity = GRE_monarchist_support_var
 			}
 			add_popularity = {
-				ideology = fascism
+				ideology = fascism_ideology
 				popularity = 0.04
 			}
 		}	
@@ -159,15 +159,15 @@ country_event = {
 			base = 50
 			modifier = {
 				OR = {
-					FRA = { NOT = { has_government = democratic } }
-					GBR = { NOT = { has_government = democratic } }
+					FRA = { NOT = { has_government = democratic_ideology } }
+					GBR = { NOT = { has_government = democratic_ideology } }
 				}
 				factor = 0.3
 			}
 		}
 		add_stability = 0.1
 		add_popularity = {
-			ideology = fascism
+			ideology = fascism_ideology
 			popularity = -0.07
 		}
 		custom_effect_tooltip = GRE_ally_onassis_tt
@@ -308,7 +308,7 @@ country_event = {
 				GRC = { 
 					OR = {
 						has_idea = GRE_eee_in_government 
-						has_government = fascism
+						has_government = fascism_ideology
 					}
 				}
 			}
@@ -583,7 +583,7 @@ country_event = {
 			modifier = {
 				add = 40
 				original_tag = ITA
-				ITA = { has_government = fascism }
+				ITA = { has_government = fascism_ideology }
 			}
 		}
 		hidden_effect = { 
@@ -913,7 +913,7 @@ country_event = {
 			modifier = {
 				add = 40
 				original_tag = ITA
-				ITA = { NOT = { has_government = fascism } }
+				ITA = { NOT = { has_government = fascism_ideology } }
 			}
 			modifier = {
 				add = 60
@@ -1479,7 +1479,7 @@ country_event = {
 				GRC = { 
 					OR = {
 						has_idea = GRE_eee_in_government 
-						has_government = fascism
+						has_government = fascism_ideology
 					}
 				}
 			}
@@ -2476,7 +2476,7 @@ country_event = {
 			modifier = {
 				factor = 1.5
 				AND = {
-					has_government = fascism
+					has_government = fascism_ideology
 					NOT = { original_tag = GBR }
 				}
 			}
@@ -2615,7 +2615,7 @@ country_event = {
 		add_war_support = 0.1
 		add_stability = -0.15
 		set_politics = {
-			ruling_party = fascism
+			ruling_party = fascism_ideology
 		}
 		hidden_effect = {
 			set_variable = { var = GRE_fascist_loyalty value = 2 } 
@@ -3093,8 +3093,8 @@ country_event = {
 		name = bftb_greece.34.a #serve
 		SOV = { puppet = TUR }
 		start_civil_war = {
-			ruling_party = communism
-			ideology = neutrality
+			ruling_party = communism_ideology
+			ideology = neutrality_ideology
 			size = 0.85
 			capital = 797
 			states = { 797 341 340 347 339 }
@@ -3103,7 +3103,7 @@ country_event = {
 			random_other_country = {
 				limit = {
 					original_tag = TUR
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				save_event_target_as = TUR_original_government
 			}
@@ -3119,11 +3119,11 @@ country_event = {
 		name = bftb_greece.34.b #fight
 		if = { 
 			limit = { 
-				has_government = neutrality
+				has_government = neutrality_ideology
 			}	
 			start_civil_war = {
-				ruling_party = neutrality
-				ideology = communism
+				ruling_party = neutrality_ideology
+				ideology = communism_ideology
 				size = 0.1
 				capital = 49
 				states = { 49 342 343 356 346 345 348 798 355 349 344 354 353 800 352 350 }
@@ -3136,7 +3136,7 @@ country_event = {
 				random_other_country = {
 					limit = {
 						original_tag = TUR
-						has_government = communism
+						has_government = communism_ideology
 					}
 					save_event_target_as = TUR_puppet_government
 					load_focus_tree = { tree = turkish_focus keep_completed = no }
@@ -3152,11 +3152,11 @@ country_event = {
 		}
 		else_if = { 
 			limit = { 
-				has_government = fascism
+				has_government = fascism_ideology
 			}	
 			start_civil_war = {
-				ruling_party = fascism
-				ideology = communism
+				ruling_party = fascism_ideology
+				ideology = communism_ideology
 				size = 0.15
 				capital = 49
 				states = { 49 342 343 356 346 345 348 798 355 349 344 354 353 800 352 350 }
@@ -3169,7 +3169,7 @@ country_event = {
 				random_other_country = {
 					limit = {
 						original_tag = TUR
-						has_government = communism
+						has_government = communism_ideology
 					}
 					save_event_target_as = TUR_puppet_government
 					load_focus_tree = { tree = turkish_focus keep_completed = no }
@@ -3185,11 +3185,11 @@ country_event = {
 		}
 		else_if = { 
 			limit = { 
-				has_government = democratic
+				has_government = democratic_ideology
 			}	
 			start_civil_war = {
-				ruling_party = democratic
-				ideology = communism
+				ruling_party = democratic_ideology
+				ideology = communism_ideology
 				size = 0.2
 				capital = 49
 				states = { 49 342 343 356 346 345 348 798 355 349 344 354 353 800 352 350 }
@@ -3202,7 +3202,7 @@ country_event = {
 				random_other_country = {
 					limit = {
 						original_tag = TUR
-						has_government = communism
+						has_government = communism_ideology
 					}
 					save_event_target_as = TUR_puppet_government
 				}
@@ -3549,8 +3549,8 @@ country_event = {
 		custom_effect_tooltip = GRE_tito_backed_guerilla_war_tt
 		hidden_effect = { 
 			start_civil_war = {
-				ruling_party = neutrality
-				ideology = communism
+				ruling_party = neutrality_ideology
+				ideology = communism_ideology
 				size = 0.2
 				capital = 108
 				states = { 108 106 802 803 }
@@ -3564,7 +3564,7 @@ country_event = {
 			random_other_country = {
 				limit = {
 					original_tag = MYS
-					has_government = communism
+					has_government = communism_ideology
 				}
 				save_event_target_as = YUG_titoist_revolters 
 			}
@@ -3600,8 +3600,8 @@ country_event = {
 		}
 		custom_effect_tooltip = GRE_absolute_monarch_hostile_factions_tt
 		hidden_effect = { 
-			set_party_name = { ideology = neutrality long_name = GRE_monarchist_party_long name = GRE_monarchist_party }
-			set_politics = { ruling_party = neutrality elections_allowed = no }
+			set_party_name = { ideology = neutrality_ideology long_name = GRE_monarchist_party_long name = GRE_monarchist_party }
+			set_politics = { ruling_party = neutrality_ideology elections_allowed = no }
 			remove_ideas = GRE_george_ii
 		}	
 	}
@@ -3969,7 +3969,7 @@ country_event = {
 				add = 20
 			}
 			modifier = {
-				has_government = fascism
+				has_government = fascism_ideology
 				add = 100
 			}
 		}
@@ -3993,7 +3993,7 @@ country_event = {
 				add = 40
 			}
 			modifier = {
-				has_government = democratic
+				has_government = democratic_ideology
 				add = 75
 			}
 		}
@@ -4045,7 +4045,7 @@ country_event = {
 		hidden_effect = { 
 			if = { 
 				limit = { 
-					DEU = { has_government = fascism }
+					DEU = { has_government = fascism_ideology }
 				}
 				DEU = { 
 					add_opinion_modifier = {
@@ -4056,7 +4056,7 @@ country_event = {
 			}
 			if = { 
 				limit = { 
-					ITA = { has_government = fascism }
+					ITA = { has_government = fascism_ideology }
 				}
 				ITA = { 
 					add_opinion_modifier = {
@@ -4088,7 +4088,7 @@ country_event = {
 		if = {
 			limit = {
 				NOT = { 
-					DEU = { has_government = fascism }
+					DEU = { has_government = fascism_ideology }
 				}
 			}
 			ITA = { country_event = { id = bftb_greece.67 days = 1 } }
@@ -4115,8 +4115,8 @@ country_event = {
 			factor = 20
 			modifier = {
 				OR = {
-					TUR = { has_government = fascism }
-					GRC = { has_government = fascism }
+					TUR = { has_government = fascism_ideology }
+					GRC = { has_government = fascism_ideology }
 				}
 				add = 80
 			}
@@ -4150,8 +4150,8 @@ country_event = {
 			factor = 1
 			modifier = {
 				OR = {
-					TUR = { has_government = communism }
-					GRC = { has_government = communism }
+					TUR = { has_government = communism_ideology }
+					GRC = { has_government = communism_ideology }
 				}
 				add = 100
 			}
@@ -4175,8 +4175,8 @@ country_event = {
 			factor = 20
 			modifier = {
 				OR = {
-					TUR = { has_government = fascism }
-					GRC = { has_government = fascism }
+					TUR = { has_government = fascism_ideology }
+					GRC = { has_government = fascism_ideology }
 				}
 				add = 80
 			}
@@ -4212,8 +4212,8 @@ country_event = {
 			factor = 1
 			modifier = {
 				OR = {
-					TUR = { has_government = fascism }
-					GRC = { has_government = fascism }
+					TUR = { has_government = fascism_ideology }
+					GRC = { has_government = fascism_ideology }
 				}
 				add = 100
 			}
@@ -4236,7 +4236,7 @@ country_event = {
 		ai_chance = {
 			factor = 20
 			modifier = {
-				GRC = { has_government = fascism }
+				GRC = { has_government = fascism_ideology }
 				add = 50
 			}
 		}
@@ -4289,7 +4289,7 @@ country_event = {
 		ai_chance = {
 			factor = 20
 			modifier = {
-				GRC = { has_government = fascism }
+				GRC = { has_government = fascism_ideology }
 				add = 50
 			}
 		}
@@ -4368,7 +4368,7 @@ country_event = {
 		name = bftb_greece.70.a #F
 		add_stability = 0.05
 		add_popularity = {
-			ideology = democratic
+			ideology = democratic_ideology
 			popularity = -0.07
 		}
 		hidden_effect = { 
@@ -4406,7 +4406,7 @@ country_event = {
 
 	immediate = {
 		hidden_effect = { 	
-			kill_ideology_leader = democratic
+			kill_ideology_leader = democratic_ideology
 			create_country_leader = {
 				name = "Themistoklis Sofoulis"
 				desc = "POLITICS_THEMISTOKLIS_SOFOULIS_DESC"
@@ -4492,14 +4492,14 @@ country_event = {
 		add_political_power = -15
 		add_stability = 0.03
 		add_popularity = {
-    		ideology = fascism
+    		ideology = fascism_ideology
     		popularity = 0.05
 		}
 		hidden_effect = { 
 			if = { 
 				limit = { 
 					NOT = { 
-						has_government = fascism
+						has_government = fascism_ideology
 						has_idea = GRE_eee_in_government
 						has_country_flag = onassis_proposition_accepted
 					}
@@ -4515,7 +4515,7 @@ country_event = {
 			if = { 
 				limit = { 
 					NOT = { 
-						has_government = fascism
+						has_government = fascism_ideology
 						has_idea = GRE_eee_in_government
 						has_country_flag = onassis_proposition_accepted
 					}
@@ -4541,14 +4541,14 @@ country_event = {
 		add_political_power = -50
 		add_stability = 0.05
 		add_popularity = {
-    		ideology = fascism
+    		ideology = fascism_ideology
     		popularity = 0.05
 		}
 		hidden_effect = { 
 			if = { 
 				limit = { 
 					NOT = { 
-						has_government = fascism
+						has_government = fascism_ideology
 						has_idea = GRE_eee_in_government
 						has_country_flag = onassis_proposition_accepted
 					}
@@ -4592,7 +4592,7 @@ country_event = {
 		add_war_support = 0.05
 		add_stability = -0.05
 		add_popularity = {
-    		ideology = fascism
+    		ideology = fascism_ideology
     		popularity = 0.07
 		}
 		hidden_effect = { 
@@ -4613,14 +4613,14 @@ country_event = {
 		name = bftb_greece.93.b
 		add_stability = 0.05
 		add_popularity = {
-    		ideology = fascism
+    		ideology = fascism_ideology
     		popularity = -0.06
 		}
 		hidden_effect = { 
 			if = { 
 				limit = { 
 					NOT = { 
-						has_government = fascism
+						has_government = fascism_ideology
 						has_idea = GRE_eee_in_government
 						has_country_flag = onassis_proposition_accepted
 					}
@@ -4645,14 +4645,14 @@ country_event = {
 		name = bftb_greece.94.a 
 		add_stability = 0.04
 		add_popularity = {
-    		ideology = fascism
+    		ideology = fascism_ideology
     		popularity = 0.08
 		}
 		hidden_effect = { 
 			if = { 
 				limit = { 
 					NOT = { 
-						has_government = fascism
+						has_government = fascism_ideology
 						has_idea = GRE_eee_in_government
 						has_country_flag = onassis_proposition_accepted
 					}
@@ -4668,7 +4668,7 @@ country_event = {
 			if = { 
 				limit = { 
 					NOT = { 
-						has_government = fascism
+						has_government = fascism_ideology
 						has_idea = GRE_eee_in_government
 						has_country_flag = onassis_proposition_accepted
 					}
@@ -4693,7 +4693,7 @@ country_event = {
 		name = bftb_greece.95.a #ok
 		add_manpower = 175000
 		add_popularity = {
-    		ideology = fascism
+    		ideology = fascism_ideology
     		popularity = 0.15
 		}
 		hidden_effect = { 
@@ -4702,7 +4702,7 @@ country_event = {
 			if = { 
 				limit = { 
 					NOT = { 
-						has_government = fascism
+						has_government = fascism_ideology
 						has_idea = GRE_eee_in_government
 						has_country_flag = onassis_proposition_accepted
 					}
@@ -4715,14 +4715,14 @@ country_event = {
 		name = bftb_greece.95.b #no
 		add_war_support = -0.05
 		add_popularity = {
-    		ideology = fascism
+    		ideology = fascism_ideology
     		popularity = -0.1
 		}
 		hidden_effect = { 
 			if = { 
 				limit = { 
 					NOT = { 
-						has_government = fascism
+						has_government = fascism_ideology
 						has_idea = GRE_eee_in_government
 						has_country_flag = onassis_proposition_accepted
 					}
@@ -4751,7 +4751,7 @@ country_event = {
 			if = { 
 				limit = { 
 					NOT = { 
-						has_government = fascism
+						has_government = fascism_ideology
 						has_idea = GRE_eee_in_government
 						has_country_flag = onassis_proposition_accepted
 					}
@@ -5037,8 +5037,8 @@ country_event = {
 	option = {
 		name = bftb_greece.105.a 
 		start_civil_war = {
-			ruling_party = neutrality
-			ideology = democratic
+			ruling_party = neutrality_ideology
+			ideology = democratic_ideology
 			size = 0.5
 			capital = 186
 			states = { 186 184 731 187 }
@@ -5059,26 +5059,26 @@ country_event = {
 			random_other_country = {
 				limit = {
 					original_tag = GRC
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				set_politics = {
-					ruling_party = democratic
+					ruling_party = democratic_ideology
 					elections_allowed = yes
 				}
 				add_popularity = {
-					ideology = communism
+					ideology = communism_ideology
 					popularity = 0.45
 				}
 				add_popularity = {
-					ideology = democratic
+					ideology = democratic_ideology
 					popularity = 0.55
 				}
 				add_popularity = {
-					ideology = neutrality
+					ideology = neutrality_ideology
 					popularity = 0.00
 				}
 				add_popularity = {
-					ideology = fascism
+					ideology = fascism_ideology
 					popularity = 0.00
 				}	
 				set_stability = 0.45
@@ -6679,16 +6679,16 @@ country_event = {
 		}
 		custom_effect_tooltip = GRE_metaxist_monarchist_fascism_tt
 		hidden_effect = { 
-			set_party_name = { ideology = fascism long_name = GRE_metaxas_party_long name = GRE_metaxas_party }
-			set_politics = { ruling_party = fascism elections_allowed = no }
+			set_party_name = { ideology = fascism_ideology long_name = GRE_metaxas_party_long name = GRE_metaxas_party }
+			set_politics = { ruling_party = fascism_ideology elections_allowed = no }
 			set_variable = { GRE_fascist_loyalty = 2 }
 			set_variable = { GRE_monarchist_loyalty = 1 }
 			set_temp_variable = { 
 				var = metaxist_support_var
-				value = party_popularity@neutrality
+				value = party_popularity@neutrality_ideology
 			}
 			add_popularity = { 
-				ideology = fascism
+				ideology = fascism_ideology
 				popularity = metaxist_support_var
 			}
 			add_country_leader_role = {
@@ -6703,7 +6703,7 @@ country_event = {
 				promote_leader = yes
 			}
 			set_party_name = { 
-				ideology = neutrality
+				ideology = neutrality_ideology
 				long_name = GRE_neutrality_party
 				name = GRE_neutrality_party
 			}
@@ -6727,16 +6727,16 @@ country_event = {
 		effect_tooltip = { remove_ideas = GRE_metaxism }
 		custom_effect_tooltip = GRE_republican_national_socialism_tt
 		hidden_effect = { 
-			set_politics = { ruling_party = fascism elections_allowed = no }
+			set_politics = { ruling_party = fascism_ideology elections_allowed = no }
 			set_variable = { GRE_fascist_loyalty = 2 }
 			set_variable = { GRE_monarchist_loyalty = -2 }
 			remove_ideas = GRE_george_ii
 			add_popularity = { 
-				ideology = fascism
+				ideology = fascism_ideology
 				popularity = 0.15
 			}
 			add_popularity = { 
-				ideology = neutrality
+				ideology = neutrality_ideology
 				popularity = -0.1
 			}
 			if = {
@@ -6799,11 +6799,11 @@ country_event = {
 		name = bftb_greece.218.a #for Venizelos!
 		if = { 
 			limit = { 
-				fascism > 0.5
+				fascism_ideology > 0.5
 			}
 			start_civil_war = {
-				ruling_party = democratic
-				ideology = fascism
+				ruling_party = democratic_ideology
+				ideology = fascism_ideology
 				size = 0.5
 				capital = 731
 				states = { 
@@ -6819,12 +6819,12 @@ country_event = {
 		}
 		else_if = {
 			limit = { 
-				fascism < 0.5
-				fascism > 0.25
+				fascism_ideology < 0.5
+				fascism_ideology > 0.25
 			}
 			start_civil_war = {
-				ruling_party = democratic
-				ideology = fascism
+				ruling_party = democratic_ideology
+				ideology = fascism_ideology
 				size = 0.3
 				capital = 731
 				states = { 
@@ -6840,8 +6840,8 @@ country_event = {
 		}
 		else = { 
 			start_civil_war = {
-				ruling_party = democratic
-				ideology = fascism
+				ruling_party = democratic_ideology
+				ideology = fascism_ideology
 				size = 0.15
 				capital = 47
 				states = { 
@@ -6864,7 +6864,7 @@ country_event = {
 			random_country = { 
 				limit = { 
 					original_tag = GRC 
-					has_government = fascism 
+					has_government = fascism_ideology 
 				}
 				set_cosmetic_tag = GRE_byz_republic
 			}
@@ -6872,16 +6872,16 @@ country_event = {
 	}
 	option = {
 		name = bftb_greece.218.b #for Kosmidis!
-		set_politics = { ruling_party = fascism elections_allowed = no }
+		set_politics = { ruling_party = fascism_ideology elections_allowed = no }
 		set_capital = { state = 797 }
 		add_manpower = 20000
 		if = { 
 			limit = { 
-				fascism > 0.5
+				fascism_ideology > 0.5
 			}
 			start_civil_war = {
-				ruling_party = fascism
-				ideology = democratic
+				ruling_party = fascism_ideology
+				ideology = democratic_ideology
 				size = 0.25
 				capital = 47
 				states = { 
@@ -6897,12 +6897,12 @@ country_event = {
 		}
 		else_if = {
 			limit = { 
-				fascism < 0.5
-				fascism > 0.25
+				fascism_ideology < 0.5
+				fascism_ideology > 0.25
 			}
 			start_civil_war = {
-				ruling_party = fascism
-				ideology = democratic
+				ruling_party = fascism_ideology
+				ideology = democratic_ideology
 				size = 0.5
 				capital = 47
 				states = { 
@@ -6918,8 +6918,8 @@ country_event = {
 		}
 		else = { 
 			start_civil_war = {
-				ruling_party = fascism
-				ideology = democratic
+				ruling_party = fascism_ideology
+				ideology = democratic_ideology
 				size = 0.6
 				capital = 47
 				states = { 
@@ -6959,7 +6959,7 @@ country_event = {
 		original_tag = GRC
 		date > 1941.1.1
 		has_capitulated = yes
-		has_government = neutrality
+		has_government = neutrality_ideology
 		has_country_leader = {
 			character = GRE_ioannis_metaxas
 			ruling_only = yes
@@ -6984,12 +6984,12 @@ country_event = {
 		}
 		hidden_effect = {
 			set_party_name = { 
-				ideology = neutrality
+				ideology = neutrality_ideology
 				long_name = GRE_neutrality_party
 				name = GRE_neutrality_party
 			}
 			set_politics = {
-				ruling_party = neutrality
+				ruling_party = neutrality_ideology
 				elections_allowed = yes
 				#last_election = 1936.1.26
 				election_frequency = 96
