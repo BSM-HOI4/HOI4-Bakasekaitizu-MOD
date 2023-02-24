@@ -227,10 +227,13 @@ focus_tree = {
 				BTP = {
 					set_country_flag = "NAISEN_JYUNBI"
 					ROOT = {
-						limit = {
+						if = {	
+							limit = {
 							tag = BTP
+							}
+							add_manpower = 200000
 						}
-						add_manpower = 200000
+
 					}
 					add_state_core = 11
 					add_state_core = 12
@@ -483,12 +486,15 @@ focus_tree = {
 				}
 			}
 			ROOT = {
-				limit = {
-					is_ai = no
+				if ={
+					limit = {
+						is_ai = no
+					}
+					country_event = {
+						id = baka_super.1
+					}
 				}
-				country_event = {
-					id = super.1
-				}
+
 			}
 		}
 	}
@@ -697,7 +703,7 @@ focus_tree = {
 			add_tech_bonus = {
 				ahead_reduction = 2
 				uses = 1
-				category = armor_tech
+				category = armor
 			}
 			set_politics = {
 				ruling_party = fascism_ideology
@@ -1613,20 +1619,21 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-		}
-		random_owned_controlled_state = {
-			limit = {
-				free_building_slots = {
-					building = industrial_complex
-					size > 0
-					include_locked = yes
+		
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
 				}
-			}
-			add_extra_state_shared_building_slots = 5
-			add_building_construction = {
-				type = industrial_complex
-				level = 5
-				instant_build = yes
+				add_extra_state_shared_building_slots = 5
+				add_building_construction = {
+					type = industrial_complex
+					level = 5
+					instant_build = yes
+				}
 			}
 		}
 	}
@@ -2184,10 +2191,9 @@ focus_tree = {
 		y = 13
 		bypass = {
 			GRC = {
-				OR = {
-					exixts = no
+			
 					is_puppet = yes
-				}
+				
 			}
 		}
 		completion_reward = {
@@ -2213,10 +2219,9 @@ focus_tree = {
 		y = 13
 		bypass = {
 			TUR = {
-				OR = {
-					exixts = no
+		
 					is_puppet = yes
-				}
+				
 			}
 		}
 		completion_reward = {
@@ -2242,10 +2247,8 @@ focus_tree = {
 		y = 13
 		bypass = {
 			MYS = {
-				OR = {
-					exixts = no
 					is_puppet = yes
-				}
+				
 			}
 		}
 		completion_reward = {
