@@ -14,7 +14,7 @@ Dieting_decision = {
         days_re_enable = 30
 
         available = {
-            has_completed_focus = MAC_sales_start_in_the_USA
+            has_completed_focus = MAC_sales_start_in_the_MAC
             MAC = {has_idea = Suspension_of_operations}
 			NOT = {
 				MAC = {has_idea = Obesity_1}
@@ -27,7 +27,7 @@ Dieting_decision = {
 
         }
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_USA
+            has_completed_focus = MAC_sales_start_in_the_MAC
         }
 	    #visible = {has_country_flag=gone_sand}
 
@@ -59,7 +59,7 @@ Dieting_decision = {
         days_re_enable = 60
 
         available = {
-            has_completed_focus = MAC_sales_start_in_the_USA
+            has_completed_focus = MAC_sales_start_in_the_MAC
             MAC = {has_idea = Suspension_of_operations}
 			NOT = {
 				MAC = {has_idea = Obesity_1}
@@ -71,7 +71,7 @@ Dieting_decision = {
 			}
         }
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_USA
+            has_completed_focus = MAC_sales_start_in_the_MAC
         }
         #visible = {has_country_flag=gone_sand}
 
@@ -104,7 +104,7 @@ Dieting_decision = {
         days_re_enable = 180
 
         available = {
-            has_completed_focus = MAC_sales_start_in_the_USA
+            has_completed_focus = MAC_sales_start_in_the_MAC
             MAC = {has_idea = Suspension_of_operations}
 			NOT = {
 				MAC = {has_idea = Obesity_1}
@@ -117,7 +117,7 @@ Dieting_decision = {
 			}
         }
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_USA
+            has_completed_focus = MAC_sales_start_in_the_MAC
         }
         #visible = {has_country_flag=gone_sand}
 
@@ -152,7 +152,7 @@ Progression_of_obesity = {
 			}
 		}
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_USA
+            has_completed_focus = MAC_sales_start_in_the_MAC
         }
 
 		cost = 0
@@ -196,7 +196,7 @@ Progression_of_obesity = {
 			}
 		}
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_USA
+            has_completed_focus = MAC_sales_start_in_the_MAC
         }
 
 		cost = 0
@@ -237,10 +237,10 @@ Progression_of_obesity = {
 		available = {
 			#GER_can_delay_mefo_payment = yes
 			hidden_trigger = { always = no }
-			has_completed_focus = MAC_sales_start_in_the_USA
+			has_completed_focus = MAC_sales_start_in_the_MAC
 		}
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_USA
+            has_completed_focus = MAC_sales_start_in_the_MAC
         }
 
 		#cost = GER_mefo_bill_counter?10
@@ -373,7 +373,7 @@ McDonald_Store_Opening_Policy = {
 
 		available = {
 			custom_trigger_tooltip = {
-				tooltip = MAC_USA_create
+				tooltip = MAC_MAC_create
 				has_global_flag=United_states
 			}
 			hidden_trigger = {
@@ -913,6 +913,7 @@ MAC_balance_of_power_category = {
 				limit = {
 					has_country_flag = MAC_start_bop_2
 				}
+				set_country_flag = MAC_start_cola_war
 				MAC_initiate_balance_of_power_effect_2 = yes
 			}
 		}
@@ -1256,4 +1257,480 @@ MAC_balance_of_power_category = {
 		}
 	}
 
+}
+
+
+
+
+
+MAC_congress = {
+	MAC_weekly_check = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_gre_paying_ifc_debt
+
+		available = {
+			#GER_can_delay_mefo_payment = yes
+			hidden_trigger = { always = no }
+			has_country_flag = MAC_start_cola_war
+		}
+        visible = {
+            has_country_flag = MAC_start_cola_war
+        }
+
+		#cost = GER_mefo_bill_counter?10
+
+		days_mission_timeout = 7
+		is_good = yes
+		fire_only_once = yes
+
+		cancel_trigger = {
+		}
+
+		days_remove = MAC_extend_mefo_bills_days?0
+		remove_effect = {
+		}
+
+		complete_effect = {
+		}
+
+		timeout_effect = {
+			hidden_effect = {
+				set_temp_variable = {
+					var = temp_directors_lobby
+					value = 30
+				}
+				set_temp_variable = {
+					var = temp_shareholders_lobby
+					value = 45
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp < 6
+						}
+					}
+					add_to_variable = {
+					    var = temp_shareholders_lobby
+					    value = 18
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp < 11
+						}
+					}
+					add_to_variable = {
+					    var = temp_shareholders_lobby
+					    value = 9
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp > 11
+						}
+					}
+					subtract_from_variable = {
+					    var = temp_shareholders_lobby
+					    value = -9
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp > 17
+						}
+					}
+					subtract_from_variable = {
+					    var = temp_shareholders_lobby
+					    value = -18
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp < 6
+						}
+					}
+					add_to_variable = {
+					    var = temp_directors_lobby
+					    value = 12
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp < 11
+						}
+					}
+					add_to_variable = {
+					    var = temp_directors_lobby
+					    value = 6
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							shareholder_temp > 11
+						}
+					}
+					subtract_from_variable = {
+					    var = temp_directors_lobby
+					    value = -6
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							shareholder_temp > 17
+						}
+					}
+					subtract_from_variable = {
+					    var = temp_directors_lobby
+					    value = -12
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp < 6
+						}
+					}
+					add_to_variable = {
+					    var = temp_shareholders_lobby
+					    value = 18
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp < 11
+						}
+					}
+					add_to_variable = {
+					    var = temp_shareholders_lobby
+					    value = 9
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp > 11
+						}
+					}
+					subtract_from_variable = {
+					    var = temp_shareholders_lobby
+					    value = -9
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							directors_temp > 17
+						}
+					}
+					subtract_from_variable = {
+					    var = temp_shareholders_lobby
+					    value = -18
+					}
+				}
+			else = {
+				hidden_effect = {
+					set_variable = { MAC_extend_mefo_bills_days = days_mission_timeout@MAC_mefo_bills_mission }
+					#set_country_flag = paid_for_mefo
+				}
+				if = {
+					limit = {
+						check_variable = { var = MAC_obesity_counter value = 15 compare = less_than }
+					}
+					hidden_effect = { set_variable = { var = MAC_obesity_counter value = 10 } }
+				}
+                if = {
+					limit = {
+						has_idea = Obesity_1
+					}
+                    swap_ideas = {
+				        remove_idea = Obesity_1
+				        add_idea = Obesity_2
+                    }
+
+				}
+				else = {
+					if = {
+						limit = {
+							has_idea = Obesity_2
+						}
+                    	swap_ideas = {
+				    	    remove_idea = Obesity_2
+				        	add_idea = Obesity_3
+                    	}
+
+					}
+					else = {
+						if = {
+							limit = {
+								has_idea = Obesity_3
+							}
+                    		swap_ideas = {
+				        		remove_idea = Obesity_3
+				   			    add_idea = Obesity_4
+                   			}
+						}
+					}
+				}
+
+				add_to_variable = { var = MAC_obesity_counter value = 10 }
+
+				hidden_effect = {
+					activate_mission = MAC_mefo_bills_mission
+				}
+			}
+			}
+		}
+
+		ai_will_do = {
+			factor = 200
+		}
+	}
+	MAC_lobby_shareholders_effort = {
+		icon = generic_political_discourse
+		available = {
+			OR = {
+				check_variable = { directors_support < directors_total }
+				check_variable = { representatives_support < representatives_total }
+			}
+			not = {
+				has_decision = MAC_medium_lobby_effort
+			}
+			OR = {
+				political_power_daily > 0.3
+				has_political_power > 10
+			}
+		}
+		cost = 0
+		modifier = {
+			political_power_gain = -0.3
+		}
+		days_remove = var:temp_shareholders_lobby
+		remove_effect = {
+			MAC_congress_small_support = yes
+		}
+	}
+	MAC_lobby_directors_effort = {
+		icon = generic_political_discourse
+		available = {
+			OR = {
+				check_variable = { directors_support < directors_total }
+				check_variable = { representatives_support < representatives_total }
+			}
+			not = {
+				has_decision = MAC_medium_lobby_effort
+			}
+			OR = {
+				political_power_daily > 0.3
+				has_political_power > 10
+			}
+		}
+		cost = 0
+		modifier = {
+			political_power_gain = -0.3
+		}
+		days_remove = var:temp_directors_lobby
+		remove_effect = {
+			MAC_congress_small_support = yes
+		}
+	}
+	MAC_special_measures = {
+		icon = ger_mefo_bills
+		available = {
+			OR = {
+				check_variable = { directors_support < directors_total }
+				check_variable = { representatives_support < representatives_total }
+			}
+		}
+		cost = 50
+		days_re_enable = 90
+		complete_effect = {
+			MAC_congress_small_support = yes
+		}
+	}
+	MAC_give_tax_break = {
+		icon = ger_mefo_bills
+		available = {
+			has_government = democratic_ideology
+			OR = {
+				check_variable = { directors_support < directors_total }
+				check_variable = { representatives_support < representatives_total }
+			}
+		}
+		visible = { has_completed_focus = MAC_income_tax_reform }
+		cost = 0
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				congress_low_support_trigger = yes
+				factor = 0
+			}
+		}
+		days_remove = 90
+		modifier = { consumer_goods_factor = 0.03 }
+		remove_effect = {
+			MAC_congress_small_support = yes
+		}
+	}
+	MAC_amend_the_budget = {
+		icon = ger_mefo_bills
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		visible = {has_government = democratic_ideology }
+		cost = 25
+		days_remove = 90
+		days_re_enable = 275
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				congress_low_support_trigger = yes
+				factor = 0
+			}
+		}
+		modifier = { consumer_goods_factor = -0.05 }
+		remove_effect = {
+			MAC_congress_medium_opposition = yes
+		}
+	}
+	MAC_research_grants = {
+		icon = ger_mefo_bills
+		available = {
+			congress_medium_support_trigger = yes
+		}
+		visible = {has_government = democratic_ideology }
+		cost = 25
+		days_remove = 90
+		days_re_enable = 275
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				congress_low_support_trigger = yes
+				factor = 0
+			}
+		}
+		modifier = { research_speed_factor = 0.08 }
+		remove_effect = {
+			MAC_congress_medium_opposition = yes
+		}
+	}
+	MAC_invest_in_state_factory = {
+		icon = generic_construction
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = MAC_congress_invest_in_state_factory_tt
+				any_owned_state = {
+					has_state_flag = MAC_congress_build_factory
+					check_variable = { factory_goal = industrial_complex_level }
+				}
+			}
+		}
+
+		highlight_states = {
+			highlight_states_trigger = {
+				has_state_flag = MAC_congress_build_factory
+			}
+		}
+
+		days_mission_timeout = 360
+		is_good = no
+		activation = {
+			any_owned_state = {
+				has_state_flag = MAC_congress_build_factory
+			}
+		}
+		timeout_effect = {
+			random_owned_state = {
+				limit = {
+					has_state_flag = MAC_congress_build_factory
+				}
+				clr_state_flag = MAC_congress_build_factory
+				clear_variable = factory_goal
+			}
+			
+			MAC_congress_small_opposition = yes 
+			clr_country_flag = MAC_congress_investment
+		}
+		complete_effect = {
+			random_owned_state = {
+				limit = {
+					has_state_flag = MAC_congress_build_factory
+				}
+				clr_state_flag = MAC_congress_build_factory
+				clear_variable = factory_goal
+			}
+			ROOT = {
+				MAC_congress_medium_support = yes 
+				clr_country_flag = MAC_congress_investment
+			}
+			
+		}
+	}
+	MAC_readmit_state = {
+		icon = infiltrate_state
+		available = {	
+			political_power_daily > 0.1
+		}
+		visible = {
+			any_owned_state = {
+				is_core_of = CSA
+				not = { is_core_of = ROOT }
+				is_claimed_by = ROOT
+			}
+			has_completed_focus = MAC_reintegration
+		}
+		ai_will_do = {
+			factor = 1	
+		}
+		days_remove = 120
+		cost = 25
+		modifier = {
+			political_power_gain = -0.1
+		}
+		complete_effect = {
+			random_state = {
+				limit = {
+					is_controlled_by = ROOT
+					is_core_of = CSA
+					not = { is_core_of = ROOT }
+					is_claimed_by = ROOT
+				}
+				set_state_flag = MAC_state_admit
+				custom_effect_tooltip = MAC_readmit_state_tt
+			}
+		}
+		remove_effect = {
+			MAC_congress_add_state = yes
+			random_owned_state = {
+				limit = { has_state_flag = MAC_state_admit }
+				ROOT = {
+					add_state_core = PREV
+				}
+				clr_state_flag = MAC_state_admit
+			}			
+		}
+	}
+	MAC_reshuffle_congress = {
+		available = {
+
+		}
+		visible = {
+			has_completed_focus = MAC_union_representation_act
+		}
+		days_re_enable = 180
+		cost = 50
+		complete_effect = {
+			add_stability = -0.05
+			MAC_return_majority = yes
+		}
+	}
 }
