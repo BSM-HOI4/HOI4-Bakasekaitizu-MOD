@@ -59,6 +59,17 @@ focus_tree = {
 			country_event = {
 				id = MCD.7
 			}
+			if = {
+				limit = {
+					AND = { 
+                        has_any_power_balance = no
+                    }
+				}
+                #MAC_initiate_balance_of_power_effect_2 = yes
+			}
+			else = {
+				#set_country_flag = MAC_start_bop_2
+			}
 		}
 	}
 	focus = {
@@ -548,34 +559,6 @@ focus_tree = {
 			}
 		}
 	}
-
-	focus = {
-		id = MAC_start_cola_war
-		icon = GFX_focus_generic_the_giant_wakes
-		x = 25
-		y = 0
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		available = {
-			AND = {
-				has_completed_focus = MAC_Overseas_shop_openings
-				has_any_power_balance = no
-
-			}
-		}
-		ai_will_do = {
-			factor = 30
-		}
-		completion_reward = {
-			custom_effect_tooltip = MAC_start_cola_war_tt
-			add_political_power = 150
-			country_event = { id = MCD.11 }
-		}
-	}
-
-
 	# Army Tree
 	focus = {
 		id = MAC_army_effort
