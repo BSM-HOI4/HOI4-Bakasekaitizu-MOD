@@ -375,111 +375,111 @@ WTT_recalculate_state_support_for_ROOT = {
 
 
 #State scope
-WTT_fire_add_support_status_events = {
-	if = {
-		limit = {
-			has_state_flag = majority_political_platform_@ROOT
-			event_target:majority_country = { tag = ROOT }
-		}
-		ROOT = {
-			#Event that we still have state majority and have built further support
-			country_event = { id = wtt_political_organisation.1 }
+# WTT_fire_add_support_status_events = {
+# 	if = {
+# 		limit = {
+# 			has_state_flag = majority_political_platform_@ROOT
+# 			event_target:majority_country = { tag = ROOT }
+# 		}
+# 		ROOT = {
+# 			#Event that we still have state majority and have built further support
+# 			country_event = { id = wtt_political_organisation.1 }
 		
 
-			#Event to others that campaign from ROOT is increasing the lead in state
-			every_other_country = {
-				limit = { has_country_flag = wtt_political_struggle }
-				country_event = { id = wtt_political_organisation.2 hours = 1 }
-			}
-		}
+# 			#Event to others that campaign from ROOT is increasing the lead in state
+# 			every_other_country = {
+# 				limit = { has_country_flag = wtt_political_struggle }
+# 				country_event = { id = wtt_political_organisation.2 hours = 1 }
+# 			}
+# 		}
 
-	}
-	else_if = {
-		limit = {
-			has_state_flag = majority_political_platform_@ROOT
-			event_target:majority_country = { NOT = { tag = ROOT } }
-		}
-		event_target:majority_country = { save_event_target_as = old_majority_country }
-		ROOT = {
-			save_event_target_as = majority_country
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			has_state_flag = majority_political_platform_@ROOT
+# 			event_target:majority_country = { NOT = { tag = ROOT } }
+# 		}
+# 		event_target:majority_country = { save_event_target_as = old_majority_country }
+# 		ROOT = {
+# 			save_event_target_as = majority_country
 
-			#Event that we have taken state majority from old_majority_country
-			country_event = { id = wtt_political_organisation.3 }
+# 			#Event that we have taken state majority from old_majority_country
+# 			country_event = { id = wtt_political_organisation.3 }
 			
-			#Event to others that campaign from ROOT has taken state majority old_majority_country
-			every_other_country = {
-				limit = { has_country_flag = wtt_political_struggle }
-				country_event = { id = wtt_political_organisation.4 hours = 1 }
-			}
-		}
-	}
-	else = {
-		ROOT = {
-			#Event that we are building support, but majority_country still has state majority
-			country_event = { id = wtt_political_organisation.5 }
+# 			#Event to others that campaign from ROOT has taken state majority old_majority_country
+# 			every_other_country = {
+# 				limit = { has_country_flag = wtt_political_struggle }
+# 				country_event = { id = wtt_political_organisation.4 hours = 1 }
+# 			}
+# 		}
+# 	}
+# 	else = {
+# 		ROOT = {
+# 			#Event that we are building support, but majority_country still has state majority
+# 			country_event = { id = wtt_political_organisation.5 }
 
-			every_other_country = {
-				limit = { has_country_flag = wtt_political_struggle }
-				#Event to others that ROOT is building support, but majority_country still has greatest support
-				country_event = { id = wtt_political_organisation.6 hours = 1 }
-			}
-		}
-	}
-}
+# 			every_other_country = {
+# 				limit = { has_country_flag = wtt_political_struggle }
+# 				#Event to others that ROOT is building support, but majority_country still has greatest support
+# 				country_event = { id = wtt_political_organisation.6 hours = 1 }
+# 			}
+# 		}
+# 	}
+# }
 
 
 #State scope
-WTT_fire_remove_support_status_events = {
-	if = {
-		limit = {
-			has_state_flag = majority_political_platform_@ROOT
-			event_target:majority_country = { tag = ROOT }
-		}
-		ROOT = {
-			#Event that we still have state majority and have removed opposition
-			country_event = { id = wtt_political_organisation.7 }
+# WTT_fire_remove_support_status_events = {
+# 	if = {
+# 		limit = {
+# 			has_state_flag = majority_political_platform_@ROOT
+# 			event_target:majority_country = { tag = ROOT }
+# 		}
+# 		ROOT = {
+# 			#Event that we still have state majority and have removed opposition
+# 			country_event = { id = wtt_political_organisation.7 }
 		
 
-			#Event to others that opposition support has been removed and majority_country still leads state
-			every_other_country = {
-				limit = { has_country_flag = wtt_political_struggle }
-				country_event = { id = wtt_political_organisation.8 hours = 1 }
-			}
-		}
+# 			#Event to others that opposition support has been removed and majority_country still leads state
+# 			every_other_country = {
+# 				limit = { has_country_flag = wtt_political_struggle }
+# 				country_event = { id = wtt_political_organisation.8 hours = 1 }
+# 			}
+# 		}
 
-	}
-	else_if = {
-		limit = {
-			has_state_flag = majority_political_platform_@ROOT
-			event_target:majority_country = { NOT = { tag = ROOT } }
-		}
-		event_target:majority_country = { save_event_target_as = old_majority_country }
-		ROOT = {
-			save_event_target_as = majority_country
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			has_state_flag = majority_political_platform_@ROOT
+# 			event_target:majority_country = { NOT = { tag = ROOT } }
+# 		}
+# 		event_target:majority_country = { save_event_target_as = old_majority_country }
+# 		ROOT = {
+# 			save_event_target_as = majority_country
 
-			#Event that we have taken state majority from old_majority_country after removing opposition support
-			country_event = { id = wtt_political_organisation.9 }
+# 			#Event that we have taken state majority from old_majority_country after removing opposition support
+# 			country_event = { id = wtt_political_organisation.9 }
 			
-			#Event to others that raid from majority_country has given them state majority over old_majority_country
-			every_other_country = {
-				limit = { has_country_flag = wtt_political_struggle }
-				country_event = { id = wtt_political_organisation.10 hours = 1 }
-			}
-		}
-	}
-	else = {
-		ROOT = {
-			#Event that we have removed support in state, but majority_country still has state majority
-			country_event = { id = wtt_political_organisation.11 }
+# 			#Event to others that raid from majority_country has given them state majority over old_majority_country
+# 			every_other_country = {
+# 				limit = { has_country_flag = wtt_political_struggle }
+# 				country_event = { id = wtt_political_organisation.10 hours = 1 }
+# 			}
+# 		}
+# 	}
+# 	else = {
+# 		ROOT = {
+# 			#Event that we have removed support in state, but majority_country still has state majority
+# 			country_event = { id = wtt_political_organisation.11 }
 
-			every_other_country = {
-				limit = { has_country_flag = wtt_political_struggle }
-				#Event to others that opposition support has been removed, but majority_country still has greatest support
-				country_event = { id = wtt_political_organisation.12 hours = 1 }
-			}
-		}
-	}
-}
+# 			every_other_country = {
+# 				limit = { has_country_flag = wtt_political_struggle }
+# 				#Event to others that opposition support has been removed, but majority_country still has greatest support
+# 				country_event = { id = wtt_political_organisation.12 hours = 1 }
+# 			}
+# 		}
+# 	}
+# }
 
 #Country scope
 WTT_political_struggle_recalculate_support = {
