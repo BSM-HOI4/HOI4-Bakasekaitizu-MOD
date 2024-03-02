@@ -83,7 +83,7 @@ no_garrison = {
 
 		modifier = {
 			FROM = {
-				has_government = democratic_ideology
+				has_government = democratic
 			}
 			has_active_resistance = no
 			add = 200
@@ -114,7 +114,7 @@ autonomous_occupation = {
 	sound_effect = "Martial_Law_Interface_Autonomous_Occupation_Unique_DEM"
 
 	visible = {
-		has_government = democratic_ideology #? on design
+		has_government = democratic #? on design
 	}
 
 	state_modifier = {
@@ -221,7 +221,7 @@ liberate_workers_occupation = {
 	sound_effect = "Martial_Law_Interface_Liberate_Workers_Occupation_Unique_COM"
 
 	visible = {
-		has_government = communism_ideology
+		has_government = communism
 	}
 
 	state_modifier = {
@@ -271,6 +271,20 @@ military_governor_occupation = {
 			check_variable  = { resistance_target_without_law > 0.24}
 			add = 400
 		}
+		
+		modifier = {
+			check_variable  = { resistance_target_without_law > 0.34}
+
+			set_temp_variable = { requirement_limit = 0.25 }
+			if = {
+				limit = { occupation_law = military_governor_occupation }
+				set_temp_variable = { requirement_limit = 0.45 }
+			}
+			check_variable = { garrison_min_support_ratio < requirement_limit }
+
+			add = 400
+		}
+		
 	}
 }
 
@@ -438,7 +452,7 @@ brutally_oppressive_occupation = {
 	sound_effect = "Martial_Law_Interface_Brutally_Oppressive_Occupation_Unique_FAS"
 
 	visible = {
-		has_government = fascism_ideology
+		has_government = fascism
 	}
 
 	state_modifier = {
@@ -478,10 +492,10 @@ reconciliation = {
 	visible = {
 		original_tag = TUR
 		has_dlc = "Battle for the Bosporus"
-		OR = {
-			has_completed_focus = TUR_a_common_destiny_for_all_of_turkey
-			has_completed_focus = TUR_permit_regional_elections
-		}
+		# OR = {
+		# 	has_completed_focus = TUR_a_common_destiny_for_all_of_turkey
+		# 	has_completed_focus = TUR_permit_regional_elections
+		# }
 		FROM = { original_tag = KUR }
 	}
 
@@ -507,16 +521,16 @@ colonial_police = {
 		original_tag = ITA
 		#NOT = { has_completed_focus = ITA_regional_development }
 		NOT = { has_country_flag = ITA_colonial_police_improved_flag }
-		OR = {
-			AND = {
-				has_completed_focus = ITA_albanian_fascist_militia
-				FROM = { original_tag = ALB }
-			}
-			AND = {
-				has_completed_focus = ITA_ministry_of_italian_africa
-				FROM = { capital_scope = { is_on_continent = africa } }
-			}
-		}
+		# OR = {
+		# 	AND = {
+		# 		has_completed_focus = ITA_albanian_fascist_militia
+		# 		FROM = { original_tag = ALB }
+		# 	}
+		# 	AND = {
+		# 		has_completed_focus = ITA_ministry_of_italian_africa
+		# 		FROM = { capital_scope = { is_on_continent = africa } }
+		# 	}
+		# }
 	}
 
 	state_modifier = { #CHANGES HERE NEED TO BE APPLIED ALSO IN ITA_fake_colonial_police_law idea
@@ -558,13 +572,13 @@ colonial_police_improved = {
 
 	visible = {
 		original_tag = ITA
-		has_completed_focus = ITA_regional_development
+		# has_completed_focus = ITA_regional_development
 		NOT = { has_country_flag = ITA_colonial_police_final_flag }
 		OR = {
-			AND = {
+			# AND = {
 				FROM = { original_tag = ALB }
-				has_completed_focus = ITA_albanian_fascist_militia
-			}
+				# has_completed_focus = ITA_albanian_fascist_militia
+			# }
 			FROM = { capital_scope = { is_on_continent = africa } }
 		}
 	}
@@ -610,12 +624,12 @@ colonial_police_final = {
 
 	visible = {
 		original_tag = ITA
-		has_completed_focus = ITA_polizia_dell_africa_italiana
+		# has_completed_focus = ITA_polizia_dell_africa_italiana
 		OR = {
-			AND = {
+			# AND = {
 				FROM = { original_tag = ALB }
-				has_completed_focus = ITA_albanian_fascist_militia
-			}
+			# 	has_completed_focus = ITA_albanian_fascist_militia
+			# }
 			FROM = { capital_scope = { is_on_continent = africa } }
 		}
 	}

@@ -591,22 +591,23 @@ BUL_communists_try_to_form_ff_effect = {
 				compare = greater_than_or_equals 
 			}
 		}
-		country_event = { id = bftb_bulgaria_fatherland_front.1 hours = 16 random_hours = 16 }
+		log = "bftb_bulgaria_fatherland_front.1"
+		# country_event = { id = bftb_bulgaria_fatherland_front.1 hours = 16 random_hours = 16 }
 	}
 	log = "Fatherland Front probability: [?BUL.BUL_ff_forming_probability]"
 	log = "Fatherland Front Random chance: [?BUL.BUL_random_ff_forming_chance]"
 }
 
-BUL_ff_approaches_a_faction_effect = {
+# BUL_ff_approaches_a_faction_effect = {
 
-	randomize_variable = {
-		var = BUL_random_ff_approaching_faction_chance
-		distribution = binomial
-		min = 0
-		max = 100
-	}
-	log = "FF Approaches faction random chance: [?BUL.BUL_random_ff_approaching_faction_chance]"
-}
+# 	randomize_variable = {
+# 		var = BUL_random_ff_approaching_faction_chance
+# 		distribution = binomial
+# 		min = 0
+# 		max = 100
+# 	}
+# 	log = "FF Approaches faction random chance: [?BUL.BUL_random_ff_approaching_faction_chance]"
+# }
 
 BUL_ff_preventive_action_taken = {
 	add_to_variable = { BUL_ff_preventive_actions_against_coup = BUL_ff_preventive_actions_base_value }
@@ -626,7 +627,7 @@ BUL_ff_tries_to_stage_a_coup_effect = {
 			BUL_historical_requirements_met = yes
 		}
 		log = "Forced Fatherland Front coup"
-		country_event = { id = bftb_bulgaria_fatherland_front.2 hours = 4 random_hours = 4 }
+		# country_event = { id = bftb_bulgaria_fatherland_front.2 hours = 4 random_hours = 4 }
 		set_country_flag = BUL_forced_ff_coup_flag
 	}
 	#If historical requirements not met, do a regular check
@@ -765,7 +766,7 @@ BUL_ff_tries_to_stage_a_coup_effect = {
 					compare = greater_than_or_equals 
 				}
 			}
-			country_event = { id = bftb_bulgaria_fatherland_front.2 hours = 4 random_hours = 4 }
+			# country_event = { id = bftb_bulgaria_fatherland_front.2 hours = 4 random_hours = 4 }
 		}
 		log = "[GetDateText] - Fatherland Front coup probability: [?BUL.BUL_ff_coup_probability]"
 		log = "[GetDateText] - Fatherland Front coup Random chance: [?BUL.BUL_random_ff_coup_chance]"
@@ -1437,101 +1438,101 @@ BUL_get_random_bulgarian_destination_march = { #This works together with scripte
 	}
 }
 
-BUL_replace_national_industrial_designer = {
-	if = {
-		limit = {
-			has_idea =  BUL_petrol_ad
-		}
-		swap_ideas = {
-			remove_idea = BUL_petrol_ad
-			add_idea = BUL_petrol_ad_improved
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_ira
-		}
-		swap_ideas = {
-			remove_idea = BUL_ira
-			add_idea = BUL_ira_improved
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_pirin
-		}
-		swap_ideas = {
-			remove_idea = BUL_pirin
-			add_idea = BUL_pirin_improved
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_vulkan_cement
-		}
-		swap_ideas = {
-			remove_idea = BUL_vulkan_cement
-			add_idea = BUL_vulkan_cement_improved
-		}
-	}	
-}
+# BUL_replace_national_industrial_designer = {
+# 	if = {
+# 		limit = {
+# 			#has_idea =  BUL_petrol_ad
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_petrol_ad
+# 			add_idea = BUL_petrol_ad_improved
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_ira
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_ira
+# 			add_idea = BUL_ira_improved
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_pirin
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_pirin
+# 			add_idea = BUL_pirin_improved
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_vulkan_cement
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_vulkan_cement
+# 			add_idea = BUL_vulkan_cement_improved
+# 		}
+# 	}	
+# }
 
-BUL_replace_national_naval_designer = {
-	if = {
-		limit = {
-			has_idea = BUL_varna_naval_dockyard
-		}
-		custom_effect_tooltip = BUL_replace_national_naval_designer_tt
-		hidden_effect = {
-			swap_ideas = {
-				remove_idea = BUL_varna_naval_dockyard
-				add_idea = BUL_varna_naval_dockyard_improved
-			}
-		}
-	}
-	else = {
-		custom_effect_tooltip = BUL_replace_national_naval_designer_tt
-	}
-}
+# BUL_replace_national_naval_designer = {
+# 	if = {
+# 		limit = {
+# 			#has_idea = BUL_varna_naval_dockyard
+# 		}
+# 		custom_effect_tooltip = BUL_replace_national_naval_designer_tt
+# 		hidden_effect = {
+# 			swap_ideas = {
+# 				remove_idea = BUL_varna_naval_dockyard
+# 				add_idea = BUL_varna_naval_dockyard_improved
+# 			}
+# 		}
+# 	}
+# 	else = {
+# 		custom_effect_tooltip = BUL_replace_national_naval_designer_tt
+# 	}
+# }
 
-BUL_replace_national_aircraft_designer = {
-	if = {
-		limit = {
-			has_idea = BUL_dar
-		}
-		swap_ideas = {
-			remove_idea = BUL_dar
-			add_idea = BUL_dar_improved
-		}
-	}
-	if = {
-		limit = {
-			has_idea = BUL_kaproni_bulgarski
-		}
-		swap_ideas = {
-			remove_idea = BUL_kaproni_bulgarski
-			add_idea = BUL_kaproni_bulgarski_improved
-		}
-	}
-	if = {
-		limit = {
-			has_idea = BUL_dvf
-		}
-		swap_ideas = {
-			remove_idea = BUL_dvf
-			add_idea = BUL_dvf_improved
-		}
-	}
-	if = {
-		limit = {
-			has_idea = BUL_dvf_sopot
-		}
-		swap_ideas = {
-			remove_idea = BUL_dvf_sopot
-			add_idea = BUL_dvf_sopot_improved
-		}
-	}
-}
+# BUL_replace_national_aircraft_designer = {
+# 	if = {
+# 		limit = {
+# 			#has_idea = BUL_dar
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_dar
+# 			add_idea = BUL_dar_improved
+# 		}
+# 	}
+# 	if = {
+# 		limit = {
+# 			#has_idea = BUL_kaproni_bulgarski
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_kaproni_bulgarski
+# 			add_idea = BUL_kaproni_bulgarski_improved
+# 		}
+# 	}
+# 	if = {
+# 		limit = {
+# 			#has_idea = BUL_dvf
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_dvf
+# 			add_idea = BUL_dvf_improved
+# 		}
+# 	}
+# 	if = {
+# 		limit = {
+# 			#has_idea = BUL_dvf_sopot
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_dvf_sopot
+# 			add_idea = BUL_dvf_sopot_improved
+# 		}
+# 	}
+# }
 
 BUL_set_buz_faction_values = {
 	set_country_flag = BUL_factions_unlocked_flag
@@ -1619,337 +1620,337 @@ BUL_set_buz_faction_values = {
 }
 
 #Adds hidden NS granting attack & defense bonuses against the appropriate country (FROM - scope comes from "The Anti-Capitalist Fight" or "Toppling Giants" Focus)
-BUL_add_hidden_targeted_ns = {
-	if = {
-		limit = {
-			original_tag = GBR
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_eng
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = FRA
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_fra
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = DEU
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_ger
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = ITA
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_ita
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = SOV
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_sov
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = PRT
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_por
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = ESP
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_spr
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = IRE
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_ire
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = HOL
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_hol
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = BEL
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_bel
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = LUX
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_lux
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = SWI
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_swi
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = AUS
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_aus
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = CZE
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_cze
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = HUN
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_hun
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = MYS
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_yug
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = ALB
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_alb
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = GRC
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_gre
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = TUR
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_tur
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = ROM
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_rom
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = POL
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_pol
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = EST
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_est
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = LAT
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_lat
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = LIT
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_lit
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = SWE
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_swe
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = FIN
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_fin
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = NOR
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_nor
-		}
-	}
-	else_if = {
-		limit = {
-			original_tag = DEN
-		}
-		ROOT = {
-			add_ideas = BUL_anti_capitalism_den
-		}
-	}
-}
+# BUL_add_hidden_targeted_ns = {
+# 	if = {
+# 		limit = {
+# 			original_tag = GBR
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_eng
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = FRA
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_fra
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = DEU
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_ger
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = ITA
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_ita
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = SOV
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_sov
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = PRT
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_por
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = ESP
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_spr
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = IRE
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_ire
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = HOL
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_hol
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = BEL
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_bel
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = LUX
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_lux
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = SWI
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_swi
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = AUS
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_aus
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = CZE
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_cze
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = HUN
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_hun
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = MYS
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_yug
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = ALB
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_alb
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = GRC
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_gre
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = TUR
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_tur
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = ROM
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_rom
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = POL
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_pol
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = EST
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_est
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = LAT
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_lat
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = LIT
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_lit
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = SWE
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_swe
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = FIN
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_fin
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = NOR
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_nor
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			original_tag = DEN
+# 		}
+# 		ROOT = {
+# 			add_ideas = BUL_anti_capitalism_den
+# 		}
+# 	}
+# }
 
-BUL_add_improved_prussia_of_the_balkans_ns = {
-	if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_01
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_01
-			add_idea = BUL_prussia_of_the_balkans_02
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_02
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_02
-			add_idea = BUL_prussia_of_the_balkans_03
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_03
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_03
-			add_idea = BUL_prussia_of_the_balkans_04
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_weakened_01
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_weakened_01
-			add_idea = BUL_prussia_of_the_balkans_01
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_weakened_02
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_weakened_02
-			add_idea = BUL_prussia_of_the_balkans_weakened_01
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_weakened_03
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_weakened_03
-			add_idea = BUL_prussia_of_the_balkans_02
-		}
-	}
-}
+# BUL_add_improved_prussia_of_the_balkans_ns = {
+# 	if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_01
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_01
+# 			add_idea = BUL_prussia_of_the_balkans_02
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_02
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_02
+# 			add_idea = BUL_prussia_of_the_balkans_03
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_03
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_03
+# 			add_idea = BUL_prussia_of_the_balkans_04
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_weakened_01
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_weakened_01
+# 			add_idea = BUL_prussia_of_the_balkans_01
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_weakened_02
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_weakened_02
+# 			add_idea = BUL_prussia_of_the_balkans_weakened_01
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_weakened_03
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_weakened_03
+# 			add_idea = BUL_prussia_of_the_balkans_02
+# 		}
+# 	}
+# }
 
-BUL_add_weakened_prussia_of_the_balkans_ns = {
-	if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_01
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_01
-			add_idea = BUL_prussia_of_the_balkans_weakened_01
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_02
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_02
-			add_idea = BUL_prussia_of_the_balkans_01
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_03
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_03
-			add_idea = BUL_prussia_of_the_balkans_02
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_weakened_01
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_weakened_01
-			add_idea = BUL_prussia_of_the_balkans_weakened_02
-		}
-	}
-	else_if = {
-		limit = {
-			has_idea = BUL_prussia_of_the_balkans_weakened_02
-		}
-		swap_ideas = {
-			remove_idea = BUL_prussia_of_the_balkans_weakened_02
-			add_idea = BUL_prussia_of_the_balkans_weakened_03
-		}
-	}
-}
+# BUL_add_weakened_prussia_of_the_balkans_ns = {
+# 	if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_01
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_01
+# 			add_idea = BUL_prussia_of_the_balkans_weakened_01
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_02
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_02
+# 			add_idea = BUL_prussia_of_the_balkans_01
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_03
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_03
+# 			add_idea = BUL_prussia_of_the_balkans_02
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_weakened_01
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_weakened_01
+# 			add_idea = BUL_prussia_of_the_balkans_weakened_02
+# 		}
+# 	}
+# 	else_if = {
+# 		limit = {
+# 			#has_idea = BUL_prussia_of_the_balkans_weakened_02
+# 		}
+# 		swap_ideas = {
+# 			remove_idea = BUL_prussia_of_the_balkans_weakened_02
+# 			add_idea = BUL_prussia_of_the_balkans_weakened_03
+# 		}
+# 	}
+# }
 
 BUL_tsar_boris_may_die_effect = {
 	set_variable = { BUL_tsar_boris_death_probability = -100 } #Boris may die only if this variable becomes greater than 0 during this check
@@ -2048,7 +2049,7 @@ BUL_tsar_boris_may_die_effect = {
 				compare = greater_than_or_equals 
 			}
 		}
-		country_event = { id = bftb_bulgaria_tsar_boris.2 days = 15 random_days = 13 }
+		# country_event = { id = bftb_bulgaria_tsar_boris.2 days = 15 random_days = 13 }
 	}
 
 	add_to_variable = { BUL_tsar_boris_death_monthly_probability_factor = 5 } #Increase 5% each month.

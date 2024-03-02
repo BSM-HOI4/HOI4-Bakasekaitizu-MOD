@@ -1631,14 +1631,14 @@ ETH_get_ships_from_country = {
 				}
 			}
 		}
-		ELSE = {
-			ROOT = {
-				create_ship = {
-					type = destroyer_1
-					creator = "GBR"
-				}
-			}
-		}
+		# ELSE = {
+		# 	ROOT = {
+		# 		create_ship = {
+		# 			type = destroyer_1
+		# 			creator = "GBR"
+		# 		}
+		# 	}
+		# }
 		GBR = {
 			set_country_flag = sold_ships_to_us@ROOT
 		}
@@ -1898,37 +1898,37 @@ ETH_get_ships_from_country = {
 	}
 }
 
-ETH_transfer_promised_states = {
-	for_each_scope_loop = {
-		array = ETH.ETH_promised_states_array
-		IF = {
-			limit = {
-				owner = {
-					tag = ETH
-				}
-			}
-			remove_dynamic_modifier = {
-				modifier = ETH_arranged_expansion_modifier
-			}
-		}
-		# If states are taken by e.g. host nation in the peace conference, transfer them to Ethiopia (to deal with cases where they come frmom a country that Ethiopia is not at war with)
-		ELSE_IF = {
-			limit = {
-				owner = {
-					OR = {
-						is_in_faction_with = ETH
-						check_variable = {
-							ETH.host_nation = THIS
-						}
-					}
-				}
-			}
-			ETH = {
-				transfer_state = PREV
-			}
-			remove_dynamic_modifier = {
-				modifier = ETH_arranged_expansion_modifier
-			}
-		}
-	}
-}
+# ETH_transfer_promised_states = {
+# 	for_each_scope_loop = {
+# 		array = ETH.ETH_promised_states_array
+# 		IF = {
+# 			limit = {
+# 				owner = {
+# 					tag = ETH
+# 				}
+# 			}
+# 			remove_dynamic_modifier = {
+# 				modifier = ETH_arranged_expansion_modifier
+# 			}
+# 		}
+# 		# If states are taken by e.g. host nation in the peace conference, transfer them to Ethiopia (to deal with cases where they come frmom a country that Ethiopia is not at war with)
+# 		ELSE_IF = {
+# 			limit = {
+# 				owner = {
+# 					OR = {
+# 						is_in_faction_with = ETH
+# 						check_variable = {
+# 							ETH.host_nation = THIS
+# 						}
+# 					}
+# 				}
+# 			}
+# 			ETH = {
+# 				transfer_state = PREV
+# 			}
+# 			remove_dynamic_modifier = {
+# 				modifier = ETH_arranged_expansion_modifier
+# 			}
+# 		}
+# 	}
+# }
