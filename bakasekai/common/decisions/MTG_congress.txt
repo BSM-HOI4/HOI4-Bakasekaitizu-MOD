@@ -1,253 +1,3 @@
-<<<<<<< HEAD
-USA_congress = {
-	USA_small_lobby_effort = {
-		icon = generic_political_discourse
-		available = {
-			OR = {
-				check_variable = { senators_support < senators_total }
-				check_variable = { representatives_support < representatives_total }
-			}
-			not = {
-				has_decision = USA_medium_lobby_effort
-			}
-			OR = {
-				political_power_daily > 0.3
-				has_political_power > 10
-			}
-		}
-		cost = 0
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				congress_medium_support_trigger = yes
-				factor = 0.5
-			}
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0.5
-			}
-			modifier = {
-				congress_high_support_trigger = yes
-				factor = 0
-			}
-		}
-		modifier = {
-			political_power_gain = -0.3
-		}
-		days_remove = 30
-		remove_effect = {
-			USA_congress_small_support = yes
-		}
-	}
-	USA_medium_lobby_effort = {
-		icon = generic_political_discourse
-		available = {
-			OR = {
-				check_variable = { senators_support < senators_total }
-				check_variable = { representatives_support < representatives_total }
-			}
-			not = {
-				has_decision = USA_small_lobby_effort
-			}
-			OR = {
-				political_power_daily > 0.75
-				has_political_power > 35
-			}
-		}
-		cost = 0
-		ai_will_do = {
-			factor = 10
-			modifier = {
-				congress_medium_support_trigger = yes
-				factor = 0.5
-			}
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0.5
-			}
-			modifier = {
-				congress_high_support_trigger = yes
-				factor = 0
-			}
-		}
-		days_remove = 45
-		modifier = {
-			political_power_gain = -0.75
-		}
-		remove_effect = {
-			USA_congress_medium_support = yes
-		}
-	}
-	USA_special_measures = {
-		icon = ger_mefo_bills
-		available = {
-			OR = {
-				check_variable = { senators_support < senators_total }
-				check_variable = { representatives_support < representatives_total }
-			}
-		}
-		cost = 50
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0
-			}
-		}
-		days_re_enable = 90
-		complete_effect = {
-			USA_congress_small_support = yes
-		}
-	}
-	USA_use_huac = {
-		icon = oppression
-		available = {
-			has_idea = USA_joseph_mccarthy
-			OR = {
-				check_variable = { senators_support < senators_total }
-				check_variable = { representatives_support < representatives_total }
-			}
-		}
-		visible = {
-			has_completed_focus = USA_empower_the_huac
-		}
-		cost = 10
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0
-			}
-		}
-		days_re_enable = 90
-		complete_effect = {
-			USA_congress_small_support = yes
-			add_stability = -0.05
-		}
-	}
-	USA_beat_up_opposition = {
-		icon = oppression
-		available = {
-			has_government = democratic_ideology
-		}
-		visible = { has_completed_focus = USA_ally_with_the_silver_shirts }
-		cost = 10
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0
-			}
-		}
-		days_re_enable = 90
-		complete_effect = {
-			add_stability = -0.1
-			USA_congress_small_support = yes
-			add_popularity = { ideology = fascism_ideology popularity = 0.02 }
-		}
-	}
-	USA_pay_farm_subsidies = {
-		icon = ger_mefo_bills
-		available = {
-			has_government = democratic_ideology
-			OR = {
-				check_variable = { senators_support < senators_total }
-				check_variable = { representatives_support < representatives_total }
-			}
-		}
-		visible = { has_completed_focus = USA_agricultural_adjustment_act }
-		cost = 0
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0
-			}
-		}
-		days_remove = 90
-		modifier = { consumer_goods_factor = 0.03 }
-		remove_effect = {
-			USA_congress_small_support = yes
-		}
-	}
-	USA_give_tax_break = {
-		icon = ger_mefo_bills
-		available = {
-			has_government = democratic_ideology
-			OR = {
-				check_variable = { senators_support < senators_total }
-				check_variable = { representatives_support < representatives_total }
-			}
-		}
-		visible = { has_completed_focus = USA_income_tax_reform }
-		cost = 0
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0
-			}
-		}
-		days_remove = 90
-		modifier = { consumer_goods_factor = 0.03 }
-		remove_effect = {
-			USA_congress_small_support = yes
-		}
-	}
-	USA_amend_the_budget = {
-		icon = ger_mefo_bills
-		available = {
-			congress_medium_support_trigger = yes
-		}
-		visible = {has_government = democratic_ideology }
-		cost = 25
-		days_remove = 90
-		days_re_enable = 275
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0
-			}
-		}
-		modifier = { consumer_goods_factor = -0.05 }
-		remove_effect = {
-			USA_congress_medium_opposition = yes
-		}
-	}
-	USA_research_grants = {
-		icon = ger_mefo_bills
-		available = {
-			congress_medium_support_trigger = yes
-		}
-		visible = {has_government = democratic_ideology }
-		cost = 25
-		days_remove = 90
-		days_re_enable = 275
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0
-			}
-		}
-		modifier = { research_speed_factor = 0.08 }
-		remove_effect = {
-			USA_congress_medium_opposition = yes
-		}
-	}
-	USA_invest_in_state_factory = {
-		icon = generic_construction
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = USA_congress_invest_in_state_factory_tt
-				any_owned_state = {
-					has_state_flag = USA_congress_build_factory
-					check_variable = { factory_goal = industrial_complex_level }
-				}
-			}
-		}
-=======
 # USA_congress = {
 # 	USA_small_lobby_effort = {
 # 		icon = generic_political_discourse
@@ -377,7 +127,7 @@ USA_congress = {
 # 	USA_beat_up_opposition = {
 # 		icon = oppression
 # 		available = {
-# 			has_government = democratic
+# 			has_government = democratic_ideology
 # 		}
 # 		visible = { has_completed_focus = USA_ally_with_the_silver_shirts }
 # 		cost = 10
@@ -392,13 +142,13 @@ USA_congress = {
 # 		complete_effect = {
 # 			add_stability = -0.1
 # 			USA_congress_small_support = yes
-# 			add_popularity = { ideology = fascism popularity = 0.02 }
+# 			add_popularity = { ideology = fascism_ideology popularity = 0.02 }
 # 		}
 # 	}
 # 	USA_pay_farm_subsidies = {
 # 		icon = ger_mefo_bills
 # 		available = {
-# 			has_government = democratic
+# 			has_government = democratic_ideology
 # 			OR = {
 # 				check_variable = { senators_support < senators_total }
 # 				check_variable = { representatives_support < representatives_total }
@@ -422,7 +172,7 @@ USA_congress = {
 # 	USA_give_tax_break = {
 # 		icon = ger_mefo_bills
 # 		available = {
-# 			has_government = democratic
+# 			has_government = democratic_ideology
 # 			OR = {
 # 				check_variable = { senators_support < senators_total }
 # 				check_variable = { representatives_support < representatives_total }
@@ -448,7 +198,7 @@ USA_congress = {
 # 		available = {
 # 			congress_medium_support_trigger = yes
 # 		}
-# 		visible = {has_government = democratic }
+# 		visible = {has_government = democratic_ideology }
 # 		cost = 25
 # 		days_remove = 90
 # 		days_re_enable = 275
@@ -469,7 +219,7 @@ USA_congress = {
 # 		available = {
 # 			congress_medium_support_trigger = yes
 # 		}
-# 		visible = {has_government = democratic }
+# 		visible = {has_government = democratic_ideology }
 # 		cost = 25
 # 		days_remove = 90
 # 		days_re_enable = 275
@@ -496,7 +246,6 @@ USA_congress = {
 # 				}
 # 			}
 # 		}
->>>>>>> fix/bugfix
 
 # 		highlight_states = {
 # 			highlight_states_trigger = {

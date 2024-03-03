@@ -306,24 +306,6 @@
 # 			has_active_mission = POL_sanation_left_irritation
 # 		}
 
-<<<<<<< HEAD
-		cost = 100
-		fire_only_once = no
-		days_remove = 60
-		ai_will_do = {
-			factor = 2
-		}
-		modifier = {
-			political_power_gain = -0.05
-			neutrality_ideology_drift = 0.1
-		}
-		complete_effect = {
-			POL_sanation_left_opposition_down = yes
-			POL_sanation_right_opposition_up = yes
-		}
-	}
-	POL_sideline_the_right = {
-=======
 # 		cost = 100
 # 		fire_only_once = no
 # 		days_remove = 60
@@ -332,7 +314,7 @@
 # 		}
 # 		modifier = {
 # 			political_power_gain = -0.05
-# 			neutrality_drift = 0.1
+# 			neutrality_ideology_drift = 0.1
 # 		}
 # 		complete_effect = {
 # 			POL_sanation_left_opposition_down = yes
@@ -340,7 +322,6 @@
 # 		}
 # 	}
 # 	POL_sideline_the_right = {
->>>>>>> fix/bugfix
 
 # 		icon = infiltrate_state
 
@@ -355,24 +336,6 @@
 # 			has_active_mission = POL_sanation_right_irritation
 # 		}
 
-<<<<<<< HEAD
-		cost = 100
-		fire_only_once = no
-		days_remove = 60
-		ai_will_do = {
-			factor = 2
-		}
-		modifier = {
-			political_power_gain = -0.05
-			neutrality_ideology_drift = 0.1
-		}
-		complete_effect = {
-			POL_sanation_left_opposition_up = yes
-			POL_sanation_right_opposition_down = yes
-		}
-	}
-}
-=======
 # 		cost = 100
 # 		fire_only_once = no
 # 		days_remove = 60
@@ -381,7 +344,7 @@
 # 		}
 # 		modifier = {
 # 			political_power_gain = -0.05
-# 			neutrality_drift = 0.1
+# 			neutrality_ideology_drift = 0.1
 # 		}
 # 		complete_effect = {
 # 			POL_sanation_left_opposition_up = yes
@@ -389,7 +352,6 @@
 # 		}
 # 	}
 # }
->>>>>>> fix/bugfix
 
 # POL_peasant_strike_category = {
 # 	POL_looming_peasants_strike_mission = {
@@ -468,184 +430,6 @@
 		
 # 		}
 
-<<<<<<< HEAD
-		timeout_effect = {
-			if = {
-				limit = {
-					NOT = { has_completed_focus = POL_organize_the_peasants_strike }
-				}
-				if = { #If Krakow is the capital, then start in Warsaw
-					limit = {
-						capital_scope = {
-							state = 88
-						}
-					}
-					start_civil_war = {
-						ideology = democratic_ideology
-						size = 0.6
-						capital = 10
-						states = { 
-							10 92 91 93 94 89 #One state less but that's probably better than having Vilnius completely encircled by peasants (as Habsburg Poland)
-						}
-					}
-				}
-				else = { #Regular CW starting in Krakow
-					start_civil_war = {
-						ideology = democratic_ideology
-						size = 0.6
-						capital = 88
-						states = { 
-							88 89 91 93 94 95 96
-						}
-					}
-				}
-				
-				hidden_effect = {
-					random_other_country = {
-						limit = {
-							original_tag = ROOT
-							NOT = { tag = ROOT }
-							has_government = democratic_ideology
-						}
-						promote_character = POL_stanislaw_mikolajczyk
-						set_cosmetic_tag = POL_PEASANT
-						save_event_target_as = peasant_poland_target
-						set_popularities = { #The strike was mostly a coalition of SocDems, Socialists, and Communists
-							democratic_ideology = 65
-							communism_ideology = 35
-						}
-					}
-				}
-			}
-			#If you have Organized the Peasant Strike, you will become the leader of the strike
-			else = {
-				#Initialize variables
-				set_variable = {
-					var = total_states
-					value = 0
-				}
-				set_variable = {
-					var = peasant_states
-					value = 0
-				}
-				#Equipment size is added to the civil war size
-				set_variable = {
-					var = equipment_size_relevancy
-					value = infantry_for_civil_war_var
-				}
-				divide_variable = {
-					var = equipment_size_relevancy
-					value = 20000 #1000 becomes 0.05
-				}
-				set_variable = {
-					var = civil_war_size_var
-					value = 1
-				}
-				every_owned_state = { #Gets the total number of states Poland owns
-					owner = {
-						add_to_variable = {
-							var = total_states
-							value = 1
-						}
-					}
-				}
-				every_owned_state = { #Gets the total number of states in the Peasant Strike
-					limit = {
-						has_state_flag = POL_added_to_strike_flag
-					}
-					owner = {
-						add_to_variable = {
-							var = peasant_states
-							value = 1
-						}
-					}
-				}
-				set_variable = {
-					var = peasant_size_var
-					value = peasant_states
-				}
-				#Divides the number of peasant states by the total number of states to arrive at the civil war size ( If Poland owns 18 states, 9 peasant states means 18/9 = 0.5 )
-				divide_variable = {
-					var = peasant_size_var
-					value = total_states
-				}
-				#Equipment size is added to the civil war size. Every 1000 equipment is 0.05 civil war size
-				add_to_variable = {
-					var = peasant_size_var
-					value = equipment_size_relevancy
-				}
-				subtract_from_variable = {
-					var = civil_war_size_var
-					value = peasant_size_var
-				}
-				set_capital = { state = 88 } #Move the capital to Krakow
-				start_civil_war = {
-					ruling_party = democratic_ideology
-					ideology = ROOT
-					size = civil_war_size_var
-					capital = 10 #The old government is moved to Warsaw
-					states = all
-					states_filter = {
-						NOT = { has_state_flag = POL_added_to_strike_flag } #All non-Peasant states are added to the old government's side
-					}
-					keep_unit_leaders_trigger = {
-						has_trait = peasant_sympathiser
-						NOT = { has_trait = POL_sanation_right_leader }
-					}
-				}
-				if = { #AI needs some equipment so that it does not die miserably
-					limit = {
-						is_ai = yes
-					}
-					add_equipment_to_stockpile = {
-						type = infantry_equipment
-						amount = 4000
-						producer = POL
-					}
-				}
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = infantry_for_civil_war_var
-					producer = POL
-				}
-				set_cosmetic_tag = POL_PEASANT
-				save_event_target_as = peasant_poland_target
-				set_variable = {
-					var = pol_peasant_neutrality
-					value = 100
-				}
-				subtract_from_variable = {
-					var = pol_peasant_neutrality
-					value = pol_peasant_democracy
-				}
-				subtract_from_variable = {
-					var = pol_peasant_neutrality
-					value = pol_peasant_communism
-				}
-				set_popularities = {
-					democratic_ideology = pol_peasant_democracy
-					communism_ideology = pol_peasant_communism
-					neutrality_ideology = pol_peasant_neutrality
-				}
-				promote_character = POL_stanislaw_mikolajczyk
-				hidden_effect = {
-					random_other_country = {
-						limit = {
-							has_war_with = ROOT
-							original_tag = ROOT
-						}
-						set_cosmetic_tag = POL_SANATION #Make the other side of the civil war less generic
-					}
-					division_template = { 
-						name = "Peasant Militia"
-						division_names_group = POL_INF_01
-						is_locked = yes
-						regiments = { 
-							infantry = { x = 0 y = 0 }
-							infantry = { x = 1 y = 0 }
-							infantry = { x = 2 y = 0 }
-							infantry = { x = 3 y = 0 }
-=======
 # 		timeout_effect = {
 # 			if = {
 # 				limit = {
@@ -658,7 +442,7 @@
 # 						}
 # 					}
 # 					start_civil_war = {
-# 						ideology = democratic
+# 						ideology = democratic_ideology
 # 						size = 0.6
 # 						capital = 10
 # 						states = { 
@@ -668,7 +452,7 @@
 # 				}
 # 				else = { #Regular CW starting in Krakow
 # 					start_civil_war = {
-# 						ideology = democratic
+# 						ideology = democratic_ideology
 # 						size = 0.6
 # 						capital = 88
 # 						states = { 
@@ -682,14 +466,14 @@
 # 						limit = {
 # 							original_tag = ROOT
 # 							NOT = { tag = ROOT }
-# 							has_government = democratic
+# 							has_government = democratic_ideology
 # 						}
 # 						promote_character = POL_stanislaw_mikolajczyk
 # 						set_cosmetic_tag = POL_PEASANT
 # 						save_event_target_as = peasant_poland_target
 # 						set_popularities = { #The strike was mostly a coalition of SocDems, Socialists, and Communists
-# 							democratic = 65
-# 							communism = 35
+# 							democratic_ideology = 65
+# 							communism_ideology = 35
 # 						}
 # 					}
 # 				}
@@ -757,7 +541,7 @@
 # 				}
 # 				set_capital = { state = 88 } #Move the capital to Krakow
 # 				start_civil_war = {
-# 					ruling_party = democratic
+# 					ruling_party = democratic_ideology
 # 					ideology = ROOT
 # 					size = civil_war_size_var
 # 					capital = 10 #The old government is moved to Warsaw
@@ -800,9 +584,9 @@
 # 					value = pol_peasant_communism
 # 				}
 # 				set_popularities = {
-# 					democratic = pol_peasant_democracy
-# 					communism = pol_peasant_communism
-# 					neutrality = pol_peasant_neutrality
+# 					democratic_ideology = pol_peasant_democracy
+# 					communism_ideology = pol_peasant_communism
+# 					neutrality_ideology = pol_peasant_neutrality
 # 				}
 # 				promote_character = POL_stanislaw_mikolajczyk
 # 				hidden_effect = {
@@ -822,7 +606,6 @@
 # 							infantry = { x = 1 y = 0 }
 # 							infantry = { x = 2 y = 0 }
 # 							infantry = { x = 3 y = 0 }
->>>>>>> fix/bugfix
 
 # 							infantry = { x = 0 y = 1 }
 # 							infantry = { x = 1 y = 1 }
@@ -2539,49 +2322,27 @@
 
 # 		activation = { has_completed_focus = POL_anti_capitalist_revolution }
 		
-<<<<<<< HEAD
-		target_trigger = {
-			FROM = {
-				is_major = yes
-				has_government = democratic_ideology
-			}
-		}
-=======
 # 		target_trigger = {
 # 			FROM = {
 # 				is_major = yes
-# 				has_government = democratic
+# 				has_government = democratic_ideology
 # 			}
 # 		}
->>>>>>> fix/bugfix
 
 # 		visible = {
 			
 # 		}
 
-<<<<<<< HEAD
-		cancel_trigger = {
-			FROM = {
-				OR = {
-					is_major = no
-					has_government = communism_ideology
-					has_government = fascism_ideology
-					has_government = neutrality_ideology
-				}
-			}
-		}
-=======
 # 		cancel_trigger = {
 # 			FROM = {
 # 				OR = {
 # 					is_major = no
-# 					has_government = communism
-# 					has_government = fascism
-# 					has_government = neutrality
+# 					has_government = communism_ideology
+# 					has_government = fascism_ideology
+# 					has_government = neutrality_ideology
 # 				}
 # 			}
 # 		}
->>>>>>> fix/bugfix
 
 # 		fire_only_once = no
 # 		days_remove = -1
@@ -2616,45 +2377,25 @@
 
 # 		activation = { has_completed_focus = POL_anti_fascist_military }
 		
-<<<<<<< HEAD
-		target_trigger = {
-			FROM = {
-				is_major = yes
-				has_government = fascism_ideology
-			}
-		}
-=======
 # 		target_trigger = {
 # 			FROM = {
 # 				is_major = yes
-# 				has_government = fascism
+# 				has_government = fascism_ideology
 # 			}
 # 		}
->>>>>>> fix/bugfix
 
 # 		visible = {
 			
 # 		}
 
-<<<<<<< HEAD
-		cancel_trigger = {
-			FROM = {
-				OR = {
-					is_major = no
-					NOT = { has_government = fascism_ideology }
-				}
-			}
-		}
-=======
 # 		cancel_trigger = {
 # 			FROM = {
 # 				OR = {
 # 					is_major = no
-# 					NOT = { has_government = fascism }
+# 					NOT = { has_government = fascism_ideology }
 # 				}
 # 			}
 # 		}
->>>>>>> fix/bugfix
 
 # 		fire_only_once = no
 # 		days_remove = -1
@@ -3573,32 +3314,19 @@
 # 		}
 		
 		
-<<<<<<< HEAD
-		visible = {
-			NOT = { has_government = fascism_ideology }
-		}
-=======
 # 		visible = {
-# 			NOT = { has_government = fascism }
+# 			NOT = { has_government = fascism_ideology }
 # 		}
->>>>>>> fix/bugfix
 		
 # 		fire_only_once = no
 
 # 		cost = 50
 # 		days_remove = 70
 		
-<<<<<<< HEAD
-		modifier = {
-			fascism_ideology_drift = 0.1
-			stability_weekly = -0.02
-		}
-=======
 # 		modifier = {
-# 			fascism_drift = 0.1
+# 			fascism_ideology_drift = 0.1
 # 			stability_weekly = -0.02
 # 		}
->>>>>>> fix/bugfix
 		
 # 		complete_effect = {
 			
@@ -3623,32 +3351,19 @@
 # 		}
 		
 		
-<<<<<<< HEAD
-		visible = {
-			NOT = { has_government = fascism_ideology }
-		}
-=======
 # 		visible = {
-# 			NOT = { has_government = fascism }
+# 			NOT = { has_government = fascism_ideology }
 # 		}
->>>>>>> fix/bugfix
 		
 # 		fire_only_once = no
 
 # 		cost = 50
 # 		days_remove = 70
 		
-<<<<<<< HEAD
-		modifier = {
-			fascism_ideology_drift = 0.1
-			political_power_factor = -0.5
-		}
-=======
 # 		modifier = {
-# 			fascism_drift = 0.1
+# 			fascism_ideology_drift = 0.1
 # 			political_power_factor = -0.5
 # 		}
->>>>>>> fix/bugfix
 		
 # 		complete_effect = {
 			
@@ -3670,43 +3385,6 @@
 
 # 		state_target = yes
 
-<<<<<<< HEAD
-		available = {
-		}
-		target_trigger = {
-			FROM = {
-				owner = {
-					OR = {
-						AND = {
-							OR = {
-								original_tag = HOL
-								original_tag = BEL
-								original_tag = LUX
-							}
-							ROOT = { NOT = { has_completed_focus = POL_invite_the_lowlands } }
-						}
-						AND = {
-							is_latin_american_country = yes
-							NOT = {
-								original_tag = MEX
-								original_tag = BRA
-								original_tag = ARG
-								original_tag = COL
-								original_tag = VEN
-								original_tag = PRU
-							}
-							ROOT = { NOT = { has_completed_focus = POL_support_falangists_in_the_americas } }
-						}
-					}
-					NOT = { has_government = fascism_ideology }
-					NOT = { has_country_flag = banned_fascism_flag }
-				}
-				is_capital = yes
-			}
-		}
-		visible = {
-		}
-=======
 # 		available = {
 # 		}
 # 		target_trigger = {
@@ -3734,7 +3412,7 @@
 # 							ROOT = { NOT = { has_completed_focus = POL_support_falangists_in_the_americas } }
 # 						}
 # 					}
-# 					NOT = { has_government = fascism }
+# 					NOT = { has_government = fascism_ideology }
 # 					NOT = { has_country_flag = banned_fascism_flag }
 # 				}
 # 				is_capital = yes
@@ -3742,7 +3420,6 @@
 # 		}
 # 		visible = {
 # 		}
->>>>>>> fix/bugfix
 
 # 		fire_only_once = no
 # 		cost = 50
@@ -3774,30 +3451,6 @@
 
 # 		state_target = yes
 
-<<<<<<< HEAD
-		available = {
-		}
-		target_trigger = {
-			FROM = {
-				owner = {
-					OR = {
-						original_tag = MEX
-						original_tag = BRA
-						original_tag = ARG
-						original_tag = COL
-						original_tag = VEN
-						original_tag = PRU
-					}
-					ROOT = { NOT = { has_completed_focus = POL_support_falangists_in_the_americas } }
-					NOT = { has_government = fascism_ideology }
-					NOT = { has_country_flag = banned_fascism_flag }
-				}
-				is_capital = yes
-			}
-		}
-		visible = {
-		}
-=======
 # 		available = {
 # 		}
 # 		target_trigger = {
@@ -3812,7 +3465,7 @@
 # 						original_tag = PRU
 # 					}
 # 					ROOT = { NOT = { has_completed_focus = POL_support_falangists_in_the_americas } }
-# 					NOT = { has_government = fascism }
+# 					NOT = { has_government = fascism_ideology }
 # 					NOT = { has_country_flag = banned_fascism_flag }
 # 				}
 # 				is_capital = yes
@@ -3820,7 +3473,6 @@
 # 		}
 # 		visible = {
 # 		}
->>>>>>> fix/bugfix
 
 # 		fire_only_once = no
 # 		cost = 100

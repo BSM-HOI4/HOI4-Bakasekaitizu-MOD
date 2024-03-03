@@ -63,49 +63,6 @@
 # 	}
 # }
 
-<<<<<<< HEAD
-democratic_on_the_rise = {
-	ETH_coup_haile_selassie_imru = {
-		allowed = {
-			tag = ETH
-		}
-		icon = GFX_decision_generic_prepare_civil_war
-		available = {
-			democratic_ideology > 0.35
-			ETH_haile_selassie = {
-				has_trait = imperator_absentis
-			}
-			has_idea = ETH_prince_regent_idea
-		}
-		fire_only_once = yes
-		cost = 100
-		visible = {
-			ETH_haile_selassie = {
-				has_trait = imperator_absentis
-			}
-			democratic_ideology > 0.3
-			has_idea = ETH_prince_regent_idea
-		}
-		cancel_effect = {
-		}
-		complete_effect = {
-			custom_effect_tooltip = ETH_palace_coup_tt
-			hidden_effect = {
-				ETH_ras_imru_haile_selassie = {
-					unit_leader_event = {
-						id = BBA_ethiopia_imperial_events.20
-						hours = 2
-						random_hours = 4
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 10
-		}
-	}
-}
-=======
 # democratic_on_the_rise = {
 # 	ETH_coup_haile_selassie_imru = {
 # 		allowed = {
@@ -113,7 +70,7 @@ democratic_on_the_rise = {
 # 		}
 # 		icon = GFX_decision_generic_prepare_civil_war
 # 		available = {
-# 			democratic > 0.35
+# 			democratic_ideology > 0.35
 # 			ETH_haile_selassie = {
 # 				has_trait = imperator_absentis
 # 			}
@@ -125,7 +82,7 @@ democratic_on_the_rise = {
 # 			ETH_haile_selassie = {
 # 				has_trait = imperator_absentis
 # 			}
-# 			democratic > 0.3
+# 			democratic_ideology > 0.3
 # 			has_idea = ETH_prince_regent_idea
 # 		}
 # 		cancel_effect = {
@@ -147,7 +104,6 @@ democratic_on_the_rise = {
 # 		}
 # 	}
 # }
->>>>>>> fix/bugfix
 
 # governments_in_exile = {
 # 	# Formal Request 
@@ -1790,365 +1746,6 @@ democratic_on_the_rise = {
 # 	}
 # }
 
-<<<<<<< HEAD
-ETH_anti_colonialism_category = {
-	ETH_support_resistance_decision = {
-		icon = GFX_decision_generic_nationalism
-		#target_trigger = {
-		#	FROM = { is_east_african_colony_state = yes }
-		#}
-		target_array = ETH.african_colonial_states_array
-		target_root_trigger = {
-			original_tag = ETH
-		}
-		state_target = yes
-		on_map_mode = map_only
-		fire_only_once = yes
-		available = {
-			NOT = {
-				has_country_flag = ETH_resistance_support_progress_flag
-			}
-			NOT = {
-				FROM.owner = {
-					is_in_faction_with = ROOT
-				}
-			}
-		}
-		visible = {
-			FROM = {
-				NOT = {
-					has_dynamic_modifier = {
-						modifier = ETH_state_supporting_resistance_modifier
-						scope = THIS.owner
-					}
-				}
-			}
-			FROM = {
-				NOT = {
-					is_core_of = THIS.owner
-				}
-			}
-			# Hide it if no longer a colony 
-			FROM = {
-				NOT = {
-					is_owned_by = ROOT
-				}
-			}
-			# It gets kind of silly when you start supporting resistance against yourself, doesn't it
-		}
-		days_remove = 30
-		custom_cost_trigger = {
-			command_power > 24.9
-		}
-		custom_cost_text = ETH_support_resistance_decision_cost
-		modifier = {
-			industrial_capacity_factory = -0.15
-		}
-		complete_effect = {
-			set_country_flag = ETH_resistance_support_progress_flag
-		}
-		remove_effect = {
-			clr_country_flag = ETH_resistance_support_progress_flag
-			add_command_power = -25
-			FROM = {
-				add_compliance = -25
-				add_resistance = 10
-				add_dynamic_modifier = {
-					modifier = ETH_state_supporting_resistance_modifier
-					scope = THIS.owner
-					days = 365
-				}
-			}
-		}
-		ai_will_do = {
-			base = 0
-			modifier = {
-				add = 175
-				AND = {
-					has_war = no
-					command_power > 50
-				}
-			}
-			modifier = {
-				factor = 2
-				has_government = communism_ideology
-			}
-		}
-	}
-	ETH_arm_resistance_decision = {
-		icon = GFX_decision_generic_prepare_civil_war
-		target_array = ETH.african_colonial_states_array
-		target_root_trigger = {
-			original_tag = ETH
-		}
-		state_target = yes
-		on_map_mode = map_only
-		fire_only_once = yes
-		available = {
-			NOT = {
-				FROM.owner = {
-					is_in_faction_with = ROOT
-				}
-			}
-			NOT = {
-				has_country_flag = ETH_arm_resistance_flag
-			}
-		}
-		visible = {
-			FROM = {
-				has_dynamic_modifier = {
-					modifier = ETH_state_supporting_resistance_modifier
-					scope = THIS.owner
-				}
-			}
-			FROM = {
-				NOT = {
-					is_core_of = THIS.owner
-				}
-			}
-			# Hide it if no longer a colony 
-		}
-		days_remove = 7
-		custom_cost_trigger = {
-			has_equipment = {
-				infantry_equipment > 999
-			}
-		}
-		custom_cost_text = decision_cost_ie_1000
-		modifier = {
-		}
-		complete_effect = {
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = -1000
-			}
-			set_country_flag = ETH_arm_resistance_flag
-		}
-		remove_effect = {
-			clr_country_flag = ETH_arm_resistance_flag
-			FROM = {
-				add_resistance = 30
-			}
-		}
-		ai_will_do = {
-			base = 0
-			modifier = {
-				add = 200
-				AND = {
-					has_war = no
-					has_equipment = {
-						infantry_equipment > 999
-					}
-				}
-			}
-			modifier = {
-				factor = 2
-				has_government = communism_ideology
-			}
-		}
-	}
-	ETH_support_independence_decision = {
-		icon = GFX_decision_eng_propaganda_campaigns
-		target_trigger = {
-			FROM = {
-				capital_scope = {
-					is_on_continent = africa
-				}
-				is_subject = yes
-				NOT = {
-					is_subject_of = ROOT
-				}
-			}
-		}
-		target_root_trigger = {
-			original_tag = ETH
-		}
-		# on_map_mode = map_only
-		fire_only_once = no
-		available = {
-			#NOT = { has_country_flag = ETH_independence_support_progress_flag }
-			NOT = {
-				has_country_flag = {
-					flag = ETH_independence_support_progress_flag
-					value > 0
-				}
-			}
-			NOT = {
-				is_in_faction_with = FROM
-			}
-		}
-		remove_trigger = {
-			FROM = {
-				is_subject = no
-			}
-		}
-		visible = {
-		}
-		#cancel_trigger = {
-		#	FROM = { is_subject = no }
-		#}
-		#cancel_effect = {
-		#	clr_country_flag = ETH_independence_support_progress_flag
-		#}
-		days_remove = 90
-		days_re_enable = 30
-		cost = 15
-		modifier = {
-			political_power_factor = -0.25
-		}
-		complete_effect = {
-			#set_country_flag = ETH_independence_support_progress_flag
-			FROM = {
-				add_timed_idea = {
-					idea = ETH_ethiopia_supporting_independence_idea
-					days = 90
-				}
-			}
-			set_country_flag = {
-				flag = ETH_independence_support_progress_flag
-				days = 90
-				value = 1
-			}
-		}
-		remove_effect = {
-			#clr_country_flag = ETH_independence_support_progress_flag
-		}
-		ai_will_do = {
-			base = 0
-			modifier = {
-				add = 200
-				AND = {
-					has_war = no
-					has_equipment = {
-						infantry_equipment > 999
-					}
-				}
-			}
-			modifier = {
-				factor = 2
-				has_government = communism_ideology
-			}
-		}
-	}
-	ETH_anti_colonialism_decision = {
-		icon = GFX_decision_eng_propaganda_campaigns
-		target_trigger = {
-			FROM = {
-				NOT = {
-					capital_scope = {
-						is_on_continent = africa
-					}
-				}
-				any_owned_state = {
-					is_on_continent = africa
-					NOT = {
-						is_core_of = PREV
-					}
-					is_in_array = {
-						array = ETH.african_colonial_states_array
-						value = THIS
-					}
-					has_active_resistance = yes
-				}
-			}
-		}
-		target_root_trigger = {
-			original_tag = ETH
-		}
-		# on_map_mode = map_only
-		fire_only_once = yes
-		available = {
-			NOT = {
-				has_country_flag = ETH_independence_support_progress_flag
-			}
-			NOT = {
-				is_in_faction_with = FROM
-			}
-		}
-		visible = {
-		}
-		days_remove = 30
-		cost = 15
-		modifier = {
-			political_power_factor = -0.25
-		}
-		complete_effect = {
-			set_country_flag = ETH_independence_support_progress_flag
-		}
-		remove_effect = {
-			clr_country_flag = ETH_independence_support_progress_flag
-			FROM = {
-				every_owned_state = {
-					limit = {
-						is_on_continent = africa
-						is_controlled_by = PREV
-						has_active_resistance = yes
-					}
-					add_compliance = -20
-					add_resistance = 5
-				}
-			}
-		}
-		ai_will_do = {
-			base = 0
-			modifier = {
-				add = 100
-				has_war = no
-			}
-			modifier = {
-				add = 100
-				has_government = communism_ideology
-			}
-		}
-	}
-	ETH_demand_peace_decision = {
-		icon = GFX_decision_generic_civil_support
-		target_trigger = {
-			FROM = {
-				has_war = yes
-				has_country_flag = ETH_supported_this_uprising_flag
-			}
-		}
-		target_root_trigger = {
-			original_tag = ETH
-		}
-		# on_map_mode = map_only
-		fire_only_once = yes
-		available = {
-			NOT = {
-				has_country_flag = ETH_currently_demanding_peace_flag
-			}
-		}
-		visible = {
-			has_country_flag = ETH_can_intervene_flag
-		}
-		cost = 100
-		complete_effect = {
-			custom_effect_tooltip = ETH_demand_peace_decision_tt
-			set_country_flag = ETH_currently_demanding_peace_flag			# Only one at a time please
-			hidden_effect = {
-				FROM = {
-					country_event = {
-						id = BBA_ethiopia_anti_colonialism_events.1
-						hours = 1
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			base = 0
-			modifier = {
-				add = 100
-				has_war = no
-			}
-			modifier = {
-				add = 100
-				has_government = communism_ideology
-			}
-		}
-	}
-}
-=======
 # ETH_anti_colonialism_category = {
 # 	ETH_support_resistance_decision = {
 # 		icon = GFX_decision_generic_nationalism
@@ -2229,7 +1826,7 @@ ETH_anti_colonialism_category = {
 # 			}
 # 			modifier = {
 # 				factor = 2
-# 				has_government = communism
+# 				has_government = communism_ideology
 # 			}
 # 		}
 # 	}
@@ -2301,7 +1898,7 @@ ETH_anti_colonialism_category = {
 # 			}
 # 			modifier = {
 # 				factor = 2
-# 				has_government = communism
+# 				has_government = communism_ideology
 # 			}
 # 		}
 # 	}
@@ -2384,7 +1981,7 @@ ETH_anti_colonialism_category = {
 # 			}
 # 			modifier = {
 # 				factor = 2
-# 				has_government = communism
+# 				has_government = communism_ideology
 # 			}
 # 		}
 # 	}
@@ -2455,7 +2052,7 @@ ETH_anti_colonialism_category = {
 # 			}
 # 			modifier = {
 # 				add = 100
-# 				has_government = communism
+# 				has_government = communism_ideology
 # 			}
 # 		}
 # 	}
@@ -2501,12 +2098,11 @@ ETH_anti_colonialism_category = {
 # 			}
 # 			modifier = {
 # 				add = 100
-# 				has_government = communism
+# 				has_government = communism_ideology
 # 			}
 # 		}
 # 	}
 # }
->>>>>>> fix/bugfix
 
 # ETH_improve_country_category = {
 # 	ETH_electrify_state = {
@@ -3163,1026 +2759,6 @@ ETH_anti_colonialism_category = {
 # 	}
 # }
 
-<<<<<<< HEAD
-ETH_centralization_balance_of_power_category = {
-	ETH_recall_balco_safo_decision = {
-		icon = GFX_decision_generic_military
-		allowed = {
-			original_tag = ETH
-		}
-		available = {
-			NOT = {
-				has_country_flag = ETH_bop_privileges_changed
-			}
-		}
-		visible = {
-			has_global_flag = second_italo_ethiopian_war_flag
-			OR = {
-				has_government = neutrality_ideology
-				has_government = fascism_ideology
-			}
-		}
-		days_remove = 2
-		fire_only_once = yes
-		cost = 10
-		complete_effect = {
-			ETH_BOP_decentralization_small_effect = yes
-		}
-		remove_effect = {
-			show_unit_leaders_tooltip = ETH_balcho_safo
-			custom_effect_tooltip = balcho_safo_recalled_tt
-			hidden_effect = {
-				ETH_balcho_safo = {
-					unit_leader_event = {
-						id = BBA_ethiopia_balance_of_power_events.30
-						hours = 0
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			base = 250
-		}
-	}
-	ETH_bop_increase_mesafint_privileges = {
-		icon = GFX_decision_gre_investment_decisions		#TODO_TA set correct icon
-		allowed = {
-			original_tag = ETH
-		}
-		available = {
-			NOT = {
-				has_country_flag = ETH_bop_privileges_changed
-			}
-		}
-		visible = {
-			OR = {
-				has_government = neutrality_ideology
-				has_government = fascism_ideology
-			}
-		}
-		days_remove = 90
-		# days_re_enable = 120
-		fire_only_once = no
-		cost = 25
-		modifier = {
-			stability_weekly = -0.01
-			political_power_factor = -0.1
-		}
-		complete_effect = {
-			add_power_balance_modifier = {
-				id = ETH_centralization_balance
-				modifier = ETH_increase_priviliges_power_balance
-			}
-			set_country_flag = {
-				flag = ETH_bop_privileges_changed
-				days = 365
-				value = 1
-			}
-		}
-		remove_effect = {
-			remove_power_balance_modifier = {
-				id = ETH_centralization_balance
-				modifier = ETH_increase_priviliges_power_balance
-			}
-		}
-		ai_will_do = {
-			base = 0
-			# Don't do this, too risky
-		}
-	}
-	ETH_bop_increase_the_power_of_the_mekwanint = {
-		icon = GFX_decision_gre_investment_decisions		#TODO_TA set correct icon
-		allowed = {
-			original_tag = ETH
-		}
-		available = {
-			NOT = {
-				has_country_flag = ETH_bop_privileges_changed
-			}
-		}
-		visible = {
-			OR = {
-				has_government = neutrality_ideology
-				has_government = fascism_ideology
-			}
-		}
-		days_remove = 90
-		# days_re_enable = 30 
-		fire_only_once = no
-		cost = 25
-		modifier = {
-			political_power_factor = -0.1
-			stability_weekly = -0.01
-		}
-		complete_effect = {
-			add_power_balance_modifier = {
-				id = ETH_centralization_balance
-				modifier = ETH_withdraw_priviliges_power_balance
-			}
-			set_country_flag = {
-				flag = ETH_bop_privileges_changed
-				days = 365
-				value = 1
-			}
-		}
-		remove_effect = {
-			remove_power_balance_modifier = {
-				id = ETH_centralization_balance
-				modifier = ETH_withdraw_priviliges_power_balance
-			}
-		}
-		ai_will_do = {
-			base = 0
-			# Don't do this, too risky
-		}
-	}
-	# Retake lost country for Ethiopia
-	ETH_retake_territory_mission = {
-		icon = GFX_decision_generic_operation		# TODO_TA set correct icon   
-		allowed = {
-			original_tag = ETH
-		}
-		available = {
-			controls_more_than_half_ethiopian_owned_states = yes
-		}
-		activation = {
-			#num_of_controlled_states < 50%
-			check_variable = {
-				var = num_owned_controlled_states
-				value = controlled_owned_50
-				compare = less_than_or_equals
-			}
-			ETH_bop_is_mesafint_influence_or_higher = yes
-			NOT = {
-				has_idea = ETH_demoralized_ras_idea
-			}
-		}
-		visible = {
-			has_war = yes
-			hidden_trigger = {
-				is_government_in_exile = no
-			}
-		}
-		cancel_if_not_visible = yes
-		is_good = no
-		fire_only_once = no
-		selectable_mission = no
-		days_mission_timeout = 90
-		days_re_enable = 120
-		# Ethiopia fails to retake lost states 
-		timeout_effect = {
-			ETH_BOP_decentralization_small_effect = yes
-			add_war_support = -0.1
-			add_stability = -0.1
-			add_ideas = ETH_demoralized_ras_idea
-		}
-		# Ethiopia Recaptures states 
-		complete_effect = {
-			add_war_support = 0.05
-			ETH_BOP_centralization_large_effect = yes
-		}
-	}
-	ETH_Education_reform_decentralized_BoP = {
-		icon = GFX_decision_eng_trade_unions_support
-		cost = 25
-		allowed = {
-			original_tag = ETH
-		}
-		visible = {
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_anarchist_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_anarchist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_total_anarchist_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mesafint_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mesafint_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mesafint_total_control_range
-				}
-			}
-		}
-		fire_only_once = yes
-		complete_effect = {
-			country_event = {
-				id = BBA_ethiopia_balance_of_power_events.24
-				hours = 1
-			}
-			add_ideas = ETH_secular_education
-			custom_effect_tooltip = ETH_Education_reform_decentralized_BoP_tt
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	ETH_Education_reform_centralized_BoP = {
-		icon = GFX_decision_eng_trade_unions_support
-		cost = 25
-		allowed = {
-			original_tag = ETH
-		}
-		visible = {
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_total_control_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mekwanint_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mekwanint_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mekwanint_total_control_range
-				}
-			}
-		}
-		fire_only_once = yes
-		complete_effect = {
-			country_event = {
-				id = BBA_ethiopia_balance_of_power_events.23
-				hours = 1
-			}
-			add_ideas = ETH_leadership_cult_education
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	ETH_road_reform_local_BoP = {
-		icon = GFX_decision_rubber
-		allowed = {
-			original_tag = ETH
-		}
-		cost = 25
-		visible = {
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_anarchist_influence_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_anarchist_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_anarchist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_total_anarchist_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mesafint_influence_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mesafint_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mesafint_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mesafint_total_control_range
-				}
-			}
-		}
-		fire_only_once = yes
-		complete_effect = {
-			every_owned_state = {
-				limit = {
-					is_controlled_by = ROOT
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-					instant_build = yes
-				}
-			}
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	ETH_road_reform_highways_BoP = {
-		icon = GFX_decision_rubber
-		allowed = {
-			original_tag = ETH
-		}
-		cost = 25
-		visible = {
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_influence_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_total_control_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mekwanint_influence_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mekwanint_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mekwanint_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_mekwanint_total_control_range
-				}
-			}
-		}
-		fire_only_once = yes
-		complete_effect = {
-			every_owned_state = {
-				limit = {
-					is_capital = yes
-				}
-				add_building_construction = {
-					type = infrastructure
-					level = 3
-					instant_build = yes
-				}
-			}
-			custom_effect_tooltip = ETH_road_reform_highways_BoP_tt
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	ETH_officer_reforms_centralized_BoP = {
-		icon = GFX_decision_generic_army_support
-		allowed = {
-			original_tag = ETH
-		}
-		visible = {
-			has_government = communism_ideology
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_total_control_range
-				}
-			}
-		}
-		cost = 25
-		fire_only_once = yes
-		complete_effect = {
-			country_event = {
-				id = BBA_ethiopia_balance_of_power_events.25
-				days = 0
-			}
-			custom_effect_tooltip = ETH_officer_reforms_centralized_BoP_tt
-			#add_ideas = ETH_political_officers
-			add_units_to_division_template = {
-				template_name = "Red Guards"
-				support = {
-					military_police = 0
-				}
-			}
-			add_units_to_division_template = {
-				template_name = "Mehal Sefari"
-				support = {
-					military_police = 0
-				}
-			}
-			add_units_to_division_template = {
-				template_name = "Chitet Sefari"
-				support = {
-					military_police = 0
-				}
-			}
-			add_units_to_division_template = {
-				template_name = "Kebur Zabagna"
-				support = {
-					military_police = 0
-				}
-			}
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	ETH_officer_reforms_decentralized_BoP = {
-		icon = GFX_decision_generic_army_support
-		allowed = {
-			original_tag = ETH
-		}
-		visible = {
-			has_government = communism_ideology
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_anarchist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_total_anarchist_range
-				}
-			}
-		}
-		cost = 25
-		fire_only_once = yes
-		complete_effect = {
-			country_event = {
-				id = BBA_ethiopia_balance_of_power_events.26
-				days = 0
-			}
-			custom_effect_tooltip = ETH_officer_reforms_decentralized_BoP_tt
-			add_ideas = ETH_meritocratic_officers
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	ETH_BoP_purge_communists = {
-		icon = GFX_decision_SOV_secure_the_administration
-		allowed = {
-			original_tag = ETH
-		}
-		visible = {
-			has_government = communism_ideology
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_anarchist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_total_anarchist_range
-				}
-			}
-		}
-		cost = 25
-		fire_only_once = yes
-		complete_effect = {
-			custom_effect_tooltip = ETH_BoP_purge_communists_tt
-			delete_unit_template_and_units = {
-				division_template = "Red Guards"
-			}
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	ETH_BoP_expand_red_guards = {
-		icon = GFX_decision_SOV_secure_the_administration
-		allowed = {
-			original_tag = ETH
-		}
-		visible = {
-			has_government = communism_ideology
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_total_control_range
-				}
-			}
-		}
-		cost = 25
-		fire_only_once = yes
-		complete_effect = {
-			custom_effect_tooltip = ETH_BoP_expand_red_guards_tt
-			IF = {
-				limit = {
-					NOT = {
-						has_template = "Red Guards"
-					}
-				}
-				division_template = {
-					name = "Red Guards"
-					is_locked = yes
-					priority = 2
-					template_counter = 69
-					regiments = {
-						infantry = {
-							x = 0
-							y = 0
-						}
-						infantry = {
-							x = 0
-							y = 1
-						}
-						infantry = {
-							x = 0
-							y = 2
-						}
-						infantry = {
-							x = 1
-							y = 0
-						}
-						infantry = {
-							x = 1
-							y = 1
-						}
-						infantry = {
-							x = 1
-							y = 2
-						}
-					}
-				}
-			}
-			every_owned_state = {
-				limit = {
-					is_capital = yes
-				}
-				create_unit = {
-					division = "name = \"Red Guards Division\" division_template = \"Red Guards\" start_experience_factor = 0.1 start_equipment_factor = 1 start_manpower_factor = 1"
-					owner = ROOT
-				}
-				create_unit = {
-					division = "name = \"Red Guards Division\" division_template = \"Red Guards\" start_experience_factor = 0.1 start_equipment_factor = 1 start_manpower_factor = 1"
-					owner = ROOT
-				}
-			}
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	ETH_BoP_expand_black_lions = {
-		icon = GFX_decision_generic_civil_support
-		allowed = {
-			original_tag = ETH
-		}
-		visible = {
-			has_government = communism_ideology
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_anarchist_power_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_anarchist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_total_anarchist_range
-				}
-			}
-		}
-		cost = 25
-		fire_only_once = yes
-		complete_effect = {
-			custom_effect_tooltip = ETH_BoP_expand_black_lions_tt
-			IF = {
-				limit = {
-					NOT = {
-						has_template = "Black Lions"
-					}
-				}
-				division_template = {
-					name = "Black Lions"
-					is_locked = yes
-					priority = 2
-					template_counter = 60
-					regiments = {
-						infantry = {
-							x = 0
-							y = 0
-						}
-						infantry = {
-							x = 0
-							y = 1
-						}
-						infantry = {
-							x = 0
-							y = 2
-						}
-						infantry = {
-							x = 1
-							y = 0
-						}
-						infantry = {
-							x = 1
-							y = 1
-						}
-						infantry = {
-							x = 1
-							y = 2
-						}
-					}
-				}
-			}
-			every_owned_state = {
-				limit = {
-					is_capital = yes
-				}
-				create_unit = {
-					division = "name = \"Black Lions Division\" division_template = \"Black Lions\" start_experience_factor = 0.1 start_equipment_factor = 1 start_manpower_factor = 1"
-					owner = ROOT
-				}
-				create_unit = {
-					division = "name = \"Black Lions Division\" division_template = \"Black Lions\" start_experience_factor = 0.1 start_equipment_factor = 1 start_manpower_factor = 1"
-					owner = ROOT
-				}
-			}
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	ETH_BoP_purge_anarchists = {
-		icon = GFX_decision_generic_civil_support
-		allowed = {
-			original_tag = ETH
-		}
-		visible = {
-			has_government = communism_ideology
-			OR = {
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_dominant_range
-				}
-				is_power_balance_in_range = {
-					id = ETH_centralization_balance
-					range = ETH_communist_total_control_range
-				}
-			}
-		}
-		cost = 25
-		fire_only_once = yes
-		complete_effect = {
-			custom_effect_tooltip = ETH_BoP_purge_anarchists_tt
-			delete_unit_template_and_units = {
-				division_template = "Black Lions"
-			}
-			country_event = {
-				id = BBA_ethiopia_communist_events.06
-				hours = 1
-			}
-		}
-		ai_will_do = {
-			base = 100
-		}
-	}
-	# #TODO_ASD: Remove before release!
-	#ETH_BoP_debug_large_increase = {
-	#	#icon = GFX_decision_generic_army_support
-	#	allowed = { original_tag = ETH }
-	#	visible = { 
-	#			
-	#		}
-	#	cost = 0
-	#	fire_only_once = no
-	#	complete_effect = {
-	#		ETH_BOP_centralization_small_effect = yes 
-	#	}
-	#}
-	#ETH_BoP_debug_huge_increase = {
-	#	#icon = GFX_decision_generic_army_support
-	#	allowed = { original_tag = ETH }
-	#	visible = { 
-	#			
-	#		}
-	#	cost = 0
-	#	fire_only_once = no
-	#	complete_effect = {
-	#		ETH_BOP_centralization_large_effect = yes 
-	#		ETH_BOP_centralization_large_effect = yes 
-	#		ETH_BOP_centralization_large_effect = yes 
-	#	}
-	#}
-	#ETH_BoP_debug_small_decrease = {
-	#	#icon = GFX_decision_generic_army_support
-	#	allowed = { original_tag = ETH }
-	#	visible = { 
-	#			
-	#		}
-	#	cost = 0
-	#	fire_only_once = no
-	#	complete_effect = {
-	#		ETH_BOP_decentralization_small_effect = yes 
-	#	}
-	#}
-	#ETH_BoP_debug_large_decrease = {
-	#	#icon = GFX_decision_generic_army_support
-	#	allowed = { original_tag = ETH }
-	#	visible = { 
-	#			
-	#		}
-	#	cost = 0
-	#	fire_only_once = no
-	#	complete_effect = {
-	#		ETH_BOP_decentralization_large_effect = yes 
-	#	}
-	#}
-	#ETH_BoP_debug_huge_decrease = {
-	#	#icon = GFX_decision_generic_army_support
-	#	allowed = { original_tag = ETH }
-	#	visible = { 
-	#			
-	#		}
-	#	cost = 0
-	#	fire_only_once = no
-	#	complete_effect = {
-	#		ETH_BOP_decentralization_large_effect = yes 
-	#		ETH_BOP_decentralization_large_effect = yes 
-	#		ETH_BOP_decentralization_large_effect = yes 
-	#	}
-	#}
-}
-
-ETH_freedom_at_gunpoint_category = {
-	ETH_freedom_at_gunpoint_dynamic = {
-		icon = GFX_decision_generic_prepare_civil_war
-		target_array = freedom_at_gunpoint_array
-		target_root_trigger = {
-			original_tag = ETH
-		}
-		fire_only_once = no
-		target_non_existing = yes
-		allowed = {
-			original_tag = ETH
-		}
-		available = {
-			NOT = {
-				has_country_flag = ETH_has_active_liberation_goal
-			}
-		}
-		cost = 50
-		visible = {
-			FROM = {
-				exists = no
-				capital_scope = {
-					NOT = {
-						is_owned_by = ROOT
-					}
-					OWNER = {
-						NOT = {
-							is_in_faction_with = ROOT
-						}
-					}
-				}
-				NOT = {
-					is_in_array = {
-						ETH_has_liberation_goal_array = THIS
-					}
-				}
-				ROOT = {
-					NOT = {
-						has_country_flag = ETH_has_active_liberation_goal
-					}
-				}
-			}
-		}
-		days_remove = 14
-		complete_effect = {
-			hidden_effect = {
-				FROM = {
-					capital_scope = {
-						OWNER = {
-							set_variable = {
-								var_ETH_wargoal_target = THIS
-							}
-						}
-					}
-				}
-				set_country_flag = ETH_has_active_liberation_goal
-			}
-			custom_effect_tooltip = ETH_freedom_at_gunpoint_dynamic_tt
-		}
-		#war_with_on_remove = var:var_ETH_wargoal_target
-		remove_effect = {
-			hidden_effect = {
-				FROM = {
-					# Using an array here instead of a variable as I may tweak this further to allow multiple liberation decisions to be taken. 
-					add_to_array = {
-						ETH.ETH_has_liberation_goal_array = THIS
-					}
-					capital_scope = {
-						ROOT = {
-							create_wargoal = {
-								target = PREV.owner
-								type = liberate_wargoal
-								expire = 0
-							}
-						}
-					}
-				}
-			}
-		}
-		ai_will_do = {
-			base = 0
-			modifier = {
-				add = 175
-				AND = {
-					has_war = no
-					has_political_power > 100
-				}
-			}
-			modifier = {
-				factor = 2
-				has_government = communism_ideology
-			}
-		}
-	}
-	ETH_freedom_at_gunpoint_offer_peace = {
-		cost = 50
-		fire_only_once = no
-		icon = GFX_decision_generic_form_nation
-		allowed = {
-			original_tag = ETH
-		}
-		target_array = ETH_has_liberation_goal_array
-		target_root_trigger = {
-			original_tag = ETH
-		}
-		target_non_existing = yes
-		visible = {
-			FROM = {
-				capital_scope = {
-					OWNER = {
-						has_war_with = ROOT
-					}
-				}
-			}
-		}
-		days_remove = 3
-		remove_effect = {
-			custom_effect_tooltip = ETH_freedom_at_gunpoint_offer_peace_tt
-			hidden_effect = {
-				set_variable = {
-					ETH_disputed_colony = FROM
-				}
-				FROM = {
-					capital_scope = {
-						OWNER = {
-							country_event = {
-								id = BBA_ethiopia_communist_events.61
-								hours = 1
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-ETH_exploit_french_weakness_category = {
-	ETH_take_DJI = {
-		cost = 25
-		fire_only_once = yes
-		icon = GFX_decision_border_war
-		allowed = {
-			original_tag = ETH
-		}
-		visible = {
-			original_tag = ETH
-			NOT = {
-				268 = {
-					is_owned_by = ETH
-				}
-			}
-		}
-		available = {
-			268 = {
-				OWNER = {
-					any_country = {
-						original_tag = FRA
-						exists = yes
-						has_government = fascism_ideology
-					}
-					num_divisions_in_states = {
-						count = 0
-						states = {
-							268
-						}
-						types = {
-						}
-						exclude = {
-						}
-					}
-				}
-			}
-			custom_trigger_tooltip = {
-				tooltip = ETH_france_divided_tt
-				any_country = {
-					original_tag = FRA
-					exists = yes
-					has_government = fascism_ideology
-				}
-				any_country = {
-					original_tag = FRA
-					exists = yes
-					NOT = {
-						has_government = fascism_ideology
-					}
-				}
-			}
-		}
-		cancel_trigger = {
-			NOT = {
-				268 = {
-					OR = {
-						OWNER = {
-							original_tag = FRA
-							has_government = fascism_ideology
-						}
-						CONTROLLER = {
-							original_tag = FRA
-							has_government = fascism_ideology
-						}
-						OWNER = {
-							num_divisions_in_states = {
-								count = 0
-								states = {
-									268
-								}
-								types = {
-								}
-								exclude = {
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		days_remove = 5
-		remove_effect = {
-			custom_effect_tooltip = ETH_take_DJI_tt
-			custom_effect_tooltip = ETH_take_DJI_danger_tt
-			custom_effect_tooltip = ETH_take_DJI_cancel_tt
-			268 = {
-				OWNER = {
-					country_event = {
-						id = BBA_ethiopia_fascist_events.50
-						hours = 12
-					}
-				}
-				268 = {
-					set_state_owner_to = ETH
-				}
-			}
-		}
-		ai_will_do = {
-			base = 100
-			modifier = {
-				factor = 0
-				has_government = democratic_ideology
-			}
-		}
-	}
-}
-=======
 # ETH_centralization_balance_of_power_category = {
 # 	ETH_recall_balco_safo_decision = {
 # 		icon = GFX_decision_generic_military
@@ -4197,8 +2773,8 @@ ETH_exploit_french_weakness_category = {
 # 		visible = {
 # 			has_global_flag = second_italo_ethiopian_war_flag
 # 			OR = {
-# 				has_government = neutrality
-# 				has_government = fascism
+# 				has_government = neutrality_ideology
+# 				has_government = fascism_ideology
 # 			}
 # 		}
 # 		days_remove = 2
@@ -4235,8 +2811,8 @@ ETH_exploit_french_weakness_category = {
 # 		}
 # 		visible = {
 # 			OR = {
-# 				has_government = neutrality
-# 				has_government = fascism
+# 				has_government = neutrality_ideology
+# 				has_government = fascism_ideology
 # 			}
 # 		}
 # 		days_remove = 90
@@ -4281,8 +2857,8 @@ ETH_exploit_french_weakness_category = {
 # 		}
 # 		visible = {
 # 			OR = {
-# 				has_government = neutrality
-# 				has_government = fascism
+# 				has_government = neutrality_ideology
+# 				has_government = fascism_ideology
 # 			}
 # 		}
 # 		days_remove = 90
@@ -4579,7 +3155,7 @@ ETH_exploit_french_weakness_category = {
 # 			original_tag = ETH
 # 		}
 # 		visible = {
-# 			has_government = communism
+# 			has_government = communism_ideology
 # 			OR = {
 # 				is_power_balance_in_range = {
 # 					id = ETH_centralization_balance
@@ -4635,7 +3211,7 @@ ETH_exploit_french_weakness_category = {
 # 			original_tag = ETH
 # 		}
 # 		visible = {
-# 			has_government = communism
+# 			has_government = communism_ideology
 # 			OR = {
 # 				is_power_balance_in_range = {
 # 					id = ETH_centralization_balance
@@ -4667,7 +3243,7 @@ ETH_exploit_french_weakness_category = {
 # 			original_tag = ETH
 # 		}
 # 		visible = {
-# 			has_government = communism
+# 			has_government = communism_ideology
 # 			OR = {
 # 				is_power_balance_in_range = {
 # 					id = ETH_centralization_balance
@@ -4697,7 +3273,7 @@ ETH_exploit_french_weakness_category = {
 # 			original_tag = ETH
 # 		}
 # 		visible = {
-# 			has_government = communism
+# 			has_government = communism_ideology
 # 			OR = {
 # 				is_power_balance_in_range = {
 # 					id = ETH_centralization_balance
@@ -4780,7 +3356,7 @@ ETH_exploit_french_weakness_category = {
 # 			original_tag = ETH
 # 		}
 # 		visible = {
-# 			has_government = communism
+# 			has_government = communism_ideology
 # 			OR = {
 # 				is_power_balance_in_range = {
 # 					id = ETH_centralization_balance
@@ -4863,7 +3439,7 @@ ETH_exploit_french_weakness_category = {
 # 			original_tag = ETH
 # 		}
 # 		visible = {
-# 			has_government = communism
+# 			has_government = communism_ideology
 # 			OR = {
 # 				is_power_balance_in_range = {
 # 					id = ETH_centralization_balance
@@ -5048,7 +3624,7 @@ ETH_exploit_french_weakness_category = {
 # 			}
 # 			modifier = {
 # 				factor = 2
-# 				has_government = communism
+# 				has_government = communism_ideology
 # 			}
 # 		}
 # 	}
@@ -5117,7 +3693,7 @@ ETH_exploit_french_weakness_category = {
 # 					any_country = {
 # 						original_tag = FRA
 # 						exists = yes
-# 						has_government = fascism
+# 						has_government = fascism_ideology
 # 					}
 # 					num_divisions_in_states = {
 # 						count = 0
@@ -5136,13 +3712,13 @@ ETH_exploit_french_weakness_category = {
 # 				any_country = {
 # 					original_tag = FRA
 # 					exists = yes
-# 					has_government = fascism
+# 					has_government = fascism_ideology
 # 				}
 # 				any_country = {
 # 					original_tag = FRA
 # 					exists = yes
 # 					NOT = {
-# 						has_government = fascism
+# 						has_government = fascism_ideology
 # 					}
 # 				}
 # 			}
@@ -5153,11 +3729,11 @@ ETH_exploit_french_weakness_category = {
 # 					OR = {
 # 						OWNER = {
 # 							original_tag = FRA
-# 							has_government = fascism
+# 							has_government = fascism_ideology
 # 						}
 # 						CONTROLLER = {
 # 							original_tag = FRA
-# 							has_government = fascism
+# 							has_government = fascism_ideology
 # 						}
 # 						OWNER = {
 # 							num_divisions_in_states = {
@@ -5196,12 +3772,11 @@ ETH_exploit_french_weakness_category = {
 # 			base = 100
 # 			modifier = {
 # 				factor = 0
-# 				has_government = democratic
+# 				has_government = democratic_ideology
 # 			}
 # 		}
 # 	}
 # }
->>>>>>> fix/bugfix
 
 # ETH_reintegrate_former_territory_category = {
 # 	ETH_reintegrate_core = {
