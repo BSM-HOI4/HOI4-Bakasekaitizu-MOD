@@ -1,11 +1,15 @@
 on_actions = {
 	on_startup = {
 		effect = {
+			JPN = {
+				play_song = "music_GGKSMKK"
+			}
 			every_country = {
                 limit = {
                     is_ai = no
                 }
                 country_event = start.0
+
             }
 			every_country = {
                 limit = {
@@ -20,6 +24,18 @@ on_actions = {
 					}
 				}
             }
+			every_country = {
+				limit = {
+                    NOT = {
+						original_tag = MYS
+					}
+                }
+				set_variable = { var = COUNTRY_CULTURAL_DEGREE value = 80 }
+				set_variable = { var = COUNTRY_P_O value = 80 }
+				log = "やっほーえいとまんだよー = 0"
+			}
+			log = "CD = [?ROOT.COUNTRY_CULTURAL_DEGREE]"
+			log = "PO = [?ROOT.COUNTRY_P_O]"
 			WES = {
 				if = {
 					limit = {
@@ -117,9 +133,6 @@ on_actions = {
 					}
 					set_country_flag = BKK_AI_RANDOM_LONG
 				}
-			}
-			JPN = {
-				play_song = "music_GGKSMKK"
 			}
 		}
 	}

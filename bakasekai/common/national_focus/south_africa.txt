@@ -72,7 +72,7 @@
 # 		available = {
 # 			OR = {
 # 				threat > 0.2
-# 				NOT = { has_government = democratic }
+# 				NOT = { has_government = democratic_ideology }
 # 			}
 # 		}
 		
@@ -612,15 +612,15 @@
 # 		ai_will_do = {
 # 			factor = 0.5
 # 			modifier = {
-# 				NOT = { GBR = { has_government = democratic } }
+# 				NOT = { GBR = { has_government = democratic_ideology } }
 # 				factor = 10
 # 			}
 # 			modifier = {
-# 				NOT = { has_government = democratic }
+# 				NOT = { has_government = democratic_ideology }
 # 				factor = 100
 # 			}
-# 			modifier = {	#makes it significantly more likely if player boosts non-democratic
-# 				democratic < 0.5
+# 			modifier = {	#makes it significantly more likely if player boosts non-democratic_ideology
+# 				democratic_ideology < 0.5
 # 				factor = 20
 # 			}
 # 		}
@@ -657,11 +657,11 @@
 # 		ai_will_do = {
 # 			factor = 0.5
 # 			modifier = {
-# 				fascism > 0.25
+# 				fascism_ideology > 0.25
 # 				factor = 10
 # 			}
 # 			modifier = {
-# 				fascism > 0.45
+# 				fascism_ideology > 0.45
 # 				factor = 10
 # 			}
 # 		}
@@ -705,14 +705,14 @@
 # 			OR = {
 # 				is_subject = no
 # 				if = {
-# 					limit = { NOT = { has_government = fascism } }
+# 					limit = { NOT = { has_government = fascism_ideology } }
 # 					AND = {
 # 					#	has_autonomy_state = autonomy_dominion
 # 						compare_autonomy_progress_ratio > 0.65
 # 					}
 # 				}
 # 				if = {
-# 					limit = { has_government = fascism } 
+# 					limit = { has_government = fascism_ideology } 
 # 					AND = {
 # 						#has_autonomy_state = autonomy_satellite
 # 						compare_autonomy_progress_ratio > 0.65
@@ -823,13 +823,13 @@
 # 		}
 
 # 		available = {
-# 			fascism > 0.20
+# 			fascism_ideology > 0.20
 # 			if = {
-# 				limit = { not = { has_government = fascism } }
+# 				limit = { not = { has_government = fascism_ideology } }
 # 				compare_autonomy_state > autonomy_colony
 # 			}
 # 			if = {
-# 				limit = { has_government = fascism  }
+# 				limit = { has_government = fascism_ideology  }
 # 				compare_autonomy_state > autonomy_reichsprotectorate
 # 			}
 # 			controls_state = 541
@@ -934,14 +934,14 @@
 # 			OR = {
 # 				is_subject = no
 # 				if = {
-# 					limit = { NOT = { has_government = fascism } }
+# 					limit = { NOT = { has_government = fascism_ideology } }
 # 					AND = {
 # 					#	has_autonomy_state = autonomy_dominion
 # 						compare_autonomy_progress_ratio > 0.75
 # 					}
 # 				}
 # 				if = {
-# 					limit = { has_government = fascism } 
+# 					limit = { has_government = fascism_ideology } 
 # 					AND = {
 # 						#has_autonomy_state = autonomy_satellite
 # 						compare_autonomy_progress_ratio > 0.75
@@ -995,19 +995,19 @@
 # 		}
 
 # 		available = {
-# 			fascism > 0.25
+# 			fascism_ideology > 0.25
 # 			controls_state = 541
 # 			OR = {
 # 				is_subject = no
 # 				if = {
-# 					limit = { NOT = { has_government = fascism } }
+# 					limit = { NOT = { has_government = fascism_ideology } }
 # 					AND = {
 # 					#	has_autonomy_state = autonomy_dominion
 # 						compare_autonomy_progress_ratio > 0.80
 # 					}
 # 				}
 # 				if = {
-# 					limit = { has_government = fascism } 
+# 					limit = { has_government = fascism_ideology } 
 # 					AND = {
 # 						#has_autonomy_state = autonomy_satellite
 # 						compare_autonomy_progress_ratio > 0.80
@@ -1018,7 +1018,7 @@
 # 		}
 		
 # 		bypass = {
-# 			has_government = fascism
+# 			has_government = fascism_ideology
 # 		}
 
 # 		cancel_if_invalid = yes
@@ -1029,8 +1029,8 @@
 # 		complete_tooltip = {
 # 			set_capital = { state = 541 }
 # 			start_civil_war = {
-# 				ruling_party = fascism
-# 				ideology = democratic
+# 				ruling_party = fascism_ideology
+# 				ideology = democratic_ideology
 # 				size = 0.75
 # 				capital = 681
 # 				states = { 681 275 719 }
@@ -1043,8 +1043,8 @@
 # 			hidden_effect = {
 # 				set_capital = { state = 541 }
 # 				start_civil_war = {
-# 					ruling_party = fascism
-# 					ideology = democratic
+# 					ruling_party = fascism_ideology
+# 					ideology = democratic_ideology
 # 					size = 0.45
 # 					capital = 681
 # 					states = { 681 275 719 }
@@ -1052,12 +1052,12 @@
 # 				random_other_country = {
 # 					limit = {
 # 						original_tag = ZAF
-# 						has_government = democratic
+# 						has_government = democratic_ideology
 # 					}
 # 					load_oob = "SAF_D_civil_war"
 # 					set_equipment_fraction = 0.7
 # 					add_popularity = {
-# 						ideology = democratic
+# 						ideology = democratic_ideology
 # 						popularity = 0.35
 # 					}
 # 				}
@@ -1067,13 +1067,13 @@
 # 				set_equipment_fraction = 0.8
 				
 # 				add_popularity = {
-# 					ideology = fascism
+# 					ideology = fascism_ideology
 # 					popularity = 1
 # 				}
 # 				random_country = {
 # 					limit = {
 # 						original_tag = DEU
-# 						has_government = fascism
+# 						has_government = fascism_ideology
 # 					}
 # 					set_country_flag = saf_fascist_uprising # Affects DEU ai_strategy
 # 				}
@@ -1162,7 +1162,7 @@
 # 		y = 5
 # 		relative_position_id = SAF_support_the_afrikaner_broederbond
 # 		available = {
-# 			DEU = { has_government = fascism }
+# 			DEU = { has_government = fascism_ideology }
 # 		}
 
 # 		cost = 10
@@ -1307,12 +1307,12 @@
 
 # 		ai_will_do = {
 # 			factor = 0.5
-# 			modifier = {	#will make country more likely to go down this path if player boosts communism support
-# 				communism > 0.1
+# 			modifier = {	#will make country more likely to go down this path if player boosts communism_ideology support
+# 				communism_ideology > 0.1
 # 				factor = 10
 # 			}
 # 			modifier = {
-# 				communism > 0.2
+# 				communism_ideology > 0.2
 # 				factor = 10
 # 			}
 # 		}
@@ -1361,20 +1361,20 @@
 # 				}
 # 			}
 # 			OR = {
-# 				has_government = communism
-# 				communism > 0.1
+# 				has_government = communism_ideology
+# 				communism_ideology > 0.1
 # 			}
 # 			OR = {
 # 				is_subject = no
 # 				if = {
-# 					limit = { NOT = { has_government = fascism } }
+# 					limit = { NOT = { has_government = fascism_ideology } }
 # 					AND = {
 # 					#	has_autonomy_state = autonomy_dominion
 # 						compare_autonomy_progress_ratio > 0.65
 # 					}
 # 				}
 # 				if = {
-# 					limit = { has_government = fascism } 
+# 					limit = { has_government = fascism_ideology } 
 # 					AND = {
 # 						#has_autonomy_state = autonomy_satellite
 # 						compare_autonomy_progress_ratio > 0.65
@@ -1413,7 +1413,7 @@
 # 		}
 
 # 		available = {
-# 			communism > 0.1
+# 			communism_ideology > 0.1
 # 			NOT = { has_country_flag = britain_enforced_our_loyalty }
 # 		}
 		
@@ -1483,7 +1483,7 @@
 # 		}
 
 # 		available = {
-# 			communism > 0.35
+# 			communism_ideology > 0.35
 # 			OR = {
 # 				compare_autonomy_progress_ratio > 0.7
 # 				is_subject = no
@@ -1503,7 +1503,7 @@
 # 		completion_reward = {
 # 			add_political_power = 120
 # 			add_popularity = {	
-# 				ideology = communism
+# 				ideology = communism_ideology
 # 				popularity = 0.15
 # 			}
 # 			hidden_effect = {
@@ -1928,7 +1928,7 @@
 # 			}
 # 			543 = {
 # 				controller = { 
-# 					NOT = { has_government = communism }					
+# 					NOT = { has_government = communism_ideology }					
 # 				}
 # 			}
 # 			543 = {

@@ -274,7 +274,7 @@
 # 			FROM = {
 # 				tag = SWI.SWI_biggest_fascist
 # 				exists = yes 
-# 				has_government = fascism 
+# 				has_government = fascism_ideology 
 # 			}
 # 		}
 
@@ -317,16 +317,16 @@
 # 					AND = {
 # 						original_tag = FRA 
 # 						exists = yes
-# 						NOT = { has_government = fascism } 
+# 						NOT = { has_government = fascism_ideology } 
 # 					}
 # 					AND = {
 # 						OR = {
-# 							NOT = { FRA = { has_government = democratic } }
+# 							NOT = { FRA = { has_government = democratic_ideology } }
 # 							FRA = { exists = no }
 # 						}
 #  						NOT = { original_tag = FRA }
 # 						SWI_is_country_to_balance = yes
-# 						NOT = { has_government = fascism } 
+# 						NOT = { has_government = fascism_ideology } 
 # 					}
 # 				}
 # 			}
@@ -789,7 +789,7 @@
 # 			every_other_country = {
 # 				limit = {
 # 					SWI_is_country_to_balance = yes 
-# 					has_government = fascism 
+# 					has_government = fascism_ideology 
 # 				}
 # 				if = {
 # 					limit = {
@@ -808,7 +808,7 @@
 # 			every_other_country = {
 # 				limit = {
 # 					SWI_is_country_to_balance = yes 
-# 					NOT = { has_government = fascism } 					
+# 					NOT = { has_government = fascism_ideology } 					
 # 				}
 # 				add_opinion_modifier = {
 # 					target = ROOT 
@@ -823,7 +823,7 @@
 # 				add = 120 
 # 				any_other_country = {
 # 					SWI_is_country_to_balance = yes 
-# 					has_government = fascism 
+# 					has_government = fascism_ideology 
 # 					SWI_country_about_to_be_angry = yes 
 # 				}
 # 			}
@@ -833,7 +833,7 @@
 # 					SWI_AI_is_fascist = yes 
 # 					AND = {
 # 						is_puppet = yes 
-# 						has_government = fascism 
+# 						has_government = fascism_ideology 
 # 					}
 # 				}
 # 			}
@@ -850,7 +850,7 @@
 # 		cost = 350
 
 # 		visible = {
-# 			democratic > 0.2
+# 			democratic_ideology > 0.2
 # 			has_variable = SWI_confederation_president
 # 			has_completed_focus = SWI_president_for_life
 # 			NOT = { has_country_flag = SWI_elected_centralized_president }
@@ -859,7 +859,7 @@
 # 		days_remove = 45
 
 # 		available = {
-# 			democratic > 0.5
+# 			democratic_ideology > 0.5
 # 			has_variable = SWI_confederation_president
 # 			var:SWI_confederation_president ={
 # 				SWI_councilor_is_democratic = yes
@@ -891,7 +891,7 @@
 # 				AND = {
 # 					SWI_is_historical_ai = no
 # 					SWI_AI_is_fascist = no
-# 					communism < 0.5
+# 					communism_ideology < 0.5
 # 				}
 # 			}
 # 		}
@@ -905,7 +905,7 @@
 # 		allowed = { SWI_bba = yes }
 
 # 		visible = {
-# 			communism > 0.2
+# 			communism_ideology > 0.2
 # 			has_variable = SWI_confederation_president
 # 			has_completed_focus = SWI_president_for_life
 # 			NOT = { has_country_flag = SWI_elected_centralized_president }
@@ -916,7 +916,7 @@
 # 		days_remove = 30 
 
 # 		available = {
-# 			communism > 0.5
+# 			communism_ideology > 0.5
 # 			var:SWI_confederation_president = {
 # 				SWI_councilor_is_any_kind_of_communist = yes
 # 			}
@@ -932,7 +932,7 @@
 
 # 		remove_effect = {
 # 			set_politics = {
-# 				ruling_party = communism
+# 				ruling_party = communism_ideology
 # 				elections_allowed = yes
 # 			}
 # 			var:SWI_confederation_president = {
@@ -946,7 +946,7 @@
 # 				AND = {
 # 					SWI_is_historical_ai = no
 # 					SWI_AI_is_fascist = no
-# 					communism > 0.5 
+# 					communism_ideology > 0.5 
 # 				}
 # 			}
 # 		}	
@@ -962,13 +962,13 @@
 # 				is_alpine_state = yes
 # 				NOT = { is_core_of = SWI }
 # 			}
-# 			democratic > 0.3
+# 			democratic_ideology > 0.3
 # 		}
 		
 # 		available = {
 # 			SWI_can_form_alpine = yes 
-# 			has_government = democratic
-# 			democratic > 0.5
+# 			has_government = democratic_ideology
+# 			democratic_ideology > 0.5
 # 		}
 
 # 		cost = 100 
@@ -984,7 +984,7 @@
 # 				AND = {
 # 					SWI_is_historical_ai = no
 # 					SWI_AI_is_fascist = no
-# 					communism < 0.5 
+# 					communism_ideology < 0.5 
 # 				}
 # 			}
 # 		}
@@ -1000,13 +1000,13 @@
 # 				is_alpine_state = yes
 # 				NOT = { is_core_of = SWI }
 # 			}
-# 			communism > 0.3
+# 			communism_ideology > 0.3
 # 		}
 
 # 		available = {
 # 			SWI_can_form_alpine = yes 
-# 			has_government = communism
-# 			communism > 0.5			
+# 			has_government = communism_ideology
+# 			communism_ideology > 0.5			
 # 		}
 
 # 		cost = 100 
@@ -1022,7 +1022,7 @@
 # 				AND = {
 # 					SWI_is_historical_ai = no
 # 					SWI_AI_is_fascist = no
-# 					communism > 0.5 
+# 					communism_ideology > 0.5 
 # 				}
 # 			}
 # 		}
@@ -1164,7 +1164,7 @@
 # 		cost = SWI_president_initiative_cost
 		
 # 		modifier = {
-# 			democratic_drift = 0.1
+# 			democratic_ideology_drift = 0.1
 # 			stability_weekly_factor = 0.02
 # 			war_support_weekly_factor = -0.01 
 # 		}
@@ -1229,7 +1229,7 @@
 # 		cost = SWI_president_initiative_cost
 		
 # 		modifier = {
-# 			democratic_drift = -0.15
+# 			democratic_ideology_drift = -0.15
 # 			stability_weekly = 0.005
 # 			industrial_capacity_factory = 0.2
 # 		}
@@ -1299,10 +1299,10 @@
 # 		cost = SWI_president_initiative_cost
 		
 # 		modifier = {
-# 			fascism_drift = -0.15
-# 			democratic_drift = -0.05
+# 			fascism_ideology_drift = -0.15
+# 			democratic_ideology_drift = -0.05
 # 			war_support_weekly_factor = 0.07
-# 			communism_drift = 0.07
+# 			communism_ideology_drift = 0.07
 # 		}
 
 # 		complete_effect = {
@@ -1370,8 +1370,8 @@
 # 		cost = SWI_president_initiative_cost
 		
 # 		modifier = {
-# 			communism_drift = 0.3
-# 			democratic_drift = 0.3
+# 			communism_ideology_drift = 0.3
+# 			democratic_ideology_drift = 0.3
 # 			stability_weekly = 0.02
 # 			war_support_weekly_factor = -0.05 
 # 		}
@@ -1436,7 +1436,7 @@
 # 		cost = SWI_president_initiative_cost
 		
 # 		modifier = {
-# 			democratic_drift = -0.3
+# 			democratic_ideology_drift = -0.3
 # 			stability_weekly = 0.01
 # 			production_speed_bunker_factor = 0.5
 # 			war_support_weekly_factor = -0.05
@@ -1507,7 +1507,7 @@
 # 		modifier = {
 # 			war_support_weekly_factor = 0.05
 # 			industrial_capacity_factory = 0.5
-# 			democratic_drift = -0.3
+# 			democratic_ideology_drift = -0.3
 # 			opinion_gain_monthly_factor = -0.2
 # 			production_speed_industrial_complex_factor = 0.3 
 # 		}
@@ -1681,7 +1681,7 @@
 # 		cost = SWI_president_initiative_cost
 		
 # 		modifier = {
-# 			fascism_drift = -0.05
+# 			fascism_ideology_drift = -0.05
 # 			monthly_population = 0.3
 # 		}
 
@@ -1692,8 +1692,8 @@
 # 					limit = {
 # 						capital_scope = { is_on_continent = europe }
 # 						OR = {
-# 							has_government = fascism
-# 							has_government = neutrality  
+# 							has_government = fascism_ideology
+# 							has_government = neutrality_ideology  
 # 						}
 # 						num_occupied_states > 0
 # 					}
@@ -1865,7 +1865,7 @@
 # 		cost = SWI_president_initiative_cost
 		
 # 		modifier = {
-# 			fascism_drift = 0.1
+# 			fascism_ideology_drift = 0.1
 # 			stability_weekly = -0.01
 # 		}
 
@@ -1929,7 +1929,7 @@
 		
 # 		target_trigger ={
 # 			FROM = { 
-# 				has_government = fascism 
+# 				has_government = fascism_ideology 
 # 				SWI_is_country_to_balance = yes 
 # 			}
 # 		}
@@ -1939,7 +1939,7 @@
 # 		cost = SWI_president_initiative_cost
 		
 # 		modifier = {
-# 			fascism_drift = 0.05
+# 			fascism_ideology_drift = 0.05
 # 			stability_factor = 0.1 
 # 			war_support_factor = 0.1
 # 		}
@@ -2673,15 +2673,15 @@
 # 		allowed = { original_tag = SWI }
 
 # 		visible = {
-# 			check_variable = { ROOT.party_popularity_100@fascism < 10 }
-# 			NOT = { has_government = fascism } 
+# 			check_variable = { ROOT.party_popularity_100@fascism_ideology < 10 }
+# 			NOT = { has_government = fascism_ideology } 
 # 			NOT = { has_idea = fascism_banned }
 # 		}
 
 # 		target_trigger = {
 # 			FROM = { 
 # 				SWI_is_country_to_balance = yes 
-# 				has_government = fascism  
+# 				has_government = fascism_ideology  
 # 			}
 # 		}
 
@@ -2690,7 +2690,7 @@
 # 		days_remove = 120 
 
 # 		modifier = {
-# 			fascism_drift = 0.05
+# 			fascism_ideology_drift = 0.05
 # 		}
 
 # 		complete_effect = {
@@ -2718,21 +2718,21 @@
 # 		allowed = { original_tag = SWI }
 
 # 		visible = {
-# 			check_variable = { ROOT.party_popularity_100@democratic < 10 }
-# 			NOT = { has_government = democratic } 
+# 			check_variable = { ROOT.party_popularity_100@democratic_ideology < 10 }
+# 			NOT = { has_government = democratic_ideology } 
 # 		}
 
 # 		target_trigger = {
 # 			FROM = { 
 # 				SWI_is_country_to_balance = yes 
-# 				has_government = democratic  
+# 				has_government = democratic_ideology  
 # 			}
 # 		}
 
 # 		days_remove = 120 
 
 # 		modifier = {
-# 			democratic_drift = 0.05
+# 			democratic_ideology_drift = 0.05
 # 		}
 
 # 		complete_effect = {
@@ -2763,21 +2763,21 @@
 # 		allowed = { original_tag = SWI }
 
 # 		visible = {
-# 			check_variable = { ROOT.party_popularity_100@communism < 10 }
-# 			NOT = { has_government = communism } 
+# 			check_variable = { ROOT.party_popularity_100@communism_ideology < 10 }
+# 			NOT = { has_government = communism_ideology } 
 # 		}
 
 # 		target_trigger = {
 # 			FROM = { 
 # 				SWI_is_country_to_balance = yes 
-# 				has_government = communism  
+# 				has_government = communism_ideology  
 # 			}
 # 		}
 
 # 		days_remove = 120 
 
 # 		modifier = {
-# 			communism_drift = 0.05
+# 			communism_ideology_drift = 0.05
 # 		}
 
 # 		complete_effect = {
@@ -2807,21 +2807,21 @@
 # 		allowed = { original_tag = SWI }
 
 # 		visible = {
-# 			check_variable = { ROOT.party_popularity_100@neutrality < 10 }
-# 			NOT = { has_government = neutrality } 
+# 			check_variable = { ROOT.party_popularity_100@neutrality_ideology < 10 }
+# 			NOT = { has_government = neutrality_ideology } 
 # 		}
 
 # 		target_trigger = {
 # 			FROM = { 
 # 				SWI_is_country_to_balance = yes 
-# 				has_government = neutrality  
+# 				has_government = neutrality_ideology  
 # 			}
 # 		}
 
 # 		days_remove = 120 
 
 # 		modifier = {
-# 			neutrality_drift = 0.05
+# 			neutrality_ideology_drift = 0.05
 # 		}
 
 # 		complete_effect = {
@@ -3236,7 +3236,7 @@
 # 		target_trigger = {
 # 			FROM = {
 # 				SWI_is_country_to_balance = yes
-# 				has_government = fascism 
+# 				has_government = fascism_ideology 
 # 				NOT = {
 # 					has_dynamic_modifier = { modifier = SWI_gold_trade_with_switzerland }
 # 					has_dynamic_modifier = { modifier = SWI_stole_our_gold_reserves }
@@ -3246,7 +3246,7 @@
 # 			}
 # 			NOT = {
 # 				any_other_country = {
-# 					has_government = fascism 
+# 					has_government = fascism_ideology 
 # 					has_country_flag = SWI_gold_trading_partner
 # 				}
 # 			}
@@ -3286,7 +3286,7 @@
 # 		target_trigger = {
 # 			FROM = {
 # 				SWI_is_country_to_balance = yes
-# 				has_government = democratic 
+# 				has_government = democratic_ideology 
 # 				NOT = {					
 # 					has_dynamic_modifier = { modifier = SWI_gold_trade_with_switzerland }
 # 					has_dynamic_modifier = { modifier = SWI_stole_our_gold_reserves }
@@ -3296,7 +3296,7 @@
 # 			}
 # 			NOT = {
 # 				any_other_country = {
-# 					has_government = democratic 
+# 					has_government = democratic_ideology 
 # 					has_country_flag = SWI_gold_trading_partner
 # 				}
 # 			}
@@ -3372,7 +3372,7 @@
 # 			FROM = {
 # 				SWI_is_country_to_balance = yes											
 				
-# 				has_government = fascism
+# 				has_government = fascism_ideology
 # 			}
 # 		}
 # 		available = {
@@ -3413,7 +3413,7 @@
 # 		target_trigger = {
 # 			FROM = {											
 # 				has_dynamic_modifier = { modifier = SWI_gold_trade_with_switzerland }
-# 				has_government = democratic
+# 				has_government = democratic_ideology
 # 			}
 # 		}
 
@@ -3460,7 +3460,7 @@
 # 			FROM = {
 # 				tag = SWI.SWI_democratic_planes_seller
 # 				exists = yes 
-# 				has_government = democratic 
+# 				has_government = democratic_ideology 
 # 				NOT = { has_war_with = ROOT } 	
 # 			}
 # 		}
@@ -3535,7 +3535,7 @@
 # 			FROM = {
 # 				tag = SWI.SWI_democratic_planes_seller
 # 				exists = yes 
-# 				has_government = democratic 
+# 				has_government = democratic_ideology 
 # 				NOT = { has_war_with = ROOT } 	
 # 			}
 # 		}
@@ -3610,7 +3610,7 @@
 # 			FROM = {
 # 				tag = SWI.SWI_biggest_fascist
 # 				exists = yes 
-# 				has_government = fascism 
+# 				has_government = fascism_ideology 
 # 				NOT = { has_war_with = ROOT } 	
 # 			}
 # 		}
@@ -3685,7 +3685,7 @@
 # 			FROM = {
 # 				tag = SWI.SWI_biggest_fascist
 # 				exists = yes 
-# 				has_government = fascism 
+# 				has_government = fascism_ideology 
 # 				NOT = { has_war_with = ROOT } 	
 # 			}
 # 		}
