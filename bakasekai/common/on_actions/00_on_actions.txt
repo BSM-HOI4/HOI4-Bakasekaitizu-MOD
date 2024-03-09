@@ -30,9 +30,79 @@ on_actions = {
 						original_tag = MYS
 					}
                 }
+				set_variable = {
+					var	= COUNTRY_resource_minor_artifacts
+					value = 0
+				}
 				set_variable = { var = COUNTRY_CULTURAL_DEGREE value = 80 }
 				set_variable = { var = COUNTRY_P_O value = 80 }
-				log = "やっほーえいとまんだよー = 0"
+				# log = "やっほーえいとまんだよー = 0"
+			}
+			every_country = {
+				limit = {
+
+					original_tag = MYS
+					
+                }
+				set_variable = {
+					var	= COUNTRY_resource_minor_artifacts
+					value = 100
+				}
+				set_variable = { var = COUNTRY_CULTURAL_DEGREE value = 100 }
+				set_variable = { var = COUNTRY_P_O value = 100 }
+
+			}
+			every_country = {
+				limit = {
+
+					original_tag = MYS
+					original_tag = MON
+                }
+				every_owned_state = {
+					set_variable = { 
+						var = State_pop_Tulpa_k 
+						value = state_population_k
+					}
+				}
+			}
+			every_country = {
+				limit = {
+
+					original_tag = AUS
+					
+                }
+				every_owned_state = {
+					set_variable = { 
+						var = State_pop_emu_k
+						value = state_population_k
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					original_tag = NMX
+                }
+				every_owned_state = {
+					set_variable = { 
+						var = State_pop_cat_k
+						value = state_population_k
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					NOT = {
+						original_tag = AUS
+						original_tag = MYS
+						original_tag = NMX
+					}
+                }
+				every_owned_state = {
+					set_variable = { 
+						var = State_pop_human_k
+						value = state_population_k
+					}
+				}
 			}
 			log = "CD = [?ROOT.COUNTRY_CULTURAL_DEGREE]"
 			log = "PO = [?ROOT.COUNTRY_P_O]"
