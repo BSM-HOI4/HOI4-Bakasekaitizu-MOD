@@ -278,6 +278,7 @@ country_event = {
 
 	major = no
 	is_triggered_only = yes
+	hidden = yes
 
 	trigger = {
 		tag = MAC
@@ -288,6 +289,9 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
+		trigger = {
+			is_ai = yes
+		}
 		load_focus_tree = generic_focus
 
 		
@@ -297,6 +301,9 @@ country_event = {
 		name = MCD.7.b  #絶対に止めるべきだ！
 		ai_chance = {
 			factor = 0
+		}
+		trigger = {
+			is_ai = no
 		}
 
 		
@@ -390,6 +397,19 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
+		MAC_bop_medium_decrease_effect = yes
+	}
+	option = {
+		name = MCD.9.b  #絶対に止めるべきだ！
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
+		}
 		MAC_bop_medium_decrease_effect = yes
 	}
 }
@@ -411,6 +431,19 @@ country_event = {
 		name = MCD.10.a  #絶対に止めるべきだ！
 		ai_chance = {
 			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
+		MAC_bop_medium_increase_effect = yes
+	}
+	option = {
+		name = MCD.10.b  #絶対に止めるべきだ！
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
 		}
 		MAC_bop_medium_increase_effect = yes
 	}
@@ -435,12 +468,21 @@ country_event = {
 			factor = 100
 		}
 		set_country_flag = MAC_start_cola_war
-		set_variable = { var = directors_support value = 11 }
-		set_variable = { var = directors_total value = 21 }
-		set_variable = { var = representatives_support value = 218 }
 		set_variable = { var = representatives_total value = 435 }
+		set_variable = { var = directors_total value = 21 }
+		if = {
+			limit = {
+				has_country_flag = MAC_coca_flag
+			}
+			set_variable = { var = directors_support value = 15 }
+			set_variable = { var = representatives_support value = 261 }
+		}
+		else = {
+			set_variable = { var = directors_support value = 7 }
+			set_variable = { var = representatives_support value = 174 }
+		}
+		MAC_recalc_congress_icon_frames = yes
         MAC_initiate_balance_of_power_effect_2 = yes
-		country_event = { id = MCD.12 }
 	}
 }
 country_event = {
@@ -463,6 +505,7 @@ country_event = {
 			factor = 100
 		}
 		set_country_flag = MAC_coca_flag
+		country_event = { id = MCD.11 }
 	}
 	option = {
 		name = MCD.12.b  #コカコーラとペプシ、どっちがすきだ？
@@ -470,5 +513,6 @@ country_event = {
 			factor = 100
 		}
 		set_country_flag = MAC_pepsi_flag
+		country_event = { id = MCD.11 }
 	}
 }

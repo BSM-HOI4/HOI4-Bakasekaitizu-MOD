@@ -14,7 +14,7 @@ Dieting_decision = {
         days_re_enable = 30
 
         available = {
-            has_completed_focus = MAC_sales_start_in_the_MAC
+            has_completed_focus = MAC_sales_start_in_the_USA
             MAC = {has_idea = Suspension_of_operations}
 			NOT = {
 				MAC = {has_idea = Obesity_1}
@@ -27,7 +27,7 @@ Dieting_decision = {
 
         }
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_MAC
+            has_completed_focus = MAC_sales_start_in_the_USA
         }
 	    #visible = {has_country_flag=gone_sand}
 
@@ -59,7 +59,7 @@ Dieting_decision = {
         days_re_enable = 60
 
         available = {
-            has_completed_focus = MAC_sales_start_in_the_MAC
+            has_completed_focus = MAC_sales_start_in_the_USA
             MAC = {has_idea = Suspension_of_operations}
 			NOT = {
 				MAC = {has_idea = Obesity_1}
@@ -71,7 +71,7 @@ Dieting_decision = {
 			}
         }
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_MAC
+            has_completed_focus = MAC_sales_start_in_the_USA
         }
         #visible = {has_country_flag=gone_sand}
 
@@ -104,7 +104,7 @@ Dieting_decision = {
         days_re_enable = 180
 
         available = {
-            has_completed_focus = MAC_sales_start_in_the_MAC
+            has_completed_focus = MAC_sales_start_in_the_USA
             MAC = {has_idea = Suspension_of_operations}
 			NOT = {
 				MAC = {has_idea = Obesity_1}
@@ -117,7 +117,7 @@ Dieting_decision = {
 			}
         }
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_MAC
+            has_completed_focus = MAC_sales_start_in_the_USA
         }
         #visible = {has_country_flag=gone_sand}
 
@@ -152,7 +152,7 @@ Progression_of_obesity = {
 			}
 		}
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_MAC
+            has_completed_focus = MAC_sales_start_in_the_USA
         }
 
 		cost = 0
@@ -196,7 +196,7 @@ Progression_of_obesity = {
 			}
 		}
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_MAC
+            has_completed_focus = MAC_sales_start_in_the_USA
         }
 
 		cost = 0
@@ -237,10 +237,10 @@ Progression_of_obesity = {
 		available = {
 			#GER_can_delay_mefo_payment = yes
 			hidden_trigger = { always = no }
-			has_completed_focus = MAC_sales_start_in_the_MAC
+			has_completed_focus = MAC_sales_start_in_the_USA
 		}
         visible = {
-            has_completed_focus = MAC_sales_start_in_the_MAC
+            has_completed_focus = MAC_sales_start_in_the_USA
         }
 
 		#cost = GER_mefo_bill_counter?10
@@ -1198,11 +1198,18 @@ MAC_balance_of_power_category = {
 		days_re_enable = 100
 
 		complete_effect = {
-			random_list = {
-				30 = { country_event = { id = MCD.9 } }
-				70 = { country_event = { id = MCD.10 } }
+			hidden_effect = {
+				random_list = {
+					30 = { country_event = { id = MCD.9 } }
+					70 = { country_event = { id = MCD.10 } }
+				}
 			}
-			#MAC_bop_low_increase_effect = yes
+			effect_tooltip = {
+				random_list = {
+					30 = { MAC_bop_medium_decrease_effect = yes }
+					70 = { MAC_bop_medium_increase_effect = yes }
+				}
+			}
 		}
 	}
 	
@@ -1272,7 +1279,7 @@ MAC_congress = {
 
 		available = {
 			#GER_can_delay_mefo_payment = yes
-			hidden_trigger = { always = no }
+			#hidden_trigger = { always = no }
 			has_country_flag = MAC_start_cola_war
 		}
         visible = {
@@ -1497,6 +1504,7 @@ MAC_congress = {
 			factor = 200
 		}
 	}
+
 	MAC_lobby_shareholders_effort = {
 		icon = generic_political_discourse
 		available = {
@@ -1559,6 +1567,7 @@ MAC_congress = {
 			MAC_congress_small_support = yes
 		}
 	}
+
 	MAC_give_tax_break = {
 		icon = ger_mefo_bills
 		available = {
@@ -1623,116 +1632,6 @@ MAC_congress = {
 		modifier = { research_speed_factor = 0.08 }
 		remove_effect = {
 			MAC_congress_medium_opposition = yes
-		}
-	}
-	MAC_invest_in_state_factory = {
-		icon = generic_construction
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = MAC_congress_invest_in_state_factory_tt
-				any_owned_state = {
-					has_state_flag = MAC_congress_build_factory
-					check_variable = { factory_goal = industrial_complex_level }
-				}
-			}
-		}
-
-		highlight_states = {
-			highlight_states_trigger = {
-				has_state_flag = MAC_congress_build_factory
-			}
-		}
-
-		days_mission_timeout = 360
-		is_good = no
-		activation = {
-			any_owned_state = {
-				has_state_flag = MAC_congress_build_factory
-			}
-		}
-		timeout_effect = {
-			random_owned_state = {
-				limit = {
-					has_state_flag = MAC_congress_build_factory
-				}
-				clr_state_flag = MAC_congress_build_factory
-				clear_variable = factory_goal
-			}
-			
-			MAC_congress_small_opposition = yes 
-			clr_country_flag = MAC_congress_investment
-		}
-		complete_effect = {
-			random_owned_state = {
-				limit = {
-					has_state_flag = MAC_congress_build_factory
-				}
-				clr_state_flag = MAC_congress_build_factory
-				clear_variable = factory_goal
-			}
-			ROOT = {
-				MAC_congress_medium_support = yes 
-				clr_country_flag = MAC_congress_investment
-			}
-			
-		}
-	}
-	MAC_readmit_state = {
-		icon = infiltrate_state
-		available = {	
-			political_power_daily > 0.1
-		}
-		visible = {
-			any_owned_state = {
-				is_core_of = CSA
-				not = { is_core_of = ROOT }
-				is_claimed_by = ROOT
-			}
-			has_completed_focus = MAC_reintegration
-		}
-		ai_will_do = {
-			factor = 1	
-		}
-		days_remove = 120
-		cost = 25
-		modifier = {
-			political_power_gain = -0.1
-		}
-		complete_effect = {
-			random_state = {
-				limit = {
-					is_controlled_by = ROOT
-					is_core_of = CSA
-					not = { is_core_of = ROOT }
-					is_claimed_by = ROOT
-				}
-				set_state_flag = MAC_state_admit
-				custom_effect_tooltip = MAC_readmit_state_tt
-			}
-		}
-		remove_effect = {
-			MAC_congress_add_state = yes
-			random_owned_state = {
-				limit = { has_state_flag = MAC_state_admit }
-				ROOT = {
-					add_state_core = PREV
-				}
-				clr_state_flag = MAC_state_admit
-			}			
-		}
-	}
-	MAC_reshuffle_congress = {
-		available = {
-
-		}
-		visible = {
-			has_completed_focus = MAC_union_representation_act
-		}
-		days_re_enable = 180
-		cost = 50
-		complete_effect = {
-			add_stability = -0.05
-			MAC_return_majority = yes
 		}
 	}
 }
