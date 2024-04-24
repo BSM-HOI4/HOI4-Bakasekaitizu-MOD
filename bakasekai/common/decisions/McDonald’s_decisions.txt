@@ -1446,58 +1446,176 @@ MAC_congress = {
 					}
 				}
 				activate_mission = MAC_weekly_check
-			else = {
-				hidden_effect = {
-					set_variable = { MAC_extend_mefo_bills_days = days_mission_timeout@MAC_mefo_bills_mission }
-					#set_country_flag = paid_for_mefo
+			}
+		}
+
+		ai_will_do = {
+			factor = 200
+		}
+	}
+
+	MAC_weekly_check_2 = {
+
+		allowed = { always = no }
+
+		icon = GFX_decision_gre_paying_ifc_debt
+
+		available = {
+			#GER_can_delay_mefo_payment = yes
+			#hidden_trigger = { always = no }
+			has_country_flag = MAC_start_cola_war
+		}
+        visible = {
+            has_country_flag = MAC_start_cola_war
+        }
+
+		#cost = GER_mefo_bill_counter?10
+
+		days_mission_timeout = 7
+		is_good = yes
+		fire_only_once = yes
+
+		cancel_trigger = {
+			has_country_flag = MAC_finish_cola_war
+		}
+
+		days_remove = MAC_extend_mefo_bills_days?0
+		remove_effect = {
+		}
+
+		complete_effect = {
+		}
+
+		timeout_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						directors_temp < 6
+					}
 				}
 				if = {
 					limit = {
-						check_variable = { var = MAC_obesity_counter value = 15 compare = less_than }
+						has_country_flag = MAC_coca_flag
 					}
-					hidden_effect = { set_variable = { var = MAC_obesity_counter value = 10 } }
-				}
-                if = {
-					limit = {
-						has_idea = Obesity_1
-					}
-                    swap_ideas = {
-				        remove_idea = Obesity_1
-				        add_idea = Obesity_2
-                    }
-
+					MAC_bop_very2_low_increase_effect = yes
 				}
 				else = {
-					if = {
-						limit = {
-							has_idea = Obesity_2
-						}
-                    	swap_ideas = {
-				    	    remove_idea = Obesity_2
-				        	add_idea = Obesity_3
-                    	}
-
-					}
-					else = {
-						if = {
-							limit = {
-								has_idea = Obesity_3
-							}
-                    		swap_ideas = {
-				        		remove_idea = Obesity_3
-				   			    add_idea = Obesity_4
-                   			}
-						}
-					}
-				}
-
-				add_to_variable = { var = MAC_obesity_counter value = 10 }
-
-				hidden_effect = {
-					activate_mission = MAC_mefo_bills_mission
+					MAC_bop_very2_low_decrease_effect = yes
 				}
 			}
+			if = {
+				limit = {
+					check_variable = {
+						directors_temp < 11
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = MAC_coca_flag
+					}
+					MAC_bop_very3_low_increase_effect = yes
+				}
+				else = {
+					MAC_bop_very3_low_decrease_effect = yes
+				}
 			}
+			if = {
+				limit = {
+					check_variable = {
+						directors_temp > 11
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = MAC_pepsi_flag
+					}
+					MAC_bop_very3_low_increase_effect = yes
+				}
+				else = {
+					MAC_bop_very3_low_decrease_effect = yes
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						directors_temp > 17
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = MAC_pepsi_flag
+					}
+					MAC_bop_very2_low_increase_effect = yes
+				}
+				else = {
+					MAC_bop_very2_low_decrease_effect = yes
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						directors_temp < 6
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = MAC_coca_flag
+					}
+					MAC_bop_very2_low_increase_effect = yes
+				}
+				else = {
+					MAC_bop_very2_low_decrease_effect = yes
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						directors_temp < 11
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = MAC_coca_flag
+					}
+					MAC_bop_very3_low_increase_effect = yes
+				}
+				else = {
+					MAC_bop_very3_low_decrease_effect = yes
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						shareholder_temp > 11
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = MAC_pepsi_flag
+					}
+					MAC_bop_very3_low_increase_effect = yes
+				}
+				else = {
+					MAC_bop_very3_low_decrease_effect = yes
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						shareholder_temp > 17
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = MAC_pepsi_flag
+					}
+					MAC_bop_very2_low_increase_effect = yes
+				}
+				else = {
+					MAC_bop_very2_low_decrease_effect = yes
+				}
+			}
+			activate_mission = MAC_weekly_check
 		}
 
 		ai_will_do = {
