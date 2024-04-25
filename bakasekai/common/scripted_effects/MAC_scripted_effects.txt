@@ -168,8 +168,8 @@ MAC_bop_remove_bop_effect = {
 MAC_recalc_congress_icon_frames = {
 	
 	set_temp_variable = { directors_temp = directors_support }
-	divide_temp_variable = { directors_temp = directors_total }
-	multiply_temp_variable = { directors_temp = 21 }
+	#divide_temp_variable = { directors_temp = directors_total }
+	#multiply_temp_variable = { directors_temp = 21 }
 	if = {
 		limit = { check_variable = { directors_temp > 0 } }
 		clamp_temp_variable = {
@@ -250,9 +250,10 @@ MAC_shareholder_small_opposition = {
 MAC_directe_small_support = {
 	custom_effect_tooltip = mac_directe_small_support_tt
 	set_temp_variable = { temp_factor = random }
-	multiply_temp_variable = { temp_factor = 5 }
+	multiply_temp_variable = { temp_factor = 2 }
 	add_to_variable = { directors_support = temp_factor }
 	round_variable = directors_support
+	add_to_variable = { var = directors_support value = 1 }
 	clamp_variable = { var = directors_support max = directors_total min = 0 }
 	MAC_recalc_congress_icon_frames = yes
 }
@@ -292,8 +293,8 @@ MAC_shareholder_medium_opposition = {
 MAC_directe_medium_support = {
 	custom_effect_tooltip = mac_directe_medium_support_tt
 	set_temp_variable = { temp_factor = random }
-	multiply_temp_variable = { temp_factor = 10 }
-	clamp_temp_variable = { var = temp_factor max = 10 min = 5 }
+	multiply_temp_variable = { temp_factor = 4 }
+	clamp_temp_variable = { var = temp_factor max = 4 min = 3 }
 	add_to_variable = { directors_support = temp_factor }
 	round_variable = directors_support
 	clamp_variable = { var = directors_support max = directors_total min = 0 }
