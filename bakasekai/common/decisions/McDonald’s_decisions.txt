@@ -1247,6 +1247,7 @@ MAC_balance_of_power_category = {
 
 		complete_effect = {
 			set_country_flag = MAC_finish_bop_2
+			set_country_flag = MAC_finish_cola_war
 			if = {
 				limit = {
 					power_balance_value = {
@@ -1458,7 +1459,6 @@ MAC_congress = {
 
 		allowed = { 
 			tag = MAC
-			has_country_flag = MAC_start_cola_war
 		}
 
 		icon = GFX_decision_gre_paying_ifc_debt
@@ -1466,6 +1466,12 @@ MAC_congress = {
 		available = {
 			#GER_can_delay_mefo_payment = yes
 			#hidden_trigger = { always = no }
+			OR = {
+				has_country_flag = MAC_finish_cola_war
+				NOT = { has_country_flag = MAC_start_cola_war }
+			}
+		}
+		activation = {
 			has_country_flag = MAC_start_cola_war
 		}
         visible = {
@@ -1475,10 +1481,10 @@ MAC_congress = {
 		#cost = GER_mefo_bill_counter?10
 
 		days_mission_timeout = 7
-		is_good = yes
+		is_good = no
 
 		cancel_trigger = {
-			has_country_flag = MAC_finish_cola_war
+			
 		}
 
 		days_remove = MAC_extend_mefo_bills_days?0
@@ -1486,6 +1492,7 @@ MAC_congress = {
 		}
 
 		complete_effect = {
+			
 		}
 
 		timeout_effect = {
@@ -1617,7 +1624,12 @@ MAC_congress = {
 					MAC_bop_very2_low_decrease_effect = yes
 				}
 			}
-			activate_mission = MAC_weekly_check
+			if = {
+				limit = {
+					NOT = { has_country_flag = MAC_finish_cola_war } 
+				}
+				activate_mission = MAC_weekly_check_2
+			}
 		}
 
 		ai_will_do = {
@@ -1633,7 +1645,7 @@ MAC_congress = {
 				check_variable = { representatives_support < representatives_total }
 			}
 			not = {
-				has_decision = MAC_medium_lobby_effort
+				has_decision = MAC_medium_lobby_shareholders_effort
 			}
 			OR = {
 				political_power_daily > 0.3
@@ -1657,7 +1669,7 @@ MAC_congress = {
 				check_variable = { representatives_support < representatives_total }
 			}
 			not = {
-				has_decision = MAC_medium_lobby_effort
+				has_decision = MAC_medium_lobby_directors_effort
 			}
 			OR = {
 				political_power_daily > 0.3
@@ -1681,7 +1693,7 @@ MAC_congress = {
 				check_variable = { representatives_support < representatives_total }
 			}
 			not = {
-				has_decision = MAC_medium_lobby_effort
+				has_decision = MAC_small_lobby_shareholders_effort
 			}
 			OR = {
 				political_power_daily > 0.3
@@ -1705,7 +1717,7 @@ MAC_congress = {
 				check_variable = { representatives_support < representatives_total }
 			}
 			not = {
-				has_decision = MAC_medium_lobby_effort
+				has_decision = MAC_small_lobby_directors_effort
 			}
 			OR = {
 				political_power_daily > 0.3
