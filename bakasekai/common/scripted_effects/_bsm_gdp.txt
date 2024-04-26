@@ -411,5 +411,14 @@ BSMS_GDP_companyhold_budgets = {
 		divide_variable = {	mpp = dif }
 		multiply_variable = { BSMS_GDP_companyhold_budget = mpp }
 
-	
+}
+
+BSMS_GDP_sum = {
+	set_temp_variable = { temp = ROOT.BSMS_GDP_household_budget }
+	set_temp_variable = { temp1 = ROOT.BSMS_GDP_companyhold_budget }
+	add_to_variable = { temp = temp1 }
+	multiply_variable = { temp = 0.5 }
+	set_variable = {
+		BSMS_GDP = temp
+	}
 }
