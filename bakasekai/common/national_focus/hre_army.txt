@@ -1,0 +1,1324 @@
+shared_focus = {
+    id = HRE_prepare_army
+    icon = GFX_focus_chi_army_reform
+    
+    x = 4
+    y = 0
+    cost = 5
+    available = {
+    }
+    completion_reward = {
+        add_command_power = 50
+        add_war_support = 0.1
+        custom_effect_tooltip = HRE_available_military_officer
+        create_corps_commander = {
+            name = "戦略ゲーオタク"
+            skill = 2
+            attack_skill = 2
+            defense_skill = 2
+            planning_skill = 2
+            logistics_skill = 2
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_army
+    icon = GFX_goal_generic_small_arms
+    x = -2
+    y = 1
+    cost = 2
+    prerequisite = {
+        focus = HRE_prepare_army
+    }
+    mutually_exclusive = {
+        focus = HRE_focus_to_air
+    }
+    relative_position_id = HRE_prepare_army
+    available = {
+    
+    }
+    completion_reward = {
+        army_experience = 20
+        add_ideas = HRE_focus_to_army_idea
+        mark_focus_tree_layout_dirty = yes
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_air
+    icon = GFX_goal_generic_build_airforce
+    x = 2
+    y = 1
+    cost = 2
+    prerequisite = {
+        focus = HRE_prepare_army
+    }
+    mutually_exclusive = {
+        focus = HRE_focus_to_army
+    }
+    relative_position_id = HRE_prepare_army
+    available = {
+    
+    }
+    completion_reward = {
+        air_experience = 20
+        add_ideas = HRE_focus_to_air_idea
+        mark_focus_tree_layout_dirty = yes
+    }
+}
+
+shared_focus = {
+    id = HRE_superior_spirit
+    icon = GFX_goal_demand_sudetenland
+    x = 0
+    y = 1
+    cost = 8
+    prerequisite = {
+        focus = HRE_focus_to_army
+        focus = HRE_focus_to_air
+    }
+    mutually_exclusive = {
+        focus = HRE_superior_mass
+        focus = HRE_superior_tech
+    }
+    relative_position_id = HRE_focus_to_army
+    available = {
+    
+    }
+    completion_reward = {
+        add_ideas = HRE_superior_spirit_idea
+        custom_effect_tooltip = HRE_effect_superior_spirit
+        mark_focus_tree_layout_dirty = yes
+    }
+}
+
+shared_focus = {
+    id = HRE_superior_mass
+    icon = GFX_focus_generic_manpower
+    x = 2
+    y = 1
+    cost = 8
+    prerequisite = {
+        focus = HRE_focus_to_army
+        focus = HRE_focus_to_air
+    }
+    mutually_exclusive = {
+        focus = HRE_superior_spirit
+        focus = HRE_superior_tech
+    }
+    relative_position_id = HRE_focus_to_army
+    available = {
+    
+    }
+    completion_reward = {
+        add_ideas = HRE_superior_mass_idea
+        custom_effect_tooltip = HRE_effect_superior_mass
+        mark_focus_tree_layout_dirty = yes
+    }
+}
+
+shared_focus = {
+    id = HRE_superior_tech
+    icon = GFX_goal_generic_production
+    x = 4
+    y = 1
+    cost = 8
+    prerequisite = {
+        focus = HRE_focus_to_army
+        focus = HRE_focus_to_air
+    }
+    mutually_exclusive = {
+        focus = HRE_superior_spirit
+        focus = HRE_superior_mass
+    }
+    relative_position_id = HRE_focus_to_army
+    available = {
+    
+    }
+    completion_reward = {
+        add_ideas = HRE_superior_tech_idea
+        custom_effect_tooltip = HRE_effect_superior_tech
+        mark_focus_tree_layout_dirty = yes
+    }
+}
+
+shared_focus = {
+    id = HRE_decided_army_policy
+    icon = GFX_focus_ger_oppose_hitler
+    x = 0
+    y = 1
+    cost = 5
+    prerequisite = {
+        focus = HRE_superior_mass
+        focus = HRE_superior_spirit
+        focus = HRE_superior_tech
+    }
+    relative_position_id = HRE_superior_mass
+    available = {
+    
+    }
+    completion_reward = {
+        army_experience = 30
+        air_experience = 30
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_doctrine_1
+    icon = GFX_goal_generic_army_doctrines
+    x = 0
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_decided_army_policy
+    }
+    relative_position_id = HRE_decided_army_policy
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.50
+                uses = 1
+                category = land_doctrine
+            }
+            create_corps_commander = {
+                name = "パラドゲーの信奉者"
+                skill = 2
+                attack_skill = 2
+                defense_skill = 2
+                planning_skill = 2
+                logistics_skill = 2
+            }
+            
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                every_unit_leader = {
+                    add_attack = 1
+                    add_unit_leader_trait = adaptable
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                every_unit_leader = {
+                    add_logistics = 1
+                    add_max_trait = 1
+                    add_unit_leader_trait = skilled_staffer
+                }
+                
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                every_unit_leader = {
+                    add_planning = 1
+                    add_random_trait = {
+                        trait_engineer
+                        panzer_leader
+                    }
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_doctrine_1_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_doctrine_1_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_doctrine_1_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            air_experience = 10
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.50
+                uses = 1
+                category = air_doctrine
+            }
+            
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_doctrine_1_air_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_doctrine_1_air_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_ideas = HRE_focus_to_doctrine_1_air_tech
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_doctrine_1_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_doctrine_1_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_doctrine_1_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_doctrine_2
+    icon = GFX_goal_generic_air_doctrine
+    x = 0
+    y = 2
+    cost = 10
+    prerequisite = {
+        focus = HRE_focus_to_doctrine_1
+    }
+    relative_position_id = HRE_focus_to_doctrine_1
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.50
+                uses = 2
+                category = land_doctrine
+            }
+            create_corps_commander = {
+                name = "HoI4マルチで2000時間溶かした人"
+                skill = 2
+                attack_skill = 2
+                defense_skill = 2
+                planning_skill = 2
+                logistics_skill = 2
+            }
+            
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_doctrine_2_land_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_doctrine_2_land_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_ideas = HRE_focus_to_doctrine_2_land_tech
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_doctrine_2_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_doctrine_2_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_doctrine_2_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.50
+                uses = 2
+                category = air_doctrine
+            }
+            add_doctrine_cost_reduction = {
+                cost_reduction = 0.25
+                uses = 1
+                category = air_doctrine
+            }
+            
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_doctrine_2_air_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_doctrine_2_air_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_ideas = HRE_focus_to_doctrine_2_air_tech
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_doctrine_2_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_doctrine_2_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_doctrine_2_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_infantry_equipment_or_fighter_1
+    icon = GFX_focus_secret_rearmament
+    x = 1
+    y = 2
+    cost = 10
+    prerequisite = {
+        focus = HRE_decided_army_policy
+    }
+    relative_position_id = HRE_decided_army_policy
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 2
+                category = infantry_weapons
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_infantry_equipment_or_fighter_1_land_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_infantry_equipment_or_fighter_1_land_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    ahead_reduction = 0.5
+                    category = infantry_weapons
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_1_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_1_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_1_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 1
+                category = cat_heavy_fighter
+                category = light_fighter
+            }
+            add_tech_bonus = {
+                bonus = 0.5
+                uses = 1
+                category = cat_air_engine
+                category = cat_air_guns
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_infantry_equipment_or_fighter_1_air_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_infantry_equipment_or_fighter_1_air_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    ahead_reduction = 0.5
+                    category = cat_heavy_fighter
+                    category = light_fighter
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = cat_air_engine
+                    category = cat_air_guns
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_1_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_1_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_1_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_infantry_equipment_or_fighter_2
+    icon = GFX_goal_generic_air_fighter2
+    x = 0
+    y = 2
+    cost = 10
+    prerequisite = {
+        focus = HRE_focus_to_infantry_equipment_or_fighter_1
+    }
+    relative_position_id = HRE_focus_to_infantry_equipment_or_fighter_1
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 2
+                category = infantry_weapons
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                swap_ideas = {
+                    remove_idea = HRE_focus_to_infantry_equipment_or_fighter_1_land_spirit
+                    add_idea = HRE_focus_to_infantry_equipment_or_fighter_2_land_spirit
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                swap_ideas = {
+                    remove_idea = HRE_focus_to_infantry_equipment_or_fighter_1_land_mass
+                    add_idea = HRE_focus_to_infantry_equipment_or_fighter_2_land_mass
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    ahead_reduction = 1
+                    category = infantry_weapons
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_2_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_2_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_2_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 1
+                category = cat_heavy_fighter
+                category = light_fighter
+            }
+            add_tech_bonus = {
+                bonus = 0.5
+                uses = 1
+                category = cat_air_engine
+                category = cat_air_guns
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                swap_ideas = {
+                    remove_idea = HRE_focus_to_infantry_equipment_or_fighter_1_air_spirit
+                    add_idea = HRE_focus_to_infantry_equipment_or_fighter_2_air_spirit
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_infantry_equipment_or_fighter_2_air_mass
+                    remove_idea = HRE_focus_to_infantry_equipment_or_fighter_1_air_mass
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 1
+                    ahead_reduction = 2
+                    category = cat_heavy_fighter
+                    category = light_fighter
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    ahead_reduction = 1
+                    category = cat_air_engine
+                    category = cat_air_guns
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_2_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_2_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_infantry_equipment_or_fighter_2_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_artillery_or_cas_1
+    icon = GFX_goal_generic_army_artillery2
+    x = -1
+    y = 2
+    cost = 10
+    prerequisite = {
+        focus = HRE_decided_army_policy
+    }
+    relative_position_id = HRE_decided_army_policy
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 2
+                category = artillery
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_artillery_or_cas_1_land_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_artillery_or_cas_1_land_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 1
+                    ahead_reduction = 1
+                    category = artillery
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_1_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_1_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_1_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 1
+                category = cas_bomber
+                category = naval_bomber
+            }
+            add_tech_bonus = {
+                bonus = 0.5
+                uses = 1
+                category = cat_air_engine
+                category = cat_air_bombs
+                category = cat_anti_tank
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_artillery_or_cas_1_air_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_artillery_or_cas_1_air_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    bonus = 0.5
+                    uses = 1
+                    ahead_reduction = 1
+                    category = cas_bomber
+                    category = naval_bomber
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = cat_air_engine
+                    category = cat_air_bombs
+                    category = cat_anti_tank
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_1_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_1_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_1_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_artillery_or_cas_2
+    icon = GFX_goal_generic_CAS
+    x = 0
+    y = 2
+    cost = 10
+    prerequisite = {
+        focus = HRE_focus_to_artillery_or_cas_1
+    }
+    relative_position_id = HRE_focus_to_artillery_or_cas_1
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 2
+                category = artillery
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_artillery_or_cas_2_land_spirit
+                    remove_idea = HRE_focus_to_artillery_or_cas_1_land_spirit
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_artillery_or_cas_2_land_mass
+                    remove_idea = HRE_focus_to_artillery_or_cas_1_land_mass
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 1
+                    ahead_reduction = 2
+                    category = artillery
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_2_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_2_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_2_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 1
+                category = cas_bomber
+                category = naval_bomber
+            }
+            add_tech_bonus = {
+                bonus = 0.5
+                uses = 1
+                category = cat_air_engine
+                category = cat_air_bombs
+                category = cat_anti_tank
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_artillery_or_cas_2_air_spirit
+                    remove_idea = HRE_focus_to_artillery_or_cas_1_air_spirit
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_artillery_or_cas_2_air_mass
+                    remove_idea = HRE_focus_to_artillery_or_cas_1_air_mass
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 1
+                    ahead_reduction = 2
+                    category = cas_bomber
+                    category = naval_bomber
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    ahead_reduction = 1
+                    category = cat_air_engine
+                    category = cat_air_bombs
+                    category = cat_anti_tank
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_2_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_2_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_artillery_or_cas_2_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_support_or_bomber_1
+    icon = GFX_focus_SOV_organize_wreckers
+    x = -2
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_decided_army_policy
+    }
+    relative_position_id = HRE_decided_army_policy
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 2
+                category = support_tech
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_support_or_bomber_1_land_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_support_or_bomber_1_land_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 2
+                    ahead_reduction = 1
+                    category = support_tech
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_1_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_1_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_1_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 1
+                category = tactical_bomber
+                category = cat_strategic_bomber
+            }
+            add_tech_bonus = {
+                bonus = 0.5
+                uses = 1
+                category = cat_air_engine
+                category = cat_air_bombs
+                technology = survivability_studies
+                technology = range_improvements
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_support_or_bomber_1_air_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_support_or_bomber_1_air_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 1
+                    ahead_reduction = 1
+                    category = tactical_bomber
+                    category = cat_strategic_bomber
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = cat_air_engine
+                    category = cat_air_bombs
+                    technology = survivability_studies
+                    technology = range_improvements
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_1_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_1_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_1_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_support_or_bomber_2
+    icon = GFX_goal_generic_air_bomber
+    x = 0
+    y = 2
+    cost = 10
+    prerequisite = {
+        focus = HRE_focus_to_support_or_bomber_1
+    }
+    relative_position_id = HRE_focus_to_support_or_bomber_1
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 2
+                category = support_tech
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_support_or_bomber_2_land_spirit
+                    remove_idea = HRE_focus_to_support_or_bomber_1_land_spirit
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_support_or_bomber_2_land_mass
+                    remove_idea = HRE_focus_to_support_or_bomber_1_land_mass
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 2
+                    ahead_reduction = 2
+                    category = support_tech
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_2_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_2_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_2_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 1
+                category = tactical_bomber
+                category = cat_strategic_bomber
+            }
+            add_tech_bonus = {
+                bonus = 0.5
+                uses = 1
+                category = cat_air_engine
+                category = cat_air_bombs
+                technology = survivability_studies
+                technology = range_improvements
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_support_or_bomber_2_air_spirit
+                    remove_idea = HRE_focus_to_support_or_bomber_1_air_spirit
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_support_or_bomber_2_air_mass
+                    remove_idea = HRE_focus_to_support_or_bomber_1_air_mass
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 1
+                    ahead_reduction = 2
+                    category = tactical_bomber
+                    category = cat_strategic_bomber
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    ahead_reduction = 1
+                    category = cat_air_engine
+                    category = cat_air_bombs
+                    technology = survivability_studies
+                    technology = range_improvements
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_2_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_2_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_support_or_bomber_2_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_tank_or_jet_1
+    icon = GFX_goal_generic_army_tanks
+    x = 2
+    y = 1
+    cost = 10
+    prerequisite = {
+        focus = HRE_decided_army_policy
+    }
+    relative_position_id = HRE_decided_army_policy
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 2
+                category = armor
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_tank_or_jet_1_land_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_tank_or_jet_1_land_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 1
+                    ahead_reduction = 1
+                    category = armor
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            add_tech_bonus = {
+                ahead_reduction = 1
+                uses = 2
+                category = jet_technology
+                category = rocketry
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                add_ideas = HRE_focus_to_tank_or_jet_1_air_spirit
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                add_ideas = HRE_focus_to_tank_or_jet_1_air_mass
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    ahead_reduction = 2
+                    uses = 1
+                    category = jet_technology
+                    category = rocketry
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_tank_or_jet_2
+    icon = GFX_focus_usa_escort_fighters
+    x = 0
+    y = 2
+    cost = 10
+    prerequisite = {
+        focus = HRE_focus_to_tank_or_jet_1
+    }
+    relative_position_id = HRE_focus_to_tank_or_jet_1
+    available = {
+    
+    }
+    completion_reward = {
+        if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_army
+            }
+            add_tech_bonus = {
+                bonus = 1
+                uses = 2
+                category = armor
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_tank_or_jet_2_land_spirit
+                    remove_idea = HRE_focus_to_tank_or_jet_1_land_spirit
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_tank_or_jet_2_land_mass
+                    remove_idea = HRE_focus_to_tank_or_jet_1_land_mass
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    uses = 1
+                    ahead_reduction = 2
+                    category = armor
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_spirit_land
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_mass_land
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_tech_land
+            }
+        }
+        else_if = {
+            limit = {
+                has_completed_focus = HRE_focus_to_air
+            }
+            add_tech_bonus = {
+                ahead_reduction = 1.5
+                uses = 1
+                category = jet_technology
+                category = rocketry
+            }
+            if = {
+                limit = {
+                    has_completed_focus = HRE_superior_spirit
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_tank_or_jet_2_air_spirit
+                    remove_idea = HRE_focus_to_tank_or_jet_1_air_spirit
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_mass
+                }
+                swap_ideas = {
+                    add_idea = HRE_focus_to_tank_or_jet_2_air_mass
+                    remove_idea = HRE_focus_to_tank_or_jet_1_air_mass
+                }
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = HRE_superior_tech
+                }
+                add_tech_bonus = {
+                    ahead_reduction = 3
+                    uses = 1
+                    category = jet_technology
+                    category = rocketry
+                }
+            }
+            else = {
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_spirit_air
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_mass_air
+                custom_effect_tooltip = HRE_focus_to_tank_or_jet_1_tooltip_tech_air
+            }
+        }
+        else = {
+            custom_effect_tooltip = HRE_tooltip_effect_defined_by_prev_focus
+        }
+    }
+}
+
+shared_focus = {
+    id = HRE_focus_to_nuke
+    icon = GFX_focus_wonderweapons
+    x = 0
+    y = 2
+    cost = 10
+    prerequisite = {
+        focus = HRE_focus_to_doctrine_2
+        focus = HRE_focus_to_infantry_equipment_or_fighter_2
+        focus = HRE_focus_to_artillery_or_cas_2
+        focus = HRE_focus_to_support_or_bomber_2
+        focus = HRE_focus_to_tank_or_jet_2
+    }
+    relative_position_id = HRE_focus_to_doctrine_2
+    available = {
+        count_triggers = {
+            amount = 2
+            has_completed_focus = HRE_focus_to_doctrine_2
+            has_completed_focus = HRE_focus_to_infantry_equipment_or_fighter_2
+            has_completed_focus = HRE_focus_to_artillery_or_cas_2
+            has_completed_focus = HRE_focus_to_support_or_bomber_2
+            has_completed_focus = HRE_focus_to_tank_or_jet_2
+        }
+    }
+    completion_reward = {
+        add_tech_bonus = {
+            ahead_reduction = 1
+            uses = 1
+            category = nuclear
+        }
+        add_tech_bonus = {
+            ahead_reduction = 2
+            uses = 1
+            category = nuclear
+        }
+    }
+}

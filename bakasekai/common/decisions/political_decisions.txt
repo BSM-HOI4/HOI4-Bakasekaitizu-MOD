@@ -4,7 +4,7 @@ fascism_on_the_rise = {
 		icon = generic_prepare_civil_war
 
 		available = {
-			fascism > 0.1
+			fascism_ideology > 0.1
 			num_of_controlled_states > 1
 		}
 
@@ -14,7 +14,7 @@ fascism_on_the_rise = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			check_has_focus_tree_to_switch_to_fascism = yes
 		}
 		
@@ -44,7 +44,7 @@ fascism_on_the_rise = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			check_has_focus_tree_to_switch_to_fascism = yes
 		}
 
@@ -61,9 +61,9 @@ fascism_on_the_rise = {
 		days_remove = 30
 
 		modifier = {
-			fascism_drift = 0.02
+			fascism_ideology_drift = 0.02
 			stability_weekly = -0.03
- 			political_power_gain = -0.2
+			political_power_gain = -0.2
 		}
 		
 		ai_will_do = {
@@ -81,7 +81,7 @@ fascism_on_the_rise = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			check_has_focus_tree_to_switch_to_fascism = yes
 		}
 
@@ -140,7 +140,7 @@ fascism_on_the_rise = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			any_army_leader = {
 				is_field_marshal = no
 				NOT = { has_trait = hidden_sympathies }
@@ -175,7 +175,7 @@ fascism_on_the_rise = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			any_army_leader = {
 				NOT = { has_trait = hidden_sympathies }
 			}
@@ -216,7 +216,7 @@ fascism_on_the_rise = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			check_has_focus_tree_to_switch_to_fascism = yes
 		}
 	
@@ -253,7 +253,7 @@ fascism_on_the_rise = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			check_has_focus_tree_to_switch_to_fascism = yes
 		}
 	
@@ -278,7 +278,7 @@ fascism_on_the_rise = {
 
 		available = {
 			has_stability < 0.5
-			fascism > 0.50
+			fascism_ideology > 0.50
 		}
 
 		visible = {
@@ -287,7 +287,7 @@ fascism_on_the_rise = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			check_has_focus_tree_to_switch_to_fascism = yes
 			check_variable = { num_owned_states = 1 }
 		}
@@ -297,7 +297,7 @@ fascism_on_the_rise = {
 		cost = 50
 		
 		complete_effect = {
-			set_politics = { ruling_party = fascism elections_allowed = no }
+			set_politics = { ruling_party = fascism_ideology elections_allowed = no }
 			clr_country_flag = preparation_for_fascism_civil_war
 			clr_country_flag = military_support_for_fascism_civil_war
 			clr_country_flag = civil_support_for_fascism_civil_war
@@ -322,7 +322,7 @@ fascism_on_the_rise = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
 			}
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			check_has_focus_tree_to_switch_to_fascism = yes
 			check_variable = { num_owned_states > 1 }
 		}
@@ -334,29 +334,29 @@ fascism_on_the_rise = {
 		complete_effect = {
 			if = {
 				limit = {
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				set_variable = {
 					var = civil_war_size_var
-					value = party_popularity@democratic
+					value = party_popularity@democratic_ideology
 				}
 			}
 			if = {
 				limit = {
-					has_government = communism
+					has_government = communism_ideology
 				}
 				set_variable = {
 					var = civil_war_size_var
-					value = party_popularity@communism
+					value = party_popularity@communism_ideology
 				}
 			}
 			if = {
 				limit = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				set_variable = {
 					var = civil_war_size_var
-					value = party_popularity@neutrality
+					value = party_popularity@neutrality_ideology
 				}
 			}
 			subtract_from_variable = {
@@ -377,7 +377,7 @@ fascism_on_the_rise = {
 				}
 			}
 			start_civil_war = {
-				ruling_party = fascism
+				ruling_party = fascism_ideology
 				ideology = ROOT
 				size = civil_war_size_var
 				keep_unit_leaders_trigger = {
@@ -400,7 +400,7 @@ fascism_on_the_rise = {
 		icon = generic_construction
 
 		visible = {
-			has_government = fascism
+			has_government = fascism_ideology
 			has_country_flag = won_ideology_civil_war
 		}
 
@@ -429,10 +429,10 @@ fascism_on_the_rise = {
 		icon = generic_political_discourse
 
 		available = {
-			fascism < 0.9
-			democratic < 0.9
-			communism < 0.9
-			neutrality < 0.9
+			fascism_ideology < 0.9
+			democratic_ideology < 0.9
+			communism_ideology < 0.9
+			neutrality_ideology < 0.9
 		}
 
 		visible = {
@@ -441,12 +441,12 @@ fascism_on_the_rise = {
 				has_idea_with_trait = syncretic_revanchist
 			}
 			NOT = { has_country_flag = open_up_political_discourse_fascism }
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			check_has_focus_tree_to_switch_to_fascism = yes
 		}
 		
 		remove_trigger = {
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 		
 		fire_only_once = yes
@@ -467,10 +467,10 @@ fascism_on_the_rise = {
 		icon = generic_political_discourse
 
 		available = {
-			fascism < 0.8
-			democratic < 0.8
-			communism < 0.8
-			neutrality < 0.8
+			fascism_ideology < 0.8
+			democratic_ideology < 0.8
+			communism_ideology < 0.8
+			neutrality_ideology < 0.8
 			OR = {
 				has_idea_with_trait = fascist_demagogue
 				has_idea_with_trait = syncretic_revanchist
@@ -479,12 +479,12 @@ fascism_on_the_rise = {
 
 		visible = {
 			has_country_flag = open_up_political_discourse_fascism
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			check_has_focus_tree_to_switch_to_fascism = yes
 		}
 		
 		remove_trigger = {
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 		
 		fire_only_once = yes
@@ -495,28 +495,28 @@ fascism_on_the_rise = {
 			add_stability = -0.010
 			if = {
 				limit = {
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				add_popularity = {
-					ideology = democratic
+					ideology = democratic_ideology
 					popularity = -0.1
 				}
 			}
 			if = {
 				limit = {
-					has_government = communism
+					has_government = communism_ideology
 				}
 				add_popularity = {
-					ideology = communism
+					ideology = communism_ideology
 					popularity = -0.1
 				}
 			}
 			if = {
 				limit = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				add_popularity = {
-					ideology = neutrality
+					ideology = neutrality_ideology
 					popularity = -0.1
 				}
 			}
@@ -532,20 +532,20 @@ fascism_on_the_rise = {
 		icon = generic_political_discourse
 
 		available = {
-			fascism > 0.5
+			fascism_ideology > 0.5
 		}
 
 		visible = {
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 			OR = {
-				fascism > 0.6
+				fascism_ideology > 0.6
 				has_country_flag = open_up_political_discourse_fascism
 			}
 			check_has_focus_tree_to_switch_to_fascism = yes
 		}
 		
 		remove_trigger = {
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 		
 		fire_only_once = yes
@@ -559,7 +559,7 @@ fascism_on_the_rise = {
 		ai_will_do = {
 			factor = 210
 			modifier = {
-				fascism > 0.6
+				fascism_ideology > 0.6
 				factor = 10
 			}
 		}
@@ -572,7 +572,7 @@ democratic_on_the_rise = {
 		icon = generic_prepare_civil_war
 
 		available = {
-			democratic > 0.1
+			democratic_ideology > 0.1
 			num_of_controlled_states > 1
 		}
 
@@ -582,7 +582,7 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			check_has_focus_tree_to_switch_to_democratic = yes
 		}
 		
@@ -612,7 +612,7 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			check_has_focus_tree_to_switch_to_democratic = yes
 		}
 
@@ -629,7 +629,7 @@ democratic_on_the_rise = {
 		days_remove = 30
 
 		modifier = {
-			democratic_drift = 0.05
+			democratic_ideology_drift = 0.05
 			stability_weekly = -0.003
  			political_power_gain = -0.2
 		}
@@ -649,7 +649,7 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			check_has_focus_tree_to_switch_to_democratic = yes
 		}
 
@@ -708,7 +708,7 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			any_army_leader = {
 				is_field_marshal = no
 				NOT = { has_trait = hidden_sympathies }
@@ -744,7 +744,7 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			any_army_leader = {
 				NOT = { has_trait = hidden_sympathies }
 			}
@@ -785,7 +785,7 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			check_has_focus_tree_to_switch_to_democratic = yes
 		}
 	
@@ -822,7 +822,7 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			check_has_focus_tree_to_switch_to_democratic = yes
 		}
 	
@@ -847,7 +847,7 @@ democratic_on_the_rise = {
 		
 		available = {
 			has_stability < 0.5
-			democratic > 0.50
+			democratic_ideology > 0.50
 		}
 
 		visible = {
@@ -856,7 +856,7 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			check_has_focus_tree_to_switch_to_democratic = yes
 			check_variable = { num_owned_states = 1 }
 		}
@@ -866,7 +866,7 @@ democratic_on_the_rise = {
 		cost = 50
 		
 		complete_effect = {
-			set_politics = { ruling_party = democratic elections_allowed = yes }
+			set_politics = { ruling_party = democratic_ideology elections_allowed = yes }
 			clr_country_flag = preparation_for_democratic_civil_war
 			clr_country_flag = military_support_for_democratic_civil_war
 			clr_country_flag = civil_support_for_democratic_civil_war
@@ -891,7 +891,7 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			check_has_focus_tree_to_switch_to_democratic = yes
 			check_variable = { num_owned_states > 1 }
 		}
@@ -903,29 +903,29 @@ democratic_on_the_rise = {
 		complete_effect = {
 			if = {
 				limit = {
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 				set_variable = {
 					var = civil_war_size_var
-					value = party_popularity@fascism
+					value = party_popularity@fascism_ideology
 				}
 			}
 			if = {
 				limit = {
-					has_government = communism
+					has_government = communism_ideology
 				}
 				set_variable = {
 					var = civil_war_size_var
-					value = party_popularity@communism
+					value = party_popularity@communism_ideology
 				}
 			}
 			if = {
 				limit = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				set_variable = {
 					var = civil_war_size_var
-					value = party_popularity@neutrality
+					value = party_popularity@neutrality_ideology
 				}
 			}
 			subtract_from_variable = {
@@ -946,7 +946,7 @@ democratic_on_the_rise = {
 				}
 			}
 			start_civil_war = {
-				ruling_party = democratic
+				ruling_party = democratic_ideology
 				ideology = ROOT
 				size = civil_war_size_var
 				keep_unit_leaders_trigger = {
@@ -968,7 +968,7 @@ democratic_on_the_rise = {
 		icon = generic_construction
 
 		visible = {
-			has_government = democratic
+			has_government = democratic_ideology
 			has_country_flag = won_ideology_civil_war
 		}
 
@@ -997,10 +997,10 @@ democratic_on_the_rise = {
 		icon = generic_political_discourse
 
 		available = {
-			fascism < 0.9
-			democratic < 0.9
-			communism < 0.9
-			neutrality < 0.9
+			fascism_ideology < 0.9
+			democratic_ideology < 0.9
+			communism_ideology < 0.9
+			neutrality_ideology < 0.9
 		}
 
 		visible = {
@@ -1008,12 +1008,12 @@ democratic_on_the_rise = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
 			}
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			check_has_focus_tree_to_switch_to_democratic = yes
 		}
 		
 		remove_trigger = {
-			has_government = democratic
+			has_government = democratic_ideology
 		}
 		
 		fire_only_once = yes
@@ -1034,10 +1034,10 @@ democratic_on_the_rise = {
 		icon = generic_political_discourse
 
 		available = {
-			fascism < 0.8
-			democratic < 0.8
-			communism < 0.8
-			neutrality < 0.8
+			fascism_ideology < 0.8
+			democratic_ideology < 0.8
+			communism_ideology < 0.8
+			neutrality_ideology < 0.8
 			OR = {
 				has_idea_with_trait = democratic_reformer
 				has_idea_with_trait = social_reformer
@@ -1046,12 +1046,12 @@ democratic_on_the_rise = {
 
 		visible = {
 			has_country_flag = open_up_political_discourse_democratic
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			check_has_focus_tree_to_switch_to_democratic = yes
 		}
 		
 		remove_trigger = {
-			has_government = democratic
+			has_government = democratic_ideology
 		}
 		
 		fire_only_once = yes
@@ -1062,28 +1062,28 @@ democratic_on_the_rise = {
 			add_stability = -0.010
 			if = {
 				limit = {
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 				add_popularity = {
-					ideology = fascism
+					ideology = fascism_ideology
 					popularity = -0.1
 				}
 			}
 			if = {
 				limit = {
-					has_government = communism
+					has_government = communism_ideology
 				}
 				add_popularity = {
-					ideology = communism
+					ideology = communism_ideology
 					popularity = -0.1
 				}
 			}
 			if = {
 				limit = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				add_popularity = {
-					ideology = neutrality
+					ideology = neutrality_ideology
 					popularity = -0.1
 				}
 			}
@@ -1099,20 +1099,20 @@ democratic_on_the_rise = {
 		icon = generic_political_discourse
 
 		available = {
-			democratic > 0.5
+			democratic_ideology > 0.5
 		}
 
 		visible = {
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 			OR = {
-				democratic > 0.6
+				democratic_ideology > 0.6
 				has_country_flag = open_up_political_discourse_democratic
 			}
 			check_has_focus_tree_to_switch_to_democratic = yes
 		}
 		
 		remove_trigger = {
-			has_government = democratic
+			has_government = democratic_ideology
 		}
 		
 		fire_only_once = yes
@@ -1126,7 +1126,7 @@ democratic_on_the_rise = {
 		ai_will_do = {
 			factor = 210
 			modifier = {
-				democratic > 0.6
+				democratic_ideology > 0.6
 				factor = 10
 			}
 		}
@@ -1139,7 +1139,7 @@ communism_on_the_rise = {
 		icon = generic_prepare_civil_war
 
 		available = {
-			communism > 0.1
+			communism_ideology > 0.1
 			num_of_controlled_states > 1
 		}
 
@@ -1149,7 +1149,7 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			check_has_focus_tree_to_switch_to_communism = yes
 		}
 		
@@ -1179,7 +1179,7 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			check_has_focus_tree_to_switch_to_communism = yes
 		}
 
@@ -1196,7 +1196,7 @@ communism_on_the_rise = {
 		days_remove = 30
 
 		modifier = {
-			communism_drift = 0.02
+			communism_ideology_drift = 0.02
 			stability_weekly = -0.03
  			political_power_gain = -0.2
 		}
@@ -1216,7 +1216,7 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			check_has_focus_tree_to_switch_to_communism = yes
 		}
 
@@ -1275,7 +1275,7 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			any_army_leader = {
 				is_field_marshal = no
 				NOT = { has_trait = hidden_sympathies }
@@ -1311,7 +1311,7 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			any_army_leader = {
 				NOT = { has_trait = hidden_sympathies }
 			}
@@ -1352,7 +1352,7 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			check_has_focus_tree_to_switch_to_communism = yes
 		}
 	
@@ -1389,7 +1389,7 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			check_has_focus_tree_to_switch_to_communism = yes
 		}
 	
@@ -1414,7 +1414,7 @@ communism_on_the_rise = {
 
 		available = {
 			has_stability < 0.5
-			communism > 0.50
+			communism_ideology > 0.50
 		}
 
 		visible = {
@@ -1423,7 +1423,7 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			check_has_focus_tree_to_switch_to_communism = yes
 			check_variable = { num_owned_states = 1 }
 		}
@@ -1433,7 +1433,7 @@ communism_on_the_rise = {
 		cost = 50
 		
 		complete_effect = {
-			set_politics = { ruling_party = communism elections_allowed = no }
+			set_politics = { ruling_party = communism_ideology elections_allowed = no }
 			clr_country_flag = preparation_for_communist_civil_war
 			clr_country_flag = military_support_for_communist_civil_war
 			clr_country_flag = civil_support_for_communist_civil_war
@@ -1458,7 +1458,7 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			check_has_focus_tree_to_switch_to_communism = yes
 			check_variable = { num_owned_states > 1 }
 		}
@@ -1470,29 +1470,29 @@ communism_on_the_rise = {
 		complete_effect = {
 			if = {
 				limit = {
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 				set_variable = {
 					var = civil_war_size_var
-					value = party_popularity@fascism
+					value = party_popularity@fascism_ideology
 				}
 			}
 			if = {
 				limit = {
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				set_variable = {
 					var = civil_war_size_var
-					value = party_popularity@democratic
+					value = party_popularity@democratic_ideology
 				}
 			}
 			if = {
 				limit = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				set_variable = {
 					var = civil_war_size_var
-					value = party_popularity@neutrality
+					value = party_popularity@neutrality_ideology
 				}
 			}
 			subtract_from_variable = {
@@ -1513,7 +1513,7 @@ communism_on_the_rise = {
 				}
 			}
 			start_civil_war = {
-				ruling_party = communism
+				ruling_party = communism_ideology
 				ideology = ROOT
 				size = civil_war_size_var
 				keep_unit_leaders_trigger = {
@@ -1535,7 +1535,7 @@ communism_on_the_rise = {
 		icon = generic_construction
 
 		visible = {
-			has_government = communism
+			has_government = communism_ideology
 			has_country_flag = won_ideology_civil_war
 		}
 
@@ -1564,10 +1564,10 @@ communism_on_the_rise = {
 		icon = generic_political_discourse
 
 		available = {
-			fascism < 0.9
-			democratic < 0.9
-			communism < 0.9
-			neutrality < 0.9
+			fascism_ideology < 0.9
+			democratic_ideology < 0.9
+			communism_ideology < 0.9
+			neutrality_ideology < 0.9
 		}
 
 		visible = {
@@ -1575,12 +1575,12 @@ communism_on_the_rise = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
 			}
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			check_has_focus_tree_to_switch_to_communism = yes
 		}
 		
 		remove_trigger = {
-			has_government = communism
+			has_government = communism_ideology
 		}
 		
 		fire_only_once = yes
@@ -1601,10 +1601,10 @@ communism_on_the_rise = {
 		icon = generic_political_discourse
 
 		available = {
-			fascism < 0.8
-			democratic < 0.8
-			communism < 0.8
-			neutrality < 0.8
+			fascism_ideology < 0.8
+			democratic_ideology < 0.8
+			communism_ideology < 0.8
+			neutrality_ideology < 0.8
 			OR = {
 				has_idea_with_trait = communist_revolutionary
 				has_idea_with_trait = ambitious_union_boss
@@ -1613,12 +1613,12 @@ communism_on_the_rise = {
 
 		visible = {
 			has_country_flag = open_up_political_discourse_communist
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			check_has_focus_tree_to_switch_to_communism = yes
 		}
 		
 		remove_trigger = {
-			has_government = communism
+			has_government = communism_ideology
 		}
 		
 		fire_only_once = yes
@@ -1629,28 +1629,28 @@ communism_on_the_rise = {
 			add_stability = -0.010
 			if = {
 				limit = {
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 				add_popularity = {
-					ideology = fascism
+					ideology = fascism_ideology
 					popularity = -0.1
 				}
 			}
 			if = {
 				limit = {
-					has_government = democratic
+					has_government = democratic_ideology
 				}
 				add_popularity = {
-					ideology = democratic
+					ideology = democratic_ideology
 					popularity = -0.1
 				}
 			}
 			if = {
 				limit = {
-					has_government = neutrality
+					has_government = neutrality_ideology
 				}
 				add_popularity = {
-					ideology = neutrality
+					ideology = neutrality_ideology
 					popularity = -0.1
 				}
 			}
@@ -1666,20 +1666,20 @@ communism_on_the_rise = {
 		icon = generic_political_discourse
 
 		available = {
-			communism > 0.5
+			communism_ideology > 0.5
 		}
 
 		visible = {
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 			OR = {
-				communism > 0.6
+				communism_ideology > 0.6
 				has_country_flag = open_up_political_discourse_communist
 			}
 			check_has_focus_tree_to_switch_to_communism = yes
 		}
 		
 		remove_trigger = {
-			has_government = communism
+			has_government = communism_ideology
 		}
 		
 		fire_only_once = yes
@@ -1693,7 +1693,7 @@ communism_on_the_rise = {
 		ai_will_do = {
 			factor = 210
 			modifier = {
-				communism > 0.6
+				communism_ideology > 0.6
 				factor = 10
 			}
 		}
@@ -1716,8 +1716,8 @@ political_actions = {
         }
 
 		visible = {
-            NOT = { has_government = fascism }
-            NOT = { has_government = communism }
+            NOT = { has_government = fascism_ideology }
+            NOT = { has_government = communism_ideology }
 			is_government_in_exile = no
 		}
 
@@ -1774,8 +1774,8 @@ political_actions = {
 		}
 
 		visible = {
-            NOT = { has_government = fascism }
-            NOT = { has_government = communism }
+            NOT = { has_government = fascism_ideology }
+            NOT = { has_government = communism_ideology }
 			is_government_in_exile = no
         }
         cost = 100
@@ -1810,11 +1810,11 @@ political_actions = {
     	icon = generic_civil_support
 
     	visible = {
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 		}
 
 		available = {
-            fascism > 0.1
+            fascism_ideology > 0.1
             if = {
 				limit = {
 					tag = ESP
@@ -1826,7 +1826,7 @@ political_actions = {
         }
 	
 		modifier = {
-			fascism_drift = -0.05
+			fascism_ideology_drift = -0.05
 			stability_weekly = 0.007
 		}
 	
@@ -1845,19 +1845,19 @@ political_actions = {
 			modifier = {
 				add = 1
 				tag = AUS
-				fascism > 0.45
+				fascism_ideology > 0.45
 				is_historical_focus_on = no
 			}
 			modifier = {
 				add = 10
 				tag = AUS
-				fascism > 0.45
+				fascism_ideology > 0.45
 				DEU = { has_completed_focus = GER_reestablish_free_elections }
 			}
 			modifier = {
 				add = 10
 				tag = AUS
-				fascism > 0.45
+				fascism_ideology > 0.45
 				has_completed_focus = liberty_ethos
 			}
 			modifier = {
@@ -1868,16 +1868,16 @@ political_actions = {
 			modifier = {
 				add = 10
 				original_tag = ITA
-				has_completed_focus = ITA_convene_the_grand_council
-				OR = {
-					ITA_is_monarchist_ai = yes
-					ITA_is_christian_democracy_ai = yes
-				}
+				# has_completed_focus = ITA_convene_the_grand_council
+				# OR = {
+				# 	ITA_is_monarchist_ai = yes
+				# 	ITA_is_christian_democracy_ai = yes
+				# }
 			}
 			modifier = {
 				add = 40
 				original_tag = ITA
-				has_completed_focus = ITA_monarchia_d_italia
+				# has_completed_focus = ITA_monarchia_d_italia
 			}
 		}
     }
@@ -1887,11 +1887,11 @@ political_actions = {
     	icon = generic_civil_support
 
     	visible = {
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 		}
 
 		available = {
-            democratic > 0.1
+            democratic_ideology > 0.1
             if = {
 				limit = {
 					tag = ESP
@@ -1903,7 +1903,7 @@ political_actions = {
         }
 	
 		modifier = {
-			democratic_drift = -0.05
+			democratic_ideology_drift = -0.05
 			stability_weekly = 0.007
 		}
 	
@@ -1927,11 +1927,11 @@ political_actions = {
     	icon = generic_civil_support
 
     	visible = {
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 		}
 
 		available = {
-            communism > 0.1
+            communism_ideology > 0.1
             if = {
 				limit = {
 					tag = ESP
@@ -1943,7 +1943,7 @@ political_actions = {
         }
 	
 		modifier = {
-			communism_drift = -0.05
+			communism_ideology_drift = -0.05
 			stability_weekly = 0.007
 		}
 	
@@ -1967,7 +1967,7 @@ political_actions = {
 		icon = generic_civil_support
 
 		available = {
-			fascism < 0.2
+			fascism_ideology < 0.2
 			if = {
 				limit = {
 					tag = ESP
@@ -1979,8 +1979,8 @@ political_actions = {
 		}
 
 		visible = {
-			NOT = { has_government = fascism }
-			fascism > 0
+			NOT = { has_government = fascism_ideology }
+			fascism_ideology > 0
 			if = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"	
@@ -1991,12 +1991,12 @@ political_actions = {
 
 		remove_trigger = {
 			hidden_trigger = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 		}
 	
 		modifier = {
-			fascism_drift = -0.05
+			fascism_ideology_drift = -0.05
 		}
 	
 		days_remove = -1
@@ -2006,14 +2006,14 @@ political_actions = {
 			hidden_effect = {
 				set_temp_variable = {
 					var = ban_ideology_var
-					value = party_popularity@fascism
+					value = party_popularity@fascism_ideology
 				}
 				multiply_temp_variable = {
 					var = ban_ideology_var
 					value = -1
 				}
 				add_popularity = {
-					ideology = fascism
+					ideology = fascism_ideology
 					popularity = ban_ideology_var
 				}
 				multiply_temp_variable = {
@@ -2037,7 +2037,7 @@ political_actions = {
 		icon = generic_civil_support
 
 		available = {
-			democratic < 0.2
+			democratic_ideology < 0.2
 			if = {
 				limit = {
 					tag = ESP
@@ -2049,8 +2049,8 @@ political_actions = {
 		}
 
 		visible = {
-			NOT = { has_government = democratic }
-			democratic > 0
+			NOT = { has_government = democratic_ideology }
+			democratic_ideology > 0
 			if = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"	
@@ -2061,12 +2061,12 @@ political_actions = {
 
 		remove_trigger = {
 			hidden_trigger = {
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 		}
 	
 		modifier = {
-			democratic_drift = -0.05
+			democratic_ideology_drift = -0.05
 		}
 	
 		days_remove = -1
@@ -2076,14 +2076,14 @@ political_actions = {
 			hidden_effect = {
 				set_temp_variable = {
 					var = ban_ideology_var
-					value = party_popularity@democratic
+					value = party_popularity@democratic_ideology
 				}
 				multiply_temp_variable = {
 					var = ban_ideology_var
 					value = -1
 				}
 				add_popularity = {
-					ideology = democratic
+					ideology = democratic_ideology
 					popularity = ban_ideology_var
 				}
 				multiply_temp_variable = {
@@ -2107,7 +2107,7 @@ political_actions = {
 		icon = generic_civil_support
 
 		available = {
-			communism < 0.2
+			communism_ideology < 0.2
 			if = {
 				limit = {
 					tag = ESP
@@ -2119,8 +2119,8 @@ political_actions = {
 		}
 
 		visible = {
-			NOT = { has_government = communism }
-			communism > 0
+			NOT = { has_government = communism_ideology }
+			communism_ideology > 0
 			if = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"	
@@ -2131,12 +2131,12 @@ political_actions = {
 
 		remove_trigger = {
 			hidden_trigger = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 		}
 	
 		modifier = {
-			communism_drift = -0.05
+			communism_ideology_drift = -0.05
 		}
 	
 		days_remove = -1
@@ -2146,14 +2146,14 @@ political_actions = {
 			hidden_effect = {
 				set_temp_variable = {
 					var = ban_ideology_var
-					value = party_popularity@communism
+					value = party_popularity@communism_ideology
 				}
 				multiply_temp_variable = {
 					var = ban_ideology_var
 					value = -1
 				}
 				add_popularity = {
-					ideology = communism
+					ideology = communism_ideology
 					popularity = ban_ideology_var
 				}
 				multiply_temp_variable = {
@@ -2199,21 +2199,21 @@ political_actions = {
 					has_dlc = "Battle for the Bosporus"
 					original_tag = BUL
 				}
-				NOT = {
-					has_country_flag = {
-						flag = BUL_freedom_of_press_flag
-						days < 365
-					}
-					focus_progress = {
-						focus = BUL_freedom_of_press
-						progress > 0
-					}
-				}
+				# NOT = {
+				# 	has_country_flag = {
+				# 		# flag = BUL_freedom_of_press_flag
+				# 		days < 365
+				# 	}
+				# 	focus_progress = {
+				# 		focus = BUL_freedom_of_press
+				# 		progress > 0
+				# 	}
+				# }
 			}
 		}
 
 		visible = {
-			has_government = fascism
+			has_government = fascism_ideology
 			if = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"
@@ -2223,10 +2223,10 @@ political_actions = {
 		}
 	
 		modifier = {
-			communism_drift = -0.01
-			fascism_drift = 0.03
-			democratic_drift = -0.01
-			neutrality_drift = -0.01
+			communism_ideology_drift = -0.01
+			fascism_ideology_drift = 0.03
+			democratic_ideology_drift = -0.01
+			neutrality_ideology_drift = -0.01
 		}
 	
 		days_remove = 360
@@ -2256,29 +2256,29 @@ political_actions = {
 					has_dlc = "Battle for the Bosporus"
 				}
 				NOT = {
-					has_completed_focus = TUR_privatize_the_anadolu_agency
+					# has_completed_focus = TUR_privatize_the_anadolu_agency
 				}
 			}
-			if = {
-				limit = {
-					original_tag = BUL
-					has_dlc = "Battle for the Bosporus"				
-				}
-				NOT = {
-					has_country_flag = {
-						flag = BUL_freedom_of_press_flag
-						days < 365
-					}
-					focus_progress = {
-						focus = BUL_freedom_of_press
-						progress > 0
-					}
-				}
-			}
+			# if = {
+			# 	limit = {
+			# 		original_tag = BUL
+			# 		has_dlc = "Battle for the Bosporus"				
+			# 	}
+			# 	NOT = {
+			# 		has_country_flag = {
+			# 			flag = BUL_freedom_of_press_flag
+			# 			days < 365
+			# 		}
+			# 		focus_progress = {
+			# 			focus = BUL_freedom_of_press
+			# 			progress > 0
+			# 		}
+			# 	}
+			# }
 		}
 
 		visible = {
-			has_government = democratic
+			has_government = democratic_ideology
 			if = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"
@@ -2288,10 +2288,10 @@ political_actions = {
 		}
 		
 		modifier = {
-			communism_drift = -0.01
-			fascism_drift = -0.01
-			democratic_drift = 0.03
-			neutrality_drift = -0.01
+			communism_ideology_drift = -0.01
+			fascism_ideology_drift = -0.01
+			democratic_ideology_drift = 0.03
+			neutrality_ideology_drift = -0.01
 		}
 	
 		days_remove = 360
@@ -2320,21 +2320,21 @@ political_actions = {
 					original_tag = BUL
 					has_dlc = "Battle for the Bosporus"
 				}
-				NOT = {
-					has_country_flag = {
-						flag = BUL_freedom_of_press_flag
-						days < 365
-					}
-					focus_progress = {
-						focus = BUL_freedom_of_press
-						progress > 0
-					}
-				}
+				# NOT = {
+				# 	has_country_flag = {
+				# 		# flag = BUL_freedom_of_press_flag
+				# 		days < 365
+				# 	}
+				# 	focus_progress = {
+				# 		# focus = BUL_freedom_of_press
+				# 		progress > 0
+				# 	}
+				# }
 			}
 		}
 
 		visible = {
-			has_government = communism
+			has_government = communism_ideology
 			if = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"
@@ -2344,10 +2344,10 @@ political_actions = {
 		}
 	
 		modifier = {
-			communism_drift = 0.03
-			fascism_drift = -0.01
-			democratic_drift = -0.01
-			neutrality_drift = -0.01
+			communism_ideology_drift = 0.03
+			fascism_ideology_drift = -0.01
+			democratic_ideology_drift = -0.01
+			neutrality_ideology_drift = -0.01
 		}
 	
 		days_remove = 360
@@ -2377,29 +2377,29 @@ political_actions = {
 					has_dlc = "Battle for the Bosporus"
 				}
 				NOT = {
-					has_completed_focus = TUR_privatize_the_anadolu_agency
+					# has_completed_focus = TUR_privatize_the_anadolu_agency
 				}
 			}
-			if = {
-				limit = {
-					original_tag = BUL
-					has_dlc = "Battle for the Bosporus"
-				}
-				NOT = {
-					has_country_flag = {
-						flag = BUL_freedom_of_press_flag
-						days < 365
-					}
-					focus_progress = {
-						focus = BUL_freedom_of_press
-						progress > 0
-					}
-				}
-			}
+			# if = {
+			# 	limit = {
+			# 		original_tag = BUL
+			# 		has_dlc = "Battle for the Bosporus"
+			# 	}
+			# 	NOT = {
+			# 		has_country_flag = {
+			# 			flag = BUL_freedom_of_press_flag
+			# 			days < 365
+			# 		}
+			# 		focus_progress = {
+			# 			focus = BUL_freedom_of_press
+			# 			progress > 0
+			# 		}
+			# 	}
+			# }
 		}
 
 		visible = {
-			has_government = neutrality
+			has_government = neutrality_ideology
 			if = { 
 				limit = { 
 					has_dlc = "Battle for the Bosporus"
@@ -2409,10 +2409,10 @@ political_actions = {
 		}
 	
 		modifier = {
-			communism_drift = -0.01
-			fascism_drift = -0.01
-			democratic_drift = -0.01
-			neutrality_drift = 0.03
+			communism_ideology_drift = -0.01
+			fascism_ideology_drift = -0.01
+			democratic_ideology_drift = -0.01
+			neutrality_ideology_drift = 0.03
 		}
 	
 		days_remove = 360

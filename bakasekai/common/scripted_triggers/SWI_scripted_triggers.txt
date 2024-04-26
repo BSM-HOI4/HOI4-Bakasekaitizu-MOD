@@ -1,5 +1,5 @@
 ###############################################
-########     ABSOLUTE NEUTRALITY       ########
+########     ABSOLUTE neutrality_ideology       ########
 ###############################################
 
 SWI_is_country_to_balance = {
@@ -41,12 +41,12 @@ SWI_is_at_war_with_neighbor = { #Checks if it's at war with your major neighbor
 
 SWI_is_democratic_to_balance = {
 	SWI_is_country_to_balance = yes 
-	has_government = democratic	
+	has_government = democratic_ideology	
 }
 
 SWI_is_fascist_to_balance = {
 	SWI_is_country_to_balance = yes 
-	has_government = fascism	
+	has_government = fascism_ideology	
 }
 
 SWI_is_faction_leader_of_neighbor = {
@@ -60,15 +60,15 @@ SWI_has_easy_fascist_neighbor_option = {
 	OR = {
 		DEU = {
 			exists = yes 
-			has_government = fascism 
+			has_government = fascism_ideology 
 		}
 		ITA = {
 			exists = yes 
-			has_government = fascism 
+			has_government = fascism_ideology 
 		}
 		FRA = {
 			exists = yes 
-			has_government = fascism 
+			has_government = fascism_ideology 
 		}
 	}
 }
@@ -85,7 +85,7 @@ is_suitable_fascist_major = { #This is an adaptation of the one found in the Bal
 	capital_scope = { is_on_continent = europe }
 	exists = yes
 	has_capitulated = no
-	has_government = fascism
+	has_government = fascism_ideology
 	NOT = { has_war_with = ROOT }
 }
 
@@ -94,7 +94,7 @@ is_suitable_democratic_major = {
 	capital_scope = { is_on_continent = europe }
 	exists = yes
 	has_capitulated = no
-	has_government = democratic
+	has_government = democratic_ideology
 	NOT = { has_war_with = ROOT }	
 }
 
@@ -102,7 +102,7 @@ is_possible_secret_ally = {
 	is_major = yes
 	exists = yes
 	has_capitulated = no
-	has_government = democratic
+	has_government = democratic_ideology
 	NOT = { has_war_with = ROOT }	
 	OR = {
 		is_faction_leader = yes
@@ -175,7 +175,7 @@ SWI_country_opinion_is_dangerous = {
 SWI_dem_usa_valid_to_buy_planes = {
 	USA = { 
 		exists = yes
-		has_government = democratic
+		has_government = democratic_ideology
 		NOT = { has_war_with = ROOT }
 	 }
 }
@@ -219,11 +219,11 @@ SWI_councilor_visible = {
 	}
 }
 
-SWI_president_initiative_available_trigger = {
-	NOT = {
-		has_active_mission = SWI_recently_finished_president_initiative_mission
-	}
-}
+# SWI_president_initiative_available_trigger = {
+# 	NOT = {
+# 		# has_active_mission = SWI_recently_finished_president_initiative_mission
+# 	}
+# }
 
 SWI_president_initiative_cancel_trigger = {
 	NOT = {
@@ -290,7 +290,7 @@ SWI_councilor_is_fascist = { #trigger used to check if councilor in scope is fas
 	} 
 }
 
-SWI_councilor_is_any_kind_of_communist = { #Checks if the councilor has any trait related to communism. I hate this solution but otherwise the tooltip is a mess. 
+SWI_councilor_is_any_kind_of_communist = { #Checks if the councilor has any trait related to communism_ideology. I hate this solution but otherwise the tooltip is a mess. 
 	OR = {
 		has_trait = SWI_anarchist	
 		has_trait = SWI_trade_unionist
@@ -366,7 +366,7 @@ SWI_president_compatible_with_country_politics = {
 		var:SWI_confederation_president = {
 			OR = {
 				AND = {
-					ROOT = { has_government = democratic }
+					ROOT = { has_government = democratic_ideology }
 					OR = {
 						SWI_councilor_is_democratic_socialism = yes
 						SWI_councilor_is_democratic_conservatism = yes
@@ -374,18 +374,18 @@ SWI_president_compatible_with_country_politics = {
 					}
 				}
 				AND = {
-					ROOT = { has_government = communism }
+					ROOT = { has_government = communism_ideology }
 					OR = {
 						SWI_councilor_is_communist = yes 
 						SWI_councilor_is_communist_anarchist = yes 
 					}
 				}
 				AND = {
-					ROOT = { has_government = fascism }
+					ROOT = { has_government = fascism_ideology }
 					SWI_councilor_is_fascist = yes 
 				}
 				AND = {
-					ROOT = { has_government = neutrality }
+					ROOT = { has_government = neutrality_ideology }
 					SWI_councilor_is_neutrality_despotism = yes
 				}
 			}
@@ -501,7 +501,7 @@ SWI_someone_is_about_to_be_angry = {
 SWI_any_democratic_to_balance_is_about_to_be_angry = {
 	any_other_country = {
 		SWI_is_country_to_balance = yes 
-		has_government = democratic 
+		has_government = democratic_ideology 
 		SWI_country_about_to_be_angry = yes 
 	}
 }
@@ -510,7 +510,7 @@ SWI_any_democratic_to_balance_is_about_to_be_angry = {
 SWI_any_communist_to_balance_is_about_to_be_angry = {
 	any_other_country = {
 		SWI_is_country_to_balance = yes 
-		has_government = communism 
+		has_government = communism_ideology 
 		SWI_country_about_to_be_angry = yes 
 	}
 }
@@ -519,7 +519,7 @@ SWI_any_communist_to_balance_is_about_to_be_angry = {
 SWI_any_fascist_to_balance_is_about_to_be_angry = {
 	any_other_country = {
 		SWI_is_country_to_balance = yes 
-		has_government = fascism 
+		has_government = fascism_ideology 
 		SWI_country_about_to_be_angry = yes 
 	}
 }

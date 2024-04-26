@@ -228,7 +228,7 @@ guiTypes = {
 			instantTextBoxType = {
 				name ="experience_value"
 				position = { x= 23 y = 5 }
-				font = "hoi_18mbs"
+				font = "vanilla_hoi_18mbs"
 				text = "999"
 				format = left
 				maxWidth = 30
@@ -261,7 +261,7 @@ guiTypes = {
 			instantTextBoxType = {
 				name ="navy_experience_value"
 				position = { x= 23 y = 5 }
-				font = "hoi_18mbs"
+				font = "vanilla_hoi_18mbs"
 				text = "999"
 				format = left
 				maxWidth = 30
@@ -294,7 +294,7 @@ guiTypes = {
 			instantTextBoxType = {
 				name ="air_experience_value"
 				position = { x= 23 y = 5 }
-				font = "hoi_18mbs"
+				font = "vanilla_hoi_18mbs"
 				text = "999"
 				format = left
 				maxWidth = 30
@@ -327,7 +327,7 @@ guiTypes = {
 			instantTextBoxType = {
 				name ="command_power_value"
 				position = { x= 30 y = 5 }
-				font = "hoi_18mbs"
+				font = "vanilla_hoi_18mbs"
 				text = "999"
 				format = left
 				maxWidth = 30
@@ -336,7 +336,6 @@ guiTypes = {
 				alwaystransparent = yes
 			}
 		}
-		
 		iconType ={
 			name ="industrial_capacity_bg" 
 			spriteType = "GFX_generic_box_smallest"
@@ -370,6 +369,7 @@ guiTypes = {
 			position = { x=637 y=5 }
 			Orientation = "UPPER_LEFT"
 		}
+
 		
 		iconType ={
 			name ="convoys_icon"
@@ -378,6 +378,14 @@ guiTypes = {
 			Orientation = "UPPER_LEFT"
 		}
 		
+
+		iconType = {
+			name ="convoys_ratio_bar"
+			spriteType = "GFX_topbar_fuel_bar"
+			position = { x= 660 y = 20 }
+			frame = 50
+			alwaystransparent = yes
+		}
 		instantTextBoxType = {
 			name ="convoys_count"
 			position = { x= 662 y = 4 }
@@ -388,15 +396,6 @@ guiTypes = {
 			maxHeight = 24
 #			fixedsize = yes
 		}
-		
-		iconType = {
-			name ="convoys_ratio_bar"
-			spriteType = "GFX_topbar_fuel_bar"
-			position = { x= 660 y = 20 }
-			frame = 50
-			alwaystransparent = yes
-		}
-		
 		## fuel
 		
 		iconType ={
@@ -405,7 +404,7 @@ guiTypes = {
 			position = { x=491 y=5 }
 			Orientation = "UPPER_LEFT"
 		}
-		
+
 		iconType = {
 			name ="fuel_icon"
 			spriteType = "GFX_fuel_state"
@@ -413,6 +412,15 @@ guiTypes = {
 			Orientation = "UPPER_LEFT"
 		}		
 		
+
+		
+		iconType = {
+			name ="fuel_ratio_bar"
+			spriteType = "GFX_topbar_fuel_bar"
+			position = { x= 514 y = 20 }
+			frame = 50
+			alwaystransparent = yes
+		}
 		instantTextBoxType = {
 			name ="fuel_value"
 			position = { x= 513 y = 4 }
@@ -423,15 +431,6 @@ guiTypes = {
 			maxHeight = 24
 			fixedsize = yes
 		}
-		
-		iconType = {
-			name ="fuel_ratio_bar"
-			spriteType = "GFX_topbar_fuel_bar"
-			position = { x= 514 y = 20 }
-			frame = 50
-			alwaystransparent = yes
-		}
-		
 		## supply
 		
 		iconType ={
@@ -447,7 +446,13 @@ guiTypes = {
 			position = { x= 565 y = 8 }
 			Orientation = "UPPER_LEFT"
 		}		
-		
+		iconType = {
+			name ="supply_ratio_bar"
+			spriteType = "GFX_topbar_fuel_bar"
+			position = { x= 587 y = 20 }
+			frame = 50
+			alwaystransparent = yes
+		}
 		instantTextBoxType = {
 			name ="supply_value"
 			position = { x= 586 y = 4 }
@@ -459,13 +464,7 @@ guiTypes = {
 			fixedsize = yes
 		}
 		
-		iconType = {
-			name ="supply_ratio_bar"
-			spriteType = "GFX_topbar_fuel_bar"
-			position = { x= 587 y = 20 }
-			frame = 50
-			alwaystransparent = yes
-		}
+
 		
 		##
 		buttonType ={
@@ -510,21 +509,21 @@ guiTypes = {
 		iconType ={
 			name ="nuke_text_bg"
 			spriteType = "GFX_generic_box_smallest"
-			position = { x=1020 y=5 }
+			position = { x=1150 y=5 }
 			Orientation = "UPPER_LEFT"
 		}
 		
 		iconType ={
 			name ="nuke_icon"
 			spriteType = "GFX_topbar_nuke"
-			position = { x=1021 y=8 }
+			position = { x=1151 y=8 }
 			Orientation = "UPPER_LEFT"
 			scale = 0.8
 		}
 		
 		instantTextBoxType = {
 			name ="nuke_count"
-			position = { x=1043 y=9 }
+			position = { x=1173 y=9 }
 			font = "hoi_18mbs"
 			format = center
 			maxWidth = 44
@@ -804,7 +803,7 @@ guiTypes = {
 				buttonType = {
 					name = "technology_button"
 					quadTextureSprite ="GFX_topbar_technology"
-	#				position = { x= -104 y = 0 }
+					#				position = { x= -104 y = 0 }
 					position = { x= -49 y = 0 }
 					Orientation = "UPPER_LEFT"
 					shortcut = "w"
@@ -820,6 +819,53 @@ guiTypes = {
 					shortcut = "e"
 					clicksound = click_close
 					oversound = ui_menu_over
+				}
+				containerWindowType = {
+					name = "non_delivering_contracts"
+					position = { x=9 y=4 }
+
+					iconType = {
+						name = "non_delivering_contract_amount_bg"
+						spriteType = "GFX_topbar_alert_bg"
+						position = { x = 2 y = 0}
+						alwaystransparent = yes
+						frame = 2
+					}
+
+					instantTextBoxType = {
+						name ="non_delivering_contract_amount"
+						position = { x= 0 y = 0 }
+						font = "hoi_16mbs"
+						text = "999"
+						format = center
+						maxWidth = 20
+						maxHeight = 24
+						fixedsize = yes
+					}
+				}
+				
+				containerWindowType = {
+					name = "delivering_contracts"
+					position = { x=9 y=20 }
+
+					iconType = {
+						name = "ongoing_contract_amount_bg"
+						spriteType = "GFX_topbar_alert_bg"
+						position = { x = 2 y = 0}
+						alwaystransparent = yes
+						frame = 1
+					}
+
+					instantTextBoxType = {
+						name ="ongoing_contract_amount"
+						position = { x= 0 y = 0 }
+						font = "hoi_16mbs"
+						text = "999"
+						format = center
+						maxWidth = 20
+						maxHeight = 24
+						fixedsize = yes
+					}
 				}
 				
 				buttonType = {

@@ -1,0 +1,21 @@
+on_actions = {
+	on_daily = {
+		effect = {
+			every_country = {
+				set_temp_variable = { temp = modifier@COUNTRY_P_O_gain_factor }
+				divide_variable = { temp = 100 }		
+				set_temp_variable = { temp_1 = modifier@daily_COUNTRY_P_O_gain }
+				multiply_variable = { temp = temp_1}
+				add_to_variable = { COUNTRY_P_O = temp }
+			}
+		}
+	}
+	on_weekly = {
+		effect = {
+			every_country = {
+				add_to_variable = { COUNTRY_CULTURAL_DEGREE = modifier@weekly_COUNTRY_CULTURAL_DEGREE }
+				add_to_variable = { COUNTRY_P_O = COUNTRY_CULTURAL_DEGREE }
+			}
+		}
+	}
+}
