@@ -207,392 +207,392 @@
 # }
 
 # #Provoke Japan - event for Japan to attack
-# country_event = {
-# 	id = wtt_prc.20
-# 	title = wtt_prc.20.t
-# 	desc = wtt_prc.20.desc
-# 	picture = GFX_report_event_japan_army_mountainside
+country_event = {
+	id = wtt_prc.20
+	title = wtt_prc.20.t
+	desc = wtt_prc.20.desc
+	picture = GFX_report_event_japan_army_mountainside
 
-# 	is_triggered_only = yes
-# 	trigger = {
-# 		not = { has_war_with = event_target:WTT_communist_china }
-# 	}
-# 	option = {
-# 		name = wtt_prc.20.a #don't do anything
-# 		ai_chance = {
-# 			base = 20
-# 			modifier = {
-# 				has_government = democratic_ideology
-# 				factor = 2
-# 			}
-# 		}
-# 		add_stability = -0.05
-# 		add_war_support = -0.05
+	is_triggered_only = yes
+	trigger = {
+		not = { has_war_with = event_target:WTT_communist_china }
+	}
+	option = {
+		name = wtt_prc.20.a #don't do anything
+		ai_chance = {
+			base = 20
+			modifier = {
+				has_government = democratic_ideology
+				factor = 2
+			}
+		}
+		add_stability = -0.05
+		add_war_support = -0.05
 		
-# 	}
+	}
 
-# 	option = {
-# 		name = wtt_prc.20.b #go to war
-# 		ai_chance = {
-# 			base = 80
-# 		}
-# 		create_wargoal = {
-# 			type = annex_everything
-# 			target = event_target:WTT_communist_china
-# 		}
-# 		create_wargoal = {
-# 			type = annex_everything
-# 			# target = event_target:WTT_current_china_leader
-# 		}
-# 	}
+	option = {
+		name = wtt_prc.20.b #go to war
+		ai_chance = {
+			base = 80
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = event_target:WTT_communist_china
+		}
+		create_wargoal = {
+			type = annex_everything
+			target = event_target:WTT_current_china_leader
+		}
+	}
 
-# 	option = {
-# 		name = wtt_prc.20.c #retreat from the continent
-# 		ai_chance = {
-# 			base = 0
-# 			modifier = {
-# 				has_government = democratic_ideology
-# 				add = 50
-# 			}
-# 		}
-# 		if = {
-# 			limit = {
-# 				controls_state = 527
-# 			}
-# 			KOR = { transfer_state = 527 }
-# 		}
-# 		if = {
-# 			limit = {
-# 				controls_state = 525
-# 			}
-# 			KOR = { transfer_state = 525 }
-# 		}
-# 		if = {
-# 			limit = {
-# 				MME = {
-# 					is_subject_of = JPN
-# 				}
-# 			}
-# 			if = {
-# 				limit = {
-# 					controls_state = 609
-# 				}
-# 				MME = {
-# 					transfer_state = 609
-# 				}
-# 			}
-# 			if = {
-# 				limit = {
-# 					controls_state = 745
-# 				}
-# 				MME = {
-# 					transfer_state = 745
-# 				}
-# 			}
-# 			set_autonomy = { target = MME autonomy_state = autonomy_free }
-# 		}
-# 		else_if = {
-# 			# limit = {
-# 			# 	not = {
-# 			# 		has_war_with = event_target:WTT_current_china_leader
-# 			# 	}
-# 			# }			
-# 			# if = {
-# 			# 	limit = {
-# 			# 		controls_state = 609
-# 			# 	}
-# 			# 	event_target:WTT_current_china_leader = {
-# 			# 		transfer_state = 609
-# 			# 	}
-# 			# }
-# 			# if = {
-# 			# 	limit = {
-# 			# 		controls_state = 745
-# 			# 	}
-# 			# 	event_target:WTT_current_china_leader = {
-# 			# 		transfer_state = 745
-# 			# 	}
-# 			# }
-# 		}
-# 		if = {
-# 			limit = {
-# 				MEN = {
-# 					is_subject_of = JPN
-# 				}
-# 			}
-# 			set_autonomy = { target = MEN autonomy_state = autonomy_free }
-# 		}
-# 	}
-# }
+	option = {
+		name = wtt_prc.20.c #retreat from the continent
+		ai_chance = {
+			base = 0
+			modifier = {
+				has_government = democratic_ideology
+				add = 50
+			}
+		}
+		if = {
+			limit = {
+				controls_state = 527
+			}
+			KOR = { transfer_state = 527 }
+		}
+		if = {
+			limit = {
+				controls_state = 525
+			}
+			KOR = { transfer_state = 525 }
+		}
+		if = {
+			limit = {
+				MME = {
+					is_subject_of = JPN
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 609
+				}
+				MME = {
+					transfer_state = 609
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 745
+				}
+				MME = {
+					transfer_state = 745
+				}
+			}
+			set_autonomy = { target = MME autonomy_state = autonomy_free }
+		}
+		else_if = {
+			limit = {
+				not = {
+					has_war_with = event_target:WTT_current_china_leader
+				}
+			}			
+			if = {
+				limit = {
+					controls_state = 609
+				}
+				event_target:WTT_current_china_leader = {
+					transfer_state = 609
+				}
+			}
+			if = {
+				limit = {
+					controls_state = 745
+				}
+				event_target:WTT_current_china_leader = {
+					transfer_state = 745
+				}
+			}
+		}
+		if = {
+			limit = {
+				MEN = {
+					is_subject_of = JPN
+				}
+			}
+			set_autonomy = { target = MEN autonomy_state = autonomy_free }
+		}
+	}
+}
 
 # #Provoke Japan - event for Japan - factory sabotaged
-# country_event = {
-# 	id = wtt_prc.21
-# 	title = wtt_prc.21.t
-# 	desc = wtt_prc.21.desc
-# 	picture = GFX_report_event_generic_ruins
+country_event = {
+	id = wtt_prc.21
+	title = wtt_prc.21.t
+	desc = wtt_prc.21.desc
+	picture = GFX_report_event_generic_ruins
 
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 
-# 	immediate = {
-# 		hidden_effect = {
-# 			FROM = {
-# 				country_event = { id = wtt_prc.30 days = 2 }
-# 			}
-# 		}
-# 	}
+	immediate = {
+		hidden_effect = {
+			FROM = {
+				country_event = { id = wtt_prc.30 days = 2 }
+			}
+		}
+	}
 	
-# 	option = {
-# 		name = wtt_prc.21.a #okay
-# 		country_event = { id = wtt_prc.20 days = 2 }
-# 		if = {
-# 			limit = {
-# 				MME = {
-# 					OR = {
-# 						is_subject_of = JPN
-# 						has_cosmetic_tag = MAN_kwantung_army
-# 					}
-# 				}
-# 			}
-# 			MME = {
-# 				random_owned_state = {
-# 					limit = {
-# 						arms_factory > 0
-# 					}
-# 					damage_building = {
-# 						type = arms_factory
-# 						damage = 0.6
-# 					}
-# 				}
-# 			}
-# 		}
-# 		else_if = {
-# 			limit = {
-# 				any_owned_state = {
-# 					NOT = { is_core_of = JPN }
-# 					arms_factory > 0
-# 				}
-# 			}
-# 			random_owned_state = {
-# 				prioritize = { 525 527 }
-# 				limit = {
-# 					arms_factory > 0
-# 					NOT = {	is_core_of = JPN }
-# 				}
-# 				damage_building = {
-# 					type = arms_factory
-# 					damage = 0.4
-# 				}
-# 			}
-# 		}
-# 	}
-# }
+	option = {
+		name = wtt_prc.21.a #okay
+		country_event = { id = wtt_prc.20 days = 2 }
+		if = {
+			limit = {
+				MME = {
+					OR = {
+						is_subject_of = JPN
+						has_cosmetic_tag = MAN_kwantung_army
+					}
+				}
+			}
+			MME = {
+				random_owned_state = {
+					limit = {
+						arms_factory > 0
+					}
+					damage_building = {
+						type = arms_factory
+						damage = 0.6
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_state = {
+					NOT = { is_core_of = JPN }
+					arms_factory > 0
+				}
+			}
+			random_owned_state = {
+				prioritize = { 525 527 }
+				limit = {
+					arms_factory > 0
+					NOT = {	is_core_of = JPN }
+				}
+				damage_building = {
+					type = arms_factory
+					damage = 0.4
+				}
+			}
+		}
+	}
+}
 
 # #Provoke Japan - event for Japan - civilian factory sabotaged
-# country_event = {
-# 	id = wtt_prc.22
-# 	title = wtt_prc.22.t
-# 	desc = wtt_prc.21.desc
-# 	picture = GFX_report_event_generic_ruins
+country_event = {
+	id = wtt_prc.22
+	title = wtt_prc.22.t
+	desc = wtt_prc.21.desc
+	picture = GFX_report_event_generic_ruins
 
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 
-# 	immediate = {
-# 		hidden_effect = {
-# 			FROM = {
-# 				country_event = { id = wtt_prc.30 days = 2 }
-# 			}
-# 		}
-# 	}
+	immediate = {
+		hidden_effect = {
+			FROM = {
+				country_event = { id = wtt_prc.30 days = 2 }
+			}
+		}
+	}
 	
-# 	option = {
-# 		name = wtt_prc.21.a #okay
-# 		country_event = { id = wtt_prc.20 days = 2 }
-# 		if = {
-# 			limit = {
-# 				MME = {
-# 					is_subject_of = JPN
-# 					has_cosmetic_tag = MAN_kwantung_army
-# 				}
-# 			}
-# 			MME = {
-# 				random_owned_state = {
-# 					limit = {
-# 						industrial_complex > 0
-# 					}
-# 					damage_building = {
-# 						type = industrial_complex
-# 						damage = 0.6
-# 					}
-# 				}
-# 			}
-# 		}
-# 		else_if = {
-# 			limit = {
-# 				any_owned_state = {
-# 					NOT = { is_core_of = JPN }
-# 					industrial_complex > 0
-# 				}
-# 			}
-# 			random_owned_state = {
-# 				prioritize = { 525 527 }
-# 				limit = {
-# 					industrial_complex > 0
-# 					NOT = {
-# 						is_core_of = JPN
-# 					}
-# 				}
-# 				damage_building = {
-# 					type = industrial_complex
-# 					damage = 0.4
-# 				}
-# 			}
-# 		}
-# 	}
-# }
+	option = {
+		name = wtt_prc.21.a #okay
+		country_event = { id = wtt_prc.20 days = 2 }
+		if = {
+			limit = {
+				MME = {
+					is_subject_of = JPN
+					has_cosmetic_tag = MAN_kwantung_army
+				}
+			}
+			MME = {
+				random_owned_state = {
+					limit = {
+						industrial_complex > 0
+					}
+					damage_building = {
+						type = industrial_complex
+						damage = 0.6
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				any_owned_state = {
+					NOT = { is_core_of = JPN }
+					industrial_complex > 0
+				}
+			}
+			random_owned_state = {
+				prioritize = { 525 527 }
+				limit = {
+					industrial_complex > 0
+					NOT = {
+						is_core_of = JPN
+					}
+				}
+				damage_building = {
+					type = industrial_complex
+					damage = 0.4
+				}
+			}
+		}
+	}
+}
 
 # #Provoke Japan - event for Japan - bridge blown
-# country_event = {
-# 	id = wtt_prc.23
-# 	title = wtt_prc.23.t
-# 	desc = wtt_prc.23.desc
-# 	picture = GFX_report_event_generic_train
+country_event = {
+	id = wtt_prc.23
+	title = wtt_prc.23.t
+	desc = wtt_prc.23.desc
+	picture = GFX_report_event_generic_train
 
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 
-# 	immediate = {
-# 		hidden_effect = {
-# 			FROM = {
-# 				country_event = { id = wtt_prc.31 days = 2 }
-# 			}
-# 		}
-# 	}
+	immediate = {
+		hidden_effect = {
+			FROM = {
+				country_event = { id = wtt_prc.31 days = 2 }
+			}
+		}
+	}
 	
-# 	option = {
-# 		name = wtt_prc.21.a #okay
-# 		country_event = { id = wtt_prc.20 days = 2 }
-# 		if = {
-# 			limit = {
-# 				MME = {
-# 					is_subject_of = JPN
-# 					has_cosmetic_tag = MAN_kwantung_army
-# 				}
-# 			}
-# 			MME = {
-# 				random_owned_state = {
-# 					damage_building = {
-# 						type = infrastructure
-# 						damage = 1
-# 					}
-# 				}
-# 			}
-# 		}
-# 		else_if = {
-# 			limit = {
-# 				OR = {
-# 					controls_state = 525
-# 					controls_state = 527
-# 				} 
-# 			}
-# 			random_owned_state = {
-# 				prioritize = { 525 527 }
-# 				damage_building = {
-# 					type = infrastructure
-# 					damage = 0.8
-# 				}
-# 			}
-# 		}
-# 	}
-# }
+	option = {
+		name = wtt_prc.21.a #okay
+		country_event = { id = wtt_prc.20 days = 2 }
+		if = {
+			limit = {
+				MME = {
+					is_subject_of = JPN
+					has_cosmetic_tag = MAN_kwantung_army
+				}
+			}
+			MME = {
+				random_owned_state = {
+					damage_building = {
+						type = infrastructure
+						damage = 1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					controls_state = 525
+					controls_state = 527
+				} 
+			}
+			random_owned_state = {
+				prioritize = { 525 527 }
+				damage_building = {
+					type = infrastructure
+					damage = 0.8
+				}
+			}
+		}
+	}
+}
 
 # #Provoke Japan - event for Japan - patrol ambushed
-# country_event = {
-# 	id = wtt_prc.24
-# 	title = wtt_prc.24.t
-# 	desc = wtt_prc.24.desc
-# 	picture = GFX_report_event_dead_soldiers
+country_event = {
+	id = wtt_prc.24
+	title = wtt_prc.24.t
+	desc = wtt_prc.24.desc
+	picture = GFX_report_event_dead_soldiers
 
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 
-# 	immediate = {
-# 		hidden_effect = {
-# 			FROM = {
-# 				country_event = { id = wtt_prc.32 days = 2 }
-# 			}
-# 		}
-# 	}
+	immediate = {
+		hidden_effect = {
+			FROM = {
+				country_event = { id = wtt_prc.32 days = 2 }
+			}
+		}
+	}
 	
-# 	option = {
-# 		name = wtt_prc.21.a #okay
-# 		country_event = { id = wtt_prc.20 days = 2 }
-# 		if = {
-# 			limit = {
-# 				MME = {
-# 					is_subject_of = JPN
-# 					has_cosmetic_tag = MAN_kwantung_army
-# 				}
-# 			}
-# 			MME = {
-# 				add_manpower = -200
-# 			}
-# 		}
-# 		else_if = {
-# 			limit = {
-# 				OR = {
-# 					controls_state = 525
-# 					controls_state = 527
-# 				} 
-# 			}
-# 			add_manpower = -200
-# 		}
-# 	}
-# }
+	option = {
+		name = wtt_prc.21.a #okay
+		country_event = { id = wtt_prc.20 days = 2 }
+		if = {
+			limit = {
+				MME = {
+					is_subject_of = JPN
+					has_cosmetic_tag = MAN_kwantung_army
+				}
+			}
+			MME = {
+				add_manpower = -200
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					controls_state = 525
+					controls_state = 527
+				} 
+			}
+			add_manpower = -200
+		}
+	}
+}
 
 # #Provoke Japan - event for PRC - factory sabotaged
-# country_event = {
-# 	id = wtt_prc.30
-# 	title = wtt_prc.30.t
-# 	desc = wtt_prc.30.desc
-# 	picture = GFX_report_event_generic_ruins
+country_event = {
+	id = wtt_prc.30
+	title = wtt_prc.30.t
+	desc = wtt_prc.30.desc
+	picture = GFX_report_event_generic_ruins
 
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 	
-# 	option = {
-# 		name = wtt_prc.30.a #okay
+	option = {
+		name = wtt_prc.30.a #okay
 		
-# 	}
-# }
+	}
+}
 
-# #Provoke Japan - event for PRC - bridge blown
-# country_event = {
-# 	id = wtt_prc.31
-# 	title = wtt_prc.30.t
-# 	desc = wtt_prc.31.desc
-# 	picture = GFX_report_event_generic_train
+#Provoke Japan - event for PRC - bridge blown
+country_event = {
+	id = wtt_prc.31
+	title = wtt_prc.30.t
+	desc = wtt_prc.31.desc
+	picture = GFX_report_event_generic_train
 
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 
 	
 	
-# 	option = {
-# 		name = wtt_prc.30.a #okay
+	option = {
+		name = wtt_prc.30.a #okay
 		
-# 	}
-# }
+	}
+}
 
-# #Provoke Japan - event for PRC - patrol ambushed
-# country_event = {
-# 	id = wtt_prc.32
-# 	title = wtt_prc.30.t
-# 	desc = wtt_prc.32.desc
-# 	picture = GFX_report_event_dead_soldiers
+#Provoke Japan - event for PRC - patrol ambushed
+country_event = {
+	id = wtt_prc.32
+	title = wtt_prc.30.t
+	desc = wtt_prc.32.desc
+	picture = GFX_report_event_dead_soldiers
 
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 	
-# 	option = {
-# 		name = wtt_prc.30.a #okay
-# 	}
-# }
+	option = {
+		name = wtt_prc.30.a #okay
+	}
+}
 
 # # Hidden event to 'age' Franco after 1950
 # country_event = {
@@ -1127,22 +1127,22 @@
 # }
 
 # # Event to Soviet WTT_communist_china will not pay any longer
-# country_event = {
-# 	id = wtt_warlord_vs_prc.34
-# 	title = wtt_warlord_vs_prc.34.t
-# 	desc = wtt_warlord_vs_prc.34.desc
-# 	picture = GFX_report_event_soviet_soldiers
+country_event = {
+	id = wtt_warlord_vs_prc.34
+	title = wtt_warlord_vs_prc.34.t
+	desc = wtt_warlord_vs_prc.34.desc
+	picture = GFX_report_event_soviet_soldiers
 
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 	
-# 	option = {
-# 		name = wtt_warlord_vs_prc.34.a
-# 		create_wargoal = {
-# 			type = puppet_wargoal_focus
-# 			target = FROM
-# 		}
-# 	}
-# }
+	option = {
+		name = wtt_warlord_vs_prc.34.a
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = FROM
+		}
+	}
+}
 
 # # PRC is informed that a warlord wants to create a United Front faction
 # # Can either accept (it was already done in the NF) or break up the faction
