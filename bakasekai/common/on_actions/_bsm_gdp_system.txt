@@ -1,27 +1,37 @@
 
-# on_action = {
-# 	on_startup = {
-# 		effect = {
-# 			every_country = {
-# 				BSMS_GDP_household_budgets = yes
-# 				log = "BSM GDP is [?ROOT.BSMS_GDP_household_budget]"
-# 				BSMS_GDP_companyhold_budgets = yes
-# 				log = "BSM GDP is [?ROOT.BSMS_GDP_companyhold_budget]"
-# 				BSMS_GDP_sum = yes
-# 				log = "BSM GDP is [?ROOT.BSMS_GDP]"
-# 			}
-# 		}
-# 	}
-# 	on_monthly = {
-# 		effect = {
-# 			every_country = {
-# 				BSMS_GDP_household_budgets = yes
-# 				log = "BSM GDP is [?ROOT.BSMS_GDP_household_budget]"
-# 				BSMS_GDP_companyhold_budgets = yes
-# 				log = "BSM GDP is [?ROOT.BSMS_GDP_companyhold_budget]"
-# 				BSMS_GDP_sum = yes
-# 				log = "BSM GDP is [?ROOT.BSMS_GDP]"
-# 			}
-# 		}
-# 	}
-# }
+on_action = {
+	on_startup = {
+		effect = {
+			every_country = {
+				BSMS_GDP_sum = yes
+				log = "BSM GDP is [?ROOT.BSMS_GDP]"
+			}
+			set_variable = {
+				sysmon = 1
+			}
+		}
+	}
+	on_monthly = {
+		effect = {
+			every_country = {
+				BSMS_GDP_sum = yes
+				log = "BSM GDP is [?ROOT.BSMS_GDP]"
+			}
+			add_to_variable = {
+				sysmon = 1
+			}
+			if = {
+				limit = { 
+					check_variable = {
+						sysmon = 12
+					}
+				}
+				every_country = {
+					BSMS_GDP_sum_y = yes
+					log = "BSM GDP is [?ROOT.BSMS_GDP]"
+				}
+			}
+		}
+	}
+
+}
