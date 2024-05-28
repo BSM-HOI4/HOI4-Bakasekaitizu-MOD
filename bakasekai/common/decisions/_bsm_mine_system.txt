@@ -1,0 +1,60 @@
+bsm_mine_dev = {
+	dev_mine_gold = {
+		icon = GFX_resource_energy_large
+		priority = 50
+		state_target = yes 
+		on_map_mode = map_and_decisions_view
+		target_array = controlled_states
+		target_root_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		available = {
+			custom_trigger_tooltip ={
+				tooltip =  need_50_energy
+			}
+            AND = {
+
+				any_controlled_state = {
+					has_state_flag = Gold_Rush
+				}
+			}
+        }
+
+        visible = {
+			any_controlled_state = {
+				has_state_flag = Gold_Rush
+			}
+        }
+		target_trigger = {
+			any_controlled_state = {
+				has_state_flag = Gold_Rush
+			}
+		}
+		fire_only_once = no
+		days_remove = 30
+		cost = 0
+		custom_cost_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					variable = COUNTRY_e_c
+					value = 50
+				}
+			}
+			FROM = {
+				add_to_variable = {
+					amount_goid_mine = 1
+				}
+			}
+			PREV = {
+				BSM_set_mine = yes
+			}
+		}
+	}
+}
