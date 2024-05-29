@@ -45,6 +45,7 @@ replace_path="music"
 replace_path="map/strategicregions"
 replace_path="tests"
 replace_path="common/units/codenames_operatives"
+replace_path="common/peace_conference"
 name="バカ世界地図テスト版"
 dependencies={
 	"Japanese Language mod"
