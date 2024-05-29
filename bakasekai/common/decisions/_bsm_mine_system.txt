@@ -4,7 +4,6 @@ bsm_mine_dev = {
 		priority = 50
 		state_target = yes 
 		on_map_mode = map_and_decisions_view
-		target_array = controlled_states
 		target_root_trigger = {
 			check_variable = {
 				COUNTRY_e_c  > 49
@@ -15,7 +14,6 @@ bsm_mine_dev = {
 				tooltip =  need_50_energy
 			}
             AND = {
-
 				any_controlled_state = {
 					has_state_flag = Gold_Rush
 				}
@@ -26,9 +24,17 @@ bsm_mine_dev = {
 				has_state_flag = Gold_Rush
 			}
         }
+
 		target_trigger = {
-			any_controlled_state = {
-				has_state_flag = Gold_Rush
+			AND = {
+				any_controlled_state = {
+					has_state_flag = Gold_Rush
+				}
+				ROOT = {
+					check_variable = {
+						COUNTRY_e_c  > 49
+					}
+				}
 			}
 		}
 		fire_only_once = no

@@ -5,10 +5,19 @@ on_action = {
 			every_country = {
 				BSMS_GDP_sum = yes
 				log = "BSM GDP is [?ROOT.BSMS_GDP]"
+				clamp_variable ={
+					var = COUNTRY_e_c
+					min = -10000
+				}
+				clamp_variable ={
+					var = COUNTRY_e_c
+					max = 10000
+				}
 			}
 			set_variable = {
 				sysmon = 1
 			}
+			
 		}
 	}
 	on_monthly = {
@@ -27,7 +36,6 @@ on_action = {
 					}
 				}
 				every_country = {
-					BSMS_GDP_sum_y = yes
 					log = "BSM GDP is [?ROOT.BSMS_GDP]"
 				}
 			}
