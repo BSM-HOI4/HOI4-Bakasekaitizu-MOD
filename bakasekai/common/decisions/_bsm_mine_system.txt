@@ -4,6 +4,7 @@ bsm_mine_dev = {
 		priority = 50
 		state_target = yes 
 		on_map_mode = map_and_decisions_view
+		target_array = owned_states
 		target_root_trigger = {
 			check_variable = {
 				COUNTRY_e_c  > 49
@@ -11,6 +12,9 @@ bsm_mine_dev = {
 		}
 		available = {
 			custom_trigger_tooltip ={
+				check_variable = {
+					COUNTRY_e_c  > 49
+				}
 				tooltip =  need_50_energy
 			}
             AND = {
@@ -27,14 +31,10 @@ bsm_mine_dev = {
 
 		target_trigger = {
 			AND = {
-				any_controlled_state = {
+				FROM = {
 					has_state_flag = Gold_Rush
 				}
-				ROOT = {
-					check_variable = {
-						COUNTRY_e_c  > 49
-					}
-				}
+
 			}
 		}
 		fire_only_once = no
@@ -48,17 +48,86 @@ bsm_mine_dev = {
 		complete_effect = {
 			hidden_effect = {
 				subtract_from_variable = {
-					variable = COUNTRY_e_c
-					value = 50
+					PREV.COUNTRY_e_c = 50
 				}
 			}
+		}
+		remove_effect ={
 			FROM = {
 				add_to_variable = {
 					amount_goid_mine = 1
 				}
 			}
 			PREV = {
-				BSM_set_mine = yes
+				BSM_weekly_mine = yes
+				BSM_MINE_EXPORT = yes
+				BSMS_GDP_sum = yes
+			}
+		}
+	}
+	dev_mine_juwel = {
+		icon = GFX_resource_energy_large
+		priority = 50
+		state_target = yes 
+		on_map_mode = map_and_decisions_view
+		target_array = owned_states
+		target_root_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		available = {
+			custom_trigger_tooltip ={
+				check_variable = {
+					COUNTRY_e_c  > 49
+				}
+				tooltip =  need_50_energy
+			}
+            AND = {
+				any_controlled_state = {
+					has_state_flag = Juwel_Rush
+				}
+			}
+        }
+        visible = {
+			any_controlled_state = {
+				has_state_flag = Juwel_Rush
+			}
+        }
+
+		target_trigger = {
+			AND = {
+				FROM = {
+					has_state_flag = Juwel_Rush
+				}
+
+			}
+		}
+		fire_only_once = no
+		days_remove = 30
+		cost = 0
+		custom_cost_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					PREV.COUNTRY_e_c = 50
+				}
+			}
+		}
+		remove_effect ={
+			FROM = {
+				add_to_variable = {
+					amount_goid_mine = 1
+				}
+			}
+			PREV = {
+				BSM_weekly_mine = yes
+				BSM_MINE_EXPORT = yes
+				BSMS_GDP_sum = yes
 			}
 		}
 	}

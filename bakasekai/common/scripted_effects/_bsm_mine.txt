@@ -63,6 +63,54 @@ BSM_set_mine = {
 	}
 }
 
+BSM_weekly_mine = {
+	set_variable = {
+		global.MD_gold_demand = 1
+	}
+	add_to_variable = {
+		global.MD_gold_demand = threat
+	}
+	set_variable = {
+		MD_cost = 0
+	}
+	set_variable = {
+		MD_gold = 0
+	}
+	set_variable = {
+		MD_juwel = 0
+	}
+	every_owned_state = {
+		if = {
+			limit = {
+				has_state_flag = Gold_Rush
+			}	
+			add_to_variable = {
+				PREV.MD_gold = amount_goid_mine
+			}
+			add_to_variable = {
+				PREV.MD_cost = amount_goid_mine
+			}
+		}
+		if = {
+			limit = {
+				has_state_flag = Juwel_Rush
+			}
+			add_to_variable = {
+				PREV.MD_juwel = amount_juwel_mine
+			}
+			add_to_variable = {
+				PREV.MD_cost = amount_goid_mine
+			}
+		}
+		divide_variable = {
+			MD_cost = 20
+		}
+		subtract_from_variable = {
+			COUNTRY_e_c = MD_cost
+		}
+	}
+}
+
 BSM_MINE_EXPORT = {
 	if = {
 		limit = {
