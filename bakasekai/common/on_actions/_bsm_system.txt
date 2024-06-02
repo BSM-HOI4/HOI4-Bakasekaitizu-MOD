@@ -44,6 +44,18 @@ on_actions = {
 				BSM_set_mine = yes
 				BSM_MINE_EXPORT = yes
 				BSMS_GDP_sum = yes
+				log = "BSM GDP is [?ROOT.BSMS_GDP]"
+				clamp_variable ={
+					var = COUNTRY_e_c
+					min = -10000
+				}
+				clamp_variable ={
+					var = COUNTRY_e_c
+					max = 10000
+				}
+				subtract_from_variable = {
+					COUNTRY_e_c = MD_cost
+				}
 			}
 			ROOT = {
 				set_variable = {
@@ -104,6 +116,9 @@ on_actions = {
 			}
 			every_country = {
 				BSM_MINE_EXPORT = yes
+				subtract_from_variable = {
+					COUNTRY_e_c = MD_cost
+				}			
 			}
 		}
 	}
