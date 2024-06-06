@@ -717,7 +717,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAC_coca_cola_win
+		id = MAC_coca_cola_win #コカ・コーラの勝利
 		icon = GFX_focus_generic_the_giant_wakes
 		relative_position_id = MAC_start_cola_war
 		x = -7
@@ -965,7 +965,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAC_pepsi_propaganda
+		id = MAC_pepsi_propaganda #ペプシ・プロパガンダ
 		icon = GFX_focus_generic_the_giant_wakes
 		relative_position_id = MAC_pepsi_cola
 		x = 0
@@ -1085,7 +1085,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAC_pepsi_win
+		id = MAC_pepsi_win #ペプシコーラの勝利
 		icon = GFX_focus_generic_the_giant_wakes
 		relative_position_id = MAC_start_cola_war
 		x = 7
@@ -1379,6 +1379,70 @@ focus_tree = {
 		}
 		prerequisite = {
 			focus = MAC_saida
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		completion_reward = {
+			custom_effect_tooltip = MAC_start_cola_war_tt
+			add_political_power = 150
+			country_event = { id = MCD.12 }
+		}
+	}
+
+	focus = {
+		id = MAC_against_king
+		icon = GFX_focus_generic_the_giant_wakes
+		relative_position_id = MAC_start_cola_war
+		x = -1
+		y = 8		
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		mutually_exclusive = {
+			focus = MAC_with_king
+		}
+		available = {
+			AND = {
+				has_completed_focus = MAC_Overseas_shop_openings
+				has_any_power_balance = no
+
+			}
+		}
+		prerequisite = {
+		}
+		ai_will_do = {
+			factor = 30
+		}
+		completion_reward = {
+			custom_effect_tooltip = MAC_start_cola_war_tt
+			add_political_power = 150
+			country_event = { id = MCD.12 }
+		}
+	}
+
+	focus = {
+		id = MAC_with_king
+		icon = GFX_focus_generic_the_giant_wakes
+		relative_position_id = MAC_start_cola_war
+		x = 1
+		y = 8		
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		mutually_exclusive = {
+			focus = MAC_against_king
+		}
+		available = {
+			AND = {
+				has_completed_focus = MAC_Overseas_shop_openings
+				has_any_power_balance = no
+
+			}
+		}
+		prerequisite = {
 		}
 		ai_will_do = {
 			factor = 30
