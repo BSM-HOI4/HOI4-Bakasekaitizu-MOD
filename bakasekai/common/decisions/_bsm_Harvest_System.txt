@@ -1,0 +1,299 @@
+# bsm_food_reform = {
+# 	Research_in_agriculture_and_forestry = {
+# 		cost = 40
+# 		days_remove = 60
+# 		fire_only_once = yes
+# 		modifier = {
+# 			research_speed_factor = -0.05
+# 		}
+# 		ai_will_do = {
+# 			factor = 10000
+# 		}
+# 		remove_effect = {
+# 			add_political_power = 60
+# 			set_country_flag = HS_AF
+# 		}
+# 	}
+# 	Research_of_new_farming_methods = {
+# 		cost = 60
+# 		days_remove = 60
+# 		fire_only_once = yes
+# 		modifier = {
+# 			research_speed_factor = -0.05
+# 		}
+# 		visible = {
+# 			has_country_flag = HS_AF
+# 		}
+# 		ai_will_do = {
+# 			factor = 10000
+# 		}
+# 		remove_effect = {
+# 			add_political_power = 60
+# 			set_country_flag = HS_NFM
+# 		}
+# 	}
+# 	Introduction_of_new_farming_methods = {
+# 		cost = 120
+# 		fire_only_once = yes
+# 		visible = {
+# 			AND = {
+# 				has_country_flag = HS_NFM
+# 			}
+# 		}
+# 		ai_will_do = {
+# 			factor = 100
+# 		}
+# 		remove_effect = {
+# 			add_political_power = 60
+# 			country_event = {
+# 				id = bsm_HS.1
+# 			}
+# 		}
+# 	}
+# 	Negotiations_with_relevant_ministries = {
+# 		cost = 220
+# 		visible = {
+# 			AND = {
+# 				has_country_flag = HS_NFM
+# 				has_country_flag = HS_START
+# 				has_country_flag = HS_START_EVENT
+# 			}
+# 		}
+# 		# days_mission_timeout = 14
+# 		complete_effect = {
+# 			HS_Yield_calculation = yes
+# 			HS_Fishing_calculation = yes
+# 			country_event = {
+# 				id = bsm_HS.3
+# 			}
+# 		}
+# 		days_remove = 365
+# 	}
+# 	Establishment_of_agricultural_research_centres = {
+# 		cost = 120
+# 		days_remove = 120
+# 		fire_only_once = yes
+# 		modifier = {
+# 			research_speed_factor = -0.05
+# 			production_speed_buildings_factor = -0.05
+# 		}
+# 		ai_will_do = {
+# 			factor = 100
+# 		}
+# 		visible = {
+# 			has_country_flag = HS_AF
+# 		}
+# 		remove_effect = {
+# 			add_political_power = 100
+# 		}
+		
+# 	}
+# 	Fertiliser_production = {
+# 		cost = 120
+# 		days_remove = 120
+# 		visible = {
+# 			has_country_flag = HS_AF
+# 		}
+# 		ai_will_do = {
+# 			factor = 100
+# 		}
+# 		modifier = {
+# 			industrial_capacity_factory = -0.05
+# 		}
+# 		remove_effect = {
+# 			if = {
+# 				limit = {
+# 					has_idea = HS_Fertilizers_1
+# 				}
+# 				hidden_effect = {
+# 					add_to_variable = {
+# 						ROOT.HS_farm_dev^6 = 10
+# 					}
+# 				}
+# 				add_political_power = 100
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					has_idea = HS_Fertilizers_2
+# 				}
+# 				hidden_effect = {
+# 					add_to_variable = {
+# 						ROOT.HS_farm_dev^6 = 15
+# 					}
+# 				}
+# 				add_political_power = 100
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					has_idea = HS_Fertilizers_3
+# 				}
+# 				hidden_effect = {
+# 					add_to_variable = {
+# 						ROOT.HS_farm_dev^6 = 20
+# 					}
+# 				}
+# 				add_political_power = 100
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					has_idea = HS_Fertilizers_4
+# 				}
+# 				hidden_effect = {
+# 					add_to_variable = {
+# 						ROOT.HS_farm_dev^6 = 25
+# 					}
+# 				}
+# 				add_political_power = 100
+# 			}
+# 			else = {
+# 				add_political_power = 100
+# 				add_ideas = {
+# 					HS_Fertilizers_1
+# 				}
+# 			}
+# 		}
+# 	}
+# 	Fertiliser_research_1 = {
+# 		cost = 120
+# 		visible = {
+# 			has_idea = HS_Fertilizers_1
+# 		}
+# 		days_remove = 80
+# 		ai_will_do = {
+# 			factor = 100
+# 		}
+# 		modifier = {
+# 			research_speed_factor = -0.05
+# 		}
+# 		remove_effect = {
+# 			swap_ideas = {
+# 				remove_idea = HS_Fertilizers_1
+# 				add_idea = HS_Fertilizers_2
+# 			}
+# 		}
+# 	}
+# 	Fertiliser_research_2 = {
+# 		cost = 120
+# 		visible = {
+# 			has_idea = HS_DARC
+# 			has_idea = HS_Fertilizers_2
+# 		}
+# 		ai_will_do = {
+# 			factor = 100
+# 		}
+# 		days_remove = 120
+# 		modifier = {
+# 			research_speed_factor = -0.05
+# 		}
+# 		remove_effect = {
+# 			swap_ideas = {
+# 				remove_idea = HS_Fertilizers_2
+# 				add_idea = HS_Fertilizers_3
+# 			}
+# 		}
+# 	}
+# 	Fertiliser_research_3 = {
+# 		cost = 120
+# 		visible = {
+# 			has_idea = HS_Fertilizers_3
+# 		}
+# 		days_remove = 120
+# 		modifier = {
+# 			research_speed_factor = -0.05
+# 		}
+# 		ai_will_do = {
+# 			factor = 100
+# 		}
+# 		remove_effect = {
+# 			swap_ideas = {
+# 				remove_idea = HS_Fertilizers_3
+# 				add_idea = HS_Fertilizers_4
+# 			}
+# 		}
+# 	}
+# }
+
+# bsm_Harvest_develop = {
+# 	random_state_farm_dev = {
+# 		cost = 60
+# 		days_remove = 30
+# 		modifier = {
+# 			consumer_goods_factor = 0.01
+# 		}
+# 		ai_will_do = {
+# 			factor = 100
+# 		}
+# 		visible = {
+# 			AND = {
+# 				has_country_flag = HS_dev
+# 				var:HS_farm_dev^7 = {
+# 					check_variable = {
+# 						HS_nomal_farm < 8
+# 					}
+# 				}
+# 			}
+# 		}
+# 		complete_effect = {
+# 			clr_country_flag = HS_dev
+# 		}
+# 		remove_effect = {
+# 			add_political_power = 30
+# 			var:HS_farm_dev^7 = {
+# 				add_to_variable = {
+# 					HS_nomal_farm = 1
+# 				}
+# 				add_to_variable = {
+# 					HS_farmland = 1
+# 				}
+# 			}
+# 			hidden_effect = {
+# 				ROOT = {
+# 					HS_sttttttate = yes
+# 					set_country_flag = HS_dev
+# 					HS_Yield_calculation = yes
+# 				}
+# 			}
+# 		}
+# 	}
+# 	random_state_L_farm_dev = {
+# 		cost = 120
+# 		days_remove = 60
+# 		modifier = {
+# 			consumer_goods_factor = 0.01
+# 		}
+# 		ai_will_do = {
+# 			factor = 80
+# 		}
+# 		visible = {
+# 			AND = {
+# 				has_country_flag = HS_dev
+# 				var:HS_farm_dev^7 = {
+# 					check_variable = {
+# 						HS_L_farm < 4
+# 					}
+# 				}
+# 			}
+# 		}
+# 		complete_effect = {
+# 			clr_country_flag = HS_dev
+# 		}
+# 		remove_effect = {
+# 			add_political_power = 60
+# 			var:HS_farm_dev^7 = {
+# 				add_to_variable = {
+# 					HS_L_farm = 1
+# 				}
+# 				add_to_variable = {
+# 					HS_farmland = 4
+# 				}
+# 			}
+# 			hidden_effect = {
+# 				ROOT = {
+# 					HS_sttttttate = yes
+# 					set_country_flag = HS_dev
+# 					HS_Yield_calculation = yes
+# 				}
+# 			}
+# 		}
+# 	}
+# }

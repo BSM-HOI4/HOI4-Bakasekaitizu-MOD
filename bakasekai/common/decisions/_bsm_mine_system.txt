@@ -1,0 +1,497 @@
+bsm_mine_dev = {
+	dev_mine_gold = {
+		icon = GFX_resource_energy_large
+		priority = 50
+		state_target = yes 
+		on_map_mode = map_and_decisions_view
+		target_array = owned_states
+		target_root_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		available = {
+			custom_trigger_tooltip ={
+				check_variable = {
+					COUNTRY_e_c  > 49
+				}
+				tooltip =  need_50_energy
+			}
+            AND = {
+				has_tech = excavation1
+				any_controlled_state = {
+					has_state_flag = Gold_Rush
+				}
+			}
+        }
+        visible = {
+			any_controlled_state = {
+				has_state_flag = Gold_Rush
+			}
+        }
+
+		target_trigger = {
+			AND = {
+				FROM = {
+					has_state_flag = Gold_Rush
+				}
+
+			}
+		}
+		fire_only_once = yes
+		days_remove = 100
+		cost = 0
+		custom_cost_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					PREV.COUNTRY_e_c = 50
+				}
+			}
+		}
+		remove_effect ={
+			FROM = {
+				set_state_flag = GR_1
+				add_to_variable = {
+					amount_goid_mine = 1
+				}
+			}
+			PREV = {
+				BSM_weekly_mine = yes
+				BSM_MINE_EXPORT = yes
+				# BSMS_GDP_sum = yes
+			}
+		}
+	}
+	dev_mine_Jewel = {
+		icon = GFX_resource_minerals_large
+		priority = 50
+		state_target = yes 
+		on_map_mode = map_and_decisions_view
+		target_array = owned_states
+		target_root_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		available = {
+			custom_trigger_tooltip ={
+				check_variable = {
+					COUNTRY_e_c  > 49
+				}
+				tooltip =  need_50_energy
+			}
+            AND = {
+				has_tech = excavation1
+				any_controlled_state = {
+					has_state_flag = Jewel_Rush
+				}
+			}
+        }
+        visible = {
+			any_controlled_state = {
+				has_state_flag = Jewel_Rush
+			}
+        }
+
+		target_trigger = {
+			AND = {
+				FROM = {
+					has_state_flag = Jewel_Rush
+				}
+
+			}
+		}
+		fire_only_once = yes
+		days_remove = 100
+		cost = 0
+		custom_cost_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					PREV.COUNTRY_e_c = 50
+				}
+			}
+		}
+		remove_effect ={
+			FROM = {
+				set_state_flag = JR_1
+				add_to_variable = {
+					amount_goid_mine = 1
+				}
+			}
+			PREV = {
+				BSM_weekly_mine = yes
+				BSM_MINE_EXPORT = yes
+				# BSMS_GDP_sum = yes
+			}
+		}
+	}
+
+	dev_mine_gold_2 = {
+		icon = GFX_resource_energy_large
+		priority = 50
+		state_target = yes 
+		on_map_mode = map_and_decisions_view
+		target_array = owned_states
+		target_root_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		available = {
+			custom_trigger_tooltip ={
+				check_variable = {
+					COUNTRY_e_c  > 49
+				}
+				tooltip =  need_50_energy
+			}
+            AND = {
+				has_tech = excavation2
+				any_controlled_state = {
+					has_state_flag = Gold_Rush
+				}
+				FROM = {
+					has_state_flag = GR_1
+				}
+			}
+        }
+        visible = {
+			has_tech = excavation1
+			any_controlled_state = {
+				has_state_flag = Gold_Rush
+			}
+			FROM = {
+				has_state_flag = GR_1
+			}
+        }
+
+		target_trigger = {
+			AND = {
+				FROM = {
+					has_state_flag = Gold_Rush
+				}
+
+			}
+		}
+		fire_only_once = yes
+		days_remove = 150
+		cost = 0
+		custom_cost_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					PREV.COUNTRY_e_c = 50
+				}
+			}
+		}
+		remove_effect ={
+			FROM = {
+				clr_state_flag = GR_1
+				set_state_flag = GR_2
+				add_to_variable = {
+					amount_goid_mine = 1
+				}
+			}
+			PREV = {
+				BSM_weekly_mine = yes
+				BSM_MINE_EXPORT = yes
+				# BSMS_GDP_sum = yes
+			}
+		}
+	}
+	dev_mine_Jewel_2 = {
+		icon = GFX_resource_minerals_large
+		priority = 50
+		state_target = yes 
+		on_map_mode = map_and_decisions_view
+		target_array = owned_states
+		target_root_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		available = {
+			custom_trigger_tooltip ={
+				check_variable = {
+					COUNTRY_e_c  > 49
+				}
+				tooltip =  need_50_energy
+			}
+            AND = {
+				has_tech = excavation2
+				any_controlled_state = {
+					has_state_flag = Jewel_Rush
+				}
+				FROM = {
+					has_state_flag = JR_1
+				}
+			}
+        }
+        visible = {
+			has_tech = excavation1
+			any_controlled_state = {
+				has_state_flag = Jewel_Rush
+			}
+			FROM = {
+				has_state_flag = JR_1
+			}
+        }
+
+		target_trigger = {
+			AND = {
+				FROM = {
+					has_state_flag = Jewel_Rush
+				}
+
+			}
+		}
+		fire_only_once = yes
+		days_remove = 150
+		cost = 0
+		custom_cost_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					PREV.COUNTRY_e_c = 50
+				}
+			}
+		}
+		remove_effect ={
+			FROM = {
+				add_to_variable = {
+					amount_goid_mine = 1
+				}
+				clr_state_flag = JR_1
+				set_state_flag = JR_2
+			}
+			PREV = {
+				BSM_weekly_mine = yes
+				BSM_MINE_EXPORT = yes
+				# BSMS_GDP_sum = yes
+			}
+		}
+	}
+
+	dev_mine_gold_3 = {
+		icon = GFX_resource_energy_large
+		priority = 50
+		state_target = yes 
+		on_map_mode = map_and_decisions_view
+		target_array = owned_states
+		target_root_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		available = {
+			custom_trigger_tooltip ={
+				check_variable = {
+					COUNTRY_e_c  > 49
+				}
+				tooltip =  need_50_energy
+			}
+            AND = {
+				has_tech = excavation2
+				any_controlled_state = {
+					has_state_flag = Gold_Rush
+				}
+				FROM = {
+					has_state_flag = GR_2
+				}
+			}
+        }
+        visible = {
+			has_tech = excavation1
+			any_controlled_state = {
+				has_state_flag = Gold_Rush
+			}
+			FROM = {
+				has_state_flag = GR_2
+			}
+        }
+
+		target_trigger = {
+			AND = {
+				FROM = {
+					has_state_flag = Gold_Rush
+				}
+
+			}
+		}
+		fire_only_once = yes
+		days_remove = 275
+		cost = 0
+		custom_cost_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					PREV.COUNTRY_e_c = 50
+				}
+			}
+		}
+		remove_effect ={
+			FROM = {
+				clr_state_flag = GR_2
+				set_state_flag = GR_3
+				add_to_variable = {
+					amount_goid_mine = 1
+				}
+			}
+			PREV = {
+				BSM_weekly_mine = yes
+				BSM_MINE_EXPORT = yes
+				# BSMS_GDP_sum = yes
+			}
+		}
+	}
+	dev_mine_Jewel_3 = {
+		icon = GFX_resource_minerals_large
+		priority = 50
+		state_target = yes 
+		on_map_mode = map_and_decisions_view
+		target_array = owned_states
+		target_root_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		available = {
+			custom_trigger_tooltip ={
+				check_variable = {
+					COUNTRY_e_c  > 49
+				}
+				tooltip =  need_50_energy
+			}
+            AND = {
+				has_tech = excavation2
+				any_controlled_state = {
+					has_state_flag = Jewel_Rush
+				}
+				FROM = {
+					has_state_flag = JR_2
+				}
+			}
+        }
+        visible = {
+			has_tech = excavation1
+			any_controlled_state = {
+				has_state_flag = Jewel_Rush
+			}
+			FROM = {
+				has_state_flag = JR_2
+			}
+        }
+
+		target_trigger = {
+			AND = {
+				FROM = {
+					has_state_flag = Jewel_Rush
+				}
+
+			}
+		}
+		fire_only_once = yes
+		days_remove = 275
+		cost = 0
+		custom_cost_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					PREV.COUNTRY_e_c = 50
+				}
+			}
+		}
+		remove_effect ={
+			FROM = {
+				add_to_variable = {
+					amount_goid_mine = 1
+				}
+				clr_state_flag = JR_2
+				set_state_flag = JR_3
+			}
+			PREV = {
+				BSM_weekly_mine = yes
+				BSM_MINE_EXPORT = yes
+				# BSMS_GDP_sum = yes
+			}
+		}
+	}
+}
+
+bsm_ecpp = {
+	pp_to_ec = {
+		icon = GFX_resource_energy_large
+		priority = 50
+		fire_only_once = no
+		days_remove = 1
+		available = {
+			custom_trigger_tooltip ={
+				check_variable = {
+					COUNTRY_e_c  > 49
+				}
+				tooltip =  need_50_energy
+			}
+		}
+		custom_cost_trigger = {
+			check_variable = {
+				COUNTRY_e_c  > 49
+			}
+		}
+		complete_effect = {
+			hidden_effect = {
+				subtract_from_variable = {
+					COUNTRY_e_c = 50
+				}
+			}
+		}
+		remove_effect ={
+			add_political_power = 10
+		}
+	}
+	ec_to_pp = {
+		icon = GFX_resource_energy_large
+		priority = 50
+		fire_only_once = no
+		days_remove = 1
+		available = {
+			custom_trigger_tooltip ={
+				check_variable = {
+					political_power > 49
+				}
+				tooltip =  need_50_energy
+			}
+		}
+		cost = 50
+
+		remove_effect ={
+			add_to_variable = {
+				COUNTRY_e_c = 10
+			}
+		}
+	}
+}

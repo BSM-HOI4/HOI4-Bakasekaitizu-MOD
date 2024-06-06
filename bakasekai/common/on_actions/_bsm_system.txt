@@ -1,0 +1,177 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			every_country = {
+				set_variable = {
+					MS_sum_num = 0
+				}
+				set_variable = {
+					MS_max = 10
+				}
+				set_variable = {
+					COUNTRY_P_O = 0
+				}
+				every_owned_state = {
+					if = {
+						limit = {
+							has_state_flag = Gold_Rush
+						}
+						set_variable = {
+							amount_goid_mine = 1
+						}
+						multiply_variable = {
+							amount_goid_mine = infrastructure_level
+						}
+						add_to_variable = {
+							PREV.MD_gold = amount_goid_mine
+						}
+						add_to_variable = {
+							PREV.MD_cost = amount_goid_mine
+						}
+					}
+					if = {
+						limit = {
+							has_state_flag = Jewel_Rush
+						}
+						set_variable = {
+							amount_juwel_mine = 1
+						}
+						multiply_variable = {
+							amount_juwel_mine = infrastructure_level
+						}
+						add_to_variable = {
+							PREV.MD_juwel = amount_juwel_mine
+						}
+						add_to_variable = {
+							PREV.MD_cost = amount_goid_mine
+						}
+					}
+				}
+				BSM_set_mine = yes
+				BSM_MINE_EXPORT = yes
+				BSMS_GDP_sum = yes
+				log = "BSM GDP is [?ROOT.BSMS_GDP]"
+				clamp_variable ={
+					var = COUNTRY_e_c
+					min = -10000
+				}
+				clamp_variable ={
+					var = COUNTRY_e_c
+					max = 10000
+				}
+				subtract_from_variable = {
+					COUNTRY_e_c = MD_cost
+				}
+			}
+			ROOT = {
+				set_variable = {
+					global.month = 1
+				}
+				set_variable = {
+					global.MD_gold_demand = 1
+				}
+				add_to_variable = {
+					global.MD_gold_demand = threat
+				}
+				set_variable = {
+					global.MD_juwel_demand = 1.25
+				}
+				set_variable = {
+					global.MD_gold_supply = 0
+				}
+				set_variable = {
+					global.MD_juwel_supply = 0
+				}
+				set_variable = {
+					global.MD_req = 1
+				}
+
+			}
+			SWI = {
+				set_country_flag = MS_ALLOWED
+				set_variable = {
+					MS_max = 10
+				}
+			}
+			VAT = {
+				set_country_flag = MS_ALLOWED
+				set_variable = {
+					MS_max = 2
+				}
+			}
+			FRA = {
+				set_country_flag = MS_ALLOWED
+				set_variable = {
+					MS_max = 20
+				}
+			}
+		}
+	}
+	on_monthly = {
+		effect = {
+			ROOT = {
+				if = {
+					limit = {
+						check_variable = {
+							global.month = 12
+						}
+					}
+					set_variable = {
+						global.month = 1
+					}
+					log = "BSMS_GDP= [?BSMS_GDP_y]"
+					set_temp_variable = {
+						gdp_pp = BSMS_GDP_y
+					}
+					divide_variable = {gdp_pp = 110}
+					add_political_power = gdp_pp
+					add_to_variable = {
+						COUNTRY_e_c = gdp_pp
+					}
+					set_variable = {
+						BSMS_GDP_y = 0
+					}
+				}
+				else = {
+					add_to_variable = {
+						global.month = 1
+					}
+				}
+			}
+			every_country = {
+				BSM_MINE_EXPORT = yes
+				subtract_from_variable = {
+					COUNTRY_e_c = MD_cost
+				}			
+			}
+		}
+	}
+	on_daily = {
+		effect = {
+			every_country = {
+				set_temp_variable = { temp = modifier@COUNTRY_P_O_gain_factor }
+				divide_variable = { temp = 100 }		
+				set_temp_variable = { temp_1 = modifier@daily_COUNTRY_P_O_gain }
+				multiply_variable = { temp = temp_1}
+				add_to_variable = { COUNTRY_P_O = temp }
+		
+				set_temp_variable = { temp = modifier@COUNTRY_e_c_gain_factor }
+				divide_variable = { temp = 100 }		
+				set_temp_variable = { temp_1 = modifier@daily_COUNTRY_e_c_gain }
+				multiply_variable = { temp = temp_1}
+				add_to_variable = { COUNTRY_e_c = temp }
+				
+
+			}
+		}
+	}
+	on_weekly = {
+		effect = {
+			every_country = {
+				add_to_variable = { COUNTRY_CULTURAL_DEGREE = modifier@weekly_COUNTRY_CULTURAL_DEGREE }
+				add_to_variable = { COUNTRY_P_O = COUNTRY_CULTURAL_DEGREE }
+				BSM_weekly_mine = yes
+			}
+		}
+	}
+}

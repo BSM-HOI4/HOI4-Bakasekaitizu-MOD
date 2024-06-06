@@ -5,12 +5,22 @@ on_actions = {
 				play_song = "music_GGKSMKK"
 			}
 			every_country = {
-                limit = {
-                    is_ai = no
-                }
-                country_event = start.0
+				# ROOT = {
+					# set_country_flag = you_are_harvester
+					# set_country_flag = HS_START
+					# set_country_flag = HS_dev
+					# HS_START_HARVEST = yes
+					# HS_START_STATE = yes
+					# HS_Yield_calculation_MAIN = yes
+					# HS_Fishing_calculation = yes
+					# HS_Impact_list = yes
+					# country_event = {
+					# 	id = bsm_HS.0
+					# 	days = 1
+					# }
+				# }
+			}
 
-            }
 			every_country = {
                 limit = {
                     is_neighbor_of = MYS
@@ -30,12 +40,122 @@ on_actions = {
 						original_tag = MYS
 					}
                 }
-				set_variable = { var = COUNTRY_CULTURAL_DEGREE value = 80 }
-				set_variable = { var = COUNTRY_P_O value = 80 }
-				log = "やっほーえいとまんだよー = 0"
+				set_variable = {
+					var	= COUNTRY_resource_minor_artifacts
+					value = 0
+				}
+				add_ideas = normal_country
+				set_variable = { COUNTRY_CULTURAL_DEGREE = modifier@base_COUNTRY_CULTURAL_DEGREE }
+				set_variable = { var = COUNTRY_P_O value = 10 }
+			}
+			every_country = {
+				limit = {
+
+					original_tag = MYS
+					
+                }
+				add_ideas = mystery_country
+				set_variable = { COUNTRY_CULTURAL_DEGREE = modifier@base_COUNTRY_CULTURAL_DEGREE }
+				set_variable = { var = COUNTRY_P_O value = 100 }
+				
+			}
+			every_country = {
+                limit = {
+                    is_ai = no
+                }
+                country_event = start.0
+				clamp_variable ={
+					var = COUNTRY_CULTURAL_DEGREE
+					min = -1
+				}
+				clamp_variable ={
+					var = COUNTRY_CULTURAL_DEGREE
+					max = 1
+				}
+				clamp_variable ={
+					var = COUNTRY_P_O
+					min = -10000
+				}
+				clamp_variable ={
+					var = COUNTRY_P_O
+					max = 10000
+				}
+
+				# add_dynamic_modifier = { modifier = civ_research_buff }
+				
+            }
+			every_country = {
+				limit = {
+					original_tag = MYS
+					original_tag = MON
+                }
+				set_variable = {
+					var	= COUNTRY_resource_minor_artifacts
+					value = 10
+				}
+				every_owned_state = {
+					set_variable = { 
+						var = State_pop_Tulpa_k 
+						value = state_population_k
+					}
+					set_variable = { 
+						var = State_pop_Tulpa_k 
+						value = state_population_k
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					original_tag = AUS
+                }
+				set_variable = {
+					var	= COUNTRY_resource_minor_artifacts
+					value = 4
+				}
+				every_owned_state = {
+					set_variable = { 
+						var = State_pop_emu_k
+						value = state_population_k
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					original_tag = NMX
+                }
+				set_variable = {
+					var	= COUNTRY_resource_minor_artifacts
+					value = 1
+				}
+				every_owned_state = {
+					set_variable = { 
+						var = State_pop_cat_k
+						value = state_population_k
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					NOT = {
+						original_tag = AUS
+						original_tag = MYS
+						original_tag = NMX
+					}
+                }
+				set_variable = {
+					var	= COUNTRY_resource_minor_artifacts
+					value = 0
+				}
+				every_owned_state = {
+					set_variable = { 
+						var = State_pop_human_k
+						value = state_population_k
+					}
+				}
 			}
 			log = "CD = [?ROOT.COUNTRY_CULTURAL_DEGREE]"
 			log = "PO = [?ROOT.COUNTRY_P_O]"
+			log = "ec = [?ROOT.COUNTRY_e_c]"
 			WES = {
 				if = {
 					limit = {

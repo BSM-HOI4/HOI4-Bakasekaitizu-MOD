@@ -1,0 +1,375 @@
+# # HS_call = {
+# # 	ROOT = {
+# # 		set_country_flag = you_are_harvester
+# # 		set_country_flag = HS_START
+# # 		set_country_flag = HS_dev
+# # 		HS_START_HARVEST = yes
+# # 		HS_START_STATE = yes
+# # 		HS_Yield_calculation_MAIN = yes
+# # 		HS_Fishing_calculation = yes
+# # 		HS_Impact_list = yes
+# # 		# country_event = {
+# # 		# 	id = bsm_HS.0
+# # 		# 	days = 1
+# # 		# }
+# # 	}
+# # }
+
+# HS_START_STATE = {
+# 	for_each_scope_loop = {
+# 		array = ROOT.owned_states
+# 		add_to_variable = {
+# 			HS_farmland = 1
+# 		}
+# 		add_to_variable = {
+# 			HS_L_farm = 0
+# 		}
+# 		add_to_variable = {
+# 			HS_nomal_farm = 1
+# 		}
+# 		if = {
+# 			limit = {
+# 				is_coastal = yes
+# 			}
+# 			add_to_variable = {
+# 				HS_fishing = 1
+# 			}
+# 		}
+# 	}
+# }
+
+# HS_START_HARVEST = {
+# 	#0実際収量/1計画収量/2予想収量/3農地の広さの合計　/4漁船数/5予想漁獲量/6農業影響値実数/7.StateID/8差分
+# 	# 実際収量＝農業への影響補正＊農業効果度＊農地の広さ（上）＋農業への影響値
+# 	# 計画収量＝農地の広さ＊食糧うんたらど
+# 	# 予想収量＝農業効果度＊農地の広さ
+# 	# 国家の配列：
+# 	# 実際収量　計画収量　予想収量　農地の広さの合計　
+# 	# ステートの配列：
+# 	# 農地の数(広さ)
+# 	# modifier：
+# 	# 農業への影響補正
+# 	# 農業への影響値
+# 	# 農業効果度
+# 	add_to_array = {
+# 		ROOT.HS_farm_dev = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_farm_dev = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_farm_dev = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_farm_dev = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_farm_dev = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_farm_dev = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_farm_dev = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_farm_dev = ROOT.capital
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_farm_dev = 0
+# 	}
+# }
+
+# HS_OWNED_STATES = {
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^3 = 0
+# 	}
+# 	for_each_scope_loop = {
+# 		array = ROOT.owned_states
+# 		add_to_variable = {
+# 			ROOT.HS_farm_dev^3 = THIS.HS_farmland
+# 		}
+# 	}
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^4 = 0
+# 	}
+# 	for_each_scope_loop = {
+# 		array = ROOT.owned_states
+# 		add_to_variable = {
+# 			ROOT.HS_farm_dev^4 = THIS.HS_fishing
+# 		}
+# 	}
+# }
+
+# HS_Yield_calculation_MAIN = {
+# 	HS_OWNED_STATES = yes
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^1 = 0
+# 	}
+# 	set_temp_variable = {
+# 		temp = ROOT.modifier@food_growth_rate_modifier
+# 	}
+# 	add_to_temp_variable = {
+# 		temp = 1
+# 	}
+# 	multiply_temp_variable = {
+# 		temp = ROOT.HS_farm_dev^3
+# 	}
+# 	multiply_temp_variable = {
+# 		temp = 7
+# 	}
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^1 = temp
+# 	}
+# 	for_each_scope_loop = {
+# 		array = ROOT.owned_states
+# 		ROOT = {
+# 			add_to_variable = {
+# 				HS_farm_dev^1 = 2.5
+# 			}
+# 		}
+# 	}
+# 	################################
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^2 = 0
+# 	}
+# 	set_temp_variable = {
+# 		temp1 = ROOT.modifier@HS_Farming_efficiency
+# 	}
+# 	add_to_temp_variable = {
+# 		temp1 = 1
+# 	}
+# 	multiply_temp_variable = {
+# 		temp1 = ROOT.HS_farm_dev^3
+# 	}
+# 	multiply_temp_variable = {
+# 		temp1 = 7.5
+# 	}
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^2 = temp1
+# 	}
+# 	#################################
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^0 = 0
+# 	}
+# 	set_temp_variable = {
+# 		temp = ROOT.modifier@HS_Farming_efficiency
+# 	}
+# 	set_temp_variable = {
+# 		temp1 = ROOT.modifier@HS_Corrected_impact_on_agriculture
+# 	}
+# 	add_to_temp_variable = {
+# 		temp = 1
+# 	}
+# 	add_to_temp_variable = {
+# 		temp1 = 1
+# 	}
+# 	multiply_temp_variable = {
+# 		temp = ROOT.HS_farm_dev^3
+# 	}
+# 	multiply_temp_variable = {
+# 		temp = temp1
+# 	}
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^0 = temp
+# 	}
+# 	add_to_variable = {
+# 		ROOT.HS_farm_dev^0 = ROOT.modifier@HS_Impact_on_agriculture
+# 	}
+# 	set_temp_variable = {
+# 		mp = HS_farm_dev^3
+# 	}
+# 	multiply_temp_variable = {
+# 		mp = 10
+# 	}
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^6 = ROOT.modifier@HS_Impact_on_agriculture
+# 	}
+# 	add_manpower = mp
+# }
+
+# HS_Yield_calculation = {
+# 	set_temp_variable = {
+# 		mp = HS_farm_dev^3
+# 	}
+# 	multiply_temp_variable = {
+# 		mp = 10
+# 	}
+# 	add_manpower = mp
+# 	HS_OWNED_STATES = yes
+# 	# set_variable = {
+# 	# 	ROOT.HS_farm_dev^1 = 0
+# 	# }
+# 	# add_to_variable = {
+# 	# 	ROOT.HS_farm_dev^1 = ROOT.HS_farm_dev^3
+# 	# }
+# 	# set_temp_variable = {
+# 	# 	temp = ROOT.modifier@food_growth_rate_modifier
+# 	# }
+# 	# add_to_temp_variable = {
+# 	# 	temp = 1
+# 	# }
+# 	# multiply_temp_variable = {
+# 	# 	temp = ROOT.HS_farm_dev^1
+# 	# }
+# 	# set_variable = {
+# 	# 	ROOT.HS_farm_dev^1 = temp
+# 	# }
+# 	################################
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^2 = 0
+# 	}
+# 	set_temp_variable = {
+# 		temp1 = ROOT.modifier@HS_Farming_efficiency
+# 	}
+# 	add_to_temp_variable = {
+# 		temp1 = 1
+# 	}
+# 	multiply_temp_variable = {
+# 		temp1 = ROOT.HS_farm_dev^3
+# 	}
+# 	multiply_temp_variable = {
+# 		temp1 = 7.5
+# 	}
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^2 = temp1
+# 	}
+# 	#################################
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^0 = 0
+# 	}
+# 	set_temp_variable = {
+# 		temp = ROOT.modifier@HS_Farming_efficiency
+# 	}
+# 	set_temp_variable = {
+# 		temp1 = ROOT.modifier@HS_Corrected_impact_on_agriculture
+# 	}
+# 	add_to_temp_variable = {
+# 		temp = 1
+# 	}
+# 	add_to_temp_variable = {
+# 		temp1 = 1
+# 	}
+# 	multiply_temp_variable = {
+# 		temp = ROOT.HS_farm_dev^3
+# 	}
+# 	multiply_temp_variable = {
+# 		temp = temp1
+# 	}
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^0 = temp
+# 	}
+# 	add_to_variable = {
+# 		ROOT.HS_farm_dev^0 = ROOT.modifier@HS_Impact_on_agriculture
+# 	}
+# 	set_temp_variable = {
+# 		mp = HS_farm_dev^3
+# 	}
+# 	multiply_temp_variable = {
+# 		mp = -10
+# 	}
+# 	add_manpower = mp
+# }
+
+# HS_Fishing_calculation = {
+# 	set_temp_variable = {
+# 		mp = HS_farm_dev^5
+# 	}
+# 	multiply_temp_variable = {
+# 		mp = 20
+# 	}
+# 	add_manpower = mp
+# 	HS_OWNED_STATES = yes
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^5 = 0
+# 	}
+# 	add_to_variable = {
+# 		ROOT.HS_farm_dev^5 = ROOT.HS_farm_dev^4
+# 	}
+# 	multiply_variable = {
+# 		ROOT.HS_farm_dev^5 = 5
+# 	}
+# 	set_temp_variable = {
+# 		temp = ROOT.modifier@HS_Corrected_impact_on_Fishing
+# 	}
+# 	add_to_temp_variable = {
+# 		temp = 1
+# 	}
+# 	multiply_variable = {
+# 		ROOT.HS_farm_dev^5 = temp
+# 	}
+# 	set_temp_variable = {
+# 		mp = HS_farm_dev^5
+# 	}
+# 	multiply_temp_variable = {
+# 		mp = 20
+# 	}
+# 	add_manpower = mp
+# }
+
+# HS_Impact_list = {
+# 	# 日時			/HS_Date
+# 	# ステートID	 /HS_State
+# 	# 事象			/HS_event
+# 	#規模			/HS_Impact_Size
+# 	# 補正値		/HS_Impact
+# 	# 対処			/HS_cope
+# 	add_to_array = {
+# 		ROOT.HS_Date = global.date
+# 		index = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_State = ROOT.capital
+# 		index = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_Impact_Size = 0
+# 		index = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_event = 0
+# 		index = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_Impact = 0
+# 		index = 0
+# 	}
+# 	add_to_array = {
+# 		ROOT.HS_cope = -1
+# 		index = 0
+# 	}
+# }
+
+# HS_all_HARVEST = {
+# 	set_variable = {
+# 		ROOT.HS_farm_dev^8 = ROOT.HS_farm_dev^1
+# 	}
+# 	multiply_variable = {
+# 		ROOT.HS_farm_dev^8 = -1
+# 	}
+# 	add_to_variable = {
+# 		ROOT.HS_farm_dev^8 = ROOT.HS_farm_dev^0
+# 	}
+# }
+
+# HS_sttttttate = {
+# 	random_owned_state = {
+# 		limit = {
+# 			NOT = {
+# 				AND = {
+# 					check_variable = {
+# 						HS_nomal_farm = 8
+# 					}
+# 					check_variable = {
+# 						HS_L_farm = 4
+# 					}
+# 				}
+# 			}
+# 		}
+# 		ROOT = {
+# 			set_variable = {
+# 				HS_farm_dev^7 = PREV
+# 			}
+# 		}
+# 	}
+# }

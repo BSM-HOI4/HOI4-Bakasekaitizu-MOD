@@ -1,0 +1,176 @@
+#月毎
+BSMS_GDP_sum = {
+	log = "BSMS_GDP= [?JPN.BSMS_GDP]"
+	set_variable = { sum_consumption = 0 }
+    every_core_state = {
+		log = "ID = [id.GetID]"
+        # Initialize the temporary variable
+        set_variable = { temp_states_v = state_population_k }
+		log = "state_population_k = [?temp_states_v]"
+        # Perform the calculations
+		divide_variable = { temp_states_v = 10 }
+		if = {
+			limit = {
+				check_variable = {industrial_complex_level > 0}
+			}
+			multiply_variable = { temp_states_v = industrial_complex_level }
+			log = "industrial_complex_level = [?temp_states_v]"
+		}
+		else = {
+			multiply_variable = { temp_states_v = 0.95 }
+			log = "industrial_complex_level = [?temp_states_v]"
+		}
+		divide_variable = { temp_states_v = 10 }
+		if = {
+			limit = {
+				check_variable = {infrastructure_level > 0}
+			}
+			multiply_variable = { temp_states_v = infrastructure_level }
+			log = "infrastructure_level = [?temp_states_v]"
+		}
+		else = {
+			multiply_variable = { temp_states_v = 0.75 }
+			log = "infrastructure_level = [?temp_states_v]"
+		}
+		divide_variable = { temp_states_v = 10 }
+        divide_variable = { temp_states_v = 10 }
+		log = "temp_states_v = [?temp_states_v]"
+        # Add the result to the sum
+        add_to_variable = { PREV.sum_consumption = temp_states_v }
+		log = "sum_consumption = [?PREV.sum_consumption]"
+    }
+	multiply_variable = {
+		sum_consumption = stability
+	}
+
+	log = "kokka_sum_consumption = [?sum_consumption]"
+
+	if = {
+		limit = {
+			has_government = democratic_ideology
+		}
+		multiply_variable = {sum_consumption = 0.9}
+	}else_if = {
+		limit = {
+			has_government = communism_ideology
+		}
+		multiply_variable = {sum_consumption = 0.25}
+	}else_if = {
+		limit = {
+			has_government = fascism_ideology
+		}
+		multiply_variable = {sum_consumption = 0.55}
+	}else_if = {
+		limit = {
+			has_government = neutrality_ideology
+		}
+		multiply_variable = {sum_consumption = 0.6}
+	}else_if = {
+		limit = {
+			has_government = civilism
+		}
+		multiply_variable = {sum_consumption = 0.95}
+	}else_if = {
+		limit = {
+			has_government = conservative_democracy
+		}
+		multiply_variable = {sum_consumption = 0.85}
+	}else_if = {
+		limit = {
+			has_government = constitutional_monarchy
+		}
+		multiply_variable = {sum_consumption = 0.8}
+	}else_if = {
+		limit = {
+			has_government = direct_democracy
+		}
+		multiply_variable = {sum_consumption = 0.78}
+	}else_if = {
+		limit = {
+			has_government = futurism
+		}
+		multiply_variable = {sum_consumption = 0.56}
+	}else_if = {
+		limit = {
+			has_government = intellectualism
+		}
+		multiply_variable = {sum_consumption = 0.45}
+	}else_if = {
+		limit = {
+			has_government = mythologicalism
+		}
+		multiply_variable = {sum_consumption = 0.2}
+	}else_if = {
+		limit = {
+			has_government = rightneutrality
+		}
+		multiply_variable = {sum_consumption = 0.35}
+	}else_if = {
+		limit = {
+			has_government = anarchism
+		}
+		multiply_variable = {sum_consumption = 0.01}
+	}else_if = {
+		limit = {
+			has_government = stupidism
+		}
+		multiply_variable = {sum_consumption = 0.65}
+	}else_if = {
+		limit = {
+			has_government = technicalism
+		}
+		multiply_variable = {sum_consumption = 0.65}
+	}else_if = {
+		limit = {
+			has_government = philanthropy
+		}
+		multiply_variable = {sum_consumption = 1.25}
+	}else_if = {
+		limit = {
+			has_government = transformationism
+		}
+		multiply_variable = {sum_consumption = 0.1}
+	}else_if = {
+		limit = {
+			has_government = ruinism
+		}
+		multiply_variable = {sum_consumption = 0.01}
+	}else_if = {
+		limit = {
+			has_government = longitudinalism
+		}
+		multiply_variable = {sum_consumption = 0.7}
+	}else_if = {
+		limit = {
+			has_government = horizontalism
+		}
+		multiply_variable = {sum_consumption = 0.7}
+
+	}else_if = {
+		limit = {
+			has_government = hinnulism
+		}
+		multiply_variable = {sum_consumption = 0.7}
+	}else_if = {
+		limit = {
+			has_government = kyonulism
+		}
+		multiply_variable = {sum_consumption = 0.7}
+	}
+
+	log = "fin_sum_consumption = [?sum_consumption]"
+	set_variable = { BSMS_GDP =  sum_consumption }
+	set_temp_variable = {
+		temp_1 = MD_gain
+	}
+	divide_variable = {
+		temp_1 = 10
+	}
+	add_to_variable = {
+		BSMS_GDP = temp_1
+	}
+	log = "BSMS_GDP= [?BSMS_GDP]"
+	add_to_variable = {COUNTRY_e_c = BSMS_GDP }
+	log = "ec= [?COUNTRY_e_c]"
+	add_to_variable = { BSMS_GDP_y =  BSMS_GDP }
+}
