@@ -89,6 +89,20 @@ MAC_bop_very_low_increase_effect = {
 	}
 }
 
+MAC_bop_very2_low_increase_effect = {
+	add_power_balance_value = {
+		id = MAC_power_balance
+		value = 0.0075
+	}
+}
+
+MAC_bop_very3_low_increase_effect = {
+	add_power_balance_value = {
+		id = MAC_power_balance
+		value = 0.0025
+	}
+}
+
 MAC_bop_absurdly_high_decrease_effect = {
 	add_power_balance_value = {
 		id = MAC_power_balance
@@ -131,6 +145,323 @@ MAC_bop_very_low_decrease_effect = {
 	}
 }
 
+MAC_bop_very2_low_decrease_effect = {
+	add_power_balance_value = {
+		id = MAC_power_balance
+		value = -0.0075
+	}
+}
+
+MAC_bop_very3_low_decrease_effect = {
+	add_power_balance_value = {
+		id = MAC_power_balance
+		value = -0.0025
+	}
+}
+
 MAC_bop_remove_bop_effect = {
 	remove_power_balance = { id = MAC_power_balance }
 }
+
+
+
+MAC_recalc_congress_icon_frames = {
+	
+	set_temp_variable = { directors_temp = directors_support }
+	#divide_temp_variable = { directors_temp = directors_total }
+	#multiply_temp_variable = { directors_temp = 21 }
+	if = {
+		limit = { check_variable = { directors_temp > 0 } }
+		clamp_temp_variable = {
+			var = directors_temp
+			min = 1
+			max = 21
+		}
+	}
+	else = {
+		set_temp_variable = { directors_temp = 1 }
+	}
+	set_variable = { current_directe_icon_frame = directors_temp }
+
+	set_temp_variable = { shareholder_temp = representatives_support }
+	divide_temp_variable = { shareholder_temp = representatives_total }
+	multiply_temp_variable = { shareholder_temp = 21 }
+	if = {
+		limit = { check_variable = { shareholder_temp > 0 } }
+		clamp_temp_variable = {
+			var = shareholder_temp
+			min = 1
+			max = 21
+		}
+	}
+	else = {
+		set_temp_variable = { shareholder_temp = 1 }		
+	}
+	set_variable = { current_shareholder_icon_frame = shareholder_temp }
+}
+
+MAC_congress_get_quorum = {
+	set_variable = { var = quorum_low value = directors_total }
+	multiply_variable = { var = quorum_low value = 0.4 }
+	set_variable = { var = quorum_medium value = directors_total }
+	multiply_variable = { var = quorum_medium value = 0.5 }
+	set_variable = { var = quorum_high value = directors_total }
+	multiply_variable = { var = quorum_high value = 0.6 }
+	round_variable = quorum_low 
+	round_variable = quorum_medium 
+	round_variable = quorum_high
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_congress_remove_state = {
+	custom_effect_tooltip = mac_congress_remove_state_tt
+	subtract_from_variable = { directors_total = 2 }
+	clamp_variable = { var = directors_support max = directors_total min = 0 }
+	MAC_congress_get_quorum = yes
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_congress_small_opposition = {
+	custom_effect_tooltip = mac_congress_small_opposition_tt
+	hidden_effect = {
+		MAC_directe_small_opposition = yes
+		MAC_shareholder_small_opposition = yes
+		
+	}
+}
+
+MAC_directe_small_opposition = {
+	custom_effect_tooltip = mac_directe_small_opposition_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = -4 }
+	add_to_variable = { directors_support = temp_factor }
+	round_variable = directors_support
+	clamp_variable = { var = directors_support max = directors_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+
+MAC_shareholder_small_opposition = {
+	custom_effect_tooltip = mac_shareholder_small_opposition_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = -20 }
+	add_to_variable = { representatives_support = temp_factor }
+	round_variable = representatives_support
+	clamp_variable = { var = representatives_support max = representatives_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_directe_small_support = {
+	custom_effect_tooltip = mac_directe_small_support_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = 2 }
+	add_to_variable = { directors_support = temp_factor }
+	round_variable = directors_support
+	add_to_variable = { var = directors_support value = 1 }
+	clamp_variable = { var = directors_support max = directors_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+
+MAC_shareholder_small_support = {
+	custom_effect_tooltip = mac_shareholder_small_support_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = 25 }
+	clamp_temp_variable = { var = temp_factor max = 25 min = 10 }
+	add_to_variable = { representatives_support = temp_factor }
+	round_variable = representatives_support
+	clamp_variable = { var = representatives_support max = representatives_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+
+MAC_directe_medium_opposition = {
+	custom_effect_tooltip = mac_directe_medium_opposition_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = -8 }
+	clamp_temp_variable = { var = temp_factor max = -3 min = -8 }
+	add_to_variable = { directors_support = temp_factor }
+	round_variable = directors_support
+	clamp_variable = { var = directors_support max = directors_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+
+MAC_shareholder_medium_opposition = {
+	custom_effect_tooltip = mac_shareholder_medium_opposition_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = -40 }
+	clamp_temp_variable = { var = temp_factor max = -20 min = -40 }
+	add_to_variable = { representatives_support = temp_factor }
+	round_variable = representatives_support
+	clamp_variable = { var = representatives_support max = representatives_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_directe_medium_support = {
+	custom_effect_tooltip = mac_directe_medium_support_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = 4 }
+	clamp_temp_variable = { var = temp_factor max = 4 min = 3 }
+	add_to_variable = { directors_support = temp_factor }
+	round_variable = directors_support
+	clamp_variable = { var = directors_support max = directors_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+
+MAC_shareholder_medium_support = {
+	custom_effect_tooltip = mac_shareholder_medium_support_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = 50 }
+	clamp_temp_variable = { var = temp_factor max = 50 min = 20 }
+	add_to_variable = { representatives_support = temp_factor }
+	round_variable = representatives_support
+	clamp_variable = { var = representatives_support max = representatives_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_directe_large_opposition = {
+	custom_effect_tooltip = mac_directe_large_opposition_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = -25 }
+	clamp_temp_variable = { var = temp_factor max = 25 min = -10 }
+	add_to_variable = { directors_support = temp_factor }
+	round_variable = directors_support
+	clamp_variable = { var = directors_support max = directors_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+
+MAC_shareholder_large_opposition = {
+	custom_effect_tooltip = mac_shareholder_large_opposition_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = -100 }
+	clamp_temp_variable = { var = temp_factor max = -50 min = -100 }
+	add_to_variable = { representatives_support = temp_factor }
+	round_variable = representatives_support
+	clamp_variable = { var = representatives_support max = representatives_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_directe_large_support = {
+	custom_effect_tooltip = mac_directe_large_support_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = 30 }
+	clamp_temp_variable = { var = temp_factor max = 30 min = 15 }
+	add_to_variable = { directors_support = temp_factor }
+	round_variable = directors_support
+	clamp_variable = { var = directors_support max = directors_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+
+MAC_shareholder_large_support = {
+	custom_effect_tooltip = mac_shareholder_large_support_tt
+	set_temp_variable = { temp_factor = random }
+	multiply_temp_variable = { temp_factor = 125 }
+	clamp_temp_variable = { var = temp_factor max = 125 min = 80 }
+	add_to_variable = { representatives_support = temp_factor }
+	round_variable = representatives_support
+	clamp_variable = { var = representatives_support max = representatives_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_congress_medium_opposition = {
+	custom_effect_tooltip = mac_congress_medium_opposition_tt
+	hidden_effect = {
+		MAC_directe_medium_opposition = yes
+		MAC_shareholder_medium_opposition = yes
+		
+	}
+}
+
+MAC_congress_large_opposition = {
+	custom_effect_tooltip = mac_congress_large_opposition_tt
+	hidden_effect = {
+		MAC_directe_large_opposition = yes
+		MAC_shareholder_large_opposition = yes
+		
+	}
+}
+MAC_congress_small_support = {
+	custom_effect_tooltip = mac_congress_small_support_tt
+	hidden_effect = {
+		MAC_directe_small_support = yes
+		MAC_shareholder_small_support = yes
+		
+	}
+}
+
+MAC_congress_medium_support = {
+	custom_effect_tooltip = mac_congress_medium_support_tt
+	hidden_effect = {
+		MAC_directe_medium_support = yes
+		MAC_shareholder_medium_support = yes
+		
+	}
+}
+MAC_congress_large_support = {
+	custom_effect_tooltip = mac_congress_large_support_tt
+	hidden_effect = {
+		MAC_directe_large_support = yes
+		MAC_shareholder_large_support = yes
+		
+	}
+}
+MAC_election_directe = {
+	set_variable = { var = directors_for_reelection value = directors_total } #not temp because needed for events
+	multiply_variable = { directors_for_reelection = 0.3 }
+	multiply_variable = { directors_for_reelection = election_factor }
+	add_to_variable = { directors_support = directors_for_reelection }
+	round_variable = directors_support
+	round_variable = directors_for_reelection
+	set_variable = { sen_loc = directors_for_reelection }
+	if = {
+		limit = {
+			check_variable = { sen_loc < 0 }
+		}
+		multiply_variable = { sen_loc = -1 }
+	}
+	clamp_variable = { var = directors_support max = directors_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_election_shareholder = {
+	set_variable = { var = representatives_for_reelection value = representatives_total } #not temp because needed for events
+	multiply_variable = { representatives_for_reelection = 0.5 }
+	multiply_variable = { representatives_for_reelection = election_factor }
+	set_variable = { representatives_support = representatives_total }
+	multiply_variable = { representatives_support = 0.5 }
+	add_to_variable = { representatives_support = representatives_for_reelection }
+	round_variable = representatives_support
+	round_variable = representatives_for_reelection
+	set_variable = { ror_loc = representatives_for_reelection }
+	if = {
+		limit = {
+			check_variable = { ror_loc < 0 }
+		}
+		multiply_variable = { ror_loc = -1 }
+	}
+	clamp_variable = { var = directors_support max = representatives_total min = 0 }
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_return_majority = { #for communist/fascist
+	custom_effect_tooltip = MAC_return_majority_tt
+	set_variable = { var = goal_value_directors value = directors_total }
+	multiply_variable = { var = goal_value_directors value = 0.7 }
+	round_variable = goal_value_directors
+	if = {
+		limit = {
+			check_variable = { directors_support < goal_value_directors } #shouldn't punish player
+		}
+		set_variable = { var = directors_support value = goal_value_directors }
+	}
+	set_variable = { var = goal_value_representatives value = representatives_total }
+	multiply_variable = { var = goal_value_representatives value = 0.7 }
+	round_variable = goal_value_representatives
+	if = {
+		limit = {
+			check_variable = { representatives_support < goal_value_representatives } #shouldn't punish player
+		}
+		set_variable = { var = representatives_support value = goal_value_representatives }
+	}
+	MAC_recalc_congress_icon_frames = yes
+}
+MAC_flip_support = {
+	set_temp_variable = { directors_temp = directors_total }
+	subtract_from_temp_variable = { directors_temp = directors_support }
+	set_variable = { directors_support = directors_temp }
+	set_temp_variable = { representatives_temp = representatives_total }
+	subtract_from_temp_variable = { representatives_temp = representatives_support }
+	set_variable = { representatives_support = representatives_temp }
+	MAC_recalc_congress_icon_frames = yes
+}
+
+
+
