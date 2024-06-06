@@ -2,6 +2,59 @@ focus_tree = {
 	id = newyork_yankees
 	default = no
 	#Establishment of the SGC
+		#heritage
+		focus = {
+			id = NYY_heritage
+			icon = GFX_NYY_heritage-614741
+			x =8
+			y = 0
+			cost = 2
+			search_filters = {
+				FOCUS_FILTER_POLITICAL
+			}
+		}
+	
+		#Orioles
+		focus = {
+			id = NYY_orioles
+			icon = GFX_goal_unknown
+			x = 12
+			y = 1
+			cost = 5
+			search_filters = {
+				FOCUS_FILTER_POLITICAL
+			}
+			prerequisite = { focus = NYY_heritage  }
+			mutually_exclusive = { focus = NYY_american_league  }
+		}
+	
+		#american_league
+		focus = {
+			id = NYY_american_league
+			icon = GFX_goal_unknown
+			x = 4
+			y = 1
+			cost = 5
+			search_filters = {
+				FOCUS_FILTER_POLITICAL
+			}
+			prerequisite = { focus = NYY_heritage  }
+			mutually_exclusive = { focus = NYY_orioles  }
+		}
+	
+		#Shared_team
+		focus = {
+			id = NYY_shared_team
+			icon = GFX_NYY_shared_team-88
+			x = 8
+			y = 1
+			search_filters = {
+				FOCUS_FILTER_POLITICAL
+			}
+			prerequisite = { focus = NYY_heritage  }
+			mutually_exclusive = { focus = NYY_orioles  } mutually_exclusive = { focus = NYY_american_league  }
+		}
+	
 	focus = {
 		id = NYY_1
 		icon = GFX_focus_generic_the_giant_wakes
