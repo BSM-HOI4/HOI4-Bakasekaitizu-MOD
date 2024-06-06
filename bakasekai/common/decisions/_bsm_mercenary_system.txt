@@ -1,0 +1,126 @@
+mercenary_system_koyou = {
+	mercenary_system_koyou_s = {
+		icon = GFX_resource_energy_large
+		priority = 50
+		available = {
+			AND = {
+				custom_trigger_tooltip ={
+					check_variable = {
+						COUNTRY_e_c  > 29
+					}
+					tooltip =  need_50_energy
+				}
+				custom_trigger_tooltip ={
+					check_variable = {
+						MS_sum_num < MS_max
+					}
+					tooltip =  MS_max_tt
+				}
+				NOT = { has_country_flag = MS_ALLOWED }
+
+			}
+
+		}
+		visible = {
+			has_country_flag = MS_ALLOWED
+		}
+		complete_effect = {
+			subtract_from_variable = {
+				COUNTRY_e_c = 30
+			}
+			add_to_variable = {
+				MS_sum_num = 2
+			}
+			division_template = { #Improve Irregular template
+				name = MS_NAME
+				is_locked = yes
+				regiments = {
+					mercenary = { x = 0 y = 0 }
+					mercenary = { x = 0 y = 1 }
+				}
+				priority = 0
+			}
+			ROOT.capital = {
+				create_unit = {
+					division = "division_template = MS_NAME start_experience_factor = 1 start_equipment_factor = 1"
+					owner = ROOT
+					count = 1
+				}
+			}
+		}
+	}
+	mercenary_system_koyou_m = {
+		icon = GFX_resource_energy_large
+		priority = 50
+		available = {
+			AND = {
+				custom_trigger_tooltip ={
+					check_variable = {
+						COUNTRY_e_c  > 49
+					}
+					tooltip =  need_50_energy
+				}
+				custom_trigger_tooltip ={
+					check_variable = {
+						MS_sum_num < MS_max
+					}
+					tooltip =  MS_max_tt
+				}
+				NOT = { has_country_flag = MS_ALLOWED }
+
+			}
+		}
+		visible = {
+			has_country_flag = MS_ALLOWED
+		}
+		complete_effect = {
+			subtract_from_variable = {
+				COUNTRY_e_c = 50
+			}
+			add_to_variable = {
+				MS_sum_num = 4
+			}
+			division_template = { #Improve Irregular template
+				name = MS_NAME_2
+				is_locked = yes
+				regiments = {
+					mercenary = { x = 0 y = 0 }
+					mercenary = { x = 0 y = 1 }
+					mercenary = { x = 1 y = 0 }
+					mercenary = { x = 1 y = 1 }
+				}
+				priority = 0
+			}
+			ROOT.capital = {
+				create_unit = {
+					division = "division_template = MS_NAME_2 start_experience_factor = 1 start_equipment_factor = 1"
+					owner = ROOT
+					count = 1
+				}
+			}
+		}
+	}
+	mercenary_system_kaiko = {
+		visible = {
+			has_country_flag = MS_ALLOWED
+		}
+		available = {
+			check_variable = {
+				MS_sum_num > 1
+			}
+		}
+		complete_effect = {
+			set_variable = {
+				MS_sum_num = 0
+			}
+			delete_units = {
+				division_template = MS_NAME
+				disband = no #MP or weapons are not ours to take
+			}
+			delete_units = {
+				division_template = MS_NAME_2
+				disband = no #MP or weapons are not ours to take
+			}
+		}
+	}
+}
