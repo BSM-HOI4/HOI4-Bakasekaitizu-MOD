@@ -1898,3 +1898,66 @@ MAC_congress = {
 		}
 	}
 }
+
+MAC_oppose_move = {
+	MAC_NF_cola_capitalism = {
+		icon = ger_mefo_bills
+		available = {
+
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				congress_low_support_trigger = yes
+				factor = 0
+			}
+		}
+		timeout_effect = {
+			activate_decision = MAC_NF_
+			add_ideas = MAC_e_cola_capitalism_idea
+
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+
+	MAC_NF_pepsi_propaganda = {
+		icon = ger_mefo_bills
+		available = {
+
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				congress_low_support_trigger = yes
+				factor = 0
+			}
+		}
+		timeout_effect = {
+			activate_decision = MAC_NF_
+
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+}
