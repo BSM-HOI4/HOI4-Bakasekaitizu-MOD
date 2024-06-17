@@ -1,8 +1,44 @@
+bsm_first = {
+	set_variable = {
+		MS_sum_num = 0
+	}
+	set_variable = {
+		MS_max = 10
+	}
+	set_variable = {
+		COUNTRY_P_O = 0
+	}
+
+}
+
+bsm_first_g = {
+	set_variable = {
+		global.month = 1
+	}
+	set_variable = {
+		global.MD_gold_demand = 1
+	}
+	add_to_variable = {
+		global.MD_gold_demand = threat
+	}
+	set_variable = {
+		global.MD_juwel_demand = 1.25
+	}
+	set_variable = {
+		global.MD_gold_supply = 0
+	}
+	set_variable = {
+		global.MD_juwel_supply = 0
+	}
+	set_variable = {
+		global.MD_req = 1
+	}}
+
 
 
 BSM_set_mine = {
-	set_variable = {
-		global.MD_gold_demand = 1
+	add_to_variable = {
+		global.MD_juwel_demand = 0.25
 	}
 	add_to_variable = {
 		global.MD_gold_demand = threat
@@ -15,9 +51,6 @@ BSM_set_mine = {
 	}
 	set_variable = {
 		MD_juwel = 0
-	}
-	set_variable = {
-		MD_gain = 0
 	}
 	every_owned_state = {
 		if = {
@@ -58,11 +91,17 @@ BSM_set_mine = {
 	divide_variable = {
 		MD_cost = 50
 	}
+	subtract_from_variable = {
+		COUNTRY_e_c = MD_cost
+	}
 }
 
 BSM_weekly_mine = {
-	set_variable = {
-		global.MD_gold_demand = 1
+	add_to_variable = {
+		global.MD_juwel_demand = 1.5
+	}
+	add_to_variable = {
+		global.MD_gold_demand = 1.25
 	}
 	add_to_variable = {
 		global.MD_gold_demand = threat
@@ -109,6 +148,9 @@ BSM_weekly_mine = {
 }
 
 BSM_MINE_EXPORT = {
+	set_variable = {
+		MD_gain = 0
+	}
 	if = {
 		limit = {
 			has_idea = uncontrolled_exports
@@ -309,8 +351,8 @@ BSM_MINE_EXPORT = {
 		divide_variable = {
 			MD_gain = 10
 		}
-		add_to_variable = {
-			COUNTRY_e_c = MD_gain
-		}
+	}
+	add_to_variable = {
+		COUNTRY_e_c = MD_gain
 	}
 }

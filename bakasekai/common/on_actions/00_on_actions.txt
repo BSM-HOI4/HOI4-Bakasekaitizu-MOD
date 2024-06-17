@@ -20,6 +20,40 @@ on_actions = {
 					# }
 				# }
 			}
+			every_country = {
+				limit = {
+					OR = {
+						original_tag = MYS
+						original_tag = MON
+						original_tag = NMX
+						original_tag = AUS
+						original_tag = HRH
+						original_tag = VAT
+						original_tag = SPL
+						original_tag = NPL
+						original_tag = NSI
+					}
+                }
+				add_ideas = mystery_country
+			}
+			every_country = {
+				limit = {
+					NOT = {
+						# OR = {
+							original_tag = MYS
+							original_tag = MON
+							original_tag = NMX
+							original_tag = AUS
+							original_tag = HRH
+							original_tag = VAT
+							original_tag = SPL
+							original_tag = NPL
+							original_tag = NSI
+						# }
+					}
+				}
+				add_ideas = normal_country
+			}
 
 			every_country = {
                 limit = {
@@ -44,7 +78,6 @@ on_actions = {
 					var	= COUNTRY_resource_minor_artifacts
 					value = 0
 				}
-				add_ideas = normal_country
 				set_variable = { COUNTRY_CULTURAL_DEGREE = modifier@base_COUNTRY_CULTURAL_DEGREE }
 				set_variable = { var = COUNTRY_P_O value = 10 }
 			}
@@ -54,10 +87,8 @@ on_actions = {
 					original_tag = MYS
 					
                 }
-				add_ideas = mystery_country
 				set_variable = { COUNTRY_CULTURAL_DEGREE = modifier@base_COUNTRY_CULTURAL_DEGREE }
 				set_variable = { var = COUNTRY_P_O value = 100 }
-				
 			}
 			every_country = {
                 limit = {
