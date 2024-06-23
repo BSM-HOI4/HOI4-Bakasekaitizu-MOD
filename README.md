@@ -10,7 +10,7 @@ This mod work's maps and countrys were designed from **"The Foolish World Map Pr
 Develoepr's and illustrator's Discord Server  
 *[Discord Server Invite](https://discord.gg/nNYQGeePpR)*  
 
-## If you can understand Japanese phrase / 英語が堪能な方。
+## If you can understand Japanese phrase / 英語が堪能な方
 For English Speaker:You can help translation to English this mod work.  
 For Japanese Speaker:This line is probably not important because you know English, which can make translation, so you can read this even if you are Japanese.  
 this is translate project link:[Paratranz](https://paratranz.cn/projects/9454)  
