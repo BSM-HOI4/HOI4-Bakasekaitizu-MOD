@@ -868,12 +868,13 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = MAC_start_cola_war_tt
 			add_political_power = 150
+			add_ideas = MAC_pepsi_guerrilla_idea
 			country_event = { id = MCD.12 }
 		}
 	}
 
 	focus = {
-		id = MAC_minpei
+		id = MAC_organise_militias
 		icon = GFX_focus_generic_the_giant_wakes
 		relative_position_id = MAC_start_cola_war
 		x = 0
@@ -899,12 +900,15 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = MAC_start_cola_war_tt
 			add_political_power = 150
+			add_equipment_to_stockpile = {
+
+			}
 			country_event = { id = MCD.12 }
 		}
 	}
 
 	focus = {
-		id = MAC_sennsei
+		id = MAC_pre_emptive_uprising #先制蜂起
 		icon = GFX_focus_generic_the_giant_wakes
 		relative_position_id = MAC_start_cola_war
 		x = 0
@@ -919,9 +923,12 @@ focus_tree = {
 				has_any_power_balance = no
 
 			}
+			NOT = {
+				has_country_flag = MAC_fin_uprising
+			}
 		}
 		prerequisite = {
-			focus = MAC_minpei
+			focus = MAC_organise_militias
 		}
 		ai_will_do = {
 			factor = 30
@@ -929,6 +936,7 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = MAC_start_cola_war_tt
 			add_political_power = 150
+			set_country_flag = MAC_fin_uprising
 			country_event = { id = MCD.12 }
 		}
 	}
@@ -990,12 +998,12 @@ focus_tree = {
 		completion_reward = {
 			custom_effect_tooltip = MAC_start_cola_war_tt
 			add_political_power = 150
-			country_event = { id = MCD.12 }
+			add_ideas = MAC_pepsi_propaganda_idea
 		}
 	}
 
 	focus = {
-		id = MAC_pepsi_propagand
+		id = MAC_pepsi_propagand #ソビエトとの共闘
 		icon = GFX_focus_generic_the_giant_wakes
 		relative_position_id = MAC_pepsi_cola
 		x = 0
@@ -1025,7 +1033,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAC_pepsi_propagan
+		id = MAC_pepsi_propagan #ペプシの行進
 		icon = GFX_focus_generic_the_giant_wakes
 		relative_position_id = MAC_pepsi_cola
 		x = 0
@@ -1055,7 +1063,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAC_pepsi_propaga
+		id = MAC_pepsi_propaga #レナードとの戦い
 		icon = GFX_focus_generic_the_giant_wakes
 		relative_position_id = MAC_pepsi_cola
 		x = 0
@@ -1266,7 +1274,7 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = MAC_state_of_US_congress #
+		id = MAC_state_of_US_congress #連邦政府議会演説
 		icon = GFX_focus_generic_the_giant_wakes
 		relative_position_id = MAC_start_cola_war
 		x = -1
@@ -1280,6 +1288,9 @@ focus_tree = {
 				has_completed_focus = MAC_Overseas_shop_openings
 				has_any_power_balance = no
 
+			}
+			NOT = {
+				has_country_flag = MAC_fin_state_of_US_congress
 			}
 		}
 		prerequisite = {
@@ -1295,8 +1306,14 @@ focus_tree = {
 				limit = {
 					has_country_flag = MAC_coca_flag
 				}
+				country_event = { id = MCD.13 }
 			}
-			country_event = { id = MCD.13 }
+			if = {
+				limit = {
+					has_country_flag = MAC_pepsi_flag
+				}
+				country_event = { id = MCD.13 }
+			}
 		}
 	}
 
