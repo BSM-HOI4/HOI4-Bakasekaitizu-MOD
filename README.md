@@ -18,5 +18,5 @@ code:[Join to Discord Server to know](https://discord.gg/nNYQGeePpR)
 I recommend to use British English to make translation.  
   
 ## I can't do anything one! / 何もできないと思う方
-Anyway you can join here / とりあえずここに入って  
+####Anyway you can join here / とりあえずここに入って  
 [Discord Community Server](https://discord.com/invite/dykkFfVEp8)  
