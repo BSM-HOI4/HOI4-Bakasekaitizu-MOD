@@ -13,7 +13,7 @@ Develoepr's and illustrator's Discord Server
 ## If you can understand Japanese phrase / 英語が堪能な方。
 For English Speaker:You can help translation to English this mod work.
 For Japanese Speaker:This line is probably not important because you know English, which can make translation, so you can read this even if you are Japanese.
-this is translate project link:
+this is translate project link:[Paratranz](https://paratranz.cn/projects/9454)
 code:[Join to Discord Server to know](https://discord.gg/nNYQGeePpR)
 I recommend to use British English to make translation.
 
