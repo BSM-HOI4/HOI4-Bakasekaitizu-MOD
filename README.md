@@ -4,6 +4,13 @@ This **mod**(modify) was created for Paradox Interactive's Game *Hearts of Iron 
   
 This mod work's maps and countries were designed from **"The Foolish World Map Project"** By https://chakuwiki.org/ (This is a new site. The project was created by a previous site.).  
 このmodはチャクウィキ発祥のバカ世界地図をベースに制作されました。  
+## How can I play this modify? / プレイする方法は?
+If you want to play least version, you can download mod from release page.  
+最新版はReleaseタブからダウンロードできます。  
+
+Or, you want to play stable version easily. You can subscribe from here.  
+手っ取り早く安定板をプレイするにはこちら。  
+[Steam Workshop Mod Link](https://steamcommunity.com/sharedfiles/filedetails/?id=2926389173)
         
 # How can I help this mod work? / 手助けになるにはどうすればいい？
 ## If you are developer or illustrator for Hoi4 modding / Hoi4のmod開発ができるか，グラフィック制作ができる方
@@ -18,5 +25,5 @@ code:[Join to Discord Server to know](https://discord.gg/nNYQGeePpR)
 I recommend using British English to translate.  
   
 ## I can't do anything one! / 何もできないと思う方
-####Anyway you can join here / とりあえずここに入って####  
+#### Anyway you should join here! / とりあえずここに入って!  
 [Discord Community Server](https://discord.com/invite/dykkFfVEp8)  
