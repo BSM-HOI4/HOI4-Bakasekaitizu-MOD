@@ -10,7 +10,7 @@
 ## 楽曲提供
 - Sumi :Unwelcome School (Orchestral Arrangement)(https://www.youtube.com/watch?v=CWCEDf_rOQU)
 
-## Map参照
+## Map参考
 - BSR Public Beta 3.0 mod (https://steamcommunity.com/sharedfiles/filedetails/?id=2640808954)
 - Antarctica mod (https://steamcommunity.com/sharedfiles/filedetails/?id=1725465968)
 
@@ -104,8 +104,10 @@
 - JNR Series115!
 - ふぉあぐら
 - gihunohito19941012
-
-
+- らぺ酋長
+- とろろどん
+- 饅頭ボ～ル
+- 大黒天@モンゴル貧乳主義党俎板派領袖
 
 
 ## 動画化
@@ -127,3 +129,6 @@
 - ホイホイhoi4実況・ゆっくり歴史解説 (https://www.youtube.com/@hoi4791)
 - こめつぶ (https://www.youtube.com/@user-pv2kq4wf2w)
 - あばば家（https://www.youtube.com/watch?v=uljauffoSGQ）
+
+# 提携
+- 
