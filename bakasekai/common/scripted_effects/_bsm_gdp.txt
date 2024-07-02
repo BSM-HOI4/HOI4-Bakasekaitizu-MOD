@@ -1,12 +1,12 @@
 #月毎
 BSMS_GDP_sum = {
-	log = "BSMS_GDP= [?JPN.BSMS_GDP]"
+	#log = "BSMS_GDP= [?JPN.BSMS_GDP]"
 	set_variable = { sum_consumption = 0 }
     every_core_state = {
-		log = "ID = [id.GetID]"
+		#log = "ID = [id.GetID]"
         # Initialize the temporary variable
         set_variable = { temp_states_v = state_population_k }
-		log = "state_population_k = [?temp_states_v]"
+		#log = "state_population_k = [?temp_states_v]"
         # Perform the calculations
 		divide_variable = { temp_states_v = 10 }
 		if = {
@@ -14,11 +14,11 @@ BSMS_GDP_sum = {
 				check_variable = {industrial_complex_level > 0}
 			}
 			multiply_variable = { temp_states_v = industrial_complex_level }
-			log = "industrial_complex_level = [?temp_states_v]"
+			#log = "industrial_complex_level = [?temp_states_v]"
 		}
 		else = {
 			multiply_variable = { temp_states_v = 0.95 }
-			log = "industrial_complex_level = [?temp_states_v]"
+			#log = "industrial_complex_level = [?temp_states_v]"
 		}
 		divide_variable = { temp_states_v = 10 }
 		if = {
@@ -26,24 +26,24 @@ BSMS_GDP_sum = {
 				check_variable = {infrastructure_level > 0}
 			}
 			multiply_variable = { temp_states_v = infrastructure_level }
-			log = "infrastructure_level = [?temp_states_v]"
+			#log = "infrastructure_level = [?temp_states_v]"
 		}
 		else = {
 			multiply_variable = { temp_states_v = 0.75 }
-			log = "infrastructure_level = [?temp_states_v]"
+			#log = "infrastructure_level = [?temp_states_v]"
 		}
 		divide_variable = { temp_states_v = 10 }
         divide_variable = { temp_states_v = 10 }
-		log = "temp_states_v = [?temp_states_v]"
+		#log = "temp_states_v = [?temp_states_v]"
         # Add the result to the sum
         add_to_variable = { PREV.sum_consumption = temp_states_v }
-		log = "sum_consumption = [?PREV.sum_consumption]"
+		#log = "sum_consumption = [?PREV.sum_consumption]"
     }
 	multiply_variable = {
 		sum_consumption = stability
 	}
 
-	log = "kokka_sum_consumption = [?sum_consumption]"
+	#log = "kokka_sum_consumption = [?sum_consumption]"
 
 	if = {
 		limit = {
@@ -158,7 +158,7 @@ BSMS_GDP_sum = {
 		multiply_variable = {sum_consumption = 0.7}
 	}
 
-	log = "fin_sum_consumption = [?sum_consumption]"
+	#log = "fin_sum_consumption = [?sum_consumption]"
 	set_variable = { BSMS_GDP =  sum_consumption }
 	set_temp_variable = {
 		temp_1 = MD_gain
@@ -169,7 +169,7 @@ BSMS_GDP_sum = {
 	add_to_variable = {
 		BSMS_GDP = temp_1
 	}
-	log = "BSMS_GDP= [?BSMS_GDP]"
+	#log = "BSMS_GDP= [?BSMS_GDP]"
 
 	add_to_variable = { BSMS_GDP_y =  BSMS_GDP }
 	set_temp_variable = {
@@ -178,19 +178,19 @@ BSMS_GDP_sum = {
 	multiply_variable = {
 		BSMS_GDP = temp_2
 	}
-		log = "ec= [?COUNTRY_e_c]"
+		#log = "ec= [?COUNTRY_e_c]"
 
 
 }
 
 BSMS_GDP_sum_m = {
-	log = "BSMS_GDP= [?JPN.BSMS_GDP]"
+	#log = "BSMS_GDP= [?JPN.BSMS_GDP]"
 	set_variable = { sum_consumption = 0 }
     every_core_state = {
-		log = "ID = [id.GetID]"
+		#log = "ID = [id.GetID]"
         # Initialize the temporary variable
         set_variable = { temp_states_v = state_population_k }
-		log = "state_population_k = [?temp_states_v]"
+		#log = "state_population_k = [?temp_states_v]"
         # Perform the calculations
 		divide_variable = { temp_states_v = 10 }
 		if = {
@@ -198,11 +198,11 @@ BSMS_GDP_sum_m = {
 				check_variable = {industrial_complex_level > 0}
 			}
 			multiply_variable = { temp_states_v = industrial_complex_level }
-			log = "industrial_complex_level = [?temp_states_v]"
+			#log = "industrial_complex_level = [?temp_states_v]"
 		}
 		else = {
 			multiply_variable = { temp_states_v = 0.95 }
-			log = "industrial_complex_level = [?temp_states_v]"
+			#log = "industrial_complex_level = [?temp_states_v]"
 		}
 		divide_variable = { temp_states_v = 10 }
 		if = {
@@ -210,24 +210,24 @@ BSMS_GDP_sum_m = {
 				check_variable = {infrastructure_level > 0}
 			}
 			multiply_variable = { temp_states_v = infrastructure_level }
-			log = "infrastructure_level = [?temp_states_v]"
+			#log = "infrastructure_level = [?temp_states_v]"
 		}
 		else = {
 			multiply_variable = { temp_states_v = 0.75 }
-			log = "infrastructure_level = [?temp_states_v]"
+			#log = "infrastructure_level = [?temp_states_v]"
 		}
 		divide_variable = { temp_states_v = 10 }
         divide_variable = { temp_states_v = 10 }
-		log = "temp_states_v = [?temp_states_v]"
+		#log = "temp_states_v = [?temp_states_v]"
         # Add the result to the sum
         add_to_variable = { PREV.sum_consumption = temp_states_v }
-		log = "sum_consumption = [?PREV.sum_consumption]"
+		#log = "sum_consumption = [?PREV.sum_consumption]"
     }
 	multiply_variable = {
 		sum_consumption = stability
 	}
 
-	log = "kokka_sum_consumption = [?sum_consumption]"
+	#log = "kokka_sum_consumption = [?sum_consumption]"
 
 	if = {
 		limit = {
@@ -342,7 +342,7 @@ BSMS_GDP_sum_m = {
 		multiply_variable = {sum_consumption = 0.7}
 	}
 
-	log = "fin_sum_consumption = [?sum_consumption]"
+	#log = "fin_sum_consumption = [?sum_consumption]"
 	set_variable = { BSMS_GDP =  sum_consumption }
 	set_temp_variable = {
 		temp_1 = MD_gain
@@ -353,8 +353,8 @@ BSMS_GDP_sum_m = {
 	add_to_variable = {
 		BSMS_GDP = temp_1
 	}
-	log = "BSMS_GDP= [?BSMS_GDP]"
+	#log = "BSMS_GDP= [?BSMS_GDP]"
 	add_to_variable = {COUNTRY_e_c = BSMS_GDP }
-	log = "ec= [?COUNTRY_e_c]"
+	#log = "ec= [?COUNTRY_e_c]"
 	add_to_variable = { BSMS_GDP_y =  BSMS_GDP }
 }
