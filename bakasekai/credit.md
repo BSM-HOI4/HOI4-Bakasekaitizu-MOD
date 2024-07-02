@@ -79,16 +79,16 @@
 ## 制作メンバー
 - 水洗トイレこめつぶ
 - eightman
+- toliner
+- Valley
+- blitz_reisdusche_weit
+- ライト　松明ボッチ 
+- あめえと
 - さんぼる
 - リュブリャナ
 - Emil Scarlet
-- blitz_reisdusche_weit
 - sasanokusa
 - スライム
-- ライト　松明ボッチ 
-- あめえと
-- toliner
-- Valley
 - Kubaani
 - ばいおず 
 - えうろつ
