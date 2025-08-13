@@ -1,0 +1,948 @@
+focus_tree = {
+	id = generic_focus
+	country = {
+		factor = 2
+		modifier = {
+			factor = 0
+			tag = ___
+		}
+	}
+	default = yes
+	reset_on_civilwar = no
+
+	continuous_focus_position = {
+		x = 100
+		y = 2000
+	}
+	# --- 経済・資源・軍事 ---
+	shared_focus = HRE_plan_four_years
+	shared_focus = HRE_prepare_army
+	shared_focus = HRE_resource_import
+	shared_focus = HRE_resource_mine
+	shared_focus = sf_army_effort
+	shared_focus = sf_aviation_effort
+	shared_focus = sf_naval_effort
+	shared_focus = sf_industrial_effort
+	# Political Tree
+	focus = {
+		id = political_effort
+		icon = GFX_goal_generic_demand_territory
+		x = 0
+		y = 0
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 120
+			# custom_effect_tooltip = Gtya_des
+			# set_country_flag = First_time
+			# hidden_effect = {
+			# 	set_country_flag = ALLOW_GATYA
+			# }
+		}
+	}
+	focus = {
+		id = collectivist_ethos
+		icon = GFX_goal_generic_national_unity		#icon = GFX_goal_tripartite_pact
+		prerequisite = {
+			focus = political_effort
+		}
+		mutually_exclusive = {
+			focus = liberty_ethos
+			focus = the_guard_of_civilization
+			focus = world_ruin_choice
+		}
+		available = {
+			OR = {
+				has_government = fascism_ideology
+				has_government = communism_ideology
+				has_government = neutrality_ideology
+			}
+		}
+		x = -6
+		y = 1
+		relative_position_id = political_effort
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 0
+				OR = {
+					AND = {
+						is_historical_focus_on = yes
+						has_government = neutrality_ideology
+					}
+					has_idea = neutrality_idea
+				}
+			}
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = collectivist_ethos_focus
+				days = 1095
+			}
+		}
+	}
+	focus = {
+		id = nationalism_focus
+		icon = GFX_goal_support_fascism		#icon = GFX_goal_tripartite_pact
+		prerequisite = {
+			focus = collectivist_ethos
+		}
+		mutually_exclusive = {
+			focus = internationalism_focus
+		}
+		available = {
+			OR = {
+				has_government = fascism_ideology
+				has_government = neutrality_ideology
+			}
+		}
+		x = -2
+		y = 1
+		relative_position_id = collectivist_ethos
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 2
+				any_neighbor_country = {
+					is_major = yes
+					has_government = fascism_ideology
+				}
+			}
+			modifier = {
+				factor = 0
+				AND = {
+					is_historical_focus_on = yes
+					NOT = {
+						has_government = fascism_ideology
+					}
+				}
+			}
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = nationalism
+				days = 720
+			}
+		}
+	}
+	focus = {
+		id = internationalism_focus
+		icon = GFX_goal_support_communism		#icon = GFX_goal_tripartite_pact
+		prerequisite = {
+			focus = collectivist_ethos
+		}
+		mutually_exclusive = {
+			focus = nationalism_focus
+		}
+		available = {
+			if = {
+				limit = {
+					original_tag = CHN
+				}
+				has_government = communism_ideology
+				else = {
+					OR = {
+						has_government = communism_ideology
+						has_government = neutrality_ideology
+					}
+				}
+			}
+		}
+		x = 2
+		y = 1
+		relative_position_id = collectivist_ethos
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 2
+				any_neighbor_country = {
+					is_major = yes
+					has_government = communism_ideology
+				}
+			}
+			modifier = {
+				factor = 0
+				AND = {
+					is_historical_focus_on = yes
+					NOT = {
+						has_government = communism_ideology
+					}
+				}
+			}
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = internationalism
+				days = 720
+			}
+		}
+	}
+	focus = {
+		id = liberty_ethos
+		icon = GFX_goal_support_democracy
+		prerequisite = {
+			focus = political_effort
+		}
+		mutually_exclusive = {
+			focus = collectivist_ethos
+			focus = the_guard_of_civilization
+						focus = world_ruin_choice
+			
+		}
+		available = {
+			OR = {
+				# has_government = democratic_ideology
+				has_government = neutrality_ideology
+			}
+		}
+		x = 6
+		y = 1
+		relative_position_id = political_effort
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 95
+			modifier = {
+				factor = 0.1
+				any_neighbor_country = {
+					is_major = yes
+					OR = {
+						has_government = communism_ideology
+						has_government = fascism_ideology
+					}
+				}
+				NOT = {
+					any_neighbor_country = {
+						is_major = yes
+						has_government = democratic_ideology
+					}
+				}
+			}
+		}
+		completion_reward = {
+			add_ideas = liberty_ethos_focus
+		}
+	}
+	focus = {
+		id = militarism
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = {
+			focus = nationalism_focus
+		}
+		x = 0
+		y = 1
+		relative_position_id = nationalism_focus
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = neutrality_idea
+				}
+				remove_ideas = neutrality_idea
+			}
+			add_ideas = militarism_focus
+			army_experience = 20
+			set_rule = {
+				can_send_volunteers = yes
+			}
+		}
+	}
+	focus = {
+		id = political_correctness
+		icon = GFX_goal_generic_dangerous_deal
+		prerequisite = {
+			focus = internationalism_focus
+		}
+		x = 0
+		y = 1
+		relative_position_id = internationalism_focus
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = neutrality_idea
+				}
+				remove_ideas = neutrality_idea
+			}
+			add_political_power = 200
+			add_ideas = idea_political_correctness
+		}
+	}
+	focus = {
+		id = neutrality_focus
+		icon = GFX_goal_generic_neutrality_focus
+		prerequisite = {
+			focus = liberty_ethos
+			focus = collectivist_ethos
+			focus = the_guard_of_civilization
+		}
+		mutually_exclusive = {
+			focus = interventionism_focus
+		}
+		mutually_exclusive = {
+			focus = we_are_global_citizen
+		}
+		x = 0
+		y = 1
+		relative_position_id = liberty_ethos
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				tag = AUS
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_idea = neutrality_idea
+					}
+				}
+				add_ideas = neutrality_idea
+			}
+			add_political_power = 150
+		}
+	}
+	focus = {
+		id = interventionism_focus
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = {
+			focus = liberty_ethos
+		}
+		mutually_exclusive = {
+			focus = neutrality_focus
+		}
+		x = 2
+		y = 1
+		relative_position_id = liberty_ethos
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_idea = neutrality_idea
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_idea = neutrality_idea
+				}
+				remove_ideas = neutrality_idea
+			}
+			set_rule = {
+				can_send_volunteers = yes
+			}
+			add_political_power = 150
+		}
+	}
+	focus = {
+		id = military_youth
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = {
+			focus = militarism
+		}
+		x = 0
+		y = 1
+		relative_position_id = militarism
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = military_youth_focus
+			if = {
+				limit = {
+					has_government = fascism_ideology
+				}
+				add_popularity = {
+					ideology = fascism_ideology
+					popularity = 0.2
+				}
+			}
+			if = {
+				limit = {
+					has_government = communism_ideology
+				}
+				add_popularity = {
+					ideology = communism_ideology
+					popularity = 0.2
+				}
+			}
+		}
+	}
+	focus = {
+		id = deterrence
+		icon = GFX_goal_generic_defence
+		prerequisite = {
+			focus = neutrality_focus
+		}
+		x = 0
+		y = 1
+		relative_position_id = neutrality_focus
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_INDUSTRY
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = deterrence
+		}
+	}
+	focus = {
+		id = volunteer_corps
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = {
+			focus = interventionism_focus
+		}
+		x = 0
+		y = 1
+		relative_position_id = interventionism_focus
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = volunteer_corps_focus
+		}
+	}
+	focus = {
+		id = paramilitarism
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = {
+			focus = military_youth
+		}
+		x = 0
+		y = 1
+		relative_position_id = military_youth
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = paramilitarism_focus
+		}
+	}
+	focus = {
+		id = indoctrination_focus
+		icon = GFX_goal_generic_propaganda
+		prerequisite = {
+			focus = political_correctness
+		}
+		x = 0
+		y = 1
+		relative_position_id = political_correctness
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = indoctrination_focus
+			add_political_power = 150
+		}
+	}
+	focus = {
+		id = foreign_expeditions
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = {
+			focus = volunteer_corps
+		}
+		x = 0
+		y = 1
+		relative_position_id = volunteer_corps
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = foreign_expeditions_focus
+		}
+	}
+	focus = {
+		id = why_we_fight
+		icon = GFX_goal_generic_propaganda
+		prerequisite = {
+			focus = foreign_expeditions
+			focus = deterrence
+		}
+		available = {
+			OR = {
+				threat > 0.75
+				has_defensive_war = yes
+			}
+		}
+		continue_if_invalid = yes
+		x = -1
+		y = 2
+		relative_position_id = foreign_expeditions
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = why_we_fight_focus
+			custom_effect_tooltip = why_we_fight_effect
+			hidden_effect = {
+				if = {
+					limit = {
+						NOT = {
+							has_idea = neutrality_idea
+						}
+					}
+					set_rule = {
+						can_create_factions = yes
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = political_commissars
+		icon = GFX_goal_generic_forceful_treaty
+		prerequisite = {
+			focus = indoctrination_focus
+		}
+		available = {
+		}
+		x = 0
+		y = 1
+		relative_position_id = indoctrination_focus
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = political_commissars_focus
+			if = {
+				limit = {
+					has_government = fascism_ideology
+				}
+				add_popularity = {
+					ideology = fascism_ideology
+					popularity = 0.2
+				}
+			}
+			if = {
+				limit = {
+					has_government = communism_ideology
+				}
+				add_popularity = {
+					ideology = communism_ideology
+					popularity = 0.2
+				}
+			}
+			add_political_power = 200
+		}
+	}
+	focus = {
+		id = ideological_fanaticism
+		icon = GFX_goal_generic_demand_territory
+		prerequisite = {
+			focus = paramilitarism
+			focus = political_commissars
+		}
+		x = 1
+		y = 1
+		relative_position_id = paramilitarism
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = ideological_fanaticism_focus
+			set_rule = {
+				can_create_factions = yes
+			}
+			hidden_effect = {
+				set_rule = {
+					can_use_kamikaze_pilots = yes
+				}
+			}
+			custom_effect_tooltip = kamikaze_focus_tooltip
+		}
+	}
+	focus = {
+		id = technology_sharing
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = {
+			focus = ideological_fanaticism
+			focus = why_we_fight
+			focus = aliance_power_up
+		}
+		available = {
+			has_war = yes
+			is_in_faction = yes
+			OR = {
+				num_of_factories > 50
+				any_other_country = {
+					is_in_faction_with = ROOT
+					num_of_factories > 50
+				}
+			}
+		}
+		x = 3
+		y = 2
+		relative_position_id = ideological_fanaticism
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_RESEARCH
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			if = {
+				limit = {
+					original_research_slots < 3
+				}
+				add_research_slot = 1
+			}
+			if = {
+				limit = {
+					original_research_slots > 2
+				}
+				add_tech_bonus = {
+					name = electronics_bonus
+					bonus = 1
+					uses = 1
+					category = electronics
+				}
+				add_tech_bonus = {
+					name = industrial_bonus
+					bonus = 1
+					uses = 1
+					category = industry
+				}
+				add_tech_bonus = {
+					name = infantry_artillery_bonus					#@#
+					bonus = 1
+					uses = 1
+					category = infantry_weapons
+					category = artillery
+				}
+			}
+		}
+	}
+	focus = {
+		id = the_guard_of_civilization
+		icon = GFX_goal_generic_major_alliance
+		relative_position_id = political_effort
+		x = 4
+		y = 1
+		cost = 8
+		mutually_exclusive = {
+			focus = collectivist_ethos
+			focus = liberty_ethos
+			focus = world_ruin_choice
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = {
+			focus = political_effort
+		}
+		available_if_capitulated = yes
+		ai_will_do = {
+			factor = 50
+			modifier = {
+				factor = 10
+				NOT = {
+					has_idea = mystery_country
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					AND = {
+						is_historical_focus_on = yes
+						has_government = neutrality_ideology
+					}
+					AND = {
+						is_historical_focus_on = yes
+						has_government = fascism_ideology
+					}
+					AND = {
+						is_historical_focus_on = yes
+						has_government = democratic_ideology
+					}
+					AND = {
+						is_historical_focus_on = yes
+						has_government = communism_ideology
+					}
+					has_idea = neutrality_idea
+					has_idea = mystery_country
+				}
+			}
+			
+		}
+		available = {
+			NOT ={
+				has_government = fascism_ideology
+				has_government = communism_ideology
+				has_government = ruinism
+				has_government = mythologicalism
+			}
+		}
+		completion_reward = {
+			add_idea = the_guard_of_civilization
+		}
+	}
+	focus = {
+		id = we_are_global_citizen
+		icon = GFX_focus_NORDIC_dem_institution_2
+		relative_position_id = the_guard_of_civilization
+		prerequisite = {
+			focus = the_guard_of_civilization
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		x = 0
+		y = 1
+		available_if_capitulated = yes
+		cost = 45
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					tag = AUS
+					has_idea = mystery_country
+				}
+			}
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = {
+						has_idea = gc_policy
+					}
+				}
+				add_ideas = gc_policy
+			}
+			add_political_power = 150
+		}
+	}
+	focus = { 
+		id = civil_alliance
+		icon = GFX_focus_NORDIC_dem_institution_1
+		relative_position_id = we_are_global_citizen
+		x = 0
+		y = 1
+		cost = 7
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				OR = {
+					tag = AUS
+					has_idea = mystery_country
+				}
+			}
+		}
+		prerequisite = {
+			focus = we_are_global_citizen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward={
+			custom_effect_tooltip = civil_alliance_effect
+			hidden_effect = {
+				set_rule = {
+					can_create_factions = yes
+				}
+				gcs_create_or_join_alliance = yes
+			}
+
+		}
+	}
+	focus = {
+		id = alliance_of_civilization_volunteers
+		icon = GFX_focus_NORDIC_dem_army
+		relative_position_id = civil_alliance
+		x = 0
+		y = 1
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = {
+			focus = civil_alliance
+		}
+		completion_reward = {
+			add_ideas = volunteer_corps_focus
+		}
+	}
+	focus = {
+		id = navy_sharing_alliance
+		icon = GFX_focus_NORDIC_dem_selector_navy
+		relative_position_id = alliance_of_civilization_volunteers
+		x = 0
+		y = 1
+		cost = 8
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_NAVAL
+		}
+		prerequisite = {
+			focus = alliance_of_civilization_volunteers
+		}
+		available_if_capitulated = yes
+		completion_reward = {
+			custom_effect_tooltip= shipyard_lending_tooltip
+			# Add any completion rewards here
+			hidden_effect = {
+				# 造船所貸し出しの有効化
+				set_country_flag = shipyard_lending_enabled
+			}
+		}
+	}
+	focus = {
+		id = aliance_power_up
+		icon = GFX_focus_NORDIC_dem_selector_civilian
+		x = 0
+		y = 1
+		cost = 8
+		relative_position_id = navy_sharing_alliance
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_INDUSTRY
+		}
+		prerequisite = {
+			focus = navy_sharing_alliance
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.5
+				uses = 4
+				category = industry
+			}
+		}
+	}
+	focus = {
+		id = world_ruin_choice
+		icon = GFX_focus_generic_improve_the_administration
+		relative_position_id = political_effort
+		x = 0
+		y = 1
+		cost = 20
+		ai_will_do = {
+			factor = 0.01
+			modifier = {
+				factor = 60
+				OR ={
+					has_government = ruinism
+					has_government = mythologicalism
+				}
+			}
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = {
+			focus = political_effort
+		}
+		mutually_exclusive = {
+			focus = the_guard_of_civilization
+			focus = collectivist_ethos
+			focus = liberty_ethos
+		}
+		available ={
+			OR = {
+				has_government = ruinism
+				has_government = mythologicalism
+			}
+		}
+		completion_reward = {
+			can_decline_call_to_war = no
+			can_create_collaboration_government = no
+			can_declare_war_on_same_ideology = yes
+			can_declare_war_without_wargoal_when_in_war = yes
+		}
+	}
+	focus ={
+		id = The_Final_war
+		icon = GFX_SOV_the_eyes_fear_ccp_2d_sov_compatibility
+		relative_position_id = political_effort
+		x = 0
+		y = 3
+		cost = 20
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = {
+			focus = political_effort
+		}
+		ai_will_do = {
+			factor = 0.01
+			modifier = {
+				factor = 60
+				OR ={
+					has_government = ruinism
+					has_government = mythologicalism
+				}
+			}
+		}
+		available ={
+			OR = {
+				has_government = ruinism
+				has_government = mythologicalism
+			}
+		}
+		completion_reward = {
+			can_generate_female_aces = yes
+			can_generate_female_country_leaders = yes
+			can_generate_female_aces = yes
+			can_join_factions_not_allowed_diplomacy = yes
+		}
+	}
+}

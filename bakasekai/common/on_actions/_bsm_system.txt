@@ -2,9 +2,8 @@ on_actions = {
     on_startup = {
         effect = {
             #### global変数の設定 ####
-            set_variable = {
-                global.month = 1
-            }			#月を示す変数
+            set_variable = { global.month = 1 }#月を示す変数
+            set_variable = { global.passed_month = 1 }  #経過月数
             #### Opening Event ####
             every_country = {
                 #プレイヤー国家のみOEを開く
@@ -261,7 +260,11 @@ on_actions = {
             #### 文明化率 ####
             #仮削除
             #### 鉱山 ####
+            JAP = { calc_gold_demand = yes }#代表計算
+            
             every_country = {
+                limit = { always = yes }
+                mine_first_setting = yes
                 mine_on_monthly = yes
             }
             #### 傭兵 ####
@@ -301,24 +304,22 @@ on_actions = {
     }
     on_monthly = {
         effect = {
-            if = {
-                #12月
-                limit = {
-                    check_variable = {
-                        global.month = 12
-                    }
-                }
-                set_variable = {
-                    global.month = 0
-                }				#1月にリセット
-            }
-            add_to_variable = {
-                global.month = 1
-            }
-            every_country = {
-                ucs_on_monthly = yes				#通貨 月毎処理
-                mine_on_monthly = yes				#鉱山 月毎処理
-            }
+            # add_to_variable = { global.passed_month = 1 }  #経過月数
+            # if = {
+            #     #12月
+            #     limit = {
+            #         check_variable = {
+            #             global.month = 12
+            #         }
+            #     }
+            #     set_variable = {
+            #         global.month = 0
+            #     } #1月にリセット
+            # }
+            # add_to_variable = { global.month = 1 }
+            
+            ucs_on_monthly = yes #通貨 月毎処理				
+            mine_on_monthly = yes #鉱山 月毎処理
         }
     }
     on_daily = {

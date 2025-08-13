@@ -1,0 +1,42 @@
+add_namespace = shipyard_lending
+
+# 造船所貸し出し期間終了イベント
+country_event = {
+    id = shipyard_lending.on_lend_end
+    is_triggered_only = yes # 自動発動しない [cite: 1381]
+    hidden = yes # プレイヤーには表示されない [cite: 1414]
+
+    # このイベントはディシジョンから遅延実行される
+    # ROOT: 造船所を貸し出した国
+    # FROM: 造船所を借りた国
+    # state_to_lend: 貸し出された州（ディシジョンから引き継がれるイベントターゲット）
+
+    immediate = {
+        # 貸し出しフラグを確認し、対応する州にエフェクトを適用
+        if = {
+            limit = { 
+                FROM = { has_country_flag = shipyard_lending_active_flag_@ROOT } # FROMが貸し出しを受けているか確認
+                has_event_target = state_to_lend # 貸し出された州が指定されているか確認
+            }
+
+            state_to_lend = { # 貸し出された州のスコープ
+                set_state_controller_to = ROOT # 州のコントローラーを元の所有者に戻す [cite: 476]
+                remove_state_flag = shipyard_lending_active_flag_@FROM # 貸し出し中フラグを削除
+            }
+
+            # FROM（貸し出した相手国）から意見補正を削除
+            FROM = {
+                remove_opinion_modifier = {
+                    target = ROOT
+                    modifier = shipyard_ll_opinion_modifier
+                }
+                log = "[ROOT.GetName]が[FROM.GetName]に貸し出した造船所の期間が終了しました。([?state_to_lend.GetName])" #[cite: 362]
+            }
+
+            # ROOT（貸し出した自国）のログ
+            ROOT = {
+                log = "自国([ROOT.GetName])が[FROM.GetName]に貸し出した造船所の期間が終了しました。"# [cite: 362]
+            }
+        }
+    }
+}

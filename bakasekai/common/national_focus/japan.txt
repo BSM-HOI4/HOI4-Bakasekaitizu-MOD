@@ -1194,7 +1194,25 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 100
 			set_country_flag = ASEAN
-			set_faction_name = ASEAN_2
+			
+			# 既存陣営から脱退し、新陣営を作成
+			if = {
+				limit = {
+					is_in_faction = yes
+					is_faction_leader = no
+				}
+				leave_faction = yes
+			}
+			if = {
+				limit = {
+					is_in_faction = yes
+					is_faction_leader = yes
+				}
+				dismantle_faction = yes
+			}
+			
+			# 新陣営作成
+			create_faction = ASEAN_2
 			add_to_faction = TWN
 			add_to_faction = NSI
 			add_to_faction = GMI
@@ -1202,17 +1220,33 @@ focus_tree = {
 			add_to_faction = SJK
 			add_to_faction = DRS
 			add_to_faction = ECU
+			
+			# 陣営内での相互保証（自分以外）
 			hidden_effect = {
 				every_country = {
 					limit = {
 						is_in_faction_with = JPN
+						NOT = { tag = JPN }
 					}
+					save_event_target_as = current_faction_member
 					every_country = {
 						limit = {
 							is_in_faction_with = JPN
+							NOT = { tag = JPN }
+							NOT = { tag = event_target:current_faction_member }
 						}
-						give_guarantee = PREV
+						give_guarantee = event_target:current_faction_member
 					}
+					# 日本への保証
+					give_guarantee = JPN
+				}
+				# 日本から他メンバーへの保証
+				every_country = {
+					limit = {
+						is_in_faction_with = JPN
+						NOT = { tag = JPN }
+					}
+					ROOT = { give_guarantee = PREV }
 				}
 			}
 		}

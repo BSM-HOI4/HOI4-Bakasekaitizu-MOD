@@ -184,7 +184,7 @@ news_event = {
 
 # アイルランド原住民との交渉開始イベント
 country_event = {
-    id = LON.ireland_negotiation_start # イベントIDの修正# [cite: 11]
+    id = LON_ireland_negotiation_start
     title = LON.ireland_negotiation_start.t
     desc = LON.ireland_negotiation_start.desc
     picture = GFX_report_event_ireland_generic_1 # 適当な汎用画像
@@ -196,20 +196,20 @@ country_event = {
         ai_chance = { factor = 80 }
         set_country_flag = LON_ireland_negotiations_ongoing # 交渉中フラグ
         add_political_power = -50
-        country_event = { id = LON.ireland_negotiation_progress days = 60 random_days = 30 } # 数ヶ月後に次のイベント
+        country_event = { id = LON_ireland_negotiation_progress days = 60 random_days = 30 }
     }
     option = {
         name = LON.ireland_negotiation_start.b # 交渉を拒否# [cite: 12]
         ai_chance = { factor = 20 }
         add_political_power = 25
         add_war_support = -0.05
-        add_opinion_modifier = { target = IRE modifier = "LON_irish_displeasure" } # 引用符で囲む# [cite: 12]
+        add_opinion_modifier = { target = IRE modifier = LON_irish_displeasure }
     }
 }
 
 # アイルランド交渉進捗イベント
 country_event = {
-    id = LON.ireland_negotiation_progress # イベントIDの修正# [cite: 13]
+    id = LON_ireland_negotiation_progress
     title = LON.ireland_negotiation_progress.t
     desc = LON.ireland_negotiation_progress.desc
     picture = GFX_report_event_ireland_generic_2 # 適当な汎用画像
@@ -224,7 +224,7 @@ country_event = {
         name = LON.ireland_negotiation_progress.a # 合意に達する
         ai_chance = { factor = 70 }
         clr_country_flag = LON_ireland_negotiations_ongoing # remove_country_flag を clr_country_flag に修正# [cite: 14]
-        add_opinion_modifier = { target = IRE modifier = "LON_irish_friendship" } # 引用符で囲む# [cite: 14]
+        add_opinion_modifier = { target = IRE modifier = LON_irish_friendship }
         add_stability = 0.05
         add_war_support = 0.05
     }
@@ -232,7 +232,7 @@ country_event = {
         name = LON.ireland_negotiation_progress.b # 交渉決裂
         ai_chance = { factor = 30 }
         clr_country_flag = LON_ireland_negotiations_ongoing # remove_country_flag を clr_country_flag に修正# [cite: 14]
-        add_opinion_modifier = { target = IRE modifier = "LON_irish_animosity" } # 引用符で囲む# [cite: 14]
+        add_opinion_modifier = { target = IRE modifier = LON_irish_animosity }
         add_stability = -0.05
         add_war_support = -0.05
     }
@@ -240,7 +240,7 @@ country_event = {
 
 # ドミニオン地位獲得イベント
 country_event = {
-    id = LON.seek_dominion_status # イベントIDの修正# [cite: 15]
+    id = LON_seek_dominion_status
     title = LON.seek_dominion_status.t
     desc = LON.seek_dominion_status.desc
     picture = GFX_report_event_dominion # 適当な画像
@@ -275,7 +275,7 @@ country_event = {
         add_political_power = -50
         add_stability = -0.05
         add_war_support = -0.05
-        add_opinion_modifier = { target = GBR modifier = "LON_dominion_rejected" } # 引用符で囲む# [cite: 19]
+        add_opinion_modifier = { target = GBR modifier = LON_dominion_rejected }
     }
 }
 
@@ -285,7 +285,7 @@ country_event = {
 
 # 独立時のロンドン橋破壊イベント
 country_event = {
-    id = LON.london_bridge_destroyed_on_independence # イベントIDの修正# [cite: 20]
+    id = LON_london_bridge_destroyed_on_independence
     title = LON.london_bridge_destroyed_on_independence.t
     desc = LON.london_bridge_destroyed_on_independence.desc
     picture = GFX_report_event_london_bridge_destroyed # ロンドン橋破壊の画像
@@ -307,7 +307,7 @@ country_event = {
 
 # ロンドン橋の定期的な損耗イベント
 country_event = {
-    id = LON.london_bridge_wear_and_tear # イベントIDの修正# [cite: 21]
+    id = LON_london_bridge_wear_and_tear
     title = LON.london_bridge_wear_and_tear.t
     desc = LON.london_bridge_wear_and_tear.desc
     picture = GFX_report_event_bridge_damage # 橋の損傷の画像
@@ -324,12 +324,12 @@ country_event = {
     mean_time_to_happen = {
         days = 180 # 半年に1回程度発生
         modifier = {
-            days = -90
-            check_variable = { var = LON_london_bridge_condition compare = greater_than value = 50 } # 損耗度が高いほど発生頻度が増加# [cite: 22]
+            factor = 0.5
+            check_variable = { var = LON_london_bridge_condition compare = greater_than value = 50 }
         }
         modifier = {
-            days = -60
-            check_variable = { var = LON_london_bridge_condition compare = greater_than value = 80 } # さらに高いとさらに増加
+            factor = 0.3
+            check_variable = { var = LON_london_bridge_condition compare = greater_than value = 80 }
         }
     }
 
@@ -345,7 +345,7 @@ country_event = {
         # 損耗度が一定値を超えたら警告イベント
         if = {
             limit = { check_variable = { var = LON_london_bridge_condition compare = greater_than value = 70 } }# [cite: 24]
-            country_event = { id = LON.london_bridge_critical_condition hours = 1 }
+            country_event = { id = LON_london_bridge_critical_condition hours = 1 }
         }
     }
 
@@ -356,7 +356,7 @@ country_event = {
 
 # ロンドン橋が深刻な損耗状態になった警告イベント
 country_event = {
-    id = LON.london_bridge_critical_condition # イベントIDの修正# [cite: 25]
+    id = LON_london_bridge_critical_condition
     title = LON.london_bridge_critical_condition.t
     desc = LON.london_bridge_critical_condition.desc
     picture = GFX_report_event_bridge_critical # 橋が危険な状態の画像
@@ -385,7 +385,7 @@ country_event = {
 # バトル中央銀行危機 (Battle Central Bank Crisis) イベント群
 # ============================================================================
 country_event = {
-    id = LON.battle_central_bank_crisis.start # イベントIDの修正# [cite: 27]
+    id = LON_battle_central_bank_crisis_start
     title = LON.battle_central_bank_crisis.start.t
     desc = LON.battle_central_bank_crisis.start.desc
     picture = GFX_report_event_economic_crisis # 経済危機を示す汎用画像# [cite: 27]

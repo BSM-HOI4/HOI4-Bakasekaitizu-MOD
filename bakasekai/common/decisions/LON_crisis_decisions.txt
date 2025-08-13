@@ -29,7 +29,7 @@ LON_respond_battle_crisis_category = { # このブロックがカテゴリーと
         available = {
             has_idea = LON_economic_downturn
             has_political_power > 75 # 修正
-            has_completed_decision = LON_respond_to_bank_crisis_1 # 修正
+            has_country_flag = LON_bank_crisis_step_1_completed
         }
         complete_effect = {
             add_political_power = -75
@@ -59,8 +59,8 @@ LON_infrastructure_category = { # このブロックがカテゴリーとして�
         available = {
             # check_variable は var = 変数名 の形式か、省略形式で直接比較する
             # 今回は省略形式で、直接比較 `変数名 > 値` の形式を使用
-            check_variable = { LON_london_bridge_condition > 0 } # 修正
-            check_variable = { LON_london_bridge_condition <= 50 } # 修正
+            check_variable = { LON_london_bridge_condition compare = greater_than value = 0 }
+            check_variable = { LON_london_bridge_condition compare = less_than_or_equals value = 50 }
         }
         complete_effect = { 
             # 一時変数は temp_variable の形式で定義し、参照時は var: は不要
@@ -76,7 +76,7 @@ LON_infrastructure_category = { # このブロックがカテゴリーとして�
             factor = 5
             modifier = {
                 factor = 1.5
-                check_variable = { LON_london_bridge_condition > 20 } # 修正
+                check_variable = { LON_london_bridge_condition compare = greater_than value = 20 }
             }
         }
     }
@@ -85,7 +85,7 @@ LON_infrastructure_category = { # このブロックがカテゴリーとして�
         icon = GFX_decision_empty
         cost = 50
         available = {
-            check_variable = { LON_london_bridge_condition > 50 } # 修正
+            check_variable = { LON_london_bridge_condition compare = greater_than value = 50 }
         }
         complete_effect = {
             set_temp_variable = { temp_repair_amount = 50 }

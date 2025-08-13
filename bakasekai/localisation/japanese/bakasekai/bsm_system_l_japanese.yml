@@ -73,8 +73,12 @@ bsm_ecpp:0 "国庫から政治力を得る"
 tt_gold_mine_icon:0 "§H金鉱山§!\n金鉱山の規模:[?THIS.gold_mine]"
 #effect
 tt_add_gold_mine_level:0 "§H[?state_id.GetName]§!の金鉱山の規模が[?level|0+]変化する"
+tt_change_gold_demand:0 "§H世界の金需要§!が[?demand_value|0+]変化する
+#modifier
+MD_gain_factor:0 "鉱山収入補正値"
+
 #dec
-bsm_mine_dev:0 "鉱山の開発"
+bsm_mine:0 "鉱山の開発"
 expansion_gold_mine_1:0 "[FROM.GetName]の金鉱山開発 I"
 expansion_gold_mine_1_desc:0 "金鉱山の規模を拡大する。"
 expansion_gold_mine_2:0 "[FROM.GetName]の金鉱山開発 II"
@@ -97,23 +101,51 @@ tt_mine_reopening:0 "§H[FROM.GetName]§!における§H鉱山§!を§H再稼働
 need_50_energy:0 "£resource_energy_icon §Y150§!"
 need_50_energy_blocked:0 "£resource_energy_icon §R50§!"
 need_50_energy_tooltip:0 "鉱山の拡張には、£resource_energy_icon §H通貨§!が§Y50§!必要です。"
-MD_gold_desc_tip:0 "金鉱山の規模"
-MD_gold_desc_tip_d:0 "金鉱山の規模が大きいほど、§H金§!の生産量が増加する。"
-MD_cost_desc_tip:0 "鉱山の維持コスト"
-MD_cost_desc_tip_d:0 "鉱山の規模が大きいほど、§H維持コスト§!が増加する。"
-MD_gain_desc_tip:0 "鉱山収入"
-MD_gain_desc_tip_d:0 "鉱山の規模が大きいほど、§H収入§!が増加する。\nまた、国際市場の需要や貿易法によっても収入が変動する。"
 
-MD_gold:0 "[?ROOT.MD_gold|0]"
-MD_Jewel:0 "[?ROOT.MD_Jewel|0]"
-MD_cost:0 "£resource_energy_icon [?ROOT.MD_cost|0]"
-MD_gain:0 "£resource_energy_icon [?ROOT.MD_gain|0]"
+MD_mine_size:0 "[?ROOT.MD_mine_size|0]"
+MD_mine_size_title:0 "鉱山規模"
+MD_mine_size_tooltip:0 "鉱山の規模が大きいほど、§H金§!の生産量が増加する。"
+MD_mine_size_tooltip_delay:0 "鉱山規模のツールチップ（DELAY）"
 
+MD_demand:0 "[?global.MD_demand|0]"
+MD_demand_title:0 "金需要"
+MD_demand_tooltip:0 "金需要のツールチップ\n追加の金需要:[?modifier@MD_gain_factor|0+]"
+MD_demand_tooltip_delay:0 "金需要のツールチップ（DELAY）"
 
-MD_gold_desc:0 "金鉱山規模"
-MD_cost_desc:0 "維持コスト"
-MD_gain_desc:0 "収入"
+MD_total:0 "[?ROOT.MD_gain|0]"
+MD_total_title:0 "収支"
+MD_total_tooltip:0 "収支のツールチップ\n先月の鉱山収益:§H[?MD_gain|1]§!\n鉱山の収益補正値:[?modifier@MD_gain_factor|0%+]"
+MD_total_tooltip_delay:0 "収支のツールチップ（DELAY）"
 
+MD_log_title:0 "ログ"
+MD_log_name:0 "[MD_log_type]"
+MD_log_name_tooptip:0 "[MD_log_type]"
+
+MD_log_expand_mine:0 "[?bsm_mine_log_value_1^log_index.GetName]\n鉱山規模拡大 [?bsm_mine_log_value_2^log_index|0+]"
+MD_log_deamnd_change:0 "[MD_log_event]による\n金需要拡大[?bsm_mine_log_value_2^log_index|0+]"
+MD_log_occupied_change:0 "[?bsm_mine_log_value_1^log_index.GetFlag][?bsm_mine_log_value_1^log_index.GetAdjective]による[?bsm_mine_log_value_2^log_index.GetName]の占領[?bsm_mine_log_value_3^log_index]"
+MD_log_on_monthly:0 "[?bsm_mine_log_value_2^log_index.GetDateStringNoHour]の収益\n§H[?bsm_mine_log_value_1^log_index|1+]§!"
+MD_log_unknown:0 "不明なイベント"
+
+MD_event_1:0 "ハレー彗星の飛来"
+MD_event_2:0 "世界的不況"
+
+#イベント
+mine.0.title:0 "欠番"
+mine.0.desc:0 "欠番"
+mine.0.a:0 "neko"
+mine.1.title:0 "[FROM.GetName]でのストライキ発生"
+mine.1.desc:0 "[FROM.GetName]の鉱山のストライキのデスク"
+mine.1.a:0 "なるほど"
+mine.2.title:0 "[FROM.GetName]による占領"
+mine.2.desc:0 "[FROM.GetName]による占領のデスク"
+mine.2.a:0 "なるほど"
+mine.3.title:0 "[FROM.GetName]による解放"
+mine.3.desc:0 "[FROM.GetName]による解放のデスク"
+mine.3.a:0 "なるほど"
+mine.4.title:0 "[FROM.GetName]の鉱脈発見"
+mine.4.desc:0 "[FROM.GetName]の鉱脈発見のデスク"
+mine.4.a:0 "なるほど"
 
 
 # ------------------------------請求権の捏造--------------------------------------

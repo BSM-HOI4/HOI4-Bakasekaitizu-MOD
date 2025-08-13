@@ -1,0 +1,131 @@
+shipyard_lending_category = { # カテゴリをここで参照
+    shipyard_lending_to_ally_decision = {
+        # 基本情報
+        icon = GFX_decision_shipyard_lending # ディシジョンアイコン (後で定義)
+        cost = 50 # 政治力コスト
+        days_re_enable = 90 # 90日後に再利用可能
+        
+        # 貸し出し対象国の条件 #[cite: 1747, 1880, 1881, 1882]
+        target_root_trigger = {
+            is_in_faction = yes # 自国がどこかの派閥に属していること #[cite: 72]
+        }
+        target_array = allies # 同盟国をターゲットにする #[cite: 1306]
+        target_trigger = {
+            FROM = { # FROM はターゲットとなる同盟国
+                num_of_naval_factories < 20 # 海軍工場が20未満 (小規模な国を想定) #[cite: 63]
+                any_owned_state = { # 沿岸州を所有していること #[cite: 297]
+                    is_coastal = yes #[cite: 104]
+                }
+                ROOT = { # ROOT は自国
+                    num_of_available_naval_factories > 0 # 自国の海軍工場が1つ以上利用可能であること #[cite: 63]
+                }
+            }
+        }
+        
+        # UI表示条件 (ツールチップに影響) #[cite: 1749]
+        visible = {
+            always = yes #[cite: 36]
+        }
+        
+        # ディシジョン実行条件 #[cite: 1751]
+        available = {
+            ROOT = {
+                num_of_available_naval_factories > 0 #[cite: 63] # 自国の海軍工場が1つ以上利用可能であること
+            }
+        }
+
+        # 実行時のエフェクト #[cite: 1797]
+        complete_effect = {
+            # 貸し出し期間を一時変数に設定 (30日) #[cite: 369]
+            set_temp_variable = { shipyard_lending_duration = 30 }
+            
+            # 利用可能な海軍工場を1つ選んでターゲット国に貸し出す #[cite: 351]
+            random_owned_state = { #[cite: 351]
+                limit = {
+                    naval_base > 0 # 海軍基地がある州 #[cite: 63]
+                    free_building_slots = { #[cite: 104]
+                        building = naval_base #[cite: 104]
+                        size > 0 #[cite: 104]
+                    }
+                }
+                save_event_target_as = state_to_lend # 貸し出す州をイベントターゲットとして保存 #[cite: 362]
+            }
+
+            if = { #[cite: 32]
+                limit = { has_event_target = state_to_lend } # 貸し出す州が見つかった場合のみ実行 #[cite: 50, 975]
+                
+                # 貸し出しエフェクト
+                state_to_lend = { # 貸し出す州のスコープ #[cite: 284]
+                    add_building_construction = { # 州に海軍工場を建設（貸し出しを表現） #[cite: 478]
+                        type = naval_base #[cite: 478]
+                        level = 1 #[cite: 478]
+                        instant_build = yes #[cite: 478]
+                        province = { #[cite: 478]
+                            all_provinces = yes #[cite: 478]
+                            limit_to_coastal = yes #[cite: 478]
+                        }
+                    }
+                    set_state_controller_to = FROM # 州のコントローラーをターゲット国に設定 #[cite: 476]
+                    add_state_flag = { # 貸し出し中フラグを設定 (期間付き) #[cite: 476]
+                        flag = shipyard_lending_active_flag_@FROM # ターゲット国固有のフラグ #[cite: 938]
+                        days = shipyard_lending_duration # 期間は一時変数から取得 #[cite: 959]
+                    }
+                }
+
+                # ターゲット国への効果
+                FROM = { #[cite: 284]
+                    add_opinion_modifier = { # 意見補正を追加 #[cite: 422]
+                        target = ROOT #[cite: 422]
+                        modifier = shipyard_ll_opinion_modifier # 友好度アップの補正 (後で定義) #[cite: 422]
+                    }
+                    set_temp_variable = { add_value = 50 } # UCの基本値を設定 #[cite: 369]
+                    ucs_add_Unified_Currency = yes # UCを追加
+                    
+                    log = "[ROOT.GetName]が[FROM.GetName]に造船所を貸し出しました。([?state_to_lend.GetName])" #[cite: 362] # デバッグログ
+                }
+
+                # 自国への効果
+                ROOT = { #[cite: 284]
+                    add_political_power = -50 #[cite: 416] # 政治力コストを消費
+                    add_to_variable = { #[cite: 369] # 消費したUCを記録
+                        var = total_shipyard_lending_uc_spent #[cite: 369]
+                        value = 50 #[cite: 369]
+                    }
+                    log = "自国([ROOT.GetName])は[FROM.GetName]に造船所を貸し出し、UCを50獲得しました。" #[cite: 362] # デバッグログ
+                }
+                
+                # 貸し出し終了イベントの発動（隠しイベントを遅延実行）
+                country_event = {
+                    id = shipyard_lending.on_lend_end
+                    days = shipyard_lending_duration
+                    set_from = FROM # イベント内でFROMが貸し出し相手国を指すように設定
+                    set_root = ROOT # イベント内でROOTが貸し出し元国を指すように設定
+                    # イベントターゲットは自動的に引き継がれる
+                }
+            } else_if = { #[cite: 32]
+                # 貸し出す州が見つからなかった場合
+                custom_effect_tooltip = shipyard_lending_no_suitable_state #[cite: 362] # ツールチップ表示
+            }
+        }
+
+        # AIの判断 #[cite: 1826]
+        ai_will_do = { #[cite: 1826]
+            base = 0 #[cite: 1826] # 基本的にAIは選ばない
+            modifier = { #[cite: 1826]
+                add = 100 #[cite: 1826]
+                ROOT = { #[cite: 284]
+                    num_of_available_naval_factories > 0 #[cite: 63]
+                    has_political_power > 100 #[cite: 56]
+                }
+                FROM = { #[cite: 284]
+                    has_war = yes #[cite: 75]
+                    num_of_naval_factories < 3 #[cite: 63]
+                    has_opinion = { #[cite: 72]
+                        target = ROOT #[cite: 72]
+                        value > 50 #[cite: 72]
+                    }
+                }
+            }
+        }
+    }
+}
