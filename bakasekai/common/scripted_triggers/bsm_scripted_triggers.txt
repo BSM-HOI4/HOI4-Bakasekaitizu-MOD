@@ -26,14 +26,14 @@ bsm_can_initiate_fabricate_claim_diplo_action_trigger = {
     FROM = {
         any_owned_state = { # 相手国が所有するいずれかの州で…
             # その州は自国のものではなく
-            NOT = { owner = PREV.ROOT } # PREV.ROOT でトリガーのROOT(自国)を参照
+            NOT = { is_owned_by = PREV.ROOT } # PREV.ROOT でトリガーのROOT(自国)を参照
             # かつ、自国が既に請求権を持っておらず
             NOT = { is_claimed_by = PREV.ROOT }
             # かつ、自国の中核州でもない
             NOT = { is_core_of = PREV.ROOT }
             # そして、「自国と隣接している」 OR 「沿岸州である」
             OR = {
-                is_neighbor_of = PREV.ROOT # この州(THIS)が自国(PREV.ROOT)と隣接している
+                any_neighbor_state = { owner = PREV.ROOT } # この州(THIS)が自国(PREV.ROOT)と隣接している
                 is_coastal = yes          # この州(THIS)が沿岸州である
             }
         }

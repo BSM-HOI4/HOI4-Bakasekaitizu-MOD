@@ -1,0 +1,65 @@
+add_namespace = LON_investment
+
+# 同盟国への投資イベント
+country_event = {
+    id = LON_investment.1
+    title = LON_investment.1.t
+    desc = LON_investment.1.desc
+    picture = GFX_event_empty
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = LON_investment.1.a # 投資を受け入れる
+        ai_chance = {
+            factor = 90
+        }
+        custom_effect_tooltip = LON_investment_accepted_tooltip
+    }
+    
+    option = {
+        name = LON_investment.1.b # 投資を拒否する
+        ai_chance = {
+            factor = 10
+        }
+        FROM = {
+            add_political_power = 100 # 投資コストを返還
+        }
+        custom_effect_tooltip = LON_investment_rejected_tooltip
+    }
+}
+
+# 民主主義国への投資イベント
+country_event = {
+    id = LON_investment.2
+    title = LON_investment.2.t
+    desc = LON_investment.2.desc
+    picture = GFX_event_empty
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = LON_investment.2.a # 投資を歓迎する
+        ai_chance = {
+            factor = 85
+        }
+        custom_effect_tooltip = LON_democracy_investment_accepted_tooltip
+    }
+    
+    option = {
+        name = LON_investment.2.b # 外国の干渉を拒否
+        ai_chance = {
+            factor = 15
+            modifier = {
+                factor = 0.3
+                has_government = democratic_ideology
+                democratic_ideology > 0.7
+            }
+        }
+        FROM = {
+            add_political_power = 150 # 投資コストを返還
+        }
+        add_stability = 0.02 # 独立性を保った満足感
+        custom_effect_tooltip = LON_democracy_investment_rejected_tooltip
+    }
+}

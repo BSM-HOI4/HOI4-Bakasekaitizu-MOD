@@ -1,0 +1,81 @@
+add_namespace = LON_celtic
+
+# ケルト統一イベント
+country_event = {
+    id = LON_celtic.1
+    title = LON_celtic.1.t
+    desc = LON_celtic.1.desc
+    picture = GFX_event_empty
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = LON_celtic.1.a # 平和的統合を推進
+        ai_chance = {
+            factor = 70
+        }
+        add_stability = 0.05
+        add_political_power = 50
+        if = {
+            limit = { country_exists = IRE }
+            IRE = {
+                country_event = { id = LON_celtic.2 hours = 24 }
+            }
+        }
+    }
+    
+    option = {
+        name = LON_celtic.1.b # より強硬な手段を検討
+        ai_chance = {
+            factor = 30
+        }
+        add_war_support = 0.10
+        add_political_power = 25
+        if = {
+            limit = { country_exists = IRE }
+            add_opinion_modifier = {
+                target = IRE
+                modifier = LON_celtic_pressure
+            }
+        }
+    }
+}
+
+# アイルランド側の応答イベント
+country_event = {
+    id = LON_celtic.2
+    title = LON_celtic.2.t
+    desc = LON_celtic.2.desc
+    picture = GFX_event_empty
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = LON_celtic.2.a # 協力を受け入れる
+        ai_chance = {
+            factor = 50
+        }
+        add_opinion_modifier = {
+            target = LON
+            modifier = LON_celtic_cooperation
+        }
+        FROM = {
+            add_opinion_modifier = {
+                target = ROOT
+                modifier = LON_celtic_cooperation
+            }
+        }
+    }
+    
+    option = {
+        name = LON_celtic.2.b # 独立を維持する
+        ai_chance = {
+            factor = 50
+        }
+        add_stability = 0.03
+        add_opinion_modifier = {
+            target = LON
+            modifier = LON_celtic_resistance
+        }
+    }
+}

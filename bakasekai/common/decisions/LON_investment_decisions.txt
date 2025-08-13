@@ -1,0 +1,127 @@
+LON_international_investment_category = {
+
+    LON_invest_in_ally = {
+        icon = decision_economic_aid
+        
+        available = {
+            has_idea = LON_global_financial_network
+            has_political_power > 99
+            has_faction = yes
+        }
+        
+        target_trigger = {
+            FROM = {
+                is_in_faction_with = ROOT
+                NOT = { has_country_flag = LON_recently_invested }
+                is_major = no
+            }
+        }
+        
+        cost = 100
+        days_remove = 30
+        fire_only_once = no
+        
+        complete_effect = {
+            FROM = {
+                set_country_flag = LON_recently_invested
+                country_event = { id = LON_investment.1 hours = 6 }
+            }
+            custom_effect_tooltip = LON_investment_effect_tooltip
+        }
+        
+        remove_effect = {
+            FROM = {
+                clr_country_flag = LON_recently_invested
+                add_timed_idea = { idea = LON_foreign_investment days = 730 }
+                add_opinion_modifier = { 
+                    target = ROOT 
+                    modifier = LON_grateful_for_investment 
+                }
+            }
+            ROOT = {
+                add_political_power = 25
+                # 貿易影響力の向上を表現
+                add_opinion_modifier = { 
+                    target = FROM 
+                    modifier = LON_investment_leverage 
+                }
+            }
+        }
+        
+        ai_will_do = {
+            factor = 5
+            modifier = {
+                factor = 2
+                FROM = { is_neighbor_of = ROOT }
+            }
+            modifier = {
+                factor = 0.5
+                has_political_power < 150
+            }
+        }
+    }
+
+    LON_invest_in_democracy = {
+        icon = decision_generic_democracy
+        
+        available = {
+            has_idea = LON_global_financial_network
+            has_political_power > 149
+        }
+        
+        target_trigger = {
+            FROM = {
+                has_government = democratic_ideology
+                NOT = { is_in_faction_with = ROOT }
+                NOT = { has_country_flag = LON_recently_invested }
+                is_major = no
+                NOT = { has_war_with = ROOT }
+            }
+        }
+        
+        cost = 150
+        days_remove = 45
+        fire_only_once = no
+        
+        complete_effect = {
+            FROM = {
+                set_country_flag = LON_recently_invested
+                country_event = { id = LON_investment.2 hours = 6 }
+            }
+            custom_effect_tooltip = LON_democracy_investment_tooltip
+        }
+        
+        remove_effect = {
+            FROM = {
+                clr_country_flag = LON_recently_invested
+                add_timed_idea = { idea = LON_foreign_investment days = 730 }
+                add_opinion_modifier = {
+                    target = ROOT
+                    modifier = LON_grateful_for_investment
+                }
+            }
+            ROOT = {
+                add_political_power = 50
+                add_stability = 0.01
+                add_opinion_modifier = { 
+                    target = FROM 
+                    modifier = LON_investment_leverage 
+                }
+            }
+        }
+        
+        ai_will_do = {
+            factor = 7
+            modifier = {
+                factor = 2
+                has_war = yes
+                FROM = { 
+                    OR = {
+                        is_neighbor_of = ROOT
+                        is_in_faction_with = ENG
+                    }
+                }
+            }
+        }
+    }
+}

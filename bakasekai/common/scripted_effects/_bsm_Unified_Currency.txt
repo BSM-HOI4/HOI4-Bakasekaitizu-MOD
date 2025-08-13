@@ -5,13 +5,15 @@
 
 #初期設定
 ucs_first_setting = {
-	log = "first_setting"
+	# log = "first_setting"
+
 	if = {
 		limit = { NOT = { has_country_flag = stop_Unified_Currency_gain } }
 		set_variable = { Unified_Currency = 0 } #リセット
 		set_variable = { Unified_Currency_Last_Month_gain = 0 } #リセット
 		set_variable = { Unified_Currency_state_loss = 0 } #リセット
 		set_temp_variable = { multiply_value = 6 } #初期値は6か月分
+		# log = "[?multiply_value]月分==========================="
 		ucs_add_Unified_Currency_month = yes
 
 	}
@@ -21,44 +23,51 @@ ucs_first_setting = {
 ucs_add_Unified_Currency_month = {
 	if = {
 		limit = { has_variable = multiply_value }
+
 		custom_effect_tooltip = tt_ucs_add_Unified_Currency_month
 		set_variable = { temp_sum_stabiluty_civilization = stability } #安定度
 		add_to_variable = { temp_sum_stabiluty_civilization = Cultural_Degree } #安定度+文明
 
 		set_temp_variable = { temp_add_amount = num_of_civilian_factories } #民需出力
+		add_to_temp_variable = { temp_add_amount = 1 } #民需出力
 
 		multiply_temp_variable = { temp_add_amount = temp_sum_stabiluty_civilization } #民需出力 * ( 安定度+文明 ) 
 
 		set_temp_variable = { temp_state_sum = 0 }
+		set_temp_variable = { temp_state_plus_1 = 0 }
 		for_each_scope_loop = {
 			array = owned_controlled_states
+			add_to_temp_variable = { temp_state_plus_1 = infrastructure_level } #インフラレベル
+
 			set_temp_variable = { temp_state = state_population_k } #人口(k)
 			divide_temp_variable = { temp_state = 1000 } #人口(m)
-			set_temp_variable = { temp_state_plus_1 = infrastructure_level } #インフラレベル
-			multiply_temp_variable = { temp_state_plus_1 = 1.25 } #インフラレベル * 1.25
 			set_temp_variable = { temp_state_plus_2 = building_level@air_base } #飛行場
 			multiply_temp_variable = { temp_state_plus_2 = 1.1 } #飛行場レベル * 1.1
-			add_to_temp_variable = { temp_state_plus_1 = temp_state_plus_2 } #(インフラレベル * 1.25)+(飛行場レベル * 1.1)
-			multiply_temp_variable = { temp_state = temp_state_plus_1 } #人口(m) * (インフラレベル * 1.25)+(飛行場レベル * 1.1)
+			multiply_temp_variable = { temp_state = temp_state_plus_2 } #人口(m) +(飛行場レベル * 1.1)
 			# multiply_temp_variable = { temp_state = 種族係数 } #人口(m) * インフラ * 飛行場 *  種族係数  （未実装）
 			add_to_temp_variable = { PREV.temp_state_sum = temp_state }
 		}
-		multiply_temp_variable = { temp_add_amount = temp_state_sum } #SUM{ 人口(m) * (インフラレベル * 1.25)+(飛行場レベル * 1.1) } * 民需出力 * ( 安定度+文明 ) 
+		divide_temp_variable = { temp_state_plus_1 = num_owned_controlled_states^num } #インフラレベル平均
+		multiply_temp_variable = { temp_add_amount = temp_state_plus_1 } #民需出力 * ( 安定度+文明 ) *インフラレベル平均
+
+		multiply_temp_variable = { temp_add_amount = temp_state_sum } #SUM{ 人口(m) *(飛行場レベル * 1.1) } * 民需出力 * ( 安定度+文明 ) *インフラレベル平均
 		set_temp_variable = { subtract_value = num_owned_controlled_states^num } #ステート数
 		multiply_temp_variable = { subtract_value = deployed_army_manpower_k } #ステート数 * 徴兵(k)
 		divide_temp_variable = { subtract_value = 1000 } #ステート数 * 徴兵(m)
-		subtract_from_temp_variable = { temp_add_amount = subtract_value } #[ SUM{ 人口(m) * (インフラレベル * 1.25)+(飛行場レベル * 1.1) } *民需出力 * ( 安定度+文明 ) ]  -(徴兵*ステート数)
-		divide_temp_variable = { temp_add_amount = 100 } #[[ SUM{ 人口(m) * (インフラレベル * 1.25)+(飛行場レベル * 1.1) } *民需出力 * ( 安定度+文明 ) ]  -(徴兵*ステート数) ]/100
+		subtract_from_temp_variable = { temp_add_amount = subtract_value } #[ SUM{ 人口(m) * (飛行場レベル * 1.1) } *民需出力 * ( 安定度+文明 ) *インフラレベル平均 ]  -(徴兵*ステート数)
+		divide_temp_variable = { temp_add_amount = 100 } #[[ SUM{ 人口(m) +(飛行場レベル * 1.1) } *民需出力 * ( 安定度+文明 ) *インフラレベル平均 ]  -(徴兵*ステート数) ]/100
 		#係数
 		set_temp_variable = { temp_factor = 1 }
 		add_to_temp_variable = { temp_factor = modifier@Unified_Currency_gain_factor }
-		multiply_temp_variable = { temp_add_amount = temp_factor } #[ SUM{ 人口(m) * {(インフラレベル * 1.25)+(飛行場レベル * 1.1)} } * 民需出力 * ( 安定度+文明 ) * 月毎の通過増加量補正 ] -(徴兵*ステート数)
+		multiply_temp_variable = { temp_add_amount = temp_factor } #[ SUM{ 人口(m) * {(飛行場レベル * 1.1)} } * 民需出力 * ( 安定度+文明 ) *インフラレベル平均 * 月毎の通過増加量補正 ] -(徴兵*ステート数)
 		set_variable = { temp_last_month = temp_add_amount } #先月の獲得量の登録
 		subtract_from_temp_variable = { temp_add_amount = Unified_Currency_additional_gain }
 		multiply_temp_variable = { temp_add_amount = multiply_value } #月数の倍率
 		add_to_variable = { Unified_Currency = temp_add_amount } #追加
 		clamp_variable = { var = Unified_Currency max = 100000 min = -100000 }
-		log = "[?THIS.GetName]:通貨追加([?multiply_value|0]ヶ月分):[?temp_add_amount]"
+		# log = "[?THIS.GetName]:通貨追加([?multiply_value|0]ヶ月分):[?temp_add_amount]"
+		log = "・[?THIS.GetName],[?temp_add_amount],[?temp_state_plus_1],[?num_of_factories],[?num_owned_controlled_states^num]"
+
 	}
 	else = { log = "wow... No temp variable !!" }
 

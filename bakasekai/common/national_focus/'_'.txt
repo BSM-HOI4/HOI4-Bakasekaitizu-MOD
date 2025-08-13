@@ -1,0 +1,152 @@
+focus_tree = {
+	id = management_system_tree
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = '_'
+		}
+	}
+	
+	focus = {
+		id = system_initialization
+		icon = GFX_goal_generic_intelligence_exchange
+		cost = 8
+		x = 5
+		y = 0
+		completion_reward = {
+			add_political_power = 120
+			add_stability = 0.05
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	focus = {
+		id = data_processing
+		icon = GFX_goal_generic_scientific_exchange
+		cost = 8
+		x = 3
+		y = 1
+		prerequisite = {
+			focus = system_initialization
+		}
+		completion_reward = {
+			add_research_slot = 1
+			add_tech_bonus = {
+				name = computing_tech_bonus
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+		ai_will_do = {
+			factor = 8
+		}
+	}
+	
+	focus = {
+		id = security_protocols
+		icon = GFX_goal_generic_radar
+		cost = 8
+		x = 7
+		y = 1
+		prerequisite = {
+			focus = system_initialization
+		}
+		completion_reward = {
+			add_ideas = management_security
+			army_experience = 50
+		}
+		ai_will_do = {
+			factor = 8
+		}
+	}
+	
+	focus = {
+		id = efficiency_optimization
+		icon = GFX_goal_generic_production
+		cost = 10
+		x = 5
+		y = 2
+		prerequisite = {
+			focus = data_processing
+		}
+		prerequisite = {
+			focus = security_protocols
+		}
+		completion_reward = {
+			add_ideas = system_efficiency
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	focus = {
+		id = network_expansion
+		icon = GFX_goal_generic_construct_infrastructure
+		cost = 8
+		x = 2
+		y = 2
+		prerequisite = {
+			focus = data_processing
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = infrastructure_tech_bonus
+				bonus = 0.3
+				uses = 2
+				category = industry
+			}
+		}
+		ai_will_do = {
+			factor = 6
+		}
+	}
+	
+	focus = {
+		id = automated_defense
+		icon = GFX_goal_generic_fortify_city
+		cost = 8
+		x = 8
+		y = 2
+		prerequisite = {
+			focus = security_protocols
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.3
+				uses = 1
+				category = land_doctrine
+			}
+		}
+		ai_will_do = {
+			factor = 6
+		}
+	}
+}
