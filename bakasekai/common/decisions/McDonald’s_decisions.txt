@@ -1914,7 +1914,7 @@ MAC_cola_war_oppose_move = {
 	MAC_NF_cola_capitalism = {
 		icon = ger_mefo_bills
 		available = {
-
+			NOT = {tag = MAC}
 		}
 		ai_will_do = {
 			factor = 1
@@ -1924,9 +1924,8 @@ MAC_cola_war_oppose_move = {
 			}
 		}
 		timeout_effect = {
-			activate_decision = MAC_NF_promote_lobbying
-			add_ideas = MAC_e_cola_capitalism_idea
-
+			activate_mission = MAC_NF_promote_lobbying
+			add_ideas = MAC_cola_capitalism_idea
 		}
 		days_mission_timeout = 70
 		is_good = no
@@ -1945,7 +1944,7 @@ MAC_cola_war_oppose_move = {
 	MAC_NF_promote_lobbying = {
 		icon = ger_mefo_bills
 		available = {
-
+			NOT = {tag = MAC}
 		}
 		ai_will_do = {
 			factor = 1
@@ -1955,8 +1954,7 @@ MAC_cola_war_oppose_move = {
 			}
 		}
 		timeout_effect = {
-			activate_decision = MAC_NF_MAC_loans_from_banks
-			add_political_power = 50
+			activate_mission = MAC_NF_MAC_loans_from_banks
 			MAC_congress_medium_opposition = yes
 		}
 		days_mission_timeout = 70
@@ -1976,7 +1974,10 @@ MAC_cola_war_oppose_move = {
 	MAC_NF_loans_from_banks = {
 		icon = ger_mefo_bills
 		available = {
-
+			OR = {
+				NOT = {tag = MAC}
+				has_country_flag = MAC_loans_from_banks_flag
+			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -1986,7 +1987,11 @@ MAC_cola_war_oppose_move = {
 			}
 		}
 		timeout_effect = {
-			activate_decision = MAC_NF_partnership_with_WalMart
+			activate_mission = MAC_NF_partnership_with_WalMart
+			set_country_flag = MAC_loans_from_banks_flag
+		}
+		complete_effect = {
+			activate_mission = MAC_NF_partnership_with_WalMart
 		}
 		days_mission_timeout = 70
 		is_good = no
@@ -2004,7 +2009,7 @@ MAC_cola_war_oppose_move = {
 	MAC_NF_partnership_with_WalMart = {
 		icon = ger_mefo_bills
 		available = {
-
+			NOT = {tag = MAC}
 		}
 		ai_will_do = {
 			factor = 1
@@ -2014,9 +2019,22 @@ MAC_cola_war_oppose_move = {
 			}
 		}
 		timeout_effect = {
-			MAC_bop_medium_decrease_effect = yes
+			MAC_congress_small_opposition = yes
 			add_ideas = MAC_spread_coke
-			activate_decision = MAC_NF_plant_expansion
+			if = {
+				limit = { has_country_flag = MAC_loans_from_banks_flag_P }
+				if = {
+					limit = { has_country_flag = MAC_dr_pepper_flag_P }
+					activate_mission = MAC_NF_mass_propaganda_campaign
+				}
+				else = {
+					activate_mission = MAC_NF_dr_pepper
+				}
+			}
+			else = {
+				activate_mission = MAC_NF_plant_expansion
+			}
+			
 		}
 		days_mission_timeout = 70
 		is_good = no
@@ -2034,7 +2052,7 @@ MAC_cola_war_oppose_move = {
 	MAC_NF_plant_expansion = {
 		icon = ger_mefo_bills
 		available = {
-
+			NOT = {tag = MAC}
 		}
 		ai_will_do = {
 			factor = 1
@@ -2044,7 +2062,7 @@ MAC_cola_war_oppose_move = {
 			}
 		}
 		timeout_effect = {
-			activate_decision = MAC_NF_dr_pepper
+			activate_mission = MAC_NF_dr_pepper
 			MAC_congress_medium_opposition = yes
 		}
 		days_mission_timeout = 70
@@ -2063,7 +2081,10 @@ MAC_cola_war_oppose_move = {
 	MAC_NF_dr_pepper = {
 		icon = ger_mefo_bills
 		available = {
-
+			OR = {
+				NOT = {tag = MAC}
+				has_country_flag = MAC_dr_pepper_flag
+			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -2072,9 +2093,13 @@ MAC_cola_war_oppose_move = {
 				factor = 0
 			}
 		}
+		complete_effect = {
+			activate_mission = MAC_NF_mass_propaganda_campaign
+		}
 		timeout_effect = {
-			activate_decision = MAC_NF_
-			MAC_congress_medium_opposition = yes
+			set_country_flag = MAC_dr_pepper_flag
+			activate_mission = MAC_NF_saida
+			MAC_shareholder_small_opposition = yes
 		}
 		days_mission_timeout = 70
 		is_good = no
@@ -2103,7 +2128,7 @@ MAC_cola_war_oppose_move = {
 			}
 		}
 		timeout_effect = {
-			activate_decision = MAC_NF_
+			activate_mission = MAC_NF_
 			add_ideas = MAC_pepsi_propaganda_idea
 		}
 		days_mission_timeout = 70
