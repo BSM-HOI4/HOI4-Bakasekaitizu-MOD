@@ -364,7 +364,6 @@ country_event = {
 	title = MCD.9.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
 	desc = MCD.9.d
 
-	fire_only_once = yes
 
 	major = no
 	is_triggered_only = yes
@@ -399,7 +398,6 @@ country_event = {
 	title = MCD.10.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
 	desc = MCD.10.d
 
-	fire_only_once = yes
 
 	major = no
 	is_triggered_only = yes
@@ -524,22 +522,21 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
+		add_offsite_building = { type = industrial_complex level = 3 }
 		if = {
 			limit = {
 				MAC ={ has_country_flag = MAC_pepsi_flag}
 			}
 			MAC = { 
-				country_event = { id = MCD.14 } 
-				MAC_congress_medium_support = yes
+				country_event = { id = MCD.14 }
 			}
 		}
 		else = {
 			MAC = { 
 				country_event = { id = MCD.16 }
-				MAC_congress_medium_opposition = yes
 			}
 		}
-		add_offsite_building = { type = industrial_complex level = 3 }
+		
 	}
 	option = {
 		name = MCD.13.b  #我々はいかなる形の資本主義にも屈しない!
@@ -578,9 +575,7 @@ country_event = {
 		trigger = {
 			has_country_flag = MAC_pepsi_flag
 		}
-		effect_tooltip = {
-			MAC_congress_medium_support = yes
-		}
+		MAC_congress_medium_support = yes
 		MAC = { country_event = { id = MCD.14 } }
 	}
 }
@@ -631,9 +626,7 @@ country_event = {
 		trigger = {
 			has_country_flag = MAC_coca_flag
 		}
-		effect_tooltip = {
-			MAC_congress_medium_opposition = yes
-		}
+		MAC_congress_medium_opposition = yes
 	}
 }
 
@@ -777,6 +770,7 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
-		custom_effect_tooltip = start_MACMCD_war_tt#マック・マクドのBoPが開始する
+		MAC_bop_medium_increase_effect = yes
+		
 	}
 }
