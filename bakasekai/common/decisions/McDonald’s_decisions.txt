@@ -1321,6 +1321,7 @@ MAC_balance_of_power_category = {
 		complete_effect = {
 			set_country_flag = MAC_finish_bop_2
 			set_country_flag = MAC_finish_cola_war
+			custom_effect_tooltip = MAC_fault_decide_drink_tt
 			if = {
 				limit = {
 					power_balance_value = {
@@ -1332,8 +1333,13 @@ MAC_balance_of_power_category = {
 				set_country_flag = MAC_elect_pepsi
 				country_event = { id = MCD.22}
 			}
-			else = {
-				custom_effect_tooltip = MAC_elect_coke_tt
+			else_if = {
+				limit = {
+					power_balance_value = {
+						id = MAC_power_balance
+						value < -0.69
+					}
+				}
 				set_country_flag = MAC_elect_coke
 				country_event = { id = MCD.23}
 			}
