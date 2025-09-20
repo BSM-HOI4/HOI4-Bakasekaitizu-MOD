@@ -1,0 +1,41 @@
+on_actions ={
+
+
+  on_game_start = {
+    # effect = {
+      NPL = {
+        add_idea = fallen_empire_isolationist
+        bsm_fallen_empire_setup = yes
+      }
+      MON = {
+        add_idea = fallen_empire_xenophobe
+        bsm_fallen_empire_setup = yes
+      }
+      SPL = {
+        add_idea = fallen_empire_watchers
+        bsm_fallen_empire_setup = yes
+      }
+      '_' = {
+        add_idea = fallen_empire_machine
+        bsm_fallen_empire_setup = yes
+      }
+    # }
+  }
+
+  on_monthly = {
+    if ={
+      limit = { global.passed_month = 12 }
+
+    
+    effect = {
+      every_country = {
+        limit = { _bsm_fe_can_give_gift = yes }
+        random_country = {
+          limit = { _bsm_fe_can_receive_gift = yes }
+          country_event = { id = fallen_empire.1 FROM = ROOT }
+        }
+      }
+    }
+  }
+  }
+}

@@ -2,6 +2,7 @@ scripted_gui = {
 	bsm_topbar = {
 		window_name = "bsm_topbar"
 		context_type = player_context
+		
 		effects = {
 			bsm_OE_GUI_open_button_click = {
 				if = {
@@ -10,6 +11,16 @@ scripted_gui = {
 				}
 				else = {
 					set_variable = { OE_page = 1 }
+				}
+			}
+			anomaries_button_click = {
+				log = "bsm_anomaly_button_click"
+				if = {
+					limit = { has_variable = bsm_anomaly_tab }
+					clear_variable = bsm_anomaly_tab
+				}
+				else = {
+					set_variable = { bsm_anomaly_tab = 1 }
 				}
 			}
 		}

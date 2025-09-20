@@ -1,0 +1,1036 @@
+{
+  "meta": {
+    "source": "Paradox Wiki (Scopes) – user-supplied excerpt",
+    "generated_at": "2025-08-12T21:14:17+0900",
+    "game": "Hearts of Iron IV"
+  },
+  "types_overview": {
+    "by_purpose": [
+      "trigger",
+      "effect",
+      "dual"
+    ],
+    "patterns": {
+      "trigger": [
+        "all_<object>",
+        "any_<object>"
+      ],
+      "effect": [
+        "every_<object>",
+        "random_<object>"
+      ]
+    },
+    "by_target": [
+      "country",
+      "state",
+      "character",
+      "division",
+      "mio",
+      "contract",
+      "special_project"
+    ]
+  },
+  "examples_overview": [
+    {
+      "type": "effect_scope_block",
+      "example": "SOV = { add_stability = 0.1 add_war_support = 0.2 }"
+    },
+    {
+      "type": "trigger_scope_block",
+      "example": "123 = { is_owned_by = ENG is_controlled_by = IRE }"
+    },
+    {
+      "type": "prev_targeting",
+      "example": "random_country = { ROOT = { add_to_faction = PREV } }"
+    }
+  ],
+  "settings": {
+    "limiting": {
+      "include_invisible": {
+        "applies_to": [
+          "unit_leader",
+          "mio"
+        ],
+        "example": "random_army_leader = { include_invisible = yes set_nationality = SWE }"
+      },
+      "limit_block": {
+        "applies_to": [
+          "effect_scopes_only"
+        ],
+        "example": "every_neighbor_country = { limit = { num_of_military_factories > 5 } give_military_access = ROOT }"
+      },
+      "random_select_amount": {
+        "applies_to": [
+          "every_*"
+        ],
+        "example": "every_country = { random_select_amount = 3 country_event = lottery_win.0 }"
+      }
+    }
+  },
+  "dual_scopes": [
+    {
+      "name": "TAG",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "SOV = { country_event = my_event.1 }",
+      "usable_as_target": true,
+      "version_added": "1.0"
+    },
+    {
+      "name": "<state_id>",
+      "usage": "Always usable",
+      "target_type": "state",
+      "example": "123 = { transfer_state_to = SCO }",
+      "usable_as_target": true,
+      "version_added": "1.0"
+    },
+    {
+      "name": "<character>",
+      "usage": "Not within Character scope",
+      "target_type": "character",
+      "example": "ENG_theodore_makhno = { set_nationality = UKR }",
+      "usable_as_target": true,
+      "version_added": "1.11"
+    },
+    {
+      "name": "mio:<MIO>",
+      "usage": "Within country scope only",
+      "target_type": "mio",
+      "example": "mio:AST_cockatoo_doe_organization = { … }",
+      "usable_as_target": true,
+      "version_added": "1.13"
+    },
+    {
+      "name": "sp:<special_project>",
+      "usage": "Within country scope only",
+      "target_type": "special_project",
+      "example": "sp:sp_land_flamethrower_tank = { … }",
+      "usable_as_target": true,
+      "version_added": "1.15"
+    },
+    {
+      "name": "ROOT",
+      "usage": "Always usable",
+      "target_type": "contextual",
+      "example": "declare_war_on = { target = ROOT type = annex_everything }",
+      "usable_as_target": true,
+      "version_added": "1.0"
+    },
+    {
+      "name": "THIS",
+      "usage": "Always usable",
+      "target_type": "contextual",
+      "example": "set_temp_variable = { target_country = THIS }",
+      "usable_as_target": true,
+      "version_added": "1.0"
+    },
+    {
+      "name": "PREV",
+      "usage": "Always usable",
+      "target_type": "contextual",
+      "example": "declare_war_on = { target = PREV type = annex_everything }",
+      "usable_as_target": true,
+      "version_added": "1.0"
+    },
+    {
+      "name": "FROM",
+      "usage": "Always usable",
+      "target_type": "contextual",
+      "example": "declare_war_on = { target = FROM type = annex_everything }",
+      "usable_as_target": true,
+      "version_added": "1.0"
+    },
+    {
+      "name": "overlord",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "overlord = { … }",
+      "usable_as_target": false,
+      "version_added": "1.3"
+    },
+    {
+      "name": "faction_leader",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "faction_leader = { add_to_faction = FROM }",
+      "usable_as_target": false,
+      "version_added": "1.10.1"
+    },
+    {
+      "name": "owner",
+      "usage": "Within state/character/combatant scope only",
+      "target_type": "country",
+      "example": "owner = { add_ideas = owns_this_state }",
+      "usable_as_target": false,
+      "version_added": "1.0"
+    },
+    {
+      "name": "controller",
+      "usage": "Within state scope only",
+      "target_type": "country",
+      "example": "controller = { ROOT = { create_wargoal = { target = PREV type = take_state_focus generator = { 123 } } } }",
+      "usable_as_target": false,
+      "version_added": "1.0"
+    },
+    {
+      "name": "capital_scope",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "capital_scope = { … }",
+      "usable_as_target": false,
+      "version_added": "1.0"
+    },
+    {
+      "name": "event_target:<event_target_key>",
+      "usage": "Always usable",
+      "target_type": "contextual",
+      "example": "event_target:my_event_target = { … }",
+      "usable_as_target": true,
+      "version_added": "1.0"
+    },
+    {
+      "name": "var:<variable>",
+      "usage": "Always usable",
+      "target_type": "contextual",
+      "example": "var:my_variable = { … } | add_to_faction = my_variable",
+      "usable_as_target": true,
+      "version_added": "1.5"
+    }
+  ],
+  "trigger_scopes": [
+    {
+      "name": "all_country",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "all_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "any_country",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "any_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "all_other_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "all_other_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "any_other_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "any_other_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "all_country_with_original_tag",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "all_country_with_original_tag = { original_tag_to_check = TAG … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "any_country_with_original_tag",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "any_country_with_original_tag = { original_tag_to_check = TAG … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "all_neighbor_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "all_neighbor_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "any_neighbor_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "any_neighbor_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "any_home_area_neighbor_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "any_home_area_neighbor_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "all_guaranteed_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "all_guaranteed_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "any_guaranteed_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "any_guaranteed_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "all_allied_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "all_allied_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "any_allied_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "any_allied_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "all_occupied_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "all_occupied_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "any_occupied_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "any_occupied_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "all_enemy_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "all_enemy_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "any_enemy_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "any_enemy_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "all_subject_countries",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "all_subject_countries = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "any_subject_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "any_subject_country = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "any_country_with_core",
+      "usage": "Within state scope only",
+      "target_type": "country",
+      "example": "any_country_with_core = { … }",
+      "version_added": "1.12"
+    },
+    {
+      "name": "all_state",
+      "usage": "Always usable",
+      "target_type": "state",
+      "example": "all_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "any_state",
+      "usage": "Always usable",
+      "target_type": "state",
+      "example": "any_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "any_state_in",
+      "usage": "Always usable",
+      "target_type": "state",
+      "example": "any_state_in = { array = array_of_states … }",
+      "version_added": "1.15"
+    },
+    {
+      "name": "all_neighbor_state",
+      "usage": "Within state scope only",
+      "target_type": "state",
+      "example": "all_neighbor_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "any_neighbor_state",
+      "usage": "Within state scope only",
+      "target_type": "state",
+      "example": "any_neighbor_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "all_owned_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "all_owned_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "any_owned_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "any_owned_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "all_core_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "all_core_state = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "any_core_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "any_core_state = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "all_controlled_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "all_controlled_state = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "any_controlled_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "any_controlled_state = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "all_unit_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "all_unit_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "any_unit_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "any_unit_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "all_army_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "all_army_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "any_army_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "any_army_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "all_navy_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "all_navy_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "any_navy_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "any_navy_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "all_operative_leader",
+      "usage": "Within country scope or operations only",
+      "target_type": "operative",
+      "example": "all_operative_leader = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "any_operative_leader",
+      "usage": "Within country scope or operations only",
+      "target_type": "operative",
+      "example": "any_operative_leader = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "all_character",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "all_character = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "any_character",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "any_character = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "any_country_division",
+      "usage": "Within country scope only",
+      "target_type": "division",
+      "example": "any_country_division = { … }",
+      "version_added": "1.12"
+    },
+    {
+      "name": "any_state_division",
+      "usage": "Within state scope only",
+      "target_type": "division",
+      "example": "any_state_division = { … }",
+      "version_added": "1.12"
+    },
+    {
+      "name": "all_military_industrial_organization",
+      "usage": "Within country scope only",
+      "target_type": "mio",
+      "example": "all_military_industrial_organization = { … }",
+      "version_added": "1.13"
+    },
+    {
+      "name": "any_military_industrial_organization",
+      "usage": "Within country scope only",
+      "target_type": "mio",
+      "example": "any_military_industrial_organization = { … }",
+      "version_added": "1.13"
+    },
+    {
+      "name": "all_purchase_contract",
+      "usage": "Within country scope only",
+      "target_type": "purchase_contract",
+      "example": "all_purchase_contract = { … }",
+      "version_added": "1.13"
+    },
+    {
+      "name": "any_purchase_contract",
+      "usage": "Within country scope only",
+      "target_type": "purchase_contract",
+      "example": "any_purchase_contract = { … }",
+      "version_added": "1.13"
+    },
+    {
+      "name": "all_scientists",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "all_scientistst = { … }",
+      "version_added": "1.15"
+    },
+    {
+      "name": "any_scientist",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "any_scientist = { … }",
+      "version_added": "1.15"
+    },
+    {
+      "name": "all_active_scientist",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "all_active_scientist = { … }",
+      "version_added": "1.15"
+    },
+    {
+      "name": "any_active_scientist",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "any_active_scientist = { … }",
+      "version_added": "1.15"
+    }
+  ],
+  "effect_scopes": [
+    {
+      "name": "every_possible_country",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "every_possible_country = { ... }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "every_country",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "every_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "random_country",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "random_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "every_other_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "every_other_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "random_other_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "random_other_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "every_country_with_original_tag",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "every_country_with_original_tag = { original_tag_to_check = TAG … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "random_country_with_original_tag",
+      "usage": "Always usable",
+      "target_type": "country",
+      "example": "random_country_with_original_tag = { original_tag_to_check = TAG … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "every_neighbor_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "every_neighbor_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "random_neighbor_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "random_neighbor_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "every_occupied_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "every_occupied_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "random_occupied_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "random_occupied_country = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "every_enemy_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "every_enemy_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "random_enemy_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "random_enemy_country = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "every_subject_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "every_subject_country = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "random_subject_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "random_subject_country = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "every_state",
+      "usage": "Always usable",
+      "target_type": "state",
+      "example": "every_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "random_state",
+      "usage": "Always usable",
+      "target_type": "state",
+      "example": "random_state = { prioritize = { 123 321 } … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "every_neighbor_state",
+      "usage": "Within state scope only",
+      "target_type": "state",
+      "example": "every_neighbor_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "random_neighbor_state",
+      "usage": "Within state scope only",
+      "target_type": "state",
+      "example": "random_neighbor_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "every_owned_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "every_owned_state = { … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "random_owned_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "random_owned_state = { prioritize = { 123 321 } … }",
+      "version_added": "1.0"
+    },
+    {
+      "name": "every_core_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "every_core_state = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "random_core_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "random_core_state = { prioritize = { 123 321 } … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "every_controlled_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "every_controlled_state = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "random_controlled_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "random_controlled_state = { prioritize = { 123 321 } … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "random_owned_controlled_state",
+      "usage": "Within country scope only",
+      "target_type": "state",
+      "example": "random_owned_controlled_state = { prioritize = { 123 321 } … }",
+      "version_added": "1.3"
+    },
+    {
+      "name": "every_unit_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "every_unit_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "random_unit_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "random_unit_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "every_army_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "every_army_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "random_army_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "random_army_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "global_every_army_leader",
+      "usage": "Always usable",
+      "target_type": "unit_leader",
+      "example": "global_every_army_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "every_navy_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "every_navy_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "random_navy_leader",
+      "usage": "Within country scope only",
+      "target_type": "unit_leader",
+      "example": "random_navy_leader = { … }",
+      "version_added": "1.5"
+    },
+    {
+      "name": "every_operative",
+      "usage": "Within country scope or operations only",
+      "target_type": "operative",
+      "example": "every_operative = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "random_operative",
+      "usage": "Within country scope or operations only",
+      "target_type": "operative",
+      "example": "random_operative = { … }",
+      "version_added": "1.9"
+    },
+    {
+      "name": "every_character",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "every_character = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "random_character",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "random_character = { … }",
+      "version_added": "1.11"
+    },
+    {
+      "name": "every_country_division",
+      "usage": "Within country scope only",
+      "target_type": "division",
+      "example": "every_country_division = { … }",
+      "version_added": "1.12"
+    },
+    {
+      "name": "random_country_division",
+      "usage": "Within country scope only",
+      "target_type": "division",
+      "example": "random_country_division = { … }",
+      "version_added": "1.12"
+    },
+    {
+      "name": "every_state_division",
+      "usage": "Within state scope only",
+      "target_type": "division",
+      "example": "every_state_division = { … }",
+      "version_added": "1.12"
+    },
+    {
+      "name": "random_state_division",
+      "usage": "Within state scope only",
+      "target_type": "division",
+      "example": "random_state_division = { … }",
+      "version_added": "1.12"
+    },
+    {
+      "name": "every_military_industrial_organization",
+      "usage": "Within country scope only",
+      "target_type": "mio",
+      "example": "every_military_industrial_organization = { … }",
+      "version_added": "1.13"
+    },
+    {
+      "name": "random_military_industrial_organization",
+      "usage": "Within country scope only",
+      "target_type": "mio",
+      "example": "random_military_industrial_organization = { … }",
+      "version_added": "1.13"
+    },
+    {
+      "name": "every_purchase_contract",
+      "usage": "Within country scope only",
+      "target_type": "purchase_contract",
+      "example": "every_purchase_contract = { … }",
+      "version_added": "1.13"
+    },
+    {
+      "name": "random_purchase_contract",
+      "usage": "Within country scope only",
+      "target_type": "purchase_contract",
+      "example": "random_purchase_contract = { … }",
+      "version_added": "1.13"
+    },
+    {
+      "name": "every_allied_country",
+      "usage": "Within country scope only",
+      "target_type": "country",
+      "example": "every_allied_country = { … }",
+      "version_added": "1.15"
+    },
+    {
+      "name": "every_scientist",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "every_scientist = { … }",
+      "version_added": "1.15"
+    },
+    {
+      "name": "random_scientist",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "random_scientist = { … }",
+      "version_added": "1.15"
+    },
+    {
+      "name": "every_active_scientist",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "every_active_scientist = { … }",
+      "version_added": "1.15"
+    },
+    {
+      "name": "random_active_scientist",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "random_active_scientist = { … }",
+      "version_added": "1.15"
+    },
+    {
+      "name": "party_leader",
+      "usage": "Within country scope only",
+      "target_type": "character",
+      "example": "party_leader = { limit = { has_ideology = <type> } … }",
+      "version_added": "1.11"
+    }
+  ],
+  "effects_with_scopes": [
+    {
+      "name": "start_civil_war",
+      "parameters": [
+        "ideology",
+        "ruling_party",
+        "size",
+        "army_ratio",
+        "navy_ratio",
+        "air_ratio",
+        "capital",
+        "states",
+        "states_filter",
+        "keep_unit_leaders",
+        "keep_unit_leaders_trigger",
+        "keep_political_leader",
+        "keep_political_party_members",
+        "keep_all_characters"
+      ]
+    },
+    {
+      "name": "create_dynamic_country",
+      "parameters": [
+        "original_tag",
+        "copy_tag",
+        "<effects>"
+      ]
+    }
+  ],
+  "array_scopes": [
+    {
+      "name": "any_of_scopes",
+      "type": "trigger",
+      "parameters": [
+        "array",
+        "tooltip",
+        "<triggers>"
+      ]
+    },
+    {
+      "name": "all_of_scopes",
+      "type": "trigger",
+      "parameters": [
+        "array",
+        "tooltip",
+        "<triggers>"
+      ]
+    },
+    {
+      "name": "for_each_scope_loop",
+      "type": "effect",
+      "parameters": [
+        "array",
+        "break",
+        "<effects>"
+      ]
+    },
+    {
+      "name": "random_scope_in_array",
+      "type": "effect",
+      "parameters": [
+        "array",
+        "break",
+        "limit",
+        "<effects>"
+      ]
+    }
+  ],
+  "prev_usage": {
+    "tips": [
+      "PREV refers to parent scope; chain as PREV.PREV.",
+      "Tooltips may be misleading; use hidden_effect/custom tooltips if needed."
+    ]
+  },
+  "flow_control_tools": [
+    {
+      "name": "AND"
+    },
+    {
+      "name": "OR"
+    },
+    {
+      "name": "NOT"
+    },
+    {
+      "name": "count_triggers"
+    },
+    {
+      "name": "hidden_trigger"
+    },
+    {
+      "name": "custom_trigger_tooltip"
+    },
+    {
+      "name": "custom_override_tooltip"
+    },
+    {
+      "name": "hidden_effect"
+    },
+    {
+      "name": "effect_tooltip"
+    },
+    {
+      "name": "if"
+    },
+    {
+      "name": "for_loop_effect"
+    },
+    {
+      "name": "while_loop_effect"
+    },
+    {
+      "name": "random"
+    },
+    {
+      "name": "random_list"
+    }
+  ]
+}

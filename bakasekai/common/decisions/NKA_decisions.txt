@@ -1,0 +1,345 @@
+# Nokia Handset Development Decisions
+NKA_handset_development = {
+
+        NKA_develop_new_handset = {
+		icon = generic_research
+		
+		allowed = { tag = NKA }
+		
+		available = {
+			has_political_power > 75
+			num_of_civilian_factories > 5
+		}
+		
+		cost = 75
+		
+		days_remove = 90
+		
+		modifier = {
+			civilian_factory_use = 5
+		}
+		
+		remove_effect = {
+			random_list = {
+				10 = {  # Legendary Success
+					country_event = { id = nokia.101 }
+					add_ideas = NKA_legendary_handset
+				}
+				60 = {  # Solid Seller  
+					country_event = { id = nokia.102 }
+					add_ideas = NKA_solid_seller
+				}
+				30 = {  # Commercial Flop
+					country_event = { id = nokia.103 }
+					add_ideas = NKA_commercial_flop
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				has_war = no
+			}
+			modifier = {
+				factor = 0.5
+				has_war = yes
+			}
+		}
+	}
+}
+
+# Network Expansion Decisions (Democratic Path)
+NKA_network_expansion_decisions = {
+
+        NKA_improve_relations_network = {
+		icon = generic_diplomatic_treaty
+		
+		allowed = { 
+			tag = NKA 
+		}
+		
+		visible = {
+			has_idea = NKA_global_network_initiative
+		}
+		
+		target_trigger = {
+			FROM = {
+				NOT = { tag = ROOT }
+				is_major = yes
+				NOT = { has_war_with = ROOT }
+			}
+		}
+		
+		available = {
+			has_political_power > 50
+		}
+		
+		cost = 50
+		days_remove = 30
+		
+		remove_effect = {
+			ROOT = {
+				add_opinion_modifier = {
+					target = FROM
+					modifier = improved_relations
+				}
+			}
+			FROM = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = NKA_network_expansion
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				FROM = { 
+					is_in_faction = no 
+					NOT = { is_puppet = yes }
+				}
+			}
+		}
+	}
+	
+	NKA_establish_nokia_network = {
+		icon = generic_form_faction
+		
+		allowed = { 
+			tag = NKA 
+		}
+		
+		visible = {
+			has_completed_focus = NKA_sekai_wo_tsunagu
+		}
+		
+		available = {
+			has_political_power > 100
+			is_faction_leader = no
+			NOT = { is_in_faction = yes }
+		}
+		
+		cost = 100
+		
+		complete_effect = {
+			create_faction = "ノキア・ネットワーク"
+			add_political_power = 50
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+	}
+}
+
+# Patent War Decisions (Fascist Path)
+NKA_patent_war_decisions = {
+
+        NKA_steal_technology_blueprints = {
+		icon = generic_research
+		
+		allowed = { 
+			tag = NKA 
+		}
+		
+		visible = {
+			has_completed_focus = NKA_tokkyo_sensou
+		}
+		
+		target_trigger = {
+			FROM = {
+				NOT = { tag = ROOT }
+				is_major = yes
+				NOT = { is_subject_of = ROOT }
+			}
+		}
+		
+		available = {
+			has_political_power > 100
+			has_war = no
+		}
+		
+		cost = 100
+		days_remove = 60
+		
+		remove_effect = {
+			random_list = {
+				70 = {  # Success
+					country_event = { id = nokia.30 }
+					FROM = {
+						add_opinion_modifier = {
+							target = ROOT
+							modifier = NKA_patent_theft
+						}
+					}
+				}
+				30 = {  # Failure
+					country_event = { id = nokia.31 }
+					add_political_power = -50
+					FROM = {
+						add_opinion_modifier = {
+							target = ROOT
+							modifier = NKA_failed_espionage
+						}
+					}
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				FROM = { 
+					has_tech_bonus = {
+						technology = infantry_weapons
+					}
+				}
+			}
+		}
+	}
+	
+	NKA_aggressive_expansion = {
+		icon = generic_prepare_civil_war
+		
+		allowed = { 
+			tag = NKA 
+		}
+		
+		visible = {
+			has_completed_focus = NKA_aggressive_monopoly
+		}
+		
+		target_trigger = {
+			FROM = {
+				NOT = { tag = ROOT }
+				is_neighbor_of = ROOT
+				NOT = { is_in_faction_with = ROOT }
+			}
+		}
+		
+		available = {
+			has_political_power > 150
+			has_war = no
+			FROM = { is_guaranteed_by = no }
+		}
+		
+		cost = 150
+		
+		complete_effect = {
+			create_wargoal = {
+				target = FROM
+				type = take_state_focus
+			}
+			add_political_power = -25
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+				FROM = { is_major = yes }
+			}
+			modifier = {
+				factor = 2
+				FROM = { is_subject = yes }
+			}
+		}
+	}
+}
+
+# Revolutionary Decisions (Communist Path)
+NKA_revolutionary_decisions = {
+
+        NKA_spread_open_source_ideology = {
+		icon = generic_propaganda
+		
+		allowed = { 
+			tag = NKA 
+		}
+		
+		visible = {
+			has_completed_focus = NKA_kaihou_sareta_gijutsu
+		}
+		
+		target_trigger = {
+			FROM = {
+				NOT = { tag = ROOT }
+				is_neighbor_of = ROOT
+				NOT = { has_government = communism_ideology }
+			}
+		}
+		
+		available = {
+			has_political_power > 75
+		}
+		
+		cost = 75
+		days_remove = 45
+		
+		remove_effect = {
+			FROM = {
+				add_ideas = NKA_revolutionary_influence
+			}
+			ROOT = {
+				add_political_power = 25
+			}
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				FROM = { 
+					communism_ideology > 0.15
+				}
+			}
+		}
+	}
+}
+
+# Special Equipment Decision (Non-Aligned Path)
+NKA_special_equipment = {
+
+        NKA_develop_3310_equipment = {
+		icon = generic_army_war_college
+		
+		allowed = { 
+			tag = NKA 
+		}
+		
+		visible = {
+			has_completed_focus = NKA_3310_seishin
+		}
+		
+		available = {
+			has_political_power > 100
+			has_tech = infantry_weapons1
+			num_of_military_factories > 3
+		}
+		
+		cost = 100
+		days_remove = 120
+		
+		modifier = {
+			consumer_goods_factor = 0.03
+		}
+		
+		remove_effect = {
+			custom_effect_tooltip = NKA_unlock_3310_equipment_tt
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+			}
+		}
+		
+		ai_will_do = {
+			factor = 2
+		}
+	}
+}

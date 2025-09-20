@@ -1,0 +1,4922 @@
+[
+  {
+    "name": "add_dynamic_modifier",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "modifier": "string",
+      "scope": "country",
+      "days": "int"
+    },
+    "since": "1.6",
+    "desc": "Adds a dynamic modifier to the specified scope (the default scope is ROOT)."
+  },
+  {
+    "name": "remove_dynamic_modifier",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "modifier": "string"
+    },
+    "since": "1.6",
+    "desc": "Removes a dynamic modifier from the current scope."
+  },
+  {
+    "name": "force_update_dynamic_modifier",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.6",
+    "desc": "Forces an update to the effects given by variables within dynamic modifiers."
+  },
+  {
+    "name": "set_global_flag",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "flag": "string",
+      "days": "int",
+      "value": "int"
+    },
+    "since": "1.0",
+    "desc": "Defines a global flag."
+  },
+  {
+    "name": "play_song",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "song": "string"
+    },
+    "since": "1.9.3",
+    "desc": "Plays an audio track."
+  },
+  {
+    "name": "clr_global_flag",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "flag": "string"
+    },
+    "since": "1.0",
+    "desc": "Clears a defined global flag."
+  },
+  {
+    "name": "modify_global_flag",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "flag": "string",
+      "value": "int",
+      "days": "int"
+    },
+    "since": "1.3",
+    "desc": "Adds an integer value to a flag."
+  },
+  {
+    "name": "custom_effect_tooltip",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "tooltip": "string"
+    },
+    "since": "1.0",
+    "desc": "Displays a localized key in the effect tooltip."
+  },
+  {
+    "name": "custom_override_tooltip",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "tooltip": "string",
+      "not_tooltip": "string"
+    },
+    "since": "1.15",
+    "desc": "Executes the provided effects but with a custom tooltip suppressing all tooltips from all other effects inside this block."
+  },
+  {
+    "name": "effect_tooltip",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {},
+    "since": "1.0",
+    "desc": "Displays the effects in the tooltip without executing them."
+  },
+  {
+    "name": "log",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "text": "string"
+    },
+    "since": "1.5",
+    "desc": "Displays a string in the game.log file when executed."
+  },
+  {
+    "name": "save_event_target_as",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Saves the current scope as a key. Is cleared once execution ends."
+  },
+  {
+    "name": "save_global_event_target_as",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Saves the current scope as a key. Persists after execution until cleared via effect."
+  },
+  {
+    "name": "clear_global_event_target",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Clears a specific global event target."
+  },
+  {
+    "name": "clear_global_event_targets",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Clears all global event targets."
+  },
+  {
+    "name": "sound_effect",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "sound": "string"
+    },
+    "since": "1.0",
+    "desc": "Plays the specified sound once."
+  },
+  {
+    "name": "randomize_weather",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "seed": "int"
+    },
+    "since": "1.0",
+    "desc": "Randomizes the weather with the specified seed."
+  },
+  {
+    "name": "set_province_name",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "id": "int",
+      "name": "string"
+    },
+    "since": "1.3",
+    "desc": "Changes the specified province/victory point's name to the specified name."
+  },
+  {
+    "name": "reset_province_name",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "id": "int"
+    },
+    "since": "1.3",
+    "desc": "Resets the specified province's name."
+  },
+  {
+    "name": "damage_units",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "province": "int",
+      "state": "int",
+      "region": "int",
+      "damage": "float",
+      "org_damage": "float",
+      "str_damage": "float",
+      "ratio": "bool",
+      "template": "string",
+      "army": "bool",
+      "navy": "bool"
+    },
+    "since": "1.11",
+    "desc": "Damages units in the specified area."
+  },
+  {
+    "name": "create_entity",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "entity": "string",
+      "id": "int",
+      "var": "variable",
+      "x": "int",
+      "y": "int",
+      "z": "int",
+      "province": "int",
+      "state": "int",
+      "rotation": "float",
+      "scale": "float",
+      "min_zoom": "float",
+      "visible": "string"
+    },
+    "since": "1.11",
+    "desc": "Creates an entity."
+  },
+  {
+    "name": "destroy_entity",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "id": "int"
+    },
+    "since": "1.11",
+    "desc": "Deletes an entity."
+  },
+  {
+    "name": "set_entity_movement",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "id": "int",
+      "ratio": "float",
+      "rotation": "float",
+      "start": "object",
+      "target": "object"
+    },
+    "since": "1.11",
+    "desc": "Sets the position and rotation of an entity using two coordinates."
+  },
+  {
+    "name": "set_entity_position",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "id": "int",
+      "x": "int",
+      "y": "int",
+      "z": "int",
+      "province": "int",
+      "state": "int"
+    },
+    "since": "1.11",
+    "desc": "Sets the position of an existing entity."
+  },
+  {
+    "name": "set_entity_rotation",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "id": "int",
+      "rotation": "float"
+    },
+    "since": "1.11",
+    "desc": "Sets the currently-facing angle of an existing entity."
+  },
+  {
+    "name": "set_entity_scale",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "id": "int",
+      "scale": "float"
+    },
+    "since": "1.11",
+    "desc": "Sets the size of an existing entity."
+  },
+  {
+    "name": "set_entity_animation",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "id": "int",
+      "animation": "string"
+    },
+    "since": "1.11",
+    "desc": "Sets the animation of a specified entity."
+  },
+  {
+    "name": "build_railway",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "level": "int",
+      "build_only_on_allied": "bool",
+      "fallback": "bool",
+      "path": "array",
+      "start_province": "int",
+      "target_province": "int",
+      "start_state": "int",
+      "target_state": "int"
+    },
+    "since": "1.11",
+    "desc": "Adds a railway level between two provinces or along a predefined path."
+  },
+  {
+    "name": "event_option_tooltip",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "option": "string"
+    },
+    "since": "1.13",
+    "desc": "Shows the tooltip usually received for hovering over an event option with the specified name."
+  },
+  {
+    "name": "create_purchase_contract",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "seller": "country",
+      "buyer": "country",
+      "civilian_factories": "int",
+      "equipment": "object"
+    },
+    "since": "1.13",
+    "desc": "Creates a purchase contract with the specified parameters."
+  },
+  {
+    "name": "start_border_war",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "change_state_after_war": "bool",
+      "attacker": "object",
+      "defender": "object"
+    },
+    "since": "1.5",
+    "desc": "Starts a border war for the specified attacker and defender."
+  },
+  {
+    "name": "set_border_war_data",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "attacker": "int",
+      "defender": "int",
+      "attacker_modifier": "float",
+      "defender_modifier": "float",
+      "combat_width": "int"
+    },
+    "since": "1.5",
+    "desc": "Sets the bonuses or penalties for the attacker and defender in an on-going border war."
+  },
+  {
+    "name": "cancel_border_war",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "attacker": "int",
+      "defender": "int",
+      "dont_fire_events": "bool"
+    },
+    "since": "1.5",
+    "desc": "Cancels an on-going border war without a winner."
+  },
+  {
+    "name": "finalize_border_war",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "attacker": "int",
+      "defender": "int",
+      "attacker_win": "bool",
+      "defender_win": "bool"
+    },
+    "since": "1.5",
+    "desc": "Ends an on-going border war."
+  },
+  {
+    "name": "set_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "value": "variable",
+      "tooltip": "string"
+    },
+    "since": "1.0",
+    "desc": "Sets a variable's value to the specified amount, creating it if not defined."
+  },
+  {
+    "name": "set_variable_to_random",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "min": "float",
+      "max": "float",
+      "integer": "bool"
+    },
+    "since": "1.0",
+    "desc": "Sets a variable's value to a random amount between min and max."
+  },
+  {
+    "name": "clear_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string"
+    },
+    "since": "1.0",
+    "desc": "Clears the value from the memory entirely."
+  },
+  {
+    "name": "add_to_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "value": "variable",
+      "tooltip": "string"
+    },
+    "since": "1.0",
+    "desc": "Increases a variable's value by the specified amount."
+  },
+  {
+    "name": "subtract_from_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "value": "variable",
+      "tooltip": "string"
+    },
+    "since": "1.0",
+    "desc": "Decreases a variable's value by the specified amount."
+  },
+  {
+    "name": "multiply_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "value": "variable",
+      "tooltip": "string"
+    },
+    "since": "1.0",
+    "desc": "Multiplies a variable's value by the specified amount."
+  },
+  {
+    "name": "divide_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "value": "variable",
+      "tooltip": "string"
+    },
+    "since": "1.0",
+    "desc": "Divides a variable's value by the specified amount."
+  },
+  {
+    "name": "modulo_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "value": "variable",
+      "tooltip": "string"
+    },
+    "since": "1.0",
+    "desc": "Makes the variable become the remainder of Euclidean division."
+  },
+  {
+    "name": "round_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string"
+    },
+    "since": "1.0",
+    "desc": "Rounds the variable towards the closest integer value."
+  },
+  {
+    "name": "clamp_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "min": "variable",
+      "max": "variable"
+    },
+    "since": "1.0",
+    "desc": "Clamps the variable to ensure its value is between the two specified numbers."
+  },
+  {
+    "name": "career_profile_set_temp_playthrough_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "value": "variable"
+    },
+    "since": "1.0",
+    "desc": "Sets a temporary variable to a value or another variable."
+  },
+  {
+    "name": "career_profile_set_temp_variable",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "var": "string",
+      "value": "variable"
+    },
+    "since": "1.0",
+    "desc": "Sets a temporary variable to a value or another variable."
+  },
+  {
+    "name": "add_to_array",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "array": "string",
+      "value": "variable",
+      "index": "int"
+    },
+    "since": "1.0",
+    "desc": "Adds an element to the array either at the specified index, defaulting to the end otherwise."
+  },
+  {
+    "name": "remove_from_array",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "array": "string",
+      "value": "variable",
+      "index": "int"
+    },
+    "since": "1.0",
+    "desc": "Removes an element from the array with the specified value or index."
+  },
+  {
+    "name": "clear_array",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "array": "string"
+    },
+    "since": "1.0",
+    "desc": "Clears the array, removing every element inside."
+  },
+  {
+    "name": "resize_array",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "array": "string",
+      "value": "variable",
+      "size": "int"
+    },
+    "since": "1.0",
+    "desc": "Resizes the array, removing or adding elements in the end if necessary."
+  },
+  {
+    "name": "find_highest_in_array",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "array": "string",
+      "value": "variable",
+      "index": "variable"
+    },
+    "since": "1.0",
+    "desc": "Finds the largest value in the array and assigns its value and index to a temporary variable."
+  },
+  {
+    "name": "find_lowest_in_array",
+    "type": "effect",
+    "scope": ["country", "state", "character"],
+    "args": {
+      "array": "string",
+      "value": "variable",
+      "index": "variable"
+    },
+    "since": "1.0",
+    "desc": "Finds the smallest value in the array and assigns its value and index to a temporary variable."
+  },
+  {
+    "name": "set_country_flag",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "flag": "string",
+      "days": "int",
+      "value": "int"
+    },
+    "since": "1.0",
+    "desc": "Defines a country flag."
+  },
+  {
+    "name": "clr_country_flag",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "flag": "string"
+    },
+    "since": "1.0",
+    "desc": "Clears a defined country flag."
+  },
+  {
+    "name": "modify_country_flag",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "flag": "string",
+      "value": "int",
+      "days": "int"
+    },
+    "since": "1.3",
+    "desc": "Adds an integer value to a flag."
+  },
+  {
+    "name": "country_event",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string",
+      "days": "variable",
+      "hours": "variable",
+      "random_hours": "variable",
+      "random_days": "variable"
+    },
+    "since": "1.0",
+    "desc": "Fires the specified event for the current country."
+  },
+  {
+    "name": "news_event",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string",
+      "days": "variable",
+      "hours": "variable",
+      "random_hours": "variable",
+      "random_days": "variable"
+    },
+    "since": "1.0",
+    "desc": "Fires the specified news event for the current country."
+  },
+  {
+    "name": "set_cosmetic_tag",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "tag": "string"
+    },
+    "since": "1.3",
+    "desc": "Makes the current scope use the specified cosmetic tag, changing name and flag."
+  },
+  {
+    "name": "drop_cosmetic_tag",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.3",
+    "desc": "Makes the current scope drop the current cosmetic tag they are using."
+  },
+  {
+    "name": "set_rule",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "rule": "string",
+      "desc": "string"
+    },
+    "since": "1.0",
+    "desc": "Toggles the special game rules for the current scope."
+  },
+  {
+    "name": "set_party_rule",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string",
+      "desc": "string",
+      "rule": "bool"
+    },
+    "since": "1.12",
+    "desc": "Toggles the special game rules for the current scope's political party."
+  },
+  {
+    "name": "add_relation_rule_override",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "usage_desc": "string",
+      "trigger": "string",
+      "rule": "bool"
+    },
+    "since": "1.13",
+    "desc": "Toggles the special game rules for the current scope in diplomacy towards the specified country only."
+  },
+  {
+    "name": "remove_relation_rule_override",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "usage_desc": "string",
+      "trigger": "string",
+      "rule": "bool"
+    },
+    "since": "1.13",
+    "desc": "Removes the toggle added with add_relation_rule_override."
+  },
+  {
+    "name": "scoped_sound_effect",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "sound": "string"
+    },
+    "since": "1.6",
+    "desc": "Plays the specified sound once only for the current country."
+  },
+  {
+    "name": "scoped_play_song",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "song": "string"
+    },
+    "since": "1.9.3",
+    "desc": "Plays an audio track for the specified country only."
+  },
+  {
+    "name": "goto_province",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "int"
+    },
+    "since": "1.0",
+    "desc": "Moves the camera position over the specified province."
+  },
+  {
+    "name": "goto_state",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.0",
+    "desc": "Moves the camera position over the specified state."
+  },
+  {
+    "name": "change_tag_from",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "country": "variable"
+    },
+    "since": "1.0",
+    "desc": "Switches the player to the current scope from the target scope."
+  },
+  {
+    "name": "reserve_dynamic_country",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.9",
+    "desc": "Reserves the dynamic country, making sure that it does not get recycled for civil war."
+  },
+  {
+    "name": "force_update_map_mode",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "mapmode": "string"
+    },
+    "since": "1.11",
+    "desc": "Forcefully refreshes the specified mapmode for the player."
+  },
+  {
+    "name": "add_ai_strategy",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "type": "string",
+      "id": "country",
+      "value": "int"
+    },
+    "since": "1.0",
+    "desc": "Sets an AI strategy for the current scope."
+  },
+  {
+    "name": "create_dynamic_country",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "original_tag": "tag",
+      "copy_tag": "tag"
+    },
+    "since": "1.9",
+    "desc": "Creates a new dynamic country, akin to ones used in civil wars."
+  },
+  {
+    "name": "add_state_core",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds a core for the current scope to the specified state."
+  },
+  {
+    "name": "remove_state_core",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.0",
+    "desc": "Removes the core of the current scope from the specified state."
+  },
+  {
+    "name": "set_capital",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "variable",
+      "remember_old_capital": "bool"
+    },
+    "since": "1.0",
+    "desc": "Makes the specified state the current scope's capital state."
+  },
+  {
+    "name": "add_state_claim",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds a claim for the current scope on the specified state."
+  },
+  {
+    "name": "remove_state_claim",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.0",
+    "desc": "Removes a claim of the current scope from the specified state."
+  },
+  {
+    "name": "set_state_owner",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.0",
+    "desc": "Makes the current scope the owner of the specified state."
+  },
+  {
+    "name": "set_state_controller",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.0",
+    "desc": "Makes the current scope the controller of the specified state."
+  },
+  {
+    "name": "add_contested_owner",
+    "type": "effect",
+    "scope": ["country", "state"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.15",
+    "desc": "Adds a contested owner to a state."
+  },
+  {
+    "name": "remove_contested_owner",
+    "type": "effect",
+    "scope": ["country", "state"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.15",
+    "desc": "Removes a contested owner to a state."
+  },
+  {
+    "name": "transfer_state",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "variable"
+    },
+    "since": "1.0",
+    "desc": "Makes the current scope the owner and controller of the specified state."
+  },
+  {
+    "name": "set_province_controller",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "province": "int"
+    },
+    "since": "1.0",
+    "desc": "Changes the controller of the specified province to the current scope."
+  },
+  {
+    "name": "add_political_power",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified amount of political power to the current scope."
+  },
+  {
+    "name": "set_political_power",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.0",
+    "desc": "Sets the specified amount of political power for the current scope."
+  },
+  {
+    "name": "add_stability",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.5",
+    "desc": "Adds to the current stability value for the current scope."
+  },
+  {
+    "name": "set_stability",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.5",
+    "desc": "Sets the current stability value for the current scope."
+  },
+  {
+    "name": "add_war_support",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.5",
+    "desc": "Adds to the current war support value for the current scope."
+  },
+  {
+    "name": "set_war_support",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.5",
+    "desc": "Sets the current war support value for the current scope."
+  },
+  {
+    "name": "add_command_power",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.5",
+    "desc": "Adds the specified amount of command power to the current scope."
+  },
+  {
+    "name": "add_manpower",
+    "type": "effect",
+    "scope": ["country", "state"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified amount of manpower to the current scope."
+  },
+  {
+    "name": "army_experience",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified amount of army experience to the current scope."
+  },
+  {
+    "name": "navy_experience",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified amount of navy experience to the current scope."
+  },
+  {
+    "name": "air_experience",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified amount of air experience to the current scope."
+  },
+  {
+    "name": "set_politics",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ruling_party": "ideology",
+      "elections_allowed": "bool",
+      "last_election": "date",
+      "election_frequency": "int",
+      "long_name": "string",
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Sets the political status of the country, including the ruling party and elections."
+  },
+  {
+    "name": "set_popularities",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "democratic": "variable",
+      "fascism": "variable",
+      "communism": "variable",
+      "neutrality": "variable"
+    },
+    "since": "1.7",
+    "desc": "Sets the political party popularities for the current scope."
+  },
+  {
+    "name": "add_popularity",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string",
+      "popularity": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adjusts the popularity for the specified party in the current scope."
+  },
+  {
+    "name": "set_political_party",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string",
+      "popularity": "int"
+    },
+    "since": "1.0",
+    "desc": "Sets the popularity for the specified political party in the current scope."
+  },
+  {
+    "name": "set_party_name",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string",
+      "long_name": "string",
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Changes the name of the specified political party for the current scope."
+  },
+  {
+    "name": "hold_election",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "country": "country"
+    },
+    "since": "1.0",
+    "desc": "Executes the events in the on_new_term_election on action for the current scope."
+  },
+  {
+    "name": "set_power_balance",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string",
+      "left_side": "string",
+      "right_side": "string",
+      "set_default": "bool",
+      "set_value": "float"
+    },
+    "since": "1.12",
+    "desc": "Sets a new balance of power or edits the existing one."
+  },
+  {
+    "name": "remove_power_balance",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string"
+    },
+    "since": "1.12",
+    "desc": "Removes the balance of power in entirety."
+  },
+  {
+    "name": "add_power_balance_value",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string",
+      "value": "float",
+      "tooltip_side": "string"
+    },
+    "since": "1.12",
+    "desc": "Pushes the balance of power towards one side."
+  },
+  {
+    "name": "add_power_balance_modifier",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string",
+      "modifier": "string"
+    },
+    "since": "1.12",
+    "desc": "Applies a balance of power modifier."
+  },
+  {
+    "name": "remove_power_balance_modifier",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string",
+      "modifier": "string"
+    },
+    "since": "1.12",
+    "desc": "Cancels a balance of power modifier."
+  },
+  {
+    "name": "remove_all_power_balance_modifiers",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string"
+    },
+    "since": "1.12",
+    "desc": "Cancels all balance of power modifiers."
+  },
+  {
+    "name": "set_power_balance_gfx",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string",
+      "side": "string",
+      "gfx": "string"
+    },
+    "since": "1.12",
+    "desc": "Changes the appearance of one of the sides within the balance of power."
+  },
+  {
+    "name": "set_major",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Makes the current scope a major country."
+  },
+  {
+    "name": "create_faction",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Creates a faction with the specified name for the current scope."
+  },
+  {
+    "name": "add_to_faction",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag"
+    },
+    "since": "1.0",
+    "desc": "Adds the target country to the faction of the current scope."
+  },
+  {
+    "name": "leave_faction",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.5",
+    "desc": "Removes the current scope from the faction they are part of."
+  },
+  {
+    "name": "remove_from_faction",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag"
+    },
+    "since": "1.0",
+    "desc": "Removes the specified scope from the faction led by the current scope."
+  },
+  {
+    "name": "dismantle_faction",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Dismantles the faction of the current scope."
+  },
+  {
+    "name": "set_faction_name",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.6",
+    "desc": "Changes faction names."
+  },
+  {
+    "name": "set_faction_leader",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Sets the current country as the faction leader."
+  },
+  {
+    "name": "set_faction_spymaster",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.9",
+    "desc": "Sets the current country as the faction spymaster."
+  },
+  {
+    "name": "release",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.0",
+    "desc": "Releases the specified non-existent country as a free nation."
+  },
+  {
+    "name": "release_on_controlled",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.9.1",
+    "desc": "Releases the specified non-existent country as a free nation within controlled states."
+  },
+  {
+    "name": "release_puppet",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.0",
+    "desc": "Releases the specified non-existent country as a puppet."
+  },
+  {
+    "name": "release_puppet_on_controlled",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.9.1",
+    "desc": "Releases the specified non-existent country as a puppet within controlled states."
+  },
+  {
+    "name": "release_autonomy",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "variable",
+      "autonomy_state": "string",
+      "freedom_level": "float"
+    },
+    "since": "1.3",
+    "desc": "Releases the specified non-existent country as a subject of the specified autonomy."
+  },
+  {
+    "name": "give_guarantee",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.0",
+    "desc": "The current scope guarantees the target country."
+  },
+  {
+    "name": "give_military_access",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.0",
+    "desc": "The current scope grants military access to the target country."
+  },
+  {
+    "name": "recall_attache",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.5",
+    "desc": "Recalls the current scope's attaché from the specified country."
+  },
+  {
+    "name": "diplomatic_relation",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "country": "country",
+      "relation": "string",
+      "active": "bool"
+    },
+    "since": "1.0",
+    "desc": "Used to define a diplomatic relation between the current scope and target scope country."
+  },
+  {
+    "name": "add_opinion_modifier",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "modifier": "string"
+    },
+    "since": "1.0",
+    "desc": "The current scope gains the specified opinion modifier towards the target scope."
+  },
+  {
+    "name": "remove_opinion_modifier",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "modifier": "string"
+    },
+    "since": "1.0",
+    "desc": "The current scope loses the specified opinion modifier towards the target scope."
+  },
+  {
+    "name": "reverse_add_opinion_modifier",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "modifier": "string"
+    },
+    "since": "1.0",
+    "desc": "The target scope gains the specified opinion modifier towards the current scope."
+  },
+  {
+    "name": "add_relation_modifier",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "modifier": "string"
+    },
+    "since": "1.4",
+    "desc": "The current scope gains the specified relation modifier towards the target scope."
+  },
+  {
+    "name": "remove_relation_modifier",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "modifier": "string"
+    },
+    "since": "1.4",
+    "desc": "The current scope loses the specified relation modifier for towards the target scope."
+  },
+  {
+    "name": "add_collaboration",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "value": "float"
+    },
+    "since": "1.9",
+    "desc": "Adds collaboration in TAG with the scoped country."
+  },
+  {
+    "name": "set_collaboration",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "value": "float"
+    },
+    "since": "1.9",
+    "desc": "Sets the collaboration in TAG with the scoped country."
+  },
+  {
+    "name": "recall_volunteers_from",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag"
+    },
+    "since": "1.9",
+    "desc": "Recalls volunteers sent to the specified country back to the current country."
+  },
+  {
+    "name": "set_occupation_law",
+    "type": "effect",
+    "scope": ["country", "state"],
+    "args": {
+      "law": "string"
+    },
+    "since": "1.12",
+    "desc": "Sets the occupation law of the country."
+  },
+  {
+    "name": "set_occupation_law_where_available",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "law": "string"
+    },
+    "since": "1.12",
+    "desc": "Sets the occupation law of the country where possible."
+  },
+  {
+    "name": "send_embargo",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag"
+    },
+    "since": "1.12",
+    "desc": "Embargos the target country."
+  },
+  {
+    "name": "break_embargo",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag"
+    },
+    "since": "1.12",
+    "desc": "Stops embargoing the target country."
+  },
+  {
+    "name": "give_market_access",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag"
+    },
+    "since": "1.13",
+    "desc": "Opens market access between the two countries."
+  },
+  {
+    "name": "puppet",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "end_wars": "bool",
+      "end_civil_wars": "bool"
+    },
+    "since": "1.0",
+    "desc": "Makes the specified country a subject of the current scope."
+  },
+  {
+    "name": "end_puppet",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.0",
+    "desc": "Removes the subject status between the target and the current scope."
+  },
+  {
+    "name": "add_autonomy_ratio",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "float",
+      "localization": "string"
+    },
+    "since": "1.3",
+    "desc": "Adds a freedom score ratio modifier to the current scope."
+  },
+  {
+    "name": "add_autonomy_score",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "float",
+      "localization": "string"
+    },
+    "since": "1.3",
+    "desc": "Adds an exact freedom score modifier to the current scope."
+  },
+  {
+    "name": "set_autonomy",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "variable",
+      "autonomous_state": "string",
+      "freedom_level": "float",
+      "end_wars": "bool",
+      "end_civil_wars": "bool"
+    },
+    "since": "1.3",
+    "desc": "Sets the autonomy level for the specified country, including independence."
+  },
+  {
+    "name": "add_legitimacy",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.6",
+    "desc": "Adds legitimacy to a government in exile."
+  },
+  {
+    "name": "set_legitimacy",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.6",
+    "desc": "Sets the legitimacy of governments in exile."
+  },
+  {
+    "name": "become_exiled_in",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag",
+      "legitimacy": "int"
+    },
+    "since": "1.6",
+    "desc": "Makes a country a government in exile in a set country."
+  },
+  {
+    "name": "end_exile",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.6",
+    "desc": "Ends a government in exile."
+  },
+  {
+    "name": "add_threat",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.0",
+    "desc": "Adjusts the level of World Tension."
+  },
+  {
+    "name": "add_named_threat",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "threat": "int",
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Adjusts the level of World Tension and adds an entry in the World Tension tooltip."
+  },
+  {
+    "name": "annex_country",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "transfer_troops": "bool"
+    },
+    "since": "1.0",
+    "desc": "Annex the specified country for the current scope."
+  },
+  {
+    "name": "add_to_war",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "targeted_alliance": "country",
+      "enemy": "country",
+      "hostility_reason": "string"
+    },
+    "since": "1.0",
+    "desc": "Forces the current scope to join the war of the specified ally against the specified enemy."
+  },
+  {
+    "name": "declare_war_on",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "variable",
+      "type": "string",
+      "generator": "array"
+    },
+    "since": "1.0",
+    "desc": "Makes the current scope declare war on the specified country with the specified wargoal."
+  },
+  {
+    "name": "white_peace",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "tag": "variable",
+      "message": "string"
+    },
+    "since": "1.0",
+    "desc": "Makes the current scope white peace the specified scope."
+  },
+  {
+    "name": "start_peace_conference",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "tag": "variable",
+      "score_factor": "variable",
+      "message": "string",
+      "winner_scope": "string",
+      "loser_scope": "string"
+    },
+    "since": "1.12",
+    "desc": "Makes the current scope start a peace conference with the specified scope on the other side."
+  },
+  {
+    "name": "set_truce",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "days": "int"
+    },
+    "since": "1.0",
+    "desc": "Makes the current scope truce with the specified scope."
+  },
+  {
+    "name": "create_wargoal",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "variable",
+      "type": "string",
+      "generator": "array",
+      "expire": "int"
+    },
+    "since": "1.0",
+    "desc": "Grants the current scope a wargoal against the specified country."
+  },
+  {
+    "name": "remove_wargoal",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "variable",
+      "type": "string"
+    },
+    "since": "1.10.2",
+    "desc": "Removes wargoals from the current scope to the specified country."
+  },
+  {
+    "name": "start_civil_war",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string",
+      "ruling_party": "string",
+      "size": "float",
+      "army_ratio": "float",
+      "navy_ratio": "float",
+      "air_ratio": "float",
+      "capital": "state",
+      "states": "array",
+      "states_filter": "triggers",
+      "keep_unit_leaders": "array",
+      "keep_unit_leaders_trigger": "triggers",
+      "keep_scientists_trigger": "triggers",
+      "keep_political_leader": "bool",
+      "keep_political_party_members": "bool",
+      "keep_all_characters": "bool"
+    },
+    "since": "1.0",
+    "desc": "Starts a civil war for the current scope with the specified parameters."
+  },
+  {
+    "name": "add_civil_war_target",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.9",
+    "desc": "Sets that the war between ROOT and TAG is a civil war."
+  },
+  {
+    "name": "remove_civil_war_target",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.12.13",
+    "desc": "Removes the status of the war as a civil war between the pair of countries."
+  },
+  {
+    "name": "transfer_units_fraction",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "size": "float",
+      "stockpile_ratio": "float",
+      "army_ratio": "float",
+      "navy_ratio": "float",
+      "air_ratio": "float",
+      "keep_unit_leaders_trigger": "triggers"
+    },
+    "since": "1.9",
+    "desc": "Transfers a fraction of the military to a target."
+  },
+  {
+    "name": "add_nuclear_bombs",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.6",
+    "desc": "Adds nuclear bomb to TAG's stockpile."
+  },
+  {
+    "name": "launch_nuke",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "province": "int",
+      "state": "int",
+      "controller": "tag",
+      "use_nuke": "bool",
+      "nuke_type": "string"
+    },
+    "since": "1.6",
+    "desc": "Nukes the specified province or a province in the needed state."
+  },
+  {
+    "name": "add_resource",
+    "type": "effect",
+    "scope": ["country", "state"],
+    "args": {
+      "type": "string",
+      "amount": "int",
+      "state": "int",
+      "show_state_in_tooltip": "bool"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified resource in the specified amount to the specified state."
+  },
+  {
+    "name": "create_import",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "resource": "string",
+      "amount": "int",
+      "exporter": "country"
+    },
+    "since": "1.0",
+    "desc": "Creates an import for the current scope with the specified resource."
+  },
+  {
+    "name": "give_resource_rights",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "receiver": "tag",
+      "state": "state",
+      "resources": "array"
+    },
+    "since": "1.6",
+    "desc": "Gives all the resources of a state to the target country."
+  },
+  {
+    "name": "remove_resource_rights",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "state"
+    },
+    "since": "1.6",
+    "desc": "Removes given resource rights."
+  },
+  {
+    "name": "add_fuel",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.6",
+    "desc": "Adds fuel to the current country."
+  },
+  {
+    "name": "set_fuel",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.6",
+    "desc": "Sets country's current fuel amount."
+  },
+  {
+    "name": "set_fuel_ratio",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ratio": "float"
+    },
+    "since": "1.6",
+    "desc": "Set country's current fuel ratio relative to its capacity."
+  },
+  {
+    "name": "add_offsite_building",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "type": "string",
+      "level": "variable"
+    },
+    "since": "1.5",
+    "desc": "Adds an off-map building for the current scope that produces its effects without being present in a state."
+  },
+  {
+    "name": "modify_building_resources",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "building": "string",
+      "resource": "string",
+      "amount": "int"
+    },
+    "since": "1.5",
+    "desc": "Modifies the resource output of the specified building for the current scope."
+  },
+  {
+    "name": "damage_building",
+    "type": "effect",
+    "scope": ["country", "state"],
+    "args": {
+      "type": "string",
+      "state": "variable",
+      "tags": "string",
+      "repair_speed_modifier": "float",
+      "damage": "float",
+      "province": "variable"
+    },
+    "since": "1.3",
+    "desc": "Damages a building in a targeted state or province."
+  },
+  {
+    "name": "load_focus_tree",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "tree": "string",
+      "keep_completed": "bool",
+      "copy_completed_from": "tag"
+    },
+    "since": "1.5",
+    "desc": "Loads a new focus tree for the current scope."
+  },
+  {
+    "name": "unlock_national_focus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "focus": "string"
+    },
+    "since": "1.0",
+    "desc": "Bypasses the specified focus for the current scope."
+  },
+  {
+    "name": "complete_national_focus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "focus": "string",
+      "originator_name": "string"
+    },
+    "since": "1.0",
+    "desc": "Completes the specified focus for the current scope."
+  },
+  {
+    "name": "uncomplete_national_focus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "focus": "string",
+      "uncomplete_children": "bool",
+      "refund_political_power": "bool"
+    },
+    "since": "1.11",
+    "desc": "Removes a focus from list of completed focus."
+  },
+  {
+    "name": "mark_focus_tree_layout_dirty",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.9",
+    "desc": "Refreshes the focus tree for the specified country."
+  },
+  {
+    "name": "activate_shine_on_focus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "focus": "string"
+    },
+    "since": "1.15",
+    "desc": "Activates the shine effect on the focus with the given id."
+  },
+  {
+    "name": "deactivate_shine_on_focus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "focus": "string"
+    },
+    "since": "1.15",
+    "desc": "Deactivate the shine effect on the focus with the given id."
+  },
+  {
+    "name": "activate_decision",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "decision": "string"
+    },
+    "since": "1.0",
+    "desc": "Activates the specified decision for the current scope."
+  },
+  {
+    "name": "activate_targeted_decision",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "decision": "string"
+    },
+    "since": "1.5",
+    "desc": "Activates the specified targeted decision for the specified target."
+  },
+  {
+    "name": "remove_targeted_decision",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "decision": "string"
+    },
+    "since": "1.5",
+    "desc": "Removes the specified targeted decision for the current scope."
+  },
+  {
+    "name": "unlock_decision_tooltip",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "decision": "string",
+      "show_effect_tooltip": "bool",
+      "show_modifiers": "bool"
+    },
+    "since": "1.5",
+    "desc": "Displays a special tooltip for the specified decision."
+  },
+  {
+    "name": "unlock_decision_category_tooltip",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "category": "string"
+    },
+    "since": "1.5",
+    "desc": "Displays a special tooltip for the specified decision category."
+  },
+  {
+    "name": "add_days_remove",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "decision": "string",
+      "days": "variable"
+    },
+    "since": "1.9",
+    "desc": "Adds the number of days to the timer created by a decision's days_remove."
+  },
+  {
+    "name": "remove_decision",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "decision": "string"
+    },
+    "since": "1.6",
+    "desc": "Removes a decision without running remove_effect."
+  },
+  {
+    "name": "remove_decision_on_cooldown",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "decision": "string"
+    },
+    "since": "1.11",
+    "desc": "If the decision is on cooldown, it gets removed."
+  },
+  {
+    "name": "activate_mission",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "mission": "string"
+    },
+    "since": "1.5",
+    "desc": "Activates the specified mission for the current scope."
+  },
+  {
+    "name": "activate_mission_tooltip",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "mission": "string"
+    },
+    "since": "1.5",
+    "desc": "Displays a special tooltip for the specified mission."
+  },
+  {
+    "name": "remove_mission",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "mission": "string"
+    },
+    "since": "1.5",
+    "desc": "Removes the specified mission for the current scope."
+  },
+  {
+    "name": "add_days_mission_timeout",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "mission": "string",
+      "days": "variable"
+    },
+    "since": "1.9",
+    "desc": "Adds the number of days to the specified mission."
+  },
+  {
+    "name": "add_research_slot",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.0",
+    "desc": "Adjusts the number of research slots the current scope has."
+  },
+  {
+    "name": "set_research_slots",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.0",
+    "desc": "Sets the number of research slots the current scope has."
+  },
+  {
+    "name": "add_tech_bonus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "bonus": "float",
+      "uses": "int",
+      "ahead_reduction": "float",
+      "category": "string",
+      "technology": "string",
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Grants a research bonus to the current scope with the specified parameters."
+  },
+  {
+    "name": "set_technology",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "technology": "string",
+      "popup": "bool"
+    },
+    "since": "1.0",
+    "desc": "Grants the specified technology to the current scope."
+  },
+  {
+    "name": "add_to_tech_sharing_group",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string"
+    },
+    "since": "1.3",
+    "desc": "Adds the current scope to the specified technology sharing group."
+  },
+  {
+    "name": "remove_from_tech_sharing_group",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string"
+    },
+    "since": "1.3",
+    "desc": "Removes the current scope from the specified technology sharing group."
+  },
+  {
+    "name": "modify_tech_sharing_bonus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "string",
+      "bonus": "float"
+    },
+    "since": "1.3",
+    "desc": "Modifies the specified technology sharing group."
+  },
+  {
+    "name": "inherit_technology",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag"
+    },
+    "since": "1.6",
+    "desc": "Makes the current country's researched technologies be copied from the specified country."
+  },
+  {
+    "name": "add_doctrine_cost_reduction",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "cost_reduction": "float",
+      "uses": "int",
+      "category": "string"
+    },
+    "since": "1.11",
+    "desc": "Gives bonuses of reducing land doctrine cost to current scope."
+  },
+  {
+    "name": "mark_technology_tree_layout_dirty",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.15",
+    "desc": "Forces the refresh of the hidden technologies for the scoped country."
+  },
+  {
+    "name": "add_ideas",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "idea": "string"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified ideas to the current scope."
+  },
+  {
+    "name": "add_timed_idea",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "idea": "string",
+      "days": "variable",
+      "months": "variable",
+      "years": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified ideas to the current scope for the specified number of days."
+  },
+  {
+    "name": "modify_timed_idea",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "idea": "string",
+      "days": "variable",
+      "months": "variable",
+      "years": "variable"
+    },
+    "since": "1.0",
+    "desc": "Extends or shortens the duration of the timed idea by the specified amount."
+  },
+  {
+    "name": "swap_ideas",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "add_idea": "string",
+      "remove_idea": "string"
+    },
+    "since": "1.3",
+    "desc": "Switches two ideas with a tooltip displaying any modifier differences between them."
+  },
+  {
+    "name": "remove_ideas",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "idea": "string"
+    },
+    "since": "1.0",
+    "desc": "Removes the specified idea from the current scope."
+  },
+  {
+    "name": "remove_ideas_with_trait",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "trait": "string"
+    },
+    "since": "1.0",
+    "desc": "Removes all ideas for the current scope that use the specified trait."
+  },
+  {
+    "name": "show_ideas_tooltip",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "idea": "string"
+    },
+    "since": "1.0",
+    "desc": "Displays the specified idea in the tooltip for the current effect scope."
+  },
+  {
+    "name": "load_oob",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Loads the specified order of battle for the current scope."
+  },
+  {
+    "name": "division_template",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "regiments": "object",
+      "support": "object",
+      "division_names_group": "string",
+      "is_locked": "bool",
+      "force_allow_recruiting": "bool",
+      "division_cap": "int",
+      "priority": "int",
+      "template_counter": "int",
+      "override_model": "string"
+    },
+    "since": "1.0",
+    "desc": "Creates and adds the specified division template to the current scope."
+  },
+  {
+    "name": "create_colonial_division_template",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "subject": "country",
+      "division_template": "object"
+    },
+    "since": "1.15",
+    "desc": "Create a colonial division template for overlord/owner."
+  },
+  {
+    "name": "add_units_to_division_template",
+    "type": "effect",
+    "scope": ["country", "division"],
+    "args": {
+      "template_name": "string","regiments": "object",
+      "support": "object"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified brigades to first available slots of specified columns to the template."
+  },
+  {
+    "name": "set_division_template_lock",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "division_template": "string",
+      "is_locked": "bool"
+    },
+    "since": "1.5",
+    "desc": "Toggles the locked status on a division template for the current scope."
+  },
+  {
+    "name": "country_lock_all_division_template",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "is_locked": "bool",
+      "desc": "string"
+    },
+    "since": "1.9",
+    "desc": "Locks all division templates for the current scope."
+  },
+  {
+    "name": "set_division_force_allow_recruiting",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "division_template": "string",
+      "force_allow_recruiting": "bool"
+    },
+    "since": "1.12",
+    "desc": "Changes whether it's possible to recruit divisions of a locked template without unlocking the template."
+  },
+  {
+    "name": "set_division_template_cap",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "division_template": "string",
+      "division_cap": "int"
+    },
+    "since": "1.12",
+    "desc": "Sets the cap of a division template."
+  },
+  {
+    "name": "clear_division_template_cap",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "division_template": "string"
+    },
+    "since": "1.12",
+    "desc": "Clears the cap on the template, allowing it to have an unlimited amount of divisions."
+  },
+  {
+    "name": "delete_unit_template_and_units",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "division_template": "string",
+      "disband": "bool"
+    },
+    "since": "1.5",
+    "desc": "Deletes the specified division template and all units using it for the current scope."
+  },
+  {
+    "name": "delete_unit",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "state": "int",
+      "division_template": "string",
+      "id": "int",
+      "disband": "bool"
+    },
+    "since": "1.5",
+    "desc": "Deletes all units that meet the filters."
+  },
+  {
+    "name": "delete_units",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "division_template": "string",
+      "disband": "bool"
+    },
+    "since": "1.9",
+    "desc": "Deletes all units with a certain template."
+  },
+  {
+    "name": "create_railway_gun",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "equipment": "string",
+      "name": "string",
+      "location": "province"
+    },
+    "since": "1.11",
+    "desc": "Creates a railway gun."
+  },
+  {
+    "name": "teleport_railway_guns_to_deploy_province",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.11",
+    "desc": "Teleports all railway guns to the province where they get deployed."
+  },
+  {
+    "name": "add_unit_bonus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "unit": "object"
+    },
+    "since": "1.0",
+    "desc": "Adds permanent subunit and subunit category bonuses for country."
+  },
+  {
+    "name": "set_equipment_fraction",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "fraction": "variable"
+    },
+    "since": "1.0",
+    "desc": "Reduces the overall equipment stockpile by the specified fraction."
+  },
+  {
+    "name": "add_equipment_to_stockpile",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "type": "string",
+      "amount": "variable",
+      "producer": "variable",
+      "variant_name": "string"
+    },
+    "since": "1.0",
+    "desc": "Edits the equipment stockpile of the current scope."
+  },
+  {
+    "name": "send_equipment",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "equipment": "string",
+      "amount": "variable",
+      "target": "variable"
+    },
+    "since": "1.0",
+    "desc": "Sends the specified amount of equipment to the specified target."
+  },
+  {
+    "name": "send_equipment_fraction",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "float",
+      "target": "variable"
+    },
+    "since": "1.9",
+    "desc": "Sends the specified fraction of equipment to the specified target."
+  },
+  {
+    "name": "create_production_license",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country",
+      "cost_factor": "float",
+      "equipment": "object"
+    },
+    "since": "1.4",
+    "desc": "Grants the specified country a license to produce the specified equipment from the current scope."
+  },
+  {
+    "name": "add_equipment_subsidy",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "cic": "int",
+      "equipment_type": "string",
+      "seller_tags": "array",
+      "seller_trigger": "string"
+    },
+    "since": "1.13",
+    "desc": "Creates an equipment subsidy on the international market."
+  },
+  {
+    "name": "add_cic",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.13",
+    "desc": "Modifies the economic capacity bank on the international market."
+  },
+  {
+    "name": "create_equipment_variant",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "type": "string",
+      "parent_version": "int",
+      "show_position": "bool",
+      "obsolete": "bool",
+      "mark_older_equipment_obsolete": "bool",
+      "name_group": "string",
+      "role_icon_index": "int",
+      "model": "string",
+      "icon": "string",
+      "design_team": "string",
+      "allow_without_tech": "bool",
+      "upgrades": "object",
+      "modules": "object"
+    },
+    "since": "1.0",
+    "desc": "Creates the specified equipment variant for the current scope."
+  },
+  {
+    "name": "add_equipment_production",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "amount": "int",
+      "requested_factories": "int",
+      "progress": "float",
+      "efficiency": "float",
+      "name": "string",
+      "industrial_manufacturer": "string",
+      "equipment": "object"
+    },
+    "since": "1.0",
+    "desc": "Starts a production line for the specified equipment for the current scope."
+  },
+  {
+    "name": "add_design_template_bonus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "uses": "int",
+      "cost_factor": "float",
+      "equipment": "string"
+    },
+    "since": "1.15",
+    "desc": "Add free bonus design discount to given types with a set of uses."
+  },
+  {
+    "name": "add_equipment_bonus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "project": "string",
+      "name": "string",
+      "bonus": "object"
+    },
+    "since": "1.15",
+    "desc": "Adds the specified equipment bonuses to the country."
+  },
+  {
+    "name": "set_equipment_version_number",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "type": "string",
+      "version": "int"
+    },
+    "since": "1.16",
+    "desc": "Changes current version number for a given equipment type to N."
+  },
+  {
+    "name": "destroy_ships",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "type": "string",
+      "count": "int"
+    },
+    "since": "1.5",
+    "desc": "Destroys the specified type and amount of ships controlled by the current scope."
+  },
+  {
+    "name": "transfer_navy",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.5",
+    "desc": "Transfers the current scope navy to the specified country."
+  },
+  {
+    "name": "transfer_ship",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "type": "string",
+      "target": "country",
+      "prefer_name": "string",
+      "exclude_refitting": "bool"
+    },
+    "since": "1.4",
+    "desc": "Transfers the specified type of ship from the current scope to the specified country."
+  },
+  {
+    "name": "create_ship",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "type": "string",
+      "equipment_variant": "string",
+      "creator": "country",
+      "name": "string",
+      "amount": "int"
+    },
+    "since": "1.9",
+    "desc": "Create a ship from another country and assign it to the reserve fleet."
+  },
+  {
+    "name": "add_mines",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "region": "int",
+      "amount": "int"
+    },
+    "since": "1.6",
+    "desc": "Add mines to a strategic region."
+  },
+  {
+    "name": "add_ace",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "surname": "string",
+      "callsign": "string",
+      "type": "string",
+      "is_female": "bool"
+    },
+    "since": "1.0",
+    "desc": "Adds an ace for the current scope."
+  },
+  {
+    "name": "create_intelligence_agency",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "icon": "string"
+    },
+    "since": "1.9",
+    "desc": "Creates an Intelligence Agency."
+  },
+  {
+    "name": "upgrade_intelligence_agency",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "upgrade": "string"
+    },
+    "since": "1.9",
+    "desc": "Unlocks an Intelligence Agency Upgrade."
+  },
+  {
+    "name": "add_decryption",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag",
+      "amount": "int",
+      "ratio": "float"
+    },
+    "since": "1.9",
+    "desc": "Adds decryption towards the target country."
+  },
+  {
+    "name": "add_intel",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "target": "tag",
+      "civilian_intel": "int",
+      "army_intel": "int",
+      "navy_intel": "int",
+      "airforce_intel": "int"
+    },
+    "since": "1.9",
+    "desc": "Adds the specified amount of intel towards the specified country."
+  },
+  {
+    "name": "add_operation_token",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "tag": "tag",
+      "token": "string"
+    },
+    "since": "1.9",
+    "desc": "Adds an operation token towards the country."
+  },
+  {
+    "name": "remove_operation_token",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "tag": "tag",
+      "token": "string"
+    },
+    "since": "1.9",
+    "desc": "Removes an operation token from the country."
+  },
+  {
+    "name": "capture_operative",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "operative": "tag",
+      "ignore_death_chance": "bool"
+    },
+    "since": "1.9",
+    "desc": "Captures the specified operative."
+  },
+  {
+    "name": "create_operative_leader",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "bypass_recruitment": "bool",
+      "available_to_spy_master": "bool",
+      "portrait_tag_override": "bool",
+      "name": "string",
+      "GFX": "string",
+      "nationalities": "array",
+      "traits": "array",
+      "gender": "string"
+    },
+    "since": "1.9",
+    "desc": "Creates an operative for the current scope with the specified attributes."
+  },
+  {
+    "name": "free_operative",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "operative": "tag"
+    },
+    "since": "1.9",
+    "desc": "Frees the specifies operative."
+  },
+  {
+    "name": "free_random_operative",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "captured_by": "tag",
+      "all": "bool"
+    },
+    "since": "1.9",
+    "desc": "Frees one random captured operative or all of them."
+  },
+  {
+    "name": "kill_operative",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "operative": "tag"
+    },
+    "since": "1.9",
+    "desc": "Kills the targeted operative."
+  },
+  {
+    "name": "turn_operative",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "operative": "tag"
+    },
+    "since": "1.9",
+    "desc": "Turns the targeted operative against their own country."
+  },
+  {
+    "name": "steal_random_tech_bonus",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "category": "string",
+      "folder": "string",
+      "ahead_reduction": "float",
+      "bonus": "float",
+      "base_bonus": "float",
+      "instant": "bool",
+      "dynamic": "bool",
+      "name": "string",
+      "target": "tag",
+      "uses": "int"
+    },
+    "since": "1.9",
+    "desc": "Steals a random tech bonus from the specified country."
+  },
+  {
+    "name": "set_nationality",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "target_country": "variable",
+      "character": "character"
+    },
+    "since": "1.11",
+    "desc": "Switches the specified character to the specified country."
+  },
+  {
+    "name": "retire_character",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "character": "character"
+    },
+    "since": "1.11",
+    "desc": "Retires the character, removing every role they hold."
+  },
+  {
+    "name": "set_character_name",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "name": "string"
+    },
+    "since": "1.11",
+    "desc": "Sets the new name for the target character."
+  },
+  {
+    "name": "character_list_tooltip",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "limit": "triggers",
+      "random_select_amount": "int"
+    },
+    "since": "1.11",
+    "desc": "Displays a list of every character meeting the specified limitation."
+  },
+  {
+    "name": "add_trait",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "slot": "string",
+      "ideology": "string",
+      "trait": "string"
+    },
+    "since": "1.11",
+    "desc": "Adds the specified country leader trait to the character."
+  },
+  {
+    "name": "remove_trait",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "slot": "string",
+      "ideology": "string",
+      "trait": "string"
+    },
+    "since": "1.11",
+    "desc": "Removes the specified trait from the character."
+  },
+  {
+    "name": "create_corps_commander",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "picture": "string",
+      "skill": "int",
+      "attack_skill": "int",
+      "defense_skill": "int",
+      "planning_skill": "int",
+      "logistics_skill": "int",
+      "traits": "array",
+      "female": "bool",
+      "legacy_id": "int"
+    },
+    "since": "1.0",
+    "desc": "Creates a commander for the current scope with the specified attributes."
+  },
+  {
+    "name": "create_field_marshal",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "picture": "string",
+      "skill": "int",
+      "attack_skill": "int",
+      "defense_skill": "int",
+      "planning_skill": "int",
+      "logistics_skill": "int",
+      "traits": "array",
+      "female": "bool",
+      "legacy_id": "int"
+    },
+    "since": "1.0",
+    "desc": "Creates a field marshal for the current scope with the specified attributes."
+  },
+  {
+    "name": "create_navy_leader",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "picture": "string",
+      "skill": "int",
+      "attack_skill": "int",
+      "defense_skill": "int",
+      "maneuvering_skill": "int",
+      "coordination_skill": "int",
+      "traits": "array",
+      "female": "bool",
+      "legacy_id": "int"
+    },
+    "since": "1.0",
+    "desc": "Creates a naval leader for the current scope with the specified attributes."
+  },
+  {
+    "name": "remove_unit_leader",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "id": "int"
+    },
+    "since": "1.0",
+    "desc": "Removes the specified unit leader by their legacy ID."
+  },
+  {
+    "name": "add_corps_commander_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "skill": "int",
+      "attack_skill": "int",
+      "defense_skill": "int",
+      "planning_skill": "int",
+      "logistics_skill": "int"
+    },
+    "since": "1.11",
+    "desc": "Sets the specified character to also act as a corps commander."
+  },
+  {
+    "name": "add_field_marshal_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "skill": "int",
+      "attack_skill": "int",
+      "defense_skill": "int",
+      "planning_skill": "int",
+      "logistics_skill": "int"
+    },
+    "since": "1.11",
+    "desc": "Sets the specified character to also act as a field marshal."
+  },
+  {
+    "name": "add_naval_commander_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "skill": "int",
+      "attack_skill": "int",
+      "defense_skill": "int",
+      "maneuvering_skill": "int",
+      "coordination_skill": "int"
+    },
+    "since": "1.11",
+    "desc": "Sets the specified character to also act as an admiral."
+  },
+  {
+    "name": "show_unit_leaders_tooltip",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "character": "character"
+    },
+    "since": "1.11",
+    "desc": "Shows the name of the specified character as a tooltip."
+  },
+  {
+    "name": "create_country_leader",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string",
+      "desc": "string",
+      "picture": "string",
+      "expire": "string",
+      "ideology": "string",
+      "female": "bool",
+      "traits": "array"
+    },
+    "since": "1.0",
+    "desc": "Creates a country leader with specified attributes."
+  },
+  {
+    "name": "add_country_leader_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "promote_leader": "bool",
+      "country_leader": "object"
+    },
+    "since": "1.11",
+    "desc": "Sets the specified character to also act as a country leader."
+  },
+  {
+    "name": "promote_character",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "ideology": "string"
+    },
+    "since": "1.11",
+    "desc": "Promotes a character to the leader of their political party."
+  },
+  {
+    "name": "remove_country_leader_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "ideology": "string"
+    },
+    "since": "1.11",
+    "desc": "Removes a country leader role from a character."
+  },
+  {
+    "name": "kill_ideology_leader",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string"
+    },
+    "since": "1.9",
+    "desc": "Kills the country leader of the designated ideology for the current scope."
+  },
+  {
+    "name": "retire_ideology_leader",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string"
+    },
+    "since": "1.9",
+    "desc": "Retires and removes the country leader of the ideology party for the current scope."
+  },
+  {
+    "name": "kill_country_leader",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Kills the country leader for the current scope."
+  },
+  {
+    "name": "retire_country_leader",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Retires and removes the country leader as head of their party for the current scope."
+  },
+  {
+    "name": "set_country_leader_ideology",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "government": "string"
+    },
+    "since": "1.0",
+    "desc": "Changes the country leader's government type for the current scope."
+  },
+  {
+    "name": "set_country_leader_description",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string",
+      "desc": "string"
+    },
+    "since": "1.9.1",
+    "desc": "Changes the country leader's description."
+  },
+  {
+    "name": "set_country_leader_name",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string",
+      "name": "string"
+    },
+    "since": "1.9.1",
+    "desc": "Changes the country leader's name."
+  },
+  {
+    "name": "set_country_leader_portrait",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "ideology": "string",
+      "portrait": "string"
+    },
+    "since": "1.9.1",
+    "desc": "Changes the country leader's portrait."
+  },
+  {
+    "name": "add_country_leader_trait",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "trait": "string",
+      "ideology": "string"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified trait to the current country's country leader."
+  },
+  {
+    "name": "remove_country_leader_trait",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "trait": "string"
+    },
+    "since": "1.0",
+    "desc": "Removes the specified trait from the current scope's country leader."
+  },
+  {
+    "name": "swap_ruler_traits",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "remove": "string",
+      "add": "string"
+    },
+    "since": "1.6",
+    "desc": "Swaps traits."
+  },
+  {
+    "name": "swap_country_leader_traits",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "remove": "string",
+      "add": "string",
+      "ideology": "string"
+    },
+    "since": "1.11",
+    "desc": "Swaps traits of the current character."
+  },
+  {
+    "name": "activate_advisor",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "character": "character"
+    },
+    "since": "1.11",
+    "desc": "Hires an advisor, placing them into their respective slot."
+  },
+  {
+    "name": "deactivate_advisor",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "character": "character"
+    },
+    "since": "1.11",
+    "desc": "Dismisses an advisor from their respective slot, leaving it empty."
+  },
+  {
+    "name": "add_advisor_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "activate": "bool",
+      "advisor": "object"
+    },
+    "since": "1.11",
+    "desc": "Sets the specified character to also act as an advisor."
+  },
+  {
+    "name": "remove_advisor_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "slot": "string"
+    },
+    "since": "1.11",
+    "desc": "Removes the specified advisor role from the character."
+  },
+  {
+    "name": "set_can_be_fired_in_advisor_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "character",
+      "slot": "string",
+      "value": "bool"
+    },
+    "since": "1.12.8",
+    "desc": "Changes the can_be_fired attribute of the advisor."
+  },
+  {
+    "name": "add_scientist_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "variable",
+      "scientist": "object"
+    },
+    "since": "1.15",
+    "desc": "Adds the scientist role to a character."
+  },
+  {
+    "name": "remove_scientist_role",
+    "type": "effect",
+    "scope": ["country", "character"],
+    "args": {
+      "character": "variable"
+    },
+    "since": "1.15",
+    "desc": "Remove the scientist role from a character."
+  },
+  {
+    "name": "generate_scientist_character",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "portrait": "string",
+      "portrait_tag_override": "variable",
+      "gender": "string",
+      "skills": "object",
+      "traits": "array"
+    },
+    "since": "1.15",
+    "desc": "Generate a new character with a scientist role and recruit it in the country in scope."
+  },
+  {
+    "name": "show_mio_tooltip",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "mio": "string"
+    },
+    "since": "1.13",
+    "desc": "Displays a tooltip that shows the name of the MIO and its initial trait."
+  },
+  {
+    "name": "unlock_military_industrial_organization_tooltip",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "mio": "variable"
+    },
+    "since": "1.13",
+    "desc": "Display a tooltip saying the MIO is made available."
+  },
+  {
+    "name": "unlock_mio_policy_tooltip",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "policy": "string",
+      "show_modifiers": "bool"
+    },
+    "since": "1.13",
+    "desc": "Displays a tooltip that says that the policy is made available."
+  },
+  {
+    "name": "add_mio_policy_cost",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "policy": "string",
+      "value": "int"
+    },
+    "since": "1.13",
+    "desc": "Modifies the base cost of a MIO policy."
+  },
+  {
+    "name": "set_mio_policy_cost",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "policy": "string",
+      "value": "int"
+    },
+    "since": "1.13",
+    "desc": "Modifies the base cost of a MIO policy."
+  },
+  {
+    "name": "add_mio_policy_cooldown",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "policy": "string",
+      "value": "int"
+    },
+    "since": "1.13",
+    "desc": "Modifies the base length of a MIO policy cooldown."
+  },
+  {
+    "name": "set_mio_policy_cooldown",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "policy": "string",
+      "value": "int"
+    },
+    "since": "1.13",
+    "desc": "Modifies the base length of a MIO policy cooldown."
+  },
+  {
+    "name": "complete_special_project",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "project": "string",
+      "scientist": "character",
+      "state": "string",
+      "iteration_output": "array",
+      "show_modifiers": "bool"
+    },
+    "since": "1.15",
+    "desc": "Complete a special project for the country in scope."
+  },
+  {
+    "name": "add_breakthrough_points",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "specialization": "string",
+      "value": "int"
+    },
+    "since": "1.15",
+    "desc": "Add breakthrough points to one specialization or all for a country scope."
+  },
+  {
+    "name": "add_breakthrough_progress",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "specialization": "string",
+      "value": "int"
+    },
+    "since": "1.15",
+    "desc": "Add breakthrough progress to one specialization or all for a country scope."
+  },
+  {
+    "name": "career_profile_step_missiolini",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Step completed Mussolini missions by one for the career profile."
+  },
+  {
+    "name": "recruit_character",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "character": "character"
+    },
+    "since": "1.11",
+    "desc": "Initially assigns the specified character to the current country."
+  },
+  {
+    "name": "generate_character",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "token_base": "string",
+      "name": "string"
+    },
+    "since": "1.11",
+    "desc": "Generates a character for current country."
+  },
+  {
+    "name": "set_oob",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Sets the order of battle to be used for the current country's divisions."
+  },
+  {
+    "name": "set_naval_oob",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Sets the naval order of battle to be used for the current country's divisions."
+  },
+  {
+    "name": "set_air_oob",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.12",
+    "desc": "Sets the air order of battle to be used for the current country's divisions."
+  },
+  {
+    "name": "set_keyed_oob",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "key": "string",
+      "name": "string"
+    },
+    "since": "1.0",
+    "desc": "Sets the keyed order of battle to be used for the current country's divisions."
+  },
+  {
+    "name": "get_highest_scored_country_temp",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "scorer": "string",
+      "var": "string"
+    },
+    "since": "1.0",
+    "desc": "Calculates the highest scored country that is defined in a country scorer and sets it to a variable."
+  },
+  {
+    "name": "get_sorted_scored_countries_temp",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "scorer": "string",
+      "array": "string",
+      "scores": "string"
+    },
+    "since": "1.0",
+    "desc": "Calculates & sorts all countries in a country scorer and stores them and their scores in temp arrays."
+  },
+  {
+    "name": "get_supply_vehicles",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "var": "string",
+      "type": "string",
+      "need": "bool"
+    },
+    "since": "1.0",
+    "desc": "Sets a variable to the number of supply vehicles in stockpile or that are needed."
+  },
+  {
+    "name": "get_supply_vehicles_temp",
+    "type": "effect",
+    "scope": ["country"],
+    "args": {
+      "var": "string",
+      "type": "string",
+      "need": "bool"
+    },
+    "since": "1.0",
+    "desc": "Sets a temp variable to the number of supply vehicles in stockpile or that are needed."
+  },
+  {
+    "name": "state_event",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "id": "string",
+      "days": "variable",
+      "hours": "variable",
+      "random": "variable",
+      "random_days": "variable",
+      "trigger_for": "string"
+    },
+    "since": "1.0",
+    "desc": "Fires the specified event for the current state."
+  },
+  {
+    "name": "set_state_flag",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "flag": "string",
+      "days": "int",
+      "value": "int"
+    },
+    "since": "1.0",
+    "desc": "Defines a state flag."
+  },
+  {
+    "name": "clr_state_flag",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "flag": "string"
+    },
+    "since": "1.0",
+    "desc": "Clears a defined state flag."
+  },
+  {
+    "name": "modify_state_flag",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "flag": "string",
+      "value": "int",
+      "days": "int"
+    },
+    "since": "1.3",
+    "desc": "Adds an integer value to a flag."
+  },
+  {
+    "name": "set_state_name",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "name": "string"
+    },
+    "since": "1.3",
+    "desc": "Changes the current state's name to the specified name."
+  },
+  {
+    "name": "reset_state_name",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.3",
+    "desc": "Resets any changes to the current state's name."
+  },
+  {
+    "name": "add_claim_by",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "country": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds a claim for the specified country on the current scope."
+  },
+  {
+    "name": "remove_claim_by",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "country": "variable"
+    },
+    "since": "1.0",
+    "desc": "Removes a claim by the specified country on the current scope."
+  },
+  {
+    "name": "add_core_of",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "country": "variable"
+    },
+    "since": "1.0",
+    "desc": "Adds a core for the specified country on the current scope."
+  },
+  {
+    "name": "remove_core_of",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "country": "variable"
+    },
+    "since": "1.0",
+    "desc": "Removes a core for the specified country on the current scope."
+  },
+  {
+    "name": "set_demilitarized_zone",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Makes the current scope a demilitarized zone."
+  },
+  {
+    "name": "set_state_category",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "category": "string"
+    },
+    "since": "1.3",
+    "desc": "Changes the current state category to the specified category."
+  },
+  {
+    "name": "add_state_modifier",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "modifier": "object"
+    },
+    "since": "1.3",
+    "desc": "Adds a modifier to the current state."
+  },
+  {
+    "name": "set_border_war",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Enables Border War status for the current state."
+  },
+  {
+    "name": "create_unit",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "division": "string",
+      "owner": "country",
+      "prioritize_location": "province",
+      "allow_spawning_on_enemy_provs": "bool",
+      "count": "int",
+      "id": "int",
+      "country_score": "object",
+      "divisional_commander_xp": "int"
+    },
+    "since": "1.3",
+    "desc": "Adds the specified division to the current state."
+  },
+  {
+    "name": "teleport_armies",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "limit": "triggers",
+      "to_state_array": "array",
+      "to_province": "int",
+      "to_state": "int"
+    },
+    "since": "1.9",
+    "desc": "Teleports all armies in the specified state if the owner of the armies meets the condition."
+  },
+  {
+    "name": "add_province_modifier",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "static_modifiers": "array",
+      "province": "variable",
+      "provinces": "object",
+      "days": "int"
+    },
+    "since": "1.6",
+    "desc": "Adds a province modifier to the specified provinces in this state."
+  },
+  {
+    "name": "remove_province_modifier",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "static_modifiers": "array",
+      "province": "variable",
+      "provinces": "object"
+    },
+    "since": "1.6",
+    "desc": "Removes a province modifier to the specified provinces in this state."
+  },
+  {
+    "name": "add_victory_points",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "province": "int",
+      "value": "int"
+    },
+    "since": "1.10",
+    "desc": "Adds victory points to a province."
+  },
+  {
+    "name": "set_victory_points",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "province": "int",
+      "value": "int"
+    },
+    "since": "1.10",
+    "desc": "Sets the number of victory point in a province."
+  },
+  {
+    "name": "set_state_province_controller",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "controller": "tag",
+      "limit": "triggers"
+    },
+    "since": "1.9",
+    "desc": "Changes the controller of all provinces within that state controlled by countries that meet triggers."
+  },
+  {
+    "name": "transfer_state_to",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "country": "country"
+    },
+    "since": "1.11",
+    "desc": "Sets owner and controller of the state to the given country."
+  },
+  {
+    "name": "set_state_owner_to",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "country": "country"
+    },
+    "since": "1.11",
+    "desc": "Sets the owner of the state to the given country."
+  },
+  {
+    "name": "set_state_controller_to",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "country": "country"
+    },
+    "since": "1.11",
+    "desc": "Sets the controller of the state to the given country."
+  },
+  {
+    "name": "add_extra_state_shared_building_slots",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.0",
+    "desc": "Changes the number of shared building slots for the current state."
+  },
+  {
+    "name": "add_building_construction",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "type": "string",
+      "level": "variable",
+      "instant_build": "bool",
+      "province": "object"
+    },
+    "since": "1.0",
+    "desc": "Starts construction in the current state for the specified building."
+  },
+  {
+    "name": "set_building_level",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "type": "string",
+      "level": "variable",
+      "instant_build": "bool",
+      "province": "object"
+    },
+    "since": "1.4",
+    "desc": "Sets the specified building to the current state."
+  },
+  {
+    "name": "remove_building",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "type": "string",
+      "tag": "string",
+      "level": "variable"
+    },
+    "since": "1.0",
+    "desc": "Removes the specified building in the current state."
+  },
+  {
+    "name": "construct_building_in_random_province",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "building": "string",
+      "amount": "int"
+    },
+    "since": "1.15",
+    "desc": "Set building level in a random province of state scope."
+  },
+  {
+    "name": "add_compliance",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.9",
+    "desc": "Adds compliance to the specified state."
+  },
+  {
+    "name": "add_resistance",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.9",
+    "desc": "Adds resistance to the specified state."
+  },
+  {
+    "name": "add_resistance_target",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "id": "int",
+      "amount": "variable",
+      "occupied": "country",
+      "occupier": "country",
+      "days": "variable",
+      "tooltip": "string"
+    },
+    "since": "1.9",
+    "desc": "Increases resistance target in the specified state."
+  },
+  {
+    "name": "cancel_resistance",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.9",
+    "desc": "Cancels resistance activity for the current state."
+  },
+  {
+    "name": "force_disable_resistance",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "clear": "bool",
+      "occupier": "country",
+      "occupied": "country"
+    },
+    "since": "1.9",
+    "desc": "Disables resistance for the scoped state when the occupier is the specified country."
+  },
+  {
+    "name": "force_enable_resistance",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "clear": "bool",
+      "occupier": "country",
+      "occupied": "country"
+    },
+    "since": "1.9",
+    "desc": "Enables resistance for the scoped state when the occupier is the specified country."
+  },
+  {
+    "name": "remove_resistance_target",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "id": "variable"
+    },
+    "since": "1.9",
+    "desc": "Removes a set resistance target increase in the specified state."
+  },
+  {
+    "name": "set_compliance",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.9",
+    "desc": "Sets compliance in the specified state."
+  },
+  {
+    "name": "set_resistance",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "amount": "variable"
+    },
+    "since": "1.9",
+    "desc": "Sets resistance in the specified state."
+  },
+  {
+    "name": "start_resistance",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "target": "country"
+    },
+    "since": "1.9",
+    "desc": "Starts resistance in the specified state."
+  },
+  {
+    "name": "set_garrison_strength",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "strength": "float"
+    },
+    "since": "1.9",
+    "desc": "Sets the strength of the garrison in the specified state."
+  },
+  {
+    "name": "raid_reduce_project_progress_ratio",
+    "type": "effect",
+    "scope": ["state"],
+    "args": {
+      "ratio": "float"
+    },
+    "since": "1.15",
+    "desc": "Reduce progress to the special project in state."
+  },
+  {
+    "name": "set_character_flag",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "flag": "string",
+      "days": "int",
+      "value": "int"
+    },
+    "since": "1.11",
+    "desc": "Defines a character flag."
+  },
+  {
+    "name": "clr_character_flag",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "flag": "string"
+    },
+    "since": "1.11",
+    "desc": "Clears a character flag."
+  },
+  {
+    "name": "modify_character_flag",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "flag": "string",
+      "value": "int",
+      "days": "int"
+    },
+    "since": "1.11",
+    "desc": "Adds an integer value to a flag."
+  },
+  {
+    "name": "retire",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.5",
+    "desc": "Retires the current character (removing them)."
+  },
+  {
+    "name": "set_portraits",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "character": "character",
+      "army": "object",
+      "civilian": "object"
+    },
+    "since": "1.11",
+    "desc": "Changes the specified portraits of a character."
+  },
+  {
+    "name": "add_scientist_level",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "level": "variable",
+      "specialization": "string"
+    },
+    "since": "1.15",
+    "desc": "Add levels to a special project specialization for a scientist character in scope."
+  },
+  {
+    "name": "injure_scientist_for_days",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "days": "variable"
+    },
+    "since": "1.15",
+    "desc": "Injure a scientist for x amount of days to a scientist character in scope."
+  },
+  {
+    "name": "add_scientist_trait",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "trait": "string"
+    },
+    "since": "1.15",
+    "desc": "Add a trait to a scientist character in scope."
+  },
+  {
+    "name": "add_scientist_xp",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "experience": "variable",
+      "specialization": "string"
+    },
+    "since": "1.15",
+    "desc": "Add experience to a special project specialization for a scientist character in scope."
+  },
+  {
+    "name": "unit_leader_event",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "id": "string",
+      "days": "variable",
+      "hours": "variable",
+      "random": "variable",
+      "random_days": "variable"
+    },
+    "since": "1.5",
+    "desc": "Fires the specified event for the owner of the current unit leader."
+  },
+  {
+    "name": "set_unit_leader_flag",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "flag": "string"
+    },
+    "since": "1.5",
+    "desc": "Defines a unit leader flag."
+  },
+  {
+    "name": "clr_unit_leader_flag",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "flag": "string"
+    },
+    "since": "1.5",
+    "desc": "Clears a defined unit leader flag."
+  },
+  {
+    "name": "modify_unit_leader_flag",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "flag": "string",
+      "value": "int",
+      "days": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds an integer value to a flag."
+  },
+  {
+    "name": "promote_leader",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.5",
+    "desc": "Promotes the current unit leader to Field Marshal (if Commander)."
+  },
+  {
+    "name": "demote_leader",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.5",
+    "desc": "Demotes the current unit leader to Commander (if Field Marshal)."
+  },
+  {
+    "name": "add_unit_leader_trait",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "trait": "string"
+    },
+    "since": "1.0",
+    "desc": "Adds the specified trait to the current unit leader."
+  },
+  {
+    "name": "remove_unit_leader_trait",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "trait": "string"
+    },
+    "since": "1.0",
+    "desc": "Removes the specified trait from the current unit leader."
+  },
+  {
+    "name": "add_random_trait",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "traits": "array"
+    },
+    "since": "1.5",
+    "desc": "Adds a random trait from the list to the character."
+  },
+  {
+    "name": "add_timed_unit_leader_trait",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "trait": "string",
+      "days": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds the specified trait to the current unit leader for the specified duration."
+  },
+  {
+    "name": "replace_unit_leader_trait",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {},
+    "since": "1.5",
+    "desc": "Replaces unit leader traits."
+  },
+  {
+    "name": "remove_exile_tag",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.6",
+    "desc": "Remove the exile tag on an army leader."
+  },
+  {
+    "name": "gain_xp",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.9",
+    "desc": "Adds experience to the current unit leader."
+  },
+  {
+    "name": "remove_unit_leader",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.0",
+    "desc": "Removes the current unit leader."
+  },
+  {
+    "name": "remove_unit_leader_role",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.11",
+    "desc": "Removes every unit leader role from the character."
+  },
+  {
+    "name": "supply_units",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "hours": "variable"
+    },
+    "since": "1.5",
+    "desc": "Adds the specified amount of hours of supply to troops led by the current unit leader."
+  },
+  {
+    "name": "add_max_trait",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds the specified amount of assignable trait slots to the current unit leader."
+  },
+  {
+    "name": "add_skill_level",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds skill to the current unit leader."
+  },
+  {
+    "name": "add_logistics",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds logistics skill to the current unit leader."
+  },
+  {
+    "name": "add_planning",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds planning skill to the current unit leader."
+  },
+  {
+    "name": "add_defense",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds defense skill to the current unit leader."
+  },
+  {
+    "name": "add_attack",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds attack skill to the current unit leader."
+  },
+  {
+    "name": "add_coordination",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds coordination skill to the current navy leader."
+  },
+  {
+    "name": "add_maneuver",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.5",
+    "desc": "Adds maneuver skill to the current navy leader."
+  },
+  {
+    "name": "add_temporary_buff_to_units",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "combat_offense": "float",
+      "combat_breakthrough": "float",
+      "combat_defense": "float",
+      "combat_entrenchment": "float",
+      "org_damage_multiplier": "float",
+      "str_damage_multiplier": "float",
+      "war_support_reduction_on_damage": "float",
+      "cannot_retreat_while_attacking": "float",
+      "cannot_retreat_while_defending": "float",
+      "days": "int",
+      "tooltip": "string"
+    },
+    "since": "1.5",
+    "desc": "Adds the specified combat buff to the current unit leader."
+  },
+  {
+    "name": "add_nationality",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "tag": "tag"
+    },
+    "since": "1.9",
+    "desc": "Adds the nationality to the current operative."
+  },
+  {
+    "name": "capture_operative",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "captured_by": "tag",
+      "ignore_death_chance": "bool"
+    },
+    "since": "1.9",
+    "desc": "Makes the current operative be captured by a specific country."
+  },
+  {
+    "name": "force_operative_leader_into_hiding",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.9",
+    "desc": "Forces the current operative into hiding."
+  },
+  {
+    "name": "free_operative",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "captured_by": "tag"
+    },
+    "since": "1.9",
+    "desc": "Frees the current operative."
+  },
+  {
+    "name": "harm_operative_leader",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.9",
+    "desc": "Harms the current operative."
+  },
+  {
+    "name": "kill_operative",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "killed_by": "tag"
+    },
+    "since": "1.9",
+    "desc": "Kills the current operative."
+  },
+  {
+    "name": "turn_operative",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "turned_by": "tag"
+    },
+    "since": "1.9",
+    "desc": "Turns the current operative against their own country."
+  },
+  {
+    "name": "operative_leader_event",
+    "type": "effect",
+    "scope": ["character"],
+    "args": {
+      "id": "string",
+      "days": "variable",
+      "hours": "variable",
+      "random": "variable",
+      "random_days": "variable",
+      "originator": "tag",
+      "recipient": "tag",
+      "set_from": "tag",
+      "set_from_from": "tag",
+      "set_root": "tag"
+    },
+    "since": "1.9",
+    "desc": "Fires the specified event for the operative."
+  },
+  {
+    "name": "destroy_unit",
+    "type": "effect",
+    "scope": ["division"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.12",
+    "desc": "Destroys the currently-scoped division."
+  },
+  {
+    "name": "add_history_entry",
+    "type": "effect",
+    "scope": ["division"],
+    "args": {
+      "key": "string",
+      "subject": "string",
+      "allow": "bool"
+    },
+    "since": "1.12",
+    "desc": "Creates an entry within the command history of a division."
+  },
+  {
+    "name": "change_division_template",
+    "type": "effect",
+    "scope": ["division"],
+    "args": {
+      "division_template": "string"
+    },
+    "since": "1.12",
+    "desc": "Changes the template of the division to the specified one."
+  },
+  {
+    "name": "add_random_valid_trait_from_unit",
+    "type": "effect",
+    "scope": ["division"],
+    "args": {
+      "character": "character"
+    },
+    "since": "1.12",
+    "desc": "Adds a random valid unit trait to a unit leader."
+  },
+  {
+    "name": "add_unit_medal_to_latest_entry",
+    "type": "effect",
+    "scope": ["division"],
+    "args": {
+      "unit_medals": "string"
+    },
+    "since": "1.12",
+    "desc": "Adds the specified medal to the latest entry within the unit's history."
+  },
+  {
+    "name": "add_divisional_commander_xp",
+    "type": "effect",
+    "scope": ["division"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.12",
+    "desc": "Adds the specified amount of experience to the divisional commander."
+  },
+  {
+    "name": "reseed_division_commander",
+    "type": "effect",
+    "scope": ["division"],
+    "args": {
+      "seed": "int"
+    },
+    "since": "1.12",
+    "desc": "Re-randomises the division commander using the given seed."
+  },
+  {
+    "name": "set_unit_organization",
+    "type": "effect",
+    "scope": ["division"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the organisation of the unit."
+  },
+  {
+    "name": "add_mio_funds",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.13",
+    "desc": "Adds funds to the MIO."
+  },
+  {
+    "name": "set_mio_funds",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.13",
+    "desc": "Sets the funds of a MIO to the certain level."
+  },
+  {
+    "name": "add_mio_funds_gain_factor",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base multiplier to MIO's funds."
+  },
+  {
+    "name": "set_mio_funds_gain_factor",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base multiplier to MIO's funds."
+  },
+  {
+    "name": "add_mio_size",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.13",
+    "desc": "Adds sizes to the MIO."
+  },
+  {
+    "name": "add_mio_size_up_requirement_factor",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base multiplier to the requirement to size up a MIO."
+  },
+  {
+    "name": "set_mio_size_up_requirement_factor",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base multiplier to the requirement to size up a MIO."
+  },
+  {
+    "name": "add_mio_task_capacity",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.13",
+    "desc": "Changes the base maximum task capacity of the MIO."
+  },
+  {
+    "name": "set_mio_task_capacity",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.13",
+    "desc": "Changes the base maximum task capacity of the MIO."
+  },
+  {
+    "name": "add_mio_research_bonus",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base research bonus of the MIO."
+  },
+  {
+    "name": "set_mio_research_bonus",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base research bonus of the MIO."
+  },
+  {
+    "name": "set_mio_name_key",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "key": "string"
+    },
+    "since": "1.13",
+    "desc": "Changes the name of the MIO."
+  },
+  {
+    "name": "set_mio_icon",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "icon": "string"
+    },
+    "since": "1.13",
+    "desc": "Changes the MIO's icon."
+  },
+  {
+    "name": "add_mio_design_team_assign_cost",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base political power cost of the MIO to assign research."
+  },
+  {
+    "name": "set_mio_design_team_assign_cost",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base political power cost of the MIO to assign research."
+  },
+  {
+    "name": "add_mio_industrial_manufacturer_assign_cost",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base political power cost of the MIO to assign production lines."
+  },
+  {
+    "name": "set_mio_industrial_manufacturer_assign_cost",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base political power cost of the MIO to assign production lines."
+  },
+  {
+    "name": "add_mio_design_team_change_cost",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base experience cost of the MIO to assign to equipment by a percentage."
+  },
+  {
+    "name": "set_mio_design_team_change_cost",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.13",
+    "desc": "Changes the base experience cost of the MIO to assign to equipment by a percentage."
+  },
+  {
+    "name": "unlock_mio_trait_tooltip",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "trait": "string",
+      "show_modifiers": "bool"
+    },
+    "since": "1.13",
+    "desc": "Displays a tooltip that says that the trait is made available."
+  },
+  {
+    "name": "complete_mio_trait",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "trait": "string",
+      "show_modifiers": "bool"
+    },
+    "since": "1.13",
+    "desc": "Completes the specified MIO trait."
+  },
+  {
+    "name": "set_mio_flag",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "flag": "string",
+      "days": "int",
+      "value": "int"
+    },
+    "since": "1.13",
+    "desc": "Defines a MIO flag."
+  },
+  {
+    "name": "clr_mio_flag",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "flag": "string"
+    },
+    "since": "1.13",
+    "desc": "Clears a defined MIO flag."
+  },
+  {
+    "name": "modify_mio_flag",
+    "type": "effect",
+    "scope": ["mio"],
+    "args": {
+      "flag": "string",
+      "value": "int",
+      "days": "int"
+    },
+    "since": "1.13",
+    "desc": "Adds an integer value to a flag."
+  },
+  {
+    "name": "cancel_purchase_contract",
+    "type": "effect",
+    "scope": ["contract"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.13",
+    "desc": "Cancels the current purchase contract."
+  },
+  {
+    "name": "add_raid_history_entry",
+    "type": "effect",
+    "scope": ["raid"],
+    "args": {
+      "value": "bool"
+    },
+    "since": "1.15",
+    "desc": "Add history entry to a raid."
+  },
+  {
+    "name": "raid_add_unit_experience",
+    "type": "effect",
+    "scope": ["raid"],
+    "args": {
+      "amount": "float"
+    },
+    "since": "1.15",
+    "desc": "Will give experience to any type of unit assigned to the raid."
+  },
+  {
+    "name": "raid_damage_units",
+    "type": "effect",
+    "scope": ["raid"],
+    "args": {
+      "damage": "float",
+      "org_damage": "float",
+      "str_damage": "float",
+      "plane_loss": "float",
+      "ratio": "bool"
+    },
+    "since": "1.15",
+    "desc": "Damage is applied to ground units while damage to plane is defined as the amount of planes lost."
+  },
+  {
+    "name": "add_project_progress_ratio",
+    "type": "effect",
+    "scope": ["special_project"],
+    "args": {
+      "ratio": "float"
+    },
+    "since": "1.15",
+    "desc": "Add progress to the project's prototype phase."
+  },
+  {
+    "name": "complete_prototype_reward_option",
+    "type": "effect",
+    "scope": ["special_project"],
+    "args": {
+      "prototype_reward": "string",
+      "prototype_reward_option": "string",
+      "show_modifiers": "bool"
+    },
+    "since": "1.15",
+    "desc": "Complete a prototype reward option for the project in scope."
+  },
+  {
+    "name": "set_project_flag",
+    "type": "effect",
+    "scope": ["special_project"],
+    "args": {
+      "flag": "string",
+      "days": "int",
+      "value": "int"
+    },
+    "since": "1.15",
+    "desc": "Defines a project flag."
+  },
+  {
+    "name": "clr_project_flag",
+    "type": "effect",
+    "scope": ["special_project"],
+    "args": {
+      "flag": "string"
+    },
+    "since": "1.15",
+    "desc": "Clears a defined project flag."
+  },
+  {
+    "name": "modify_project_flag",
+    "type": "effect",
+    "scope": ["special_project"],
+    "args": {
+      "flag": "string",
+      "value": "int",
+      "days": "int"
+    },
+    "since": "1.15",
+    "desc": "Adds an integer value to a flag."
+  },
+  {
+    "name": "execute_operation_coordinated_strike",
+    "type": "effect",
+    "scope": ["operation"],
+    "args": {
+      "amount": "int"
+    },
+    "since": "1.9",
+    "desc": "All prepared Port Strike and Strategic Bombing in the target region will execute multiple times."
+  }
+]

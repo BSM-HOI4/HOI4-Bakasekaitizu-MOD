@@ -1,0 +1,395 @@
+# エミュー帝国イベント
+add_namespace = emu_empire
+
+# エミュー帝国の誕生
+country_event = {
+	id = emu_empire.1
+	title = emu_empire.1.t
+	desc = emu_empire.1.d
+	picture = GFX_report_event_generic_peaceful_annexation
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = emu_empire.1.a
+		add_political_power = 100
+		add_stability = 0.1
+                add_ideas = emu_empire_awakened
+		ai_chance = { factor = 100 }
+	}
+}
+
+# 大エミュー戦争の記念
+country_event = {
+	id = emu_empire.2
+	title = emu_empire.2.t
+	desc = emu_empire.2.d
+	picture = GFX_report_event_generic_military_parade
+	
+	trigger = {
+		tag = AUS
+                has_idea = emu_war_legacy
+		date > 1936.11.1
+		date < 1936.11.30
+	}
+	
+	fire_only_once = yes
+	
+	option = {
+		name = emu_empire.2.a
+		add_political_power = 50
+		add_war_support = 0.05
+		ai_chance = { factor = 100 }
+	}
+}
+
+# 羽毛議会の設立
+country_event = {
+	id = emu_empire.3
+	title = emu_empire.3.t
+	desc = emu_empire.3.d
+	picture = GFX_report_event_generic_parliament
+	
+	trigger = {
+		tag = AUS
+		has_completed_focus = AUS_feathered_government
+	}
+	
+	fire_only_once = yes
+	
+	option = {
+		name = emu_empire.3.a
+		add_political_power = 200
+                add_ideas = feathered_bureaucracy
+		ai_chance = { factor = 100 }
+	}
+}
+
+# 砂塵嵐による敵軍の混乱
+country_event = {
+	id = emu_empire.4
+	title = emu_empire.4.t
+	desc = emu_empire.4.d
+	picture = GFX_report_event_generic_desert
+	
+	trigger = {
+		tag = AUS
+                has_idea = dust_storm_defense
+		has_war = yes
+		any_enemy_country = {
+			any_owned_state = {
+                                is_coastal = no
+                                has_terrain = desert
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 6
+	}
+	
+	option = {
+		name = emu_empire.4.a
+                add_dynamic_modifier = {
+                        modifier = dust_storm_advantage
+                        days = 60
+                }
+		ai_chance = { factor = 100 }
+	}
+}
+
+# エミューの大移住
+country_event = {
+	id = emu_empire.5
+	title = emu_empire.5.t
+	desc = emu_empire.5.d
+	picture = GFX_report_event_generic_factory
+	
+	trigger = {
+		tag = AUS
+		has_completed_focus = AUS_feather_industry
+		any_owned_state = {
+			free_building_slots = {
+				building = industrial_complex
+				size > 1
+			}
+		}
+	}
+	
+	fire_only_once = yes
+	
+	option = {
+		name = emu_empire.5.a
+		random_owned_controlled_state = {
+			limit = {
+				free_building_slots = {
+					building = industrial_complex
+					size > 1
+				}
+			}
+			add_building_construction = {
+				type = industrial_complex
+				level = 1
+				instant_build = yes
+			}
+		}
+		ai_chance = { factor = 100 }
+	}
+	
+	option = {
+		name = emu_empire.5.b
+		add_political_power = 100
+		ai_chance = { factor = 0 }
+	}
+}
+
+# 世界征服宣言
+country_event = {
+	id = emu_empire.6
+	title = emu_empire.6.t
+	desc = emu_empire.6.d
+	picture = GFX_report_event_generic_sign_treaty2
+	
+	trigger = {
+		tag = AUS
+		has_completed_focus = AUS_world_domination
+	}
+	
+	fire_only_once = yes
+	
+	option = {
+		name = emu_empire.6.a
+		add_political_power = 300
+                add_ideas = emu_world_ambition
+		every_other_country = {
+			limit = { is_major = yes }
+			country_event = { id = emu_empire.7 days = 1 }
+		}
+		ai_chance = { factor = 100 }
+	}
+}
+
+# 他国への世界征服宣言通知
+country_event = {
+	id = emu_empire.7
+	title = emu_empire.7.t
+	desc = emu_empire.7.d
+	picture = GFX_report_event_generic_read_write
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = emu_empire.7.a
+		add_opinion_modifier = {
+			target = AUS
+			modifier = threatened_by_emu_empire
+		}
+		ai_chance = { factor = 70 }
+	}
+	
+	option = {
+		name = emu_empire.7.b
+		add_opinion_modifier = {
+			target = AUS
+			modifier = amused_by_emu_empire
+		}
+		ai_chance = { factor = 30 }
+	}
+}
+
+# 羽毛の大集団移動
+country_event = {
+	id = emu_empire.8
+	title = emu_empire.8.t
+	desc = emu_empire.8.d
+	picture = GFX_report_event_generic_large_group
+	
+	trigger = {
+		tag = AUS
+		has_completed_focus = AUS_great_emu_migration
+		date > 1937.3.1
+		date < 1937.6.1
+	}
+	
+	fire_only_once = yes
+	
+	option = {
+		name = emu_empire.8.a
+                add_ideas = emu_migration_bonus
+		random_owned_controlled_state = {
+			limit = { is_coastal = no }
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		ai_chance = { factor = 100 }
+	}
+}
+
+# エミューの卵泥棒事件
+country_event = {
+	id = emu_empire.9
+	title = emu_empire.9.t
+	desc = emu_empire.9.d
+	picture = GFX_report_event_generic_peaceful_annexation
+	
+	trigger = {
+		tag = AUS
+		has_war = no
+		any_neighbor_country = {
+			NOT = { is_subject_of = AUS }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 18
+	}
+	
+	option = {
+		name = emu_empire.9.a
+		add_political_power = 100
+		random_neighbor_country = {
+			limit = { NOT = { is_subject_of = AUS } }
+			add_opinion_modifier = {
+				target = AUS
+				modifier = emu_egg_theft_incident
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	
+	option = {
+		name = emu_empire.9.b
+		add_stability = 0.05
+		add_war_support = -0.05
+		ai_chance = { factor = 40 }
+	}
+}
+
+# フェザー・ラミング作戦の成功
+country_event = {
+	id = emu_empire.10
+	title = emu_empire.10.t
+	desc = emu_empire.10.d
+	picture = GFX_report_event_generic_tank_breakthrough
+	
+	trigger = {
+		tag = AUS
+                has_idea = emu_ramming_tactics
+		has_war = yes
+		any_enemy_country = {
+			has_tech = basic_light_tank_chassis
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 4
+	}
+	
+	option = {
+		name = emu_empire.10.a
+                add_dynamic_modifier = {
+                        modifier = successful_ramming_operation
+                        days = 120
+                }
+		add_war_support = 0.10
+		ai_chance = { factor = 100 }
+	}
+}
+
+# 鳥類外交サミット
+country_event = {
+	id = emu_empire.11
+	title = emu_empire.11.t
+	desc = emu_empire.11.d
+	picture = GFX_report_event_generic_conference
+	
+	trigger = {
+		tag = AUS
+		has_completed_focus = AUS_avian_diplomacy
+		any_other_country = {
+			OR = {
+				tag = USA  # 白頭鷲の国
+				tag = GER  # ドイツの鷲
+				tag = POL  # ポーランドの鷲
+			}
+		}
+	}
+	
+	fire_only_once = yes
+	
+	option = {
+		name = emu_empire.11.a
+		add_political_power = 150
+		every_other_country = {
+			limit = {
+				OR = {
+					tag = USA
+					tag = GER
+					tag = POL
+				}
+			}
+			add_opinion_modifier = {
+				target = AUS
+				modifier = bird_diplomatic_understanding
+			}
+		}
+		ai_chance = { factor = 80 }
+	}
+	
+	option = {
+		name = emu_empire.11.b
+                add_dynamic_modifier = {
+                        modifier = avian_diplomatic_isolationism
+                        days = 365
+                }
+		ai_chance = { factor = 20 }
+	}
+}
+
+# 翼なき征服者の宣言
+country_event = {
+	id = emu_empire.12
+	title = emu_empire.12.t
+	desc = emu_empire.12.d
+	picture = GFX_report_event_generic_sign_treaty2
+	
+	trigger = {
+		tag = AUS
+		has_completed_focus = AUS_wingless_conqueror
+	}
+	
+	fire_only_once = yes
+	
+	option = {
+		name = emu_empire.12.a
+                add_ideas = wingless_conqueror_spirit
+		add_named_threat = { threat = 5 name = "Emu Empire Expansionism" }
+		every_other_country = {
+			limit = { is_major = yes }
+			country_event = { id = emu_empire.13 days = 1 }
+		}
+		ai_chance = { factor = 100 }
+	}
+}
+
+# 他国への翼なき征服者通知
+country_event = {
+	id = emu_empire.13
+	title = emu_empire.13.t
+	desc = emu_empire.13.d
+	picture = GFX_report_event_generic_read_write
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = emu_empire.13.a
+		add_opinion_modifier = {
+			target = AUS
+			modifier = fear_of_emu_empire
+		}
+		ai_chance = { factor = 100 }
+	}
+}

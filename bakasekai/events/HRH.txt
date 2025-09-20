@@ -1,1 +1,38 @@
 add_namespace = HRH_recapture_states
+
+country_event = {
+  id = HRH_recapture_states.1
+  title = HRH_recapture_states.1.t
+  desc = HRH_recapture_states.1.d
+  is_triggered_only = yes
+  option = {
+    name = HRH_recapture_states.1.a
+    hidden_effect = {
+      AST = {
+        country_event = { id = HRH_recapture_states.2 days = 1 }
+      }
+    }
+  }
+}
+
+country_event = {
+  id = HRH_recapture_states.2
+  title = HRH_recapture_states.2.t
+  desc = HRH_recapture_states.2.d
+  is_triggered_only = yes
+  option = {
+    name = HRH_recapture_states.2.a
+    ai_chance = { factor = 90 }
+    HRH = {
+      set_rule = { can_create_factions = yes }
+      create_faction = Bokka_Alliance
+      give_guarantee = AST
+    }
+    add_to_faction = HRH
+    give_guarantee = HRH
+  }
+  option = {
+    name = HRH_recapture_states.2.b
+    ai_chance = { factor = 10 }
+  }
+}
