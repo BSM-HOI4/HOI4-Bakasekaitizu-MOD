@@ -47,7 +47,10 @@ on_actions = {
         limit = { check_variable = { global.gold_demand_peace_decrease > 0 } }
         set_variable = { demand_value = global.gold_demand_peace_monthly_decrease }
         multiply_variable = { demand_value = -1 }
-        change_gold_demand = yes
+        if = {
+          limit = { check_variable = { demand_value < 0.5 } }
+          change_gold_demand = yes
+        }
         subtract_from_variable = { global.gold_demand_peace_decrease = global.gold_demand_peace_monthly_decrease }
         # 減少量がゼロ以下になったら変数をクリア
         if = {
