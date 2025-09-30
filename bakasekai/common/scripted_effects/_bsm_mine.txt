@@ -5,23 +5,29 @@ mine_first_setting = {
 	clear_array = bsm_mine_log_value_2
 	clear_array = bsm_mine_log_value_3
 	set_variable = { global.gold_demand_additional = 0.5 }		#鉱山の需要
+	
 }
 #現在のスコープの領有する鉱山のレベルの合計を算出します。
 calc_mine_total = {
-	hidden_effect = {
-		#金鉱山
-		set_variable = { MD_mine_size = 0 }
-		#領有済
-		every_owned_state = {
-			limit = { check_variable = { THIS.gold_mine > 0 } }
-			add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
+	owner = {
+		hidden_effect = {
+			#金鉱山
+			set_variable = { MD_mine_size = 0 }
+			#領有済
+			every_owned_state = {
+				limit = { check_variable = { THIS.gold_mine > 0 } }
+				add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
+			}
+			#占領済み
+			every_controlled_state = {
+				limit = { 
+					check_variable = { THIS.gold_mine > 0 } 
+					is_in_array = { PREV.occupied_mine_state = THIS } 
+				}
+				add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
+			}
+			# log = "[?ROOT.GetName]/[?ROOT.MD_mine_size]"
 		}
-		#占領済み
-		every_controlled_state = {
-			limit = { check_variable = { THIS.gold_mine > 0 } is_in_array = { occupied_mine_state = THIS } }
-			add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
-		}
-		# log = "[?ROOT.GetName]/[?ROOT.MD_mine_size]"
 	}
 }
 
@@ -54,14 +60,10 @@ change_gold_demand = {
 		custom_effect_tooltip = tt_change_gold_demand
 		add_to_variable = { global.gold_demand_additional = demand_value }	
 		#ログ
-		every_country = {
-			limit = { always = yes }
-			add_to_array = { array = bsm_mine_log_id value = 2 index = 0}#要因
-			add_to_array = { array = bsm_mine_log_value_1 value = 1 index = 0}
-			add_to_array = { array = bsm_mine_log_value_2 value = demand_value index = 0}
-			add_to_array = { array = bsm_mine_log_value_3 value = 0 index = 0} #使わない
-
-		}
+		add_to_array = { array = bsm_mine_log_id value = 2 index = 0}#要因
+		add_to_array = { array = bsm_mine_log_value_1 value = 3 index = 0}
+		add_to_array = { array = bsm_mine_log_value_2 value = demand_value index = 0}
+		add_to_array = { array = bsm_mine_log_value_3 value = 0 index = 0} #使わない
 		calc_gold_demand = yes
 
 	}
@@ -106,10 +108,10 @@ mine_on_monthly = {
 	add_to_variable = { Unified_Currency = MD_gain } #通貨から収入を足す
 	#( ;∀;)
 		
-	add_to_array = { array = bsm_mine_log_id value = 4 index = 0}
-	add_to_array = { array = bsm_mine_log_value_1 value = MD_gain index = 0}
-	add_to_array = { array = bsm_mine_log_value_2 value = global.date index = 0}
-	add_to_array = { array = bsm_mine_log_value_3 value = 0 index = 0} #使わない
+	# add_to_array = { array = bsm_mine_log_id value = 1 index = 0}
+	# add_to_array = { array = bsm_mine_log_value_1 value = MD_gain index = 0}
+	# add_to_array = { array = bsm_mine_log_value_2 value = global.date index = 0}
+	# add_to_array = { array = bsm_mine_log_value_3 value = 0 index = 0} #使わない
 	#ランダムイベント
 	random_owned_state = {
 		limit = { check_variable = { THIS.gold_mine > 0 } }

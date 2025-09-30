@@ -9,37 +9,12 @@ eth_red_sea_aggressive_invasion = {
     # 毎日チェックされ、この条件が満たされればストラテジーが有効になります。
     enable = {
         has_war_with = ETH # 現在のAIがETHと戦争中であること [cite: 51]
-        NOT = { # 既に戦略地域102の制海権を確保していないこと
-            naval_superiority = {
-                region = 102 # 戦略地域102 (紅海) [cite: 2]
-                value = 0.8 # 80%以上の制海権 [cite: 2]
-            }
-        }
-        NOT = { # 既に戦略地域102の制空権を確保していないこと
-            air_superiority = {
-                region = 102 # 戦略地域102 (紅海) [cite: 3]
-                value = 0.8 # 80%以上の制空権 [cite: 3]
-            }
-        }
     }
 
     # AIストラテジーが中止される条件
     # 毎日チェックされ、この条件が満たされればストラテジーが中止されます。
     abort = {
-        OR = {
-            NOT = { has_war_with = ETH } # 現在のAIがETHと戦争中でないこと [cite: 76]
-            # 戦略地域102の制海権と制空権を十分に確保した場合に中止
-            AND = {
-                naval_superiority = {
-                    region = 102 [cite: 4]
-                    value = 0.9 # 90%以上の制海権で十分とみなす [cite: 4]
-                }
-                air_superiority = {
-                    region = 102 [cite: 5]
-                    value = 0.9 # 90%以上の制空権で十分とみなす [cite: 5]
-                }
-            }
-        }
+        NOT = { has_war_with = ETH } # 現在のAIがETHと戦争中でないこと [cite: 76]
     }
 
     # enable条件が満たされなくなった場合に、即座に中止するかどうか
@@ -63,14 +38,14 @@ eth_red_sea_aggressive_invasion = {
 
     # 戦略地域102の制海権獲得を優先するAIストラテジー
     ai_strategy = {
-        type = naval_supremacy # 制海権獲得を促すAIストラテジー (修正: naval_superiority -> naval_supremacy) [cite: 661]
+        type = naval_priority # 制海権獲得を促すAIストラテジー
         id = 102 # 戦略地域102 (紅海) を対象
         value = 100 # 優先度 [cite: 8]
     }
 
     # 戦略地域102の制空権獲得を優先するAIストラテジー
     ai_strategy = {
-        type = air_supremacy # 制空権獲得を促すAIストラテジー (修正: air_superiority -> air_supremacy) [cite: 661]
+        type = air_priority # 制空権獲得を促すAIストラテジー
         id = 102 # 戦略地域102 (紅海) を対象
         value = 100 # 優先度
     }
@@ -85,7 +60,7 @@ eth_red_sea_aggressive_invasion = {
     # 輸送船の生産を促すAIストラテジー
     ai_strategy = {
         type = equipment_production_min_factories # 装備生産ラインの最低工場数を設定 [cite: 654]
-        id = convoy_equipment # 輸送船装備 (convoy_equipment) を対象
+        id = convoy # 輸送船装備 (convoy) を対象
         value = 5 # 輸送船に最低5つの工場を割り当てることを促す
     }
 }
