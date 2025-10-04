@@ -1,0 +1,66 @@
+country_event = {
+  id = fallen_empire.1
+  title = fallen_empire.1.t
+  desc = fallen_empire.1.desc
+  picture = GFX_report_event_generic
+  is_triggered_only = yes
+
+  option = {
+    name = fallen_empire.1.a
+    ai_chance = { factor = 90 }
+    FROM = { add_opinion_modifier = { target = ROOT modifier = fe_gift_received } }
+    add_opinion_modifier = { target = FROM modifier = fe_gift_received }
+    random_list = {
+      25 = {
+        random_owned_state = {
+          limit = { is_coastal = yes }
+          add_resource = { type = oil amount = 10 }
+          add_resource = { type = tungsten amount = 5 }
+          add_resource = { type = rubber amount = 5 }
+          add_resource = { type = aluminium amount = 5 }
+          add_resource = { type = steel amount = 5 }
+        }
+      }
+      15 = {
+        random_owned_state = {
+          limit = { is_coastal = yes }
+          add_resource = { type = oil amount = 40 }
+          add_resource = { type = tungsten amount = 15 }
+          add_resource = { type = rubber amount = 20 }
+          add_resource = { type = aluminium amount = 35 }
+          add_resource = { type = steel amount = 20 }
+        }
+      }
+      10 = {
+        add_ideas = { idea = bsm_ancestor_databanks days = 3650 }
+      }
+      10 = {
+        add_tech_bonus = { name = fe_special bonus = 0.5 uses = 1 }
+      }
+      10 = {
+        add_equipment_to_stockpile = { type = destroyer_1 amount = 10 }
+        add_equipment_to_stockpile = { type = fighter_equipment_0 amount = 1000 }
+      }
+      10 = {
+        add_equipment_to_stockpile = { type = submarine_1 amount = 5 }
+        add_equipment_to_stockpile = { type = tac_bomber_equipment_0 amount = 400 }
+      }
+      10 = {
+        add_equipment_to_stockpile = { type = light_cruiser_1 amount = 4 }
+        add_equipment_to_stockpile = { type = strat_bomber_equipment_1 amount = 200 }
+      }
+      5 = {
+        random_list = {
+          50 = { add_equipment_to_stockpile = { type = battleship_1 amount = 1 } }
+          50 = { add_equipment_to_stockpile = { type = carrier_1 amount = 1 } }
+        }
+        add_equipment_to_stockpile = { type = jet_strat_bomber_equipment_1 amount = 100 }
+      }
+    }
+  }
+  option = {
+    name = fallen_empire.1.b
+    ai_chance = { factor = 10 }
+    FROM = { add_opinion_modifier = { target = ROOT modifier = fe_gift_refused } }
+  }
+}

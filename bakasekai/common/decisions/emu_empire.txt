@@ -1,0 +1,83 @@
+EMU_decisions = {
+  EMU_mass_gathering = {
+    allowed = {
+      original_tag = EMU
+    }
+    visible = {
+      always = yes
+    }
+    cost = 100
+    complete_effect = {
+      add_to_variable = { wildness = 15 }
+      add_stability = 0.1
+      add_army_experience = 25
+    }
+    ai_will_do = { factor = 1 }
+  }
+
+  EMU_analyze_human_tech = {
+    allowed = {
+      original_tag = EMU
+    }
+    visible = {
+      has_war = yes
+    }
+    cost = 75
+    complete_effect = {
+      add_to_variable = { wildness = -10 }
+      add_tech_bonus = {
+        bonus = 0.5
+        uses = 1
+        category = electronics
+      }
+    }
+    ai_will_do = { factor = 1 }
+  }
+
+  EMU_rewild_territory = {
+    allowed = {
+      original_tag = EMU
+    }
+    visible = {
+      always = yes
+    }
+    cost = 150
+    complete_effect = {
+      add_to_variable = { wildness = 20 }
+      remove_building = { type = infrastructure level = 1 }
+      add_manpower = 5000
+    }
+    ai_will_do = { factor = 1 }
+  }
+
+  EMU_migrate_new_lands = {
+    allowed = {
+      original_tag = EMU
+    }
+    visible = {
+      check_variable = { which = wildness value >= 60 }
+    }
+    cost = 50
+    complete_effect = {
+      add_manpower = -50000
+      random_neighbor_country = {
+        add_opinion_modifier = EMU_migration_pressure
+      }
+    }
+    ai_will_do = { factor = 1 }
+  }
+
+  EMU_measure_wildness = {
+    allowed = {
+      original_tag = EMU
+    }
+    visible = {
+      always = yes
+    }
+    cost = 50
+    complete_effect = {
+      add_to_variable = { wildness = -5 }
+    }
+    ai_will_do = { factor = 1 }
+  }
+}

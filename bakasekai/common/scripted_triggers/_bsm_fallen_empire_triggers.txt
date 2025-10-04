@@ -1,0 +1,20 @@
+_bsm_is_fallen_empire = {
+  OR = {
+    has_idea = fallen_empire_machine
+    has_idea = fallen_empire_xenophobe
+    has_idea = fallen_empire_isolationist
+    has_idea = fallen_empire_watchers
+  }
+}
+
+_bsm_fe_can_receive_gift = {
+  NOT = { has_idea = mystery_country }
+  NOT = { has_war = yes }
+  NOT = { _bsm_is_fallen_empire = yes }
+}
+
+_bsm_fe_can_give_gift = {
+  _bsm_is_fallen_empire = yes
+  NOT = { has_war = yes }
+  NOT = { has_idea = fallen_empire_xenophobe }
+}

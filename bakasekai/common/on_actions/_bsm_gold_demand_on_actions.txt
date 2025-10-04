@@ -1,0 +1,64 @@
+# 戦争と和平による金需要の変化を管理する on_action
+on_actions = {
+  # 戦争開始時に金需要関連の変数をリセット
+  on_war = {
+    effect = {
+      clear_variable = global.gold_demand_war_increase
+      clear_variable = global.gold_demand_peace_decrease
+      clear_variable = global.gold_demand_peace_months
+      clear_variable = global.gold_demand_peace_monthly_decrease
+    }
+  }
+  # 全ての国家が和平したときに戦時の増加量と減少期間を設定
+  on_peace = {
+    effect = {
+      if = {
+        limit = { NOT = { any_country = { is_at_war = yes } } }
+        # 戦時増加値を半分にして、戦後に減少させる目標値とする
+        set_temp_variable = { temp = global.gold_demand_war_increase }
+        divide_variable = { temp = 2 }
+        set_variable = { global.gold_demand_peace_decrease = temp }
+        # 平和期間を3〜5年の中からランダムに選択
+        random_list = {
+          1 = { set_variable = { global.gold_demand_peace_months = 36 } }
+          1 = { set_variable = { global.gold_demand_peace_months = 48 } }
+          1 = { set_variable = { global.gold_demand_peace_months = 60 } }
+        }
+        # 毎月の減少量を計算
+        set_temp_variable = { temp = global.gold_demand_peace_decrease }
+        divide_variable = { temp = global.gold_demand_peace_months }
+        set_variable = { global.gold_demand_peace_monthly_decrease = temp }
+      }
+    }
+  }
+  # 毎月の処理で金需要を増減させる
+  on_monthly = {
+    effect = {
+      # 戦争中は金需要を0.05ずつ増加し、増加分を記録
+      if = {
+        limit = { any_country = { is_at_war = yes } }
+        set_variable = { demand_value = 0.05 }
+        change_gold_demand = yes
+        add_to_variable = { global.gold_demand_war_increase = 0.05 }
+        clear_variable = demand_value
+      }
+      # 平和中は設定した減少量で金需要を下げる
+      else_if = {
+        limit = { check_variable = { global.gold_demand_peace_decrease > 0 } }
+        set_variable = { demand_value = global.gold_demand_peace_monthly_decrease }
+        multiply_variable = { demand_value = -1 }
+        change_gold_demand = yes
+        subtract_from_variable = { global.gold_demand_peace_decrease = global.gold_demand_peace_monthly_decrease }
+        # 減少量がゼロ以下になったら変数をクリア
+        if = {
+          limit = { check_variable = { global.gold_demand_peace_decrease <= 0 } }
+          clear_variable = global.gold_demand_peace_decrease
+          clear_variable = global.gold_demand_peace_months
+          clear_variable = global.gold_demand_peace_monthly_decrease
+          clear_variable = global.gold_demand_war_increase
+        }
+        clear_variable = demand_value
+      }
+    }
+  }
+}

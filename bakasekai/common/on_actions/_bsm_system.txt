@@ -10,6 +10,8 @@ on_actions = {
                 limit = { is_ai = no }
                 set_variable = { OE_page = 1 }
             }
+            ### Anomaly System ###
+            AS_first_setting = yes
             #### 宗教 ####
             every_country = {
                 if = {
@@ -94,6 +96,7 @@ on_actions = {
                             tag = MNT
                             tag = ETH
                             tag = LEB
+                            tag = TWN
                         }
                     }
                     set_country_flag = Support_For_Orthodoxy
@@ -260,7 +263,7 @@ on_actions = {
             #### 文明化率 ####
             #仮削除
             #### 鉱山 ####
-            JAP = { calc_gold_demand = yes }#代表計算
+            JPN = { calc_gold_demand = yes }#代表計算
             
             every_country = {
                 limit = { always = yes }
@@ -304,19 +307,19 @@ on_actions = {
     }
     on_monthly = {
         effect = {
-            # add_to_variable = { global.passed_month = 1 }  #経過月数
-            # if = {
-            #     #12月
-            #     limit = {
-            #         check_variable = {
-            #             global.month = 12
-            #         }
-            #     }
-            #     set_variable = {
-            #         global.month = 0
-            #     } #1月にリセット
-            # }
-            # add_to_variable = { global.month = 1 }
+            add_to_variable = { global.passed_month = 1 }  #経過月数
+            if = {
+                #12月
+                limit = {
+                    check_variable = {
+                        global.month = 12
+                    }
+                }
+                set_variable = {
+                    global.month = 0
+                } #1月にリセット
+            }
+            add_to_variable = { global.month = 1 }
             
             ucs_on_monthly = yes #通貨 月毎処理				
             mine_on_monthly = yes #鉱山 月毎処理

@@ -10,203 +10,136 @@ focus_tree = {
         }
     }
 
-    # 初期表示位置 (必要に応じて調整)
+    # 初期表示位置
     initial_show_position = {
         x = 0
         y = 0
     }
 
-    # ============================================================================
-    # 金融 (Financial) ブランチ
-    # ============================================================================
+    # -------------------------------------------------
+    # 1. 基盤構築
+    # -------------------------------------------------
     focus = {
-        id = LON_strengthen_the_city
-        icon = GFX_focus_empty # アイコンは空
+        id = LON_fundamentals
+        icon = GFX_goal_generic_major_war
         x = 0
         y = 0
         cost = 10
-        available = {
-            # 常に利用可能
-            always = yes
-        }
         completion_reward = {
-            add_political_power = 50
-            add_ideas = LON_financial_hub # 国家精神「金融ハブ」を追加
+            add_political_power = 100
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size = 1
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 2
+                    instant_build = yes
+                }
+            }
         }
         ai_will_do = {
             factor = 10
         }
     }
 
+    # -------------------------------------------------
+    # 2. 金融覇権
+    # -------------------------------------------------
     focus = {
-        id = LON_expand_banking_network
-        icon = GFX_focus_empty # アイコンは空
-        x = 0
+        id = LON_financial_hub
+        icon = GFX_goal_generic_consumer_goods
+        x = -2
         y = 1
-        relative_position_id = LON_strengthen_the_city
-        prerequisite = { focus = LON_strengthen_the_city }
+        prerequisite = { focus = LON_fundamentals }
         cost = 10
         completion_reward = {
-            add_political_power = 25
-            add_stability = 0.05
+            add_ideas = LON_international_financial_center
+            add_political_power = 50
+            add_research_slot = 1
         }
         ai_will_do = {
-            factor = 5
+            factor = 8
         }
     }
 
-    # ============================================================================
-    # アイルランド原住民との交渉 (Negotiations with Irish Natives) ブランチ
-    # ============================================================================
+    # -------------------------------------------------
+    # 3. 英連邦外交
+    # -------------------------------------------------
     focus = {
-        id = LON_ireland_negotiations
-        icon = GFX_focus_empty # アイコンは空
+        id = LON_commonwealth_relations
+        icon = GFX_goal_generic_allies_build_infantry
         x = 2
-        y = 0
-        relative_position_id = LON_strengthen_the_city # LON_strengthen_the_city の右に配置
-        cost = 15
-        available = {
-            # ロンドンがアイルランド（IRE）と隣接している場合
-            is_neighbor_of = IRE
-        }
+        y = 1
+        prerequisite = { focus = LON_fundamentals }
+        cost = 10
         completion_reward = {
-            # イベントをトリガーして交渉の進捗を管理
-            country_event = { id = LON.ireland_negotiation_start hours = 1 }
+            add_opinion_modifier = { 
+                target = GBR
+                modifier = LON_stronger_commonwealth_ties 
+            }
+            add_opinion_modifier = { 
+                target = AST 
+                modifier = LON_commonwealth_cooperation 
+            }
+            add_political_power = 25
         }
         ai_will_do = {
             factor = 7
         }
     }
 
+    # -------------------------------------------------
+    # 4. ケルト統一への道
+    # -------------------------------------------------
     focus = {
-        id = LON_promote_cultural_exchange
-        icon = GFX_focus_empty # アイコンは空
-        x = 2
-        y = 1
-        relative_position_id = LON_ireland_negotiations
-        prerequisite = { focus = LON_ireland_negotiations }
-        cost = 7
-        completion_reward = {
-            add_war_support = 0.03
-            add_political_power = 10
-        }
-        ai_will_do = {
-            factor = 3
-        }
-    }
-
-    # ============================================================================
-    # ロンドン橋 (London Bridge) ブランチ
-    # ============================================================================
-    focus = {
-        id = LON_rebuild_london_bridge
-        icon = GFX_focus_empty # アイコンは空
-        x = 4
-        y = 0
-        relative_position_id = LON_ireland_negotiations # LON_ireland_negotiations の右に配置
-        cost = 20
-        available = {
-            # ロンドン橋が存在しない場合のみ
-            NOT = { has_country_flag = LON_london_bridge_exists }
-        }
-        completion_reward = {
-            set_country_flag = LON_london_bridge_exists
-            add_stability = 0.1
-            add_war_support = 0.05
-            add_political_power = 50
-        }
-        ai_will_do = {
-            factor = 8
-            modifier = {
-                factor = 0
-                has_country_flag = LON_london_bridge_exists # 橋があるならやらない
-            }
-        }
-    }
-
-    # ============================================================================
-    # イギリス本国との関係 (UK Relations) ブランチ
-    # ============================================================================
-    focus = {
-        id = LON_seek_dominion_status
-        icon = GFX_focus_empty # アイコンは空
-        x = 6
-        y = 0
-        relative_position_id = LON_rebuild_london_bridge # LON_rebuild_london_bridge の右に配置
+        id = LON_celtic_unification
+        icon = GFX_goal_generic_allies_build_infantry
+        x = 0
+        y = 2
+        prerequisite = { focus = LON_financial_hub }
+        prerequisite = { focus = LON_commonwealth_relations }
         cost = 15
         available = {
-            # イギリスの従属国でない場合
-            NOT = { is_subject_of = GBR }
+            is_neighbor_of = IRE
         }
         completion_reward = {
-            # ドミニオン地位獲得イベントをトリガー
-            country_event = { id = LON.seek_dominion_status hours = 1 }
+            every_state = {
+                limit = {
+                    is_owned_by = IRE
+                }
+                add_claim_by = LON
+            }
+            add_war_support = 0.05
+            add_political_power = 75
+            country_event = { id = LON.18 hours = 6 }
         }
         ai_will_do = {
             factor = 6
-            modifier = {
-                factor = 0
-                is_subject_of = GBR # イギリスの従属国ならやらない
-            }
         }
     }
 
+    # -------------------------------------------------
+    # 5. 世界影響力
+    # -------------------------------------------------
     focus = {
-        id = LON_strengthen_economic_ties
-        icon = GFX_focus_empty # アイコンは空
-        x = 6
-        y = 1
-        relative_position_id = LON_seek_dominion_status
-        prerequisite = { focus = LON_seek_dominion_status }
-        cost = 10
+        id = LON_global_influence
+        icon = GFX_goal_generic_major_alliance
+        x = 0
+        y = 3
+        prerequisite = { focus = LON_celtic_unification }
+        cost = 15
         completion_reward = {
-            add_opinion_modifier = { target = GBR modifier = great_economic_ties } # 意見修正子を追加
+            add_ideas = LON_global_financial_network
+            add_political_power = 150
+            unlock_decision_category_tooltip = LON_world_investment_category
+            activate_decision = LON_world_investment_category
         }
         ai_will_do = {
-            factor = 5
+            factor = 9
         }
     }
-
-    # ============================================================================
-    # 海上の不審船対策 (Counter Suspicious Vessels) ブランチ
-    # ============================================================================
-    # このブランチは後回し
-    # focus = {
-    #     id = LON_coastal_surveillance
-    #     icon = GFX_focus_empty # アイコンは空
-    #     x = 8
-    #     y = 0
-    #     relative_position_id = LON_seek_dominion_status # LON_seek_dominion_status の右に配置
-    #     cost = 12
-    #     available = {
-    #         is_coastal = yes # 沿岸プロヴィンスがある場合
-    #     }
-    #     completion_reward = {
-    #         add_ideas = LON_coastal_defense_initiative # 国家精神「沿岸防衛イニシアティブ」を追加
-    #     }
-    #     ai_will_do = {
-    #         factor = 6
-    #         modifier = {
-    #             factor = 0
-    #             NOT = { is_coastal = yes } # 沿岸がないならやらない
-    #         }
-    #     }
-    # }
-
-    # focus = {
-    #     id = LON_patrol_shipping_lanes
-    #     icon = GFX_focus_empty # アイコンは空
-    #     x = 8
-    #     y = 1
-    #     relative_position_id = LON_coastal_surveillance
-    #     prerequisite = { focus = LON_coastal_surveillance }
-    #     cost = 10
-    #     completion_reward = {
-    #         add_navy_experience = 10
-    #         add_political_power = 15
-    #     }
-    #     ai_will_do = {
-    #         factor = 5
-    #     }
-    # }
 }

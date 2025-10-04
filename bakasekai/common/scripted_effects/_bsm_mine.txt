@@ -8,20 +8,25 @@ mine_first_setting = {
 }
 #現在のスコープの領有する鉱山のレベルの合計を算出します。
 calc_mine_total = {
-	hidden_effect = {
-		#金鉱山
-		set_variable = { MD_mine_size = 0 }
-		#領有済
-		every_owned_state = {
-			limit = { check_variable = { THIS.gold_mine > 0 } }
-			add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
+	owner = {
+		hidden_effect = {
+			#金鉱山
+			set_variable = { MD_mine_size = 0 }
+			#領有済
+			every_owned_state = {
+				limit = { check_variable = { THIS.gold_mine > 0 } }
+				add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
+			}
+			#占領済み
+			every_controlled_state = {
+				limit = { 
+					check_variable = { THIS.gold_mine > 0 } 
+					is_in_array = { PREV.occupied_mine_state = THIS } 
+				}
+				add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
+			}
+			# log = "[?ROOT.GetName]/[?ROOT.MD_mine_size]"
 		}
-		#占領済み
-		every_controlled_state = {
-			limit = { check_variable = { THIS.gold_mine > 0 } is_in_array = { occupied_mine_state = THIS } }
-			add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
-		}
-		# log = "[?ROOT.GetName]/[?ROOT.MD_mine_size]"
 	}
 }
 

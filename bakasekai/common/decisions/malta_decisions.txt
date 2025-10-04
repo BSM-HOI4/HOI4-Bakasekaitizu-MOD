@@ -1,0 +1,68 @@
+MLT_decisions = {
+
+	MLT_recruit_knights = {
+		icon = generic_prepare_civil_war
+		allowed = {
+			original_tag = MLT
+		}
+		available = {
+			has_idea = MLT_knights_of_malta
+			political_power > 75
+			manpower > 500
+		}
+		visible = {
+			has_completed_focus = MLT_restore_the_order
+		}
+		cost = 75
+		days_remove = 30
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+		}
+		
+		complete_effect = {
+			add_manpower = 1000
+			army_experience = 5
+		}
+	}
+	
+	MLT_fortify_harbors = {
+		icon = generic_construction
+		allowed = {
+			original_tag = MLT
+		}
+		available = {
+			has_completed_focus = MLT_fortify_malta
+			political_power > 50
+		}
+		visible = {
+			owns_state = 116
+		}
+		cost = 50
+		days_remove = 45
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 3
+				any_enemy_country = {
+					navy_strength_ratio = { tag = ROOT ratio > 2 }
+				}
+			}
+		}
+		
+		complete_effect = {
+			116 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+}

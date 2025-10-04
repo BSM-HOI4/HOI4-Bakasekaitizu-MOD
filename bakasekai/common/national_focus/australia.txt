@@ -1,1 +1,348 @@
-﻿
+# エミュー帝国国家フォーカス
+focus_tree = {
+	id = emu_empire_focus
+	
+	country = {
+		factor = 0
+		
+		modifier = {
+			add = 10
+			tag = AUS
+		}
+	}
+	
+	default = no
+	
+	continuous_focus_position = { x = 50 y = 1200 }
+	
+	# ルートフォーカス
+	focus = {
+		id = AUS_emu_empire_root
+		icon = GFX_goal_generic_improve_relations
+		cost = 1
+		x = 10
+		y = 0
+		
+		completion_reward = {
+			add_political_power = 100
+			add_ideas = emu_empire_awakened
+		}
+	}
+	
+	# 大エミュー戦争の勝利を記念する
+	focus = {
+		id = AUS_great_emu_war_victory
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = AUS_emu_empire_root }
+		cost = 10
+		x = 10
+		y = 1
+		
+		completion_reward = {
+			add_political_power = 150
+			add_stability = 0.1
+			add_war_support = 0.05
+			add_ideas = emu_war_legacy
+		}
+	}
+	
+	# 羽毛政府の確立
+	focus = {
+		id = AUS_feathered_government
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = AUS_great_emu_war_victory }
+		cost = 10
+		x = 7
+		y = 2
+		
+		completion_reward = {
+			add_political_power = 200
+			add_ideas = feathered_bureaucracy
+		}
+	}
+	
+	# 砂塵防衛システム
+	focus = {
+		id = AUS_dust_defense_system
+		icon = GFX_goal_generic_fortify_city
+		prerequisite = { focus = AUS_great_emu_war_victory }
+		cost = 10
+		x = 13
+		y = 2
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = land_doctrine_bonus
+				bonus = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+			add_ideas = dust_storm_defense
+		}
+	}
+	
+	# エミュー軍の近代化
+	focus = {
+		id = AUS_emu_military_modernization
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = AUS_feathered_government }
+		cost = 10
+		x = 7
+		y = 3
+		
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = {
+				name = infantry_weapons_bonus
+				bonus = 0.5
+				uses = 2
+				category = infantry_weapons
+			}
+		}
+	}
+	
+	# 高速移動戦術
+	focus = {
+		id = AUS_high_speed_tactics
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = AUS_dust_defense_system }
+		cost = 10
+		x = 13
+		y = 3
+		
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = land_doctrine_cost_reduction
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+			add_ideas = emu_speed_tactics
+		}
+	}
+	
+	# 工業発展 - 羽毛加工業
+	focus = {
+		id = AUS_feather_industry
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = AUS_emu_military_modernization }
+		prerequisite = { focus = AUS_high_speed_tactics }
+		cost = 10
+		x = 10
+		y = 4
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = industry_bonus
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	# エミュー帝国の拡張
+	focus = {
+		id = AUS_emu_empire_expansion
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = AUS_feather_industry }
+		cost = 10
+		x = 10
+		y = 5
+		
+		completion_reward = {
+			add_political_power = 300
+			add_ideas = imperial_expansion
+			unlock_decision_category_tooltip = emu_expansion_decisions
+		}
+	}
+	
+	# 砂塵の艦隊
+	focus = {
+		id = AUS_dust_fleet
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = { focus = AUS_emu_empire_expansion }
+		cost = 10
+		x = 5
+		y = 6
+		
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = naval_bonus
+				bonus = 0.5
+				uses = 2
+				category = naval_equipment
+			}
+		}
+	}
+	
+	# 空中偵察隊
+	focus = {
+		id = AUS_aerial_reconnaissance
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = AUS_emu_empire_expansion }
+		cost = 10
+		x = 15
+		y = 6
+		
+		completion_reward = {
+			air_experience = 25
+			add_tech_bonus = {
+				name = air_bonus
+				bonus = 0.5
+				uses = 2
+				category = light_fighter
+			}
+		}
+	}
+	
+	# 羽毛資源の産業化
+	focus = {
+		id = AUS_feather_resource_industry
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = AUS_feather_industry }
+		cost = 10
+		x = 7
+		y = 5
+		
+		completion_reward = {
+			add_resource = {
+				type = steel
+				amount = 5
+				state = 285
+			}
+			add_ideas = feather_industrial_complex
+		}
+	}
+	
+	# エミューの大移住
+	focus = {
+		id = AUS_great_emu_migration
+		icon = GFX_goal_generic_position_armies
+		prerequisite = { focus = AUS_feather_resource_industry }
+		cost = 10
+		x = 7
+		y = 6
+		
+		completion_reward = {
+			add_ideas = emu_migration_bonus
+			every_owned_state = {
+				limit = { 
+					is_coastal = no
+				}
+				add_manpower = 5000
+			}
+		}
+	}
+	
+	# 鳥類外交の確立
+	focus = {
+		id = AUS_avian_diplomacy
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = AUS_emu_empire_expansion }
+		cost = 10
+		x = 13
+		y = 5
+		
+		completion_reward = {
+			add_ideas = avian_diplomatic_corps
+			unlock_decision_category_tooltip = emu_bird_diplomacy
+		}
+	}
+	
+	# フェザー・ラミング部隊
+	focus = {
+		id = AUS_feather_ramming_corps
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = AUS_avian_diplomacy }
+		cost = 10
+		x = 13
+		y = 6
+		
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 0.5
+				uses = 1
+				category = armor
+			}
+			add_ideas = emu_ramming_tactics
+		}
+	}
+
+	# 世界征服への道
+	focus = {
+		id = AUS_world_domination
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = AUS_dust_fleet }
+		prerequisite = { focus = AUS_aerial_reconnaissance }
+		prerequisite = { focus = AUS_great_emu_migration }
+		prerequisite = { focus = AUS_feather_ramming_corps }
+		cost = 10
+		x = 10
+		y = 7
+		
+		completion_reward = {
+			add_political_power = 500
+			add_ideas = emu_world_ambition
+			custom_effect_tooltip = AUS_world_domination_tt
+		}
+	}
+	
+	# フェザー・ブリッツクリーク
+	focus = {
+		id = AUS_feather_blitzkrieg
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = AUS_world_domination }
+		cost = 10
+		x = 8
+		y = 8
+		
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				name = land_doctrine_cost_reduction
+				cost_reduction = 0.3
+				uses = 2
+				category = land_doctrine
+			}
+			add_ideas = feather_blitzkrieg
+		}
+	}
+	
+	# 翼なき征服者
+	focus = {
+		id = AUS_wingless_conqueror
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = AUS_world_domination }
+		cost = 10
+		x = 12
+		y = 8
+		
+		completion_reward = {
+			add_political_power = 300
+			add_ideas = wingless_conqueror_spirit
+			every_other_country = {
+				limit = { is_major = yes }
+				add_opinion_modifier = {
+					target = AUS
+					modifier = fear_of_emu_empire
+				}
+			}
+		}
+	}
+}
