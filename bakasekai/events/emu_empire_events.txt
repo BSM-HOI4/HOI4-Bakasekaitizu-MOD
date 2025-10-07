@@ -1,21 +1,20 @@
 # エミュー帝国イベント
 add_namespace = emu_empire
-
 # エミュー帝国の誕生
 country_event = {
 	id = emu_empire.1
 	title = emu_empire.1.t
 	desc = emu_empire.1.d
 	picture = GFX_report_event_generic_peaceful_annexation
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = emu_empire.1.a
 		add_political_power = 100
 		add_stability = 0.1
-                add_ideas = emu_empire_awakened
-		ai_chance = { factor = 100 }
+		add_ideas = emu_empire_awakened
+		ai_chance = {
+			factor = 100
+		}
 	}
 }
 
@@ -25,21 +24,20 @@ country_event = {
 	title = emu_empire.2.t
 	desc = emu_empire.2.d
 	picture = GFX_report_event_generic_military_parade
-	
 	trigger = {
 		tag = AUS
-                has_idea = emu_war_legacy
+		has_idea = emu_war_legacy
 		date > 1936.11.1
 		date < 1936.11.30
 	}
-	
 	fire_only_once = yes
-	
 	option = {
 		name = emu_empire.2.a
 		add_political_power = 50
 		add_war_support = 0.05
-		ai_chance = { factor = 100 }
+		ai_chance = {
+			factor = 100
+		}
 	}
 }
 
@@ -49,19 +47,18 @@ country_event = {
 	title = emu_empire.3.t
 	desc = emu_empire.3.d
 	picture = GFX_report_event_generic_parliament
-	
 	trigger = {
 		tag = AUS
 		has_completed_focus = AUS_feathered_government
 	}
-	
 	fire_only_once = yes
-	
 	option = {
 		name = emu_empire.3.a
 		add_political_power = 200
-                add_ideas = feathered_bureaucracy
-		ai_chance = { factor = 100 }
+		add_ideas = feathered_bureaucracy
+		ai_chance = {
+			factor = 100
+		}
 	}
 }
 
@@ -71,30 +68,28 @@ country_event = {
 	title = emu_empire.4.t
 	desc = emu_empire.4.d
 	picture = GFX_report_event_generic_desert
-	
 	trigger = {
 		tag = AUS
-                has_idea = dust_storm_defense
+		has_idea = dust_storm_defense
 		has_war = yes
 		any_enemy_country = {
 			any_owned_state = {
-                                is_coastal = no
-                                has_terrain = desert
+				is_coastal = no
 			}
 		}
 	}
-	
 	mean_time_to_happen = {
 		months = 6
 	}
-	
 	option = {
 		name = emu_empire.4.a
-                add_dynamic_modifier = {
-                        modifier = dust_storm_advantage
-                        days = 60
-                }
-		ai_chance = { factor = 100 }
+		add_dynamic_modifier = {
+			modifier = dust_storm_advantage
+			days = 60
+		}
+		ai_chance = {
+			factor = 100
+		}
 	}
 }
 
@@ -104,7 +99,6 @@ country_event = {
 	title = emu_empire.5.t
 	desc = emu_empire.5.d
 	picture = GFX_report_event_generic_factory
-	
 	trigger = {
 		tag = AUS
 		has_completed_focus = AUS_feather_industry
@@ -115,9 +109,7 @@ country_event = {
 			}
 		}
 	}
-	
 	fire_only_once = yes
-	
 	option = {
 		name = emu_empire.5.a
 		random_owned_controlled_state = {
@@ -133,13 +125,16 @@ country_event = {
 				instant_build = yes
 			}
 		}
-		ai_chance = { factor = 100 }
+		ai_chance = {
+			factor = 100
+		}
 	}
-	
 	option = {
 		name = emu_empire.5.b
 		add_political_power = 100
-		ai_chance = { factor = 0 }
+		ai_chance = {
+			factor = 0
+		}
 	}
 }
 
@@ -149,23 +144,27 @@ country_event = {
 	title = emu_empire.6.t
 	desc = emu_empire.6.d
 	picture = GFX_report_event_generic_sign_treaty2
-	
 	trigger = {
 		tag = AUS
 		has_completed_focus = AUS_world_domination
 	}
-	
 	fire_only_once = yes
-	
 	option = {
 		name = emu_empire.6.a
 		add_political_power = 300
-                add_ideas = emu_world_ambition
+		add_ideas = emu_world_ambition
 		every_other_country = {
-			limit = { is_major = yes }
-			country_event = { id = emu_empire.7 days = 1 }
+			limit = {
+				is_major = yes
+			}
+			country_event = {
+				id = emu_empire.7
+				days = 1
+			}
 		}
-		ai_chance = { factor = 100 }
+		ai_chance = {
+			factor = 100
+		}
 	}
 }
 
@@ -175,25 +174,26 @@ country_event = {
 	title = emu_empire.7.t
 	desc = emu_empire.7.d
 	picture = GFX_report_event_generic_read_write
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = emu_empire.7.a
 		add_opinion_modifier = {
 			target = AUS
 			modifier = threatened_by_emu_empire
 		}
-		ai_chance = { factor = 70 }
+		ai_chance = {
+			factor = 70
+		}
 	}
-	
 	option = {
 		name = emu_empire.7.b
 		add_opinion_modifier = {
 			target = AUS
 			modifier = amused_by_emu_empire
 		}
-		ai_chance = { factor = 30 }
+		ai_chance = {
+			factor = 30
+		}
 	}
 }
 
@@ -203,28 +203,29 @@ country_event = {
 	title = emu_empire.8.t
 	desc = emu_empire.8.d
 	picture = GFX_report_event_generic_large_group
-	
 	trigger = {
 		tag = AUS
 		has_completed_focus = AUS_great_emu_migration
 		date > 1937.3.1
 		date < 1937.6.1
 	}
-	
 	fire_only_once = yes
-	
 	option = {
 		name = emu_empire.8.a
-                add_ideas = emu_migration_bonus
+		add_ideas = emu_migration_bonus
 		random_owned_controlled_state = {
-			limit = { is_coastal = no }
+			limit = {
+				is_coastal = no
+			}
 			add_building_construction = {
 				type = infrastructure
 				level = 1
 				instant_build = yes
 			}
 		}
-		ai_chance = { factor = 100 }
+		ai_chance = {
+			factor = 100
+		}
 	}
 }
 
@@ -234,37 +235,43 @@ country_event = {
 	title = emu_empire.9.t
 	desc = emu_empire.9.d
 	picture = GFX_report_event_generic_peaceful_annexation
-	
 	trigger = {
 		tag = AUS
 		has_war = no
 		any_neighbor_country = {
-			NOT = { is_subject_of = AUS }
+			NOT = {
+				is_subject_of = AUS
+			}
 		}
 	}
-	
 	mean_time_to_happen = {
 		months = 18
 	}
-	
 	option = {
 		name = emu_empire.9.a
 		add_political_power = 100
 		random_neighbor_country = {
-			limit = { NOT = { is_subject_of = AUS } }
+			limit = {
+				NOT = {
+					is_subject_of = AUS
+				}
+			}
 			add_opinion_modifier = {
 				target = AUS
 				modifier = emu_egg_theft_incident
 			}
 		}
-		ai_chance = { factor = 60 }
+		ai_chance = {
+			factor = 60
+		}
 	}
-	
 	option = {
 		name = emu_empire.9.b
 		add_stability = 0.05
 		add_war_support = -0.05
-		ai_chance = { factor = 40 }
+		ai_chance = {
+			factor = 40
+		}
 	}
 }
 
@@ -274,28 +281,27 @@ country_event = {
 	title = emu_empire.10.t
 	desc = emu_empire.10.d
 	picture = GFX_report_event_generic_tank_breakthrough
-	
 	trigger = {
 		tag = AUS
-                has_idea = emu_ramming_tactics
+		has_idea = emu_ramming_tactics
 		has_war = yes
 		any_enemy_country = {
 			has_tech = basic_light_tank_chassis
 		}
 	}
-	
 	mean_time_to_happen = {
 		months = 4
 	}
-	
 	option = {
 		name = emu_empire.10.a
-                add_dynamic_modifier = {
-                        modifier = successful_ramming_operation
-                        days = 120
-                }
-		add_war_support = 0.10
-		ai_chance = { factor = 100 }
+		add_dynamic_modifier = {
+			modifier = successful_ramming_operation
+			days = 120
+		}
+		add_war_support = 0.1
+		ai_chance = {
+			factor = 100
+		}
 	}
 }
 
@@ -305,21 +311,18 @@ country_event = {
 	title = emu_empire.11.t
 	desc = emu_empire.11.d
 	picture = GFX_report_event_generic_conference
-	
 	trigger = {
 		tag = AUS
 		has_completed_focus = AUS_avian_diplomacy
 		any_other_country = {
 			OR = {
-				tag = USA  # 白頭鷲の国
-				tag = GER  # ドイツの鷲
-				tag = POL  # ポーランドの鷲
+				tag = USA				# 白頭鷲の国
+				tag = GER				# ドイツの鷲
+				tag = POL				# ポーランドの鷲
 			}
 		}
 	}
-	
 	fire_only_once = yes
-	
 	option = {
 		name = emu_empire.11.a
 		add_political_power = 150
@@ -336,16 +339,19 @@ country_event = {
 				modifier = bird_diplomatic_understanding
 			}
 		}
-		ai_chance = { factor = 80 }
+		ai_chance = {
+			factor = 80
+		}
 	}
-	
 	option = {
 		name = emu_empire.11.b
-                add_dynamic_modifier = {
-                        modifier = avian_diplomatic_isolationism
-                        days = 365
-                }
-		ai_chance = { factor = 20 }
+		add_dynamic_modifier = {
+			modifier = avian_diplomatic_isolationism
+			days = 365
+		}
+		ai_chance = {
+			factor = 20
+		}
 	}
 }
 
@@ -355,23 +361,30 @@ country_event = {
 	title = emu_empire.12.t
 	desc = emu_empire.12.d
 	picture = GFX_report_event_generic_sign_treaty2
-	
 	trigger = {
 		tag = AUS
 		has_completed_focus = AUS_wingless_conqueror
 	}
-	
 	fire_only_once = yes
-	
 	option = {
 		name = emu_empire.12.a
-                add_ideas = wingless_conqueror_spirit
-		add_named_threat = { threat = 5 name = "Emu Empire Expansionism" }
-		every_other_country = {
-			limit = { is_major = yes }
-			country_event = { id = emu_empire.13 days = 1 }
+		add_ideas = wingless_conqueror_spirit
+		add_named_threat = {
+			threat = 5
+			name = "Emu Empire Expansionism"
 		}
-		ai_chance = { factor = 100 }
+		every_other_country = {
+			limit = {
+				is_major = yes
+			}
+			country_event = {
+				id = emu_empire.13
+				days = 1
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
 	}
 }
 
@@ -381,15 +394,15 @@ country_event = {
 	title = emu_empire.13.t
 	desc = emu_empire.13.d
 	picture = GFX_report_event_generic_read_write
-	
 	is_triggered_only = yes
-	
 	option = {
 		name = emu_empire.13.a
 		add_opinion_modifier = {
 			target = AUS
 			modifier = fear_of_emu_empire
 		}
-		ai_chance = { factor = 100 }
+		ai_chance = {
+			factor = 100
+		}
 	}
 }
