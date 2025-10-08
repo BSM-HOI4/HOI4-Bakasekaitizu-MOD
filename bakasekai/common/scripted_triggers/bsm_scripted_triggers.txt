@@ -33,7 +33,7 @@ bsm_can_initiate_fabricate_claim_diplo_action_trigger = {
             NOT = { is_core_of = PREV.ROOT }
             # そして、「自国と隣接している」 OR 「沿岸州である」
             OR = {
-                any_neighbor_state = { owner = PREV.ROOT } # この州(THIS)が自国(PREV.ROOT)と隣接している
+                any_neighbor_state = { is_owned_by = PREV.ROOT } # この州(THIS)が自国(PREV.ROOT)と隣接している
                 is_coastal = yes          # この州(THIS)が沿岸州である
             }
         }
