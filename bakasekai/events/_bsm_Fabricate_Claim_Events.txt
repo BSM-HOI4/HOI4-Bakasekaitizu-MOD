@@ -25,9 +25,11 @@ country_event = {
                     NOT = { is_core_of = PREV.ROOT }
                     # この州(THIS)は自国(PREV.ROOT)が既に請求権を持っていない
                     NOT = { is_claimed_by = PREV.ROOT }
-                    # そして、「自国(PREV.ROOT)と隣接している」 OR 「沿岸州である」
+                    # そして、「自国(PREV.ROOT)と隣接している州」 OR 「沿岸州である」
                     OR = {
-                        is_neighbor_of = PREV.ROOT
+                        any_neighbor_state = {
+                            owner = { tag = PREV.PREV.ROOT }
+                        }
                         is_coastal = yes
                     }
                 }

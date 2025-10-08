@@ -16,10 +16,14 @@ focus_tree = {
 		y = 1600
 	}
 	default = no
+	
+	##############################################
+	# 基盤フォーカス - ルートフォーカス
+	##############################################
 	focus = {
 		id = NSI_Sinkou
 		icon = GFX_focus_TUR_the_sun_language_theory
-		x = 4
+		x = 15
 		y = 0
 		cost = 4
 		ai_will_do = {
@@ -36,122 +40,919 @@ focus_tree = {
 			add_stability = 0.1
 		}
 	}
+
+	##############################################
+	# 孤立維持ツリー（メインコンテンツ）
+	##############################################
 	focus = {
-		id = NSI_chikatoshi
-		icon = GFX_goal_reichsautobahn
-		x = 1
+		id = NSI_isolation_doctrine
+		icon = GFX_focus_hol_prepare_the_inundation_lines
+		relative_position_id = NSI_Sinkou
+		x = 0
 		y = 1
 		cost = 5
-		search_filters = {
-		}
 		prerequisite = {
 			focus = NSI_Sinkou
 		}
-		# mutually_exclusive = {
-		# 	focus = NSI_soto
-		# }
+		ai_will_do = {
+			factor = 10
+		}
 		completion_reward = {
-			add_ideas = chikatoshi
+			add_ideas = nsi_isolation_policy
+			add_stability = 0.15
 		}
 	}
-	# focus = {
-	# 	id = NSI_soto
-	# 	icon = GFX_focus_hol_prepare_the_inundation_lines
-	# 	x = 7
-	# 	y = 1
-	# 	cost = 6
-	# 	search_filters = {
-	# 	}
-	# 	prerequisite = {
-	# 		focus = NSI_Sinkou
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = NSI_chikatoshi
-	# 	}
-	# 	completion_reward = {
-	# 	}
-	# }
-	# focus = {
-	# 	id = NSI_eng
-	# 	icon = GFX_focus_chi_british_cooperation
-	# 	x = 6
-	# 	y = 2
-	# 	cost = 4
-	# 	search_filters = {
-	# 	}
-	# 	prerequisite = {
-	# 		focus = NSI_soto
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = NSI_jpn
-	# 	}
-	# 	completion_reward = {
-	# 	}
-	# }
-	# focus = {
-	# 	id = NSI_jpn
-	# 	icon = GFX_focus_chi_collaboration_with_the_japanese
-	# 	x = 8
-	# 	y = 2
-	# 	cost = 4
-	# 	search_filters = {
-	# 	}
-	# 	prerequisite = {
-	# 		focus = NSI_soto
-	# 	}
-	# 	mutually_exclusive = {
-	# 		focus = NSI_eng
-	# 	}
-	# 	completion_reward = {
-	# 	}
-	# }
-	# focus = {
-	# 	id = NSI_military_A
-	# 	icon = GFX_focus_secret_rearmament
-	# 	x = 7
-	# 	y = 3
-	# 	cost = 6
-	# 	search_filters = {
-	# 	}
-	# 	prerequisite = {
-	# 		focus = NSI_jpn
-	# 		focus = NSI_eng
-	# 	}
-	# 	completion_reward = {
-	# 	}
-	# }
-	# focus = {
-	# 	id = NSI_JPN_cruisers
-	# 	icon = GFX_focus_generic_cruiser2
-	# 	x = 9
-	# 	y = 4
-	# 	cost = 5
-	# 	search_filters = {
-	# 	}
-	# 	prerequisite = {
-	# 		focus = NSI_jpn
-	# 	}
-	# 	prerequisite = {
-	# 		focus = NSI_military_A
-	# 	}
-	# 	completion_reward = {
-	# 	}
-	# }
-	# focus = {
-	# 	id = NSI_ENG_DD
-	# 	icon = GFX_focus_generic_destroyer
-	# 	x = 5
-	# 	y = 4
-	# 	cost = 5
-	# 	search_filters = {
-	# 	}
-	# 	prerequisite = {
-	# 		focus = NSI_eng
-	# 	}
-	# 	prerequisite = {
-	# 		focus = NSI_military_A
-	# 	}
-	# 	completion_reward = {
-	# 	}
-	# }
+
+	focus = {
+		id = NSI_outsider_rejection
+		icon = GFX_focus_generic_coastal_fort
+		relative_position_id = NSI_isolation_doctrine
+		x = -2
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_isolation_doctrine
+		}
+		completion_reward = {
+			add_ideas = nsi_outsider_rejection
+			add_building_construction = {
+				type = coastal_fort
+				level = 3
+				province = {
+					all_provinces = yes
+					limit_to_naval_base = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_sacred_barriers
+		icon = GFX_focus_generic_military_mission
+		relative_position_id = NSI_isolation_doctrine
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_isolation_doctrine
+		}
+		completion_reward = {
+			add_ideas = nsi_sacred_barriers
+			every_owned_state = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_ancient_traditions
+		icon = GFX_focus_generic_monarchy_2
+		relative_position_id = NSI_isolation_doctrine
+		x = 2
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_isolation_doctrine
+		}
+		completion_reward = {
+			add_ideas = nsi_ancient_traditions
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = NSI_guardian_spirits
+		icon = GFX_focus_generic_self_management
+		relative_position_id = NSI_sacred_barriers
+		x = 0
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = NSI_sacred_barriers
+		}
+		prerequisite = {
+			focus = NSI_outsider_rejection
+		}
+		prerequisite = {
+			focus = NSI_ancient_traditions
+		}
+		completion_reward = {
+			add_ideas = nsi_guardian_spirits
+			add_stability = 0.2
+			add_war_support = 0.3
+		}
+	}
+
+	focus = {
+		id = NSI_eternal_vigilance
+		icon = GFX_focus_generic_navy_cruiser
+		relative_position_id = NSI_guardian_spirits
+		x = 0
+		y = 1
+		cost = 6
+		prerequisite = {
+			focus = NSI_guardian_spirits
+		}
+		completion_reward = {
+			add_ideas = nsi_eternal_vigilance
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 2
+			}
+		}
+	}
+
+	##############################################
+	# 軍事ツリー
+	##############################################
+	focus = {
+		id = NSI_warrior_tradition
+		icon = GFX_focus_secret_rearmament
+		relative_position_id = NSI_Sinkou
+		x = -8
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = NSI_Sinkou
+		}
+		completion_reward = {
+			army_experience = 50
+			add_ideas = nsi_warrior_tradition
+			set_technology = {
+				nsi_ancient_warfare = 1
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_elite_guards
+		icon = GFX_focus_generic_little_entente
+		relative_position_id = NSI_warrior_tradition
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_warrior_tradition
+		}
+		completion_reward = {
+			add_ideas = nsi_elite_guards
+			load_oob = "NSI_elite_units"
+		}
+	}
+
+	focus = {
+		id = NSI_coastal_defense
+		icon = GFX_focus_generic_coastal_fort
+		relative_position_id = NSI_elite_guards
+		x = -1
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_elite_guards
+		}
+		completion_reward = {
+			every_owned_state = {
+				if = {
+					limit = { is_coastal = yes }
+					add_building_construction = {
+						type = coastal_fort
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_hidden_arsenals
+		icon = GFX_focus_generic_military_mission
+		relative_position_id = NSI_elite_guards
+		x = 1
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_elite_guards
+		}
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 5000
+			}
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 500
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_ancient_weapons
+		icon = GFX_focus_generic_military_mission
+		relative_position_id = NSI_hidden_arsenals
+		x = -1
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = NSI_hidden_arsenals
+		}
+		prerequisite = {
+			focus = NSI_coastal_defense
+		}
+		completion_reward = {
+			add_ideas = nsi_ancient_weapons
+			add_tech_bonus = {
+				name = infantry_weapons_bonus
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+			}
+		}
+	}
+	##############################################
+	# 地下都市建設・内政ツリー（chikatoshi系統）
+	##############################################
+	focus = {
+		id = NSI_chikatoshi
+		icon = GFX_goal_reichsautobahn
+		relative_position_id = NSI_Sinkou
+		x = -12
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = NSI_Sinkou
+		}
+		completion_reward = {
+			add_ideas = chikatoshi
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 3
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_underground_expansion
+		icon = GFX_focus_generic_industry_1
+		relative_position_id = NSI_chikatoshi
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_chikatoshi
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			set_technology = {
+				nsi_advanced_construction = 1
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_deep_tunnels
+		icon = GFX_focus_generic_military_mission
+		relative_position_id = NSI_underground_expansion
+		x = -1
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_underground_expansion
+		}
+		completion_reward = {
+			every_owned_state = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_ideas = nsi_deep_tunnel_network
+		}
+	}
+
+	focus = {
+		id = NSI_underground_forges
+		icon = GFX_focus_generic_industry_2
+		relative_position_id = NSI_underground_expansion
+		x = 1
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_underground_expansion
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_subterranean_city
+		icon = GFX_focus_generic_industry_3
+		relative_position_id = NSI_underground_expansion
+		x = 0
+		y = 2
+		cost = 6
+		prerequisite = {
+			focus = NSI_deep_tunnels
+		}
+		prerequisite = {
+			focus = NSI_underground_forges
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 5
+				add_building_construction = {
+					type = industrial_complex
+					level = 5
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_ideas = nsi_subterranean_metropolis
+		}
+	}
+
+	focus = {
+		id = NSI_hidden_laboratories
+		icon = GFX_focus_research
+		relative_position_id = NSI_subterranean_city
+		x = -1
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = NSI_subterranean_city
+		}
+		completion_reward = {
+			add_research_slot = 2
+			add_tech_bonus = {
+				name = industry_bonus
+				bonus = 1.0
+				uses = 3
+				category = industry
+			}
+			add_ideas = nsi_hidden_research
+		}
+	}
+
+	focus = {
+		id = NSI_underground_networks
+		icon = GFX_focus_generic_diplomatic_treaty
+		relative_position_id = NSI_subterranean_city
+		x = 1
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = NSI_subterranean_city
+		}
+		completion_reward = {
+			add_ideas = nsi_communication_network
+			add_political_power = 200
+			every_owned_state = {
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_self_sufficient_society
+		icon = GFX_focus_generic_self_management
+		relative_position_id = NSI_subterranean_city
+		x = 0
+		y = 2
+		cost = 7
+		prerequisite = {
+			focus = NSI_hidden_laboratories
+		}
+		prerequisite = {
+			focus = NSI_underground_networks
+		}
+		completion_reward = {
+			add_ideas = nsi_autarky_perfected
+			add_stability = 0.25
+			add_war_support = 0.2
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	##############################################
+	# 政治ツリー
+	##############################################
+	focus = {
+		id = NSI_tribal_council
+		icon = GFX_focus_generic_monarchy_2
+		relative_position_id = NSI_Sinkou
+		x = -4
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = NSI_Sinkou
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_ideas = nsi_tribal_council
+		}
+	}
+
+	focus = {
+		id = NSI_elder_wisdom
+		icon = GFX_focus_generic_self_management
+		relative_position_id = NSI_tribal_council
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_tribal_council
+		}
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 120
+		}
+	}
+
+	focus = {
+		id = NSI_isolation_laws
+		icon = GFX_focus_generic_treaty
+		relative_position_id = NSI_elder_wisdom
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_elder_wisdom
+		}
+		completion_reward = {
+			add_ideas = nsi_isolation_laws
+			add_stability = 0.15
+		}
+	}
+
+	##############################################
+	# 民需ツリー
+	##############################################
+	focus = {
+		id = NSI_subsistence_farming
+		icon = GFX_focus_generic_industry_1
+		relative_position_id = NSI_Sinkou
+		x = 4
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = NSI_Sinkou
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_underground_workshops
+		icon = GFX_focus_generic_industry_2
+		relative_position_id = NSI_subsistence_farming
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_subsistence_farming
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_hidden_factories
+		icon = GFX_focus_generic_industry_3
+		relative_position_id = NSI_underground_workshops
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_underground_workshops
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	##############################################
+	# 信仰ツリー
+	##############################################
+	focus = {
+		id = NSI_ancestral_worship
+		icon = GFX_focus_generic_support_the_left_right
+		relative_position_id = NSI_Sinkou
+		x = 8
+		y = 1
+		cost = 5
+		prerequisite = {
+			focus = NSI_Sinkou
+		}
+		completion_reward = {
+			add_ideas = nsi_ancestral_worship
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = NSI_sacred_rituals
+		icon = GFX_focus_generic_concessions
+		relative_position_id = NSI_ancestral_worship
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_ancestral_worship
+		}
+		completion_reward = {
+			add_ideas = nsi_sacred_rituals
+			add_war_support = 0.15
+			set_technology = {
+				nsi_sacred_rituals = 1
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_forbidden_knowledge
+		icon = GFX_focus_research
+		relative_position_id = NSI_sacred_rituals
+		x = 0
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_sacred_rituals
+		}
+		completion_reward = {
+			add_research_slot = 1
+			add_tech_bonus = {
+				name = all_tech_bonus
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+			add_ideas = nsi_forbidden_knowledge
+			set_technology = {
+				nsi_forbidden_knowledge_tech = 1
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_ancient_texts
+		icon = GFX_focus_generic_concessions
+		relative_position_id = NSI_forbidden_knowledge
+		x = -1
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_forbidden_knowledge
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				name = doctrine_bonus
+				bonus = 1.0
+				uses = 2
+				category = land_doctrine
+			}
+			add_ideas = nsi_ancient_military_wisdom
+		}
+	}
+
+	focus = {
+		id = NSI_mystical_sciences
+		icon = GFX_focus_research2
+		relative_position_id = NSI_forbidden_knowledge
+		x = 1
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = NSI_forbidden_knowledge
+		}
+		completion_reward = {
+			add_research_slot = 1
+			add_tech_bonus = {
+				name = secret_tech_bonus
+				bonus = 1.5
+				uses = 2
+				category = concentrated_industry
+			}
+			add_ideas = nsi_mystical_sciences
+		}
+	}
+
+	focus = {
+		id = NSI_spiritual_awakening
+		icon = GFX_focus_generic_support_the_left_right
+		relative_position_id = NSI_forbidden_knowledge
+		x = 0
+		y = 2
+		cost = 5
+		prerequisite = {
+			focus = NSI_ancient_texts
+		}
+		prerequisite = {
+			focus = NSI_mystical_sciences
+		}
+		completion_reward = {
+			add_ideas = nsi_spiritual_awakening
+			add_stability = 0.2
+			add_war_support = 0.25
+			add_political_power = 150
+			set_technology = {
+				nsi_spiritual_guidance = 1
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_otherworldly_contact
+		icon = GFX_focus_generic_the_giant_wakes
+		relative_position_id = NSI_spiritual_awakening
+		x = -1
+		y = 1
+		cost = 6
+		prerequisite = {
+			focus = NSI_spiritual_awakening
+		}
+		completion_reward = {
+			add_ideas = nsi_otherworldly_guidance
+			add_tech_bonus = {
+				name = alien_tech_bonus
+				bonus = 2.0
+				uses = 3
+				category = electronics
+			}
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = NSI_divine_protection
+		icon = GFX_focus_generic_monarchy_2
+		relative_position_id = NSI_spiritual_awakening
+		x = 1
+		y = 1
+		cost = 6
+		prerequisite = {
+			focus = NSI_spiritual_awakening
+		}
+		completion_reward = {
+			add_ideas = nsi_divine_protection
+			every_owned_state = {
+				add_building_construction = {
+					type = bunker
+					level = 5
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_fort
+					level = 5
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_transcendent_wisdom
+		icon = GFX_focus_generic_treaty
+		relative_position_id = NSI_spiritual_awakening
+		x = 0
+		y = 2
+		cost = 7
+		prerequisite = {
+			focus = NSI_otherworldly_contact
+		}
+		prerequisite = {
+			focus = NSI_divine_protection
+		}
+		completion_reward = {
+			add_ideas = nsi_transcendent_wisdom
+			add_research_slot = 2
+			add_tech_bonus = {
+				name = transcendent_bonus
+				bonus = 3.0
+				uses = 5
+				category = industry
+			}
+			add_stability = 0.3
+		}
+	}
+
+	focus = {
+		id = NSI_reality_manipulation
+		icon = GFX_focus_generic_industry_3
+		relative_position_id = NSI_transcendent_wisdom
+		x = -1
+		y = 1
+		cost = 8
+		prerequisite = {
+			focus = NSI_transcendent_wisdom
+		}
+		completion_reward = {
+			add_ideas = nsi_reality_bending
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 10
+				add_building_construction = {
+					type = industrial_complex
+					level = 10
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 5
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = NSI_temporal_mastery
+		icon = GFX_focus_generic_self_management
+		relative_position_id = NSI_transcendent_wisdom
+		x = 1
+		y = 1
+		cost = 8
+		prerequisite = {
+			focus = NSI_transcendent_wisdom
+		}
+		completion_reward = {
+			add_ideas = nsi_temporal_control
+			add_tech_bonus = {
+				name = temporal_bonus
+				bonus = 5.0
+				uses = 10
+				category = all
+			}
+			add_manpower = 200000
+		}
+	}
+
+	focus = {
+		id = NSI_godlike_ascension
+		icon = GFX_focus_generic_the_giant_wakes
+		relative_position_id = NSI_transcendent_wisdom
+		x = 0
+		y = 2
+		cost = 10
+		prerequisite = {
+			focus = NSI_reality_manipulation
+		}
+		prerequisite = {
+			focus = NSI_temporal_mastery
+		}
+		completion_reward = {
+			add_ideas = nsi_ascended_beings
+			add_stability = 0.5
+			add_war_support = 0.5
+			add_research_slot = 3
+			random_owned_controlled_state = {
+				add_extra_state_shared_building_slots = 15
+				add_building_construction = {
+					type = industrial_complex
+					level = 15
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 10
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = synthetic_refinery
+					level = 5
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	##############################################
+	# 覚醒ツリー（宣戦布告時にアンロック）
+	##############################################
+	focus = {
+		id = NSI_awakening_wrath
+		icon = GFX_focus_generic_strike_at_democracy1
+		relative_position_id = NSI_eternal_vigilance
+		x = 0
+		y = 3
+		cost = 2
+
+		allow_branch = {
+			has_war = yes
+			has_defensive_war = yes
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			add_ideas = nsi_awakened_empire
+			remove_ideas = nsi_isolation_policy
+			remove_ideas = nsi_guardian_spirits
+			add_manpower = 1000000
+		}
+	}
+
+	focus = {
+		id = NSI_ancient_fury
+		icon = GFX_focus_generic_military_dictatorship
+		relative_position_id = NSI_awakening_wrath
+		x = -1
+		y = 1
+		cost = 3
+		prerequisite = {
+			focus = NSI_awakening_wrath
+		}
+		completion_reward = {
+			add_ideas = nsi_ancient_fury
+			add_war_support = 1
+		}
+	}
+
+	focus = {
+		id = NSI_technological_supremacy
+		icon = GFX_focus_research2
+		relative_position_id = NSI_awakening_wrath
+		x = 1
+		y = 1
+		cost = 3
+		prerequisite = {
+			focus = NSI_awakening_wrath
+		}
+		completion_reward = {
+			add_ideas = nsi_tech_supremacy
+			add_research_slot = 5
+		}
+	}
+
+	focus = {
+		id = NSI_retribution
+		icon = GFX_focus_generic_support_the_left_right
+		relative_position_id = NSI_awakening_wrath
+		x = 0
+		y = 2
+		cost = 4
+		prerequisite = {
+			focus = NSI_ancient_fury
+		}
+		prerequisite = {
+			focus = NSI_technological_supremacy
+		}
+		completion_reward = {
+			add_ideas = nsi_divine_retribution
+			create_wargoal = {
+				type = annex_everything
+				target = all_country
+			}
+		}
+	}
 }

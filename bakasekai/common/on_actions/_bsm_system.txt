@@ -417,20 +417,23 @@ on_actions = {
         }
     }
     on_state_control_changed = {
-        #州の失陥に関する処理
-        ucs_on_dairy_effects = yes
+        effect = {
+            #州の失陥に関する処理
+            ucs_on_dairy_effects = yes
+        }
     }
     on_declare_war = {
-        #戦時補正
-        if = {
-            limit = {
-                has_war = yes
-                NOT = {
-                    has_idea = war_effort_1
+        effect = {
+            #戦時補正
+            if = {
+                limit = {
+                    has_war = yes
+                    NOT = {
+                        has_idea = war_effort_1
+                    }
                 }
+                add_ideas = war_effort_1
             }
-            add_ideas = war_effort_1
         }
-        
     }
 }

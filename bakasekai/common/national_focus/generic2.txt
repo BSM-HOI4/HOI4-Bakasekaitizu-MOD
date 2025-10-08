@@ -18,13 +18,13 @@ focus_tree = {
 	shared_focus = HRE_prepare_army
 	shared_focus = HRE_resource_import
 	shared_focus = HRE_resource_mine
-	shared_focus = sf_army_effort
-	shared_focus = sf_aviation_effort
-	shared_focus = sf_naval_effort
-	shared_focus = sf_industrial_effort
+	#shared_focus = sf_army_effort
+	#shared_focus = sf_aviation_effort
+	#shared_focus = sf_naval_effort
+	#shared_focus = sf_industrial_effort
 	# === 中央起点フォーカス ===
 	focus = {
-		id = political_effort
+		id = generic_political_awakening
 		icon = GFX_goal_generic_demand_territory
 		x = -10
 		y = 0
@@ -1110,7 +1110,7 @@ focus_tree = {
 			focus = liberal_democracy
 			focus = social_democracy
 		}
-		x = 8
+		x = 4
 		y = 3
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -1215,7 +1215,7 @@ focus_tree = {
 			focus = constitutional_crown
 			focus = direct_participation
 		}
-		x = -12
+		x = -18
 		y = 3
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -1418,7 +1418,7 @@ focus_tree = {
 		id = national_synthesis
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = {
-			focus = collectivist_ethos
+			focus = collectivist_path
 		}
 		mutually_exclusive = {
 			focus = internationalism_focus
@@ -1431,7 +1431,7 @@ focus_tree = {
 		}
 		x = -2
 		y = 1
-		relative_position_id = collectivist_ethos
+		relative_position_id = collectivist_path
 		cost = 8
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -1467,10 +1467,13 @@ focus_tree = {
 		id = internationalism_focus
 		icon = GFX_goal_support_communism		#icon = GFX_goal_tripartite_pact
 		prerequisite = {
-			focus = collectivist_ethos
+			focus = collectivist_path
 		}
 		mutually_exclusive = {
-			focus = nationalism_focus
+			focus = nationalist_movement
+		}
+		mutually_exclusive = {
+			focus = national_synthesis
 		}
 		available = {
 			if = {
@@ -1488,7 +1491,7 @@ focus_tree = {
 		}
 		x = 2
 		y = 1
-		relative_position_id = collectivist_ethos
+		relative_position_id = collectivist_path
 		cost = 8
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -1524,23 +1527,20 @@ focus_tree = {
 		id = liberty_ethos
 		icon = GFX_goal_support_democracy
 		prerequisite = {
-			focus = political_effort
+			focus = democratic_principles
 		}
 		mutually_exclusive = {
-			focus = collectivist_ethos
-			focus = the_guard_of_civilization
-						focus = world_ruin_choice
-			
+			focus = collectivist_path
 		}
 		available = {
 			OR = {
-				# has_government = democratic_ideology
+				has_government = democratic_ideology
 				has_government = neutrality_ideology
 			}
 		}
 		x = 6
 		y = 1
-		relative_position_id = political_effort
+		relative_position_id = democratic_principles
 		cost = 8
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
@@ -1569,37 +1569,38 @@ focus_tree = {
 			add_ideas = liberty_ethos_focus
 		}
 	}
-	focus = {
-		id = militarism
-		icon = GFX_goal_generic_political_pressure
-		prerequisite = {
-			focus = nationalism_focus
-		}
-		x = 0
-		y = 8
-		relative_position_id = generic_political_awakening
-		cost = 20
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		available_if_capitulated = yes
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			if = {
-				limit = {
-					has_idea = neutrality_idea
-				}
-				remove_ideas = neutrality_idea
-			}
-			add_ideas = militarism_focus
-			army_experience = 20
-			set_rule = {
-				can_send_volunteers = yes
-			}
-		}
-	}
+	# focus = {
+	# 	id = militarism
+	# 	icon = GFX_goal_generic_political_pressure
+	# 	prerequisite = {
+	# 		focus = sf_nationalism_focus
+	# 	}
+	# 	x = 0
+	# 	y = 8
+	# 	relative_position_id = generic_political_awakening
+	# 	cost = 20
+	# 	search_filters = {
+	# 		FOCUS_FILTER_POLITICAL
+	# 	}
+	# 	available_if_capitulated = yes
+	# 	ai_will_do = {
+	# 		factor = 100
+	# 	}
+	# 	completion_reward = {
+	# 		if = {
+	# 			limit = {
+	# 				has_idea = neutrality_idea
+	# 			}
+	# 			remove_ideas = neutrality_idea
+	# 		}
+	# 		add_ideas = militarism_focus
+	# 		army_experience = 20
+	# 		set_rule = {
+	# 			can_send_volunteers = yes
+	# 		}
+	# 	}
+	# }
+	
 	focus = {
 		id = political_correctness
 		icon = GFX_goal_generic_dangerous_deal
