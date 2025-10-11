@@ -9,11 +9,11 @@ NSI_internal_development = {
 		
 		available = {
 			has_idea = chikatoshi
-			political_power > 149
+			has_political_power > 149
 			num_of_controlled_states > 0
 		}
 		
-		political_power_cost = 150
+		cost = 150
 		days_remove = 60
 		
 		ai_will_do = {
@@ -45,26 +45,29 @@ NSI_internal_development = {
 		
 		available = {
 			has_idea = nsi_isolation_policy
-			political_power > 99
-			command_power > 24
+			has_political_power > 99
+			has_command_power > 24
 		}
 		
-		political_power_cost = 100
-		command_power_cost = 25
+		cost = 100
 		days_remove = 45
 		
-		ai_will_do = {
-			factor = 3
-			modifier = {
-				factor = 5
-				enemies_strength_ratio > 0.5
-			}
-		}
-		
-		remove_effect = {
-			every_owned_state = {
-				add_building_construction = {
-					type = bunker
+                ai_will_do = {
+                        factor = 3
+                        modifier = {
+                                factor = 5
+                                enemies_strength_ratio > 0.5
+                        }
+                }
+
+                complete_effect = {
+                        add_command_power = -25
+                }
+
+                remove_effect = {
+                        every_owned_state = {
+                                add_building_construction = {
+                                        type = bunker
 					level = 1
 					instant_build = yes
 				}
@@ -81,17 +84,17 @@ NSI_internal_development = {
 		
 		available = {
 			has_idea = nsi_ancestral_worship
-			political_power > 74
+			has_political_power > 74
 		}
 		
-		political_power_cost = 75
+		cost = 75
 		days_remove = 30
 		
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 3
-				stability < 0.7
+				has_stability < 0.7
 			}
 		}
 		
@@ -111,11 +114,11 @@ NSI_internal_development = {
 		
 		available = {
 			has_idea = nsi_forbidden_knowledge
-			political_power > 199
+			has_political_power > 199
 			num_of_research_slots > 2
 		}
 		
-		political_power_cost = 200
+		cost = 200
 		days_remove = 90
 		
 		ai_will_do = {
@@ -159,27 +162,30 @@ NSI_internal_development = {
 		
 		available = {
 			has_idea = nsi_warrior_tradition
-			manpower > 4999
-			political_power > 99
-			command_power > 49
+			has_manpower > 4999
+			has_political_power > 99
+			has_command_power > 49
 		}
 		
-		political_power_cost = 100
-		command_power_cost = 50
+		cost = 100
 		days_remove = 75
 		
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				factor = 4
-				has_war = yes
-			}
-		}
-		
-		remove_effect = {
-			add_manpower = -5000
-			load_oob = "NSI_elite_reinforcements"
-			army_experience = 15
+                ai_will_do = {
+                        factor = 2
+                        modifier = {
+                                factor = 4
+                                has_war = yes
+                        }
+                }
+
+                complete_effect = {
+                        add_command_power = -50
+                }
+
+                remove_effect = {
+                        add_manpower = -5000
+                        load_oob = "NSI_elite_reinforcements"
+                        army_experience = 15
 		}
 	}
 	
@@ -192,11 +198,11 @@ NSI_internal_development = {
 		
 		available = {
 			has_idea = nsi_guardian_spirits
-			political_power > 124
+			has_political_power > 124
 			NOT = { has_war = yes }
 		}
 		
-		political_power_cost = 125
+		cost = 125
 		days_remove = 60
 		
 		ai_will_do = {
@@ -237,21 +243,24 @@ NSI_awakened_actions = {
 		available = {
 			has_idea = nsi_awakened_empire
 			has_war = yes
-			political_power > 199
-			command_power > 99
+			has_political_power > 199
+			has_command_power > 99
 		}
 		
-		political_power_cost = 200
-		command_power_cost = 100
+		cost = 200
 		days_remove = 30
 		
-		ai_will_do = {
-			factor = 5
-		}
-		
-		remove_effect = {
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
+                ai_will_do = {
+                        factor = 5
+                }
+
+                complete_effect = {
+                        add_command_power = -100
+                }
+
+                remove_effect = {
+                        add_equipment_to_stockpile = {
+                                type = infantry_equipment
 				amount = 10000
 			}
 			add_equipment_to_stockpile = {
@@ -275,10 +284,10 @@ NSI_awakened_actions = {
 		available = {
 			has_idea = nsi_divine_retribution
 			has_war = yes
-			political_power > 299
+			has_political_power > 299
 		}
 		
-		political_power_cost = 300
+		cost = 300
 		days_remove = 15
 		
 		ai_will_do = {
@@ -304,10 +313,10 @@ NSI_awakened_actions = {
 		
 		available = {
 			has_idea = nsi_reality_bending
-			political_power > 499
+			has_political_power > 499
 		}
 		
-		political_power_cost = 500
+		cost = 500
 		days_remove = 120
 		
 		ai_will_do = {
@@ -340,24 +349,27 @@ NSI_awakened_actions = {
 		
 		available = {
 			has_idea = nsi_temporal_control
-			political_power > 399
-			command_power > 199
+			has_political_power > 399
+			has_command_power > 199
 		}
 		
-		political_power_cost = 400
-		command_power_cost = 200
+		cost = 400
 		days_remove = 90
 		
-		ai_will_do = {
-			factor = 2
-		}
-		
-		remove_effect = {
-			add_tech_bonus = {
-				bonus = 3.0
-				uses = 5
-				category = all
-			}
+                ai_will_do = {
+                        factor = 2
+                }
+
+                complete_effect = {
+                        add_command_power = -200
+                }
+
+                remove_effect = {
+                        add_tech_bonus = {
+                                bonus = 3.0
+                                uses = 5
+                                category = industry
+                        }
 			add_manpower = 50000
 			army_experience = 50
 			navy_experience = 50
