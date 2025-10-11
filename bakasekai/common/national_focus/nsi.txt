@@ -73,20 +73,21 @@ focus_tree = {
 		prerequisite = {
 			focus = NSI_isolation_doctrine
 		}
-                completion_reward = {
-                        add_ideas = nsi_outsider_rejection
-                        every_owned_state = {
-                                limit = {
-                                        is_coastal = yes
-                                        has_naval_base > 0
-                                }
-                                add_building_construction = {
-                                        type = coastal_bunker
-                                        level = 3
-                                        instant_build = yes
-                                }
-                        }
-                }
+		completion_reward = {
+			add_ideas = nsi_outsider_rejection
+			every_owned_state = {
+				limit = {
+					is_coastal = yes
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
+				add_building_construction = {
+					type = coastal_fort
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
 	}
 
 	focus = {
@@ -226,13 +227,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			every_owned_state = {
-				if = {
-					limit = { is_coastal = yes }
-					add_building_construction = {
-						type = coastal_bunker
-						level = 3
-						instant_build = yes
-					}
+				limit = {
+					is_coastal = yes
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
+				add_building_construction = {
+					type = coastal_fort
+					level = 3
+					instant_build = yes
 				}
 			}
 		}
@@ -701,7 +704,7 @@ focus_tree = {
 				name = secret_tech_bonus
 				bonus = 1.5
 				uses = 2
-				category = industry
+				category = concentrated_industry
 			}
 			add_ideas = nsi_mystical_sciences
 		}
@@ -763,24 +766,30 @@ focus_tree = {
 		prerequisite = {
 			focus = NSI_spiritual_awakening
 		}
-                completion_reward = {
-                        add_ideas = nsi_divine_protection
-                        every_owned_state = {
-                                add_building_construction = {
-                                        type = bunker
-                                        level = 5
-                                        instant_build = yes
-                                }
-                                if = {
-                                        limit = { is_coastal = yes }
-                                        add_building_construction = {
-                                                type = coastal_bunker
-                                                level = 5
-                                                instant_build = yes
-                                        }
-                                }
-                        }
-                }
+		completion_reward = {
+			add_ideas = nsi_divine_protection
+			every_owned_state = {
+				limit = {
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
+				add_building_construction = {
+					type = bunker
+					level = 5
+					instant_build = yes
+				}
+				if = {
+					limit = {
+						is_coastal = yes
+					}
+					add_building_construction = {
+						type = coastal_fort
+						level = 5
+						instant_build = yes
+					}
+				}
+			}
+		}
 	}
 
 	focus = {
@@ -853,7 +862,7 @@ focus_tree = {
 				name = temporal_bonus
 				bonus = 5.0
 				uses = 10
-				category = industry
+				category = all
 			}
 			add_manpower = 200000
 		}
