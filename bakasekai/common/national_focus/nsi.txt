@@ -75,12 +75,16 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = nsi_outsider_rejection
-			add_building_construction = {
-				type = coastal_fort
-				level = 3
-				province = {
-					all_provinces = yes
-					limit_to_naval_base = yes
+			every_owned_state = {
+				limit = {
+					is_coastal = yes
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
+				add_building_construction = {
+					type = coastal_fort
+					level = 3
+					instant_build = yes
 				}
 			}
 		}
@@ -99,6 +103,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = nsi_sacred_barriers
 			every_owned_state = {
+				limit = {
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
 				add_building_construction = {
 					type = bunker
 					level = 2
@@ -160,6 +168,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = nsi_eternal_vigilance
 			every_owned_state = {
+				limit = {
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
 				add_extra_state_shared_building_slots = 2
 			}
 		}
@@ -215,13 +227,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			every_owned_state = {
-				if = {
-					limit = { is_coastal = yes }
-					add_building_construction = {
-						type = coastal_fort
-						level = 3
-						instant_build = yes
-					}
+				limit = {
+					is_coastal = yes
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
+				add_building_construction = {
+					type = coastal_fort
+					level = 3
+					instant_build = yes
 				}
 			}
 		}
@@ -330,6 +344,10 @@ focus_tree = {
 		}
 		completion_reward = {
 			every_owned_state = {
+				limit = {
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
 				add_building_construction = {
 					type = bunker
 					level = 3
@@ -429,6 +447,10 @@ focus_tree = {
 			add_ideas = nsi_communication_network
 			add_political_power = 200
 			every_owned_state = {
+				limit = {
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
 				add_extra_state_shared_building_slots = 1
 			}
 		}
@@ -747,15 +769,24 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = nsi_divine_protection
 			every_owned_state = {
+				limit = {
+					is_owned_by = ROOT
+					is_controlled_by = ROOT
+				}
 				add_building_construction = {
 					type = bunker
 					level = 5
 					instant_build = yes
 				}
-				add_building_construction = {
-					type = coastal_fort
-					level = 5
-					instant_build = yes
+				if = {
+					limit = {
+						is_coastal = yes
+					}
+					add_building_construction = {
+						type = coastal_fort
+						level = 5
+						instant_build = yes
+					}
 				}
 			}
 		}
