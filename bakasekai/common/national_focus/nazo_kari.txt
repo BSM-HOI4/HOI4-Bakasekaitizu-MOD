@@ -15,7 +15,6 @@ focus_tree = {
 	shared_focus = HRE_prepare_army
 	shared_focus = HRE_resource_import
 	shared_focus = HRE_resource_mine
-	
 	### 指向選択システム ###
 	# 早期暴発指向
 	focus = {
@@ -46,11 +45,12 @@ focus_tree = {
 			factor = 10
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = MYS_early_outbreak_chosen }
+				NOT = {
+					has_country_flag = MYS_early_outbreak_chosen
+				}
 			}
 		}
 	}
-	
 	# 中期暴走指向
 	focus = {
 		id = MYS_mid_rampage
@@ -80,11 +80,12 @@ focus_tree = {
 			factor = 10
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = MYS_mid_rampage_chosen }
+				NOT = {
+					has_country_flag = MYS_mid_rampage_chosen
+				}
 			}
 		}
 	}
-	
 	# 後期災害指向
 	focus = {
 		id = MYS_late_disaster
@@ -114,11 +115,12 @@ focus_tree = {
 			factor = 10
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = MYS_late_disaster_chosen }
+				NOT = {
+					has_country_flag = MYS_late_disaster_chosen
+				}
 			}
 		}
 	}
-	
 	# 末期危機指向
 	focus = {
 		id = MYS_end_crisis
@@ -148,11 +150,12 @@ focus_tree = {
 			factor = 10
 			modifier = {
 				factor = 0
-				NOT = { has_country_flag = MYS_end_crisis_chosen }
+				NOT = {
+					has_country_flag = MYS_end_crisis_chosen
+				}
 			}
 		}
 	}
-	
 	### 早期暴発指向ツリー ###
 	# 緊急動員
 	focus = {
@@ -175,8 +178,10 @@ focus_tree = {
 			add_manpower = 10000
 			add_political_power = 25
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 迅速工業化
 	focus = {
 		id = MYS_early_rapid_industry
@@ -200,8 +205,10 @@ focus_tree = {
 				level = 1
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 軍事優先
 	focus = {
 		id = MYS_early_military_first
@@ -227,8 +234,10 @@ focus_tree = {
 				category = land_doctrine
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 歩兵装備の生産
 	focus = {
 		id = MYS_early_infantry_equipment
@@ -255,8 +264,10 @@ focus_tree = {
 				level = 2
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 緊急研究
 	focus = {
 		id = MYS_early_emergency_research
@@ -281,8 +292,10 @@ focus_tree = {
 				category = infantry_weapons
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 電撃戦ドクトリン
 	focus = {
 		id = MYS_early_blitzkrieg
@@ -303,8 +316,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MYS_early_blitzkrieg_idea
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 戦車生産開始
 	focus = {
 		id = MYS_early_tank_production
@@ -332,8 +347,10 @@ focus_tree = {
 				category = armor
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 航空戦力の確保
 	focus = {
 		id = MYS_early_air_power
@@ -358,8 +375,10 @@ focus_tree = {
 				category = light_fighter
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 技術盗用
 	focus = {
 		id = MYS_early_tech_theft
@@ -384,8 +403,10 @@ focus_tree = {
 				technology = electronic_mechanical_engineering
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 全面戦争の準備
 	focus = {
 		id = MYS_early_total_war_prep
@@ -410,8 +431,10 @@ focus_tree = {
 			add_war_support = 0.15
 			add_stability = -0.05
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 軍需工場の拡充
 	focus = {
 		id = MYS_early_expand_military_factories
@@ -438,8 +461,10 @@ focus_tree = {
 				level = 3
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 侵略の口実
 	focus = {
 		id = MYS_early_war_justification
@@ -466,8 +491,10 @@ focus_tree = {
 				name = MYS_early_aggression
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 早期暴発開始
 	focus = {
 		id = MYS_early_outbreak_execute
@@ -492,11 +519,15 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			country_event = { id = MYS_direction.11 }
-			add_war_support = 0.10
+			country_event = {
+				id = MYS_direction.11
+			}
+			add_war_support = 0.1
+		}
+		ai_will_do = {
+			factor = 1
 		}
 	}
-	
 	### 中期暴走指向ツリー ###
 	# 産業基盤の整備
 	focus = {
@@ -521,8 +552,10 @@ focus_tree = {
 				level = 2
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 軍事力の強化
 	focus = {
 		id = MYS_mid_military_power
@@ -544,8 +577,10 @@ focus_tree = {
 			army_experience = 25
 			add_manpower = 20000
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 民需工場の拡張
 	focus = {
 		id = MYS_mid_civilian_factories
@@ -569,8 +604,10 @@ focus_tree = {
 				level = 3
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 軍需工場の拡張
 	focus = {
 		id = MYS_mid_military_factories
@@ -597,8 +634,10 @@ focus_tree = {
 				level = 4
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 陸軍ドクトリン
 	focus = {
 		id = MYS_mid_army_doctrine
@@ -623,8 +662,10 @@ focus_tree = {
 				category = land_doctrine
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 資源の確保
 	focus = {
 		id = MYS_mid_resources
@@ -650,8 +691,10 @@ focus_tree = {
 				}
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 装甲戦力
 	focus = {
 		id = MYS_mid_armored_forces
@@ -679,8 +722,10 @@ focus_tree = {
 				category = armor
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 航空優勢
 	focus = {
 		id = MYS_mid_air_superiority
@@ -708,8 +753,10 @@ focus_tree = {
 				category = light_fighter
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 海軍戦力
 	focus = {
 		id = MYS_mid_naval_power
@@ -734,8 +781,10 @@ focus_tree = {
 				category = dd_tech
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 総合戦力の完成
 	focus = {
 		id = MYS_mid_combined_arms
@@ -759,8 +808,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MYS_mid_combined_arms_idea
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 戦略爆撃準備
 	focus = {
 		id = MYS_mid_strategic_bombing
@@ -788,8 +839,10 @@ focus_tree = {
 				category = tactical_bomber
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 外交圧力
 	focus = {
 		id = MYS_mid_diplomatic_pressure
@@ -814,8 +867,10 @@ focus_tree = {
 				name = MYS_mid_pressure
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 最終準備
 	focus = {
 		id = MYS_mid_final_prep
@@ -839,8 +894,10 @@ focus_tree = {
 		completion_reward = {
 			add_war_support = 0.15
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 脅威の増大
 	focus = {
 		id = MYS_mid_threat_increase
@@ -864,8 +921,10 @@ focus_tree = {
 				name = MYS_mid_threat
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 中期暴走開始
 	focus = {
 		id = MYS_mid_rampage_execute
@@ -890,11 +949,15 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			country_event = { id = MYS_direction.12 }
-			add_war_support = 0.10
+			country_event = {
+				id = MYS_direction.12
+			}
+			add_war_support = 0.1
+		}
+		ai_will_do = {
+			factor = 1
 		}
 	}
-	
 	### 後期災害指向ツリー ###
 	# 大規模工業化計画
 	focus = {
@@ -919,8 +982,10 @@ focus_tree = {
 				level = 4
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 研究体制の確立
 	focus = {
 		id = MYS_late_research_system
@@ -941,8 +1006,10 @@ focus_tree = {
 		completion_reward = {
 			add_research_slot = 1
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 重工業地帯の建設
 	focus = {
 		id = MYS_late_heavy_industry
@@ -966,8 +1033,10 @@ focus_tree = {
 				level = 5
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# インフラ整備
 	focus = {
 		id = MYS_late_infrastructure
@@ -997,8 +1066,10 @@ focus_tree = {
 				}
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 先進技術研究
 	focus = {
 		id = MYS_late_advanced_research
@@ -1023,8 +1094,10 @@ focus_tree = {
 				category = electronics
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 兵器工場の大量建設
 	focus = {
 		id = MYS_late_arms_factories
@@ -1048,8 +1121,10 @@ focus_tree = {
 				level = 6
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 資源自給体制
 	focus = {
 		id = MYS_late_resource_self_sufficiency
@@ -1082,8 +1157,10 @@ focus_tree = {
 				}
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 科学研究都市
 	focus = {
 		id = MYS_late_science_city
@@ -1107,8 +1184,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MYS_late_science_city_idea
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 原子力研究
 	focus = {
 		id = MYS_late_nuclear_research
@@ -1128,13 +1207,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = {
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = nuclear
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 産業帝国の完成
 	focus = {
 		id = MYS_late_industrial_empire
@@ -1158,8 +1239,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MYS_late_industrial_empire_idea
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 軍事技術の革新
 	focus = {
 		id = MYS_late_military_innovation
@@ -1192,8 +1275,10 @@ focus_tree = {
 				category = light_fighter
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 超兵器開発
 	focus = {
 		id = MYS_late_superweapon
@@ -1216,13 +1301,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = {
-				bonus = 1.0
+				bonus = 1
 				uses = 1
 				category = jet_technology
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 大量生産体制
 	focus = {
 		id = MYS_late_mass_production
@@ -1249,8 +1336,10 @@ focus_tree = {
 				level = 4
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 世界最先端技術
 	focus = {
 		id = MYS_late_cutting_edge_tech
@@ -1278,8 +1367,10 @@ focus_tree = {
 				ahead_reduction = 2
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 後期災害開始
 	focus = {
 		id = MYS_late_disaster_execute
@@ -1301,11 +1392,15 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			country_event = { id = MYS_direction.13 }
-			add_war_support = 0.20
+			country_event = {
+				id = MYS_direction.13
+			}
+			add_war_support = 0.2
+		}
+		ai_will_do = {
+			factor = 1
 		}
 	}
-	
 	### 末期危機指向ツリー ###
 	# 完全工業化
 	focus = {
@@ -1330,8 +1425,10 @@ focus_tree = {
 				level = 6
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 完全研究体制
 	focus = {
 		id = MYS_end_total_research
@@ -1352,8 +1449,10 @@ focus_tree = {
 		completion_reward = {
 			add_research_slot = 2
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 完全軍備
 	focus = {
 		id = MYS_end_total_military
@@ -1375,8 +1474,10 @@ focus_tree = {
 			add_manpower = 50000
 			army_experience = 50
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 超大型工場群
 	focus = {
 		id = MYS_end_mega_factories
@@ -1400,8 +1501,10 @@ focus_tree = {
 				level = 8
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 資源帝国
 	focus = {
 		id = MYS_end_resource_empire
@@ -1442,8 +1545,10 @@ focus_tree = {
 				}
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 究極の研究施設
 	focus = {
 		id = MYS_end_ultimate_research
@@ -1467,8 +1572,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MYS_end_ultimate_research_idea
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 完全武装
 	focus = {
 		id = MYS_end_full_armament
@@ -1492,8 +1599,10 @@ focus_tree = {
 				level = 10
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 巨大インフラ網
 	focus = {
 		id = MYS_end_mega_infrastructure
@@ -1520,8 +1629,10 @@ focus_tree = {
 				}
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 全資源の支配
 	focus = {
 		id = MYS_end_resource_domination
@@ -1554,8 +1665,10 @@ focus_tree = {
 				}
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 先進兵器開発
 	focus = {
 		id = MYS_end_advanced_weapons
@@ -1578,13 +1691,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = {
-				bonus = 1.0
+				bonus = 1
 				uses = 3
 				category = armor
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 空軍の圧倒的優位
 	focus = {
 		id = MYS_end_air_dominance
@@ -1607,13 +1722,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = {
-				bonus = 1.0
+				bonus = 1
 				uses = 3
 				category = light_fighter
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 海軍の完全支配
 	focus = {
 		id = MYS_end_naval_supremacy
@@ -1633,13 +1750,15 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = {
-				bonus = 1.0
+				bonus = 1
 				uses = 2
 				category = bb_tech
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 経済の完全支配
 	focus = {
 		id = MYS_end_economic_control
@@ -1663,8 +1782,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MYS_end_economic_control_idea
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 全面的軍事優位
 	focus = {
 		id = MYS_end_military_superiority
@@ -1691,8 +1812,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = MYS_end_military_superiority_idea
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 技術的超越
 	focus = {
 		id = MYS_end_tech_transcendence
@@ -1715,18 +1838,20 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_tech_bonus = {
-				bonus = 1.0
+				bonus = 1
 				uses = 2
 				category = nuclear
 			}
 			add_tech_bonus = {
-				bonus = 1.0
+				bonus = 1
 				uses = 2
 				category = jet_technology
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 総力戦体制
 	focus = {
 		id = MYS_end_total_war_economy
@@ -1751,8 +1876,10 @@ focus_tree = {
 			add_ideas = tot_economic_mobilisation
 			add_war_support = 0.25
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 世界制覇の野望
 	focus = {
 		id = MYS_end_world_domination
@@ -1779,8 +1906,10 @@ focus_tree = {
 				name = MYS_end_domination
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 末期危機発動
 	focus = {
 		id = MYS_end_crisis_execute
@@ -1802,13 +1931,16 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		completion_reward = {
-			country_event = { id = MYS_direction.14 }
-			add_war_support = 0.30
+			country_event = {
+				id = MYS_direction.14
+			}
+			add_war_support = 0.3
+		}
+		ai_will_do = {
+			factor = 1
 		}
 	}
-	
 	### 未来主義産業・研究ツリー ###
-	
 	# 未来主義的謎（ルートフォーカス）
 	focus = {
 		id = YUG_weilaizhuyidemi
@@ -1822,8 +1954,10 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 50
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	### 産業ブランチ ###
 	# 基礎工業化
 	focus = {
@@ -1853,7 +1987,6 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			
 			random_owned_state = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
@@ -1863,8 +1996,10 @@ focus_tree = {
 				}
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	### 研究ブランチ ###
 	# 基礎研究体制
 	focus = {
@@ -1883,8 +2018,10 @@ focus_tree = {
 		completion_reward = {
 			add_research_slot = 1
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# インフラストラクチャ拡張
 	focus = {
 		id = YUG_inhurawokuoda
@@ -1907,8 +2044,10 @@ focus_tree = {
 				}
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 資源開発
 	focus = {
 		id = YUG_ziyuanwozengjia
@@ -1955,8 +2094,10 @@ focus_tree = {
 				state = 107
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 工業大国化
 	focus = {
 		id = YUG_gongyedaguo
@@ -1977,8 +2118,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = factory_major
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 科学技術研究
 	focus = {
 		id = YUG_kagaku_gijutsu_kenkyuu
@@ -2000,8 +2143,10 @@ focus_tree = {
 				category = electronics
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 先進研究施設
 	focus = {
 		id = YUG_senshin_kenkyuu_shisetsu
@@ -2019,8 +2164,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = science_god
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 研究枠拡張
 	focus = {
 		id = YUG_xintanayanjiuwaku
@@ -2041,8 +2188,10 @@ focus_tree = {
 		completion_reward = {
 			add_research_slot = 6
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	### 産業・研究統合ブランチ ###
 	# 未来的建造物
 	focus = {
@@ -2061,7 +2210,7 @@ focus_tree = {
 		prerequisite = {
 			focus = YUG_xintanayanjiuwaku
 		}
-			allow_branch = {
+		allow_branch = {
 			date > 1937.1
 		}
 		completion_reward = {
@@ -2098,8 +2247,10 @@ focus_tree = {
 				set_state_flag = REPLACE_ME_WITH_UNIQUE_IDENTIFIER
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	### 政治・軍事ブランチ（産業・研究と平行）###
 	# 国家安定強化
 	focus = {
@@ -2118,8 +2269,10 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.5
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 少数民族粛清
 	focus = {
 		id = YUG_shaoshuminzunosuqing
@@ -2137,8 +2290,10 @@ focus_tree = {
 		completion_reward = {
 			add_manpower = -50000
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 反乱分子収容
 	focus = {
 		id = YUG_fanluanfenziwoshourong
@@ -2156,8 +2311,10 @@ focus_tree = {
 		completion_reward = {
 			add_manpower = -50000
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 統一スラブ人
 	focus = {
 		id = YUG_tongyisuraburen
@@ -2181,8 +2338,10 @@ focus_tree = {
 		completion_reward = {
 			remove_ideas = multiethnic_country
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# トランスヒューマニスト国家の幕開け
 	focus = {
 		id = YUG_toransuhiyumanisutoguojianomukaike
@@ -2202,10 +2361,11 @@ focus_tree = {
 			add_political_power = 1000
 			add_manpower = 500000
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	### 産業・研究統合後の発展ブランチ ###
-	
 	# 軍事産業複合体
 	focus = {
 		id = YUG_gunjisangyou_fukugoutai
@@ -2226,8 +2386,10 @@ focus_tree = {
 				level = 3
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 軍事イデオロギー改革（キリスト教廃止）
 	focus = {
 		id = YUG_kirisutojiaowofeizhi
@@ -2248,8 +2410,10 @@ focus_tree = {
 		completion_reward = {
 			add_stability = -0.05
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 先端研究所建設
 	focus = {
 		id = YUG_sentan_kenkyuujo_kensetsu
@@ -2271,8 +2435,10 @@ focus_tree = {
 				category = electronics
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 科学崇拝への転換
 	focus = {
 		id = YUG_kexuechongbai
@@ -2299,8 +2465,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = science_god
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	### 軍事技術分野別発展 ###
 	# 陸軍未来技術
 	focus = {
@@ -2323,8 +2491,10 @@ focus_tree = {
 				category = armor
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 未来の軍隊（統合軍事システム）
 	focus = {
 		id = YUG_weilainojundui
@@ -2342,8 +2512,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = futurist_army
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 航空未来技術
 	focus = {
 		id = YUG_koukuu_mirai_gijutsu
@@ -2365,8 +2537,10 @@ focus_tree = {
 				category = light_fighter
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 超越武器開発プロジェクト
 	focus = {
 		id = YUG_chaoyuewuqi
@@ -2394,8 +2568,10 @@ focus_tree = {
 				category = nuclear
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	### 征服戦争準備・実行ブランチ ###
 	# 未来主義イデオロギー完成
 	focus = {
@@ -2420,8 +2596,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = extermination
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 西方征服作戦（ギリシャ）
 	focus = {
 		id = YUG_girisiyawoweilainidaoku
@@ -2442,8 +2620,10 @@ focus_tree = {
 				target = GRC
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 太平洋征服作戦（オーストラリア）
 	focus = {
 		id = YUG_oziwoweilainidaoku
@@ -2464,8 +2644,10 @@ focus_tree = {
 				target = AUS
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 北方征服作戦（バルト諸国）
 	focus = {
 		id = YUG_batoruwoweilainidaoku
@@ -2502,8 +2684,10 @@ focus_tree = {
 				target = BTY
 			}
 		}
+		ai_will_do = {
+			factor = 1
+		}
 	}
-	
 	# 汎スラヴ主義未来帝国の実現
 	focus = {
 		id = YUG_fansuravuzhuyinoshixian
@@ -2526,6 +2710,9 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_cosmetic_tag = SLAV_futurist_empire
+		}
+		ai_will_do = {
+			factor = 1
 		}
 	}
 }
