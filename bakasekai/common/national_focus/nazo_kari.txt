@@ -11,11 +11,1775 @@ focus_tree = {
 			tag = MYS
 		}
 	}
+	
+	### 指向選択システム ###
+	# 早期暴発指向
+	focus = {
+		id = MYS_early_outbreak
+		icon = GFX_goal_generic_demand_territory
+		x = 2
+		y = 0
+		cost = 10
+		mutually_exclusive = {
+			focus = MYS_mid_rampage
+			focus = MYS_late_disaster
+			focus = MYS_end_crisis
+		}
+		available = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_ideas = MYS_early_outbreak_idea
+		}
+	}
+	
+	# 中期暴走指向
+	focus = {
+		id = MYS_mid_rampage
+		icon = GFX_goal_generic_attack_allies
+		x = 4
+		y = 0
+		cost = 10
+		mutually_exclusive = {
+			focus = MYS_early_outbreak
+			focus = MYS_late_disaster
+			focus = MYS_end_crisis
+		}
+		available = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_ideas = MYS_mid_rampage_idea
+		}
+	}
+	
+	# 後期災害指向
+	focus = {
+		id = MYS_late_disaster
+		icon = GFX_goal_generic_major_war
+		x = 6
+		y = 0
+		cost = 10
+		mutually_exclusive = {
+			focus = MYS_early_outbreak
+			focus = MYS_mid_rampage
+			focus = MYS_end_crisis
+		}
+		available = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_ideas = MYS_late_disaster_idea
+		}
+	}
+	
+	# 末期危機指向
+	focus = {
+		id = MYS_end_crisis
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		x = 8
+		y = 0
+		cost = 10
+		mutually_exclusive = {
+			focus = MYS_early_outbreak
+			focus = MYS_mid_rampage
+			focus = MYS_late_disaster
+		}
+		available = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_ideas = MYS_end_crisis_idea
+		}
+	}
+	
+	### 早期暴発指向ツリー ###
+	# 緊急動員
+	focus = {
+		id = MYS_early_mobilization
+		icon = GFX_goal_generic_allies_build_infantry
+		x = -1
+		y = 1
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_outbreak
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_manpower = 10000
+			add_political_power = 25
+		}
+	}
+	
+	# 迅速工業化
+	focus = {
+		id = MYS_early_rapid_industry
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 1
+		y = 1
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_outbreak
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+	
+	# 軍事優先
+	focus = {
+		id = MYS_early_military_first
+		icon = GFX_goal_generic_build_tank
+		x = -2
+		y = 2
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_mobilization
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			army_experience = 15
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+	
+	# 歩兵装備の生産
+	focus = {
+		id = MYS_early_infantry_equipment
+		icon = GFX_goal_generic_small_arms
+		x = 0
+		y = 2
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_mobilization
+		}
+		prerequisite = {
+			focus = MYS_early_rapid_industry
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 2
+			}
+		}
+	}
+	
+	# 緊急研究
+	focus = {
+		id = MYS_early_emergency_research
+		icon = GFX_focus_research
+		x = 2
+		y = 2
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_rapid_industry
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = infantry_weapons
+			}
+		}
+	}
+	
+	# 電撃戦ドクトリン
+	focus = {
+		id = MYS_early_blitzkrieg
+		icon = GFX_goal_generic_army_tanks
+		x = -2
+		y = 3
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_military_first
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_ideas = MYS_early_blitzkrieg_idea
+		}
+	}
+	
+	# 戦車生産開始
+	focus = {
+		id = MYS_early_tank_production
+		icon = GFX_goal_generic_army_motorized
+		x = -1
+		y = 3
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_military_first
+		}
+		prerequisite = {
+			focus = MYS_early_infantry_equipment
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = armor
+			}
+		}
+	}
+	
+	# 航空戦力の確保
+	focus = {
+		id = MYS_early_air_power
+		icon = GFX_goal_generic_build_airforce
+		x = 1
+		y = 3
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_infantry_equipment
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+	
+	# 技術盗用
+	focus = {
+		id = MYS_early_tech_theft
+		icon = GFX_focus_generic_military_academy
+		x = 2
+		y = 3
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_emergency_research
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 3
+				technology = electronic_mechanical_engineering
+			}
+		}
+	}
+	
+	# 全面戦争の準備
+	focus = {
+		id = MYS_early_total_war_prep
+		icon = GFX_goal_generic_propaganda
+		x = -1.5
+		y = 4
+		cost = 3
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_blitzkrieg
+		}
+		prerequisite = {
+			focus = MYS_early_tank_production
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_war_support = 0.15
+			add_stability = -0.05
+		}
+	}
+	
+	# 軍需工場の拡充
+	focus = {
+		id = MYS_early_expand_military_factories
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 0
+		y = 4
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_tank_production
+		}
+		prerequisite = {
+			focus = MYS_early_air_power
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 3
+			}
+		}
+	}
+	
+	# 侵略の口実
+	focus = {
+		id = MYS_early_war_justification
+		icon = GFX_goal_generic_forceful_treaty
+		x = 1.5
+		y = 4
+		cost = 3
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_air_power
+		}
+		prerequisite = {
+			focus = MYS_early_tech_theft
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_named_threat = {
+				threat = 3
+				name = MYS_early_aggression
+			}
+		}
+	}
+	
+	# 早期暴発開始
+	focus = {
+		id = MYS_early_outbreak_execute
+		icon = GFX_goal_generic_territory_or_war
+		x = 0
+		y = 5
+		cost = 5
+		relative_position_id = MYS_early_outbreak
+		prerequisite = {
+			focus = MYS_early_total_war_prep
+		}
+		prerequisite = {
+			focus = MYS_early_expand_military_factories
+		}
+		prerequisite = {
+			focus = MYS_early_war_justification
+		}
+		allow_branch = {
+			has_country_flag = MYS_early_outbreak_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			country_event = { id = MYS_direction.11 }
+			add_war_support = 0.10
+		}
+	}
+	
+	### 中期暴走指向ツリー ###
+	# 産業基盤の整備
+	focus = {
+		id = MYS_mid_industry_base
+		icon = GFX_goal_generic_production2
+		x = -1
+		y = 1
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_rampage
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 2
+			}
+		}
+	}
+	
+	# 軍事力の強化
+	focus = {
+		id = MYS_mid_military_power
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 1
+		y = 1
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_rampage
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			army_experience = 25
+			add_manpower = 20000
+		}
+	}
+	
+	# 民需工場の拡張
+	focus = {
+		id = MYS_mid_civilian_factories
+		icon = GFX_goal_generic_construct_civ_factory
+		x = -2
+		y = 2
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_industry_base
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 3
+			}
+		}
+	}
+	
+	# 軍需工場の拡張
+	focus = {
+		id = MYS_mid_military_factories
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 0
+		y = 2
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_industry_base
+		}
+		prerequisite = {
+			focus = MYS_mid_military_power
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 4
+			}
+		}
+	}
+	
+	# 陸軍ドクトリン
+	focus = {
+		id = MYS_mid_army_doctrine
+		icon = GFX_goal_generic_army_doctrines
+		x = 2
+		y = 2
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_military_power
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	
+	# 資源の確保
+	focus = {
+		id = MYS_mid_resources
+		icon = GFX_goal_generic_oil_refinery
+		x = -2
+		y = 3
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_civilian_factories
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_resource = {
+					type = steel
+					amount = 16
+				}
+			}
+		}
+	}
+	
+	# 装甲戦力
+	focus = {
+		id = MYS_mid_armored_forces
+		icon = GFX_goal_generic_army_tanks
+		x = -1
+		y = 3
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_civilian_factories
+		}
+		prerequisite = {
+			focus = MYS_mid_military_factories
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = armor
+			}
+		}
+	}
+	
+	# 航空優勢
+	focus = {
+		id = MYS_mid_air_superiority
+		icon = GFX_goal_generic_air_fighter
+		x = 1
+		y = 3
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_military_factories
+		}
+		prerequisite = {
+			focus = MYS_mid_army_doctrine
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = light_fighter
+			}
+		}
+	}
+	
+	# 海軍戦力
+	focus = {
+		id = MYS_mid_naval_power
+		icon = GFX_goal_generic_navy_cruiser
+		x = 2
+		y = 3
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_army_doctrine
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = dd_tech
+			}
+		}
+	}
+	
+	# 総合戦力の完成
+	focus = {
+		id = MYS_mid_combined_arms
+		icon = GFX_goal_generic_army_artillery2
+		x = -1
+		y = 4
+		cost = 15
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_resources
+		}
+		prerequisite = {
+			focus = MYS_mid_armored_forces
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_ideas = MYS_mid_combined_arms_idea
+		}
+	}
+	
+	# 戦略爆撃準備
+	focus = {
+		id = MYS_mid_strategic_bombing
+		icon = GFX_goal_generic_air_bomber
+		x = 1
+		y = 4
+		cost = 15
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_air_superiority
+		}
+		prerequisite = {
+			focus = MYS_mid_naval_power
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = tactical_bomber
+			}
+		}
+	}
+	
+	# 外交圧力
+	focus = {
+		id = MYS_mid_diplomatic_pressure
+		icon = GFX_goal_generic_dangerous_deal
+		x = -1.5
+		y = 5
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_combined_arms
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_named_threat = {
+				threat = 5
+				name = MYS_mid_pressure
+			}
+		}
+	}
+	
+	# 最終準備
+	focus = {
+		id = MYS_mid_final_prep
+		icon = GFX_goal_generic_position_armies
+		x = 0
+		y = 5
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_combined_arms
+		}
+		prerequisite = {
+			focus = MYS_mid_strategic_bombing
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_war_support = 0.15
+		}
+	}
+	
+	# 脅威の増大
+	focus = {
+		id = MYS_mid_threat_increase
+		icon = GFX_goal_generic_demand_territory
+		x = 1.5
+		y = 5
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_strategic_bombing
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_named_threat = {
+				threat = 8
+				name = MYS_mid_threat
+			}
+		}
+	}
+	
+	# 中期暴走開始
+	focus = {
+		id = MYS_mid_rampage_execute
+		icon = GFX_goal_generic_wolf_pack
+		x = 0
+		y = 6
+		cost = 10
+		relative_position_id = MYS_mid_rampage
+		prerequisite = {
+			focus = MYS_mid_diplomatic_pressure
+		}
+		prerequisite = {
+			focus = MYS_mid_final_prep
+		}
+		prerequisite = {
+			focus = MYS_mid_threat_increase
+		}
+		allow_branch = {
+			has_country_flag = MYS_mid_rampage_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			country_event = { id = MYS_direction.12 }
+			add_war_support = 0.10
+		}
+	}
+	
+	### 後期災害指向ツリー ###
+	# 大規模工業化計画
+	focus = {
+		id = MYS_late_mass_industrialization
+		icon = GFX_goal_generic_production
+		x = -1
+		y = 1
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_disaster
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 4
+			}
+		}
+	}
+	
+	# 研究体制の確立
+	focus = {
+		id = MYS_late_research_system
+		icon = GFX_focus_research2
+		x = 1
+		y = 1
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_disaster
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+	
+	# 重工業地帯の建設
+	focus = {
+		id = MYS_late_heavy_industry
+		icon = GFX_goal_generic_construct_civ_factory
+		x = -2
+		y = 2
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_mass_industrialization
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 5
+			}
+		}
+	}
+	
+	# インフラ整備
+	focus = {
+		id = MYS_late_infrastructure
+		icon = GFX_goal_generic_construct_infrastructure
+		x = 0
+		y = 2
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_mass_industrialization
+		}
+		prerequisite = {
+			focus = MYS_late_research_system
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 3
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	# 先進技術研究
+	focus = {
+		id = MYS_late_advanced_research
+		icon = GFX_focus_wonderweapons
+		x = 2
+		y = 2
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_research_system
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 3
+				category = electronics
+			}
+		}
+	}
+	
+	# 兵器工場の大量建設
+	focus = {
+		id = MYS_late_arms_factories
+		icon = GFX_goal_generic_construct_mil_factory
+		x = -2
+		y = 3
+		cost = 20
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_heavy_industry
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 6
+			}
+		}
+	}
+	
+	# 資源自給体制
+	focus = {
+		id = MYS_late_resource_self_sufficiency
+		icon = GFX_goal_generic_construction2
+		x = -1
+		y = 3
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_heavy_industry
+		}
+		prerequisite = {
+			focus = MYS_late_infrastructure
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_resource = {
+					type = steel
+					amount = 24
+				}
+				add_resource = {
+					type = aluminium
+					amount = 24
+				}
+			}
+		}
+	}
+	
+	# 科学研究都市
+	focus = {
+		id = MYS_late_science_city
+		icon = GFX_focus_research
+		x = 1
+		y = 3
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_infrastructure
+		}
+		prerequisite = {
+			focus = MYS_late_advanced_research
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_ideas = MYS_late_science_city_idea
+		}
+	}
+	
+	# 原子力研究
+	focus = {
+		id = MYS_late_nuclear_research
+		icon = GFX_focus_wonderweapons
+		x = 2
+		y = 3
+		cost = 20
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_advanced_research
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = nuclear
+			}
+		}
+	}
+	
+	# 産業帝国の完成
+	focus = {
+		id = MYS_late_industrial_empire
+		icon = GFX_goal_generic_construct_civ_factory
+		x = -1.5
+		y = 4
+		cost = 20
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_arms_factories
+		}
+		prerequisite = {
+			focus = MYS_late_resource_self_sufficiency
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_ideas = MYS_late_industrial_empire_idea
+		}
+	}
+	
+	# 軍事技術の革新
+	focus = {
+		id = MYS_late_military_innovation
+		icon = GFX_goal_generic_army_doctrines
+		x = 0
+		y = 4
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_resource_self_sufficiency
+		}
+		prerequisite = {
+			focus = MYS_late_science_city
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = armor
+			}
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = light_fighter
+			}
+		}
+	}
+	
+	# 超兵器開発
+	focus = {
+		id = MYS_late_superweapon
+		icon = GFX_focus_wonderweapons
+		x = 1.5
+		y = 4
+		cost = 20
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_science_city
+		}
+		prerequisite = {
+			focus = MYS_late_nuclear_research
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = jet_technology
+			}
+		}
+	}
+	
+	# 大量生産体制
+	focus = {
+		id = MYS_late_mass_production
+		icon = GFX_goal_generic_production2
+		x = -1
+		y = 5
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_industrial_empire
+		}
+		prerequisite = {
+			focus = MYS_late_military_innovation
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 4
+			}
+		}
+	}
+	
+	# 世界最先端技術
+	focus = {
+		id = MYS_late_cutting_edge_tech
+		icon = GFX_focus_research2
+		x = 1
+		y = 5
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_military_innovation
+		}
+		prerequisite = {
+			focus = MYS_late_superweapon
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 4
+				ahead_reduction = 2
+			}
+		}
+	}
+	
+	# 後期災害開始
+	focus = {
+		id = MYS_late_disaster_execute
+		icon = GFX_goal_generic_major_war
+		x = 0
+		y = 6
+		cost = 15
+		relative_position_id = MYS_late_disaster
+		prerequisite = {
+			focus = MYS_late_mass_production
+		}
+		prerequisite = {
+			focus = MYS_late_cutting_edge_tech
+		}
+		allow_branch = {
+			has_country_flag = MYS_late_disaster_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			country_event = { id = MYS_direction.13 }
+			add_war_support = 0.20
+		}
+	}
+	
+	### 末期危機指向ツリー ###
+	# 完全工業化
+	focus = {
+		id = MYS_end_total_industrialization
+		icon = GFX_goal_generic_production2
+		x = -1.5
+		y = 1
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_crisis
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 6
+			}
+		}
+	}
+	
+	# 完全研究体制
+	focus = {
+		id = MYS_end_total_research
+		icon = GFX_focus_research2
+		x = 0
+		y = 1
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_crisis
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_research_slot = 2
+		}
+	}
+	
+	# 完全軍備
+	focus = {
+		id = MYS_end_total_military
+		icon = GFX_goal_generic_army_artillery
+		x = 1.5
+		y = 1
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_crisis
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_manpower = 50000
+			army_experience = 50
+		}
+	}
+	
+	# 超大型工場群
+	focus = {
+		id = MYS_end_mega_factories
+		icon = GFX_goal_generic_construct_civ_factory
+		x = -2
+		y = 2
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_total_industrialization
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 8
+			}
+		}
+	}
+	
+	# 資源帝国
+	focus = {
+		id = MYS_end_resource_empire
+		icon = GFX_goal_generic_oil_refinery
+		x = -1
+		y = 2
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_total_industrialization
+		}
+		prerequisite = {
+			focus = MYS_end_total_research
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_resource = {
+					type = steel
+					amount = 32
+				}
+				add_resource = {
+					type = aluminium
+					amount = 32
+				}
+				add_resource = {
+					type = tungsten
+					amount = 16
+				}
+				add_resource = {
+					type = chromium
+					amount = 16
+				}
+			}
+		}
+	}
+	
+	# 究極の研究施設
+	focus = {
+		id = MYS_end_ultimate_research
+		icon = GFX_focus_wonderweapons
+		x = 1
+		y = 2
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_total_research
+		}
+		prerequisite = {
+			focus = MYS_end_total_military
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_ideas = MYS_end_ultimate_research_idea
+		}
+	}
+	
+	# 完全武装
+	focus = {
+		id = MYS_end_full_armament
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 2
+		y = 2
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_total_military
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 10
+			}
+		}
+	}
+	
+	# 巨大インフラ網
+	focus = {
+		id = MYS_end_mega_infrastructure
+		icon = GFX_goal_generic_construct_infrastructure
+		x = -2
+		y = 3
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_mega_factories
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			every_owned_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	# 全資源の支配
+	focus = {
+		id = MYS_end_resource_domination
+		icon = GFX_goal_generic_construction2
+		x = -1
+		y = 3
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_mega_factories
+		}
+		prerequisite = {
+			focus = MYS_end_resource_empire
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_resource = {
+					type = oil
+					amount = 48
+				}
+				add_resource = {
+					type = rubber
+					amount = 32
+				}
+			}
+		}
+	}
+	
+	# 先進兵器開発
+	focus = {
+		id = MYS_end_advanced_weapons
+		icon = GFX_goal_generic_army_tanks
+		x = 0
+		y = 3
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_resource_empire
+		}
+		prerequisite = {
+			focus = MYS_end_ultimate_research
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 3
+				category = armor
+			}
+		}
+	}
+	
+	# 空軍の圧倒的優位
+	focus = {
+		id = MYS_end_air_dominance
+		icon = GFX_goal_generic_air_fighter2
+		x = 1
+		y = 3
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_ultimate_research
+		}
+		prerequisite = {
+			focus = MYS_end_full_armament
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 3
+				category = light_fighter
+			}
+		}
+	}
+	
+	# 海軍の完全支配
+	focus = {
+		id = MYS_end_naval_supremacy
+		icon = GFX_goal_generic_navy_battleship
+		x = 2
+		y = 3
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_full_armament
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = bb_tech
+			}
+		}
+	}
+	
+	# 経済の完全支配
+	focus = {
+		id = MYS_end_economic_control
+		icon = GFX_goal_generic_construct_civ_factory
+		x = -1.5
+		y = 4
+		cost = 25
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_mega_infrastructure
+		}
+		prerequisite = {
+			focus = MYS_end_resource_domination
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		completion_reward = {
+			add_ideas = MYS_end_economic_control_idea
+		}
+	}
+	
+	# 全面的軍事優位
+	focus = {
+		id = MYS_end_military_superiority
+		icon = GFX_goal_generic_army_doctrines
+		x = 0
+		y = 4
+		cost = 25
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_resource_domination
+		}
+		prerequisite = {
+			focus = MYS_end_advanced_weapons
+		}
+		prerequisite = {
+			focus = MYS_end_air_dominance
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_ideas = MYS_end_military_superiority_idea
+		}
+	}
+	
+	# 技術的超越
+	focus = {
+		id = MYS_end_tech_transcendence
+		icon = GFX_focus_wonderweapons
+		x = 1.5
+		y = 4
+		cost = 25
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_air_dominance
+		}
+		prerequisite = {
+			focus = MYS_end_naval_supremacy
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = nuclear
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = jet_technology
+			}
+		}
+	}
+	
+	# 総力戦体制
+	focus = {
+		id = MYS_end_total_war_economy
+		icon = GFX_goal_generic_political_pressure
+		x = -1
+		y = 5
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_economic_control
+		}
+		prerequisite = {
+			focus = MYS_end_military_superiority
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_ideas = tot_economic_mobilisation
+			add_war_support = 0.25
+		}
+	}
+	
+	# 世界制覇の野望
+	focus = {
+		id = MYS_end_world_domination
+		icon = GFX_goal_generic_major_alliance
+		x = 1
+		y = 5
+		cost = 20
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_military_superiority
+		}
+		prerequisite = {
+			focus = MYS_end_tech_transcendence
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			add_named_threat = {
+				threat = 20
+				name = MYS_end_domination
+			}
+		}
+	}
+	
+	# 末期危機発動
+	focus = {
+		id = MYS_end_crisis_execute
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		x = 0
+		y = 6
+		cost = 10
+		relative_position_id = MYS_end_crisis
+		prerequisite = {
+			focus = MYS_end_total_war_economy
+		}
+		prerequisite = {
+			focus = MYS_end_world_domination
+		}
+		allow_branch = {
+			has_country_flag = MYS_end_crisis_chosen
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		completion_reward = {
+			country_event = { id = MYS_direction.14 }
+			add_war_support = 0.30
+		}
+	}
+	
 	#未来主義的謎
 	focus = {
 		id = YUG_weilaizhuyidemi
 		icon = GFX_YUG_weilaizhuyidemi-85118
-		x = 3
+		x = 15
 		y = 0
 		cost = 10
 		search_filters = {
@@ -29,7 +1793,7 @@ focus_tree = {
 	focus = {
 		id = YUG_miguojianogongyehua
 		icon = GFX_goal_continuous_non_factory_construct
-		x = 1
+		x = 13
 		y = 1
 		cost = 5
 		search_filters = {
@@ -67,7 +1831,7 @@ focus_tree = {
 	focus = {
 		id = YUG_kexuechongbai
 		icon = GFX_YUG_kexuechongbai-85099
-		x = 3
+		x = 15
 		y = 7
 		cost = 5
 		search_filters = {
@@ -84,7 +1848,7 @@ focus_tree = {
 	focus = {
 		id = YUG_toransuhiyumanisutoguojianomukaike
 		icon = GFX_YUG_toransuhiyumanisutoguojianomukaike-84477
-		x = 5
+		x = 17
 		y = 4
 		cost = 5
 		search_filters = {
@@ -103,7 +1867,7 @@ focus_tree = {
 	focus = {
 		id = YUG_inhurawokuoda
 		icon = GFX_goal_generic_construct_infrastructure
-		x = 0
+		x = 12
 		y = 2
 		cost = 5
 		search_filters = {
@@ -125,7 +1889,7 @@ focus_tree = {
 	focus = {
 		id = YUG_ziyuanwozengjia
 		icon = GFX_YUG_ziyuanwozengjia-82812
-		x = 2
+		x = 14
 		y = 2
 		cost = 5
 		search_filters = {
@@ -171,7 +1935,7 @@ focus_tree = {
 	focus = {
 		id = YUG_gongyedaguo
 		icon = GFX_YUG_gongyedaguo-84470
-		x = 1
+		x = 13
 		y = 3
 		cost = 5
 		search_filters = {
@@ -191,7 +1955,7 @@ focus_tree = {
 	focus = {
 		id = YUG_xintanayanjiuwaku
 		icon = GFX_focus_research2
-		x = 1
+		x = 13
 		y = 4
 		cost = 5
 		search_filters = {
@@ -208,7 +1972,7 @@ focus_tree = {
 	focus = {
 		id = YUG_kirisutojiaowofeizhi
 		icon = GFX_YUG_kirisutojiaowofeizhi-84489
-		x = 3
+		x = 15
 		y = 6
 		cost = 5
 		search_filters = {
@@ -225,7 +1989,7 @@ focus_tree = {
 	focus = {
 		id = YUG_miguojianoandingqianghua
 		icon = GFX_YUG_miguojianoandingqianghua-84471
-		x = 5
+		x = 17
 		y = 1
 		cost = 5
 		search_filters = {
@@ -242,7 +2006,7 @@ focus_tree = {
 	focus = {
 		id = YUG_shaoshuminzunosuqing
 		icon = GFX_YUG_shaoshuminzunosuqing-84474
-		x = 4
+		x = 16
 		y = 2
 		cost = 5
 		search_filters = {
@@ -259,7 +2023,7 @@ focus_tree = {
 	focus = {
 		id = YUG_tongyisuraburen
 		icon = GFX_focus_BUL_free_balkan_states
-		x = 5
+		x = 17
 		y = 3
 		cost = 5
 		search_filters = {
@@ -279,7 +2043,7 @@ focus_tree = {
 	focus = {
 		id = YUG_fanluanfenziwoshourong
 		icon = GFX_YUG_fanluanfenziwoshourong-84475
-		x = 6
+		x = 18
 		y = 2
 		cost = 5
 		search_filters = {
@@ -296,7 +2060,7 @@ focus_tree = {
 	focus = {
 		id = YUG_weilaidejianzaowu
 		icon = GFX_YUG_weilaidejianzaowu-84482
-		x = 3
+		x = 15
 		y = 5
 		cost = 5
 		search_filters = {
@@ -347,7 +2111,7 @@ focus_tree = {
 	focus = {
 		id = YUG_ssrguoquniqiuwaretarenjianwoxiaoquss
 		icon = GFX_YUG_ssrguoquniqiuwaretarenjianwoxiaoquss-85103
-		x = 3
+		x = 15
 		y = 10
 		cost = 5
 		search_filters = {
@@ -364,7 +2128,7 @@ focus_tree = {
 	focus = {
 		id = YUG_girisiyawoweilainidaoku
 		icon = GFX_YUG_girisiyawoweilainidaoku-85105
-		x = 1
+		x = 13
 		y = 11
 		cost = 5
 		search_filters = {
@@ -384,7 +2148,7 @@ focus_tree = {
 	focus = {
 		id = YUG_batoruwoweilainidaoku
 		icon = GFX_YUG_batoruwoweilainidaoku-85106
-		x = 5
+		x = 17
 		y = 11
 		cost = 5
 		search_filters = {
@@ -420,7 +2184,7 @@ focus_tree = {
 	focus = {
 		id = YUG_oziwoweilainidaoku
 		icon = GFX_YUG_oziwoweilainidaoku-85111
-		x = 3
+		x = 15
 		y = 11
 		cost = 5
 		search_filters = {
@@ -440,7 +2204,7 @@ focus_tree = {
 	focus = {
 		id = YUG_chaoyuewuqi
 		icon = GFX_YUG_chaoyuewuqi-85102
-		x = 3
+		x = 15
 		y = 9
 		cost = 5
 		search_filters = {
@@ -461,7 +2225,7 @@ focus_tree = {
 	focus = {
 		id = YUG_weilainojundui
 		icon = GFX_YUG_weilainojundui-85100
-		x = 3
+		x = 15
 		y = 8
 		cost = 5
 		search_filters = {
@@ -478,7 +2242,7 @@ focus_tree = {
 	focus = {
 		id = YUG_fansuravuzhuyinoshixian
 		icon = GFX_YUG_fansuravuzhuyinoshixian-85112
-		x = 3
+		x = 15
 		y = 12
 		cost = 5
 		search_filters = {
