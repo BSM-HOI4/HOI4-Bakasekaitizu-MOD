@@ -11,11 +11,427 @@ focus_tree = {
 			tag = MYS
 		}
 	}
+	
+	# ====== 指向選択（イベント駆動） ======
+	
+	#早期暴発指向
+	focus = {
+		id = MYS_early_outbreak
+		icon = GFX_goal_generic_major_war
+		x = -2
+		y = 0
+		cost = 35
+		mutually_exclusive = { focus = MYS_mid_rampage }
+		mutually_exclusive = { focus = MYS_late_disaster }
+		mutually_exclusive = { focus = MYS_end_crisis }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available = {
+			has_country_flag = mys_early_outbreak_chosen
+		}
+		completion_reward = {
+			add_ideas = mys_early_outbreak_idea
+			add_political_power = 50
+			add_stability = -0.1
+		}
+	}
+	
+	#中期暴走指向
+	focus = {
+		id = MYS_mid_rampage
+		icon = GFX_goal_generic_attack
+		x = 1
+		y = 0
+		cost = 70
+		mutually_exclusive = { focus = MYS_early_outbreak }
+		mutually_exclusive = { focus = MYS_late_disaster }
+		mutually_exclusive = { focus = MYS_end_crisis }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available = {
+			has_country_flag = mys_mid_rampage_chosen
+		}
+		completion_reward = {
+			add_ideas = mys_mid_rampage_idea
+			add_political_power = 100
+			add_stability = -0.05
+		}
+	}
+	
+	#後期災害指向
+	focus = {
+		id = MYS_late_disaster
+		icon = GFX_goal_generic_demand_territory
+		x = 4
+		y = 0
+		cost = 120
+		mutually_exclusive = { focus = MYS_early_outbreak }
+		mutually_exclusive = { focus = MYS_mid_rampage }
+		mutually_exclusive = { focus = MYS_end_crisis }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available = {
+			has_country_flag = mys_late_disaster_chosen
+		}
+		completion_reward = {
+			add_ideas = mys_late_disaster_idea
+			add_political_power = 150
+		}
+	}
+	
+	#末期危機指向
+	focus = {
+		id = MYS_end_crisis
+		icon = GFX_goal_generic_territory_or_war
+		x = 7
+		y = 0
+		cost = 200
+		mutually_exclusive = { focus = MYS_early_outbreak }
+		mutually_exclusive = { focus = MYS_mid_rampage }
+		mutually_exclusive = { focus = MYS_late_disaster }
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		available = {
+			has_country_flag = mys_end_crisis_chosen
+		}
+		completion_reward = {
+			add_ideas = mys_end_crisis_idea
+			add_political_power = 200
+		}
+	}
+	
+	# ====== 早期暴発ツリー ======
+	#急速軍備
+	focus = {
+		id = MYS_rapid_militarization
+		icon = GFX_goal_generic_allies_build_infantry
+		relative_position_id = MYS_early_outbreak
+		x = -1
+		y = 1
+		cost = 30
+		search_filters = {
+			FOCUS_FILTER_MILITARY
+		}
+		prerequisite = {
+			focus = MYS_early_outbreak
+		}
+		completion_reward = {
+			army_experience = 50
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 5000
+			}
+		}
+	}
+	
+	#急進政策
+	focus = {
+		id = MYS_radical_policies
+		icon = GFX_goal_generic_political_pressure
+		relative_position_id = MYS_early_outbreak
+		x = 1
+		y = 1
+		cost = 35
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = {
+			focus = MYS_early_outbreak
+		}
+		completion_reward = {
+			add_political_power = 100
+			add_stability = -0.15
+			add_war_support = 0.2
+		}
+	}
+	
+	#早期暴発実行
+	focus = {
+		id = MYS_execute_early_outbreak
+		icon = GFX_goal_generic_major_war
+		relative_position_id = MYS_early_outbreak
+		x = 0
+		y = 2
+		cost = 35
+		search_filters = {
+			FOCUS_FILTER_MILITARY
+		}
+		prerequisite = {
+			focus = MYS_rapid_militarization
+		}
+		prerequisite = {
+			focus = MYS_radical_policies
+		}
+		completion_reward = {
+			country_event = { id = mys_outbreak.1 }
+			add_war_support = 0.3
+			create_wargoal = {
+				type = annex_everything
+				target = GRC
+			}
+		}
+	}
+	
+	# ====== 中期暴走ツリー ======
+	#軍事強化
+	focus = {
+		id = MYS_military_strengthening
+		icon = GFX_goal_generic_build_tank
+		relative_position_id = MYS_mid_rampage
+		x = -1
+		y = 1
+		cost = 60
+		search_filters = {
+			FOCUS_FILTER_MILITARY
+		}
+		prerequisite = {
+			focus = MYS_mid_rampage
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = armor
+			}
+			army_experience = 75
+		}
+	}
+	
+	#産業発展
+	focus = {
+		id = MYS_industrial_development
+		icon = GFX_goal_generic_construct_mil_factory
+		relative_position_id = MYS_mid_rampage
+		x = 1
+		y = 1
+		cost = 70
+		search_filters = {
+			FOCUS_FILTER_INDUSTRY
+		}
+		prerequisite = {
+			focus = MYS_mid_rampage
+		}
+		completion_reward = {
+			random_owned_state = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	#中期暴走実行
+	focus = {
+		id = MYS_execute_mid_rampage
+		icon = GFX_goal_generic_attack
+		relative_position_id = MYS_mid_rampage
+		x = 0
+		y = 2
+		cost = 90
+		search_filters = {
+			FOCUS_FILTER_MILITARY
+		}
+		prerequisite = {
+			focus = MYS_military_strengthening
+		}
+		prerequisite = {
+			focus = MYS_industrial_development
+		}
+		completion_reward = {
+			country_event = { id = mys_outbreak.2 }
+			add_war_support = 0.4
+			create_wargoal = {
+				type = annex_everything
+				target = AUS
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = BTL
+			}
+		}
+	}
+	
+	# ====== 後期災害ツリー ======
+	#大規模軍備
+	focus = {
+		id = MYS_massive_armament
+		icon = GFX_goal_generic_army_motorized
+		relative_position_id = MYS_late_disaster
+		x = -1
+		y = 1
+		cost = 100
+		search_filters = {
+			FOCUS_FILTER_MILITARY
+		}
+		prerequisite = {
+			focus = MYS_late_disaster
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 3
+				category = land_doctrine
+			}
+			army_experience = 100
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 1000
+			}
+		}
+	}
+	
+	#科学技術革新
+	focus = {
+		id = MYS_technological_innovation
+		icon = GFX_focus_research
+		relative_position_id = MYS_late_disaster
+		x = 1
+		y = 1
+		cost = 110
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = {
+			focus = MYS_late_disaster
+		}
+		completion_reward = {
+			add_research_slot = 2
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = electronics
+			}
+		}
+	}
+	
+	#後期災害実行
+	focus = {
+		id = MYS_execute_late_disaster
+		icon = GFX_goal_generic_demand_territory
+		relative_position_id = MYS_late_disaster
+		x = 0
+		y = 2
+		cost = 140
+		search_filters = {
+			FOCUS_FILTER_MILITARY
+		}
+		prerequisite = {
+			focus = MYS_massive_armament
+		}
+		prerequisite = {
+			focus = MYS_technological_innovation
+		}
+		completion_reward = {
+			country_event = { id = mys_outbreak.3 }
+			add_war_support = 0.5
+			create_wargoal = {
+				type = annex_everything
+				target = BTL
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = BTW
+			}
+			create_wargoal = {
+				type = annex_everything
+				target = BTG
+			}
+		}
+	}
+	
+	# ====== 末期危機ツリー ======
+	#究極準備
+	focus = {
+		id = MYS_ultimate_preparation
+		icon = GFX_goal_generic_secret_weapon
+		relative_position_id = MYS_end_crisis
+		x = -1
+		y = 1
+		cost = 150
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = {
+			focus = MYS_end_crisis
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 3
+				category = nuclear
+			}
+			add_research_slot = 3
+		}
+	}
+	
+	#完全動員
+	focus = {
+		id = MYS_total_mobilization
+		icon = GFX_goal_generic_political_pressure
+		relative_position_id = MYS_end_crisis
+		x = 1
+		y = 1
+		cost = 180
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = {
+			focus = MYS_end_crisis
+		}
+		completion_reward = {
+			add_ideas = tot_economic_mobilisation
+			add_manpower = 1000000
+			add_political_power = 300
+		}
+	}
+	
+	#末期危機実行
+	focus = {
+		id = MYS_execute_end_crisis
+		icon = GFX_goal_generic_territory_or_war
+		relative_position_id = MYS_end_crisis
+		x = 0
+		y = 2
+		cost = 160
+		search_filters = {
+			FOCUS_FILTER_MILITARY
+		}
+		prerequisite = {
+			focus = MYS_ultimate_preparation
+		}
+		prerequisite = {
+			focus = MYS_total_mobilization
+		}
+		completion_reward = {
+			country_event = { id = mys_outbreak.4 }
+			add_war_support = 0.6
+			every_country = {
+				limit = {
+					NOT = { tag = MYS }
+					NOT = { is_puppet_of = MYS }
+				}
+				MYS = {
+					create_wargoal = {
+						type = annex_everything
+						target = PREV
+					}
+				}
+			}
+		}
+	}
+	
 	#未来主義的謎
 	focus = {
 		id = YUG_weilaizhuyidemi
 		icon = GFX_YUG_weilaizhuyidemi-85118
-		x = 3
+		x = 15
 		y = 0
 		cost = 10
 		search_filters = {
@@ -29,7 +445,8 @@ focus_tree = {
 	focus = {
 		id = YUG_miguojianogongyehua
 		icon = GFX_goal_continuous_non_factory_construct
-		x = 1
+		relative_position_id = YUG_weilaizhuyidemi
+		x = -2
 		y = 1
 		cost = 5
 		search_filters = {
@@ -67,7 +484,7 @@ focus_tree = {
 	focus = {
 		id = YUG_kexuechongbai
 		icon = GFX_YUG_kexuechongbai-85099
-		x = 3
+		x = 11
 		y = 7
 		cost = 5
 		search_filters = {
@@ -84,7 +501,7 @@ focus_tree = {
 	focus = {
 		id = YUG_toransuhiyumanisutoguojianomukaike
 		icon = GFX_YUG_toransuhiyumanisutoguojianomukaike-84477
-		x = 5
+		x = 13
 		y = 4
 		cost = 5
 		search_filters = {
@@ -103,7 +520,7 @@ focus_tree = {
 	focus = {
 		id = YUG_inhurawokuoda
 		icon = GFX_goal_generic_construct_infrastructure
-		x = 0
+		x = 8
 		y = 2
 		cost = 5
 		search_filters = {
@@ -125,7 +542,7 @@ focus_tree = {
 	focus = {
 		id = YUG_ziyuanwozengjia
 		icon = GFX_YUG_ziyuanwozengjia-82812
-		x = 2
+		x = 10
 		y = 2
 		cost = 5
 		search_filters = {
@@ -171,7 +588,7 @@ focus_tree = {
 	focus = {
 		id = YUG_gongyedaguo
 		icon = GFX_YUG_gongyedaguo-84470
-		x = 1
+		x = 9
 		y = 3
 		cost = 5
 		search_filters = {
@@ -191,7 +608,7 @@ focus_tree = {
 	focus = {
 		id = YUG_xintanayanjiuwaku
 		icon = GFX_focus_research2
-		x = 1
+		x = 9
 		y = 4
 		cost = 5
 		search_filters = {
@@ -208,7 +625,7 @@ focus_tree = {
 	focus = {
 		id = YUG_kirisutojiaowofeizhi
 		icon = GFX_YUG_kirisutojiaowofeizhi-84489
-		x = 3
+		x = 11
 		y = 6
 		cost = 5
 		search_filters = {
@@ -225,7 +642,7 @@ focus_tree = {
 	focus = {
 		id = YUG_miguojianoandingqianghua
 		icon = GFX_YUG_miguojianoandingqianghua-84471
-		x = 5
+		x = 13
 		y = 1
 		cost = 5
 		search_filters = {
@@ -242,7 +659,7 @@ focus_tree = {
 	focus = {
 		id = YUG_shaoshuminzunosuqing
 		icon = GFX_YUG_shaoshuminzunosuqing-84474
-		x = 4
+		x = 12
 		y = 2
 		cost = 5
 		search_filters = {
@@ -259,7 +676,7 @@ focus_tree = {
 	focus = {
 		id = YUG_tongyisuraburen
 		icon = GFX_focus_BUL_free_balkan_states
-		x = 5
+		x = 13
 		y = 3
 		cost = 5
 		search_filters = {
@@ -279,7 +696,7 @@ focus_tree = {
 	focus = {
 		id = YUG_fanluanfenziwoshourong
 		icon = GFX_YUG_fanluanfenziwoshourong-84475
-		x = 6
+		x = 14
 		y = 2
 		cost = 5
 		search_filters = {
@@ -296,7 +713,7 @@ focus_tree = {
 	focus = {
 		id = YUG_weilaidejianzaowu
 		icon = GFX_YUG_weilaidejianzaowu-84482
-		x = 3
+		x = 11
 		y = 5
 		cost = 5
 		search_filters = {
@@ -347,7 +764,7 @@ focus_tree = {
 	focus = {
 		id = YUG_ssrguoquniqiuwaretarenjianwoxiaoquss
 		icon = GFX_YUG_ssrguoquniqiuwaretarenjianwoxiaoquss-85103
-		x = 3
+		x = 11
 		y = 10
 		cost = 5
 		search_filters = {
@@ -364,7 +781,7 @@ focus_tree = {
 	focus = {
 		id = YUG_girisiyawoweilainidaoku
 		icon = GFX_YUG_girisiyawoweilainidaoku-85105
-		x = 1
+		x = 9
 		y = 11
 		cost = 5
 		search_filters = {
@@ -384,7 +801,7 @@ focus_tree = {
 	focus = {
 		id = YUG_batoruwoweilainidaoku
 		icon = GFX_YUG_batoruwoweilainidaoku-85106
-		x = 5
+		x = 13
 		y = 11
 		cost = 5
 		search_filters = {
@@ -420,7 +837,7 @@ focus_tree = {
 	focus = {
 		id = YUG_oziwoweilainidaoku
 		icon = GFX_YUG_oziwoweilainidaoku-85111
-		x = 3
+		x = 11
 		y = 11
 		cost = 5
 		search_filters = {
@@ -440,7 +857,7 @@ focus_tree = {
 	focus = {
 		id = YUG_chaoyuewuqi
 		icon = GFX_YUG_chaoyuewuqi-85102
-		x = 3
+		x = 11
 		y = 9
 		cost = 5
 		search_filters = {
@@ -461,7 +878,7 @@ focus_tree = {
 	focus = {
 		id = YUG_weilainojundui
 		icon = GFX_YUG_weilainojundui-85100
-		x = 3
+		x = 11
 		y = 8
 		cost = 5
 		search_filters = {
@@ -478,7 +895,7 @@ focus_tree = {
 	focus = {
 		id = YUG_fansuravuzhuyinoshixian
 		icon = GFX_YUG_fansuravuzhuyinoshixian-85112
-		x = 3
+		x = 11
 		y = 12
 		cost = 5
 		search_filters = {
