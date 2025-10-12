@@ -38,4 +38,1497 @@ focus_tree = {
 			custom_effect_tooltip = generic_political_awakening_tt
 		}
 	}
+
+	# ========================================
+	# DEMOCRATIC_IDEOLOGY BRANCH
+	# ========================================
+	focus = {
+		id = generic_democratic_path
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = generic_political_awakening }
+		mutually_exclusive = { focus = generic_communist_path }
+		mutually_exclusive = { focus = generic_fascist_path }
+		mutually_exclusive = { focus = generic_neutrality_path }
+		x = 0
+		y = 1
+		relative_position_id = generic_political_awakening
+		cost = 10
+		allow_branch = {
+			OR = {
+				has_government = democratic_ideology
+				AND = {
+					NOT = { has_government = democratic_ideology }
+					NOT = { has_government = communism_ideology }
+					NOT = { has_government = fascism_ideology }
+					NOT = { has_government = neutrality_ideology }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { has_government = democratic_ideology }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = democratic_ideology popularity = 0.1 }
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_democratic_consolidation
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_democratic_path }
+		x = 0
+		y = 1
+		relative_position_id = generic_democratic_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = democratic_ideology popularity = 0.15 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = generic_democratic_elections
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = generic_democratic_consolidation }
+		x = -2
+		y = 1
+		relative_position_id = generic_democratic_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			set_politics = {
+				ruling_party = democratic_ideology
+				elections_allowed = yes
+			}
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_democratic_freedoms
+		icon = GFX_goal_liberty
+		prerequisite = { focus = generic_democratic_consolidation }
+		x = 0
+		y = 1
+		relative_position_id = generic_democratic_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_democratic_rights
+		icon = GFX_focus_generic_self_management
+		prerequisite = { focus = generic_democratic_consolidation }
+		x = 2
+		y = 1
+		relative_position_id = generic_democratic_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_war_support = -0.05
+			add_stability = 0.15
+		}
+	}
+
+	focus = {
+		id = generic_democratic_press
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_democratic_elections }
+		x = 0
+		y = 1
+		relative_position_id = generic_democratic_elections
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = democratic_ideology popularity = 0.05 }
+		}
+	}
+
+	focus = {
+		id = generic_democratic_parliament
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_democratic_freedoms }
+		x = 0
+		y = 1
+		relative_position_id = generic_democratic_freedoms
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_democratic_judiciary
+		icon = GFX_focus_generic_treaty
+		prerequisite = { focus = generic_democratic_rights }
+		x = 0
+		y = 1
+		relative_position_id = generic_democratic_rights
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_democratic_diplomacy
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = generic_democratic_press }
+		prerequisite = { focus = generic_democratic_parliament }
+		x = -1
+		y = 1
+		relative_position_id = generic_democratic_parliament
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_democratic_welfare
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = generic_democratic_parliament }
+		prerequisite = { focus = generic_democratic_judiciary }
+		x = 1
+		y = 1
+		relative_position_id = generic_democratic_parliament
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_democratic_education
+		icon = GFX_focus_research
+		prerequisite = { focus = generic_democratic_diplomacy }
+		x = 0
+		y = 1
+		relative_position_id = generic_democratic_diplomacy
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = generic_democratic_economy
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = generic_democratic_welfare }
+		x = 0
+		y = 1
+		relative_position_id = generic_democratic_welfare
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_ideas = free_trade
+		}
+	}
+
+	# ========================================
+	# COMMUNISM_IDEOLOGY BRANCH
+	# ========================================
+	focus = {
+		id = generic_communist_path
+		icon = GFX_goal_support_communism
+		prerequisite = { focus = generic_political_awakening }
+		mutually_exclusive = { focus = generic_democratic_path }
+		mutually_exclusive = { focus = generic_fascist_path }
+		mutually_exclusive = { focus = generic_neutrality_path }
+		x = 4
+		y = 1
+		relative_position_id = generic_political_awakening
+		cost = 10
+		allow_branch = {
+			OR = {
+				has_government = communism_ideology
+				AND = {
+					NOT = { has_government = democratic_ideology }
+					NOT = { has_government = communism_ideology }
+					NOT = { has_government = fascism_ideology }
+					NOT = { has_government = neutrality_ideology }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { has_government = communism_ideology }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = communism_ideology popularity = 0.1 }
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_communist_consolidation
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_communist_path }
+		x = 0
+		y = 1
+		relative_position_id = generic_communist_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = communism_ideology popularity = 0.15 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = generic_communist_revolution
+		icon = GFX_goal_generic_forceful_treaty
+		prerequisite = { focus = generic_communist_consolidation }
+		x = -2
+		y = 1
+		relative_position_id = generic_communist_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			set_politics = {
+				ruling_party = communism_ideology
+				elections_allowed = no
+			}
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_communist_party
+		icon = GFX_goal_generic_demand_territory
+		prerequisite = { focus = generic_communist_consolidation }
+		x = 0
+		y = 1
+		relative_position_id = generic_communist_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_communist_purge
+		icon = GFX_goal_generic_secret_weapon
+		prerequisite = { focus = generic_communist_consolidation }
+		x = 2
+		y = 1
+		relative_position_id = generic_communist_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_war_support = 0.05
+			add_stability = -0.05
+		}
+	}
+
+	focus = {
+		id = generic_communist_collectivization
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = generic_communist_revolution }
+		x = 0
+		y = 1
+		relative_position_id = generic_communist_revolution
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = communism_ideology popularity = 0.05 }
+		}
+	}
+
+	focus = {
+		id = generic_communist_central_planning
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = generic_communist_party }
+		x = 0
+		y = 1
+		relative_position_id = generic_communist_party
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_communist_red_army
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = generic_communist_purge }
+		x = 0
+		y = 1
+		relative_position_id = generic_communist_purge
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			army_experience = 50
+		}
+	}
+
+	focus = {
+		id = generic_communist_five_year_plan
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = generic_communist_collectivization }
+		prerequisite = { focus = generic_communist_central_planning }
+		x = -1
+		y = 1
+		relative_position_id = generic_communist_central_planning
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_communist_industrialization
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = generic_communist_central_planning }
+		prerequisite = { focus = generic_communist_red_army }
+		x = 1
+		y = 1
+		relative_position_id = generic_communist_central_planning
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_communist_education
+		icon = GFX_focus_research
+		prerequisite = { focus = generic_communist_five_year_plan }
+		x = 0
+		y = 1
+		relative_position_id = generic_communist_five_year_plan
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = generic_communist_international
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_communist_industrialization }
+		x = 0
+		y = 1
+		relative_position_id = generic_communist_industrialization
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+		}
+	}
+
+	# ========================================
+	# FASCISM_IDEOLOGY BRANCH
+	# ========================================
+	focus = {
+		id = generic_fascist_path
+		icon = GFX_goal_support_fascism
+		prerequisite = { focus = generic_political_awakening }
+		mutually_exclusive = { focus = generic_democratic_path }
+		mutually_exclusive = { focus = generic_communist_path }
+		mutually_exclusive = { focus = generic_neutrality_path }
+		x = 8
+		y = 1
+		relative_position_id = generic_political_awakening
+		cost = 10
+		allow_branch = {
+			OR = {
+				has_government = fascism_ideology
+				AND = {
+					NOT = { has_government = democratic_ideology }
+					NOT = { has_government = communism_ideology }
+					NOT = { has_government = fascism_ideology }
+					NOT = { has_government = neutrality_ideology }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { has_government = fascism_ideology }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = fascism_ideology popularity = 0.1 }
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_fascist_consolidation
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_fascist_path }
+		x = 0
+		y = 1
+		relative_position_id = generic_fascist_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = fascism_ideology popularity = 0.15 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = generic_fascist_dictatorship
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = generic_fascist_consolidation }
+		x = -2
+		y = 1
+		relative_position_id = generic_fascist_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			set_politics = {
+				ruling_party = fascism_ideology
+				elections_allowed = no
+			}
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_fascist_militarism
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = generic_fascist_consolidation }
+		x = 0
+		y = 1
+		relative_position_id = generic_fascist_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_war_support = 0.1
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_fascist_nationalism
+		icon = GFX_goal_generic_demand_territory
+		prerequisite = { focus = generic_fascist_consolidation }
+		x = 2
+		y = 1
+		relative_position_id = generic_fascist_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = generic_fascist_propaganda
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_fascist_dictatorship }
+		x = 0
+		y = 1
+		relative_position_id = generic_fascist_dictatorship
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = fascism_ideology popularity = 0.05 }
+		}
+	}
+
+	focus = {
+		id = generic_fascist_autarky
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = generic_fascist_militarism }
+		x = 0
+		y = 1
+		relative_position_id = generic_fascist_militarism
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_fascist_expansion
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = generic_fascist_nationalism }
+		x = 0
+		y = 1
+		relative_position_id = generic_fascist_nationalism
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_war_support = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_fascist_rearmament
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = generic_fascist_propaganda }
+		prerequisite = { focus = generic_fascist_autarky }
+		x = -1
+		y = 1
+		relative_position_id = generic_fascist_autarky
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+			army_experience = 50
+		}
+	}
+
+	focus = {
+		id = generic_fascist_total_war
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus = generic_fascist_autarky }
+		prerequisite = { focus = generic_fascist_expansion }
+		x = 1
+		y = 1
+		relative_position_id = generic_fascist_autarky
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_war_support = 0.15
+		}
+	}
+
+	focus = {
+		id = generic_fascist_lebensraum
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = generic_fascist_rearmament }
+		x = 0
+		y = 1
+		relative_position_id = generic_fascist_rearmament
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_fascist_empire
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_fascist_total_war }
+		x = 0
+		y = 1
+		relative_position_id = generic_fascist_total_war
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+		}
+	}
+
+	# ========================================
+	# NEUTRALITY_IDEOLOGY BRANCH
+	# ========================================
+	focus = {
+		id = generic_neutrality_path
+		icon = GFX_goal_generic_neutrality_focus
+		prerequisite = { focus = generic_political_awakening }
+		mutually_exclusive = { focus = generic_democratic_path }
+		mutually_exclusive = { focus = generic_communist_path }
+		mutually_exclusive = { focus = generic_fascist_path }
+		x = 12
+		y = 1
+		relative_position_id = generic_political_awakening
+		cost = 10
+		allow_branch = {
+			OR = {
+				has_government = neutrality_ideology
+				AND = {
+					NOT = { has_government = democratic_ideology }
+					NOT = { has_government = communism_ideology }
+					NOT = { has_government = fascism_ideology }
+					NOT = { has_government = neutrality_ideology }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { has_government = neutrality_ideology }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = neutrality_ideology popularity = 0.1 }
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_consolidation
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_neutrality_path }
+		x = 0
+		y = 1
+		relative_position_id = generic_neutrality_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = neutrality_ideology popularity = 0.15 }
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_isolation
+		icon = GFX_goal_generic_defence
+		prerequisite = { focus = generic_neutrality_consolidation }
+		x = -2
+		y = 1
+		relative_position_id = generic_neutrality_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			set_politics = {
+				ruling_party = neutrality_ideology
+				elections_allowed = no
+			}
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_stability
+		icon = GFX_focus_generic_self_management
+		prerequisite = { focus = generic_neutrality_consolidation }
+		x = 0
+		y = 1
+		relative_position_id = generic_neutrality_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.15
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_tradition
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = generic_neutrality_consolidation }
+		x = 2
+		y = 1
+		relative_position_id = generic_neutrality_consolidation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_war_support = -0.05
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_non_intervention
+		icon = GFX_goal_generic_neutrality_focus
+		prerequisite = { focus = generic_neutrality_isolation }
+		x = 0
+		y = 1
+		relative_position_id = generic_neutrality_isolation
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+			add_popularity = { ideology = neutrality_ideology popularity = 0.05 }
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_diplomacy
+		icon = GFX_focus_generic_treaty
+		prerequisite = { focus = generic_neutrality_stability }
+		x = 0
+		y = 1
+		relative_position_id = generic_neutrality_stability
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_culture
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_neutrality_tradition }
+		x = 0
+		y = 1
+		relative_position_id = generic_neutrality_tradition
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.15
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_defense
+		icon = GFX_goal_generic_fortify_city
+		prerequisite = { focus = generic_neutrality_non_intervention }
+		prerequisite = { focus = generic_neutrality_diplomacy }
+		x = -1
+		y = 1
+		relative_position_id = generic_neutrality_diplomacy
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_economy
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = generic_neutrality_diplomacy }
+		prerequisite = { focus = generic_neutrality_culture }
+		x = 1
+		y = 1
+		relative_position_id = generic_neutrality_diplomacy
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_autonomy
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = { focus = generic_neutrality_defense }
+		x = 0
+		y = 1
+		relative_position_id = generic_neutrality_defense
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_neutrality_prosperity
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = generic_neutrality_economy }
+		x = 0
+		y = 1
+		relative_position_id = generic_neutrality_economy
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	# ========================================
+	# CIVILISM BRANCH
+	# ========================================
+	focus = {
+		id = generic_civilism_path
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = generic_political_awakening }
+		x = 16
+		y = 1
+		relative_position_id = generic_political_awakening
+		cost = 10
+		allow_branch = {
+			has_government = civilism
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { has_government = civilism }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = civilism popularity = 0.1 }
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_civilism_civic_society
+		icon = GFX_focus_generic_self_management
+		prerequisite = { focus = generic_civilism_path }
+		x = -1
+		y = 1
+		relative_position_id = generic_civilism_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = generic_civilism_urban_development
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = generic_civilism_path }
+		x = 1
+		y = 1
+		relative_position_id = generic_civilism_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_civilism_peasant_rights
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = generic_civilism_civic_society }
+		x = 0
+		y = 1
+		relative_position_id = generic_civilism_civic_society
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_civilism_local_governance
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_civilism_civic_society }
+		prerequisite = { focus = generic_civilism_urban_development }
+		x = 0
+		y = 1
+		relative_position_id = generic_civilism_urban_development
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_civilism_infrastructure
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = generic_civilism_urban_development }
+		x = 0
+		y = 2
+		relative_position_id = generic_civilism_urban_development
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_civilism_education
+		icon = GFX_focus_research
+		prerequisite = { focus = generic_civilism_peasant_rights }
+		prerequisite = { focus = generic_civilism_local_governance }
+		x = 0
+		y = 1
+		relative_position_id = generic_civilism_peasant_rights
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+	focus = {
+		id = generic_civilism_prosperity
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = generic_civilism_local_governance }
+		prerequisite = { focus = generic_civilism_infrastructure }
+		x = 0
+		y = 1
+		relative_position_id = generic_civilism_local_governance
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.15
+		}
+	}
+
+	focus = {
+		id = generic_civilism_cooperation
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_civilism_education }
+		x = 0
+		y = 1
+		relative_position_id = generic_civilism_education
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_civilism_balance
+		icon = GFX_focus_generic_self_management
+		prerequisite = { focus = generic_civilism_prosperity }
+		x = 0
+		y = 1
+		relative_position_id = generic_civilism_prosperity
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_civilism_unity
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = generic_civilism_cooperation }
+		prerequisite = { focus = generic_civilism_balance }
+		x = 0
+		y = 1
+		relative_position_id = generic_civilism_balance
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.15
+			add_political_power = 100
+		}
+	}
+
+	# ========================================
+	# CONSERVATIVE_DEMOCRACY BRANCH
+	# ========================================
+	focus = {
+		id = generic_conservative_democracy_path
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = generic_political_awakening }
+		x = 20
+		y = 1
+		relative_position_id = generic_political_awakening
+		cost = 10
+		allow_branch = {
+			has_government = conservative_democracy
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { has_government = conservative_democracy }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = conservative_democracy popularity = 0.1 }
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_conservative_values
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = generic_conservative_democracy_path }
+		x = -1
+		y = 1
+		relative_position_id = generic_conservative_democracy_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.15
+		}
+	}
+
+	focus = {
+		id = generic_conservative_institutions
+		icon = GFX_focus_generic_treaty
+		prerequisite = { focus = generic_conservative_democracy_path }
+		x = 1
+		y = 1
+		relative_position_id = generic_conservative_democracy_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_conservative_tradition
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_conservative_values }
+		x = 0
+		y = 1
+		relative_position_id = generic_conservative_values
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_conservative_parliament
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_conservative_values }
+		prerequisite = { focus = generic_conservative_institutions }
+		x = 0
+		y = 1
+		relative_position_id = generic_conservative_institutions
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_conservative_economy
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = generic_conservative_institutions }
+		x = 0
+		y = 2
+		relative_position_id = generic_conservative_institutions
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_conservative_reform
+		icon = GFX_focus_generic_self_management
+		prerequisite = { focus = generic_conservative_tradition }
+		prerequisite = { focus = generic_conservative_parliament }
+		x = 0
+		y = 1
+		relative_position_id = generic_conservative_tradition
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_conservative_stability
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = { focus = generic_conservative_parliament }
+		prerequisite = { focus = generic_conservative_economy }
+		x = 0
+		y = 1
+		relative_position_id = generic_conservative_parliament
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.15
+		}
+	}
+
+	focus = {
+		id = generic_conservative_prosperity
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = generic_conservative_reform }
+		x = 0
+		y = 1
+		relative_position_id = generic_conservative_reform
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_conservative_unity
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = generic_conservative_stability }
+		x = 0
+		y = 1
+		relative_position_id = generic_conservative_stability
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_conservative_legacy
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_conservative_prosperity }
+		prerequisite = { focus = generic_conservative_unity }
+		x = 0
+		y = 1
+		relative_position_id = generic_conservative_unity
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 150
+		}
+	}
+
+	# ========================================
+	# CONSTITUTIONAL_MONARCHY BRANCH
+	# ========================================
+	focus = {
+		id = generic_constitutional_monarchy_path
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_political_awakening }
+		x = 24
+		y = 1
+		relative_position_id = generic_political_awakening
+		cost = 10
+		allow_branch = {
+			has_government = constitutional_monarchy
+		}
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0
+				NOT = { has_government = constitutional_monarchy }
+			}
+		}
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = constitutional_monarchy popularity = 0.1 }
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_crown
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = generic_constitutional_monarchy_path }
+		x = -1
+		y = 1
+		relative_position_id = generic_constitutional_monarchy_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.15
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_constitution
+		icon = GFX_focus_generic_treaty
+		prerequisite = { focus = generic_constitutional_monarchy_path }
+		x = 1
+		y = 1
+		relative_position_id = generic_constitutional_monarchy_path
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 150
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_tradition
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_constitutional_monarchy_crown }
+		x = 0
+		y = 1
+		relative_position_id = generic_constitutional_monarchy_crown
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_parliament
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_constitutional_monarchy_crown }
+		prerequisite = { focus = generic_constitutional_monarchy_constitution }
+		x = 0
+		y = 1
+		relative_position_id = generic_constitutional_monarchy_constitution
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_prestige
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = { focus = generic_constitutional_monarchy_constitution }
+		x = 0
+		y = 2
+		relative_position_id = generic_constitutional_monarchy_constitution
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_reform
+		icon = GFX_focus_generic_self_management
+		prerequisite = { focus = generic_constitutional_monarchy_tradition }
+		prerequisite = { focus = generic_constitutional_monarchy_parliament }
+		x = 0
+		y = 1
+		relative_position_id = generic_constitutional_monarchy_tradition
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_stability
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = { focus = generic_constitutional_monarchy_parliament }
+		prerequisite = { focus = generic_constitutional_monarchy_prestige }
+		x = 0
+		y = 1
+		relative_position_id = generic_constitutional_monarchy_parliament
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.15
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_prosperity
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = generic_constitutional_monarchy_reform }
+		x = 0
+		y = 1
+		relative_position_id = generic_constitutional_monarchy_reform
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 100
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_unity
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = generic_constitutional_monarchy_stability }
+		x = 0
+		y = 1
+		relative_position_id = generic_constitutional_monarchy_stability
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+		}
+	}
+
+	focus = {
+		id = generic_constitutional_monarchy_legacy
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = generic_constitutional_monarchy_prosperity }
+		prerequisite = { focus = generic_constitutional_monarchy_unity }
+		x = 0
+		y = 1
+		relative_position_id = generic_constitutional_monarchy_unity
+		cost = 10
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_stability = 0.1
+			add_political_power = 150
+		}
+	}
 }
