@@ -245,6 +245,7 @@ Progression_of_obesity = {
 			#GER_can_delay_mefo_payment = yes
 			hidden_trigger = { always = no }
 			has_completed_focus = MAC_sales_start_in_the_USA
+			NOT = { has_idea = MAC_constitution_improved }
 		}
         visible = {
             has_completed_focus = MAC_sales_start_in_the_USA
@@ -363,6 +364,61 @@ Progression_of_obesity = {
 
 		ai_will_do = {
 			factor = 200
+		}
+	}
+	Constitution_Improvement ={#体質改善
+		icon = GFX_decision_generic_decision
+
+		allowed = {
+			original_tag = MAC
+			always = yes
+		}
+
+		
+		visible = {
+			has_completed_focus = MAC_sales_start_in_the_USA
+		}
+
+		cost = 100
+
+		fire_only_once = yes
+		complete_effect = {
+			add_ideas = MAC_constitution_improved
+			custom_effect_tooltip = MAC_constitution_tt
+			hidden_effect = {
+				set_country_flag = MAC_constitution_improved_flag
+			}
+			if = {
+				limit = {
+					has_idea = Obesity_1
+				}
+				remove_ideas = Obesity_1
+
+			}
+			else = {
+				if = {
+					limit = {
+						has_idea = Obesity_2
+					}
+					remove_ideas = Obesity_2
+
+				}
+				else = {
+					if = {
+						limit = {
+							has_idea = Obesity_3
+						}
+						remove_ideas = Obesity_3
+					}
+					else = {
+						remove_ideas = Obesity_4
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
 		}
 	}
 }
