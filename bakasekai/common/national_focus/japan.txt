@@ -11,6 +11,254 @@ focus_tree = {
 			tag = JPN
 		}
 	}
+	#日本の運命
+	focus = {
+		id = JPN_fate_of_japan
+		icon = GFX_focus_jap_pacific_guardian
+		x = 0
+		y = 0
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		completion_reward = {
+			add_political_power = 200
+		}
+	}
+	#1936年選挙
+	focus = {
+		id = JPN_election_1936
+		icon = GFX_senkyo
+		relative_position_id = JPN_fate_of_japan
+		x = 0
+		y = 1
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = {
+			focus = JPN_fate_of_japan
+		}
+		completion_reward = {
+			country_event = {
+				id = jpn_pol.1
+				days = 1
+			}
+		}
+	}
+	#進神党に投票
+	focus = {
+		available = {
+			always = no
+		}
+		id = JPN_vote_divine_party
+		icon = GFX_JPN_jinshendangnitoupiao-331134
+		x = 0
+		y = 2
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		ai_will_do = {
+			factor = 60
+		}
+		allow_branch = {
+			has_country_flag = vote_divine_party
+		}
+		prerequisite = {
+			focus = JPN_election_1936
+		}
+		mutually_exclusive = {
+			focus = JPN_vote_imperial_way_party
+		}
+		mutually_exclusive = {
+			focus = JPN_vote_civilian_party
+		}
+		mutually_exclusive = {
+			focus = JPN_rise_of_the_military
+		}
+		mutually_exclusive = {
+			focus = JPN_support_vertical_party
+		}
+		completion_reward = {
+			add_political_power = -90
+			add_timed_idea = {
+				idea = sudden_change_of_policy
+				days = 45
+			}
+			hidden_effect = {
+				news_event = {
+					id = jpn_news.2
+				}
+			}
+		}
+	}
+	#皇道党に投票
+	focus = {
+		id = JPN_vote_imperial_way_party
+		icon = GFX_JPN_huangdaodangnitoupiao-331135
+		x = 0
+		y = 2
+		available = {
+			always = no
+		}
+		allow_branch = {
+			has_country_flag = support_imperial_way_party
+		}
+		cost = 5
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		prerequisite = {
+			focus = JPN_election_1936
+		}
+		mutually_exclusive = {
+			focus = JPN_support_vertical_party
+			focus = JPN_vote_divine_party
+			focus = JPN_vote_civilian_party
+			focus = JPN_rise_of_the_military
+		}
+		completion_reward = {
+			hidden_effect = {
+				news_event = {
+					id = jpn_news.3
+				}
+			}
+		}
+	}
+	#民政党に投票
+	focus = {
+		id = JPN_vote_civilian_party
+		icon = GFX_JPN_minzhengdangnitoupiao-331136
+		relative_position_id = JPN_election_1936
+		x = 0
+		available = {
+			always = no
+		}
+		y = 1
+		cost = 7
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		allow_branch = {
+			has_country_flag = vote_civilian_party
+		}
+		ai_will_do = {
+			factor = 100
+		}
+		prerequisite = {
+			focus = JPN_election_1936
+		}
+		mutually_exclusive = {
+			focus = JPN_support_vertical_party
+			focus = JPN_vote_divine_party
+			focus = JPN_vote_imperial_way_party
+			focus = JPN_rise_of_the_military
+		}
+		completion_reward = {
+			hidden_effect = {
+				news_event = {
+					id = jpn_news.5
+				}
+			}
+		}
+	}
+	#軍部の台頭
+	focus = {
+		id = JPN_rise_of_the_military
+		icon = GFX_JPN_junbunotaitou-331137
+		x = 0
+		y = 2
+		allow_branch = {
+			has_country_flag = rise_of_military
+		}
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		prerequisite = {
+			focus = JPN_election_1936
+		}
+		mutually_exclusive = {
+			focus = JPN_support_vertical_party
+			focus = JPN_vote_divine_party
+			focus = JPN_vote_imperial_way_party
+			focus = JPN_vote_civilian_party
+		}
+	}
+	#縦長党を支持
+	focus = {
+		available = {
+			always = no
+		}
+		id = JPN_support_vertical_party
+		icon = GFX_JPN_zongchangdangwozhichi-331128
+		x = 0
+		y = 2
+		cost = 6
+		allow_branch = {
+			has_country_flag = support_vertical_party
+		}
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		ai_will_do = {
+			factor = 40
+		}
+		prerequisite = {
+			focus = JPN_election_1936
+		}
+		mutually_exclusive = {
+			focus = JPN_vote_divine_party
+			focus = JPN_vote_imperial_way_party
+			focus = JPN_vote_civilian_party
+			focus = JPN_rise_of_the_military
+		}
+		completion_reward = {
+			add_political_power = -120
+			add_timed_idea = {
+				idea = sudden_change_of_policy
+				days = 90
+			}
+			hidden_effect = {
+				news_event = {
+					id = jpn_news.1
+				}
+			}
+		}
+	}
+	#強い日本を、取り戻す。
+	focus = {
+		id = JPN_restore_strong_japan
+		icon = GFX_JPN_qiangiribenwoqurilisu-331155
+		relative_position_id = JPN_vote_civilian_party
+		x = 0
+		y = 1
+		cost = 10
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		allow_branch = {
+			has_completed_focus = JPN_vote_civilian_party
+		}
+		prerequisite = {
+			focus = JPN_vote_civilian_party
+		}
+		completion_reward = {
+			country_event = {
+				id = jpn_pol.5
+				days = 1
+			}
+		}
+	}
 	#産業大躍進政策
 	focus = {
 		id = JPN_industrial_great_leap
@@ -302,7 +550,7 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		allow_branch = {
-			OR ={
+			OR = {
 				has_completed_focus = JPN_vote_imperial_way_party
 				has_completed_focus = JPN_rise_of_the_military
 			}
@@ -855,7 +1103,7 @@ focus_tree = {
 	focus = {
 		id = JPN_embrace_pacifism
 		icon = GFX_JPN_pinghezhuyi-331186
-		relative_position_id  =JPN_invite_cute_leader
+		relative_position_id = JPN_invite_cute_leader
 		x = -1
 		y = 1
 		cost = 6
@@ -1316,6 +1564,39 @@ focus_tree = {
 			}
 		}
 	}
+	#連合への港解放
+	focus = {
+		id = JPN_open_ports_to_allies
+		icon = GFX_JPN_lianhehenogangjiefang-331214
+		relative_position_id = JPN_restore_strong_japan
+		x = -2
+		y = 3
+		cost = 7
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = {
+			focus = JPN_revive_old_alliance
+		}
+		prerequisite = {
+			focus = JPN_joint_exercises
+		}
+		completion_reward = {
+			give_military_access = GBR
+			navy_experience = 100
+			every_country = {
+				limit = {
+					is_in_faction_with = JPN
+				}
+				every_country = {
+					limit = {
+						is_in_faction_with = GBR
+					}
+					give_military_access = PREV
+				}
+			}
+		}
+	}
 	#合同演習
 	focus = {
 		id = JPN_joint_exercises
@@ -1372,39 +1653,6 @@ focus_tree = {
 					}
 				}
 				set_faction_spymaster = yes
-			}
-		}
-	}
-	#連合への港解放
-	focus = {
-		id = JPN_open_ports_to_allies
-		icon = GFX_JPN_lianhehenogangjiefang-331214
-				relative_position_id = JPN_restore_strong_japan
-		x = -2
-		y = 3
-		cost = 7
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		prerequisite = {
-			focus = JPN_revive_old_alliance
-		}
-		prerequisite = {
-			focus = JPN_joint_exercises
-		}
-		completion_reward = {
-			give_military_access = GBR
-			navy_experience = 100
-			every_country = {
-				limit = {
-					is_in_faction_with = JPN
-				}
-				every_country = {
-					limit = {
-						is_in_faction_with = GBR
-					}
-					give_military_access = PREV
-				}
 			}
 		}
 	}
@@ -1510,7 +1758,7 @@ focus_tree = {
 			focus = JPN_support_vertical_party
 		}
 		allow_branch = {
-			has_completed_focus	= JPN_support_vertical_party
+			has_completed_focus = JPN_support_vertical_party
 		}
 		completion_reward = {
 			set_country_flag = JPN_tatenaga_flag
@@ -1534,7 +1782,7 @@ focus_tree = {
 			focus = JPN_support_vertical_party
 		}
 		allow_branch = {
-			has_completed_focus	= JPN_support_vertical_party
+			has_completed_focus = JPN_support_vertical_party
 		}
 		completion_reward = {
 			861 = {
@@ -1552,7 +1800,6 @@ focus_tree = {
 	#召喚準備
 	focus = {
 		id = JPN_prepare_summoning
-	
 		icon = GFX_JPN_zhaohuanzhunbei-331150
 		relative_position_id = JPN_vote_divine_party
 		x = -3
@@ -1562,7 +1809,7 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		allow_branch = {
-			has_completed_focus	= JPN_vote_divine_party
+			has_completed_focus = JPN_vote_divine_party
 		}
 		prerequisite = {
 			focus = JPN_vote_divine_party
@@ -1600,30 +1847,6 @@ focus_tree = {
 					has_country_flag = JPN_kami_flag
 				}
 				complete_national_focus = JPN_invite_cute_leader
-			}
-		}
-	}
-	#強い日本を、取り戻す。
-	focus = {
-		id = JPN_restore_strong_japan
-		icon = GFX_JPN_qiangiribenwoqurilisu-331155
-		relative_position_id = JPN_vote_civilian_party
-		x = 0
-		y = 1
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		allow_branch = {
-			has_completed_focus = JPN_vote_civilian_party
-		}
-		prerequisite = {
-			focus = JPN_vote_civilian_party
-		}
-		completion_reward = {
-			country_event = {
-				id = jpn_pol.5
-				days = 1
 			}
 		}
 	}
@@ -1684,230 +1907,6 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = {
 				vertical_education
-			}
-		}
-	}
-	#進神党に投票
-	focus = {
-		available = {
-			always = no
-		}
-		id = JPN_vote_divine_party
-		icon = GFX_JPN_jinshendangnitoupiao-331134
-		x = 0
-		y = 2
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		ai_will_do = {
-			factor = 60
-		}
-		allow_branch ={
-			has_country_flag = vote_divine_party
-		}
-		prerequisite = {
-			focus = JPN_election_1936
-		}
-		mutually_exclusive = {
-			focus = JPN_vote_imperial_way_party
-		}
-		mutually_exclusive = {
-			focus = JPN_vote_civilian_party
-		}
-		mutually_exclusive = {
-			focus = JPN_rise_of_the_military
-		}
-		mutually_exclusive = {
-			focus = JPN_support_vertical_party
-		}
-		completion_reward = {
-			add_political_power = -90
-			add_timed_idea = {
-				idea = sudden_change_of_policy
-				days = 45
-			}
-			hidden_effect = {
-				news_event = {
-					id = jpn_news.2
-				}
-			}
-		}
-	}
-	#皇道党に投票
-	focus = {
-		id = JPN_vote_imperial_way_party
-		icon = GFX_JPN_huangdaodangnitoupiao-331135
-		x = 0
-		y = 2
-		available = {
-			always = no
-		}
-		allow_branch ={
-			has_country_flag = support_imperial_way_party
-		}
-		cost = 5
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		ai_will_do = {
-			factor = 0
-		}
-		prerequisite = {
-			focus = JPN_election_1936
-		}
-		mutually_exclusive = {
-			focus = JPN_support_vertical_party
-			focus = JPN_vote_divine_party
-			focus = JPN_vote_civilian_party
-			focus = JPN_rise_of_the_military
-		}
-		completion_reward = {
-			hidden_effect = {
-				news_event = {
-					id = jpn_news.3
-				}
-			}
-		}
-	}
-	#民政党に投票
-	focus = {
-		id = JPN_vote_civilian_party
-		icon = GFX_JPN_minzhengdangnitoupiao-331136
-		relative_position_id = JPN_election_1936
-		x = 0
-		available = {
-			always = no
-		}
-		y = 1
-		cost = 7
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		allow_branch ={
-			has_country_flag = vote_civilian_party
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		prerequisite = {
-			focus = JPN_election_1936
-		}
-		mutually_exclusive = {
-			focus = JPN_support_vertical_party
-			focus = JPN_vote_divine_party
-			focus = JPN_vote_imperial_way_party
-			focus = JPN_rise_of_the_military
-		}
-		completion_reward = {
-			hidden_effect = {
-				news_event = {
-					id = jpn_news.5
-				}
-			}
-		}
-	}
-	#軍部の台頭
-	focus = {
-		id = JPN_rise_of_the_military
-		icon = GFX_JPN_junbunotaitou-331137
-		x = 0
-		y = 2
-		allow_branch ={
-			has_country_flag = rise_of_military
-		}
-		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		ai_will_do = {
-			factor = 0
-		}
-		prerequisite = {
-			focus = JPN_election_1936
-		}
-		mutually_exclusive = {
-			focus = JPN_support_vertical_party
-			focus = JPN_vote_divine_party
-			focus = JPN_vote_imperial_way_party
-			focus = JPN_vote_civilian_party
-		}
-	}
-	#日本の運命
-	focus = {
-		id = JPN_fate_of_japan
-		icon = GFX_focus_jap_pacific_guardian
-		x = 0
-		y = 0
-		cost = 5
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		ai_will_do = {
-			factor = 100
-		}
-		completion_reward = {
-			add_political_power = 200
-		}
-	}
-	#縦長党を支持
-	focus = {
-		available = {
-			always = no
-		}
-		id = JPN_support_vertical_party
-		icon = GFX_JPN_zongchangdangwozhichi-331128
-		x = 0
-		y = 2
-		cost = 6
-		allow_branch ={
-			has_country_flag = support_vertical_party
-		}
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		ai_will_do = {
-			factor = 40
-		}
-		prerequisite = {
-			focus = JPN_election_1936
-		}
-		mutually_exclusive = {
-			focus = JPN_vote_divine_party
-			focus = JPN_vote_imperial_way_party
-			focus = JPN_vote_civilian_party
-			focus = JPN_rise_of_the_military
-		}
-		completion_reward = {
-			add_political_power = -120
-			add_timed_idea = {
-				idea = sudden_change_of_policy
-				days = 90
-			}
-			hidden_effect = {
-				news_event = {
-					id = jpn_news.1
-				}
-			}
-		}
-	}
-	#1936年選挙
-	focus = {
-		id = JPN_election_1936
-		icon = GFX_senkyo
-		relative_position_id = JPN_fate_of_japan
-		x = 0
-		y = 1
-		cost = 5
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		prerequisite = {
-			focus = JPN_fate_of_japan
-		}
-		completion_reward = {
-			country_event = {
-				id = jpn_pol.1
-				days = 1
 			}
 		}
 	}
@@ -3351,9 +3350,7 @@ focus_tree = {
 			}
 		}
 	}
-
 	# 皇道党ルート拡張フォーカス
-
 	#皇道思想の普及
 	focus = {
 		id = JPN_spread_kodo_ideology
@@ -3377,7 +3374,6 @@ focus_tree = {
 			add_ideas = kodo_ideology_spread
 		}
 	}
-
 	#軍部との協調
 	focus = {
 		id = JPN_military_cooperation
@@ -3397,7 +3393,6 @@ focus_tree = {
 			add_ideas = military_imperial_cooperation
 		}
 	}
-
 	#皇道教育の強化
 	focus = {
 		id = JPN_strengthen_imperial_education
@@ -3417,7 +3412,6 @@ focus_tree = {
 			add_ideas = imperial_education_system
 		}
 	}
-
 	#天皇親政の実現
 	focus = {
 		id = JPN_realize_imperial_rule
@@ -3444,7 +3438,6 @@ focus_tree = {
 			add_ideas = imperial_direct_rule
 		}
 	}
-
 	#国体護持の決意
 	focus = {
 		id = JPN_determination_kokutai_protection
@@ -3464,7 +3457,6 @@ focus_tree = {
 			add_ideas = kokutai_protection_spirit
 		}
 	}
-
 	#新興財閥の統制
 	focus = {
 		id = JPN_control_new_zaibatsu
@@ -3484,7 +3476,6 @@ focus_tree = {
 			add_ideas = zaibatsu_state_control
 		}
 	}
-
 	#皇軍の精神力強化
 	focus = {
 		id = JPN_strengthen_imperial_army_spirit
@@ -3504,7 +3495,6 @@ focus_tree = {
 			add_manpower = 50000
 		}
 	}
-
 	#神風特攻隊の編成
 	focus = {
 		id = JPN_organize_kamikaze_units
@@ -3522,14 +3512,13 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = kamikaze_tech_bonus
-				bonus = 1.0
+				bonus = 1
 				uses = 2
 				category = air_doctrine
 			}
 			add_ideas = kamikaze_spirit
 		}
 	}
-
 	#一億総特攻の精神
 	focus = {
 		id = JPN_hundred_million_total_resistance
@@ -3553,7 +3542,6 @@ focus_tree = {
 			add_ideas = total_resistance_spirit
 		}
 	}
-
 	#皇道の完成
 	focus = {
 		id = JPN_completion_of_imperial_way
@@ -3575,9 +3563,7 @@ focus_tree = {
 			add_ideas = imperial_way_completion
 		}
 	}
-
 	# 軍部ルート拡張フォーカス
-
 	#軍事独裁の確立
 	focus = {
 		id = JPN_establish_military_dictatorship
@@ -3601,7 +3587,6 @@ focus_tree = {
 			add_ideas = military_dictatorship
 		}
 	}
-
 	#統制派の台頭
 	focus = {
 		id = JPN_rise_of_control_faction
@@ -3621,7 +3606,6 @@ focus_tree = {
 			add_ideas = control_faction_dominance
 		}
 	}
-
 	#軍産複合体の強化
 	focus = {
 		id = JPN_strengthen_military_industrial_complex
@@ -3647,7 +3631,6 @@ focus_tree = {
 			}
 		}
 	}
-
 	#総動員体制の構築
 	focus = {
 		id = JPN_build_total_mobilization_system
@@ -3670,7 +3653,6 @@ focus_tree = {
 			add_manpower = 75000
 		}
 	}
-
 	#新兵器開発計画
 	focus = {
 		id = JPN_new_weapons_development_plan
@@ -3688,14 +3670,13 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = secret_weapons_bonus
-				bonus = 1.0
+				bonus = 1
 				uses = 3
 				category = electronics
 			}
 			add_research_slot = 1
 		}
 	}
-
 	#軍事官僚制の完成
 	focus = {
 		id = JPN_complete_military_bureaucracy
@@ -3715,7 +3696,6 @@ focus_tree = {
 			add_ideas = military_bureaucracy_perfection
 		}
 	}
-
 	#軍国主義教育の徹底
 	focus = {
 		id = JPN_thorough_militaristic_education
@@ -3735,7 +3715,6 @@ focus_tree = {
 			add_ideas = militaristic_education_system
 		}
 	}
-
 	#決戦兵器の開発
 	focus = {
 		id = JPN_develop_decisive_weapons
@@ -3756,13 +3735,12 @@ focus_tree = {
 		completion_reward = {
 			add_tech_bonus = {
 				name = decisive_weapons_bonus
-				bonus = 2.0
+				bonus = 2
 				uses = 2
 				category = nuclear
 			}
 		}
 	}
-
 	#軍事国家の完成
 	focus = {
 		id = JPN_completion_of_military_state
