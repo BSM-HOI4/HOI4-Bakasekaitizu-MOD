@@ -26,7 +26,7 @@ focus_tree = {
 	focus = {
 		id = generic_political_awakening
 		icon = GFX_goal_generic_demand_territory
-		x = -10
+		x = 0
 		y = 0
 		cost = 10
 		search_filters = {
@@ -56,12 +56,12 @@ focus_tree = {
 		allow_branch = {
 			OR = {
 				has_government = democratic_ideology
-				AND = {
-					NOT = { has_government = democratic_ideology }
-					NOT = { has_government = communism_ideology }
-					NOT = { has_government = fascism_ideology }
-					NOT = { has_government = neutrality_ideology }
-				}
+				# AND = {
+				# 	NOT = { has_government = democratic_ideology }
+				# 	NOT = { has_government = communism_ideology }
+				# 	NOT = { has_government = fascism_ideology }
+				# 	NOT = { has_government = neutrality_ideology }
+				# }
 			}
 		}
 		ai_will_do = {
@@ -276,19 +276,19 @@ focus_tree = {
 		mutually_exclusive = { focus = generic_democratic_path }
 		mutually_exclusive = { focus = generic_fascist_path }
 		mutually_exclusive = { focus = generic_neutrality_path }
-		x = 4
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
 		allow_branch = {
 			OR = {
 				has_government = communism_ideology
-				AND = {
-					NOT = { has_government = democratic_ideology }
-					NOT = { has_government = communism_ideology }
-					NOT = { has_government = fascism_ideology }
-					NOT = { has_government = neutrality_ideology }
-				}
+				# AND = {
+				# 	NOT = { has_government = democratic_ideology }
+				# 	NOT = { has_government = communism_ideology }
+				# 	NOT = { has_government = fascism_ideology }
+				# 	NOT = { has_government = neutrality_ideology }
+				# }
 			}
 		}
 		ai_will_do = {
@@ -494,6 +494,104 @@ focus_tree = {
 		}
 	}
 
+	# =============================
+	# x=9~16 新規経済系ツリー
+	# 植民地投資ツリー（植民地を持っている場合のみ）
+	focus = {
+		id = generic_colonial_investment
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = generic_political_awakening }
+		x = 9
+		y = 1
+		cost = 10
+		available = {
+			any_owned_state = {
+				is_core_of = ROOT
+				is_coastal = yes
+			}
+		}
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		available_if_capitulated = yes
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_political_power = 50
+		}
+	}
+
+	# 鉱山投資ツリー（資源を持っている場合のみ）
+	focus = {
+		id = generic_goldmine_investment
+		icon = GFX_goal_generic_resource_mining
+		prerequisite = { focus = generic_political_awakening }
+		x = 12
+		y = 1
+		cost = 10
+		available = {
+			any_owned_state = {
+				OR = {
+					has_resources = { steel > 0 }
+					has_resources = { tungsten > 0 }
+					has_resources = { chromium > 0 }
+				}
+			}
+		}
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		available_if_capitulated = yes
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					OR = {
+						has_resources = { steel > 0 }
+						has_resources = { tungsten > 0 }
+						has_resources = { chromium > 0 }
+					}
+				}
+				add_resource = {
+					type = steel
+					amount = 5
+				}
+			}
+			add_political_power = 50
+		}
+	}
+
+	# 資源貿易ディシジョン解放ツリー
+	focus = {
+		id = generic_sell_gold_for_resources
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = generic_political_awakening }
+		x = 15
+		y = 1
+		cost = 10
+		available = {
+			NOT = { has_government = neutrality }
+		}
+		ai_will_do = { factor = 5 }
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_political_power = 50
+			add_offsite_building = { type = industrial_complex level = 1 }
+		}
+	}
+
 	# ========================================
 	# FASCISM_IDEOLOGY BRANCH
 	# ========================================
@@ -504,19 +602,19 @@ focus_tree = {
 		mutually_exclusive = { focus = generic_democratic_path }
 		mutually_exclusive = { focus = generic_communist_path }
 		mutually_exclusive = { focus = generic_neutrality_path }
-		x = 8
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
 		allow_branch = {
 			OR = {
 				has_government = fascism_ideology
-				AND = {
-					NOT = { has_government = democratic_ideology }
-					NOT = { has_government = communism_ideology }
-					NOT = { has_government = fascism_ideology }
-					NOT = { has_government = neutrality_ideology }
-				}
+				# AND = {
+				# 	NOT = { has_government = democratic_ideology }
+				# 	NOT = { has_government = communism_ideology }
+				# 	NOT = { has_government = fascism_ideology }
+				# 	NOT = { has_government = neutrality_ideology }
+				# }
 			}
 		}
 		ai_will_do = {
@@ -732,19 +830,19 @@ focus_tree = {
 		mutually_exclusive = { focus = generic_democratic_path }
 		mutually_exclusive = { focus = generic_communist_path }
 		mutually_exclusive = { focus = generic_fascist_path }
-		x = 12
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
 		allow_branch = {
 			OR = {
 				has_government = neutrality_ideology
-				AND = {
-					NOT = { has_government = democratic_ideology }
-					NOT = { has_government = communism_ideology }
-					NOT = { has_government = fascism_ideology }
-					NOT = { has_government = neutrality_ideology }
-				}
+				# AND = {
+				# 	NOT = { has_government = democratic_ideology }
+				# 	NOT = { has_government = communism_ideology }
+				# 	NOT = { has_government = fascism_ideology }
+				# 	NOT = { has_government = neutrality_ideology }
+				# }
 			}
 		}
 		ai_will_do = {
@@ -956,7 +1054,7 @@ focus_tree = {
 		id = generic_civilism_path
 		icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = generic_political_awakening }
-		x = 16
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -982,7 +1080,7 @@ focus_tree = {
 		id = generic_civilism_civic_society
 		icon = GFX_focus_generic_self_management
 		prerequisite = { focus = generic_civilism_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_civilism_path
 		cost = 10
@@ -999,7 +1097,7 @@ focus_tree = {
 		id = generic_civilism_urban_development
 		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = generic_civilism_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_civilism_path
 		cost = 10
@@ -1032,7 +1130,7 @@ focus_tree = {
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_civilism_civic_society }
 		prerequisite = { focus = generic_civilism_urban_development }
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = generic_civilism_urban_development
 		cost = 10
@@ -1048,8 +1146,8 @@ focus_tree = {
 		id = generic_civilism_infrastructure
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = generic_civilism_urban_development }
-		x = 0
-		y = 2
+		x = 2
+		y = 1
 		relative_position_id = generic_civilism_urban_development
 		cost = 10
 		ai_will_do = { factor = 5 }
@@ -1082,7 +1180,7 @@ focus_tree = {
 		icon = GFX_goal_generic_consumer_goods
 		prerequisite = { focus = generic_civilism_local_governance }
 		prerequisite = { focus = generic_civilism_infrastructure }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_civilism_local_governance
 		cost = 10
@@ -1131,7 +1229,7 @@ focus_tree = {
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_civilism_cooperation }
 		prerequisite = { focus = generic_civilism_balance }
-		x = 0
+		x = -3
 		y = 1
 		relative_position_id = generic_civilism_balance
 		cost = 10
@@ -1168,7 +1266,7 @@ focus_tree = {
 		id = generic_conservative_democracy_path
 		icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = generic_political_awakening }
-		x = 20
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -1194,7 +1292,7 @@ focus_tree = {
 		id = generic_conservative_values
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_conservative_democracy_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_conservative_democracy_path
 		cost = 10
@@ -1210,7 +1308,7 @@ focus_tree = {
 		id = generic_conservative_institutions
 		icon = GFX_focus_generic_treaty
 		prerequisite = { focus = generic_conservative_democracy_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_conservative_democracy_path
 		cost = 10
@@ -1259,8 +1357,8 @@ focus_tree = {
 		id = generic_conservative_economy
 		icon = GFX_goal_generic_construct_civilian
 		prerequisite = { focus = generic_conservative_institutions }
-		x = 0
-		y = 2
+		x = 2
+		y = 1
 		relative_position_id = generic_conservative_institutions
 		cost = 10
 		ai_will_do = { factor = 5 }
@@ -1293,7 +1391,7 @@ focus_tree = {
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = generic_conservative_parliament }
 		prerequisite = { focus = generic_conservative_economy }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_conservative_parliament
 		cost = 10
@@ -1342,7 +1440,7 @@ focus_tree = {
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_conservative_prosperity }
 		prerequisite = { focus = generic_conservative_unity }
-		x = 0
+		x = -3
 		y = 1
 		relative_position_id = generic_conservative_unity
 		cost = 10
@@ -1379,7 +1477,7 @@ focus_tree = {
 		id = generic_constitutional_monarchy_path
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_political_awakening }
-		x = 24
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -1405,7 +1503,7 @@ focus_tree = {
 		id = generic_constitutional_monarchy_crown
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_constitutional_monarchy_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_constitutional_monarchy_path
 		cost = 10
@@ -1421,7 +1519,7 @@ focus_tree = {
 		id = generic_constitutional_monarchy_constitution
 		icon = GFX_focus_generic_treaty
 		prerequisite = { focus = generic_constitutional_monarchy_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_constitutional_monarchy_path
 		cost = 10
@@ -1454,7 +1552,7 @@ focus_tree = {
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_constitutional_monarchy_crown }
 		prerequisite = { focus = generic_constitutional_monarchy_constitution }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_constitutional_monarchy_constitution
 		cost = 10
@@ -1470,8 +1568,8 @@ focus_tree = {
 		id = generic_constitutional_monarchy_prestige
 		icon = GFX_goal_generic_allies_build_infantry
 		prerequisite = { focus = generic_constitutional_monarchy_constitution }
-		x = 0
-		y = 2
+		x = -1
+		y = 1
 		relative_position_id = generic_constitutional_monarchy_constitution
 		cost = 10
 		ai_will_do = { factor = 5 }
@@ -1590,7 +1688,7 @@ focus_tree = {
 		id = generic_direct_democracy_path
 		icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = generic_political_awakening }
-		x = 28
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -1616,7 +1714,7 @@ focus_tree = {
 		id = generic_direct_democracy_participation
 		icon = GFX_focus_generic_self_management
 		prerequisite = { focus = generic_direct_democracy_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_direct_democracy_path
 		cost = 10
@@ -1632,7 +1730,7 @@ focus_tree = {
 		id = generic_direct_democracy_referendum
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_direct_democracy_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_direct_democracy_path
 		cost = 10
@@ -1681,8 +1779,8 @@ focus_tree = {
 		id = generic_direct_democracy_transparency
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = generic_direct_democracy_referendum }
-		x = 0
-		y = 2
+		x = 2
+		y = 1
 		relative_position_id = generic_direct_democracy_referendum
 		cost = 10
 		ai_will_do = { factor = 5 }
@@ -1715,7 +1813,7 @@ focus_tree = {
 		icon = GFX_focus_generic_treaty
 		prerequisite = { focus = generic_direct_democracy_national_assembly }
 		prerequisite = { focus = generic_direct_democracy_transparency }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_direct_democracy_national_assembly
 		cost = 10
@@ -1801,7 +1899,7 @@ focus_tree = {
 		id = generic_futurism_path
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_political_awakening }
-		x = 32
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -1827,7 +1925,7 @@ focus_tree = {
 		id = generic_futurism_technology
 		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = generic_futurism_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_futurism_path
 		cost = 10
@@ -1843,7 +1941,7 @@ focus_tree = {
 		id = generic_futurism_innovation
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_futurism_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_futurism_path
 		cost = 10
@@ -1892,8 +1990,8 @@ focus_tree = {
 		id = generic_futurism_progress
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = generic_futurism_innovation }
-		x = 0
-		y = 2
+		x = 2
+		y = 1
 		relative_position_id = generic_futurism_innovation
 		cost = 10
 		ai_will_do = { factor = 5 }
@@ -1926,7 +2024,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = generic_futurism_research }
 		prerequisite = { focus = generic_futurism_progress }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_futurism_research
 		cost = 10
@@ -2012,7 +2110,7 @@ focus_tree = {
 		id = generic_intellectualism_path
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_political_awakening }
-		x = 36
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -2038,7 +2136,7 @@ focus_tree = {
 		id = generic_intellectualism_knowledge
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_intellectualism_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_intellectualism_path
 		cost = 10
@@ -2054,7 +2152,7 @@ focus_tree = {
 		id = generic_intellectualism_education
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_intellectualism_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_intellectualism_path
 		cost = 10
@@ -2103,8 +2201,8 @@ focus_tree = {
 		id = generic_intellectualism_science
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_intellectualism_education }
-		x = 0
-		y = 2
+		x = 4
+		y = 1
 		relative_position_id = generic_intellectualism_education
 		cost = 10
 		ai_will_do = { factor = 5 }
@@ -2137,7 +2235,7 @@ focus_tree = {
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_intellectualism_libraries }
 		prerequisite = { focus = generic_intellectualism_science }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_intellectualism_libraries
 		cost = 10
@@ -2223,7 +2321,7 @@ focus_tree = {
 		id = generic_mythologicalism_path
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_political_awakening }
-		x = 40
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -2248,7 +2346,7 @@ focus_tree = {
 		id = generic_mythologicalism_faith
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_mythologicalism_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_mythologicalism_path
 		cost = 10
@@ -2263,7 +2361,7 @@ focus_tree = {
 		id = generic_mythologicalism_divine_guidance
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_mythologicalism_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_mythologicalism_path
 		cost = 10
@@ -2294,7 +2392,7 @@ focus_tree = {
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_mythologicalism_divine_guidance }
 		prerequisite = { focus = generic_mythologicalism_temples }
-		x = 0
+		x = 4
 		y = 1
 		relative_position_id = generic_mythologicalism_temples
 		cost = 10
@@ -2340,7 +2438,7 @@ focus_tree = {
 		id = generic_mythologicalism_pilgrimage
 		icon = GFX_goal_generic_allies_build_infantry
 		prerequisite = { focus = generic_mythologicalism_holy_sites }
-		x = 0
+		x = 4
 		y = 1
 		relative_position_id = generic_mythologicalism_holy_sites
 		cost = 10
@@ -2371,7 +2469,7 @@ focus_tree = {
 		id = generic_mythologicalism_religious_unity
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_mythologicalism_pilgrimage }
-		x = 0
+		x = -4
 		y = 1
 		relative_position_id = generic_mythologicalism_pilgrimage
 		cost = 10
@@ -2402,7 +2500,7 @@ focus_tree = {
 		id = generic_mythologicalism_divine_order
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_mythologicalism_religious_unity }
-		x = 0
+		x = 4
 		y = 1
 		relative_position_id = generic_mythologicalism_religious_unity
 		cost = 10
@@ -2422,7 +2520,7 @@ focus_tree = {
 		id = generic_rightneutrality_path
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_political_awakening }
-		x = 44
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -2447,7 +2545,7 @@ focus_tree = {
 		id = generic_rightneutrality_hierarchy
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_rightneutrality_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_rightneutrality_path
 		cost = 10
@@ -2462,7 +2560,7 @@ focus_tree = {
 		id = generic_rightneutrality_nobility
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_rightneutrality_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_rightneutrality_path
 		cost = 10
@@ -2477,7 +2575,7 @@ focus_tree = {
 		id = generic_rightneutrality_feudal_system
 		icon = GFX_goal_generic_construct_civilian
 		prerequisite = { focus = generic_rightneutrality_hierarchy }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_rightneutrality_hierarchy
 		cost = 10
@@ -2493,7 +2591,7 @@ focus_tree = {
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_rightneutrality_nobility }
 		prerequisite = { focus = generic_rightneutrality_feudal_system }
-		x = 0
+		x = -2
 		y = 1
 		relative_position_id = generic_rightneutrality_feudal_system
 		cost = 10
@@ -2508,7 +2606,7 @@ focus_tree = {
 		id = generic_rightneutrality_imperial_power
 		icon = GFX_goal_generic_demand_territory
 		prerequisite = { focus = generic_rightneutrality_feudal_system }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_rightneutrality_feudal_system
 		cost = 10
@@ -2539,7 +2637,7 @@ focus_tree = {
 		id = generic_rightneutrality_tradition
 		icon = GFX_goal_generic_allies_build_infantry
 		prerequisite = { focus = generic_rightneutrality_imperial_power }
-		x = 0
+		x = -4
 		y = 1
 		relative_position_id = generic_rightneutrality_imperial_power
 		cost = 10
@@ -2570,7 +2668,7 @@ focus_tree = {
 		id = generic_rightneutrality_order
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_rightneutrality_tradition }
-		x = 0
+		x = 4
 		y = 1
 		relative_position_id = generic_rightneutrality_tradition
 		cost = 10
@@ -2601,7 +2699,7 @@ focus_tree = {
 		id = generic_rightneutrality_empire
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_rightneutrality_order }
-		x = 0
+		x = -4
 		y = 1
 		relative_position_id = generic_rightneutrality_order
 		cost = 10
@@ -2621,7 +2719,7 @@ focus_tree = {
 		id = generic_anarchism_path
 		icon = GFX_goal_support_communism
 		prerequisite = { focus = generic_political_awakening }
-		x = 48
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -2646,7 +2744,7 @@ focus_tree = {
 		id = generic_anarchism_abolish_state
 		icon = GFX_goal_generic_forceful_treaty
 		prerequisite = { focus = generic_anarchism_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_anarchism_path
 		cost = 10
@@ -2661,7 +2759,7 @@ focus_tree = {
 		id = generic_anarchism_worker_councils
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_anarchism_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_anarchism_path
 		cost = 10
@@ -2676,7 +2774,7 @@ focus_tree = {
 		id = generic_anarchism_direct_action
 		icon = GFX_goal_generic_demand_territory
 		prerequisite = { focus = generic_anarchism_abolish_state }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_anarchism_abolish_state
 		cost = 10
@@ -2692,7 +2790,7 @@ focus_tree = {
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_anarchism_worker_councils }
 		prerequisite = { focus = generic_anarchism_direct_action }
-		x = 0
+		x = -2
 		y = 1
 		relative_position_id = generic_anarchism_direct_action
 		cost = 10
@@ -2707,7 +2805,7 @@ focus_tree = {
 		id = generic_anarchism_syndicates
 		icon = GFX_goal_generic_construct_civilian
 		prerequisite = { focus = generic_anarchism_direct_action }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_anarchism_direct_action
 		cost = 10
@@ -2738,7 +2836,7 @@ focus_tree = {
 		id = generic_anarchism_grassroots_organization
 		icon = GFX_goal_generic_allies_build_infantry
 		prerequisite = { focus = generic_anarchism_syndicates }
-		x = 0
+		x = -4
 		y = 1
 		relative_position_id = generic_anarchism_syndicates
 		cost = 10
@@ -2769,7 +2867,7 @@ focus_tree = {
 		id = generic_anarchism_free_association
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_anarchism_grassroots_organization }
-		x = 0
+		x = 4
 		y = 1
 		relative_position_id = generic_anarchism_grassroots_organization
 		cost = 10
@@ -2800,7 +2898,7 @@ focus_tree = {
 		id = generic_anarchism_anarchist_society
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_anarchism_free_association }
-		x = 0
+		x = -4
 		y = 1
 		relative_position_id = generic_anarchism_free_association
 		cost = 10
@@ -2820,7 +2918,7 @@ focus_tree = {
 		id = generic_stupidism_path
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_political_awakening }
-		x = 52
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -2845,7 +2943,7 @@ focus_tree = {
 		id = generic_stupidism_embrace_chaos
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_stupidism_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_stupidism_path
 		cost = 10
@@ -2861,7 +2959,7 @@ focus_tree = {
 		id = generic_stupidism_random_policies
 		icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = generic_stupidism_path }
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = generic_stupidism_path
 		cost = 10
@@ -2876,7 +2974,7 @@ focus_tree = {
 		id = generic_stupidism_confusion
 		icon = GFX_goal_generic_demand_territory
 		prerequisite = { focus = generic_stupidism_embrace_chaos }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_stupidism_embrace_chaos
 		cost = 10
@@ -2892,7 +2990,7 @@ focus_tree = {
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_stupidism_random_policies }
 		prerequisite = { focus = generic_stupidism_confusion }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_stupidism_confusion
 		cost = 10
@@ -2907,7 +3005,7 @@ focus_tree = {
 		id = generic_stupidism_nonsense_laws
 		icon = GFX_focus_generic_treaty
 		prerequisite = { focus = generic_stupidism_confusion }
-		x = 0
+		x = -2
 		y = 1
 		relative_position_id = generic_stupidism_confusion
 		cost = 10
@@ -2923,7 +3021,7 @@ focus_tree = {
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_stupidism_absurdity }
 		prerequisite = { focus = generic_stupidism_nonsense_laws }
-		x = 0
+		x = 4
 		y = 1
 		relative_position_id = generic_stupidism_nonsense_laws
 		cost = 10
@@ -2969,7 +3067,7 @@ focus_tree = {
 		id = generic_stupidism_unpredictability
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = generic_stupidism_unconventional_wisdom }
-		x = 0
+		x = 4
 		y = 1
 		relative_position_id = generic_stupidism_unconventional_wisdom
 		cost = 10
@@ -3000,7 +3098,7 @@ focus_tree = {
 		id = generic_stupidism_beautiful_nonsense
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = generic_stupidism_unpredictability }
-		x = 0
+		x = -4
 		y = 1
 		relative_position_id = generic_stupidism_unpredictability
 		cost = 10
@@ -3020,7 +3118,7 @@ focus_tree = {
 		id = generic_technicalism_path
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_political_awakening }
-		x = 56
+		x = 0
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -3045,7 +3143,7 @@ focus_tree = {
 		id = generic_technicalism_technocracy
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_technicalism_path }
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = generic_technicalism_path
 		cost = 10
@@ -3075,7 +3173,7 @@ focus_tree = {
 		id = generic_technicalism_automation
 		icon = GFX_goal_generic_construct_civilian
 		prerequisite = { focus = generic_technicalism_technocracy }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_technicalism_technocracy
 		cost = 10
@@ -3091,7 +3189,7 @@ focus_tree = {
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_technicalism_advanced_systems }
 		prerequisite = { focus = generic_technicalism_automation }
-		x = 0
+		x = -2
 		y = 1
 		relative_position_id = generic_technicalism_automation
 		cost = 10
@@ -3106,7 +3204,7 @@ focus_tree = {
 		id = generic_technicalism_digital_governance
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = generic_technicalism_automation }
-		x = 0
+		x = 2
 		y = 1
 		relative_position_id = generic_technicalism_automation
 		cost = 10
@@ -3137,7 +3235,7 @@ focus_tree = {
 		id = generic_technicalism_cybernetics
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = generic_technicalism_digital_governance }
-		x = 0
+		x = -4
 		y = 1
 		relative_position_id = generic_technicalism_digital_governance
 		cost = 10
@@ -3153,7 +3251,7 @@ focus_tree = {
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_technicalism_innovation_labs }
 		prerequisite = { focus = generic_technicalism_cybernetics }
-		x = 0
+		x = 4
 		y = 1
 		relative_position_id = generic_technicalism_cybernetics
 		cost = 10
@@ -3199,7 +3297,7 @@ focus_tree = {
 		id = generic_technicalism_technological_supremacy
 		icon = GFX_focus_research
 		prerequisite = { focus = generic_technicalism_tech_revolution }
-		x = 0
+		x = 4
 		y = 1
 		relative_position_id = generic_technicalism_tech_revolution
 		cost = 10
