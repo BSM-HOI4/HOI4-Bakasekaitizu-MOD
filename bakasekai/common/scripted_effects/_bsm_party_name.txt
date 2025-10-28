@@ -1,0 +1,55 @@
+set_party_names_SOV = {
+	set_party_name = {
+		ideology = communism_ideology
+		long_name = SOV_communism_party_russian_long
+		name = SOV_communism_party_russian
+	}
+	
+	set_party_name = {
+		ideology = fascism_ideology
+		long_name = SOV_fascism_party_russian_long
+		name = SOV_fascism_party_russian
+	}
+}
+
+gcs_create_or_join_alliance = {
+    # 地球市民社会維持のための同盟が存在するかチェック
+    if = {
+        limit = {
+            any_country = {
+                is_in_faction = yes
+                faction_leader = {
+                    has_country_flag = gcs_alliance_formed_flag # ファクションリーダーが特定のフラグを持っているか確認
+                }
+            }
+        }
+        # ファクションが存在する場合、そのファクションに加盟を試みる
+        # 既存の地球市民社会同盟のリーダーを探す
+        random_country = {
+            limit = {
+                is_in_faction = yes
+                is_faction_leader = yes
+                has_country_flag = gcs_alliance_formed_flag
+                NOT = { tag = ROOT }
+            }
+            # 見つかったファクションリーダーの国を一時的なイベントターゲットとして保存
+            save_event_target_as = gcs_alliance_leader_temp
+            
+            # ROOT（効果を実行する国）がまだファクションに加盟していない場合
+            if = {
+                limit = {
+                    ROOT = { NOT = { is_in_faction = yes } }
+                }
+                add_to_faction = ROOT
+            }
+        }
+    }
+    else = {
+        # ファクションが存在しない場合、新しく作成する
+        ROOT = {
+            create_faction = "GCS_ALLIANCE_NAME" # 新しいファクション名
+            set_country_flag = gcs_alliance_formed_flag # ファクション作成フラグを設定
+            set_faction_name = "GCS_ALLIANCE_NAME_LOC" # ローカライズキーを設定
+        }
+    }
+}

@@ -1,5 +1,6 @@
 capital = 126
 oob = "Default_oob"
+set_cosmetic_tag = GBRandNIR_united_kingdom
 if = {
 	limit = {
 		NOT = {
@@ -8,64 +9,25 @@ if = {
 	}
 	set_oob = "ENG_1936"
 }
+
 if = {
 	limit = {
 		has_dlc = "No Step Back"
 	}
 	set_oob = "ENG_1936_nsb"
 }
-set_research_slots = 4
+
+set_tech_level_2 = yes
 set_stability = 0.6
 set_war_support = 0.1
 add_command_power = 20
 # Starting tech
-set_technology = {
-	infantry_weapons = 1
-	infantry_weapons1 = 1
-	tech_support = 1
-	tech_engineers = 1
-	tech_recon = 1
-	motorised_infantry = 1
-	gw_artillery = 1
-	interwar_antiair = 1
-	early_fighter = 1
-	cv_early_fighter = 1
-	cv_naval_bomber1 = 1
-	naval_bomber1 = 1
-	early_bomber = 1
-	CAS1 = 1
-	basic_train = 1
-	trench_warfare = 1
-	fleet_in_being = 1
-	electronic_mechanical_engineering = 1
-	radio = 1
-	radio_detection = 1
-	fuel_silos = 1
-	fuel_refining = 1
-}
-
-if = {
-	limit = {
-		NOT = {
-			has_dlc = "No Step Back"
-		}
-	}
-	set_technology = {
-		gwtank = 1
-		basic_light_tank = 1
-	}
-}
-
-if = {
-	limit = {
-		has_dlc = "No Step Back"
-	}
-	set_technology = {
-		gwtank_chassis = 1
-		basic_light_tank_chassis = 1
-	}
-}
-
+land_tech_level_3 = yes
+support_tech_level_2 = yes
+air_tech_level_3 = yes
+navy_tech_level_4 = yes
+industry_tech_level_2 = yes
+tank_tech_level_1 = yes
 if = {
 	limit = {
 		has_dlc = "Battle for the Bosporus"
@@ -81,65 +43,16 @@ if = {
 			has_dlc = "Man the Guns"
 		}
 	}
-	set_technology = {
-		early_submarine = 1
-		early_destroyer = 1
-		basic_destroyer = 1
-		early_light_cruiser = 1
-		early_heavy_cruiser = 1
-		early_battleship = 1
-		early_battlecruiser = 1
-		early_carrier = 1
-		transport = 1
-	}
+	ENG_navy_variants = yes
 }
 
 if = {
 	limit = {
 		has_dlc = "Man the Guns"
 	}
-	set_technology = {
-		basic_naval_mines = 1
-		submarine_mine_laying = 1
-		early_ship_hull_light = 1
-		basic_ship_hull_light = 1
-		early_ship_hull_submarine = 1
-		early_ship_hull_cruiser = 1
-		basic_ship_hull_cruiser = 1
-		early_ship_hull_heavy = 1
-		early_ship_hull_carrier = 1
-		basic_ship_hull_carrier = 1
-		basic_battery = 1
-		basic_light_battery = 1
-		basic_medium_battery = 1
-		basic_heavy_battery = 1
-		basic_torpedo = 1
-		sonar = 1
-		smoke_generator = 1
-		basic_depth_charges = 1
-		#basic_secondary_battery = 1
-		basic_cruiser_armor_scheme = 1
-		basic_heavy_armor_scheme = 1
-		mtg_transport = 1
-		#improved_secondary_battery = 1
-		basic_fire_control_system = 1
-	}
-	add_ideas = MTG_naval_treaty_adherent
-	set_global_flag = MTG_second_london_conference
-	set_global_flag = {
-		flag = MTG_naval_treaty_signatories
-		value = 5
-	}
+	ENG_navy_variants_2 = yes
 }
 
-if = {
-	limit = {
-		has_dlc = "La Resistance"
-	}
-	set_technology = {
-		armored_car1 = 1
-	}
-}
 
 set_variable = {
 	var = eng_gateway_to_europe_influence
@@ -190,6 +103,22 @@ if = {
 		autonomous_state = autonomy_dominion
 		freedom_level = 0.2
 	}
+	# set_autonomy = {
+	# 	target = HRH
+	# 	autonomy_state = autonomy_dominion
+	# }
+	set_autonomy = {
+		target = JEY
+		autonomy_state = autonomy_dominion
+	}
+	set_autonomy = {
+		target = GGY
+		autonomy_state = autonomy_dominion
+	}
+	set_autonomy = {
+		target = GIB
+		autonomy_state = autonomy_colony
+	}
 	else = {
 		puppet = CAN
 		puppet = IND
@@ -197,9 +126,13 @@ if = {
 		puppet = MDV
 		puppet = ZAF
 		puppet = LON
+		# puppet = HRH
+		puppet = JEY
+		puppet = GGY
+		puppet = GIB
+
 	}
 }
-
 if = {
 	limit = {
 		has_dlc = "Together for Victory"
@@ -212,35 +145,39 @@ add_to_faction = GBR
 add_to_faction = CAN
 add_to_faction = GMI
 add_to_faction = MDV
-add_to_faction = NZL
+add_to_faction = ERO
 add_to_faction = ZAF
-# give_military_access = IND
+
 add_to_faction = IND
 add_to_faction = ERO
 add_to_faction = LON
+# add_to_faction = HRH
+add_to_faction = JEY
+add_to_faction = GGY
+add_to_faction = GIB
+
 set_politics = {
-	ruling_party = democratic
+	ruling_party = constitutional_monarchy
 	last_election = "1935.11.14"
 	election_frequency = 48
 	elections_allowed = yes	##suspended through duration of war, which is handled via event
 }
 
-every_country = {
-	limit = {
-		is_in_faction_with = GBR
-	}
-	every_country = {
-		limit = {
-			is_in_faction_with = GBR
-		}
-		give_guarantee = PREV
-	}
-}
-
+# every_country = {
+# 	limit = {
+# 		is_in_faction_with = GBR
+# 	}
+# 	every_country = {
+# 		limit = {
+# 			is_in_faction_with = GBR
+# 		}
+# 		give_guarantee = PREV
+# 	}
+# }
 set_popularities = {
-	democratic = 97
-	fascism = 2
-	communism = 1
+	constitutional_monarchy = 97
+	fascism_ideology = 2
+	communism_ideology = 1
 }
 
 recruit_character = ENG_oswald_mosley
@@ -394,121 +331,6 @@ if = {
 
 if = {
 	limit = {
-		not = {
-			has_dlc = "Man the Guns"
-		}
-	}
-	### Variants ###
-	# Submarines #
-	create_equipment_variant = {
-		name = "O/P/R Class"
-		type = submarine_1
-		parent_version = 0
-		upgrades = {
-			ship_reliability_upgrade = 3
-			sub_engine_upgrade = 2
-			sub_stealth_upgrade = 2
-			sub_torpedo_upgrade = 3
-		}
-	}
-	create_equipment_variant = {
-		name = "S Class"
-		type = submarine_1
-		parent_version = 1
-		upgrades = {
-			ship_reliability_upgrade = 2
-			sub_engine_upgrade = 0
-			sub_stealth_upgrade = 2
-			sub_torpedo_upgrade = 3
-		}
-	}
-	# Destroyers #
-	create_equipment_variant = {
-		name = "A/B/C/D Class"
-		type = destroyer_1
-		parent_version = 0
-		upgrades = {
-			ship_torpedo_upgrade = 1
-			destroyer_engine_upgrade = 3
-			ship_ASW_upgrade = 2
-			ship_anti_air_upgrade = 1
-		}
-		obsolete = yes
-	}
-	# Light Cruisers #
-	create_equipment_variant = {
-		name = "Emerald Class"
-		type = light_cruiser_1
-		parent_version = 0
-		upgrades = {
-			ship_reliability_upgrade = 3
-			ship_engine_upgrade = 3
-			ship_gun_upgrade = 2
-			ship_anti_air_upgrade = 3
-		}
-		obsolete = yes
-	}
-	create_equipment_variant = {
-		name = "Amphion Class"
-		type = light_cruiser_1
-		parent_version = 1
-		upgrades = {
-			ship_reliability_upgrade = 3
-			ship_engine_upgrade = 3
-			ship_gun_upgrade = 3
-			ship_anti_air_upgrade = 3
-		}
-	}
-	# Heavy Cruisers #
-	create_equipment_variant = {
-		name = "County Class"
-		type = heavy_cruiser_1
-		parent_version = 0
-		upgrades = {
-			ship_reliability_upgrade = 2
-			ship_engine_upgrade = 3
-			ship_armor_upgrade = 3
-			ship_gun_upgrade = 3
-		}
-	}
-	# Battlecruisers #
-	create_equipment_variant = {
-		name = "Admiral Class"
-		type = battle_cruiser_1
-		parent_version = 0
-		upgrades = {
-			ship_reliability_upgrade = 3
-			ship_engine_upgrade = 2
-			ship_armor_upgrade = 3
-			ship_gun_upgrade = 2
-		}
-	}
-	# Battleships #
-	create_equipment_variant = {
-		name = "Nelson Class"
-		type = battleship_1
-		parent_version = 0
-		upgrades = {
-			ship_reliability_upgrade = 3
-			ship_engine_upgrade = 2
-			ship_armor_upgrade = 3
-			ship_gun_upgrade = 3
-		}
-	}
-	create_equipment_variant = {
-		name = "Queen Elizabeth Class"
-		type = battleship_1
-		parent_version = 0
-		upgrades = {
-			ship_reliability_upgrade = 1
-			ship_engine_upgrade = 2
-			ship_armor_upgrade = 1
-		}
-	}
-}
-
-if = {
-	limit = {
 		has_dlc = "No Step Back"
 	}
 	create_equipment_variant = {
@@ -605,444 +427,138 @@ if = {
 	}
 }
 
-if = {
-	limit = {
-		has_dlc = "Man the Guns"
+CAN = {
+	set_politics = {
+		ruling_party = constitutional_monarchy
+		last_election = "1935.10.14"
+		election_frequency = 60
+		elections_allowed = yes
 	}
-	### Variants ###
-	# Submarines #
-	create_equipment_variant = {
-		name = "O/P/R Class"
-		type = ship_hull_submarine_1
-		name_group = ENG_SS_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_torpedo_slot = ship_torpedo_sub_1
-			fixed_ship_engine_slot = sub_ship_engine_1
-			rear_1_custom_slot = empty
-		}
+	
+	set_popularities = {
+		constitutional_monarchy = 98
+		fascism_ideology = 1
+		communism_ideology = 1
+	}	
+}
+
+IND = {
+	set_politics = {
+		ruling_party = constitutional_monarchy
+		last_election = "1935.11.14"
+		election_frequency = 60
+		elections_allowed = yes
 	}
-	create_equipment_variant = {
-		name = "S Class"
-		type = ship_hull_submarine_1
-		name_group = ENG_SS_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_torpedo_slot = ship_torpedo_sub_1
-			fixed_ship_engine_slot = sub_ship_engine_1
-			rear_1_custom_slot = ship_torpedo_sub_1
-		}
+	
+	set_popularities = {
+		constitutional_monarchy = 98
+		fascism_ideology = 1
+		communism_ideology = 1
+	}	
+}
+
+ERO = {
+	set_politics = {
+		ruling_party = mythologicalism
+		last_election = "1936.1.1"
+		election_frequency = 48
+		elections_allowed = no
 	}
-	# Destroyers #
-	create_equipment_variant = {
-		name = "A/B/C/D Class"
-		type = ship_hull_light_1
-		name_group = ENG_DD_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_battery_2
-			fixed_ship_anti_air_slot = empty
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = ship_sonar_1
-			fixed_ship_engine_slot = light_ship_engine_2
-			fixed_ship_torpedo_slot = ship_torpedo_1
-			mid_1_custom_slot = ship_torpedo_1
-			rear_1_custom_slot = ship_depth_charge_1
-		}
-		obsolete = yes
+	set_popularities = {
+		mythologicalism = 20
+		neutrality_ideology = 10
+		democratic_ideology = 70
 	}
-	create_equipment_variant = {
-		name = "E/F/G/H Class"
-		type = ship_hull_light_2
-		name_group = ENG_DD_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_battery_2
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = ship_sonar_1
-			fixed_ship_engine_slot = light_ship_engine_2
-			fixed_ship_torpedo_slot = ship_torpedo_1
-			mid_1_custom_slot = ship_torpedo_1
-			rear_1_custom_slot = ship_depth_charge_1
-		}
+}
+
+MDV = {
+	set_politics = {
+		ruling_party = mythologicalism
+		last_election = "1936.1.1"
+		election_frequency = 4800
+		elections_allowed = yes
 	}
-	create_equipment_variant = {
-		name = "V/W Class"
-		type = ship_hull_light_1
-		name_group = ENG_DD_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = light_ship_engine_1
-			fixed_ship_torpedo_slot = ship_torpedo_1
-			mid_1_custom_slot = empty
-			rear_1_custom_slot = ship_depth_charge_1
-		}
-		obsolete = yes
+	
+	set_popularities = {
+		mythologicalism = 70
+		neutrality_ideology = 10
+		democratic_ideology = 20
+	}	
+}
+
+LON = {
+	set_politics = {
+		ruling_party = philanthropy
+		last_election = "1936.1.1"
+		election_frequency = 4800
+		elections_allowed = yes
 	}
-	create_equipment_variant = {
-		name = "S Class"
-		type = ship_hull_light_1
-		name_group = ENG_DD_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_battery_1
-			fixed_ship_anti_air_slot = empty
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = light_ship_engine_1
-			fixed_ship_torpedo_slot = ship_torpedo_1
-			mid_1_custom_slot = empty
-			rear_1_custom_slot = ship_depth_charge_1
-		}
-		obsolete = yes
+	
+	set_popularities = {
+		philanthropy = 70
+		neutrality_ideology = 10
+		democratic_ideology = 20
 	}
-	# Light Cruisers #
-	create_equipment_variant = {
-		name = "C-Class"
-		type = ship_hull_cruiser_1
-		name_group = ENG_CL_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_medium_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_1
-			fixed_ship_armor_slot = ship_armor_cruiser_1
-			mid_1_custom_slot = ship_torpedo_1
-			mid_2_custom_slot = empty
-			rear_1_custom_slot = empty
-		}
-		obsolete = yes
+}
+
+HRH = {
+	set_politics = {
+		ruling_party = constitutional_monarchy
+		last_election = "1935.10.27"
+		election_frequency = 48
+		elections_allowed = yes
 	}
-	create_equipment_variant = {
-		name = "Danae Class"
-		type = ship_hull_cruiser_1
-		name_group = ENG_CL_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_medium_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_1
-			fixed_ship_armor_slot = ship_armor_cruiser_1
-			mid_1_custom_slot = ship_torpedo_1
-			mid_2_custom_slot = ship_torpedo_1
-			rear_1_custom_slot = empty
-		}
-		obsolete = yes
+	
+	set_popularities = {
+		constitutional_monarchy = 96
+		democratic_ideology = 2
+		direct_democracy = 2
 	}
-	create_equipment_variant = {
-		name = "Emerald Class"
-		type = ship_hull_cruiser_1
-		name_group = ENG_CL_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_medium_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_2
-			fixed_ship_armor_slot = ship_armor_cruiser_1
-			mid_1_custom_slot = ship_torpedo_1
-			mid_2_custom_slot = ship_torpedo_1
-			rear_1_custom_slot = ship_light_medium_battery_1
-		}
-		obsolete = yes
+}
+
+JEY = {
+	set_cosmetic_tag = JEY_gbr
+	set_politics = {
+		ruling_party = constitutional_monarchy
+		last_election = "1935.10.27"
+		election_frequency = 48
+		elections_allowed = yes
 	}
-	create_equipment_variant = {
-		name = "Leander Class"
-		type = ship_hull_cruiser_2
-		name_group = ENG_CL_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_medium_battery_2
-			fixed_ship_anti_air_slot = ship_anti_air_2
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_2
-			fixed_ship_armor_slot = ship_armor_cruiser_1
-			front_1_custom_slot = empty
-			mid_1_custom_slot = ship_torpedo_1
-			mid_2_custom_slot = ship_airplane_launcher_1
-			rear_1_custom_slot = ship_light_medium_battery_2
-		}
+	
+	set_popularities = {
+		constitutional_monarchy = 96
+		democratic_ideology = 2
+		direct_democracy = 2
 	}
-	create_equipment_variant = {
-		name = "Adventure Class"		# cruiser minelayer
-		type = ship_hull_cruiser_1
-		name_group = ENG_MINELAYERS_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_medium_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_1
-			fixed_ship_armor_slot = empty
-			mid_1_custom_slot = ship_mine_layer_1
-			mid_2_custom_slot = ship_mine_layer_1
-			rear_1_custom_slot = ship_mine_layer_1
-		}
+}
+
+GGY = {
+	set_cosmetic_tag = GGY_gbr
+	set_politics = {
+		ruling_party = constitutional_monarchy
+		last_election = "1935.10.27"
+		election_frequency = 48
+		elections_allowed = yes
 	}
-	create_equipment_variant = {
-		name = "Town Class"
-		type = ship_hull_cruiser_2
-		name_group = ENG_CL_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_light_medium_battery_2
-			fixed_ship_anti_air_slot = ship_anti_air_2
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_2
-			fixed_ship_armor_slot = ship_armor_cruiser_2
-			front_1_custom_slot = ship_anti_air_2
-			mid_1_custom_slot = ship_torpedo_1
-			mid_2_custom_slot = ship_secondaries_2
-			rear_1_custom_slot = ship_light_medium_battery_2
-		}
+	
+	set_popularities = {
+		constitutional_monarchy = 96
+		democratic_ideology = 2
+		direct_democracy = 2
 	}
-	# Heavy Cruisers #
-	create_equipment_variant = {
-		name = "County Class"
-		type = ship_hull_cruiser_1
-		name_group = ENG_CA_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_medium_battery_2
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_1
-			fixed_ship_armor_slot = ship_armor_cruiser_1
-			fixed_ship_secondaries_slot = ship_secondaries_1
-			mid_1_custom_slot = ship_airplane_launcher_1
-			mid_2_custom_slot = ship_torpedo_1
-			rear_1_custom_slot = ship_medium_battery_2
-		}
+}
+
+GIB = {
+	set_politics = {
+		ruling_party = constitutional_monarchy
+		last_election = "1935.10.27"
+		election_frequency = 48
+		elections_allowed = yes
 	}
-	create_equipment_variant = {
-		name = "York Class"
-		type = ship_hull_cruiser_1
-		name_group = ENG_CA_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_medium_battery_2
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_1
-			fixed_ship_armor_slot = ship_armor_cruiser_1
-			mid_1_custom_slot = empty
-			mid_2_custom_slot = ship_torpedo_1
-			rear_1_custom_slot = ship_airplane_launcher_1
-		}
-	}
-	create_equipment_variant = {
-		name = "Hawkins Class"
-		type = ship_hull_cruiser_1
-		name_group = ENG_CA_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_medium_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_1
-			fixed_ship_armor_slot = ship_armor_cruiser_1
-			fixed_ship_secondaries_slot = ship_secondaries_1
-			mid_2_custom_slot = ship_torpedo_1
-			rear_1_custom_slot = empty
-		}
-		obsolete = yes
-	}
-	# Battlecruisers #
-	create_equipment_variant = {
-		name = "Renown Class"
-		type = ship_hull_heavy_1
-		name_group = ENG_BC_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_heavy_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = heavy_ship_engine_2
-			fixed_ship_secondaries_slot = ship_secondaries_1
-			fixed_ship_armor_slot = ship_armor_bc_1
-			front_1_custom_slot = ship_anti_air_1
-			mid_1_custom_slot = ship_airplane_launcher_1
-			mid_2_custom_slot = ship_secondaries_1
-			rear_1_custom_slot = empty
-		}
-		obsolete = yes
-	}
-	# Battlecruisers #
-	create_equipment_variant = {
-		name = "Admiral Class"
-		type = ship_hull_heavy_1
-		name_group = ENG_BC_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_heavy_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = heavy_ship_engine_2
-			fixed_ship_secondaries_slot = ship_secondaries_1
-			fixed_ship_armor_slot = ship_armor_bc_2
-			front_1_custom_slot = ship_anti_air_1
-			mid_1_custom_slot = empty
-			mid_2_custom_slot = ship_secondaries_1
-			rear_1_custom_slot = ship_heavy_battery_1
-		}
-	}
-	create_equipment_variant = {
-		name = "G3 Design"
-		type = ship_hull_heavy_1
-		name_group = ENG_BC_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_heavy_battery_2
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = heavy_ship_engine_2
-			fixed_ship_secondaries_slot = ship_secondaries_2
-			fixed_ship_armor_slot = ship_armor_bc_2
-			front_1_custom_slot = ship_heavy_battery_2
-			mid_1_custom_slot = empty
-			mid_2_custom_slot = ship_anti_air_1
-			rear_1_custom_slot = empty
-		}
-	}
-	# Battleships #
-	create_equipment_variant = {
-		name = "Nelson Class"
-		type = ship_hull_heavy_1
-		name_group = ENG_BB_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_heavy_battery_2
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = heavy_ship_engine_2
-			fixed_ship_secondaries_slot = ship_secondaries_2
-			fixed_ship_armor_slot = ship_armor_bb_2
-			front_1_custom_slot = ship_heavy_battery_2
-			mid_1_custom_slot = empty
-			mid_2_custom_slot = empty
-			rear_1_custom_slot = empty
-		}
-	}
-	create_equipment_variant = {
-		name = "Queen Elizabeth Class"
-		type = ship_hull_heavy_1
-		name_group = ENG_BB_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_heavy_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = heavy_ship_engine_1
-			fixed_ship_secondaries_slot = ship_secondaries_1
-			fixed_ship_armor_slot = ship_armor_bb_1
-			front_1_custom_slot = empty
-			mid_1_custom_slot = ship_airplane_launcher_1
-			mid_2_custom_slot = ship_secondaries_1
-			rear_1_custom_slot = ship_heavy_battery_1
-		}
-		obsolete = yes
-	}
-	create_equipment_variant = {
-		name = "Revenge Class"
-		type = ship_hull_heavy_1
-		name_group = ENG_BB_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_battery_slot = ship_heavy_battery_1
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_fire_control_system_slot = ship_fire_control_system_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = heavy_ship_engine_1
-			fixed_ship_secondaries_slot = ship_secondaries_1
-			fixed_ship_armor_slot = ship_armor_bb_1
-			front_1_custom_slot = empty
-			mid_1_custom_slot = empty
-			mid_2_custom_slot = ship_secondaries_1
-			rear_1_custom_slot = ship_heavy_battery_1
-		}
-		obsolete = yes
-	}
-	create_equipment_variant = {
-		name = "Eagle Class"
-		type = ship_hull_carrier_conversion_bb
-		name_group = ENG_CV_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_deck_slot_1 = ship_deck_space
-			fixed_ship_deck_slot_2 = ship_deck_space
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = heavy_ship_engine_1
-			fixed_ship_secondaries_slot = empty
-			mid_1_custom_slot = empty
-		}
-		obsolete = yes
-	}
-	create_equipment_variant = {
-		name = "Hermes Class"
-		type = ship_hull_carrier_conversion_ca
-		name_group = ENG_CVL_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_deck_slot_1 = ship_deck_space
-			fixed_ship_deck_slot_2 = empty
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = cruiser_ship_engine_1
-			fixed_ship_secondaries_slot = empty
-		}
-		obsolete = yes
-	}
-	create_equipment_variant = {
-		name = "Courageous Class"
-		type = ship_hull_carrier_conversion_bb
-		name_group = ENG_CV_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_deck_slot_1 = ship_deck_space
-			fixed_ship_deck_slot_2 = ship_deck_space
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = heavy_ship_engine_1
-			fixed_ship_secondaries_slot = empty
-			mid_1_custom_slot = ship_deck_space
-		}
-		obsolete = yes
-	}
-	create_equipment_variant = {
-		name = "Ark Royal Class"
-		type = ship_hull_carrier_1
-		name_group = ENG_CV_HISTORICAL
-		parent_version = 0
-		modules = {
-			fixed_ship_deck_slot_1 = ship_deck_space
-			fixed_ship_deck_slot_2 = ship_deck_space
-			fixed_ship_anti_air_slot = ship_anti_air_1
-			fixed_ship_radar_slot = empty
-			fixed_ship_engine_slot = carrier_ship_engine_2
-			fixed_ship_secondaries_slot = ship_secondaries_2
-			front_1_custom_slot = ship_deck_space
-		}
+	
+	set_popularities = {
+		constitutional_monarchy = 96
+		democratic_ideology = 2
+		direct_democracy = 2
 	}
 }

@@ -1,0 +1,128 @@
+# Hearts of Iron IV スクリプトファイル
+# events/BSM_Fabricate_Claim_Events.txt
+
+add_namespace = bsm_fabricate_claim_events
+
+country_event = {
+    id = bsm_fabricate_claim_events.1
+    title = "BSM_FABRICATE_CLAIM_EVENT_1_TITLE" # "[FROM.GetName]に対する請求権の捏造"
+    desc = "BSM_FABRICATE_CLAIM_EVENT_1_DESC"  # どの州に捏造するかは、このdescで動的に表示
+    picture = GFX_report_event_generic_contract_sign # 仮のイベント画像
+
+    is_triggered_only = yes
+
+    # 外交アクションの対象国は FROM スコープで参照可能
+    # ROOT はこのイベントを受け取った国 (自国)
+
+    # 即時効果で、対象となるランダムな州を決定し、イベントターゲットに保存
+    immediate = {
+        FROM = { # 外交アクションの対象国スコープ
+            # 「自国(ROOT)と隣接している OR 沿岸州である」かつ「自国が未請求・未中核・未所有」の州をランダムに1つ選ぶ
+            random_owned_state = {
+                limit = {
+                    # この州(THIS)は自国(PREV.ROOT)の所有ではない (random_owned_stateなので自明)
+                    # この州(THIS)は自国(PREV.ROOT)の中核州ではない
+                    NOT = { is_core_of = PREV.ROOT }
+                    # この州(THIS)は自国(PREV.ROOT)が既に請求権を持っていない
+                    NOT = { is_claimed_by = PREV.ROOT }
+                    # そして、「自国(PREV.ROOT)と隣接している州」 OR 「沿岸州である」
+                    OR = {
+                        any_neighbor_state = {
+                            owner = { tag = PREV.PREV.ROOT }
+                        }
+                        is_coastal = yes
+                    }
+                }
+                # 選ばれた州(THIS)をイベントターゲットに保存
+                save_event_target_as = bsm_target_state_for_claim_fabrication
+                # デバッグ用ログ
+                log = "LOG: [PREV.ROOT.GetNameDefCap] will attempt to fabricate claim on [THIS.GetName] (owned by [FROM.GetNameDefCap])"
+            }
+        }
+        # もし対象の州が見つからなかった場合（ありえないはずだが念のため）
+        if = {
+            limit = { NOT = { has_event_target = bsm_target_state_for_claim_fabrication } }
+            log = "ERROR: No valid state found for claim fabrication for [ROOT.GetNameDefCap] against [FROM.GetNameDefCap]"
+			log = "えらー: [ROOT.GetNameDefCap]が請求権を捏造するための有効な州が見つかりませんでした。[FROM.GetNameDefCap]に対して"
+			# ここで何かしらの対処を行うことが望ましい
+            # ここでイベントを終了させるか、エラーメッセージを出すなど
+            # 今回はそのまま進むが、実際には対処が必要
+        }
+    }
+
+    option = {
+        name = "BSM_FABRICATE_CLAIM_EVENT_1_OPT_A" # "[event_target:bsm_target_state_for_claim_fabrication.GetName]に請求権を捏造する ([コスト] UC)"
+        trigger = {
+            # 決定された対象州が存在すること
+            has_event_target = bsm_target_state_for_claim_fabrication
+            # UCコスト (仮に変動コストで平均500 UC、最低200 UCとする) が支払えるか
+            # ここでのコストは概算。実際の消費は下記effectで行う。
+            check_variable = { ROOT.Unified_Currency > 200 } # 最低コストチェック
+        }
+        ai_chance = { factor = 100 }
+
+        # --- 実際の効果 ---
+        # UCコストの消費 (仮に州の人口に応じて変動させる例)
+        # ここではイベントターゲット bsm_target_state_for_claim_fabrication を使う
+        set_temp_variable = { bsm_fabrication_actual_cost = 0 } # 一時変数初期化
+        event_target:bsm_target_state_for_claim_fabrication = { # 対象州スコープ
+            # 例: 人口ベースのコスト (人口1万人あたり10UC) + 基本コスト100UC
+            set_temp_variable = { temp_pop_for_cost = state_population }
+            divide_temp_variable = { temp_pop_for_cost = 1000 } # 人口を千人単位に
+            # round_temp_variable = temp_pop_for_cost # 必要なら丸める
+            multiply_temp_variable = { temp_pop_for_cost = 1 } # 仮: 千人あたり1UC
+            ROOT = { set_variable = { bsm_fabrication_actual_cost = PREV.temp_pop_for_cost } } # 自国の変数に格納
+        }
+        add_to_variable = { bsm_fabrication_actual_cost = 100 } # 基本コスト加算 (最低コストにもなる)
+        # clamp_variable = { var = bsm_fabrication_actual_cost min = 200 max = 2000 } # 最小・最大コスト設定
+
+        # UCが実際に足りるか最終確認
+        if = {
+            limit = { check_variable = { Unified_Currency < bsm_fabrication_actual_cost } }
+            # 足りない場合は実行せず、プレイヤーに通知（別途イベントなど）
+            custom_effect_tooltip = BSM_FABRICATE_CLAIM_NOT_ENOUGH_UC_TT
+            hidden_effect = { country_event = { id = bsm_fabricate_claim_events.uc_shortage days = 1 } } # UC不足イベント
+        }
+        else = {
+            # UC消費
+            set_temp_variable = { temp_uc_to_spend = bsm_fabrication_actual_cost }
+            multiply_temp_variable = { temp_uc_to_spend = -1 } # 負の値にする
+            set_temp_variable = { add_value = temp_uc_to_spend } # add_value で指定
+            ucs_add_Unified_Currency = yes
+
+            # 対象州に請求権を付与
+            event_target:bsm_target_state_for_claim_fabrication = {
+                add_state_claim = ROOT
+            }
+
+            # 国際緊張度の上昇
+            add_named_threat = {
+                threat = 0.003
+                name = "LOC_BSM_FABRICATE_CLAIM_THREAT_JP"
+            }
+
+            # 外交アクションの対象国 (FROM) との関係悪化
+            FROM = {
+                add_opinion_modifier = {
+                    target = ROOT
+                    modifier = fabricated_claim_bsm_negative_opinion
+                }
+            }
+        }
+    }
+
+    option = {
+        name = "BSM_FABRICATE_CLAIM_EVENT_1_OPT_B" # "中止する"
+        ai_chance = { factor = 0 }
+    }
+}
+
+# (任意) UC不足通知イベント
+country_event = {
+    id = bsm_fabricate_claim_events.uc_shortage
+    title = "BSM_FABRICATE_CLAIM_UC_SHORTAGE_TITLE"
+    desc = "BSM_FABRICATE_CLAIM_UC_SHORTAGE_DESC"
+    picture = GFX_report_event_generic_contract_cancelled # 仮
+    is_triggered_only = yes
+    option = { name = OKAY }
+}

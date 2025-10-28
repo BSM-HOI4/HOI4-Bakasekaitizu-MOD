@@ -8,9 +8,94 @@ ideas = {
 ##   ### ##     ##    ##    ##    ##    ##       ##           ##     ## ##     ## ##    ## ##   ##
 ##    ##  #######      ######     ##    ######## ##           ########  ##     ##  ######  ##    ##
 
-
 	country= {
+		SOV_russian_unification_ambition = {
+			
+			removal_cost = -1
+			
+			picture = generic_disjointed_gov
 
+			allowed = {
+				original_TAG = SOV
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				join_faction_tension = 1.0  # 陣営参加不可
+				political_power_gain = 0.05  # 政治力獲得+5.0%
+				war_support_factor = 0.10    # 戦争協力度+10.0%
+			}
+		}
+
+		SOV_incomplete_revolution = {
+			
+			removal_cost = -1
+			
+			picture = generic_pp_unity_bonus
+
+			allowed = {
+				original_TAG = SOV
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				stability_factor = -0.05     # 安定度-5.0%
+				political_power_gain = -0.05 # 政治力獲得-5.0%
+			}
+		}
+
+		SOV_great_famine = {
+			
+			removal_cost = -1
+			
+			picture = generic_goods_red_bonus
+
+			allowed = {
+				original_TAG = SOV
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				stability_factor = -0.30          # 安定度-30.0%
+				political_power_gain = -0.15      # 政治力獲得-15.0%
+				consumer_goods_factor = 0.05      # 消費財工場+5.0%
+				war_support_factor = -0.50        # 戦争協力度-50.0%
+				conscription_factor = -0.025      # 徴兵可能人口-2.50%
+				research_speed_factor = -0.07     # 研究速度-7.0%
+				production_speed_buildings_factor = -0.10  # 建設速度-10.0%
+				army_attack_factor = -0.15        # 師団攻撃-15.0%
+				army_defence_factor = -0.15       # 師団防御-15.0%
+			}
+		}
+
+		SOV_internal_struggle = {
+			
+			removal_cost = -1
+			
+			picture = generic_purge
+
+			allowed = {
+				original_TAG = SOV
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			modifier = {
+				political_power_gain = -0.15  # 政治力獲得-15%
+				stability_factor = -0.20      # 安定度-20%
+			}
+		}
 		SOV_second_five_year_plan_fake_1936_ns = { #Only used for 1936 bookmark (dynamic modifiers don't show up there)
 			name = SOV_second_five_year_plan_dynamic_modifier
 
@@ -63,7 +148,7 @@ ideas = {
 
 			allowed_civil_war = {
 				OR = {
-					SOV_is_right_opposition = yes
+					# SOV_is_right_opposition = yes
 					has_country_leader = {
 						character = SOV_iosif_stalin
 						ruling_only = yes
@@ -85,7 +170,7 @@ ideas = {
 			}
 
 			allowed_civil_war = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 
 			modifier = {
@@ -101,7 +186,7 @@ ideas = {
 			}
 
 			allowed_civil_war = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 
 			modifier = {
@@ -122,7 +207,7 @@ ideas = {
 			}
 
 			allowed_civil_war = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 		}
 
@@ -200,7 +285,6 @@ ideas = {
 				land_equipment_upgrade_xp_cost = 0.15
 			}
 		}
-
 
 		SOV_purged_junior_army_officers_1 = {
 			removal_cost = -1
@@ -478,9 +562,6 @@ ideas = {
 				air_accidents_factor = 0.25
 			}
 		}
-
-
-
 		SOV_anti_capitalist_campaign_eng = { #Comes from Propaganda Campaign
 			name = SOV_anti_capitalist_campaign_generic
 
@@ -804,7 +885,6 @@ ideas = {
 			}
 		}
 
-
 		SOV_restoration_and_development_idea = { #Comes from focus
 			removal_cost = -1
 
@@ -892,7 +972,7 @@ ideas = {
 			picture = generic_communism_drift_bonus
 
 			modifier = {
-				communism_acceptance = 15
+				communism_ideology_acceptance = 15
 			}
 		}
 
@@ -922,7 +1002,7 @@ ideas = {
 			picture = generic_democratic_drift_bonus
 
 			modifier = {
-				democratic_acceptance = 15
+				democratic_ideology_acceptance = 15
 			}
 		}
 
@@ -952,7 +1032,7 @@ ideas = {
 			picture = generic_fascism_drift_bonus
 
 			modifier = {
-				fascism_acceptance = 15
+				fascism_ideology_acceptance = 15
 			}
 		}
 
@@ -982,7 +1062,7 @@ ideas = {
 			picture = generic_neutrality_drift_bonus
 
 			modifier = {
-				neutrality_acceptance = 15
+				neutrality_ideology_acceptance = 15
 			}
 		}
 
@@ -1316,7 +1396,7 @@ ideas = {
 				production_factory_efficiency_gain_factor = 0.05
 				research_speed_factor = 0.02
 				drift_defence_factor = 0.05
-				communism_drift = 0.05
+				communism_ideology_drift = 0.05
 				consumer_goods_factor = -0.02
 			}
 		}
@@ -1397,7 +1477,7 @@ ideas = {
 
 			modifier = {
 				experience_gain_army = 0.1
-				communism_drift = 0.05
+				communism_ideology_drift = 0.05
 			}
 		}
 
@@ -1415,7 +1495,7 @@ ideas = {
 			}
 
 			on_remove = {
-				SOV_clear_hidden_targeted_ns_effect = yes
+				# #SOV_clear_hidden_targeted_ns_effect = yes
 			}
 
 			modifier = {
@@ -1437,7 +1517,7 @@ ideas = {
 			}
 
 			on_remove = {
-				SOV_clear_hidden_targeted_ns_effect = yes
+				#SOV_clear_hidden_targeted_ns_effect = yes
 			}
 
 			modifier = {
@@ -1816,14 +1896,14 @@ ideas = {
 			}
 
 			on_remove = {
-				var:SOV_capital_for_soviet_imports = { #This is where the German capital is stored and where Soviet Imports state modifier was added
-					if = {
-						limit = {
-							has_dynamic_modifier = { modifier = SOV_soviet_imports }
-						}
-						remove_dynamic_modifier = { modifier = SOV_soviet_imports }
-					}
-				}
+				# var:SOV_capital_for_soviet_imports = { #This is where the German capital is stored and where Soviet Imports state modifier was added
+				# 	if = {
+				# 		limit = {
+				# 			has_dynamic_modifier = { modifier = SOV_soviet_imports }
+				# 		}
+				# 		remove_dynamic_modifier = { modifier = SOV_soviet_imports }
+				# 	}
+				# }
 			}
 
 			modifier = {
@@ -1980,14 +2060,14 @@ ideas = {
 			}
 
 			allowed_civil_war = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 
 			modifier = {
-				communism_acceptance = 35
-				democratic_acceptance = -50
-				fascism_acceptance = -50
-				neutrality_acceptance = -50
+				communism_ideology_acceptance = 35
+				democratic_ideology_acceptance = -50
+				fascism_ideology_acceptance = -50
+				neutrality_ideology_acceptance = -50
 			}
 		}
 
@@ -2002,7 +2082,7 @@ ideas = {
 			}
 
 			allowed_civil_war = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 
 			on_add = {
@@ -2130,7 +2210,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -2212,7 +2292,7 @@ ideas = {
 			}
 
 			modifier = {
-				communism_drift = -0.2
+				communism_ideology_drift = -0.2
 				stability_weekly = 0.005
 			}
 		}
@@ -2266,11 +2346,11 @@ ideas = {
 
 			allowed_civil_war = {
 				original_tag = SOV
-				NOT = { has_government = communism }
+				NOT = { has_government = communism_ideology }
 			}
 
 			modifier = {
-				communism_drift = -0.01
+				communism_ideology_drift = -0.01
 				stability_factor = 0.05
 			}
 		}
@@ -2287,11 +2367,11 @@ ideas = {
 
 			allowed_civil_war = {
 				original_tag = SOV
-				NOT = { has_government = communism }
+				NOT = { has_government = communism_ideology }
 			}
 
 			modifier = {
-				communism_drift = -0.01
+				communism_ideology_drift = -0.01
 				stability_factor = 0.05
 				political_power_factor = 0.05
 			}
@@ -2308,11 +2388,11 @@ ideas = {
 
 			allowed_civil_war = {
 				original_tag = SOV
-				NOT = { has_government = communism }
+				NOT = { has_government = communism_ideology }
 			}
 
 			modifier = {
-				communism_drift = -0.01
+				communism_ideology_drift = -0.01
 				stability_factor = 0.1
 				political_power_factor = 0.05
 				consumer_goods_factor = -0.03
@@ -2330,11 +2410,11 @@ ideas = {
 
 			allowed_civil_war = {
 				original_tag = SOV
-				NOT = { has_government = communism }
+				NOT = { has_government = communism_ideology }
 			}
 
 			modifier = {
-				communism_drift = -0.01
+				communism_ideology_drift = -0.01
 				stability_factor = 0.1
 				political_power_factor = 0.1
 				consumer_goods_factor = -0.05
@@ -2352,7 +2432,7 @@ ideas = {
 
 			allowed_civil_war = {
 				original_tag = SOV
-				NOT = { has_government = communism }
+				NOT = { has_government = communism_ideology }
 			}
 
 			modifier = {
@@ -2392,7 +2472,7 @@ ideas = {
 
 			allowed_civil_war = {
 				original_tag = SOV
-				NOT = { has_government = communism }
+				NOT = { has_government = communism_ideology }
 			}
 
 			modifier = {
@@ -2541,7 +2621,7 @@ ideas = {
 
 			modifier = {
 				stability_factor = -0.02
-				fascism_drift = 0.1
+				fascism_ideology_drift = 0.1
 			}
 		}
 
@@ -2557,7 +2637,7 @@ ideas = {
 			}
 
 			modifier = {
-				neutrality_drift = 0.1
+				neutrality_ideology_drift = 0.1
 				stability_weekly = 0.001
 				war_support_factor = 0.1
 				army_attack_factor = 0.05
@@ -2800,7 +2880,7 @@ ideas = {
 				always = no
 			}
 			allowed_civil_war = {
-				SOV_is_right_opposition = yes
+				# SOV_is_right_opposition = yes
 			}
 			available = {
 
@@ -2907,7 +2987,7 @@ ideas = {
 			}
 
 			modifier = {
-				communism_drift = 0.1
+				communism_ideology_drift = 0.1
 				political_power_factor = 0.1
 				intel_network_gain_factor = 0.15
 				compliance_growth = 0.15
@@ -2923,10 +3003,10 @@ ideas = {
 			allowed = {
 				always = no
 			}
-			allowed_civil_war = {
-				has_completed_focus = SOV_the_fourth_international
-				SOV_is_left_opposition = yes
-			}
+			# allowed_civil_war = {
+			# 	# #has_completed_focus = SOV_the_fourth_international
+			# 	# SOV_is_left_opposition = yes
+			# }
 
 			modifier = {
 				political_power_factor = 0.15
@@ -2986,19 +3066,19 @@ ideas = {
 				always = yes
 			}
 			on_remove = {
-				SOV = {
-					var:SOV.SOV_civil_war_start_state = {
-						add_building_construction = {
-							type = arms_factory
-							level = 3
-							instant_build = yes
-						}
-					}
-					country_event = {
-						id = NSB_soviet_civil_war_common.124
-						hours = 1
-					}
-				}
+				# SOV = {
+				# 	var:SOV.SOV_civil_war_start_state = {
+				# 		add_building_construction = {
+				# 			type = arms_factory
+				# 			level = 3
+				# 			instant_build = yes
+				# 		}
+				# 	}
+				# 	country_event = {
+				# 		id = NSB_soviet_civil_war_common.124
+				# 		hours = 1
+				# 	}
+				# }
 
 			}
 
@@ -3023,12 +3103,12 @@ ideas = {
 				always = yes
 			}
 			on_remove = {
-				SOV = {
-					country_event = {
-						id = NSB_soviet_civil_war_common.113
-						hours = 1
-					}
-				}
+				# SOV = {
+				# 	country_event = {
+				# 		id = NSB_soviet_civil_war_common.113
+				# 		hours = 1
+				# 	}
+				# }
 			}
 
 			modifier = {
@@ -3086,7 +3166,7 @@ ideas = {
 			picture = SPR_international_brigades
 
 			modifier = {
-				communism_drift = 0.03
+				communism_ideology_drift = 0.03
 				stability_factor = -0.1
 				drift_defence_factor = -0.1
 				custom_modifier_tooltip = SOV_trotskyist_revolutionary_agitation_tt
@@ -3105,7 +3185,7 @@ ideas = {
 			}
 
 			modifier = {
-				communism_drift = 0.01
+				communism_ideology_drift = 0.01
 				stability_factor = -0.05
 			}
 		}
@@ -3121,7 +3201,7 @@ ideas = {
 			}
 			allowed_civil_war = {
 				original_tag = SOV #Every SOV has this
-				has_government = communism # Not if exiles, right?
+				has_government = communism_ideology # Not if exiles, right?
 			}
 
 			modifier = {
@@ -3147,7 +3227,7 @@ ideas = {
 			}
 			allowed_civil_war = {
 				original_tag = SOV #Every SOV has this
-				has_government = communism # Not if exiles, right?
+				has_government = communism_ideology # Not if exiles, right?
 			}
 
 			modifier = {
@@ -3347,9 +3427,6 @@ ideas = {
 			}
 		}
 	}
-
-
-
 ##     ## #### ########  ########  ######## ##    ##    #### ########  ########    ###     ######
 ##     ##  ##  ##     ## ##     ## ##       ###   ##     ##  ##     ## ##         ## ##   ##    ##
 ##     ##  ##  ##     ## ##     ## ##       ####  ##     ##  ##     ## ##        ##   ##  ##
@@ -3357,9 +3434,6 @@ ideas = {
 ##     ##  ##  ##     ## ##     ## ##       ##  ####     ##  ##     ## ##       #########       ##
 ##     ##  ##  ##     ## ##     ## ##       ##   ###     ##  ##     ## ##       ##     ## ##    ##
 ##     ## #### ########  ########  ######## ##    ##    #### ########  ######## ##     ##  ######
-
-
-
 	hidden_ideas = {
 		SOV_non_communism_aversion_ns = {
 			removal_cost = -1
@@ -3369,13 +3443,13 @@ ideas = {
 			}
 
 			allowed_civil_war = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 
 			modifier = {
-				democratic_acceptance = -35
-				fascism_acceptance = -35
-				neutrality_acceptance = -35
+				democratic_ideology_acceptance = -35
+				fascism_ideology_acceptance = -35
+				neutrality_ideology_acceptance = -35
 			}
 		}
 
@@ -3646,7 +3720,6 @@ ideas = {
 			}
 		}
 
-
 		SOV_purged_junior_army_officers_equipment_effects_1 = { #Used as a hidden idea to prevent overcrowding in the regular Purged Junior Army Officers tooltip
 			name = SOV_purged_junior_army_officers_1
 
@@ -3810,9 +3883,6 @@ ideas = {
 		}
 	}
 
-
-
-
 ##     ##    ###    ##    ## #### ##       ##          ###
 ##     ##   ## ##   ###   ##  ##  ##       ##         ## ##
 ##     ##  ##   ##  ####  ##  ##  ##       ##        ##   ##
@@ -3820,7 +3890,6 @@ ideas = {
  ##   ##  ######### ##  ####  ##  ##       ##       #########
   ## ##   ##     ## ##   ###  ##  ##       ##       ##     ##
    ###    ##     ## ##    ## #### ######## ######## ##     ##
-
 
 	country = {
 
@@ -3839,7 +3908,7 @@ ideas = {
 			picture = generic_communism_drift_bonus
 
 			modifier = {
-				communism_drift = 0.05
+				communism_ideology_drift = 0.05
 			}
 		}
 
@@ -3866,7 +3935,7 @@ ideas = {
 #
 #			allowed_civil_war = {
 #				NOT = {
-#					has_government = democratic
+#					has_government = democratic_ideology
 #				}
 #			}
 #
@@ -3886,7 +3955,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			picture = generic_production_bonus
@@ -3906,7 +3975,7 @@ ideas = {
 #
 #			allowed_civil_war = {
 #				NOT = {
-#					has_government = democratic
+#					has_government = democratic_ideology
 #				}
 #			}
 #
@@ -3926,7 +3995,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -3943,7 +4012,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -3979,7 +4048,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			picture = generic_manpower_bonus
@@ -3999,7 +4068,7 @@ ideas = {
 #			picture = generic_production_bonus
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4015,7 +4084,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4032,7 +4101,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4056,7 +4125,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4079,7 +4148,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4102,7 +4171,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4125,7 +4194,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4148,7 +4217,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4171,7 +4240,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4194,7 +4263,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4217,7 +4286,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4240,7 +4309,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4264,7 +4333,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4286,7 +4355,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			research_bonus = {
@@ -4312,7 +4381,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4334,7 +4403,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4356,7 +4425,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4378,7 +4447,7 @@ ideas = {
 #			}
 #
 #			allowed_civil_war = {
-#				has_government = communism
+#				has_government = communism_ideology
 #			}
 #
 #			modifier = {
@@ -4388,7 +4457,6 @@ ideas = {
 #		}
 	}
 
-
 ########  ########  ######  ####  ######   ##    ## ######## ########   ######
 ##     ## ##       ##    ##  ##  ##    ##  ###   ## ##       ##     ## ##    ##
 ##     ## ##       ##        ##  ##        ####  ## ##       ##     ## ##
@@ -4396,7 +4464,6 @@ ideas = {
 ##     ## ##             ##  ##  ##    ##  ##  #### ##       ##   ##         ##
 ##     ## ##       ##    ##  ##  ##    ##  ##   ### ##       ##    ##  ##    ##
 ########  ########  ######  ####  ######   ##    ## ######## ##     ##  ######
-
 
 ########    ###    ##    ## ##    ##  ######
    ##      ## ##   ###   ## ##   ##  ##    ##
@@ -4406,13 +4473,11 @@ ideas = {
    ##    ##     ## ##   ### ##   ##  ##    ##
    ##    ##     ## ##    ## ##    ##  ######
 
-
 	tank_manufacturer = {
 
 		designer = yes
 
 		### NSB ###
-
 
  #    #   ####   #####    ####   ######   ####   #    #
  ##  ##  #    #  #    #  #    #      #   #    #  #    #
@@ -4420,7 +4485,6 @@ ideas = {
  #    #  #    #  #####   #    #    #     #    #  #    #
  #    #  #    #  #   #   #    #   #      #    #   #  #
  #    #   ####   #    #   ####   ######   ####     ##
-
 
 		SOV_morozov_design_bureau = {
 			name = morozov_design_bureau
@@ -4456,7 +4520,7 @@ ideas = {
 							tag = MME
 						}
 					}
-					has_completed_focus = CHI_hire_soviet_designer
+					#has_completed_focus = CHI_hire_soviet_designer
 					NOT = {
 						has_war_with = SOV
 					}
@@ -4691,14 +4755,12 @@ ideas = {
 			}
 		}
 
-
    ##     ####   #####  #####    ####   #    #
   #  #   #         #    #    #  #    #  #    #
  #    #   ####     #    #    #  #    #  #    #
  ######       #    #    #####   #    #  #    #
  #    #  #    #    #    #   #   #    #   #  #
  #    #   ####     #    #    #   ####     ##
-
 
 		SOV_astrov_design_bureau = {
 			name = astrov_design_bureau
@@ -4945,14 +5007,12 @@ ideas = {
 			}
 		}
 
-
   ####   #    #  #    #   ####
  #    #  #   #   ##  ##  #    #
  #    #  ####    # ## #  #    #
  #    #  #  #    #    #  #    #
  #    #  #   #   #    #  #    #
   ####   #    #  #    #   ####
-
 
 		SOV_okmo = {
 			name = okmo
@@ -5199,14 +5259,12 @@ ideas = {
 			}
 		}
 
-
  #    #  #   #  #####  #   ####   #    #   ####   #    #  #
  ##  ##   # #     #    #  #       #    #  #    #  #    #  #
  # ## #    #      #    #   ####   ######  #       ######  #
  #    #    #      #    #       #  #    #  #       #    #  #
  #    #    #      #    #  #    #  #    #  #    #  #    #  #
  #    #    #      #    #   ####   #    #   ####   #    #  #
-
 
 		SOV_mytishchy_machine_building_plant = {
 
@@ -5493,16 +5551,12 @@ ideas = {
 				}
 			}
 		}
-
-
-
  #    #  #  #####    ####   #    #
  #   #   #  #    #  #    #  #    #
  ####    #  #    #  #    #  #    #
  #  #    #  #####   #    #  #    #
  #   #   #  #   #   #    #   #  #
  #    #  #  #    #   ####     ##
-
 
 		SOV_kirov = {
 
@@ -5755,7 +5809,6 @@ ideas = {
 
 		### NSB ###
 
-
  #     #
  ##    #  ######  #    #   ####   #    #   ####   #   #  ######
  # #   #  #       #    #  #       #   #   #    #   # #   #
@@ -5763,7 +5816,6 @@ ideas = {
  #   # #  #       #    #       #  #  #    #    #    #    #
  #    ##  #        #  #   #    #  #   #   #    #    #    #
  #     #  ######    ##     ####   #    #   ####     #    ######
-
 
 		SOV_nevskoye_design_bureau = {
 			name = nevskoye_design_bureau
@@ -6197,7 +6249,6 @@ ideas = {
 			}
 		}
 
-
  ######
  #     #  #    #  #####   #  #    #
  #     #  #    #  #    #  #  ##   #
@@ -6205,7 +6256,6 @@ ideas = {
  #   #    #    #  #    #  #  #  # #
  #    #   #    #  #    #  #  #   ##
  #     #   ####   #####   #  #    #
-
 
 		SOV_rubin_design_bureau = {
 
@@ -6626,7 +6676,6 @@ ideas = {
 			}
 		}
 
-
  ######                                        #####                        #####
  #     #  #         ##     ####   #    #      #     #  ######    ##        #     #  #    #  #  #####   #   #    ##    #####   #####
  #     #  #        #  #   #    #  #   #       #        #        #  #       #        #    #  #  #    #   # #    #  #   #    #  #    #
@@ -6634,7 +6683,6 @@ ideas = {
  #     #  #       ######  #       #  #              #  #       ######            #  #    #  #  #####     #    ######  #####   #    #
  #     #  #       #    #  #    #  #   #       #     #  #       #    #      #     #  #    #  #  #         #    #    #  #   #   #    #
  ######   ######  #    #   ####   #    #       #####   ######  #    #       #####   #    #  #  #         #    #    #  #    #  #####
-
 
 		SOV_black_sea_shipyard = {
 
@@ -7052,7 +7100,6 @@ ideas = {
 			}
 		}
 
-
   #####
  #     #  ######  #    #    ##     ####   #####   ####   #####    ####   #
  #        #       #    #   #  #   #         #    #    #  #    #  #    #  #
@@ -7060,7 +7107,6 @@ ideas = {
        #  #       #    #  ######       #    #    #    #  #####   #    #  #
  #     #  #        #  #   #    #  #    #    #    #    #  #       #    #  #
   #####   ######    ##    #    #   ####     #     ####   #        ####   ######
-
 
 		SOV_sevastopol_marine_plant = {
 
@@ -7527,9 +7573,6 @@ ideas = {
 	aircraft_manufacturer = {
 
 		designer = yes
-
-
-
  #     #  ###   #####
  ##   ##   #   #     #
  # # # #   #   #
@@ -7537,7 +7580,6 @@ ideas = {
  #     #   #   #     #
  #     #   #   #     #
  #     #  ###   #####
-
 
 		SOV_mig_design_bureau = {
 			name = mig_design_bureau
@@ -7823,7 +7865,6 @@ ideas = {
 			}
 		}
 
-
  ###
   #   #       #   #   ####   #    #   ####   #    #  #  #    #
   #   #        # #   #       #    #  #       #    #  #  ##   #
@@ -7831,7 +7872,6 @@ ideas = {
   #   #         #         #  #    #       #  #    #  #  #  # #
   #   #         #    #    #  #    #  #    #  #    #  #  #   ##
  ###  ######    #     ####    ####    ####   #    #  #  #    #
-
 
 		SOV_ilyushin_design_bureau = {
 			name = ilyushin_design_bureau
@@ -8116,9 +8156,6 @@ ideas = {
 				}
 			}
 		}
-
-
-
  #######
     #     #    #   ####   #####   #       ######  #    #
     #     #    #  #    #  #    #  #       #       #    #
@@ -8126,7 +8163,6 @@ ideas = {
     #     #    #  #    #  #####   #       #       #    #
     #     #    #  #    #  #       #       #        #  #
     #      ####    ####   #       ######  ######    ##
-
 
 		SOV_tupolev_design_bureau = {
 			name = tupolev_design_bureau
@@ -8412,7 +8448,6 @@ ideas = {
 			}
 		}
 
-
  #     #
   #   #     ##    #    #   ####   #    #  #       ######  #    #
    # #     #  #   #   #   #    #  #    #  #       #       #    #
@@ -8420,7 +8455,6 @@ ideas = {
     #     ######  #  #    #    #  #    #  #       #       #    #
     #     #    #  #   #   #    #   #  #   #       #        #  #
     #     #    #  #    #   ####     ##    ######  ######    ##
-
 
 		SOV_yakovlev_design_bureau = {
 			name = yakovlev_design_bureau
@@ -8707,7 +8741,6 @@ ideas = {
 		}
 	}
 
-
 	materiel_manufacturer = {
 
 		designer = yes
@@ -8969,9 +9002,6 @@ ideas = {
 				}
 			}
 		}
-
-
-
  #######
     #     #    #  #         ##
     #     #    #  #        #  #
@@ -9228,7 +9258,6 @@ ideas = {
 			}
 		}
 
-
   #####      #     #######
  #     #    # #         #
  #         #   #       #
@@ -9392,7 +9421,6 @@ ideas = {
 			}
 		}
 
-
 		SOV_gaz_1_3 = {
 			name = gaz
 
@@ -9505,7 +9533,6 @@ ideas = {
  #     #    #    #    #  #       #  #   ##  #    #  #   #   #    #  #    #         #     #   #   #    #  #   #     #    #    #  #   #
   #####     #    #    #  ######  #  #    #   ####   #    #  #    #  #####          #     #    #  #    #  #    #    #     ####   #    #
 
-
 		stalingrad_tractor_factory = {
 
 			allowed = {
@@ -9513,7 +9540,8 @@ ideas = {
 			}
 
 			visible = {
-				NOT = { has_completed_focus = SOV_national_specialists }
+				NOT = { #has_completed_focus = SOV_national_specialists 
+				}
 			}
 
 			research_bonus = {
@@ -9537,7 +9565,7 @@ ideas = {
 			}
 
 			visible = {
-				has_completed_focus = SOV_national_specialists
+				#has_completed_focus = SOV_national_specialists
 			}
 
 			research_bonus = {
@@ -9551,7 +9579,6 @@ ideas = {
 			}
 		}
 
-
  #                                                                       ######
  #        ######  #    #  #  #    #   ####   #####     ##    #####       #     #   ####   #       #   #  #####  ######   ####   #    #  #    #  #   ####     ##    #
  #        #       ##   #  #  ##   #  #    #  #    #   #  #   #    #      #     #  #    #  #        # #     #    #       #    #  #    #  ##   #  #  #    #   #  #   #
@@ -9560,7 +9587,6 @@ ideas = {
  #        #       #   ##  #  #   ##  #    #  #   #   #    #  #    #      #        #    #  #         #      #    #       #    #  #    #  #   ##  #  #    #  #    #  #
  #######  ######  #    #  #  #    #   ####   #    #  #    #  #####       #         ####   ######    #      #    ######   ####   #    #  #    #  #   ####   #    #  ######
 
-
 		leningrad_polytechnical_institute = {
 
 			allowed = {
@@ -9568,7 +9594,8 @@ ideas = {
 			}
 
 			visible = {
-				NOT = { has_completed_focus = SOV_national_specialists }
+				NOT = { #has_completed_focus = SOV_national_specialists 
+				}
 			}
 
 			research_bonus = {
@@ -9592,7 +9619,7 @@ ideas = {
 			}
 
 			visible = {
-				has_completed_focus = SOV_national_specialists
+				#has_completed_focus = SOV_national_specialists
 			}
 
 			research_bonus = {
@@ -9606,7 +9633,6 @@ ideas = {
 			}
 		}
 
-
   #####                                         ######
  #     #   ####   #    #  #  ######  #####      #     #    ##    #  #       #    #    ##    #   #   ####
  #        #    #  #    #  #  #         #        #     #   #  #   #  #       #    #   #  #    # #   #
@@ -9614,7 +9640,6 @@ ideas = {
        #  #    #  #    #  #  #         #        #   #    ######  #  #       # ## #  ######    #         #
  #     #  #    #   #  #   #  #         #        #    #   #    #  #  #       ##  ##  #    #    #    #    #
   #####    ####     ##    #  ######    #        #     #  #    #  #  ######  #    #  #    #    #     ####
-
 
 		SOV_soviet_railways = { #NSB
 
@@ -9626,11 +9651,12 @@ ideas = {
 			}
 
 			visible = {
-				NOT = { has_completed_focus = SOV_national_specialists }
+				NOT = { #has_completed_focus = SOV_national_specialists 
+				}
 			}
 
 			available = {
-				has_completed_focus = SOV_improve_railway_network
+				#has_completed_focus = SOV_improve_railway_network
 			}
 
 			cost = 75
@@ -9657,11 +9683,11 @@ ideas = {
 			}
 
 			visible = {
-				has_completed_focus = SOV_national_specialists
+				#has_completed_focus = SOV_national_specialists
 			}
 
 			available = {
-				has_completed_focus = SOV_improve_railway_network
+				#has_completed_focus = SOV_improve_railway_network
 			}
 
 			cost = 75
@@ -9677,7 +9703,6 @@ ideas = {
 			}
 		}
 
-
   #####
  #     #   ####    ####   #####   #####    ####   #   #  ######  #    #  #####   ####   #####  #####    ####   #   #
  #        #    #  #       #    #  #    #  #    #   # #   #       #   #     #    #         #    #    #  #    #   # #
@@ -9685,7 +9710,6 @@ ideas = {
  #     #  #    #       #  #####   #####   #    #    #    #       #  #      #         #    #    #####   #    #    #
  #     #  #    #  #    #  #       #   #   #    #    #    #       #   #     #    #    #    #    #   #   #    #    #
   #####    ####    ####   #       #    #   ####     #    ######  #    #    #     ####     #    #    #   ####     #
-
 
 		SOV_gosproyektstroy_1 = {
 
@@ -9696,7 +9720,7 @@ ideas = {
 			}
 
 			available = {
-				has_completed_focus = SOV_foreign_experts
+				#has_completed_focus = SOV_foreign_experts
 			}
 
 			visible = {
@@ -9726,7 +9750,7 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 1 } #USA
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 1 } #USA
 				NOT = { has_country_flag = SOV_gosproyektstroy_level_3_flag }
 			}
 
@@ -9756,8 +9780,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 1 } #USA
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 1 } #CIV
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 1 } #USA
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 1 } #CIV
 			}
 
 			cost = 100
@@ -9786,8 +9810,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 1 } #USA
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 2 } #MIL
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 1 } #USA
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 2 } #MIL
 			}
 
 			cost = 100
@@ -9816,8 +9840,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 1 } #USA
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 3 } #DOCK
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 1 } #USA
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 3 } #DOCK
 			}
 
 			cost = 100
@@ -9845,7 +9869,7 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 2 } #GBR
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 2 } #GBR
 				NOT = { has_country_flag = SOV_gosproyektstroy_level_3_flag }
 			}
 
@@ -9907,8 +9931,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 2 } #GBR
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 2 } #MIL
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 2 } #GBR
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 2 } #MIL
 			}
 
 			cost = 100
@@ -9938,8 +9962,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 2 } #GBR
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 3 } #DOCK
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 2 } #GBR
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 3 } #DOCK
 			}
 
 			cost = 100
@@ -9968,7 +9992,7 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 3 } #DEU
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 3 } #DEU
 				NOT = { has_country_flag = SOV_gosproyektstroy_level_3_flag }
 			}
 
@@ -9998,8 +10022,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 3 } #DEU
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 1 } #CIV
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 3 } #DEU
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 1 } #CIV
 			}
 
 			cost = 100
@@ -10028,8 +10052,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 3 } #DEU
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 2 } #MIL
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 3 } #DEU
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 2 } #MIL
 			}
 
 			cost = 100
@@ -10058,8 +10082,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 3 } #DEU
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 3 } #DOCK
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 3 } #DEU
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 3 } #DOCK
 			}
 
 			cost = 100
@@ -10087,7 +10111,7 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 4 } #JPN
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 4 } #JPN
 				NOT = { has_country_flag = SOV_gosproyektstroy_level_3_flag }
 			}
 
@@ -10117,8 +10141,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 4 } #JPN
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 1 } #CIV
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 4 } #JPN
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 1 } #CIV
 			}
 
 			cost = 100
@@ -10147,8 +10171,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 4 } #JPN
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 2 } #MIL
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 4 } #JPN
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 2 } #MIL
 			}
 
 			cost = 100
@@ -10177,8 +10201,8 @@ ideas = {
 			}
 
 			visible = {
-				has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 4 } #JPN
-				has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 3 } #DOCK
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_2_flag value = 4 } #JPN
+				# has_country_flag = { flag = SOV_gosproyektstroy_level_3_flag value = 3 } #DOCK
 			}
 
 			cost = 100
@@ -10194,5 +10218,8 @@ ideas = {
 				industrial_capacity_dockyard = 0.05
 			}
 		}
+
+		# 新しい初期国民精神
+
 	}
 }

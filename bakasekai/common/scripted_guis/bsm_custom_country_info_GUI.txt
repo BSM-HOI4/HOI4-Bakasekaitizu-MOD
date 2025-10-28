@@ -1,0 +1,50 @@
+scripted_gui = {
+	bsm_custom_country_info_GUI = {
+		context_type = player_context
+		window_name = "bsm_custom_country_info_GUI"
+		parent_window_token = countrypoliticsview
+		visible = {
+			# has_country_flag = allow_custom_country_tab
+			always = no
+		}
+		effects = {
+			country_info_button_click = {
+
+				if = {
+					limit = {
+						check_variable = {
+							selected_country_info_button_bool = 1
+						}
+						log = "やっほーえいとまんだよー = 1"
+						#if open
+					}
+					set_variable = {
+						selected_country_info_button_bool = 0
+						selected_custom_country_pol = 17
+					}
+					#close tab
+				}
+				else = {
+					set_variable = {
+						selected_country_info_button_bool = 1
+					}
+					# update_growth_rate = yes
+					log = "やっほーえいとまんだよー = 0"
+				}
+			}
+		}
+		triggers = {
+		}
+		properties = {
+		}
+	}
+	bsm_country_info_view = {
+		context_type = player_context
+		window_name = "bsm_country_info_view"
+		visible = {
+			check_variable = {
+				selected_country_info_button_bool = 1
+			}
+		}
+	}
+}

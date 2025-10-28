@@ -12,8 +12,6 @@
 #		exampel_trigger = yes
 #	}
 # 
-
-
 FRA_controls_north_africa = {
 	461 = {
 		OR = {
@@ -72,6 +70,7 @@ FRA_controls_north_africa = {
 		}
 	}
 }
+
 FRA_controls_syria = {
 	680 = {
 		OR = {
@@ -141,6 +140,7 @@ FRA_controls_indochina = {
 		}
 	}
 }
+
 FRA_controls_west_africa = {
 	557 = {
 		OR = {
@@ -250,15 +250,19 @@ FRA_controls_central_africa = {
 		}
 	}
 }
+
 FRA_has_inefficient_economy = {
 	if = {
-		limit = { has_idea = FRA_inefficient_economy_2 }
+		limit = {
+			has_idea = FRA_inefficient_economy_2
+		}
 		has_idea = FRA_inefficient_economy_2
 	}
 	else = {
 		has_idea = FRA_inefficient_economy_1
 	}
 }
+
 FRA_has_worker_shortage = {
 	OR = {
 		has_idea = FRA_full_employment
@@ -276,16 +280,18 @@ is_owned_or_subject_trigger = {
 }
 
 USA_can_sell_weapons_trigger = {
-	NOT = { 
+	NOT = {
 		USA = {
-			AND = {
-				has_completed_focus = USA_neutrality_act 
-				NOT = { has_completed_focus = USA_lend_lease_act } #Can't sell weapons if US has declared neutrality without passing Lend-Lease Act
-			}
+			# AND = {
+			# 	has_completed_focus = USA_neutrality_act 
+			# 	NOT = { has_completed_focus = USA_lend_lease_act } #Can't sell weapons if US has declared neutrality_ideology without passing Lend-Lease Act
+			# }
 			has_war_with = FRA
 		}
 	}
-	USA = { has_civil_war = no }
+	USA = {
+		has_civil_war = no
+	}
 }
 
 has_any_occupation_cost_trigger = {
@@ -298,5 +304,5 @@ has_any_occupation_cost_trigger = {
 }
 
 is_vichy_france = {
-	has_country_flag = vichy_france	
+	has_country_flag = vichy_france
 }

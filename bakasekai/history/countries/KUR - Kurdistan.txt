@@ -1,22 +1,25 @@
 ﻿capital = 800
-
 set_research_slots = 2
-
+set_cosmetic_tag = KUR_republic
 add_ideas = {
 	limited_conscription
 }
 
+land_tech_level_1 = yes
 set_technology = {
-	infantry_weapons = 1
-	infantry_weapons1 = 1
 	tech_mountaineers = 1
 	gw_artillery = 1
 	interwar_antiair = 1
 	early_fighter = 1
 	CAS1 = 1
 }
+
 if = {
-	limit = { not = { has_dlc = "Man the Guns" } }
+	limit = {
+		not = {
+			has_dlc = "Man the Guns"
+		}
+	}
 	set_technology = {
 		early_submarine = 1
 		early_destroyer = 1
@@ -26,8 +29,11 @@ if = {
 		transport = 1
 	}
 }
+
 if = {
-	limit = { has_dlc = "Man the Guns" }
+	limit = {
+		has_dlc = "Man the Guns"
+	}
 	set_technology = {
 		basic_naval_mines = 1
 		submarine_mine_laying = 1
@@ -38,89 +44,25 @@ if = {
 		early_ship_hull_cruiser = 1
 		early_ship_hull_heavy = 1
 		basic_battery = 1
-		#basic_secondary_battery = 1
 		basic_torpedo = 1
 		coastal_defense_ships = 1
 		mtg_transport = 1
 	}
 }
 
-
-1939.1.1 = {
-	#generic focuses
-	complete_national_focus = army_effort
-	complete_national_focus = equipment_effort
-	complete_national_focus = motorization_effort
-	complete_national_focus = aviation_effort
-	complete_national_focus = naval_effort
-	complete_national_focus = large_navy
-	complete_national_focus = industrial_effort
-	complete_national_focus = construction_effort
-	complete_national_focus = production_effort
-
-	set_technology = {
-		fighter1 = 1
-		early_bomber = 1
-		tactical_bomber1 = 1
-		interwar_artillery = 1
-		infantry_weapons2 = 1
-		support_weapons = 1
-
-		#doctrines
-		air_superiority = 1
-
-		mass_assault = 1
-		pocket_defence = 1
-		defence_in_depth = 1
-		
-		fleet_in_being = 1
-		convoy_sailing = 1
-		submarine_operations = 1
-
-		#electronics
-		electronic_mechanical_engineering = 1
-		radio = 1
-		radio_detection = 1
-		mechanical_computing = 1
-		computing_machine = 1
-
-		#industry
-		basic_machine_tools = 1
-		improved_machine_tools = 1
-		synth_oil_experiments = 1
-		fuel_silos = 1
-		oil_processing = 1
-		construction1 = 1
-		construction2 = 1
-		dispersed_industry = 1
-		dispersed_industry2 = 1
-	}
-	if = {
-		limit = { not = { has_dlc = "Man the Guns" } }
-		set_technology = {
-			basic_submarine = 1
-		}
-	}
-	if = {
-		limit = { has_dlc = "Man the Guns" }
-		set_technology = {
-		}
-	}
-}
-
 # There were many Kurdish uprisings in Iraq, Iran, and Turkey in the 20th century, it's difficult to define a "ruling party". Democratic has been chosen since the Dersim Rebellion is the closest uprising to HoI's start date.
 set_politics = {
-	ruling_party = democratic
+	ruling_party = democratic_ideology
 	last_election = "1935.2.8"
 	election_frequency = 48
 	elections_allowed = yes
 }
 
 set_popularities = {
-	democratic = 40
-	communism = 25
-	fascism = 30
-	neutrality = 5
+	democratic_ideology = 40
+	communism_ideology = 25
+	fascism_ideology = 30
+	neutrality_ideology = 5
 }
 
 # Qazi Muhammad was leader of the short-lived Marxist uprising in Iranian Kurdistan
@@ -141,7 +83,7 @@ create_country_leader = {
 	desc = "POLITICS_SHEIKH_BARZANJI_DESC"
 	picture = GFX_portrait_Sheikh_Mahmud_Barzanji
 	expire = "1965.1.1"
-	ideology = despotism
+	ideology = centrism
 	traits = {
 		#
 	}
@@ -174,9 +116,14 @@ create_country_leader = {
 create_field_marshal = {
 	name = "Îhsan Nûrî Paşa"
 	portrait_path = GFX_portrait_Ihsan_Nuri_Pasa
-	traits = { war_hero inflexible_strategist unyielding_defender desert_fox commando }
+	traits = {
+		war_hero
+		inflexible_strategist
+		unyielding_defender
+		desert_fox
+		commando
+	}
 	skill = 3
-
 	attack_skill = 2
 	defense_skill = 3
 	planning_skill = 2
@@ -186,9 +133,12 @@ create_field_marshal = {
 create_corps_commander = {
 	name = "Ferzende Begê Hesenî"
 	portrait_path = GFX_portrait_Ferzende_Bege_Heseni
-	traits = { war_hero commando desert_fox }
-	skill = 2 #13
-
+	traits = {
+		war_hero
+		commando
+		desert_fox
+	}
+	skill = 2	#13
 	attack_skill = 3
 	defense_skill = 2
 	planning_skill = 1
@@ -212,4 +162,4 @@ recruit_character = KUR_nt
 recruit_character = KUR_acas
 recruit_character = KUR_awt
 recruit_character = KUR_kamuran_ali_bedirxan
-recruit_character = KUR_aco2
+# recruit_character = KUR_aco2

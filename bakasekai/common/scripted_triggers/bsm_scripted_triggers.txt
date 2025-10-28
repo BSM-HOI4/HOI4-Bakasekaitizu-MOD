@@ -13,3 +13,46 @@ have_free_slot_for_arms_factory = {
         include_locked = yes
     }
 }
+
+
+# 外交アクション「請求権捏造」を開始できるかどうかのトリガー
+# ROOTスコープ: アクションを実行しようとしている国 (自国)
+# FROMスコープ: アクションの対象となる国 (相手国)
+bsm_can_initiate_fabricate_claim_diplo_action_trigger = {
+    # UCがコスト分（仮に最低コストを200 UCとする）以上あること
+    check_variable = { ROOT.Unified_Currency > 200 } # Mod内のUC変数名に合わせる
+
+    # 相手国(FROM)に、自国(ROOT)が請求権を捏造可能な「隣接州または沿岸州」が1つ以上存在すること
+    FROM = {
+        any_owned_state = { # 相手国が所有するいずれかの州で…
+            # その州は自国のものではなく
+            NOT = { is_owned_by = PREV.ROOT } # PREV.ROOT でトリガーのROOT(自国)を参照
+            # かつ、自国が既に請求権を持っておらず
+            NOT = { is_claimed_by = PREV.ROOT }
+            # かつ、自国の中核州でもない
+            NOT = { is_core_of = PREV.ROOT }
+            # そして、「自国と隣接している」 OR 「沿岸州である」
+            OR = {
+                any_neighbor_state = { is_owned_by = PREV.ROOT } # この州(THIS)が自国(PREV.ROOT)と隣接している
+                is_coastal = yes          # この州(THIS)が沿岸州である
+            }
+        }
+    }
+    # (オプション) 特定のイデオロギーでないと実行できないなど
+    # ROOT = { has_government = fascism_ideology }
+}
+
+# イベント内で、特定の州に請求権を捏造できるか判定するトリガー (イベント内で直接limitに書くので、これは省略しても可)
+# ROOTスコープ: イベントを実行中の国 (自国)
+# THISスコープ: 評価対象の州
+# event_target:bsm_fabricate_claim_target_countryスコープ: 請求権捏造の対象国
+bsm_can_fabricate_claim_on_this_state_in_event_trigger = {
+    is_owned_by = event_target:bsm_fabricate_claim_target_country
+    NOT = { is_owned_by = ROOT }
+    NOT = { is_core_of = ROOT }
+    NOT = { is_claimed_by = ROOT }
+    OR = {
+        is_neighbor_of = ROOT # イベントのROOTは自国
+        is_coastal = yes
+    }
+}

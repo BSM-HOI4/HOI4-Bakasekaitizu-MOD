@@ -1,5 +1,5 @@
 ideologies = {
-	democratic = {
+	democratic_ideology = {
 		types = {
 			liberalism = {
 			}
@@ -43,9 +43,9 @@ ideologies = {
 		faction_modifiers = {
 			faction_trade_opinion_factor = 0.5			#plus 50% trade opinion
 		}
-		ai_democratic = yes		# uses the democratic AI behaviour
+		ai_democratic = yes		# uses the democratic_ideology AI behaviour
 	}
-	communism = {
+	communism_ideology = {
 		types = {
 			marxism = {
 			}
@@ -90,7 +90,7 @@ ideologies = {
 		faction_modifiers = {
 		}
 	}
-	fascism = {
+	fascism_ideology = {
 		types = {
 			nazism = {
 			}
@@ -99,8 +99,6 @@ ideologies = {
 			gen_nazism = {
 			}
 			falangism = {
-			}
-			fascism = {
 			}
 			rexism = {
 			}
@@ -140,7 +138,7 @@ ideologies = {
 		}
 		ai_fascist = yes		# uses the fascist AI behaviour
 	}
-	neutrality = {
+	neutrality_ideology = {
 		types = {
 			oligarchism = {
 			}
@@ -223,6 +221,20 @@ ideologies = {
 			can_guarantee_other_ideologies = yes
 		}
 		modifiers = {
+			# Civilism-specific modifiers based on sub-ideologies
+			# Average effects: urban_civicism (+10% industrial, +5% research, -5% war)
+			# peasantism (+5% manpower, +5% conscription, -10% industrial, +5% stability)
+			# comp_civilism (+5% political power, +10% research, +5% opinion gain)
+			industrial_capacity_factory = 0.02		# Slight industrial bonus (average of +10%, -10%, 0%)
+			research_speed_factor = 0.08			# Research bonus (average of +5%, 0%, +10%)
+			war_support_factor = -0.02				# Slight war support penalty (average of -5%, 0%, 0%)
+			# = 0.02			# Small manpower bonus from peasantism
+			conscription_factor = 0.02				# Small conscription bonus from peasantism
+			stability_factor = 0.02					# Small stability bonus from peasantism
+			political_power_factor = 0.02			# Small political power bonus from comp_civilism
+			opinion_gain_monthly_factor = 0.02		# Small diplomatic influence from comp_civilism
+			
+			# Original modifiers
 			generate_wargoal_tension = 0.7
 			join_faction_tension = 0.8
 			lend_lease_tension = 0.8
@@ -268,10 +280,20 @@ ideologies = {
 			can_only_justify_war_on_threat_country = yes
 		}
 		modifiers = {
+			# Conservative_democracy-specific modifiers
+			# Conservatism: +5% political power, +10% stability, -5% war support
+			political_power_factor = 0.05			# Strong political institutions
+			stability_factor = 0.10					# Conservative order and tradition
+			war_support_factor = -0.05				# Cautious about military adventures
+			industrial_capacity_factory = 0.05		# Stable economic development
+			
+			# Conservative ideology comments (preserved)
 			# conservative_democracy_acceptance = 50
 			# democratic_democracy_acceptance = 50
 			# direct_democracy_democracy_acceptance = 60
 			# philanthropy_acceptance = 25
+			
+			# Original modifiers
 			generate_wargoal_tension = 0.35
 			join_faction_tension = 0.1
 			lend_lease_tension = 0.25
@@ -317,13 +339,25 @@ ideologies = {
 			can_send_volunteers = yes
 			can_puppet = yes
 			can_only_justify_war_on_threat_country = yes
+			can_force_government = yes
 		}
 		modifiers = {
-			# democratic_acceptance = 50
+			# Constitutional_monarchy-specific modifiers based on sub-ideologies
+			# constitutional_royal_government: +10% political power, +5% stability, -5% war support
+			# constitutional_emperor: +10% political power, +10% opinion gain, +5% stability, -10% war support
+			political_power_factor = 0.10			# Strong royal political influence
+			stability_factor = 0.05					# Monarchical stability
+			opinion_gain_monthly_factor = 0.05		# Imperial/royal prestige in diplomacy
+			war_support_factor = -0.075				# Royal caution about war (average of -5%, -10%)
+			
+			# Constitutional monarchy comments (preserved)
+			# democratic_ideology_acceptance = 50
 			# constitutional_monarchy_democracy_acceptance = 50
 			# direct_democracy_democracy_acceptance = 60
 			# philanthropy_acceptance = 25
 			# generate_wargoal_tension = 0.65
+			
+			# Original modifiers
 			join_faction_tension = 0.45
 			lend_lease_tension = 0.25
 			send_volunteers_tension = 0.5
@@ -342,7 +376,7 @@ ideologies = {
 	}
 	direct_democracy = {
 		types = {
-			direct_your_democracy = {
+			our_own_gov = {
 			}
 		}
 		dynamic_faction_names = {
@@ -361,12 +395,25 @@ ideologies = {
 		}
 		rules = {
 			can_only_justify_war_on_threat_country = yes
+			can_force_government = no
+			can_send_volunteers = no
+			can_puppet = no
 		}
 		modifiers = {
-			# democratic_acceptance = 50
+			# Direct_democracy-specific modifiers
+			# our_own_gov: +10% political power, +5% war support, -5% industrial
+			political_power_factor = 0.10			# High citizen participation in government
+			war_support_factor = 0.05				# Citizen enthusiasm for collective decisions
+			industrial_capacity_factory = -0.05	# Political gridlock slows industry
+			stability_factor = 0.03					# Democratic legitimacy provides stability
+			
+			# Direct democracy comments (preserved)
+			# democratic_ideology_acceptance = 50
 			# constitutional_monarchy_democracy_acceptance = 50
 			# conservative_democracy_democracy_acceptance = 60
 			# philanthropy_acceptance = 25
+			
+			# Original modifiers
 			generate_wargoal_tension = 0.85
 			join_faction_tension = 0.5
 			lend_lease_tension = 0.1
@@ -385,6 +432,7 @@ ideologies = {
 		ai_neutral = yes
 	}
 	futurism = {
+		
 		types = {
 			despotism = {
 			}
@@ -410,8 +458,20 @@ ideologies = {
 			can_create_collaboration_government = yes
 			can_declare_war_on_same_ideology = yes
 			can_force_government = yes
+			can_send_volunteers = yes
+			can_puppet = yes
 		}
 		modifiers = {
+			# Futurism-specific modifiers based on sub-ideologies
+			# despotism: +15% research, +5% political power, -10% war support
+			# paradise: +5% research, +10% stability, -5% war support
+			research_speed_factor = 0.15			# Enhanced research focus on future technologies
+			stability_factor = 0.08					# Stability from technological optimism
+			political_power_factor = 0.05			# Power from technological leadership
+			war_support_factor = -0.10				# Pacifist futurist ideals
+			industrial_capacity_factory = 0.08		# Advanced industrial methods
+			
+			# Original modifiers
 			generate_wargoal_tension = 0.1
 			join_faction_tension = 0.1
 			lend_lease_tension = 0.1
@@ -454,6 +514,16 @@ ideologies = {
 			can_puppet = yes
 		}
 		modifiers = {
+			# Intellectualism-specific modifiers based on sub-ideologies
+			# knowledge_intensiveism: +20% research, -10% war support
+			# knowledge_decentralization: +10% research, +5% political power, -5% war support
+			# knowledge_enlightenment: +15% research, +5% opinion gain, -10% war support
+			research_speed_factor = 0.15			# High research bonus (average of +20%, +10%, +15%)
+			war_support_factor = -0.08				# War support penalty (average of -10%, -5%, -10%)
+			political_power_factor = 0.02			# Small political power bonus from decentralization
+			opinion_gain_monthly_factor = 0.02		# Small diplomatic influence from enlightenment
+			
+			# Original modifiers
 			generate_wargoal_tension = 0.1
 			join_faction_tension = 0.1
 			lend_lease_tension = 0.1
@@ -532,6 +602,18 @@ ideologies = {
 			can_only_justify_war_on_threat_country = yes
 		}
 		modifiers = {
+			# Mythologicalism-specific modifiers based on religious sub-ideologies
+			# Average effects from various religions emphasizing wisdom, stability, and moderate research
+			# Many religions provide research bonuses (Greek philosophy, Islamic Golden Age, etc.)
+			# Some provide stability (Buddhism, Shinto, Confucianism)
+			# Most are somewhat pacifist or cautious about war
+			research_speed_factor = 0.08			# Research bonus from philosophical/scholarly traditions
+			stability_factor = 0.05					# Stability from religious cohesion
+			opinion_gain_monthly_factor = 0.03		# Diplomatic influence from religious networks
+			war_support_factor = -0.05				# Generally pacifist tendency
+			political_power_factor = 0.02			# Religious authority provides some political power
+			
+			# Original modifiers
 			join_faction_tension = 0.2
 			lend_lease_tension = 0.1
 			send_volunteers_tension = 0.4
@@ -570,8 +652,20 @@ ideologies = {
 		rules = {
 			can_force_government = yes
 			can_puppet = yes
+			can_send_volunteers = yes
 		}
 		modifiers = {
+			# Rightneutrality-specific modifiers based on sub-ideologies
+			# shogunate: +10% stability, +5% opinion gain, -5% war support
+			# Empires: +15% industrial, +5% political power, -5% war support
+			# Kingdom: +10% stability, +5% political power, -5% war support
+			stability_factor = 0.10					# High stability from traditional hierarchy
+			industrial_capacity_factory = 0.05		# Imperial bureaucratic efficiency
+			political_power_factor = 0.05			# Centralized authority
+			opinion_gain_monthly_factor = 0.02		# Royal/imperial prestige
+			war_support_factor = -0.05				# Traditional caution about warfare
+			
+			# Original modifiers
 			generate_wargoal_tension = 0.65
 			join_faction_tension = 0.55
 			lend_lease_tension = 0.5
@@ -615,6 +709,16 @@ ideologies = {
 		}
 		can_collaborate = no
 		modifiers = {
+			# Anarchism-specific modifiers based on sub-ideologies
+			# anti_revisionism: +5% political power, -10% stability, -5% war support
+			# anarchism: +5% political power, -10% stability, -10% war support
+			# Anarcho_syndicalism: +10% manpower recovery, -10% stability, -5% war support
+			political_power_factor = 0.05			# Political activism from anti-revisionism and anarchism
+			stability_factor = -0.10				# High instability from revolutionary nature
+			war_support_factor = -0.07				# War-averse tendency (average of -5%, -10%, -5%)
+			conscription_factor = 0.03				# Worker solidarity from syndicalism
+			
+			# Original modifiers
 			civilian_intel_to_others = 0
 			army_intel_to_others = 0
 			navy_intel_to_others = 0
@@ -658,8 +762,24 @@ ideologies = {
 			can_force_government = yes
 			can_puppet = yes
 			can_only_justify_war_on_threat_country = yes
+			can_send_volunteers = yes
 		}
 		modifiers = {
+			# Stupidism-specific modifiers based on sub-ideologies
+			# communism_democracy: +5% political power, +5% opinion gain, -5% war support
+			# neoliberalism: +15% industrial, +5% political power, -10% war support
+			# eroticism: +10% political power, -10% stability, -5% war support
+			# anthropocentrism: +5% manpower recovery, -10% research, -5% war support
+			# exclusionism: +5% stability, -15% opinion gain, -10% war support
+			industrial_capacity_factory = 0.03		# Industrial bonus mainly from neoliberalism
+			political_power_factor = 0.06			# Political power from multiple sub-ideologies
+			war_support_factor = -0.07				# Generally war-averse (average of all penalties)
+			stability_factor = -0.025				# Mixed effects (-10% from eroticism, +5% from exclusionism)
+			opinion_gain_monthly_factor = -0.025	# Mixed diplomatic effects (+5% from communism_democracy, -15% from exclusionism)
+			conscription_factor = 0.02				# Manpower from anthropocentrism
+			research_speed_factor = -0.03			# Research penalty from anthropocentrism
+			
+			# Original modifiers
 			generate_wargoal_tension = 0.5
 			join_faction_tension = 0.5
 			lend_lease_tension = 0.5
@@ -702,8 +822,22 @@ ideologies = {
 		}
 		rules = {
 			can_only_justify_war_on_threat_country = yes
+			can_send_volunteers = no
+			can_puppet = yes
+			can_force_government = yes
 		}
 		modifiers = {
+			# Technicalism-specific modifiers based on sub-ideologies
+			# basictechnicalism: +10% research, +5% industrial, -5% stability
+			# hightechnicalism: +20% research, +10% industrial, -10% stability
+			# lowtechnicalism: +5% research, +5% manpower recovery, -5% industrial
+			research_speed_factor = 0.18			# Strong technology focus - enhanced research
+			industrial_capacity_factory = 0.05		# Technological industrial improvements
+			stability_factor = -0.05				# Reduced instability from technological progress
+			conscription_factor = 0.03				# Tech-enhanced manpower efficiency
+			political_power_factor = 0.03			# Technocratic governance efficiency
+			
+			# Original modifiers
 			generate_wargoal_tension = 0.1
 			join_faction_tension = 0.2
 			lend_lease_tension = 0.2
@@ -747,6 +881,18 @@ ideologies = {
 		war_impact_on_world_tension = 0.25		# no major danger, remember this this the 40s!
 		faction_impact_on_world_tension = 0.1
 		modifiers = {
+			# Philanthropy-specific modifiers based on sub-ideologies
+			# neutrality_democracy: +10% political power, +10% stability, -5% war support
+			# philanthropy: +10% opinion gain, +5% stability, -15% war support
+			# passive_pacifism: +10% stability, -20% war support, +5% political power
+			# non_resistance: +10% stability, -25% war support, +5% opinion gain
+			# absolute_pacifism: +15% stability, -30% war support, +5% opinion gain
+			stability_factor = 0.12					# High stability bonus (average of +10%, +5%, +10%, +10%, +15%)
+			war_support_factor = -0.19				# Significant war support penalty (average of -5%, -15%, -20%, -25%, -30%)
+			political_power_factor = 0.05			# Political power from democracy and pacifism
+			opinion_gain_monthly_factor = 0.05		# Diplomatic influence from philanthropy and non-resistance
+			
+			# Original modifiers
 			generate_wargoal_tension = 1
 			join_faction_tension = 0.8
 			lend_lease_tension = 0.5
@@ -761,7 +907,7 @@ ideologies = {
 		faction_modifiers = {
 			faction_trade_opinion_factor = 0.5			#plus 50% trade opinion
 		}
-		ai_democratic = yes		# uses the democratic AI behaviour
+		ai_democratic = yes		# uses the democratic_ideology AI behaviour
 	}
 	transformationism = {
 		types = {
@@ -787,6 +933,16 @@ ideologies = {
 		}
 		can_collaborate = yes
 		modifiers = {
+			# Transformationism-specific modifiers based on sub-ideologies
+			# accelerationism: +20% research, -10% stability, +5% political power
+			# artisticism: +10% opinion gain, +5% political power, -5% war support
+			research_speed_factor = 0.10			# Research bonus (average of +20%, 0%)
+			stability_factor = -0.05				# Stability penalty from accelerationism (average of -10%, 0%)
+			political_power_factor = 0.05			# Political power from both sub-ideologies
+			opinion_gain_monthly_factor = 0.05		# Diplomatic influence from artisticism
+			war_support_factor = -0.025				# War support penalty from artisticism (average of 0%, -5%)
+			
+			# Original modifiers
 			puppet_cost_factor = -0.3
 			civilian_intel_to_others = 10
 			army_intel_to_others = 7.5
@@ -825,6 +981,18 @@ ideologies = {
 		}
 		can_collaborate = yes
 		modifiers = {
+			# Ruinism-specific modifiers based on sub-ideologies
+			# eradicationism: +15% war support, -10% stability, -5% research
+			# destructiveism: +20% war support, -15% stability, -10% political power
+			# primitivism: +5% manpower recovery, -10% industrial, -10% research
+			war_support_factor = 0.13				# High war support (average of +15%, +20%, 0%)
+			stability_factor = -0.12				# High stability penalty (average of -10%, -15%, 0%)
+			research_speed_factor = -0.08			# Research penalty (average of -5%, 0%, -10%)
+			political_power_factor = -0.03			# Political power penalty from destructiveism
+			conscription_factor = 0.02				# Manpower recovery from primitivism
+			industrial_capacity_factory = -0.03	# Industrial penalty from primitivism
+			
+			# Original modifiers
 			puppet_cost_factor = 0
 			civilian_intel_to_others = 0
 			army_intel_to_others = 0
@@ -934,6 +1102,15 @@ ideologies = {
 		}
 		can_collaborate = no
 		modifiers = {
+			# Hinnulism-specific modifiers (anime-themed ideology)
+			# Focus on cultural refinement and inner strength
+			stability_factor = 0.12					# High cultural cohesion and inner peace
+			research_speed_factor = 0.08			# Innovation through cultural focus
+			war_support_factor = -0.08				# Strong pacifist cultural values
+			opinion_gain_monthly_factor = 0.05		# Cultural soft power and appeal
+			political_power_factor = 0.03			# Cultural authority and influence
+			
+			# Original modifiers
 			civilian_intel_to_others = 0
 			army_intel_to_others = 0
 			navy_intel_to_others = 0
@@ -977,6 +1154,15 @@ ideologies = {
 		}
 		can_collaborate = no
 		modifiers = {
+			# Kyonulism-specific modifiers (anime-themed ideology)
+			# Focus on protection, nurturing, and overwhelming appeal
+			opinion_gain_monthly_factor = 0.15		# Overwhelming cultural diplomatic influence
+			stability_factor = 0.10					# Protective nurturing social stability
+			war_support_factor = -0.05				# Protective rather than aggressive stance
+			political_power_factor = 0.08			# Strong cultural authority
+			conscription_factor = 0.05				# Protective instincts boost manpower
+			
+			# Original modifiers
 			civilian_intel_to_others = 0
 			army_intel_to_others = 0
 			navy_intel_to_others = 0

@@ -3,7 +3,7 @@
 #	example_effect = {
 #		add_political_power = 66
 #		add_popularity = {
-#			ideology = fascism
+#			ideology = fascism_ideology
 #			popularity = 0.33
 #		}
 #	}
@@ -129,7 +129,7 @@ GER_democratic_nations_ai_strategies = {
 	# Reduce Contain against SOV
 	add_ai_strategy = {
 		type = contain
-		id = "SOV"
+		id = "RUS"
 		value = -800
 	}
 	add_ai_strategy = {
@@ -488,7 +488,7 @@ get_best_alliance_match_democratic_effect = { #arguably a trigger, but it does s
 			any_other_country = {
 				is_faction_leader = yes
 				is_major = yes
-				has_government = democratic
+				has_government = democratic_ideology
 				not = { has_war_with = ROOT }
 				set_temp_variable = { ROOT.best_leader = this }
 				set_temp_variable = { ROOT.best_leader_score = 0 }
@@ -500,7 +500,7 @@ get_best_alliance_match_democratic_effect = { #arguably a trigger, but it does s
 			all_other_country = {
 				is_faction_leader = yes
 				is_major = yes
-				has_government = democratic
+				has_government = democratic_ideology
 				not = { has_war_with = ROOT }
 				set_temp_variable = { this.leader_score = num_of_factories }
 				add_to_temp_variable = { this.leader_score = num_battalions }
@@ -541,7 +541,7 @@ get_best_alliance_match_fascism_effect = { #arguably a trigger, but it does stuf
 			any_other_country = {
 				is_faction_leader = yes
 				is_major = yes
-				has_government = fascism
+				has_government = fascism_ideology
 				not = { has_war_with = ROOT }
 				set_temp_variable = { ROOT.best_leader = this }
 				set_temp_variable = { ROOT.best_leader_score = 0 }
@@ -554,7 +554,7 @@ get_best_alliance_match_fascism_effect = { #arguably a trigger, but it does stuf
 
 				is_faction_leader = yes
 				is_major = yes
-				has_government = fascism
+				has_government = fascism_ideology
 				not = { has_war_with = ROOT }
 
 				set_temp_variable = { this.leader_score = num_of_factories }
@@ -596,7 +596,7 @@ get_best_alliance_match_communism_effect = { #arguably a trigger, but it does st
 			any_other_country = {
 				is_faction_leader = yes
 				is_major = yes
-				has_government = communism
+				has_government = communism_ideology
 				not = { has_war_with = ROOT }
 				set_temp_variable = { ROOT.best_leader = this }
 				set_temp_variable = { ROOT.best_leader_score = 0 }
@@ -608,7 +608,7 @@ get_best_alliance_match_communism_effect = { #arguably a trigger, but it does st
 			all_other_country = {
 				is_faction_leader = yes
 				is_major = yes
-				has_government = communism
+				has_government = communism_ideology
 				not = { has_war_with = ROOT }
 				set_temp_variable = { this.leader_score = num_of_factories }
 				add_to_temp_variable = { this.leader_score = num_battalions }
@@ -837,19 +837,19 @@ clear_sabotaged_resources_if_necesary = {
 
 remove_from_allowed_party = {
 	if = {
-		limit = { has_government = democratic }
+		limit = { has_government = democratic_ideology }
 		set_temp_variable = { allowed_party_democratic = 0 }
 	}
 	else_if = {
-		limit = { has_government = fascism }
+		limit = { has_government = fascism_ideology }
 		set_temp_variable = { allowed_party_fascism = 0 }
 	}
 	else_if = {
-		limit = { has_government = communism }
+		limit = { has_government = communism_ideology }
 		set_temp_variable = { allowed_party_communism = 0 }
 	}
 	else_if = {
-		limit = { has_government = neutrality }
+		limit = { has_government = neutrality_ideology }
 		set_temp_variable = { allowed_party_neutrality = 0 }
 	}
 }
@@ -857,53 +857,53 @@ remove_from_allowed_party = {
 #expectes a temp variable country_to_initiate which should contain original_tag to instantiate as a collabration government
 instantiate_collaboration_government = {
 	custom_effect_tooltip = compliance_80_effect_tooltip
-	hidden_effect = {
-		set_variable = { collaboration_formed@var:country_to_initiate = 1 }
+	# hidden_effect = {
+	# 	set_variable = { collaboration_formed@var:country_to_initiate = 1 }
 
-		if = {
-			# if country_to_initiate does not exist, simply release it as a puppet
-			limit = {
-				var:country_to_initiate = {
-					exists = no
-				}
-			}
-			var:country_to_initiate = { set_variable = { collaboration_formed_by = PREV } }
-			release_autonomy = {
-				target = country_to_initiate
-				autonomy_state = autonomy_collaboration_government
-				freedom_level = 0.5
-				release_non_owned_controlled = yes
-			}
-		}
-		else = {
-			# if country_to_initiate exists, create a dynamic country as our new puppet
+	# 	if = {
+	# 		# if country_to_initiate does not exist, simply release it as a puppet
+	# 		limit = {
+	# 			var:country_to_initiate = {
+	# 				exists = no
+	# 			}
+	# 		}
+	# 		var:country_to_initiate = { set_variable = { collaboration_formed_by = PREV } }
+	# 		release_autonomy = {
+	# 			target = country_to_initiate
+	# 			autonomy_state = autonomy_collaboration_government
+	# 			freedom_level = 0.5
+	# 			release_non_owned_controlled = yes
+	# 		}
+	# 	}
+	# 	else = {
+	# 		# if country_to_initiate exists, create a dynamic country as our new puppet
 
-			create_dynamic_country = {
-				original_tag = country_to_initiate
+	# 		create_dynamic_country = {
+	# 			original_tag = country_to_initiate
 
-				set_variable = { collaboration_formed_by = PREV }
-				set_temp_variable = { new_country = this }
+	# 			set_variable = { collaboration_formed_by = PREV }
+	# 			set_temp_variable = { new_country = this }
 
-				PREV = {
-					every_controlled_state = {
-						limit = { occupied_country_tag = country_to_initiate }
+	# 			PREV = {
+	# 				every_controlled_state = {
+	# 					limit = { occupied_country_tag = country_to_initiate }
 
-						var:new_country = {
-							transfer_state = PREV
-						}
-					}
+	# 					var:new_country = {
+	# 						transfer_state = PREV
+	# 					}
+	# 				}
 
-					puppet = new_country
+	# 				puppet = new_country
 
-					set_autonomy = {
-						target = new_country
-						autonomy_state = autonomy_collaboration_government
-						freedom_level = 0.5
-					}
-				}
-			}
-		}
-	}
+	# 				set_autonomy = {
+	# 					target = new_country
+	# 					autonomy_state = autonomy_collaboration_government
+	# 					freedom_level = 0.5
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# }
 }
 
 abandon_colony_tag = {
@@ -925,7 +925,7 @@ abandon_colony_tag = {
 		}
 		else_if = {
 			limit = {
-				original_tag = IND
+				original_tag = SJK
 			}
 			set_cosmetic_tag = RAJ_UK
 		}
@@ -937,7 +937,7 @@ abandon_colony_tag = {
 		}
 		else_if = {
 			limit = {
-				original_tag = INS
+				original_tag = IDN
 			}
 			set_cosmetic_tag = INS_HOL
 		}
@@ -947,7 +947,7 @@ abandon_colony_tag = {
 			limit = {
 				OR = {
 					has_cosmetic_tag = united_polynesia
-					has_cosmetic_tag = MAJ_UNIFIED
+					# has_cosmetic_tag = MAJ_UNIFIED
 				}
 			}
 		}
@@ -1169,17 +1169,17 @@ join_allies_effect = {
 		limit = {
 			GBR = {
 				is_faction_leader = yes
-				has_government = democratic
+				has_government = democratic_ideology
 				not = { has_war_with = ROOT }
 			}
 		}
-		GBR = { country_event = generic.2 }
+		# GBR = { country_event = generic.2 }
 	}
 	else = {
 		get_best_alliance_match_democratic_effect = yes
-		var:best_leader = {
-			country_event = generic.2
-		}
+		# var:best_leader = {
+		# 	country_event = generic.2
+		# }
 	}
 }
 
@@ -1205,6 +1205,10 @@ remove_fascist_spirits_effect = {
 
 #Should remove any and all communist foreign influence
 remove_communist_spirits_effect = {
+	if = {
+		limit = { has_idea = communist_pressure }
+		remove_ideas = communist_pressure
+	}
 	if = {
 		limit = { has_idea = american_influence_drift_communism }
 		remove_ideas = american_influence_drift_communism
@@ -1233,9 +1237,14 @@ remove_communist_spirits_effect = {
 		limit = { has_idea = BALTIC_communist_militancy }
 		remove_ideas = BALTIC_communist_militancy
 	}
+
+	# if = {
+	# 	limit = { has_idea = SWE_foreign_communist_influence }
+	# 	remove_ideas = SWE_foreign_communist_influence
+	# }
 }
 
-#Should remove any and all democratic foreign influence
+#Should remove any and all democratic_ideology foreign influence
 remove_democratic_spirits_effect = {
 	if = {
 		limit = { has_idea = democratic_influence }
@@ -1249,23 +1258,23 @@ add_ruling_to_dem = {
 	hidden_effect = {
 		if = {
 			limit = {
-				has_government = neutrality
+				has_government = neutrality_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				democratic_support_var = neutrality_support_var
@@ -1277,23 +1286,23 @@ add_ruling_to_dem = {
 		}
 		if = {
 			limit = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				democratic_support_var = communism_support_var
@@ -1305,23 +1314,23 @@ add_ruling_to_dem = {
 		}
 		if = {
 			limit = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				democratic_support_var = fascism_support_var
@@ -1332,10 +1341,10 @@ add_ruling_to_dem = {
 			}
 		}
 		set_popularities = {
-			democratic = democratic_support_var
-			neutrality = neutrality_support_var
-			fascism = fascism_support_var
-			communism = communism_support_var
+			democratic_ideology = democratic_support_var
+			neutrality_ideology = neutrality_support_var
+			fascism_ideology = fascism_support_var
+			communism_ideology = communism_support_var
 		}
 	}
 }
@@ -1344,23 +1353,23 @@ add_ruling_to_fas = {
 	hidden_effect = {
 		if = {
 			limit = {
-				has_government = neutrality
+				has_government = neutrality_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				fascism_support_var = neutrality_support_var
@@ -1372,23 +1381,23 @@ add_ruling_to_fas = {
 		}
 		if = {
 			limit = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				fascism_support_var = communism_support_var
@@ -1400,23 +1409,23 @@ add_ruling_to_fas = {
 		}
 		if = {
 			limit = {
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				fascism_support_var = democratic_support_var
@@ -1427,10 +1436,10 @@ add_ruling_to_fas = {
 			}
 		}
 		set_popularities = {
-			democratic = democratic_support_var
-			neutrality = neutrality_support_var
-			fascism = fascism_support_var
-			communism = communism_support_var
+			democratic_ideology = democratic_support_var
+			neutrality_ideology = neutrality_support_var
+			fascism_ideology = fascism_support_var
+			communism_ideology = communism_support_var
 		}
 	}
 }
@@ -1439,23 +1448,23 @@ add_ruling_to_com = {
 	hidden_effect = {
 		if = {
 			limit = {
-				has_government = neutrality
+				has_government = neutrality_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				communism_support_var = neutrality_support_var
@@ -1467,23 +1476,23 @@ add_ruling_to_com = {
 		}
 		if = {
 			limit = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				communism_support_var = fascism_support_var
@@ -1495,23 +1504,23 @@ add_ruling_to_com = {
 		}
 		if = {
 			limit = {
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				communism_support_var = democratic_support_var
@@ -1522,10 +1531,10 @@ add_ruling_to_com = {
 			}
 		}
 		set_popularities = {
-			democratic = democratic_support_var
-			neutrality = neutrality_support_var
-			fascism = fascism_support_var
-			communism = communism_support_var
+			democratic_ideology = democratic_support_var
+			neutrality_ideology = neutrality_support_var
+			fascism_ideology = fascism_support_var
+			communism_ideology = communism_support_var
 		}
 	}
 }
@@ -1534,23 +1543,23 @@ add_ruling_to_neu = {
 	hidden_effect = {
 		if = {
 			limit = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				neutrality_support_var = communism_support_var
@@ -1562,23 +1571,23 @@ add_ruling_to_neu = {
 		}
 		if = {
 			limit = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				neutrality_support_var = fascism_support_var
@@ -1590,23 +1599,23 @@ add_ruling_to_neu = {
 		}
 		if = {
 			limit = {
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 			set_variable = {
 				var = neutrality_support_var
-				value = party_popularity_100@neutrality
+				value = party_popularity_100@neutrality_ideology
 			}
 			set_variable = {
 				var = democratic_support_var
-				value = party_popularity_100@democratic
+				value = party_popularity_100@democratic_ideology
 			}
 			set_variable = {
 				var = communism_support_var
-				value = party_popularity_100@communism
+				value = party_popularity_100@communism_ideology
 			}
 			set_variable = {
 				var = fascism_support_var
-				value = party_popularity_100@fascism
+				value = party_popularity_100@fascism_ideology
 			}
 			add_to_variable = {
 				neutrality_support_var = democratic_support_var
@@ -1617,14 +1626,13 @@ add_ruling_to_neu = {
 			}
 		}
 		set_popularities = {
-			democratic = democratic_support_var
-			neutrality = neutrality_support_var
-			fascism = fascism_support_var
-			communism = communism_support_var
+			democratic_ideology = democratic_support_var
+			neutrality_ideology = neutrality_support_var
+			fascism_ideology = fascism_support_var
+			communism_ideology = communism_support_var
 		}
 	}
 }
-
 
 on_daily = {
 
@@ -1633,137 +1641,6 @@ on_daily = {
 #on_daily_USA = {
 #	# you can specify an on daily action for a specific country
 #}
-
-###Game weight variables for faction load balancing.
-###We store these on germany because ... we have to
-
-set_add_fascist_game_weight_large = {
-	DEU = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = fascist_game_weight
-				}
-			}
-			set_variable = { var = fascist_game_weight value = 20 }
-		}
-		else = {
-			add_to_variable = { var = fascist_game_weight value = 20 }
-		}
-	}
-}
-
-set_add_democratic_game_weight_large = {
-	DEU = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = democratic_game_weight
-				}
-			}
-			set_variable = { var = democratic_game_weight value = 20 }
-		}
-		else = {
-			add_to_variable = { var = democratic_game_weight value = 20 }
-		}
-	}
-}
-
-set_add_unaligned_game_weight_large = {
-	DEU = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = unaligned_game_weight
-				}
-			}
-			set_variable = { var = unaligned_game_weight value = 20 }
-		}
-		else = {
-			add_to_variable = { var = unaligned_game_weight value = 20 }
-		}
-	}
-}
-
-set_add_communist_weight_large = {
-	DEU = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = communist_game_weight
-				}
-			}
-			set_variable = { var = communist_game_weight value = 20 }
-		}
-		else = {
-			add_to_variable = { var = communist_game_weight value = 20 }
-		}
-	}
-}
-
-set_add_fascist_weight_small = {
-	DEU = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = fascist_game_weight
-				}
-			}
-			set_variable = { var = fascist_game_weight value = 8 }
-		}
-		else = {
-			add_to_variable = { var = fascist_game_weight value = 8 }
-		}
-	}
-}
-
-set_add_democratic_weight_small = {
-	DEU = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = democratic_game_weight
-				}
-			}
-			set_variable = { var = democratic_game_weight value = 8 }
-		}
-		else = {
-			add_to_variable = { var = democratic_game_weight value = 8 }
-		}
-	}
-}
-
-set_add_unaligned_weight_small = {
-	DEU = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = unaligned_game_weight
-				}
-			}
-			set_variable = { var = unaligned_game_weight value = 8 }
-		}
-		else = {
-			add_to_variable = { var = unaligned_game_weight value = 8 }
-		}
-	}
-}
-
-set_add_communist_weight_small = {
-	DEU = {
-		if = {
-			limit = {
-				NOT = {
-					has_variable = communist_game_weight
-				}
-			}
-			set_variable = { var = communist_game_weight value = 8 }
-		}
-		else = {
-			add_to_variable = { var = communist_game_weight value = 8 }
-		}
-	}
-}
 
 leave_the_league_of_nations = {
 	custom_effect_tooltip = leave_the_league_of_nations_tt
@@ -1804,6 +1681,7 @@ bba_get_fighter_GER_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "Fw 190"
 					type = small_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -1836,6 +1714,7 @@ bba_get_fighter_GER_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "Ta 152"
 					type = small_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_2_2x
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_4x
@@ -1890,10 +1769,11 @@ bba_get_cas_GER_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Ju 87 G"
 					type = small_plane_cas_airframe_1
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (basic frame), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = tank_buster_1
 						fixed_auxiliary_weapon_slot_1 = tank_buster_1
-						engine_type_slot = engine_2_1x
+						engine_type_slot = engine_3_1x #Increased tier due to thrust/weight issues
 						special_type_slot_1 = empty
 					}
 					icon = "GFX_GER_CAS2_medium"
@@ -1922,6 +1802,7 @@ bba_get_cas_GER_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Hs 129"
 					type = small_plane_cas_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = tank_buster_1
@@ -1976,6 +1857,7 @@ bba_get_tac_GER_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Ju 88"
 					type = medium_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = bomb_locks
@@ -2008,6 +1890,7 @@ bba_get_tac_GER_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Ju 388"
 					type = medium_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = medium_bomb_bay
@@ -2048,6 +1931,7 @@ bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "Me 110"
 					type = medium_plane_fighter_airframe_1
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -2084,6 +1968,7 @@ bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "Ju 88 C"
 					type = medium_plane_fighter_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -2117,6 +2002,7 @@ bba_get_heavy_fighter_GER_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "Me 410"
 					type = medium_plane_fighter_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -2173,6 +2059,7 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "Hawker Hurricane"
 					type = small_plane_airframe_1
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = light_mg_4x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -2208,6 +2095,7 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "Supermarine Spitfire"
 					type = small_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_4x
@@ -2240,6 +2128,7 @@ bba_get_fighter_ENG_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "Hawker Tempest"
 					type = small_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_2_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_2_2x
@@ -2278,6 +2167,7 @@ bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Fairey Battle"
 					type = small_plane_cas_airframe_1
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = small_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = bomb_locks
@@ -2313,6 +2203,7 @@ bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Hawker Typhoon"
 					type = small_plane_cas_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = rocket_rails
 						fixed_auxiliary_weapon_slot_1 = bomb_locks
@@ -2346,6 +2237,7 @@ bba_get_cas_ENG_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Hawker Tempest"
 					type = small_plane_cas_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_2_2x
@@ -2401,6 +2293,7 @@ bba_get_tac_ENG_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Bristol Beaufort"
 					type = medium_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = torpedo_mounting
@@ -2434,11 +2327,12 @@ bba_get_tac_ENG_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "DH Mosquito"
 					type = medium_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_2 = aircraft_cannon_1_2x
-						fixed_auxiliary_weapon_slot_3 = aircraft_cannon_1_2x
+						#fixed_auxiliary_weapon_slot_3 = aircraft_cannon_1_2x #Removed due to thrust/weight issues
 						engine_type_slot = engine_3_2x
 						special_type_slot_1 = non_strategic_materials_medium
 						special_type_slot_2 = fuel_tanks_medium
@@ -2475,6 +2369,7 @@ bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "Blenheim IF"
 					type = medium_plane_fighter_airframe_1
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = light_mg_4x
 						engine_type_slot = engine_2_2x
@@ -2509,6 +2404,7 @@ bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "Bristol Beaufighter"
 					type = medium_plane_fighter_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -2543,6 +2439,7 @@ bba_get_heavy_fighter_ENG_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "DH Mosquito"
 					type = medium_plane_fighter_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -2600,6 +2497,7 @@ bba_get_fighter_USA_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "P-39"
 					type = small_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_1x
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_4x
@@ -2632,6 +2530,7 @@ bba_get_fighter_USA_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "P-51"
 					type = small_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_4x
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_2x
@@ -2687,6 +2586,7 @@ bba_get_cas_USA_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "A-20"
 					type = small_plane_cas_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = small_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = small_bomb_bay
@@ -2719,6 +2619,7 @@ bba_get_cas_USA_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "A-26"
 					type = small_plane_cas_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = small_bomb_bay
@@ -2774,11 +2675,12 @@ bba_get_tac_USA_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "B-34" #aka Lockheed Ventura/Lockheed Hudson
 					type = medium_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = torpedo_mounting
 						fixed_auxiliary_weapon_slot_2 = empty
-						engine_type_slot = engine_2_2x
+						engine_type_slot = engine_3_2x #Increased tier due to thrust/weight issues
 						special_type_slot_1 = hmg_defense_turret
 					}
 					icon = "GFX_USA_medium_plane_2_medium"
@@ -2807,6 +2709,7 @@ bba_get_tac_USA_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "B-25"
 					type = medium_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = torpedo_mounting
@@ -2849,6 +2752,7 @@ bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "FM-2"
 					type = medium_plane_fighter_airframe_1
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						engine_type_slot = engine_2_2x
@@ -2883,6 +2787,7 @@ bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "FM-1"
 					type = medium_plane_fighter_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = light_mg_2x
@@ -2917,6 +2822,7 @@ bba_get_heavy_fighter_USA_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "P-61"
 					type = medium_plane_fighter_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -2972,6 +2878,7 @@ bba_get_fighter_ITA_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "Re.2000"
 					type = small_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_2x
 						fixed_auxiliary_weapon_slot_1 = empty
@@ -3003,6 +2910,7 @@ bba_get_fighter_ITA_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "Re.2005"
 					type = small_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3058,6 +2966,7 @@ bba_get_cas_ITA_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Ba.88"
 					type = small_plane_cas_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = small_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_2x
@@ -3090,6 +2999,7 @@ bba_get_cas_ITA_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Ro.57"
 					type = small_plane_cas_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3145,6 +3055,7 @@ bba_get_tac_ITA_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "SM.82"
 					type = medium_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = medium_bomb_bay
@@ -3179,6 +3090,7 @@ bba_get_tac_ITA_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "SM.84"
 					type = medium_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = torpedo_mounting
@@ -3221,6 +3133,7 @@ bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "SM.88"
 					type = medium_plane_fighter_airframe_1
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_4x
 						fixed_auxiliary_weapon_slot_1 = bomb_locks
@@ -3256,6 +3169,7 @@ bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "Ro.58"
 					type = medium_plane_fighter_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3290,11 +3204,12 @@ bba_get_heavy_fighter_ITA_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "SM.91"
 					type = medium_plane_fighter_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_2 = bomb_locks
-						fixed_auxiliary_weapon_slot_3 = aircraft_cannon_1_2x
+						#fixed_auxiliary_weapon_slot_3 = aircraft_cannon_1_2x #Removed due to thrust/weight issues
 						fixed_auxiliary_weapon_slot_4 = torpedo_mounting
 						engine_type_slot = engine_3_2x
 						special_type_slot_1 = empty
@@ -3346,6 +3261,7 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 			create_equipment_variant = {
 				name = "MS. 406" #
 				type = small_plane_airframe_1
+				allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 				modules = {
 					fixed_main_weapon_slot = light_mg_2x
 					fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_1x
@@ -3380,6 +3296,7 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "D.520" #
 					type = small_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = light_mg_4x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_1x
@@ -3412,6 +3329,7 @@ bba_get_fighter_FRA_effect = { #creates a fighter design if necessary and export
 				create_equipment_variant = {
 					name = "SE.580"
 					type = small_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = heavy_mg_4x
 						fixed_auxiliary_weapon_slot_1 = heavy_mg_2x
@@ -3465,6 +3383,7 @@ bba_get_cas_FRA_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "Br. 693" #
 					type = small_plane_cas_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = small_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_1x
@@ -3499,6 +3418,7 @@ bba_get_cas_FRA_effect = { #creates a CAS design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "MB. 174"
 					type = small_plane_cas_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = bomb_locks
 						fixed_auxiliary_weapon_slot_1 = small_bomb_bay
@@ -3553,6 +3473,7 @@ bba_get_tac_FRA_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "LeO 451" #
 					type = medium_plane_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = empty
@@ -3586,6 +3507,7 @@ bba_get_tac_FRA_effect = { #creates a tac design if necessary and exports a numb
 				create_equipment_variant = {
 					name = "NC.150"
 					type = medium_plane_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = medium_bomb_bay
 						fixed_auxiliary_weapon_slot_1 = medium_bomb_bay
@@ -3628,6 +3550,7 @@ bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "Potez 631" #
 					type = medium_plane_fighter_airframe_1
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = light_mg_4x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3663,6 +3586,7 @@ bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "SE.100"
 					type = medium_plane_fighter_airframe_2
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_1_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
@@ -3697,6 +3621,7 @@ bba_get_heavy_fighter_FRA_effect = { #creates a heavy_fighter design if necessar
 				create_equipment_variant = {
 					name = "SE.255" #fictional
 					type = medium_plane_fighter_airframe_3
+					allow_without_tech = yes #Makes no difference since effect requires appropriate tech (above), but it improves tooltip
 					modules = {
 						fixed_main_weapon_slot = aircraft_cannon_2_2x
 						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_2_2x
@@ -3914,5 +3839,300 @@ remove_any_country_role_from_character = { #Expected to be used inside the chara
 			is_character_slot = political_advisor
 		}
 		remove_advisor_role = { slot = political_advisor }
+	}
+}
+
+### Paratroopers
+SF_PARA_sabotage_effect = { #When changing this, update the research tooltip
+	damage_building = {
+		type = infrastructure
+		damage = 2
+	}
+	damage_building = {
+		type = industrial_complex
+		damage = 1
+	}
+	damage_building = {
+		type = arms_factory
+		damage = 1
+	}
+	set_state_flag = {
+		flag = para_drop_effect
+		days = 30
+	}
+}
+
+SF_PARA_combat_effect = { #When changing this, update the research tooltip
+	every_state_division = {
+		limit = { 
+			OWNER = { has_war_with = FROM }
+		}
+		set_unit_organization = 0.50
+	}
+	set_state_flag = {
+		flag = para_drop_effect
+		days = 30
+	}
+}
+
+### Muuuurrrriiinnnnneeeeessssss
+SF_marine_demoliton_effect = { #When changing this, update the research tooltip
+	damage_building = {
+		type = radar_station
+		damage = 1
+	}
+	damage_building = {
+		type = naval_base
+		damage = 1
+	}
+	damage_building = {
+		type = dockyard
+		damage = 1
+	}
+	damage_building = {
+		type = nuclear_reactor
+		damage = 1
+	}
+	damage_building = {
+		type = rocket_site
+		damage = 1
+	}
+	damage_building = {
+		type = fuel_silo
+		damage = 1
+	}
+	set_state_flag = {
+		flag = marines_commando_effect
+		days = 30
+	}
+}
+
+###########################################################################################
+###########################################################################################
+###########################################################################################
+
+							########    ###       ###    ######## 
+							   ##      ## ##     ## ##      ##    
+							   ##     ##   ##   ##   ##     ##    
+							   ##    ##     ## ##     ##    ##    
+							   ##    ######### #########    ##    
+							   ##    ##     ## ##     ##    ##    
+							   ##    ##     ## ##     ##    ##    
+
+###########################################################################################
+###########################################################################################
+###########################################################################################
+
+find_global_platonic_countries = { # Look for the countries that meet the best criteria for the different platonic countries we expect in HoI 
+	find_biggest_fascist = yes
+	find_biggest_democrat = yes
+	find_biggest_communist = yes
+	find_biggest_non_aligned = yes
+	find_biggest_fascist_bully = yes
+	find_best_democratic_ally_leader = yes
+	find_democratic_sleeping_giant = yes
+	find_local_dangerous_fascist = yes 
+}
+
+find_biggest_fascist_bully = { # Finds the biggest and/or meanest fascist country 
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_fascist_bully
+		scorer = fascist_bully_scorer
+	}
+}
+
+find_best_democratic_ally_leader = { # Finds the most suitable democratic_ideology country to lead a faction
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_democratic_ally_leader
+		scorer = democratic_faction_leader_scorer
+	}
+}
+
+find_democratic_sleeping_giant = { # Finds biggest desarmed democratic_ideology nation. Expected to be USA 
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_democratic_sleeping_giant
+		scorer = democratic_sleeping_giant_scorer
+	}
+}
+
+find_biggest_fascist = { # Finds Nazi Germany, or the closest to it 
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_big_fascist
+		scorer = fascist_major_scorer
+	}
+}
+
+find_biggest_democrat = { # Finds biggest Democratic Nation
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_big_democratic
+		scorer = democratic_major_scorer
+	}
+}
+
+find_biggest_communist = { # Finds biggest Communist
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_big_communist
+		scorer = communist_major_scorer
+	}
+}
+
+find_biggest_non_aligned = { # Finds biggest... anything else
+	get_highest_scored_country = {
+		var = GLOBAL.platonic_big_non_aligned
+		scorer = non_aligned_major_scorer
+	}
+}
+# There are ideology scorers for each continent. If you need more check the generic_platonic_scorers file and make a new scripted effect 
+
+find_local_dangerous_fascist = {
+	get_highest_scored_country = {
+		var = platonic_local_dangerous_fascist
+		scorer = local_fascist_country
+	}
+}
+
+# The idea is that you can use these effects to store the party popularities (and, if desired, the ruling party) when puppeting or possibly when starting civil wars, and then use the "restore" effects to reset it after the puppeting has happened, so that you don't have to use the overlord's ideology if you don't want to. 
+get_current_ideology_popularities = {
+	set_variable = { ROOT.communist_support_before_change = ROOT.party_popularity_100@communism_ideology }
+	set_variable = { ROOT.democratic_support_before_change = ROOT.party_popularity_100@democratic_ideology }
+	set_variable = { ROOT.fascist_support_before_change = ROOT.party_popularity_100@fascism_ideology }
+	set_variable = { ROOT.neutrality_support_before_change = ROOT.party_popularity_100@neutrality_ideology }
+}
+get_current_ruling_party = {
+	set_variable = { ROOT.ruling_ideology_before_change = ROOT.current_party_ideology_group }
+}
+restore_ideology_popularities = {
+	hidden_effect = {
+		# Reset popluarities to what they were before puppeting 
+		set_popularities = {
+			communism_ideology = ROOT.communist_support_before_change
+			democratic_ideology = ROOT.democratic_support_before_change
+			fascism_ideology = ROOT.fascist_support_before_change
+			neutrality_ideology = ROOT.neutrality_support_before_change
+		}
+		clear_variable = ROOT.communist_support_before_change
+		clear_variable = ROOT.democratic_support_before_change
+		clear_variable = ROOT.fascist_support_before_change
+		clear_variable = ROOT.neutrality_support_before_change
+	}
+}
+restore_ruling_party = {
+	ROOT = {
+		set_politics = {
+			ruling_party = var:ROOT.ruling_ideology_before_change
+		}
+	}
+}
+
+#Upgrades state cat to the next valid level. Called from state scope
+increase_state_category = {
+	if = {
+		limit = {
+			has_state_category = tiny_island
+		}
+		set_state_category = small_island
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+
+	if = {
+		limit = {
+			OR = {
+				has_state_category = wasteland
+				has_state_category = enclave
+			}
+		}
+		set_state_category = pastoral
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = pastoral
+		}
+		set_state_category = rural
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = rural
+		}
+		set_state_category = town
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 2
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = town
+		}
+		set_state_category = large_town
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = large_town
+		}
+		set_state_category = city
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+	else_if = {
+		limit = {
+			has_state_category = city
+		}
+		set_state_category = metropolis
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 4
+		}
+	}
+
+	else_if = {
+		limit = {
+			has_state_category = metropolis
+		} 
+		set_state_category = megalopolis
+		effect_tooltip = {
+			add_extra_state_shared_building_slots = 2
+		}
+	}
+}
+
+add_potential_special_forces_tree = {
+	custom_effect_tooltip = add_potential_special_forces_tree_tt
+	if = {
+		limit = { NOT = { has_variable = sf_trees } }
+		set_variable = { sf_trees = 2 }
+	}
+	else = {
+		add_to_variable = { sf_trees = 1 }
+	}
+}
+
+remove_potential_special_forces_tree = {
+	if = {
+		limit = { NOT = { has_variable = sf_trees } }
+		set_variable = { sf_trees = 0 }
+	}
+	else = {
+		subtract_from_variable = { sf_trees = 1 }
+	}
+}
+
+store_core_states_on_game_start = { #Should be called from history file
+	every_core_state = {
+		ROOT = {
+			add_to_array = {
+				array = core_states_at_game_start
+				value = PREV
+			}
+		}
 	}
 }

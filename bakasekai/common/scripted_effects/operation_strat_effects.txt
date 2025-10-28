@@ -16,7 +16,6 @@ update_operation_ai = {
 		set_variable = { generic_operation_target = 0 }
 	}
 
-
 	# pick an operation target
 	get_highest_scored_country = {
 		scorer = ai_generic_operation_target_scorer
@@ -132,7 +131,7 @@ update_operation_ai = {
 					limit = { 
 						PREV = {
 							NOT = { tag = GBR } # GBR already does it against DEU
-							NOT = { has_government = fascism } 
+							NOT = { has_government = fascism_ideology } 
 							NOT = {
 								has_operation_token = {
 									tag = var:generic_operation_target
@@ -140,7 +139,7 @@ update_operation_ai = {
 								}
 							}
 						}
-						has_government = fascism
+						has_government = fascism_ideology
 						check_variable = { occupied_countries^num > 0 }
 						has_added_tension_amount > 20
 					}

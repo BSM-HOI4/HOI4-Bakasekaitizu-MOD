@@ -1,0 +1,156 @@
+# common/scripted_effects/bsm_custom_effects.txt
+
+#===========================================================
+# BSM - Division Spawning Effects (Managed by ROOT.POP_Division_count, with dynamic template creation)
+#===========================================================
+
+# 歩兵師団テンプレートを定義し、ランダムな支配済みステートにROOT.POP_Division_countの数だけ出現させる
+# Usage: ROOT (実行する国家)
+# ROOT.POP_Division_count 変数に事前に師団数をセットしておくこと
+pop_infantry_random_owned_state_v3 = {
+    # --- BSM歩兵師団テンプレート定義 ---
+    # このテンプレートは、このエフェクトが実行されるたびに評価されます。
+    # 既に同名のテンプレートが存在する場合、Hoi4の挙動としては通常、既存のものが使用されるか、
+    # 問題なく動作しますが、念のためユニークなテンプレート名にしておくことを推奨します。
+    # ここでは "BSM Infantry Division" としています。
+    division_template = {
+        name = "歩兵師団" # ゲーム内で表示されるテンプレート名
+        # division_names_group = generic_infantry_01 # 師団名の自動生成グループ (任意)
+
+        # --- 連隊 (Regiments) ---
+        # x, y は師団編成画面での位置を示します (0から開始)
+        # 例: 7個歩兵大隊
+        regiments = {
+            infantry = { x = 0 y = 0 }
+            infantry = { x = 0 y = 1 }
+            infantry = { x = 0 y = 2 }
+            infantry = { x = 1 y = 0 }
+            infantry = { x = 1 y = 1 }
+            infantry = { x = 1 y = 2 }
+            infantry = { x = 2 y = 0 }
+        }
+
+        # --- 支援中隊 (Support Companies) ---
+        # 例: 工兵中隊と支援砲兵中隊
+        support = {
+            engineer = { x = 0 y = 0 }
+            artillery = { x = 1 y = 0 }
+            # recon = { x = 2 y = 0 } # 必要に応じて追加
+            # logistics_company = { x = 3 y = 0 } # 必要に応じて追加
+            # field_hospital = { x = 4 y = 0 } # 必要に応じて追加
+        }
+        # template_counter = 0 # アイコンの指定 (任意)
+        # priority = 0 # 充足優先度 (任意)
+    } # --- BSM歩兵師団テンプレート定義ここまで ---
+
+    if = {
+        limit = {
+            check_variable = { ROOT.POP_Division_count > 0 }
+        }
+        for_loop_effect = {
+            start = 1
+            end = ROOT.POP_Division_count
+            compare = less_than_or_equals
+            add = 1
+            value = loop_counter
+
+            random_owned_controlled_state = {
+                # limit = {
+                #     # 必要であればここにステートを絞り込むトリガーを追加できます
+                # }
+                create_unit = {
+                    division = "name = \"歩兵\" division_template = \"歩兵師団\" start_experience_factor = 0.3 start_equipment_factor = 0.7" # 作成したテンプレート名を指定
+                    owner = ROOT
+                }
+            }
+        }
+    }
+}
+
+# 騎兵師団テンプレートを定義し、ランダムな支配済みステートにROOT.POP_Division_countの数だけ出現させる
+pop_cavalry_random_owned_state_v3 = {
+    # --- BSM騎兵師団テンプレート定義 ---
+    division_template = {
+        name = "騎兵師団"
+        # division_names_group = generic_cavalry_01 # 任意
+
+        # 例: 4個騎兵大隊
+        regiments = {
+            cavalry = { x = 0 y = 0 }
+            cavalry = { x = 0 y = 1 }
+            cavalry = { x = 1 y = 0 }
+            cavalry = { x = 1 y = 1 }
+        }
+        # 例: 偵察中隊
+        support = {
+            recon = { x = 0 y = 0 }
+            # engineer = { x = 1 y = 0 } # 必要に応じて追加
+        }
+    } # --- BSM騎兵師団テンプレート定義ここまで ---
+
+    if = {
+        limit = {
+            check_variable = { ROOT.POP_Division_count > 0 }
+        }
+        for_loop_effect = {
+            start = 1
+            end = ROOT.POP_Division_count
+            compare = less_than_or_equals
+            add = 1
+            value = loop_counter
+
+            random_owned_controlled_state = {
+                limit = {
+                    # 必要であればここにステートを絞り込むトリガーを追加できます
+                }
+                create_unit = {
+                    division = "name = \"騎兵\" division_template = \"騎兵師団\" start_experience_factor = 0.3 start_equipment_factor = 0.7" # 作成したテンプレート名を指定
+                    owner = ROOT
+                }
+            }
+        }
+    }
+}
+
+# 歩兵師団テンプレートを定義し、首都ステートにROOT.POP_Division_countの数だけ出現させる
+pop_infantry_capital_state_v3 = {
+    # --- BSM歩兵師団テンプレート定義 (上記pop_infantry_random_owned_state_v3と同様のものを再利用できますが、ここでは明確化のため再記述) ---
+    division_template = {
+        name = "歩兵師団" # pop_infantry_random_owned_state_v3 と同じ名前でも、実行時に評価されるため問題ありません
+        # division_names_group = generic_infantry_01
+
+        regiments = {
+            infantry = { x = 0 y = 0 }
+            infantry = { x = 0 y = 1 }
+            infantry = { x = 0 y = 2 }
+            infantry = { x = 1 y = 0 }
+            infantry = { x = 1 y = 1 }
+            infantry = { x = 1 y = 2 }
+            infantry = { x = 2 y = 0 }
+        }
+        support = {
+            engineer = { x = 0 y = 0 }
+            artillery = { x = 1 y = 0 }
+        }
+    } # --- BSM歩兵師団テンプレート定義ここまで ---
+
+    if = {
+        limit = {
+            check_variable = { ROOT.POP_Division_count > 0 }
+        }
+        for_loop_effect = {
+            start = 1
+            end = ROOT.POP_Division_count
+            compare = less_than_or_equals
+            add = 1
+            value = loop_counter
+
+            capital_scope = {
+                create_unit = {
+                    division = "name = \"歩兵\" division_template = \"歩兵師団\" start_experience_factor = 0.3 start_equipment_factor = 0.7" # 作成したテンプレート名を指定
+                    owner = ROOT
+                }
+            }
+        }
+    }
+}

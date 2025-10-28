@@ -1,0 +1,296 @@
+infantry_continental = {
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = infantry
+    upgrade_prio = {
+        factor = 7
+    }
+    infantry_early = {
+        upgrade_prio = {
+            factor = 2
+        }
+        target_template = {
+            support = {
+                engineer = 1
+                recon = 1
+                logistics_company = 1
+                anti_air = 1
+                artillery = 1
+            }
+            regiments = {
+                infantry = 9
+                artillery_brigade = 1
+            }
+        }
+        replace_at_match = 1.5
+        replace_with = infantry_mid
+        target_min_match = 0.9
+    }
+    infantry_mid = {
+        upgrade_prio = {
+            factor = 2
+        }
+        target_template = {
+            support = {
+                engineer = 1
+                recon = 1
+                logistics_company = 1
+                anti_air = 1
+                anti_tank = 1 # 修正: anti_k -> anti_tank
+                artillery = 1
+            }
+            regiments = {
+                infantry = 9
+                artillery_brigade = 2
+            }
+        }
+    }
+} # infantry_continental の閉じ括弧を追加
+
+garrison_continental = {
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = garrison
+    upgrade_prio = {
+        factor = 1
+    }
+    garrison_default = {
+        reinforce_prio = 0
+        custom_icon = 7
+        upgrade_prio = {
+            factor = 2
+        }
+        target_template = {
+            support = { engineer = 1 }
+            regiments = { infantry = 4 }
+        }
+    }
+} # garrison_continental の閉じ括弧を追加
+
+suppression_continental = {
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = suppression
+    upgrade_prio = {
+        factor = 1
+    }
+    suppression_default = {
+        reinforce_prio = 0
+        custom_icon = 13
+        upgrade_prio = {
+            factor = 2
+        }
+        target_template = {
+            support = { military_police = 1 }
+            regiments = { cavalry = 4 }
+        }
+    }
+} # suppression_continental の閉じ括弧を追加
+
+mountaineers_continental = {
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = mountaineers
+    upgrade_prio = {
+        factor = 2
+    }
+    mountaineers_default = {
+        upgrade_prio = {
+            factor = 1
+        }
+        target_template = {
+            support = {
+                engineer = 1
+                artillery = 1
+                anti_tank = 1 # 修正: anti_k -> anti_tank
+                logistics_company = 1
+            }
+            regiments = {
+                mountaineers = 8
+                artillery_brigade = 2
+            }
+        }
+    }
+} # mountaineers_continental の閉じ括弧を追加
+
+marines_continental = {
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = marines
+    upgrade_prio = {
+        factor = 2
+    }
+    marine_default = {
+        upgrade_prio = {
+            factor = 1
+        }
+        target_template = {
+            support = {
+                recon = 1
+                logistics_company = 1
+            }
+            regiments = {
+                marine = 9
+            }
+        }
+    }
+    marine_armored = {
+        upgrade_prio = {
+            factor = 3
+        }
+        target_template = {
+            support = {
+                recon = 1
+                logistics_company = 1
+                engineer = 1
+            }
+            regiments = {
+                amphibious_armor = 4
+                amphibious_mechanized = 6
+            }
+        }
+    }
+} # marines_continental の閉じ括弧を追加
+
+paratrooper_continental = {
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = paratroopers
+    upgrade_prio = {
+        factor = 2
+        modifier = {
+            factor = 0
+            NOT = {
+                has_tech = paratroopers
+            }
+        }
+    }
+    paratrooper_default = {
+        upgrade_prio = {
+            factor = 1
+        }
+        target_template = {
+            support = {
+                engineer = 1
+                artillery = 1
+            }
+            regiments = {
+                paratrooper = 8
+            }
+        }
+    }
+} # paratrooper_continental の閉じ括弧を追加
+
+# 2つ目のparatrooper_continentalブロックの前に余分なavailable_for行があったため削除しました。
+# また、重複するAIテンプレートの定義は削除します。
+# 意図として、別のAIテンプレートの定義であれば、別のブロックとして記述する必要があります。
+
+paratrooper_continental_alt = { # テンプレート名を変更し、重複を避ける
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = paratroopers
+    upgrade_prio = {
+        factor = 2
+    }
+    paratrooper_default = {
+        upgrade_prio = {
+            factor = 1
+        }
+        target_template = {
+            support = {
+                engineer = 1
+                artillery = 1
+                anti_tank = 1 # 修正: anti_k -> anti_tank
+            }
+            regiments = {
+                paratrooper = 9
+            }
+        }
+    }
+} # paratrooper_continental_alt の閉じ括弧を追加
+
+cavalry_continental = {
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = cavalry
+    upgrade_prio = {
+        factor = 4
+    }
+    cavalry_default = {
+        upgrade_prio = {
+            factor = 2
+        }
+        target_template = {
+            support = {
+                recon = 1
+                engineer = 1
+            }
+            regiments = {
+                cavalry = 8
+                artillery_brigade = 2
+            }
+        }
+    }
+} # cavalry_continental の閉じ括弧を追加
+
+armor_continental = {
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = armor
+    upgrade_prio = {
+        factor = 5
+    }
+    medium_armor_early = {
+        upgrade_prio = {
+            factor = 2
+        }
+        target_template = {
+            support = {
+                engineer = 1
+                mot_recon = 1
+                maintenance_company = 1
+                logistics_company = 1
+            }
+            regiments = {
+                medium_armor = 4
+                motorized = 4
+                artillery_brigade = 2
+            }
+        }
+        replace_at_match = 1.5
+        replace_with = medium_armor_mid
+        target_min_match = 0.5
+    }
+    medium_armor_mid = {
+        upgrade_prio = {
+            factor = 2
+        }
+        target_template = {
+            support = {
+                engineer = 1
+                mot_recon = 1
+                maintenance_company = 1
+                logistics_company = 1
+            }
+            regiments = {
+                medium_armor = 6
+                motorized = 4
+                artillery_brigade = 2
+            }
+        }
+    }
+} # armor_continental の閉じ括弧を追加
+
+artillery_continental = {
+    available_for = { RUS CHI PRC MAN YUN XSM SHX GXC SIK  TIB MON MME  }
+    role = artillery
+    upgrade_prio = {
+        factor = 4
+    }
+    artillery_default = {
+        upgrade_prio = {
+            factor = 2
+        }
+        target_template = {
+            support = {
+                engineer = 1
+                logistics_company = 1
+            }
+            regiments = {
+                artillery_brigade = 6
+                infantry = 3
+            }
+        }
+    }
+} # artillery_continental の閉じ括弧を追加

@@ -52,28 +52,30 @@ JAP_intervene_in_china = {
 	}
 	# JAP_ichi_go = {
 	# 	icon = jap_conquer_china
-	# 	# available = {	
-	# 	# 	event_target:WTT_current_china_leader = {
-	# 	# 		has_capitulated = no
-	# 	# 		exists = yes
-	# 	# 	}
-	# 	# }
-	# 	# visible = {
-	# 	# 	has_completed_focus = JAP_secure_china
-	# 	# 	any_enemy_country = {
-	# 	# 		is_literally_china = yes
-	# 	# 	}
-	# 	# 	event_target:WTT_current_china_leader = {
-	# 	# 		NOT = { is_puppet_of = JPN }
-	# 	# 	}
-	# 	# }
+	# 	available = {
+	# 		event_target:WTT_current_china_leader = {
+	# 			has_capitulated = no
+	# 			exists = yes
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		# has_completed_focus = JAP_secure_china
+	# 		any_enemy_country = {
+	# 			is_literally_china = yes
+	# 		}
+	# 		event_target:WTT_current_china_leader = {
+	# 			NOT = {
+	# 				is_puppet_of = JPN
+	# 			}
+	# 		}
+	# 	}
 	# 	fire_only_once = yes
 	# 	ai_will_do = {
 	# 		factor = 1
 	# 		modifier = {
 	# 			is_historical_focus_on = yes
 	# 			date < 1944.1.1
-	# 			controls_state = 609 #East Heibei, to ensure that Japan hasn't been kicked off the mainland
+	# 			controls_state = 609				#East Heibei, to ensure that Japan hasn't been kicked off the mainland
 	# 			factor = 0
 	# 		}
 	# 	}
@@ -85,7 +87,9 @@ JAP_intervene_in_china = {
 	# 					has_war = no
 	# 				}
 	# 			}
-	# 			USA = { add_war_support = 0.1 }
+	# 			USA = {
+	# 				add_war_support = 0.1
+	# 			}
 	# 		}
 	# 		add_ideas = JAP_ichi_go
 	# 		activate_mission_tooltip = JAP_conquer_china
@@ -139,7 +143,7 @@ JAP_pacific_guardian = {
 		fire_only_once = yes
 		is_good = no
 		activation = {
-			has_completed_focus = JAP_the_korean_question
+			# has_completed_focus = JAP_the_korean_question
 			has_full_control_of_state = 525
 			has_full_control_of_state = 527
 			KOR = {
@@ -159,7 +163,7 @@ JAP_pacific_guardian = {
 			HOL = {
 				#has_capitulated = yes
 			}
-			"INS" = {
+			"IDN" = {
 				is_puppet_of = HOL
 			}
 		}
@@ -173,11 +177,11 @@ JAP_pacific_guardian = {
 			factor = 1
 		}
 		complete_effect = {
-			HOL = {
-				country_event = {
-					id = wtt_japan.1
-				}
-			}
+			# HOL = {
+			# 	country_event = {
+			# 		id = wtt_japan.1
+			# 	}
+			# }
 		}
 	}
 	JAP_guardian_of_MAL = {
@@ -200,11 +204,11 @@ JAP_pacific_guardian = {
 			factor = 1
 		}
 		complete_effect = {
-			GBR = {
-				country_event = {
-					id = wtt_japan.1
-				}
-			}
+			# GBR = {
+			# 	country_event = {
+			# 		id = wtt_japan.1
+			# 	}
+			# }
 		}
 	}
 	JAP_guardian_of_indochina = {
@@ -230,230 +234,245 @@ JAP_pacific_guardian = {
 			factor = 1
 		}
 		complete_effect = {
-			FRA = {
-				country_event = {
-					id = wtt_japan.1
+			# FRA = {
+			# 	country_event = {
+			# 		id = wtt_japan.1
+			# 	}
+			# }
+		}
+	}
+}
+
+JAP_colonial_independence = {
+	JAP_return_manchuria = {
+		icon = generic_independence
+		allowed = {
+			original_tag = JPN
+		}
+		available = {
+			609 = {
+				is_fully_controlled_by = controller
+				CONTROLLER = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			610 = {
+				is_fully_controlled_by = controller
+				CONTROLLER = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			716 = {
+				is_fully_controlled_by = controller
+				CONTROLLER = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			715 = {
+				is_fully_controlled_by = controller
+				CONTROLLER = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			328 = {
+				is_fully_controlled_by = controller
+				CONTROLLER = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			717 = {
+				is_fully_controlled_by = controller
+				CONTROLLER = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			714 = {
+				is_fully_controlled_by = controller
+				CONTROLLER = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+		}
+		visible = {
+			# has_completed_focus = JAP_liberate_manchuria
+			609 = {
+				owner = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			610 = {
+				owner = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			716 = {
+				owner = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			715 = {
+				owner = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			328 = {
+				owner = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			717 = {
+				owner = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+			714 = {
+				owner = {
+					OR = {
+						is_puppet_of = JPN
+						original_tag = JPN
+					}
+				}
+			}
+		}
+		fire_only_once = yes
+		modifier = {
+		}
+		days_remove = 0
+		days_re_enable = 0
+		cost = 0
+		ai_will_do = {
+			factor = 1
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					country_exists = event_target:WTT_current_china_leader
+				}
+				event_target:WTT_current_china_leader = {
+					transfer_state = 609
+					transfer_state = 610
+					transfer_state = 716
+					transfer_state = 715
+					transfer_state = 328
+					transfer_state = 717
+					transfer_state = 714
+					transfer_state = 761
+					transfer_state = 745
+					transfer_state = 612
+					transfer_state = 611
+					# country_event = {
+					# 	id = wtt_japan.101
+					# 	days = 1
+					# }
+					custom_effect_tooltip = JAP_liberate_manchuria_alliance_tt
+				}
+			}
+			if = {
+				limit = {
+					country_exists = event_target:WTT_communist_china
+					NOT = {
+						country_exists = event_target:WTT_current_china_leader
+					}
+				}
+				event_target:WTT_communist_china = {
+					transfer_state = 609
+					transfer_state = 610
+					transfer_state = 716
+					transfer_state = 715
+					transfer_state = 328
+					transfer_state = 717
+					transfer_state = 714
+					transfer_state = 761
+					transfer_state = 745
+					transfer_state = 612
+					transfer_state = 611
+					# country_event = {
+					# 	id = wtt_japan.101
+					# 	days = 1
+					# }
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						country_exists = event_target:WTT_communist_china
+					}
+					NOT = {
+						country_exists = event_target:WTT_current_china_leader
+					}
+				}
+				random_other_country = {
+					limit = {
+						OR = {
+							original_tag = GXC
+							original_tag = YUN
+							original_tag = XSM
+							original_tag = SIK
+							original_tag = SHX
+							original_tag = MEN
+						}
+						NOT = {
+							has_government = communism_ideology
+							has_government = fascism_ideology
+						}
+					}
+					transfer_state = 609
+					transfer_state = 610
+					transfer_state = 716
+					transfer_state = 715
+					transfer_state = 328
+					transfer_state = 717
+					transfer_state = 714
+					transfer_state = 761
+					transfer_state = 745
+					transfer_state = 612
+					transfer_state = 611
+					# country_event = {
+					# 	id = wtt_japan.101
+					# 	days = 1
+					# }
+					custom_effect_tooltip = JAP_liberate_manchuria_alliance_tt
 				}
 			}
 		}
 	}
 }
-
-# JAP_colonial_independence = {
-# 	JAP_return_manchuria = {
-# 		icon = generic_independence
-# 		allowed = {
-# 			original_tag = JPN
-# 		}
-# 		available = {
-# 			609 = {
-# 				is_fully_controlled_by = controller
-# 				CONTROLLER = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			610 = {
-# 				is_fully_controlled_by = controller
-# 				CONTROLLER = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			716 = {
-# 				is_fully_controlled_by = controller
-# 				CONTROLLER = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			715 = {
-# 				is_fully_controlled_by = controller
-# 				CONTROLLER = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			328 = {
-# 				is_fully_controlled_by = controller
-# 				CONTROLLER = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			717 = {
-# 				is_fully_controlled_by = controller
-# 				CONTROLLER = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			714 = {
-# 				is_fully_controlled_by = controller
-# 				CONTROLLER = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 		}
-# 		visible = {
-# 			has_completed_focus = JAP_liberate_manchuria
-# 			609 = {
-# 				owner = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			610 = {
-# 				owner = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			716 = {
-# 				owner = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			715 = {
-# 				owner = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			328 = {
-# 				owner = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			717 = {
-# 				owner = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 			714 = {
-# 				owner = {
-# 					OR = {
-# 						is_puppet_of = JPN
-# 						original_tag = JPN
-# 					}
-# 				}
-# 			}
-# 		}
-# 		fire_only_once = yes
-# 		modifier = {
-# 		}
-# 		days_remove = 0
-# 		days_re_enable = 0
-# 		cost = 0
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 		complete_effect = {
-# 			if = {
-# 				limit = {
-# 					country_exists = event_target:WTT_current_china_leader
-# 				}
-# 				event_target:WTT_current_china_leader = { 
-# 					transfer_state = 609
-# 					transfer_state = 610
-# 					transfer_state = 716
-# 					transfer_state = 715
-# 					transfer_state = 328
-# 					transfer_state = 717
-# 					transfer_state = 714
-# 					transfer_state = 761
-# 					transfer_state = 745
-# 					transfer_state = 612
-# 					transfer_state = 611
-# 					country_event = { id = wtt_japan.101 days = 1 }
-# 					custom_effect_tooltip = JAP_liberate_manchuria_alliance_tt
-# 				}
-# 			}
-# 			if = {
-# 				limit = {
-# 					country_exists = event_target:WTT_communist_china
-# 					NOT = { country_exists = event_target:WTT_current_china_leader }
-# 				}
-# 				event_target:WTT_communist_china = { 
-# 					transfer_state = 609
-# 					transfer_state = 610
-# 					transfer_state = 716
-# 					transfer_state = 715
-# 					transfer_state = 328
-# 					transfer_state = 717
-# 					transfer_state = 714
-# 					transfer_state = 761
-# 					transfer_state = 745
-# 					transfer_state = 612
-# 					transfer_state = 611
-# 					country_event = { id = wtt_japan.101 days = 1 }
-# 				}
-# 			}
-# 			if = {
-# 				limit = {
-# 					NOT = { country_exists = event_target:WTT_communist_china }
-# 					NOT = { country_exists = event_target:WTT_current_china_leader }
-# 				}
-# 				random_other_country = {
-# 					limit = {
-# 						OR = {
-# 							original_tag = GXC
-# 							original_tag = YUN
-# 							original_tag = XSM
-# 							original_tag = SIK
-# 							original_tag = SHX
-# 							original_tag = MEN
-# 						}
-# 						NOT = {
-# 							has_government = communism
-# 							has_government = fascism
-# 						}
-# 					}
-# 					transfer_state = 609
-# 					transfer_state = 610
-# 					transfer_state = 716
-# 					transfer_state = 715
-# 					transfer_state = 328
-# 					transfer_state = 717
-# 					transfer_state = 714
-# 					transfer_state = 761
-# 					transfer_state = 745
-# 					transfer_state = 612
-# 					transfer_state = 611
-# 					country_event = { id = wtt_japan.101 days = 1 }
-# 					custom_effect_tooltip = JAP_liberate_manchuria_alliance_tt
-# 				}
-# 			}
-# 		}
-# 	}
-# }

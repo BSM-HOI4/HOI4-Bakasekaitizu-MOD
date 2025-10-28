@@ -1,0 +1,112 @@
+LON_respond_battle_crisis_category = { # このブロックがカテゴリーとして機能する
+
+    # icon と picture はカテゴリーブロックの直下に配置
+    # icon = GFX_decision_category_generic_crisis # カテゴリーのアイコン
+    # picture = GFX_decision_cat_picture_crisis # カテゴリーの大きな画像
+
+    LON_respond_to_bank_crisis_1 = {
+        icon = GFX_decision_empty # 空のアイコン
+        cost = 50
+        available = {
+            has_idea = LON_economic_downturn
+            has_political_power > 50 # 修正
+        }
+        complete_effect = {
+            add_political_power = -50
+            add_stability = 0.05
+            add_war_support = 0.03
+            remove_ideas = LON_economic_downturn
+            add_ideas = LON_economic_recovery_effort # 回復努力アイデア
+        }
+        ai_will_do = {
+            factor = 10
+        }
+    }
+
+    LON_respond_to_bank_crisis_2 = {
+        icon = GFX_decision_empty # 空のアイコン
+        cost = 75
+        available = {
+            has_idea = LON_economic_downturn
+            has_political_power > 75 # 修正
+            has_country_flag = LON_bank_crisis_step_1_completed
+        }
+        complete_effect = {
+            add_political_power = -75
+            add_stability = 0.10
+            add_war_support = 0.05
+            add_offsite_building = { type = civilian_factory level = 1 } # 修正
+            remove_ideas = LON_economic_recovery_effort
+            add_ideas = LON_strong_economic_measures # 強力な経済対策アイデア
+            # 経済危機が収束に向かうにつれて通貨収入補正を元に戻す
+            # LON_currency_crisis_factor は通常変数として global.LON_currency_crisis_factor のように定義されるべき
+            # ここでは単に set_variable で値を設定
+            set_variable = { LON_currency_crisis_factor = 0 } 
+        }
+        ai_will_do = {
+            factor = 8
+        }
+    }
+}
+
+LON_infrastructure_category = { # このブロックがカテゴリーとして機能する
+    # icon はカテゴリーブロックの直下に配置
+    # icon = GFX_decision_category_generic_industry # カテゴリーのアイコン
+    
+    LON_repair_london_bridge_minor = {
+        icon = GFX_decision_empty
+        cost = 25
+        available = {
+            # check_variable は var = 変数名 の形式か、省略形式で直接比較する
+            # 今回は省略形式で、直接比較 `変数名 > 値` の形式を使用
+            check_variable = { var = LON_london_bridge_condition compare = greater_than value = 0 }
+            check_variable = { var = LON_london_bridge_condition compare = less_than_or_equals value = 50 }
+        }
+        complete_effect = { 
+            # 一時変数は temp_variable の形式で定義し、参照時は var: は不要
+            set_temp_variable = { temp_repair_amount = 20 }
+            # 変数の減算も `変数名 = 値` の省略形式を使用
+            subtract_from_variable = { LON_london_bridge_condition = temp_repair_amount }
+            clamp_variable = { var = LON_london_bridge_condition min = 0 }
+            add_political_power = -25
+            add_stability = 0.02
+            clr_country_flag = LON_bridge_critical_warning_sent # 警告フラグをクリア
+        }
+        ai_will_do = {
+            factor = 5
+            modifier = {
+                factor = 1.5
+                check_variable = { var = LON_london_bridge_condition compare = greater_than value = 20 }
+            }
+        }
+    }
+
+    LON_repair_london_bridge_major = {
+        icon = GFX_decision_empty
+        cost = 50
+        available = {
+            check_variable = { var = LON_london_bridge_condition compare = greater_than value = 50 }
+        }
+        complete_effect = {
+            set_temp_variable = { temp_repair_amount = 50 }
+            subtract_from_variable = { LON_london_bridge_condition = temp_repair_amount }
+            clamp_variable = { var = LON_london_bridge_condition min = 0 }
+            add_political_power = -50
+            add_stability = 0.05
+            add_war_support = 0.02
+            add_offsite_building = { type = civilian_factory level = -1 } # 修正: 大規模修理で一時的に工場を減らす
+            clr_country_flag = LON_bridge_critical_warning_sent # 警告フラグをクリア
+        }
+        remove_effect = { # タイマー終了時の効果（90日後）
+            add_offsite_building = { type = civilian_factory level = 1 } # 修正: 工場を返還
+        }
+        days_remove = 90 # 90日間工事
+        ai_will_do = {
+            factor = 8
+            modifier = {
+                factor = 2
+                check_variable = { var = LON_london_bridge_condition compare = greater_than value = 70 }
+            }
+        }
+    }
+}

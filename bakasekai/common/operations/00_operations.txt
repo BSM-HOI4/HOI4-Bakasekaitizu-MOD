@@ -11,7 +11,6 @@ operation_rescue_operative = { ### 0 1/35
 	priority = 0
 	prevent_captured_operative_to_die = yes
 
-
 	days = 35
 	network_strength = 30
 	operatives = 1
@@ -31,7 +30,6 @@ operation_rescue_operative = { ### 0 1/35
 			has_captured_operative = ROOT
 		}
 	}
-
 
 	equipment = {
 		
@@ -1023,7 +1021,7 @@ operation_coup_government = { ### 7 1/70
 			target = FROM
 			value > 35
 		}
-		NOT = { has_completed_focus = SPR_regional_defense_council_of_aragon }
+		# NOT = { has_completed_focus = SPR_regional_defense_council_of_aragon }
 	}
 
 	equipment = {
@@ -1054,27 +1052,27 @@ operation_coup_government = { ### 7 1/70
 			}
 			if = {
 				limit = {
-					PREV.ROOT = { has_government = fascism }
+					PREV.ROOT = { has_government = fascism_ideology }
 				}
-				fascism > 0.2
+				fascism_ideology > 0.2
 			}
 			if = {
 				limit = {
-					PREV.ROOT = { has_government = communism }
+					PREV.ROOT = { has_government = communism_ideology }
 				}
-				communism > 0.2
+				communism_ideology > 0.2
 			}
 			if = {
 				limit = {
-					PREV.ROOT = { has_government = democratic }
+					PREV.ROOT = { has_government = democratic_ideology }
 				}
-				democratic > 0.2
+				democratic_ideology > 0.2
 			}
 			if = {
 				limit = {
-					PREV.ROOT = { has_government = neutrality }
+					PREV.ROOT = { has_government = neutrality_ideology }
 				}
-				neutrality > 0.2
+				neutrality_ideology > 0.2
 			}
 				#set_temp_variable = { coup_ideology@ROOT = PREV.ROOT.current_party_ideology_group }
 				#set_temp_variable = { coup_ideology_popularity@ROOT = party_popularity@ROOT.coup_ideology }
@@ -1604,7 +1602,6 @@ operation_collaboration_government = { ### 10 2/55
 		}
 	}
 
-
 	allowed = {
 		has_rule = can_create_collaboration_government
 	}
@@ -1984,7 +1981,6 @@ operation_targeted_sabotage_industry = { ### 13 3/35
 			value > 0
 		}
 
-
 		has_operation_token = {
 			tag = FROM
 			token = token_resistance_contacts
@@ -2248,7 +2244,6 @@ operation_targeted_sabotage_resources = { ### 15 3/35
 			target = FROM
 			value > 0
 		}
-
 
 		has_operation_token = {
 			tag = FROM

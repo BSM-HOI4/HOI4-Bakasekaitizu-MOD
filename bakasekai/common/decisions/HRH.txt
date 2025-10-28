@@ -1,0 +1,72 @@
+HRH_decisions = { # このブロックがカテゴリーとして機能する
+
+    HRH_government_rebuilding = { # これはディシジョンであると仮定
+        allowed = {
+            tag = HRH # 常にHRHのみに表示
+        }
+        visible = {
+            # 例: 何らかの条件
+            always = yes 
+        }
+        cost = 25 # コストを設定
+        complete_effect = {
+            add_political_power = 25
+            # その他の効果
+        }
+        ai_will_do = {
+            factor = 5
+        }
+    }
+
+    HRH_recapture_neighborhood = {
+        # allowed, visible はディシジョン自体の条件
+        allowed = {
+            original_tag = HRH
+        }
+        visible = {
+            has_country_flag = HRH_recapture_started # フラグがある場合に表示
+        }
+        fire_only_once = yes
+        cost = 50
+        ai_will_do = {
+            factor = 7
+        }
+        days_remove = 30 # 30日間有効
+        remove_effect = { # タイマー終了時の効果
+            random_list = {
+                70 = {
+                    add_manpower = -10
+                    884 = { # 州IDが884の州
+                        transfer_state_to = HRH
+                    }
+                    set_country_flag = HRH_recapture_success
+                    news_event = HRH.1 # イベントID
+                }
+                29 = {
+                    add_manpower = -100
+                    884 = {
+                        transfer_state_to = HRH
+                        set_resistance = 30 # 抵抗値を設定
+                    }
+                }
+                1 = {
+                    add_manpower = -666
+                }
+            }
+        }
+    }
+
+    decision_name = { # 仮のディシジョン名
+        # これはHRH_decisionsカテゴリーに属する
+        available = {
+            has_country_flag = some_flag
+        }
+        # 他の必要なプロパティ
+        icon = generic_decision_icon # 例
+        cost = 10
+        complete_effect = {
+            add_political_power = 10
+        }
+        ai_will_do = { factor = 1 }
+    }
+}

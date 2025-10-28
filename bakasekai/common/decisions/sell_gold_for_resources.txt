@@ -1,0 +1,53 @@
+sell_gold_for_resources = {
+	icon = generic_trade
+	available = {
+		OR = {
+			has_focus = generic_sell_gold_for_resources
+		}
+		gold > 0
+	}
+	visible = {
+		OR = {
+			has_focus = generic_sell_gold_for_resources
+		}
+		gold > 0
+	}
+	cost = 50
+	fire_only_once = no
+	remove_effect = {
+		add_resource = {
+			type = gold
+			amount = -10
+		}
+	}
+	complete_effect = {
+		add_resource = {
+			type = oil
+			amount = 5
+		}
+		add_resource = {
+			type = steel
+			amount = 5
+		}
+		add_resource = {
+			type = aluminum
+			amount = 5
+		}
+		add_resource = {
+			type = tungsten
+			amount = 2
+		}
+		add_resource = {
+			type = chromium
+			amount = 2
+		}
+		add_political_power = 25
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 0
+			gold < 10
+		}
+	}
+}

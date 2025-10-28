@@ -1,0 +1,372 @@
+focus_tree = {
+	id = huttriver_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			OR = {
+				tag = HRH
+			}
+		}
+	}
+	default = no
+	focus = {
+		id = HRH_focus_1
+		text = HRH_focus_1
+		x = 3
+		y = 0
+		icon = GFX_goal_generic_freedom
+		cost = 3
+		available = {
+		}
+		completion_reward = {
+			add_political_power = 120
+			add_ideas = AST_herbert_v_evatt
+			hidden_effect = {
+				add_manpower = 100000
+			}
+		}
+	}
+	focus = {
+		id = HRH_focus_2
+		x = 2
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = HRH_focus_1
+		}
+		icon = GFX_focus_TOH_combine_locaL_militias
+		completion_reward = {
+			custom_effect_tooltip = HRH_focus_2_tt
+			set_technology = {
+				HRH_TECH_1 = 1
+			}
+		}
+	}
+	focus = {
+		id = HRH_focus_3
+		x = 2
+		y = 2
+		cost = 4
+		icon = GFX_goal_ammunitions
+		prerequisite = {
+			focus = HRH_focus_2
+		}
+		completion_reward = {
+			add_offsite_building = {
+				type = arms_factory
+				level = 2
+			}
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_early_0
+				amount = 1000
+				producer = HRH
+			}
+		}
+	}
+	focus = {
+		id = HRH_focus_4
+		x = 2
+		y = 3
+		cost = 3
+		icon = GFX_goal_womens_rights
+		prerequisite = {
+			focus = HRH_focus_3
+		}
+		completion_reward = {
+			add_ideas = HRH_women_soldiers
+		}
+	}
+	focus = {
+		id = HRH_focus_4A
+		icon = GFX_goal_class_a_reservists
+		x = 0
+		y = 3
+		cost = 3
+		search_filters = {
+		}
+		prerequisite = {
+			focus = HRH_focus_3
+		}
+		completion_reward = {
+			random_unit_leader = {
+				add_unit_leader_trait = Mobile_Defence_Staff_Officer
+			}
+			random_unit_leader = {
+				add_unit_leader_trait = Professional_counter_guerrilla_warfare
+			}
+			hidden_effect = {
+				set_technology = {
+					HRH_TECH_3 = 1
+				}
+			}
+		}
+	}
+	focus = {
+		id = HRH_focus_5
+		x = 1
+		y = 4
+		cost = 4
+		icon = GFX_AST_new_guard
+		prerequisite = {
+			focus = HRH_focus_4
+		}
+		prerequisite = {
+			focus = HRH_focus_4A
+		}
+		completion_reward = {
+			custom_effect_tooltip = HRH_focus_5_tt
+			hidden_effect = {
+				set_technology = {
+					HRH_TECH_2 = 1
+				}
+				division_template = {
+					#Basic irregular template
+					name = "Hutt River Irregulars"
+					division_names_group = AST_INF_01
+					is_locked = yes
+					division_cap = 4
+					regiments = {
+						irregular_infantry = {
+							x = 0
+							y = 0
+						}
+						irregular_infantry = {
+							x = 0
+							y = 1
+						}
+						militia = {
+							x = 1
+							y = 0
+						}
+						militia = {
+							x = 1
+							y = 1
+						}
+						infantry = {
+							x = 2
+							y = 0
+						}
+						infantry = {
+							x = 2
+							y = 1
+						}
+					}
+					priority = 0
+				}
+				1097 = {
+					create_unit = {
+						division = "division_template = \"Hutt River Irregulars\" start_experience_factor = 0.85 start_equipment_factor = 1.0"
+						owner = HRH
+						count = 1
+					}
+					create_unit = {
+						division = "division_template = \"Hutt River Irregulars\" start_experience_factor = 0.85 start_equipment_factor = 1.0"
+						owner = HRH
+						count = 1
+					}
+					create_unit = {
+						division = "division_template = \"Hutt River Irregulars\" start_experience_factor = 0.85 start_equipment_factor = 1.0"
+						owner = HRH
+						count = 1
+					}
+				}
+			}
+		}
+	}
+	focus = {
+		id = HRH_focus_6
+		icon = GFX_focus_AMO_han_explorers
+		x = 2
+		y = 5
+		cost = 5
+		prerequisite = {
+			focus = HRH_focus_5
+		}
+		prerequisite = {
+			focus = HRH_focus_A4
+		}
+		completion_reward = {
+			custom_effect_tooltip = HRH_focus_6_tt
+			hidden_effect = {
+				add_political_power = 100
+				set_country_flag = HRH_recapture_started
+			}
+		}
+	}
+	focus = {
+		id = HRH_focus_A2
+		icon = GFX_focus_SHI_seek_friends
+		x = 4
+		y = 1
+		cost = 4
+		prerequisite = {
+			focus = HRH_focus_1
+		}
+		completion_reward = {
+			add_political_power = 100
+			custom_effect_tooltip = HRH_focus_A2_tt
+			hidden_effect = {
+				set_country_flag = HRH_government_rebuild_started
+			}
+		}
+	}
+	focus = {
+		id = HRH_focus_A3
+		icon = GFX_AST_maori
+		x = 4
+		y = 2
+		cost = 7
+		search_filters = {
+		}
+		prerequisite = {
+			focus = HRH_focus_A2
+		}
+		completion_reward = {
+			add_ideas = HRH_ratana_alliance
+		}
+	}
+	focus = {
+		id = HRH_focus_AB3
+		icon = GFX_goal_generic_propaganda
+		x = 4
+		y = 3
+		cost = 4
+		search_filters = {
+		}
+		prerequisite = {
+			focus = HRH_focus_A3
+		}
+		completion_reward = {
+			division_template = {
+				is_locked = yes
+				division_cap = 6
+				name = "Aborigine Volunteers"
+				division_names_group = AST_INF_01
+				regiments = {
+					infantry = {
+						x = 0
+						y = 0
+					}
+					infantry = {
+						x = 0
+						y = 1
+					}
+					infantry = {
+						x = 0
+						y = 2
+					}
+					infantry = {
+						x = 1
+						y = 0
+					}
+					infantry = {
+						x = 1
+						y = 1
+					}
+					infantry = {
+						x = 1
+						y = 2
+					}
+				}
+			}
+			1097 = {
+				create_unit = {
+					division = "name = \"Aborigine Volunteers\" division_template = \"Aborigine Volunteers\" start_experience_factor = 0.0"
+					owner = HRH
+				}
+			}
+		}
+	}
+	focus = {
+		id = HRH_focus_A4
+		icon = GFX_focus_KYU_long_lance_torpedoes
+		x = 3
+		y = 4
+		cost = 6
+		search_filters = {
+		}
+		prerequisite = {
+			focus = HRH_focus_AB3
+		}
+		prerequisite = {
+			focus = HRH_focus_4
+		}
+		completion_reward = {
+			custom_effect_tooltip = HRH_focus_A4_tt
+			hidden_effect = {
+				division_template = {
+					#Basic irregular template
+					name = "Hutt River Militias"
+					division_names_group = AST_INF_01
+					is_locked = yes
+					division_cap = 14
+					regiments = {
+						militia = {
+							x = 0
+							y = 0
+						}
+						militia = {
+							x = 0
+							y = 1
+						}
+						militia = {
+							x = 1
+							y = 0
+						}
+						militia = {
+							x = 1
+							y = 1
+						}
+					}
+					priority = 0
+				}
+				1097 = {
+					create_unit = {
+						division = "division_template = \"Hutt River Militias\" start_experience_factor = 0.85 start_equipment_factor = 1.0"
+						owner = HRH
+						count = 1
+					}
+					create_unit = {
+						division = "division_template = \"Hutt River Militias\" start_experience_factor = 0.85 start_equipment_factor = 1.0"
+						owner = HRH
+						count = 1
+					}
+				}
+			}
+		}
+	}
+        focus = {
+                id = HRH_focus_7
+                icon = GFX_goal_generic_red_freedom
+                x = 2
+                y = 6
+                cost = 5
+                search_filters = {
+                }
+                prerequisite = {
+                        focus = HRH_focus_6
+                }
+                completion_reward = {
+                        add_political_power = 100
+                        hidden_effect = {
+                        }
+                }
+        }
+        focus = {
+                id = HRH_focus_8
+                icon = GFX_goal_generic_allies
+                x = 2
+                y = 7
+                cost = 5
+                prerequisite = {
+                        focus = HRH_focus_7
+                }
+                available = {
+                        has_country_flag = HRH_recapture_success
+                }
+                completion_reward = {
+                        country_event = { id = HRH_recapture_states.1 days = 1 }
+                }
+        }
+}

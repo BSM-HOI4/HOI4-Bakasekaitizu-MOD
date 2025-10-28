@@ -1,5 +1,6 @@
 capital = 219
 oob = "Default_oob"
+set_cosmetic_tag = RUS_federation
 if = {
 	limit = {
 		NOT = {
@@ -8,50 +9,48 @@ if = {
 	}
 	set_oob = "SOV_1936"
 }
+
 if = {
 	limit = {
 		has_dlc = "No Step Back"
 	}
 	set_oob = "SOV_1936_nsb"
 }
-set_research_slots = 3
+
+set_tech_level_1 = yes
+land_tech_level_3 = yes
+support_tech_level_2 = yes
 set_technology = {
-	infantry_weapons = 1
-	infantry_weapons1 = 1
-	tech_recon = 1
-	tech_support = 1		
-	tech_engineers = 1
-	tech_military_police = 1
-	tech_mountaineers = 1
-	motorised_infantry = 1
-	paratroopers = 1
-	gw_artillery = 1
 	interwar_antiair = 1
 	mass_assault = 1
 	fleet_in_being = 1
 	fuel_silos = 1
 	fuel_refining = 1
-	basic_train = 1
+
 	synth_oil_experiments = 1
+	basic_light_tank_chassis = 1
 }
+
 if = {
-	limit = { has_dlc = "By Blood Alone" }
-		set_air_oob = "SOV_1936_air_bba"
-		set_technology = {
-			iw_small_airframe = 1
-			aa_lmg = 1
-			aa_cannon_1 = 1
-			early_bombs = 1
-			engines_1 = 1
-			engines_2 = 1
-			iw_medium_airframe = 1
-			iw_large_airframe = 1
-			basic_small_airframe = 1
-			basic_medium_airframe = 1
-			aircraft_construction = 1
-		}
+	limit = {
+		has_dlc = "By Blood Alone"
+	}
+
+	set_technology = {
+		iw_small_airframe = 1
+		aa_lmg = 1
+		aa_cannon_1 = 1
+		early_bombs = 1
+		engines_1 = 1
+		engines_2 = 1
+		iw_medium_airframe = 1
+		iw_large_airframe = 1
+		basic_small_airframe = 1
+		basic_medium_airframe = 1
+		aircraft_construction = 1
+	}
 	else = {
-		set_air_oob = "SOV_1936_air_legacy"
+	
 		set_technology = {
 			early_fighter = 1
 			fighter1 = 1
@@ -61,30 +60,45 @@ if = {
 		}
 	}
 }
-if = {
-	limit = {
-		NOT = { has_dlc = "No Step Back" }
-	}
-	set_technology = {
-		gwtank = 1
-		basic_light_tank = 1
+tank_tech_level_1 = yes
 
-	}
+if = {
+        limit = {
+                has_dlc = "No Step Back"
+        }
+        set_technology = {
+                gwtank_chassis = 1
+                basic_light_tank_chassis = 1
+                improved_light_tank_chassis = 1
+                engine_tech_1 = 1
+                engine_tech_2 = 1
+        }
+        create_equipment_variant = {
+                name = "BT-7"
+                type = light_tank_chassis_2
+                parent_version = 0
+                modules = {
+                        main_armament_slot = tank_auto_cannon
+                        turret_type_slot = tank_light_two_man_tank_turret
+                        suspension_type_slot = tank_christie_suspension
+                        armor_type_slot = tank_riveted_armor
+                        engine_type_slot = tank_gasoline_engine
+                        special_type_slot_1 = tank_radio_1
+                }
+                upgrades = {
+                        tank_nsb_engine_upgrade = 3
+                        tank_nsb_armor_upgrade = 2
+                }
+                icon = "GFX_SOV_improved_light_tank_medium"
+        }
 }
+
 if = {
 	limit = {
-		has_dlc = "No Step Back"
+		not = {
+			has_dlc = "Man the Guns"
+		}
 	}
-	set_technology = {
-		gwtank_chassis = 1
-		basic_light_tank_chassis = 1
-		improved_light_tank_chassis = 1
-		engine_tech_1 = 1
-		engine_tech_2 = 1
-	}
-}
-if = {
-	limit = { not = { has_dlc = "Man the Guns" } }
 	set_technology = {
 		early_submarine = 1
 		basic_submarine = 1
@@ -96,8 +110,11 @@ if = {
 		transport = 1
 	}
 }
+
 if = {
-	limit = { has_dlc = "Man the Guns" }
+	limit = {
+		has_dlc = "Man the Guns"
+	}
 	set_technology = {
 		basic_naval_mines = 1
 		submarine_mine_laying = 1
@@ -116,19 +133,36 @@ if = {
 	}
 }
 
-set_convoys = 0
-set_politics = {
-	ruling_party = communism
-	last_election = "1936.1.1"
-	election_frequency = 48
-	elections_allowed = yes
+recruit_character = MOS_Oliga
+recruit_character = MOS_anastashia
+recruit_character = MOS_tatiana
+recruit_character = MOS_maria
+recruit_character = RUS_Peter_von_Wrangel
+recruit_character = RUS_Anton_ivanovich_Denikin
+recruit_character = RUS_Aleksandr_Vasilevich_Kolchak
+recruit_character = RUS_berence
+recruit_character = RUS_Boris_Vladimirovich_Annenkov
+recruit_character = RUS_Roman_Fyodorovich_von_Ungern
+recruit_character = RUS_arecsey
+# give_guarantee = JPN
+set_convoys = 10
+political_set_m = yes
+add_ideas = {
+	RUS_russian_unification_ambition
+	RUS_empire_collapse_unmanaged
+	RUS_great_famine
+	RUS_internal_struggle
+	RUS_stolypin_legacy
+	RUS_sablin_legacy
 }
-
 set_popularities = {
-	democratic = 30
-	neutrality = 30
-	communism = 40
+	rightneutrality = 30
+	neutrality_ideology = 30
+	constitutional_monarchy = 40
 }
 
-give_guarantee = MOS
+# give_guarantee = MOS
 set_stability = 0.6
+
+# キャラクターのrecruit
+recruit_character = RUS_Pavel_Nikolayevich

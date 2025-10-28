@@ -1,0 +1,66 @@
+eth_red_sea_aggressive_invasion = {
+    # AIストラテジーが有効になるための条件
+    # ゲーム開始時に一度だけチェックされます。
+    allowed = {
+        always = yes # 常に有効
+    }
+
+    # AIストラテジーが有効化される条件
+    # 毎日チェックされ、この条件が満たされればストラテジーが有効になります。
+    enable = {
+        has_war_with = ETH # 現在のAIがETHと戦争中であること [cite: 51]
+    }
+
+    # AIストラテジーが中止される条件
+    # 毎日チェックされ、この条件が満たされればストラテジーが中止されます。
+    abort = {
+        NOT = { has_war_with = ETH } # 現在のAIがETHと戦争中でないこと [cite: 76]
+    }
+
+    # enable条件が満たされなくなった場合に、即座に中止するかどうか
+    abort_when_not_enabled = yes
+
+    # 強襲上陸の計画率を上げるAIストラテジー
+    ai_strategy = {
+        type = invade # 強襲上陸を促すAIストラテジー [cite: 651]
+        id = ETH # 対象国をETHに設定 [cite: 651]
+        value = 200 # 値を高くすることで、AIがこの行動を優先するようになります。 [cite: 651]
+    }
+
+    # 前線管理に関するAIストラテジー（強襲上陸を苛烈に）
+    ai_strategy = {
+        type = front_control # 前線管理に関するAIストラテジー [cite: 651]
+        tag = ETH # 対象国をETHに設定 [cite: 7]
+        ordertype = invasion # 海上侵攻にこのストラテジーを適用 [cite: 651]
+        execution_type = rush # 実行タイプを「苛烈 (rush)」に設定。これにより、AIはより攻撃的に行動します。 [cite: 651]
+        value = 150 # この設定の優先度を高く設定
+    }
+
+    # 戦略地域102の制海権獲得を優先するAIストラテジー
+    ai_strategy = {
+        type = area_priority # 戦略地域の優先度を促すAIストラテジー
+        id = 102 # 戦略地域102 (紅海) を対象
+        value = 100 # 優先度 [cite: 8]
+    }
+
+    # 戦略地域102の制空権獲得を優先するAIストラテジー
+    ai_strategy = {
+        type = area_priority # 戦略地域の優先度を促すAIストラテジー
+        id = 102 # 戦略地域102 (紅海) を対象
+        value = 100 # 優先度
+    }
+
+    # 戦略地域102への海軍ミッション（攻撃部隊）の拠点化を促す
+    ai_strategy = {
+        type = strike_force_home_base # 攻撃部隊の拠点化を促すAIストラテジー [cite: 652]
+        id = 102 # 戦略地域102 (紅海) を対象 [cite: 9]
+        value = 70 # 優先度 [cite: 9]
+    }
+
+    # 輸送船の生産を促すAIストラテジー
+    ai_strategy = {
+        type = equipment_production_min_factories # 装備生産ラインの最低工場数を設定 [cite: 654]
+        id = convoy # 輸送船装備 (convoy) を対象
+        value = 5 # 輸送船に最低5つの工場を割り当てることを促す
+    }
+}

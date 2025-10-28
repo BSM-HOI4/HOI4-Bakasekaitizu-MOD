@@ -1,19 +1,220 @@
-add_namespace = NOK
-news_event={
-    id = NOK.1
-	title = NOK.1.t
-	desc = NOK.1.d
-	picture = GFX_news_event_001
-    is_triggered_only=yes
-	option={
-		name=NOK.1.a
-	}
+add_namespace = nokia
+
+# Nokia Market Dominance Event - Triggers the smartphone crisis
+news_event = {
+    id = nokia.1
+    title = nokia.1.t
+    desc = nokia.1.d
+    picture = GFX_news_event_generic_factory
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = nokia.1.a
+        random_list = {
+            33 = {
+                country_event = { id = nokia.2 days = 30 }
+            }
+            67 = {
+                country_event = { id = nokia.2 days = 90 }
+            }
+        }
+    }
 }
 
-
-
+# The Revolutionary Product - Start of Crisis
+country_event = {
+    id = nokia.2
+    title = nokia.2.t
+    desc = nokia.2.d
+    picture = GFX_news_event_generic_read_write
     
-	
+    is_triggered_only = yes
+    
+    option = {
+        name = nokia.2.a  # "It's just a passing fad."
+        ai_chance = { factor = 30 }
+        add_political_power = -25
+        country_event = { id = nokia.3 days = 120 }
+    }
+    
+    option = {
+        name = nokia.2.b  # "We must analyze this threat immediately."
+        ai_chance = { factor = 70 }
+        add_political_power = -50
+        country_event = { id = nokia.4 days = 30 }
+    }
+}
 
+# Market Share Collapse - Delayed Crisis
+country_event = {
+    id = nokia.3
+    title = nokia.3.t
+    desc = nokia.3.d
+    picture = GFX_news_event_generic_rally
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = nokia.3.a
+        add_ideas = NKA_crisis_management
+        set_country_flag = smartphone_crisis_started
+        add_stability = -0.10
+        add_political_power = -100
+        country_event = { id = nokia.5 days = 60 }
+    }
+}
 
+# Crisis Management - Early Response
+country_event = {
+    id = nokia.4
+    title = nokia.4.t
+    desc = nokia.4.d
+    picture = GFX_news_event_generic_parliament
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = nokia.4.a
+        add_ideas = NKA_crisis_management
+        set_country_flag = smartphone_crisis_started
+        add_stability = -0.05
+        add_political_power = -75
+        country_event = { id = nokia.5 days = 30 }
+    }
+}
+
+# Shareholder Panic
+country_event = {
+    id = nokia.5
+    title = nokia.5.t
+    desc = nokia.5.d
+    picture = GFX_news_event_generic_sign_treaty02
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = nokia.5.a  # "Stay the course!"
+        add_political_power = -50
+        add_stability = -0.05
+    }
+    
+    option = {
+        name = nokia.5.b  # "Consider new strategies."
+        add_political_power = -25
+        add_war_support = -0.05
+    }
+}
+
+# Unbreakable Kingdom Path Event
+country_event = {
+    id = nokia.10
+    title = nokia.10.t
+    desc = nokia.10.d
+    picture = GFX_news_event_generic_rally
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = nokia.10.a
+        add_stability = 0.10
+        add_war_support = 0.05
+        add_political_power = 50
+    }
+}
+
+# Network Connectivity Success
+country_event = {
+    id = nokia.20
+    title = nokia.20.t
+    desc = nokia.20.d
+    picture = GFX_news_event_generic_sign_treaty02
+    
+    trigger = {
+        tag = NKA
+        has_idea = NKA_global_network_initiative
+        num_faction_members > 2
+    }
+    
+    mean_time_to_happen = { months = 6 }
+    
+    option = {
+        name = nokia.20.a
+        add_political_power = 75
+        add_stability = 0.05
+    }
+}
+
+# Patent War Success
+country_event = {
+    id = nokia.30
+    title = nokia.30.t
+    desc = nokia.30.d
+    picture = GFX_news_event_generic_factory
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = nokia.30.a
+        add_tech_bonus = {
+            bonus = 1.0
+            uses = 1
+            category = electronics
+        }
+        add_political_power = 50
+    }
+}
+
+# Open Source Liberation Event
+country_event = {
+    id = nokia.40
+    title = nokia.40.t
+    desc = nokia.40.d
+    picture = GFX_news_event_generic_rally
+    
+    trigger = {
+        tag = NKA
+        has_idea = NKA_liberated_technology
+    }
+    
+    mean_time_to_happen = { months = 8 }
+    
+    option = {
+        name = nokia.40.a
+        add_stability = 0.05
+        add_tech_bonus = {
+            bonus = 0.5
+            uses = 1
+            category = industry
+        }
+    }
+}
+
+# Snake Championship (Yearly Flavor Event)
+country_event = {
+    id = nokia.100
+    title = nokia.100.t
+    desc = nokia.100.d
+    picture = GFX_news_event_generic_rally
+    
+    trigger = {
+        tag = NKA
+        date > 1936.6.1
+    }
+    
+    mean_time_to_happen = { months = 12 }
+    
+    option = {
+        name = nokia.100.a  # "Sponsor the championship!"
+        trigger = { has_political_power > 25 }
+        add_political_power = -25
+        add_stability = 0.02
+        add_war_support = 0.01
+    }
+    
+    option = {
+        name = nokia.100.b  # "We have bigger priorities."
+        add_political_power = 10
+    }
+}
 

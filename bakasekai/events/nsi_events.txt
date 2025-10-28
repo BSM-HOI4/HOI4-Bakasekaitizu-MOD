@@ -1,0 +1,280 @@
+add_namespace = nsi_events
+
+# NSI 地下都市建設イベント
+country_event = {
+	id = nsi_events.1
+	title = nsi_events.1.t
+	desc = nsi_events.1.d
+	picture = GFX_report_event_generic_tunnel
+
+	is_triggered_only = yes
+
+	option = {
+		name = nsi_events.1.a
+		add_political_power = 50
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 1
+		}
+	}
+}
+
+# NSI 古代遺物発見イベント
+country_event = {
+	id = nsi_events.2
+	title = nsi_events.2.t
+	desc = nsi_events.2.d
+	picture = GFX_report_event_generic_ruins
+
+	trigger = {
+		tag = NSI
+		has_idea = chikatoshi
+		num_of_controlled_states > 0
+	}
+
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	option = {
+		name = nsi_events.2.a
+		add_research_slot = 1
+		add_tech_bonus = {
+			bonus = 1.0
+			uses = 1
+			category = industry
+		}
+	}
+
+	option = {
+		name = nsi_events.2.b
+		army_experience = 25
+		add_tech_bonus = {
+			bonus = 1.0
+			uses = 1
+			category = land_doctrine
+		}
+	}
+}
+
+# NSI 外界接触拒否イベント
+country_event = {
+	id = nsi_events.3
+	title = nsi_events.3.t
+	desc = nsi_events.3.d
+	picture = GFX_report_event_generic_sign_treaty
+
+	trigger = {
+		tag = NSI
+		has_idea = nsi_isolation_policy
+		any_country = {
+			is_neighbor_of = NSI
+			NOT = { tag = NSI }
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 6
+	}
+
+	option = {
+		name = nsi_events.3.a
+		add_stability = 0.05
+		add_war_support = 0.1
+		every_neighbor_country = {
+			add_opinion_modifier = {
+				target = NSI
+				modifier = nsi_mysterious_isolation
+			}
+		}
+	}
+}
+
+# NSI 守護霊の加護イベント
+country_event = {
+	id = nsi_events.4
+	title = nsi_events.4.t
+	desc = nsi_events.4.d
+	picture = GFX_report_event_generic_peaceful_annexation
+
+	trigger = {
+		tag = NSI
+		has_idea = nsi_guardian_spirits
+		NOT = { has_war = yes }
+	}
+
+	mean_time_to_happen = {
+		months = 8
+	}
+
+	option = {
+		name = nsi_events.4.a
+		add_stability = 0.1
+		add_political_power = 75
+		add_manpower = 5000
+	}
+}
+
+# NSI 覚醒警告イベント
+country_event = {
+	id = nsi_events.5
+	title = nsi_events.5.t
+	desc = nsi_events.5.d
+	picture = GFX_report_event_generic_military_parade
+
+	trigger = {
+		any_country = {
+			has_war_with = NSI
+		}
+		NSI = {
+			has_idea = nsi_isolation_policy
+		}
+	}
+
+	fire_only_once = yes
+
+	option = {
+		name = nsi_events.5.a
+		every_country = {
+			news_event = { id = nsi_events.100 }
+		}
+	}
+}
+
+# NSI 研究突破イベント
+country_event = {
+	id = nsi_events.6
+	title = nsi_events.6.t
+	desc = nsi_events.6.d
+	picture = GFX_report_event_generic_research
+
+	trigger = {
+		tag = NSI
+		OR = {
+			has_idea = nsi_mystical_sciences
+			has_idea = nsi_transcendent_wisdom
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 10
+		modifier = {
+			factor = 0.5
+			has_idea = nsi_transcendent_wisdom
+		}
+	}
+
+	option = {
+		name = nsi_events.6.a
+		add_tech_bonus = {
+			bonus = 2.0
+			uses = 2
+			category = electronics
+		}
+	}
+
+	option = {
+		name = nsi_events.6.b
+		add_tech_bonus = {
+			bonus = 2.0
+			uses = 2
+			category = industry
+		}
+	}
+}
+
+# NSI 地下農場拡張イベント
+country_event = {
+	id = nsi_events.7
+	title = nsi_events.7.t
+	desc = nsi_events.7.d
+	picture = GFX_report_event_generic_factory
+
+	trigger = {
+		tag = NSI
+		has_idea = nsi_subterranean_metropolis
+		num_of_controlled_states > 0
+	}
+
+	mean_time_to_happen = {
+		months = 9
+	}
+
+	option = {
+		name = nsi_events.7.a
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}
+		}
+		add_political_power = -50
+	}
+
+	option = {
+		name = nsi_events.7.b
+		add_manpower = 10000
+		add_political_power = 25
+	}
+}
+
+# NSI 神秘的現象イベント
+country_event = {
+	id = nsi_events.8
+	title = nsi_events.8.t
+	desc = nsi_events.8.d
+	picture = GFX_report_event_generic_peaceful_annexation
+
+	trigger = {
+		tag = NSI
+		OR = {
+			has_idea = nsi_otherworldly_guidance
+			has_idea = nsi_reality_bending
+			has_idea = nsi_temporal_control
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 6
+	}
+
+	option = {
+		name = nsi_events.8.a
+		add_stability = 0.05
+		add_war_support = 0.05
+		add_research_slot = 1
+	}
+
+	option = {
+		name = nsi_events.8.b
+		random_owned_controlled_state = {
+			add_extra_state_shared_building_slots = 3
+		}
+		add_political_power = 100
+	}
+}
+
+# NSI 覚醒ニュースイベント
+news_event = {
+	id = nsi_events.100
+	title = nsi_events.100.t
+	desc = nsi_events.100.d
+	picture = GFX_news_event_generic_military
+
+	is_triggered_only = yes
+
+	option = {
+		name = nsi_events.100.a
+		trigger = {
+			NOT = { tag = NSI }
+		}
+	}
+
+	option = {
+		name = nsi_events.100.b
+		trigger = {
+			tag = NSI
+		}
+	}
+}

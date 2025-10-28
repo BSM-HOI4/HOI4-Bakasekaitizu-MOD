@@ -1,0 +1,439 @@
+on_actions = {
+    on_startup = {
+        effect = {
+            #### global変数の設定 ####
+            set_variable = { global.month = 1 }#月を示す変数
+            set_variable = { global.passed_month = 1 }  #経過月数
+            #### Opening Event ####
+            every_country = {
+                #プレイヤー国家のみOEを開く
+                limit = { is_ai = no }
+                set_variable = { OE_page = 1 }
+            }
+            ### Anomaly System ###
+            AS_first_setting = yes
+            #### 宗教 ####
+            every_country = {
+                if = {
+                    #共産主義
+                    limit = {
+                        has_government = communism_ideology
+                    }
+                    add_ideas = communism_religion
+                }
+                if = {
+                    #カトリック
+                    limit = {
+                        OR = {
+                            tag = MEX
+                            tag = GUA
+                            tag = ELS
+                            tag = NIC
+                            tag = HON
+                            tag = COS
+                            tag = PAN
+                            tag = COL
+                            tag = VEN
+                            tag = ECU
+                            tag = PRU
+                            tag = BOL
+                            tag = PAR
+                            tag = CHL
+                            tag = ARG
+                            tag = URG
+                            tag = PML
+                            tag = BRA
+                            tag = CUB
+                            tag = HAI
+                            tag = DOM
+                            tag = POL
+                            tag = ESP
+                            tag = CEU
+                            tag = FRA
+                            tag = ITA
+                            tag = BEL
+                            tag = IRE
+                            tag = AUS
+                            tag = OZY
+                            tag = MYS
+                            tag = HUN
+                            tag = CZE
+                            tag = SLO
+                            tag = POL
+                            tag = LIT
+                            tag = PHI
+                            tag = BAY
+                            tag = DEU
+                            tag = CRO
+                            tag = SLV
+                            tag = DAH
+                            tag = CMR
+                            tag = GAB
+                            tag = COG
+                            tag = RWA
+                            tag = BRD
+                            tag = RCG
+                            tag = ANG
+                            tag = MZB
+                        }
+                    }
+                    set_country_flag = Support_For_Catholicism
+                }
+                if = {
+                    #正教
+                    limit = {
+                        OR = {
+                            tag = GRC
+                            tag = GOC
+                            tag = BUL
+                            tag = ROM
+                            tag = MYS
+                            tag = CYP
+                            tag = UKR
+                            tag = BLR
+                            tag = SOV
+                            tag = SER
+                            tag = MNT
+                            tag = ETH
+                            tag = LEB
+                            tag = TWN
+                        }
+                    }
+                    set_country_flag = Support_For_Orthodoxy
+                }
+                if = {
+                    #プロテスタント
+                    limit = {
+                        OR = {
+                            tag = DEU
+                            tag = HOL
+                            tag = BLX
+                            tag = LUX
+                            tag = DEN
+                            tag = SWE
+                            tag = NOR
+                            tag = FIN
+                            tag = LAT
+                            tag = EST
+                            tag = GBR
+                            tag = LON
+                            tag = GGY
+                            tag = HRH
+                            tag = JEY
+                            tag = GIB
+                            tag = SCO
+                            tag = WLS
+                            tag = CAN
+                            tag = USA
+                            tag = ISL
+                            tag = ZAF
+                            tag = NMB
+                            tag = BOT
+                            tag = ZIM
+                            tag = ZAM
+                            tag = MLW
+                            tag = UGA
+                            tag = NGA
+                            tag = KEN
+                            tag = GHA
+                            tag = LIB
+                            tag = CAR
+                            tag = AST
+                            tag = ERO
+                        }
+                    }
+                    set_country_flag = Support_For_Protestantism
+                }
+                if = {
+                    #ユダヤ教
+                    limit = {
+                        OR = {
+                            tag = ISR
+                        }
+                    }
+                    set_country_flag = Support_For_Judaism
+                }
+                if = {
+                    #イスラム教スンニ派
+                    limit = {
+                        OR = {
+                            tag = TUR
+                            tag = SYR
+                            tag = KUR
+                            tag = LEB
+                            tag = PAL
+                            tag = JOR
+                            tag = KUW
+                            tag = SAU
+                            tag = QAT
+                            tag = UAE
+                            tag = OMA
+                            tag = YEM
+                            tag = EGY
+                            tag = LBA
+                            tag = TUN
+                            tag = ALG
+                            tag = MAR
+                            tag = MRT
+                            tag = SEN
+                            tag = MLI
+                            tag = GAM
+                            tag = GNA
+                            tag = SIE
+                            tag = IVO
+                            tag = VOL
+                            tag = NGR
+                            tag = CHA
+                            tag = SUD
+                            tag = ERI
+                            tag = DJI
+                            tag = SOM
+                            tag = MAD
+                            tag = AFG
+                            tag = PAK
+                            tag = BAN
+                            tag = SIK
+                            tag = MAL
+                            tag = IDN
+                            tag = MAL
+                            tag = ALB
+                        }
+                    }
+                    set_country_flag = Support_For_Sunni
+                }
+                if = {
+                    #イスラム教シーア派
+                    limit = {
+                        OR = {
+                            tag = IRQ
+                            tag = PRU
+                            tag = KUR
+                        }
+                    }
+                    set_country_flag = Support_For_Shia
+                }
+                if = {
+                    #ヒンデゥー教
+                    limit = {
+                        OR = {
+                            tag = IND
+                        }
+                    }
+                    set_country_flag = Support_For_Hinduism
+                }
+                if = {
+                    #仏教
+                    limit = {
+                        OR = {
+                            tag = MON
+                            tag = TAN
+                            tag = XSM
+                            tag = TIB
+                            tag = BRM
+                            tag = SIA
+                            tag = LAO
+                            tag = KHM
+                            tag = VNM
+                            tag = SRL
+                            tag = KOR
+                            tag = JPN
+                            tag = CHI
+                        }
+                    }
+                    set_country_flag = Support_For_Buddhism
+                }
+                if = {
+                    # 神道
+                    limit = {
+                        OR = {
+                            tag = JPN
+                            tag = MAN
+                            tag = MME
+                        }
+                    }
+                    set_country_flag = Support_For_Shinto
+                }
+            }
+            #### 通貨 ####
+            every_country = {
+                ucs_first_setting = yes
+            }
+            #### 国家統合力 ####
+            #仮削除
+            #### 文明化率 ####
+            #仮削除
+            #### 鉱山 ####
+            JPN = { calc_gold_demand = yes }#代表計算
+            
+            every_country = {
+                limit = { always = yes }
+                mine_first_setting = yes
+                mine_on_monthly = yes
+            }
+            #### 傭兵 ####
+            SWI = {
+                set_country_flag = Mercenary_System_Allowed
+                set_variable = {
+                    MS_max = 10
+                }
+            }
+            VAT = {
+                set_country_flag = Mercenary_System_Allowed
+                set_variable = {
+                    MS_max = 2
+                }
+            }
+            FRA = {
+                set_country_flag = Mercenary_System_Allowed
+                set_variable = {
+                    MS_max = 20
+                }
+            }
+            #### その他汎用システム #####
+            # every_country = {
+            #     #北国汎用アイデア
+            #     limit = {
+            #         OR = {
+            #             tag = NOR
+            #             tag = ISL
+            #             tag = POL
+            #             tag = NPL
+            #         }
+            #     }
+            #     add_ideas = ice_elemental
+            # }
+            #### その他固有システム #####
+        }
+    }
+    on_monthly = {
+        effect = {
+            add_to_variable = { global.passed_month = 1 }  #経過月数
+            if = {
+                #12月
+                limit = {
+                    check_variable = {
+                        global.month = 12
+                    }
+                }
+                set_variable = {
+                    global.month = 0
+                } #1月にリセット
+            }
+            add_to_variable = { global.month = 1 }
+            
+            ucs_on_monthly = yes #通貨 月毎処理				
+            mine_on_monthly = yes #鉱山 月毎処理
+        }
+    }
+    on_daily = {
+        effect = {
+			#獲得補正の計算
+            combined_unified_currency = yes
+        }
+    }
+    on_weekly = {
+        effect = {
+            every_country = {
+                #文明度の上昇
+                add_to_variable = {
+                    Cultural_Degree = modifier@weekly_Cultural_Degree
+                }
+                #国家統合力に文明度を追加
+                add_to_variable = {
+                    National_Unity_Power = Cultural_Degree
+                }
+            }
+        }
+    }
+    on_nuke_drop = {
+        #核が落ちたときの挙動
+        effect = {
+            log = "[GetDate]: on_nuke_drop"
+            FROM = {
+                set_variable = {
+                    killed_by_nuke_dropped = FROM.state_population_k
+                }
+                if = {
+                    limit = {
+                        OR = {
+                            has_state_category = wasteland							#荒地
+                            has_state_category = pastoral							#牧畜地域
+                            has_state_category = rural							#牧歌的地域
+                            has_state_category = town							#開発済みの牧歌的地域
+                            has_state_category = large_town							#低密度の都市化地域
+                        }
+                    }
+                    multiply_variable = {
+                        killed_by_nuke_dropped = -10
+                    }
+                    #死者数:1%
+                }
+                else_if = {
+                    limit = {
+                        OR = {
+                            has_state_category = metropolis							#大都市化した地域
+                            has_state_category = megalopolis							#巨大都市化した地域
+                            has_state_category = large_city							#高密度に都市化した地域
+                            has_state_category = city							# 都市化した地域
+                        }
+                    }
+                    multiply_variable = {
+                        killed_by_nuke_dropped = -30
+                    }
+                    #死者数:3%
+                }
+                else_if = {
+                    limit = {
+                        OR = {
+                            has_state_category = enclave							#飛び地
+                            has_state_category = small_island							#小島
+                            has_state_category = tiny_island							#極小島
+                        }
+                    }
+                    multiply_variable = {
+                        killed_by_nuke_dropped = -50
+                    }
+                    #死者数:5%
+                }
+                add_manpower = killed_by_nuke_dropped
+                clear_variable = killed_by_nuke_dropped
+                add_dynamic_modifier = {
+                    modifier = bsm_dropped_nuke_modifier
+                    scope = FROM
+                    days = 90
+                }
+            }
+            if = {
+                #聖地の場合
+                limit = {
+                    OR = {
+                        FROM = {
+                            state = 922
+                        }
+                    }
+                }
+                news_event = nukes_drop.1
+            }
+        }
+    }
+    on_state_control_changed = {
+        effect = {
+            #州の失陥に関する処理
+            ucs_on_dairy_effects = yes
+        }
+    }
+    on_declare_war = {
+        effect = {
+            #戦時補正
+            if = {
+                limit = {
+                    has_war = yes
+                    NOT = {
+                        has_idea = war_effort_1
+                    }
+                }
+                add_ideas = war_effort_1
+            }
+        }
+    }
+}

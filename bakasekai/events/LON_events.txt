@@ -1,0 +1,404 @@
+add_namespace = LON
+
+news_event = {
+    id = LON.1
+    title = LON.1.t
+    desc = LON.1.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_frank_newson_smith
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+news_event = {
+    id = LON.2
+    title = LON.2.t
+    desc = LON.2.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_john_laurie
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+news_event = {
+    id = LON.3
+    title = LON.3.t
+    desc = LON.3.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_george_wilkinson
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+news_event = {
+    id = LON.4
+    title = LON.4.t
+    desc = LON.4.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_frank_bowater
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+news_event = {
+    id = LON.5
+    title = LON.5.t
+    desc = LON.5.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_harry_twyford
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+news_event = {
+    id = LON.6
+    title = LON.6.t
+    desc = LON.6.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_bracewell_smith
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+news_event = {
+    id = LON.7
+    title = LON.7.t
+    desc = LON.7.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_samuel_joseph
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+news_event = {
+    id = LON.8
+    title = LON.8.t
+    desc = LON.8.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_charles_davis
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+news_event = {
+    id = LON.9
+    title = LON.9.t
+    desc = LON.9.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_william_coxen
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+news_event = {
+    id = LON.10
+    title = LON.10.t
+    desc = LON.10.desc
+
+    is_triggered_only = yes
+    major = yes
+
+    immediate = {
+        promote_character = LON_frank_alexander
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+
+# アイルランド原住民との交渉開始イベント
+country_event = {
+    id = LON.11
+    title = LON.11.t
+    desc = LON.11.desc
+    picture = GFX_report_event_ireland_generic_1 # 適当な汎用画像
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = LON.11.a # 交渉を進める
+        ai_chance = { factor = 80 }
+        set_country_flag = LON_ireland_negotiations_ongoing # 交渉中フラグ
+        add_political_power = -50
+        country_event = { id = LON.12 days = 60 random_days = 30 }
+    }
+    option = {
+        name = LON.11.b # 交渉を拒否# [cite: 12]
+        ai_chance = { factor = 20 }
+        add_political_power = 25
+        add_war_support = -0.05
+        add_opinion_modifier = { target = IRE modifier = LON_irish_displeasure }
+    }
+}
+
+# アイルランド交渉進捗イベント
+country_event = {
+    id = LON.12
+    title = LON.12.t
+    desc = LON.12.desc
+    picture = GFX_report_event_ireland_generic_2 # 適当な汎用画像
+
+    is_triggered_only = yes
+    
+    trigger = {
+        has_country_flag = LON_ireland_negotiations_ongoing# [cite: 13]
+    }
+
+    option = {
+        name = LON.12.a # 合意に達する
+        ai_chance = { factor = 70 }
+        clr_country_flag = LON_ireland_negotiations_ongoing # remove_country_flag を clr_country_flag に修正# [cite: 14]
+        add_opinion_modifier = { target = IRE modifier = LON_irish_friendship }
+        add_stability = 0.05
+        add_war_support = 0.05
+    }
+    option = {
+        name = LON.12.b # 交渉決裂
+        ai_chance = { factor = 30 }
+        clr_country_flag = LON_ireland_negotiations_ongoing # remove_country_flag を clr_country_flag に修正# [cite: 14]
+        add_opinion_modifier = { target = IRE modifier = LON_irish_animosity }
+        add_stability = -0.05
+        add_war_support = -0.05
+    }
+}
+
+# ドミニオン地位獲得イベント
+country_event = {
+    id = LON.13
+    title = LON.13.t
+    desc = LON.13.desc
+    picture = GFX_report_event_dominion # 適当な画像
+    
+    is_triggered_only = yes
+    
+    option = {
+        name = LON.13.a # イギリスが同意
+        ai_chance = {
+            factor = 100
+            modifier = {
+                factor = 0.5# [cite: 16]
+                GBR = { has_opinion = { target = ROOT value < 50 } } # イギリスの意見が低いと確率低下
+            }
+        }
+        GBR = {
+            set_autonomy = { target = ROOT autonomous_state = autonomy_dominion } # ロンドンをドミニオンにする# [cite: 17]
+        }
+        add_political_power = 100
+        add_stability = 0.1
+        add_war_support = 0.05
+    }
+    option = {
+        name = LON.13.b # イギリスが拒否
+        ai_chance = {
+            factor = 100
+            modifier = {
+                factor = 0.5# [cite: 18]
+                GBR = { has_opinion = { target = ROOT value > 50 } } # イギリスの意見が高いと確率低下
+            }
+        }
+        add_political_power = -50
+        add_stability = -0.05
+        add_war_support = -0.05
+        add_opinion_modifier = { target = GBR modifier = LON_dominion_rejected }
+    }
+}
+
+# ============================================================================
+# ロンドン橋関連イベント
+# ============================================================================
+
+# 独立時のロンドン橋破壊イベント
+country_event = {
+    id = LON.14
+    title = LON.14.t
+    desc = LON.14.desc
+    picture = GFX_report_event_london_bridge_destroyed # ロンドン橋破壊の画像
+    
+    is_triggered_only = yes
+    
+    immediate = {
+        clr_country_flag = LON_london_bridge_exists
+        add_stability = -0.15
+        add_war_support = -0.10
+        # 橋の損耗度を最大に設定
+        set_variable = { LON_london_bridge_condition = 100 }# [cite: 20]
+    }
+    
+    option = {
+        name = EVT_OK
+    }
+}
+
+# ロンドン橋の定期的な損耗イベント
+country_event = {
+    id = LON.15
+    title = LON.15.t
+    desc = LON.15.desc
+    picture = GFX_report_event_bridge_damage # 橋の損傷の画像
+    
+    # is_triggered_only を削除するか no に設定しないと mean_time_to_happen は機能しません。
+    # 今回は手動でトリガーされることを想定しているため、mean_time_to_happen を削除します。
+    # is_triggered_only = yes# [cite: 21] # この行はコメントアウトまたは削除します。
+
+    trigger = {
+        has_country_flag = LON_london_bridge_exists # ロンドン橋が存在する
+        check_variable = { var = LON_london_bridge_condition compare = less_than value = 100 } # 損耗度が100未満
+    }
+
+    mean_time_to_happen = {
+        days = 180 # 半年に1回程度発生
+        modifier = {
+            factor = 0.5
+            check_variable = { var = LON_london_bridge_condition compare = greater_than value = 50 }
+        }
+        modifier = {
+            factor = 0.3
+            check_variable = { var = LON_london_bridge_condition compare = greater_than value = 80 }
+        }
+    }
+
+    immediate = {
+        set_temp_variable = { add_damage = 5 } # 基礎ダメージ5%# [cite: 23]
+        random = {
+            chance = 50 # 50%の確率でさらにダメージ
+            add_to_temp_variable = { add_damage = 5 }
+        }
+        add_to_variable = { LON_london_bridge_condition = temp:add_damage } # 損耗度にダメージを加算 (temp変数への参照を修正)
+        clamp_variable = { var = LON_london_bridge_condition max = 100 } # 損耗度を100で上限設定
+
+        # 損耗度が一定値を超えたら警告イベント
+        if = {
+            limit = { check_variable = { var = LON_london_bridge_condition compare = greater_than value = 70 } }# [cite: 24]
+            country_event = { id = LON.16 hours = 1 }
+        }
+    }
+
+    option = {
+        name = EVT_OK
+    }
+}
+
+# ロンドン橋が深刻な損耗状態になった警告イベント
+country_event = {
+    id = LON.16
+    title = LON.16.t
+    desc = LON.16.desc
+    picture = GFX_report_event_bridge_critical # 橋が危険な状態の画像
+    
+    is_triggered_only = yes # mean_time_to_happen がないため is_triggered_only を維持
+
+    trigger = {
+        has_country_flag = LON_london_bridge_exists
+        check_variable = { var = LON_london_bridge_condition compare = greater_than_or_equals value = 70 } # 損耗度が70以上
+        # 重複トリガーを防ぐためのフラグ、ディシジョンで修理開始時にクリア
+        NOT = { has_country_flag = LON_bridge_critical_warning_sent }# [cite: 26]
+    }
+
+    immediate = {
+        set_country_flag = LON_bridge_critical_warning_sent
+        add_stability = -0.05
+        add_war_support = -0.03
+    }
+    
+    option = {
+        name = EVT_OK
+    }
+}
+
+# ============================================================================
+# バトル中央銀行危機 (Battle Central Bank Crisis) イベント群
+# ============================================================================
+country_event = {
+    id = LON.17
+    title = LON.17.t
+    desc = LON.17.desc
+    picture = GFX_report_event_economic_crisis # 経済危機を示す汎用画像# [cite: 27]
+    
+    is_triggered_only = yes # グローバルフラッグでトリガーされる
+
+    trigger = {
+        has_global_flag = BSM_Battle_naisen # BSM_Battle_naisen フラグが立っている
+    }
+
+    # イベントが発火した際に当該国に当該ディシジョン群が表示されるようにする
+    immediate = {
+        activate_decision = LON_respond_battle_crisis_category
+        # 通貨システム連携: 月間通貨収入を激減させる
+        set_temp_variable = { UC_penalty = 50 } # 例として50%減
+        multiply_temp_variable = { UC_penalty = -1 }# [cite: 28]
+        set_variable = { LON_currency_crisis_factor = temp:UC_penalty } # 一時変数への参照を修正# [cite: 28]
+    }
+
+    option = {
+        name = EVT_OK
+        add_political_power = -100
+        add_stability = -0.15
+        add_war_support = -0.10
+        add_ideas = LON_economic_downturn # 国家精神「経済不況」を追加
+    }
+}

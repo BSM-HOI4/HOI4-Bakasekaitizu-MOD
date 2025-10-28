@@ -1,25 +1,202 @@
 on_actions = {
 	on_startup = {
 		effect = {
+			# MYS指向選択イベント
+			MYS = {
+				country_event = {
+					id = mys_direction.1
+					days = 1
+				}
+			}
 			every_country = {
-                limit = {
-                    is_ai = no
-                }
-                country_event = start.0
-            }
-			every_country = {
-                limit = {
-                    is_neighbor_of = MYS
-                }
-				random_list = {
-					75 = {
-						country_event = { days = 10 id = MYS.1}
-					}
-					25 = {
-						country_event = { days = 10 id = MYS.2}
+				limit = {
+					OR = {
+						original_tag = MYS
+						original_tag = MON
+						original_tag = NMX
+						original_tag = AUS
+						original_tag = HRH
+						original_tag = VAT
+						original_tag = SPL
+						original_tag = NPL
+						original_tag = NSI
 					}
 				}
-            }
+				add_ideas = mystery_country
+			}
+			# MYS指向選択イベント
+			MYS = {
+				country_event = {
+					id = MYS_direction.1
+					days = 1
+				}
+			}
+			every_country = {
+				limit = {
+					NOT = {
+						# OR = {
+						original_tag = MYS
+						original_tag = MON
+						original_tag = NMX
+						original_tag = AUS
+						original_tag = HRH
+						original_tag = VAT
+						original_tag = SPL
+						original_tag = NPL
+						original_tag = NSI
+						# }
+					}
+				}
+				add_ideas = normal_country
+			}
+			every_country = {
+				limit = {
+					is_neighbor_of = MYS
+				}
+				random_list = {
+					75 = {
+						country_event = {
+							days = 10
+							id = MYS.1
+						}
+					}
+					25 = {
+						country_event = {
+							days = 10
+							id = MYS.2
+						}
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					NOT = {
+						original_tag = MYS
+					}
+				}
+				set_variable = {
+					var = COUNTRY_resource_minor_artifacts
+					value = 0
+				}
+				set_variable = {
+					Cultural_Degree = modifier@base_Cultural_Degree
+				}
+				set_variable = {
+					var = National_Unity_Power
+					value = 10
+				}
+			}
+			every_country = {
+				limit = {
+					original_tag = MYS
+				}
+				set_variable = {
+					Cultural_Degree = modifier@base_Cultural_Degree
+				}
+				set_variable = {
+					var = National_Unity_Power
+					value = 100
+				}
+			}
+			every_country = {
+				limit = {
+					is_ai = no
+				}
+				clamp_variable = {
+					var = Cultural_Degree
+					min = -1
+				}
+				clamp_variable = {
+					var = Cultural_Degree
+					max = 1
+				}
+				clamp_variable = {
+					var = National_Unity_Power
+					min = -10000
+				}
+				clamp_variable = {
+					var = National_Unity_Power
+					max = 10000
+				}
+				add_dynamic_modifier = {
+					modifier = civ_research_buff
+				}
+				add_dynamic_modifier = {
+					modifier = bsm_uc_factor
+				}
+			}
+			every_country = {
+				limit = {
+					original_tag = MYS
+					original_tag = MON
+				}
+				set_variable = {
+					var = COUNTRY_resource_minor_artifacts
+					value = 10
+				}
+				every_owned_state = {
+					set_variable = {
+						var = State_pop_Tulpa_k
+						value = state_population_k
+					}
+					set_variable = {
+						var = State_pop_Tulpa_k
+						value = state_population_k
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					original_tag = AUS
+				}
+				set_variable = {
+					var = COUNTRY_resource_minor_artifacts
+					value = 4
+				}
+				every_owned_state = {
+					set_variable = {
+						var = State_pop_emu_k
+						value = state_population_k
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					original_tag = NMX
+				}
+				set_variable = {
+					var = COUNTRY_resource_minor_artifacts
+					value = 1
+				}
+				every_owned_state = {
+					set_variable = {
+						var = State_pop_cat_k
+						value = state_population_k
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					NOT = {
+						original_tag = AUS
+						original_tag = MYS
+						original_tag = NMX
+					}
+				}
+				set_variable = {
+					var = COUNTRY_resource_minor_artifacts
+					value = 0
+				}
+				every_owned_state = {
+					set_variable = {
+						var = State_pop_human_k
+						value = state_population_k
+					}
+				}
+			}
+			log = "CD = [?ROOT.Cultural_Degree]"
+			log = "PO = [?ROOT.National_Unity_Power]"
+			log = "ec = [?ROOT.Unified_Currency]"
 			WES = {
 				if = {
 					limit = {
@@ -95,40 +272,148 @@ on_actions = {
 							}
 						}
 					}
-					WES = { set_country_flag = WES_AI_RANDOM_EMPIRE }
+					WES = {
+						set_country_flag = WES_AI_RANDOM_EMPIRE
+					}
+				}
+			}
+			BKK = {
+				if = {
+					limit = {
+						OR = {
+							AND = {
+								is_historical_focus_on = no
+								has_game_rule = {
+									rule = AI_NF_choice
+									option = KHAOS
+								}
+							}
+							has_game_rule = {
+								rule = AI_NF_choice
+								option = KHAOS
+							}
+						}
+					}
+					set_country_flag = BKK_AI_RANDOM_LONG
 				}
 			}
 		}
 	}
 	on_declare_war = {
 		effect = {
+			# 戦争の当事者（宣戦布告した側かされた側）に中国が含まれるかを確認
+			if = {
+				limit = {
+					OR = {
+						ROOT = {
+							original_tag = CHN
+						}
+						# ROOT: 宣戦布告した国
+						FROM = {
+							original_tag = CHN
+						}
+						# FROM: 宣戦布告された国
+					}
+				}
+				# --- 中国が戦争に関与した場合、CHNタグの国に対して以下の効果を実行 ---
+				CHN = {
+					set_global_flag = CHN_civil_war
+					# グローバルフラグ CHN_civil_war をセットします。
+					# ゲームルール「China_divides」が「DEFAULT」オプションかつ、CHNがAI操作の場合
+					if = {
+						limit = {
+							has_game_rule = {
+								rule = China_divides								# (★要確認) 実際のゲームルール名に置き換えてください
+								option = DEFAULT								# (★要確認) 実際のオプション名に置き換えてください
+							}
+							is_ai = yes
+						}
+						country_event = {
+							id = CHN_civil_war.1							# (★要確認・要作成) 対応するイベントID
+						}
+					}
+					# (★要確認) 次の else_if ブロックの条件とイベントIDについてご確認ください
+					else_if = {
+						limit = {
+							# (★要確認) この条件ブロックは現在コメントアウトされています。
+							# もし別のゲームルールオプションに基づいた分岐が必要な場合は、
+							# 以下のコメントを解除し、適切な rule と option を指定してください。
+							# has_game_rule = {
+							# rule = China_divides # (★要確認)
+							# option = CHINA_DIVIDES_DEFAULT_PL # (★要確認) 実際のオプション名に
+							# }
+							# (★要確認) 上記の has_game_rule を有効にする場合、
+							# この limit ブロックが空でないことを確認してください。
+							# limit が空の場合、この else_if は常に真（先のifが偽の場合）と評価されます。
+						}
+						country_event = {
+							# (★要確認) 現在、上の if ブロックと同じイベントID CHN_civil_war.1 を呼び出しています。
+							# もし条件によって異なるイベントを発生させたい場合は、
+							# ここで別のイベントIDを指定してください。
+							id = CHN_civil_war.1							# (★要確認・要作成)
+						}
+					}
+					# 他のゲームルールオプションに対応する場合は、さらに else_if や else をここに追加してください。
+				}
+			}
+		}
+	}
+	on_yearly_pulse = {
+		effect = {
 			if = {
 				limit = {
 					tag = CHN
-				}
-				if = {
-					limit = {
-						has_game_rule = {
-							rule = China_divides
-							option = DEFAULT
-						}
-						is_ai = yes
-					}
-					country_event = {
-						id = CHN_civil_war.1
+					NOT = {
+						has_idea = chn_periodic_strikes
 					}
 				}
-				else_if = {
-					limit = {
-						has_game_rule = {
-							rule = China_divides
-							option = CHINA_DIVIDES_DEFAULT_PL
+				random_list = {
+					30 = {
+						country_event = {
+							id = chn_strikes.1
 						}
 					}
-					country_event = {
-						id = CHN_civil_war.1
+					70 = {
 					}
 				}
+			}
+		}
+	}
+	
+	# 和平会議が終了した時にこのon_actionが発動します。
+	on_peaceconference_ended = {
+		effect = {
+			# 条件分岐: ステート922がVATによって所有されていない場合
+			# 922を実際のステートIDに、VATを実際の国タグに置き換えてください。
+			if = {
+				limit = {
+					922 = {
+						NOT = {
+							owner = VAT
+						}
+					}
+				}
+				# 条件が満たされた場合、ステート922の現在の所有者をグローバルイベントターゲットとして保存します。
+				# これにより、後でこの国を参照できます。
+				922 = {
+					owner = {
+						save_global_event_target_as = wargoal_target_country
+					}
+				}
+				# ゲーム内のすべての国をループ処理します。
+				every_country = {
+					# スコープをidea catholicismを持つ国に限定します。
+					limit = {
+						has_idea = catholicism
+					}
+					# ステート922の所有者に対して開戦事由holy_warを作成します。
+					create_wargoal = {
+						target = event_target:wargoal_target_country
+						type = holy_war
+					}
+				}
+				# 潜在的な競合を防ぐために、使用したグローバルイベントターゲットをクリアします。
+				clear_global_event_target = wargoal_target_country
 			}
 		}
 	}

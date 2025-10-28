@@ -1,229 +1,520 @@
 focus_tree = {
-	id = NOKIA_1
+	id = NKA_focus_tree
 	country = {
 		factor = 0
 		modifier = {
-			add = -1
+			add = 10
 			tag = NKA
 		}
 	}
 	default = no
+	
+	# Initial Investment Branch
 	focus = {
-		id = NOK_haki
-		icon = GFX_focus_generic_treaty
-		cost = 10.00
-		x = 9
+		id = NKA_shouki_toushi
+		icon = GFX_focus_generic_industry_1
+		cost = 10
+		x = 3
 		y = 0
-
+		completion_reward = {
+			add_political_power = 50
+		}
 	}
+	
 	focus = {
-		id = NOK_kouhukusi
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_haki
+		id = NKA_gomu_boots
+		icon = GFX_focus_generic_industry_2
+		cost = 10
+		prerequisite = { focus = NKA_shouki_toushi }
+		x = 1
+		y = 1
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
-		mutually_exclusive = {
-			focus = NOK_mirai
-			focus = NOK_sinwa
-		}
+	}
+	
+	focus = {
+		id = NKA_seishi_jigyo
+		icon = GFX_focus_generic_industry_3
+		cost = 10
+		prerequisite = { focus = NKA_shouki_toushi }
 		x = 3
 		y = 1
-
-	}
-	focus = {
-		id = NOK_tujoukouhukusi
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_kouhukusi
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
-		x = 1
+	}
+	
+	focus = {
+		id = NKA_cable_seizo
+		icon = GFX_focus_research
+		cost = 10
+		prerequisite = { focus = NKA_shouki_toushi }
+		x = 5
+		y = 1
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+	
+	focus = {
+		id = NKA_tsushin_gijutsu_no_yoake
+		icon = GFX_focus_research2
+		cost = 10
+		prerequisite = { focus = NKA_gomu_boots }
+		prerequisite = { focus = NKA_seishi_jigyo }
+		prerequisite = { focus = NKA_cable_seizo }
+		x = 3
 		y = 2
-
-	}
-	focus = {
-		id = NOK_kokuminhoken
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_tujoukouhukusi
+		completion_reward = {
+			add_research_slot = 1
 		}
-		x = 1
+	}
+	
+	focus = {
+		id = NKA_mobira_no_ooja
+		icon = GFX_focus_generic_production
+		cost = 10
+		prerequisite = { focus = NKA_tsushin_gijutsu_no_yoake }
+		x = 3
 		y = 3
-
+		completion_reward = {
+			add_ideas = NKA_mobira_mastery
+		}
 	}
+	
+	# Golden Age Branch
 	focus = {
-		id = NOK_genzei
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_kokuminhoken
+		id = NKA_golden_age
+		icon = GFX_focus_generic_self_management
+		cost = 10
+		x = 9
+		y = 0
+		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.05
 		}
-		x = 1
-		y = 4
-
 	}
+	
 	focus = {
-		id = NOK_gunji
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_kouhukusi
+		id = NKA_connecting_people
+		icon = GFX_focus_generic_treaty
+		cost = 10
+		prerequisite = { focus = NKA_golden_age }
+		x = 7
+		y = 1
+		completion_reward = {
+			add_ideas = NKA_connecting_people_spirit
 		}
-		x = 5
-		y = 2
-
 	}
+	
 	focus = {
-		id = NOK_guntoushi
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_gunji
-		}
-		x = 5
-		y = 3
-
-	}
-	focus = {
-		id = NOK_AF
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_guntoushi
-		}
-		x = 5
-		y = 4
-
-	}
-	focus = {
-		id = NOK_navy
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_guntoushi
-		}
-		x = 8
-		y = 4
-
-	}
-	focus = {
-		id = NOK_mirai
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_haki
-		}
-		mutually_exclusive = {
-			focus = NOK_kouhukusi
-			focus = NOK_sinwa
-		}
-		completion_reward={load_focus_tree=NOKIA_mirai}
+		id = NKA_mass_market_appeal
+		icon = GFX_focus_generic_consumer_goods
+		cost = 10
+		prerequisite = { focus = NKA_golden_age }
 		x = 9
 		y = 1
-
-	}
-	focus = {
-		id = NOK_army
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_guntoushi
+		completion_reward = {
+			add_ideas = NKA_mass_appeal
 		}
+	}
+	
+	focus = {
+		id = NKA_intuitive_UI
+		icon = GFX_focus_generic_radar
+		cost = 10
+		prerequisite = { focus = NKA_golden_age }
+		x = 11
+		y = 1
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = computing_tech
+			}
+		}
+	}
+	
+	focus = {
+		id = NKA_market_dominance
+		icon = GFX_focus_generic_diplomatic_treaty
+		cost = 10
+		prerequisite = { focus = NKA_connecting_people }
+		prerequisite = { focus = NKA_mass_market_appeal }
+		prerequisite = { focus = NKA_intuitive_UI }
+		x = 9
+		y = 2
+		completion_reward = {
+			country_event = { id = nokia.1 }
+		}
+	}
+	
+	# Crisis Focus - Triggers after event
+	focus = {
+		id = NKA_paradigm_shift
+		icon = GFX_focus_generic_conspiracy
+		cost = 35
+		prerequisite = { focus = NKA_market_dominance }
+		available = {
+			has_country_flag = smartphone_crisis_started
+		}
+		x = 9
+		y = 3
+		completion_reward = {
+			clr_country_flag = smartphone_crisis_started
+			remove_ideas = NKA_crisis_management
+		}
+	}
+	
+	# Four Main Paths - Mutually Exclusive
+	
+	# Path A: Unbreakable Kingdom (Non-Aligned)
+	focus = {
+		id = NKA_unbreakable_kingdom
+		icon = GFX_focus_generic_military_mission
+		cost = 10
+		prerequisite = { focus = NKA_paradigm_shift }
+		mutually_exclusive = { focus = NKA_global_network }
+		mutually_exclusive = { focus = NKA_aggressive_monopoly }
+		mutually_exclusive = { focus = NKA_open_source_revolution }
+		x = 3
+		y = 4
+		completion_reward = {
+			set_politics = {
+				ruling_party = neutrality_ideology
+				elections_allowed = no
+			}
+			add_popularity = {
+				ideology = neutrality_ideology
+				popularity = 0.6
+			}
+			country_event = { id = nokia.10 }
+		}
+	}
+	
+	focus = {
+		id = NKA_3310_seishin
+		icon = GFX_focus_generic_fortress
+		cost = 10
+		prerequisite = { focus = NKA_unbreakable_kingdom }
+		x = 3
+		y = 5
+		completion_reward = {
+			add_ideas = NKA_3310_spirit
+		}
+	}
+	
+	focus = {
+		id = NKA_kyojin_na_kokudo
+		icon = GFX_focus_generic_coastal_fort
+		cost = 10
+		prerequisite = { focus = NKA_3310_seishin }
+		x = 2
+		y = 6
+		completion_reward = {
+			every_owned_state = {
+				limit = { 
+					is_core_of = ROOT 
+					is_controlled_by = ROOT
+				}
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+	focus = {
+		id = NKA_snake_doctrine
+		icon = GFX_focus_generic_combined_arms
+		cost = 10
+		prerequisite = { focus = NKA_3310_seishin }
+		x = 4
+		y = 6
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = cat_mobile_warfare
+			}
+		}
+	}
+	
+	# Path B: Global Network (Democratic)
+	focus = {
+		id = NKA_global_network
+		icon = GFX_focus_generic_diplomatic_treaty
+		cost = 10
+		prerequisite = { focus = NKA_paradigm_shift }
+		mutually_exclusive = { focus = NKA_unbreakable_kingdom }
+		mutually_exclusive = { focus = NKA_aggressive_monopoly }
+		mutually_exclusive = { focus = NKA_open_source_revolution }
+		x = 7
+		y = 4
+		completion_reward = {
+			add_ideas = NKA_global_network_initiative
+		}
+	}
+	
+	focus = {
+		id = NKA_sekai_wo_tsunagu
+		icon = GFX_focus_generic_support_the_left_right
+		cost = 10
+		prerequisite = { focus = NKA_global_network }
+		x = 7
+		y = 5
+		completion_reward = {
+			unlock_decision_category_tooltip = NKA_network_expansion_decisions
+		}
+	}
+	
+	focus = {
+		id = NKA_5G_hegemony
+		icon = GFX_focus_generic_radar
+		cost = 10
+		prerequisite = { focus = NKA_sekai_wo_tsunagu }
+		x = 6
+		y = 6
+		completion_reward = {
+			add_ideas = NKA_5G_hegemony_spirit
+			add_research_slot = 1
+		}
+	}
+	
+	focus = {
+		id = NKA_kyoudou_kaihatsu
+		icon = GFX_focus_research
+		cost = 10
+		prerequisite = { focus = NKA_sekai_wo_tsunagu }
+		x = 8
+		y = 6
+		completion_reward = {
+			add_ideas = NKA_joint_development
+		}
+	}
+	
+	# Path C: Aggressive Monopoly (Fascist)
+	focus = {
+		id = NKA_aggressive_monopoly
+		icon = GFX_focus_generic_attack
+		cost = 10
+		prerequisite = { focus = NKA_paradigm_shift }
+		mutually_exclusive = { focus = NKA_unbreakable_kingdom }
+		mutually_exclusive = { focus = NKA_global_network }
+		mutually_exclusive = { focus = NKA_open_source_revolution }
 		x = 11
 		y = 4
-
+		completion_reward = {
+			set_politics = {
+				ruling_party = fascism_ideology
+				elections_allowed = no
+			}
+			add_popularity = {
+				ideology = fascism_ideology
+				popularity = 0.6
+			}
+		}
 	}
+	
 	focus = {
-		id = NOK_sinwa
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_haki
+		id = NKA_shijo_dokusen
+		icon = GFX_focus_generic_military_academy
+		cost = 10
+		prerequisite = { focus = NKA_aggressive_monopoly }
+		x = 11
+		y = 5
+		completion_reward = {
+			add_ideas = NKA_monopoly_strategy
 		}
-		mutually_exclusive = {
-			focus = NOK_mirai
-			focus = NOK_kouhukusi
+	}
+	
+	focus = {
+		id = NKA_tokkyo_sensou
+		icon = GFX_focus_generic_military_equipment
+		cost = 10
+		prerequisite = { focus = NKA_shijo_dokusen }
+		x = 10
+		y = 6
+		completion_reward = {
+			unlock_decision_category_tooltip = NKA_patent_war_decisions
 		}
+	}
+	
+	focus = {
+		id = NKA_N_Gage_gun
+		icon = GFX_focus_generic_special_forces
+		cost = 10
+		prerequisite = { focus = NKA_shijo_dokusen }
+		x = 12
+		y = 6
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = para_tech
+			}
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = marine_tech
+			}
+		}
+	}
+	
+	# Path D: Open Source Revolution (Communist)
+	focus = {
+		id = NKA_open_source_revolution
+		icon = GFX_focus_generic_the_giant_wakes
+		cost = 10
+		prerequisite = { focus = NKA_paradigm_shift }
+		mutually_exclusive = { focus = NKA_unbreakable_kingdom }
+		mutually_exclusive = { focus = NKA_global_network }
+		mutually_exclusive = { focus = NKA_aggressive_monopoly }
 		x = 15
-		y = 1
-
+		y = 4
+		completion_reward = {
+			set_politics = {
+				ruling_party = communism_ideology
+				elections_allowed = no
+			}
+			add_popularity = {
+				ideology = communism_ideology
+				popularity = 0.6
+			}
+		}
 	}
+	
 	focus = {
-		id = NOK_jikokaihatsu
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_AF
-		}
-		prerequisite = {
-			focus = NOK_navy
-		}
-		prerequisite = {
-			focus = NOK_army
-		}
-		x = 8
+		id = NKA_kaihou_sareta_gijutsu
+		icon = GFX_focus_generic_science
+		cost = 10
+		prerequisite = { focus = NKA_open_source_revolution }
+		x = 15
 		y = 5
-
+		completion_reward = {
+			add_ideas = NKA_liberated_technology
+		}
 	}
+	
 	focus = {
-		id = NOK_yurikago
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus = NOK_genzei
-		}
-		x = 1
-		y = 5
-
-	}
-}
-
-focus_tree={id = NOKIA_mirai
-	country = {
-		factor = 0
-		modifier = {
-			add = -1
-			tag = NKA
+		id = NKA_symbian_doumei
+		icon = GFX_focus_generic_communist_party
+		cost = 10
+		prerequisite = { focus = NKA_kaihou_sareta_gijutsu }
+		x = 14
+		y = 6
+		completion_reward = {
+			create_faction = "シンビアン同盟"
+			add_ideas = NKA_revolutionary_network
 		}
 	}
-default=no
-focus = {
-		id = NOK_miraijin
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
+	
+	focus = {
+		id = NKA_minshuu_no_tame_no_gijutsu
+		icon = GFX_focus_generic_industry_1
+		cost = 10
+		prerequisite = { focus = NKA_kaihou_sareta_gijutsu }
+		x = 16
+		y = 6
+		completion_reward = {
+			add_ideas = NKA_tech_for_people
 		}
-		x = 5
+	}
+	
+	# Shared Military Branch
+	focus = {
+		id = NKA_gunji_gijutsu
+		icon = GFX_focus_generic_military_equipment
+		cost = 10
+		x = 19
 		y = 0
-		completion_reward={add_ideas=NOK_miraijin set_country_flag="未来?"}
-	}
-
-focus = {
-		id = NOK_miraigijutu
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus=NOK_miraijin
+		completion_reward = {
+			army_experience = 25
+			air_experience = 25
+			navy_experience = 25
 		}
-		x = 5
-		y = 1
-		completion_reward={add_ideas={NOK_miraijin}}
 	}
-
+	
 	focus = {
-		id = NOK_miraigun
-		icon = GFX_goal_unknown
-		cost = 10.00
-		prerequisite = {
-			focus=NOK_miraijin
+		id = NKA_digital_signals
+		icon = GFX_focus_generic_radar
+		cost = 10
+		prerequisite = { focus = NKA_gunji_gijutsu }
+		x = 18
+		y = 1
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = electronics
+			}
 		}
-		x = 5
-		y = 2
-		completion_reward={add_ideas={NOK_miraijin}}
 	}
-
-
-
+	
+	focus = {
+		id = NKA_composite_materials
+		icon = GFX_focus_generic_tank_production
+		cost = 10
+		prerequisite = { focus = NKA_gunji_gijutsu }
+		x = 20
+		y = 1
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = armor
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+	
+	focus = {
+		id = NKA_camera_optics
+		icon = GFX_focus_generic_air_production
+		cost = 10
+		prerequisite = { focus = NKA_digital_signals }
+		prerequisite = { focus = NKA_composite_materials }
+		x = 19
+		y = 2
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 2
+				category = light_air
+			}
+		}
+	}
 }

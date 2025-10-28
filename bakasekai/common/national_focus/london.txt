@@ -1,0 +1,145 @@
+focus_tree = {
+    id = LON_focus_tree
+    
+    # この国家方針ツリーをロンドン（LON）に割り当てる
+    country = {
+        factor = 0
+        modifier = {
+            add = 10
+            tag = LON
+        }
+    }
+
+    # 初期表示位置
+    initial_show_position = {
+        x = 0
+        y = 0
+    }
+
+    # -------------------------------------------------
+    # 1. 基盤構築
+    # -------------------------------------------------
+    focus = {
+        id = LON_fundamentals
+        icon = GFX_goal_generic_major_war
+        x = 0
+        y = 0
+        cost = 10
+        completion_reward = {
+            add_political_power = 100
+            random_owned_controlled_state = {
+                limit = {
+                    free_building_slots = {
+                        building = industrial_complex
+                        size = 1
+                    }
+                }
+                add_building_construction = {
+                    type = industrial_complex
+                    level = 2
+                    instant_build = yes
+                }
+            }
+        }
+        ai_will_do = {
+            factor = 10
+        }
+    }
+
+    # -------------------------------------------------
+    # 2. 金融覇権
+    # -------------------------------------------------
+    focus = {
+        id = LON_financial_hub
+        icon = GFX_goal_generic_consumer_goods
+        x = -2
+        y = 1
+        prerequisite = { focus = LON_fundamentals }
+        cost = 10
+        completion_reward = {
+            add_ideas = LON_international_financial_center
+            add_political_power = 50
+            add_research_slot = 1
+        }
+        ai_will_do = {
+            factor = 8
+        }
+    }
+
+    # -------------------------------------------------
+    # 3. 英連邦外交
+    # -------------------------------------------------
+    focus = {
+        id = LON_commonwealth_relations
+        icon = GFX_goal_generic_allies_build_infantry
+        x = 2
+        y = 1
+        prerequisite = { focus = LON_fundamentals }
+        cost = 10
+        completion_reward = {
+            add_opinion_modifier = { 
+                target = GBR
+                modifier = LON_stronger_commonwealth_ties 
+            }
+            add_opinion_modifier = { 
+                target = AST 
+                modifier = LON_commonwealth_cooperation 
+            }
+            add_political_power = 25
+        }
+        ai_will_do = {
+            factor = 7
+        }
+    }
+
+    # -------------------------------------------------
+    # 4. ケルト統一への道
+    # -------------------------------------------------
+    focus = {
+        id = LON_celtic_unification
+        icon = GFX_goal_generic_allies_build_infantry
+        x = 0
+        y = 2
+        prerequisite = { focus = LON_financial_hub }
+        prerequisite = { focus = LON_commonwealth_relations }
+        cost = 15
+        available = {
+            is_neighbor_of = IRE
+        }
+        completion_reward = {
+            every_state = {
+                limit = {
+                    is_owned_by = IRE
+                }
+                add_claim_by = LON
+            }
+            add_war_support = 0.05
+            add_political_power = 75
+            country_event = { id = LON.18 hours = 6 }
+        }
+        ai_will_do = {
+            factor = 6
+        }
+    }
+
+    # -------------------------------------------------
+    # 5. 世界影響力
+    # -------------------------------------------------
+    focus = {
+        id = LON_global_influence
+        icon = GFX_goal_generic_major_alliance
+        x = 0
+        y = 3
+        prerequisite = { focus = LON_celtic_unification }
+        cost = 15
+        completion_reward = {
+            add_ideas = LON_global_financial_network
+            add_political_power = 150
+            unlock_decision_category_tooltip = LON_world_investment_category
+            activate_decision = LON_world_investment_category
+        }
+        ai_will_do = {
+            factor = 9
+        }
+    }
+}

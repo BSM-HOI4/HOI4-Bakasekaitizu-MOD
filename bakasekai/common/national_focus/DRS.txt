@@ -1,0 +1,352 @@
+focus_tree = {
+	id = DRS_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = DRS
+		}
+	}
+	default = no
+	focus = {
+		id = DRS_independence_pledge
+		icon = GFX_goal_generic_propaganda
+		x = 1
+		y = 0
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = dockyard_construction_boost
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = DRS_port_development
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = {
+			focus = DRS_independence_pledge
+		}
+		x = -5
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_resource = {
+				type = oil
+				amount = 2
+				state = 839
+			}
+		}
+	}
+	focus = {
+		id = DRS_expand_trade
+		icon = GFX_goal_generic_trade
+		prerequisite = {
+			focus = DRS_port_development
+		}
+		x = -5
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = DRS_industrial_boom
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = {
+			focus = DRS_expand_trade
+		}
+		x = -5
+		y = 3
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = industrial_construction_boost
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = DRS_navy_plan
+		icon = GFX_goal_generic_navy_carrier
+		prerequisite = {
+			focus = DRS_independence_pledge
+		}
+		x = 6
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.1
+				uses = 1
+				category = naval_equipment
+			}
+		}
+	}
+	focus = {
+		id = DRS_submarine_program
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = {
+			focus = DRS_navy_plan
+		}
+		x = 6
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.1
+				uses = 1
+				category = ss_tech
+			}
+		}
+	}
+	focus = {
+		id = DRS_coastal_defense
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = {
+			focus = DRS_submarine_program
+		}
+		x = 6
+		y = 3
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = coastal_bunker_construction_boost
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = DRS_diplomatic_policy
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = {
+			focus = DRS_independence_pledge
+		}
+		x = 1
+		y = 1
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = DRS_maintain_neutrality
+		icon = GFX_goal_generic_neutrality_focus
+		prerequisite = {
+			focus = DRS_diplomatic_policy
+		}
+		x = -1
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_stability = 0.05
+			add_war_support = -0.05
+		}
+	}
+	focus = {
+		id = DRS_internal_unity
+		icon = GFX_goal_generic_national_unity
+		prerequisite = {
+			focus = DRS_maintain_neutrality
+		}
+		x = -1
+		y = 3
+		cost = 5
+		ai_will_do = {
+			factor = 10
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = DRS_british_protectorate
+		icon = GFX_goal_generic_alliance
+		prerequisite = {
+			focus = DRS_diplomatic_policy
+		}
+		x = -3
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_to_faction = GBR
+		}
+	}
+	focus = {
+		id = DRS_royal_navy_aid
+		icon = GFX_goal_generic_air_naval_bomber
+		prerequisite = {
+			focus = DRS_british_protectorate
+		}
+		x = -3
+		y = 3
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.1
+				uses = 1
+				category = naval_equipment
+			}
+		}
+	}
+	focus = {
+		id = DRS_preserve_independence
+		icon = GFX_focus_generic_home_defense
+		prerequisite = {
+			focus = DRS_royal_navy_aid
+		}
+		x = -3
+		y = 4
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+	}
+	focus = {
+		id = DRS_japanese_alliance
+		icon = GFX_goal_generic_occupy_start_war
+		prerequisite = {
+			focus = DRS_diplomatic_policy
+		}
+		x = 3
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_to_faction = JPN
+		}
+	}
+	focus = {
+		id = DRS_joint_fleet_exercises
+		icon = GFX_goal_generic_allies_build_infantry
+		prerequisite = {
+			focus = DRS_japanese_alliance
+		}
+		x = 3
+		y = 3
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.1
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+	focus = {
+		id = DRS_own_path
+		icon = GFX_focus_generic_self_management
+		prerequisite = {
+			focus = DRS_joint_fleet_exercises
+		}
+		x = 3
+		y = 4
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_timed_idea = {
+				idea = dockyard_construction_boost
+				days = 365
+			}
+		}
+	}
+	focus = {
+		id = DRS_german_aid
+		icon = GFX_focus_research
+		prerequisite = {
+			focus = DRS_diplomatic_policy
+		}
+		x = 1
+		y = 2
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			DEU = {
+				add_political_power = -50
+			}
+			add_political_power = 50
+		}
+	}
+	focus = {
+		id = DRS_naval_tech_sharing
+		icon = GFX_goal_generic_air_naval_bomber
+		prerequisite = {
+			focus = DRS_german_aid
+		}
+		x = 1
+		y = 3
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 0.1
+				uses = 1
+				category = naval_equipment
+			}
+		}
+	}
+	focus = {
+		id = DRS_minimize_german_influence
+		icon = GFX_focus_generic_self_management
+		prerequisite = {
+			focus = DRS_naval_tech_sharing
+		}
+		x = 1
+		y = 4
+		cost = 5
+		ai_will_do = {
+			factor = 5
+		}
+		completion_reward = {
+			add_stability = 0.05
+		}
+	}
+}

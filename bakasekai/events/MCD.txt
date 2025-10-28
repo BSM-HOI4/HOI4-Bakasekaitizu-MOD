@@ -20,7 +20,7 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.1.a  #絶対に止めるべきだ！
+		name = MCD.1.a  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 100
 		}
@@ -80,7 +80,7 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.2.a  #絶対に止めるべきだ！
+		name = MCD.2.a  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 100
 		}
@@ -138,7 +138,7 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.3.a  #絶対に止めるべきだ！
+		name = MCD.3.a  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 100
 		}
@@ -196,7 +196,7 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.4.a  #絶対に止めるべきだ！
+		name = MCD.4.a  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 100
 		}
@@ -224,7 +224,7 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.5.a  #絶対に止めるべきだ！
+		name = MCD.5.a  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 100
 		}
@@ -248,7 +248,7 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.6.a  #絶対に止めるべきだ！
+		name = MCD.6.a  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 100
 		}
@@ -258,11 +258,12 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.6.b  #絶対に止めるべきだ！
+		name = MCD.6.b  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 0
 		}
 		load_focus_tree = McDonald
+		set_global_flag = MAC_has_McDonald_Tree
 		add_ideas = tightly_bound_feelings
 
 		
@@ -278,15 +279,19 @@ country_event = {
 
 	major = no
 	is_triggered_only = yes
+	hidden = yes
 
 	trigger = {
 		tag = MAC
 	}
 
 	option = {
-		name = MCD.7.a  #絶対に止めるべきだ！
+		name = MCD.7.a  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 100
+		}
+		trigger = {
+			is_ai = yes
 		}
 		load_focus_tree = generic_focus
 
@@ -294,9 +299,12 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.7.b  #絶対に止めるべきだ！
+		name = MCD.7.b  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 0
+		}
+		trigger = {
+			is_ai = no
 		}
 
 		
@@ -318,7 +326,7 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.8.a  #絶対に止めるべきだ！
+		name = MCD.8.a  #絶対に止めるべきだ!
 		trigger = {
 			has_country_flag = MAC_MAC
 		}
@@ -329,7 +337,7 @@ country_event = {
 		start_civil_war = {
 			ideology = stupidism
 			size = 0.5
-			set_cosmetic_tag = MAC_MCD
+			set_cosmetic_tag = MCDbyMAC
 			#create_country_leader = {
 			#	name = "Josef Terboven"
 			#	desc = "POLITICS_JOSEF_TERBOVEN_DESC"
@@ -345,7 +353,7 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.8.b  #絶対に止めるべきだ！
+		name = MCD.8.b  #絶対に止めるべきだ!
 		trigger = {
 			has_country_flag = MAC_MCD
 		}
@@ -356,7 +364,7 @@ country_event = {
 		start_civil_war = {
 			ideology = stupidism
 			size = 0.5
-			set_cosmetic_tag = MAC_MAC
+			set_cosmetic_tag = MACbyMAC
 			#create_country_leader = {
 			#	name = "Josef Terboven"
 			#	desc = "POLITICS_JOSEF_TERBOVEN_DESC"
@@ -386,9 +394,22 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.9.a  #絶対に止めるべきだ！
+		name = MCD.9.a  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
+		MAC_bop_medium_decrease_effect = yes
+	}
+	option = {
+		name = MCD.9.b  #絶対に止めるべきだ！
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
 		}
 		MAC_bop_medium_decrease_effect = yes
 	}
@@ -408,10 +429,97 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.10.a  #絶対に止めるべきだ！
+		name = MCD.10.a  #絶対に止めるべきだ!
 		ai_chance = {
 			factor = 100
 		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
 		MAC_bop_medium_increase_effect = yes
+	}
+	option = {
+		name = MCD.10.b  #絶対に止めるべきだ！
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
+		}
+		MAC_bop_medium_increase_effect = yes
+	}
+}
+country_event = {
+	id = MCD.11	#コーラ戦争の開始
+	title = MCD.11.t #
+	desc = MCD.11.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+	#hidden = yes
+
+	trigger = {
+		tag = MAC
+	}
+
+	option = {
+		name = MCD.11.a  #コカコーラとペプシ、どっちがすきだ？
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = MAC_start_cola_war
+		set_variable = { var = representatives_total value = 441 }
+		set_variable = { var = directors_total value = 21 }
+		if = {
+			limit = {
+				has_country_flag = MAC_coca_flag
+			}
+			set_variable = { var = directors_support value = 15 }
+			set_variable = { var = representatives_support value = 265 }
+			complete_national_focus = MAC_coca_cola
+			activate_mission = MAC_NF_pepsi_propaganda
+		}
+		else = {
+			set_variable = { var = directors_support value = 7 }
+			set_variable = { var = representatives_support value = 176 }
+			complete_national_focus = MAC_pepsi_cola
+			activate_mission = MAC_NF_cola_capitalism
+		}
+		set_variable = { var = enemy_pp value = 0 }
+		MAC_recalc_congress_icon_frames = yes
+        MAC_initiate_balance_of_power_effect_2 = yes
+	}
+}
+country_event = {
+	id = MCD.12	#コーラ戦争の開始
+	title = MCD.12.t #
+	desc = MCD.12.d
+
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+	}
+
+	option = {
+		name = MCD.12.a  #コカコーラとペプシ、どっちがすきだ？
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = MAC_coca_flag
+		country_event = { id = MCD.11 }
+	}
+	option = {
+		name = MCD.12.b  #コカコーラとペプシ、どっちがすきだ？
+		ai_chance = {
+			factor = 100
+		}
+		set_country_flag = MAC_pepsi_flag
+		country_event = { id = MCD.11 }
 	}
 }

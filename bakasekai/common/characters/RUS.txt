@@ -1,0 +1,418 @@
+characters = {
+	MOS_Oliga = {
+		name = MOS_Oliga
+		portraits = {
+			civilian = {
+				large = "GFX_MOS_Oliga"
+			}
+		}
+		country_leader = {
+			ideology = constitutional_emperor
+			traits = {
+				quartermaster_general
+				compassionate_gentleman
+				Political_edge
+				Dark_general
+			}
+			expire = "1965.1.1.1"
+		}
+	}
+	MOS_anastashia = {
+		name = MOS_anastashia
+		portraits = {
+			civilian = {
+				large = GFX_MOS_anastashia
+				small = GFX_MOS_anastashia_small
+			}
+		}
+		country_leader = {
+			ideology = constitutional_emperor
+			expire = "1965.1.1.1"
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = anastashia
+			available = {
+				has_intelligence_agency = yes
+				custom_trigger_tooltip = {
+					tooltip = cyptology_tooltip_tt
+					has_done_agency_upgrade = upgrade_form_department
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					has_political_power < 200
+					factor = 0
+				}
+			}
+			allowed = {
+				original_tag = MOS
+				has_dlc = "La Resistance"
+			}
+			traits = {
+				mastermind_code_cracker
+				head_of_intelligence
+			}
+		}
+	}
+	MOS_tatiana = {
+		name = MOS_tatiana
+		portraits = {
+			civilian = {
+				large = GFX_MOS_tatiana
+			}
+			army = {
+				large = GFX_MOS_tatiana
+				small = GFX_MOS_tatiana_small
+			}
+		}
+		advisor = {
+			slot = high_command
+			idea_token = titania
+			ledger = army
+			allowed = {
+				original_tag = RUS
+			}
+			traits = {
+				army_infantry_2
+			}
+			cost = 100
+			ai_will_do = {
+				factor = 2.5
+				modifier = {
+					factor = 1.5
+					not = {
+						MOS = {
+							has_war_with = RUS
+						}
+					}
+				}
+			}
+		}
+		corps_commander = {
+			traits = {
+				old_guard
+				trait_reckless
+				cavalry_officer
+			}
+			skill = 3
+			attack_skill = 3
+			defense_skill = 2
+			planning_skill = 4
+			logistics_skill = 4
+			legacy_id = 0
+		}
+		country_leader = {
+			ideology = constitutional_emperor
+			expire = "1965.1.1.1"
+		}
+	}
+	MOS_maria = {
+		name = MOS_maria
+		portraits = {
+			civilian = {
+				large = GFX_MOS_maria
+				small = GFX_MOS_maria_small
+			}
+		}
+		country_leader = {
+			ideology = constitutional_emperor
+			expire = "1965.1.1.1"
+		}
+		advisor = {
+			slot = political_advisor
+			idea_token = maria
+			allowed = {
+				original_tag = MOS
+			}
+			traits = {
+				silent_workhorse
+				war_industrialist
+				anti_communist
+			}
+			ai_will_do = {
+				factor = 2
+				modifier = {
+					has_country_leader = {
+						character = MOS_Oliga
+						ruling_only = yes
+					}
+					factor = 10
+				}
+			}
+		}
+	}
+	RUS_Aleksandr_Vasilevich_Kolchak = {
+		name = RUS_Aleksandr_Vasilevich_Kolchak
+		portraits = {
+			army = {
+				large = "gfx/leaders/RUS/korutyaku_lage.png"
+				small = "gfx/leaders/RUS/KC.png"
+			}
+			navy = {
+				large = "gfx/leaders/RUS/korutyaku_lage.png"
+				small = "gfx/leaders/RUS/KC.png"
+			}
+		}
+		navy_leader = {
+			skill = 5
+			attack_skill = 5
+			defense_skill = 3
+			maneuvering_skill = 2
+			coordination_skill = 5
+			traits = {
+				bold
+				blockade_runner
+				old_guard_navy
+			}
+		}
+		advisor = {
+			slot = theorist
+
+			idea_token = aleksandr_vasilevich_kolchak
+			ledger = navy
+			allowed = {
+				original_tag = RUS
+			}
+			traits = {
+				grand_fleet_proponent
+			}
+		}
+	}
+	RUS_berence = {
+		name = RUS_berence
+		portraits = {
+			navy = {
+				large = "gfx/leaders/RUS/berence_lage.png"
+				small = "gfx/leaders/RUS/berence_small.png"
+			}
+		}
+		navy_leader = {
+			skill = 4
+			attack_skill = 5
+			defense_skill = 3
+			maneuvering_skill = 4
+			coordination_skill = 2
+			traits = {
+				old_guard_navy
+				caustic_personality
+				cuts_corners
+				blue_water_expert
+			}
+			
+		}
+		advisor = {
+			slot = navy_chief
+			idea_token = aleksandr_vasilevich_kolchak
+			traits = {
+				
+			}
+		}
+		advisor = {
+			slot = theorist
+
+			idea_token = aleksandr_vasilevich_kolchak
+			ledger = navy
+			allowed = {
+				original_tag = RUS
+			}
+			traits = {
+				submarine_specialist
+			}
+		}
+	}
+	RUS_Anton_ivanovich_Denikin = {
+		name = RUS_Anton_ivanovich_Denikin
+		portraits = {
+			army = {
+				large = "gfx/leaders/RUS/denikin_lage.png"
+				small = "gfx/leaders/RUS/denikin.png"
+			}
+		}
+		corps_commander = {
+			traits = {
+				infantry_expert
+				offensive_doctrine
+				infantry_leader
+				infantry_expert
+			}
+			skill = 4
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id = 0
+		}
+	}
+	RUS_Peter_von_Wrangel = {
+		name = RUS_Peter_von_Wrangel
+		portraits = {
+			army = {
+				large = "gfx/leaders/RUS/wrangel_lage.png"
+				small = "gfx/leaders/RUS/Peter_von_Wrangel.png"
+			}
+		}
+		corps_commander = {
+			traits = {
+				cavalry_officer
+				offensive_doctrine
+				war_hero
+			}
+			skill = 4
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id = 0
+		}
+	
+	}
+	RUS_Boris_Vladimirovich_Annenkov = {
+		name = RUS_Boris_Vladimirovich_Annenkov
+		portraits = {
+			army = {
+				large = "gfx/leaders/RUS/Boris_Vladimirovich_Annenkov.png"
+			}
+		}
+		corps_commander = {
+			traits = {
+				cavalry_officer
+				cavalry_expert
+				offensive_doctrine
+			}
+			skill = 4
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id = 0
+		}
+	}
+	RUS_Roman_Fyodorovich_von_Ungern = {
+		name = RUS_Roman_Fyodorovich_von_Ungern
+		portraits = {
+			army = {
+				large = "gfx/leaders/RUS/Roman_Fyodorovich_von_Ungern.png"
+				small = "gfx/leaders/RUS/Roman_Fyodorovich_von_Ungern_small.png"
+			}
+		}
+		corps_commander = {
+			traits = {
+				trait_reckless
+				war_hero
+			}
+			skill = 4
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id = 0
+		}
+	}
+	RUS_arecsey = {
+		name = RUS_arecsey
+		portraits = {
+			army = {
+				large = "gfx/leaders/RUS/arecsey_lage.png"
+				small = "gfx/leaders/RUS/arecsey_small.png"
+			}
+		}
+		corps_commander = {
+			traits = {
+				infantry_expert
+				guerilla_fighter
+				trickster
+			}
+			skill = 4
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id = 0
+		}
+	
+	}
+	SOV_georgy_zhukov = {
+		name = SOV_georgy_zhukov
+		portraits = {
+			army = {
+				small = "GFX_idea_georgy_zhukov"
+				large = GFX_portrait_SOV_georgy_zhukov
+			}
+		}
+		corps_commander = {
+			traits = {
+				media_personality
+				armor_officer
+				war_hero
+				winter_specialist
+			}
+			skill = 5
+			attack_skill = 5
+			defense_skill = 2
+			planning_skill = 4
+			logistics_skill = 5
+			legacy_id = 410
+		}
+		advisor = {
+			cost = 150
+			slot = theorist
+			idea_token = georgy_zhukov
+			ledger = army
+			allowed = {
+				original_tag = RUS
+			}
+			traits = {
+				mass_assault_expert
+			}
+		}
+	}
+	RUS_Sergey_Leonidovich = {
+		name = RUS_Sergey_Leonidovich
+		portraits = {
+			army = {
+				large = "gfx/leaders/RUS/Sergey_Leonidovich.png"
+				small = "gfx/leaders/RUS/Sergey_Leonidovich_small.png"
+			}
+		}
+		corps_commander = {
+			traits = {
+				offensive_doctrine
+				defensive_doctrine
+				expert_improviser
+				adaptable
+			}
+			skill = 4
+			attack_skill = 4
+			defense_skill = 3
+			planning_skill = 3
+			logistics_skill = 3
+			legacy_id = 0
+		}
+		advisor = {
+			slot = army_chief
+			idea_token = Sergey_Leonidovich
+			traits = {
+				army_chief_organizational_3
+			}
+		}
+	}
+	
+	RUS_Pavel_Nikolayevich = {
+		name = RUS_Pavel_Nikolayevich
+		portraits = {
+			civilian = {
+				large = "GFX_RUS_Pavel_Nikolayevich"
+			}
+		}
+		country_leader = {
+			ideology = constitutional_emperor
+			traits = {
+				quartermaster_general
+			}
+			expire = "1965.1.1.1"
+		}
+	}
+	
+}
