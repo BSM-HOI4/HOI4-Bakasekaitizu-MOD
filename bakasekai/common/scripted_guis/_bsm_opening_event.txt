@@ -1,0 +1,83 @@
+scripted_gui = {
+	bsm_OE_GUI = {
+		window_name = "bsm_OE_GUI"
+		context_type = player_context
+		visible = { has_variable =  OE_page }
+		effects = {
+			OE_close_button_click = {
+				clear_variable = OE_page
+			}
+			OE_page_1_click = {
+				set_variable = { OE_page = 1 }
+			}
+			OE_page_2_click = {
+				set_variable = { OE_page = 2 }
+			}
+			OE_page_3_click = {
+				set_variable = { OE_page = 3 }
+			}
+			OE_page_4_click = {
+				set_variable = { OE_page = 4 }
+			}
+			OE_page_5_click = {
+				set_variable = { OE_page = 5 }
+			}
+			OE_back_button_click = {
+				subtract_from_variable = { OE_page = 1 }
+			}
+			OE_forward_button_click = {
+				add_to_variable = { OE_page = 1 }
+			}
+		}
+		triggers = {
+			OE_back_button_click_enabled = {
+				check_variable = { OE_page > 1 }
+			}
+			OE_forward_button_click_enabled = {
+				check_variable = { OE_page < 5 }
+			}
+		}
+	}
+	OE_page_1 = {
+		window_name = "OE_page_1"
+		context_type = player_context
+		parent_window_name = bsm_OE_GUI_main
+
+		visible = { check_variable = { OE_page = 1 } }
+		effects = {
+		}
+	}
+	OE_page_2 = {
+		window_name = "OE_page_2"
+		context_type = player_context
+		parent_window_name = bsm_OE_GUI_main
+		visible = { check_variable = { OE_page = 2 } }
+		effects = {
+		}
+	}
+	OE_page_3 = {
+		window_name = "OE_page_3"
+		context_type = player_context
+		parent_window_name = bsm_OE_GUI_main
+		visible = { check_variable = { OE_page = 3 } }
+		effects = {
+		}
+	}
+	OE_page_4 = {
+		window_name = "OE_page_4"
+		context_type = player_context
+		parent_window_name = bsm_OE_GUI_main
+
+		visible = { check_variable = { OE_page = 4 } }
+		effects = {
+		}
+	}
+	OE_page_5 = {
+		window_name = "OE_page_5"
+		context_type = player_context
+		parent_window_name = bsm_OE_GUI_main
+		visible = { check_variable = { OE_page = 5 } }
+		effects = {
+		}
+	}
+}
