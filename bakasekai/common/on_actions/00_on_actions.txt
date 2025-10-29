@@ -358,11 +358,11 @@ on_actions = {
 			}
 		}
 	}
-	on_yearly_pulse = {
-		effect = {
-			if = {
-				limit = {
-					tag = CHN
+        on_yearly_pulse = {
+                effect = {
+                        if = {
+                                limit = {
+                                        tag = CHN
 					NOT = {
 						has_idea = chn_periodic_strikes
 					}
@@ -377,13 +377,46 @@ on_actions = {
 					}
 				}
 			}
-		}
-	}
-	
-	# 和平会議が終了した時にこのon_actionが発動します。
-	on_peaceconference_ended = {
-		effect = {
-			# 条件分岐: ステート922がVATによって所有されていない場合
+                }
+        }
+
+        on_weekly_pulse = {
+                effect = {
+                        if = {
+                                limit = {
+                                        country_exists = NOR
+                                }
+                                NOR = {
+                                        if = {
+                                                limit = {
+                                                        NOT = { has_country_flag = NOR_RUS_empire_formed }
+                                                        NOT = { has_government = communism_ideology }
+                                                        OR = {
+                                                                AND = {
+                                                                        NOT = { country_exists = RUS }
+                                                                        controls_state = 219
+                                                                }
+                                                                AND = {
+                                                                        NOT = { country_exists = SBR }
+                                                                        controls_state = 576
+                                                                }
+                                                                AND = {
+                                                                        NOT = { country_exists = SOV }
+                                                                        controls_state = 408
+                                                                }
+                                                        }
+                                                }
+                                                news_event = { id = baka_news.4 }
+                                        }
+                                }
+                        }
+                }
+        }
+
+        # 和平会議が終了した時にこのon_actionが発動します。
+        on_peaceconference_ended = {
+                effect = {
+                        # 条件分岐: ステート922がVATによって所有されていない場合
 			# 922を実際のステートIDに、VATを実際の国タグに置き換えてください。
 			if = {
 				limit = {
