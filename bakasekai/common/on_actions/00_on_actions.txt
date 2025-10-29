@@ -298,8 +298,25 @@ on_actions = {
 				}
 			}
 		}
-	}
-	on_declare_war = {
+        }
+
+        on_monthly_pulse = {
+          effect = {
+            if = {
+              limit = {
+                NOT = { has_global_flag = mys_europe_enigma_news_flag }
+                MYS = {
+                  exists = yes
+                  mys_controls_european_continent_trigger = yes
+                }
+              }
+              set_global_flag = mys_europe_enigma_news_flag
+              news_event = { id = MYS.100 days = 1 }
+            }
+          }
+        }
+
+        on_declare_war = {
 		effect = {
 			# 戦争の当事者（宣戦布告した側かされた側）に中国が含まれるかを確認
 			if = {
