@@ -56,3 +56,19 @@ bsm_can_fabricate_claim_on_this_state_in_event_trigger = {
         is_coastal = yes
     }
 }
+# ディズニーランドが北米大陸を完全支配しているかどうか
+# DIS限定のチェックであり、北米大陸のいずれかの州がDIS以外に支配されていれば失敗する
+# 大陸判定はis_on_continent = north_americaを利用する
+# 将来的に他国でも再利用する場合はROOT参照に置き換えること
+# ここではシンプルにDIS専用で十分
+# NOTE: すべての北米州に支配国が存在することを前提としている（HOI4デフォルト仕様）
+dis_controls_north_america = {
+    NOT = {
+        any_state = {
+            limit = {
+                is_on_continent = north_america
+            }
+            NOT = { is_controlled_by = DIS }
+        }
+    }
+}
