@@ -73,7 +73,7 @@ enable_tactic = tactic_elastic_defense
 category_tanks = {
     max_organisation = 1
 }
-infantry_fighting_unit = {
+armored_car = {
     max_organisation = 2
 }
 ```
