@@ -861,7 +861,7 @@ Add state claim by country.
 
 ```
 Adds the collaboration in a target country with our currently scoped country
-GER = {
+DEU = {
   add_collaboration = {
     target = POL
     value = 0.3
@@ -901,9 +901,9 @@ The effect is localized with a localization environment containing `Country` and
 The following example has the same end result and localization.
 ```
 42 = {
-	add_contested_owner = GER
+	add_contested_owner = DEU
 }
-GER = {
+DEU = {
 	add_contested_owner = 42
 }
 ```
@@ -1028,7 +1028,7 @@ add_days_remove  = {
 ```
 add decryption against a target country. Example:
 add_decryption = { 
- target = GER 
+ target = DEU 
  # pick one amount = 1000 # a flat amount to be added
  ratio = 0.3 # a ratio of crypto defense of target to be added
 
@@ -1109,9 +1109,9 @@ example :
   add_dynamic_modifier = {
     modifier = dynamic_modifier_name
     days = 42 # will be temporary if specified, can be variable
-    scope = GER # optional, state/countrytag or a variable containing that. 
+    scope = DEU # optional, state/countrytag or a variable containing that. 
 				# if specified the dynamic variable will target that scope
-				# in this example : adds the modifier to state 12 but only applies for country GER
+				# in this example : adds the modifier to state 12 but only applies for country DEU
   }
 }"
 ```
@@ -1156,7 +1156,7 @@ add_equipment_bonus = {
 ```
 "Creates a new production line for the input equipment.
 ex:
-GER = {
+DEU = {
 	add_equipment_production = {
 			equipment = {
 					type = ship_hull_cruiser_submarine
@@ -1182,7 +1182,7 @@ GER = {
 ```
 "Adds an equipment subsidy to the country in scope.
 Example:
-GER = {
+DEU = {
 	add_equipment_subsidy = 
 	{
 		cic = 100 # Amount of CIC for the subsidy.
@@ -1276,7 +1276,7 @@ add idea(s) to country
 
 ```
 Add the specified amount of intel over a specified country
-GER = {
+DEU = {
   add_intel = {
     target = POL
     civilian_intel = 3
@@ -1622,7 +1622,7 @@ Add an offsite building to a country
 ```
 Adds a specific token against against another country
 add_operation_token = {
-	tag = GER
+	tag = DEU
 	token = some_token_id
 }
 ```
@@ -1804,7 +1804,7 @@ The description of the effect is based on the trigger or the target country.The 
 The following rules are currently supported: can_send_volunteer, can_access_market
 Alternative 1:
 add_relation_rule_override = { 
- target = GER # [Required] Target country usage_desc = REASON_DESCRIPTION # [Optional] usage description can_not_declare_war = yes # [Required] 
+ target = DEU # [Required] Target country usage_desc = REASON_DESCRIPTION # [Optional] usage description can_not_declare_war = yes # [Required] 
 }
 Alternative 2:
 add_relation_rule_override = { 
@@ -1841,8 +1841,8 @@ adds resistance target to the scoped state :
 add_resistance_target = 10
 add_resistance_target = { 
   id = 123 #if set, id can be used for removing an added resistance target using remove_resistance_target effect  amount = 10 #original tag of new country
-  occupied = GER #if set, the resistance target will only apply if the occupied country is GER
-  occupier = ENG #if set, the resistance target will only apply if the occupier country is ENG
+  occupied = DEU #if set, the resistance target will only apply if the occupied country is DEU
+  occupier = GBR #if set, the resistance target will only apply if the occupier country is GBR
   days = 42 #if set the newly added resistance target will be only active for this many days
   tooltip = "BLABLA" #tooltip loc key to display in resistance target tooltips
 }
@@ -2153,7 +2153,7 @@ var = num_dogs
 
 ```
 adds country to the specified war:
-ENG = {
+GBR = {
 	add_to_war = {
 	  targeted_alliance = SOV # Country to which side we want to join
 	  enemy = PER # Which country we want to declare war on
@@ -2394,7 +2394,7 @@ Example : cancel_resistance = yes
 Capture an operative
 Can be used from a scope and a target that is either a country or a unit leader.
 Examples:
-GER = {
+DEU = {
     capture_operative = PREV  # where PREV is an operative (unit leader)
     # or    capture_operative = {
         operative = PREV
@@ -2402,7 +2402,7 @@ GER = {
     }
 }
 
-capture_operative = { captured_by = GER } # where the scope is an unit leader
+capture_operative = { captured_by = DEU } # where the scope is an unit leader
 
 ```
 
@@ -2694,7 +2694,7 @@ SOV = {
 ```
 "Set facility level in a random province of state and country scope.
 	ex:
-    GER = {
+    DEU = {
         65 = {
 			construct_building_in_random_province = {
 				land_facility = 1
@@ -2746,7 +2746,7 @@ Lock all the division template at the country level. Note that you need to unloc
 ```
 Create a colonial division template for overlord/owner. Available parameters are subject and division_template, where the subject parameter is the country tag for an overlords subject. And the division_template is the regular effect to create a division template.
 Example.
-In country scope of overlord, E.g. ROOT = ENG
+In country scope of overlord, E.g. ROOT = GBR
 create_colonial_division_template = {
     subject = RAJ # Country tag
     division_template = {
@@ -2957,7 +2957,7 @@ create_production_license = {
 Example:
 create_purchase_contract = 
 {
-	seller = ENG
+	seller = GBR
 	buyer = RAJ
 	civilian_factories = 2
 	equipment = {
@@ -2998,7 +2998,7 @@ FRA = {
   create_ship = {
     type = ship_hull_submarine_1
     equipment_variant = "S Class"
-    creator = ENG
+    creator = GBR
     name = "My ship name"
     amount = 5 #amount to add
   }
@@ -3275,7 +3275,7 @@ destroy_entity = 123 #id
 ```
 Destroys ships of specified country and amount
 Example: 
-ENG={ 
+GBR={ 
 	destroy_ships = {
 		type=light_cruiser
 		count=all #or number
@@ -3410,7 +3410,7 @@ event_option_tooltip = mtg_usa_civil_war_fascists.1.a
 "Executes children effects on every active scientist (or \"random_select_amount\" of random character if specified) of the country in scope, that fulfills the \"limit\" trigger.
 	tooltip=key can be added to override tooltip title.
 	By default the effects are only displayed once, you may display them for each matching character with display_individual_scopes.
-	ex: GER = {
+	ex: DEU = {
 	  every_active_scientist = {
 		tooltip = my_loc_key # Optional
 		random_select_amount = 3 # Optional
@@ -3432,7 +3432,7 @@ By default the effects are only displayed once, you may display them for each ma
 
 ### Example
 ```
-ENG = {
+GBR = {
 	every_allied_country = {
 		tooltip = my_loc_key # Optional bindable localization
 		random_select_amount = 3 # Optional
@@ -3452,7 +3452,7 @@ ENG = {
 ```
 "Executes children effects on every Army Leader (or \"random_select_amount\" of random leader if specified) of the country in scope, that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
-ex: GER = {
+ex: DEU = {
   every_army_leader = {
 	tooltip = my_loc_key # Optional
 	random_select_amount = 3 # Optional
@@ -3471,7 +3471,7 @@ ex: GER = {
 "Executes children effects on every Character (or \"random_select_amount\" of random character if specified) of the country in scope, that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
 By default the effects are only displayed once, you may display them for each matching character with display_individual_scopes.
-ex: GER = {
+ex: DEU = {
   every_unit_leader = {
 	tooltip = my_loc_key # Optional
 	random_select_amount = 3 # Optional
@@ -3571,7 +3571,7 @@ tooltip=key can be added to override tooltip title.
 By default the effects are only displayed once, you may display them for each matching country with display_individual_scopes.
 ex:
 every_country_with_original_tag = {
-	original_tag_to_check = ENG # the effect will only run on countries that has this original tag
+	original_tag_to_check = GBR # the effect will only run on countries that has this original tag
 	tooltip = my_loc_key # Optional
 	random_select_amount = 3 # Optional
 	display_individual_scopes = yes # Optional - default = no
@@ -3608,7 +3608,7 @@ SOV = {
 "Executes children effects on every Military Industrial Organisation (or \"random_select_amount\" of random MIOs if specified) of the country in scope, that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
 By default the effects are only displayed once, you may display them for each matching MIO with display_individual_scopes.
-ex: GER = {
+ex: DEU = {
   every_military_industrial_organization = {
 	tooltip = my_loc_key # Optional
 	random_select_amount = 3 # Optional
@@ -3628,7 +3628,7 @@ ex: GER = {
 "Executes children effects on every Navy Leader (or \"random_select_amount\" of random leader if specified) of the country in scope, that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
 By default the effects are only displayed once, you may display them for each matching unit leader with display_individual_scopes.
-ex: GER = {
+ex: DEU = {
   every_navy_leader = {
 	tooltip = my_loc_key # Optional
 	random_select_amount = 3 # Optional
@@ -3708,7 +3708,7 @@ SOV = {
 "Executes children effects on every operative (or \"random_select_amount\" of random operatives if specified) that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
 By default the effects are only displayed once, you may display them for each matching operative with display_individual_scopes.
-ex: GER = {
+ex: DEU = {
   every_operative = {
 	tooltip = my_loc_key # Optional
 	random_select_amount = 3 # Optional
@@ -3786,7 +3786,7 @@ every_possible_country = {
 "Executes children effects on every purchase contract (or \"random_select_amount\" of random purchase contracts if specified) of the country in scope, that fulfills the \"limit\" trigger.
 tooltip = key need to be added to override the tooltip title.
 By default the effects are only displayed once, you may display them for each matching purchase contract with display_individual_scopes.
-ex: GER = {
+ex: DEU = {
   every_military_industrial_organization = {
 	limit = { ... contract scope triggers ... }
 	tooltip = my_loc_key # Optional
@@ -3806,7 +3806,7 @@ ex: GER = {
 "Executes children effects on every scientist (or \"random_select_amount\" of random character if specified) of the country in scope, that fulfills the \"limit\" trigger.
 	tooltip=key can be added to override tooltip title.
 	By default the effects are only displayed once, you may display them for each matching character with display_individual_scopes.
-	ex: GER = {
+	ex: DEU = {
 	  every_scientist = {
 		tooltip = my_loc_key # Optional
 		random_select_amount = 3 # Optional
@@ -3884,7 +3884,7 @@ SOV = {
 "Executes children effects on every Unit Leader (or \"random_select_amount\" of random leader if specified) of the country in scope, that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
 By default the effects are only displayed once, you may display them for each matching unit leader with display_individual_scopes.
-ex: GER = {
+ex: DEU = {
   every_unit_leader = {
 	tooltip = my_loc_key # Optional
 	random_select_amount = 3 # Optional
@@ -4000,11 +4000,11 @@ Example: for_loop_effect = {
 
 ```
 force disables resistance for scoped state.  :
-force_disable_resistance = GER # same as occupier = GER 
+force_disable_resistance = DEU # same as occupier = DEU 
 force_disable_resistance = { 
   clear = no #if yes, will clear previously disabled resistance
-  occupier = GER #if set, the resistance will be disabled when the occupier is GER
-  occupied = ENG #if set, the resistance will be disabled if the occupier country is target
+  occupier = DEU #if set, the resistance will be disabled when the occupier is DEU
+  occupied = GBR #if set, the resistance will be disabled if the occupier country is target
 }
 ```
 
@@ -4015,11 +4015,11 @@ force_disable_resistance = {
 
 ```
 force enables resistance for scoped state. the resistance will be active even if other conditions doesn't satisfy (even if it is core or resistance check trigger is false)  :
-force_enable_resistance = GER # same as occupier = GER 
+force_enable_resistance = DEU # same as occupier = DEU 
 force_enable_resistance = { 
   clear = no #if yes, will clear previously set resistance
-  occupier = GER #if set, the resistance will be enabled when the occupier is GER
-  occupied = ENG #if set, the resistance will be enabled if the occupier country is target
+  occupier = DEU #if set, the resistance will be enabled when the occupier is DEU
+  occupied = GBR #if set, the resistance will be enabled if the occupier country is target
 }
 ```
 
@@ -4066,8 +4066,8 @@ force_update_map_mode = {
 ```
 Free an operative
 Can be used from a scope and a target that is either a country or a unit leader.
-GER = { free_operative = PREV } # where PREV is an operative (unit leader)
-free_operative = { captured_by = GER } # where the scope is an unit leader
+DEU = { free_operative = PREV } # where PREV is an operative (unit leader)
+free_operative = { captured_by = DEU } # where the scope is an unit leader
 
 ```
 
@@ -4080,7 +4080,7 @@ free_operative = { captured_by = GER } # where the scope is an unit leader
 Free a random captured operative of a certain tag by a certain tag
 Can be used from a country scope of the operative in question.
 `all` is optional, default value is no - if set to yes it will free all operatives captured by the target country
-GER = { free_random_operative = { all = yes captured_by = ENG } }
+DEU = { free_random_operative = { all = yes captured_by = GBR } }
 
 ```
 
@@ -4395,7 +4395,7 @@ removes a ideology leader as leader of his party, making the next in line the ne
 ```
 Kills an operative. This will temporarily lock the slot they occupy
 Examples:
-GER = {
+DEU = {
     kill_operative = PREV  # where PREV is an operative (unit leader)
     # or
     kill_operative = {
@@ -4403,7 +4403,7 @@ GER = {
     }
 }
 
-kill_operative = { killed_by = GER } # where the scope is an unit leader
+kill_operative = { killed_by = DEU } # where the scope is an unit leader
 
 ```
 
@@ -4417,7 +4417,7 @@ launch nuke at a state. usage :
 launch_nuke = { 
    provinve = 42 #will nuke this province if specified
    state = 42 #use either province or state. if state is used it will prefer enemies first while picking a province to nuke. otherwise it will pick one of the neutrals
-   controller = GER #if state and controller is specified, the effect will pick a province that is controlled by this tag
+   controller = DEU #if state and controller is specified, the effect will pick a province that is controlled by this tag
    use_nuke = yes #will consume nuke if specified
    nuke_type = nuclear_bomb # type of nuke to use (e.g. nuclear_bomb, thermonuclear_bomb etc.)
 } 
@@ -4498,7 +4498,7 @@ meta_effect = {
             add_political_power = [POW]
         }
     }
-    COUNTRY = "GER"
+    COUNTRY = "DEU"
     POW = 42
     debug = no #set to yes if you want to see what game actually executes
 }
@@ -4850,11 +4850,11 @@ promote_officer_to_general = yes # yes/no is ignored
 ```
 Puppets specified country. By default, cancels the puppets existing war relations.
 Example 1:
-ENG = {
+GBR = {
   puppet = ITA
 }
 Example 2:
-ENG = {
+GBR = {
   puppet = {
     target = ITA
     end_wars = yes  # Optional, default yes. Will not cancel non-civil wars if set to no.
@@ -4964,7 +4964,7 @@ Executes children effects on a random Allied Country different from the one in s
 
 ### Example
 ```
-ENG = {
+GBR = {
 	random_allied_country = {
 		tooltip = my_loc_key # Optional bindable localization
 		limit = my_limit_trigger # Optional
@@ -4982,7 +4982,7 @@ ENG = {
 ```
 "Executes children effects on a random Army Leader of the country in scope, that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
-ex: GER = {
+ex: DEU = {
   random_army_leader = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -5046,7 +5046,7 @@ Executes children effects on a random division that fulfill the "limit" trigger.
 ```
 Executes children effects on a random country with original tag. Example:
 random_country_with_original_tag = { 
-  original_tag_to_check = ENG # the effect will only run on countries that has this original tag 
+  original_tag_to_check = GBR # the effect will only run on countries that has this original tag 
   limit = { always = yes } # a limit can be defined to limit scopes
   # ... effects to execute 
 }
@@ -5089,7 +5089,7 @@ random_list = {
 ```
 "Executes children effects on a random Military Industrial Organisation of the country in scope, that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
-ex: GER = {
+ex: DEU = {
   random_military_industrial_organization = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -5106,7 +5106,7 @@ ex: GER = {
 ```
 "Executes children effects on a random Navy Leader of the country in scope, that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
-ex: GER = {
+ex: DEU = {
   random_navy_leader = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -5188,7 +5188,7 @@ prioritize = { <stateID> <stateID> } to pick those states first if they fulfull 
 ```
 "Executes children effects on a random purchase contract of the country in scope, that fulfills the \"limit\" trigger.
 tooltip = key need to be added to override the tooltip title.
-ex: GER = {
+ex: DEU = {
   random_purchase_contract = {
 	limit = { ... contract scope triggers ... }
 	tooltip = my_loc_key # Optional
@@ -5260,7 +5260,7 @@ Executes child effects on random subject country that fulfills the limit.
 ```
 "Executes children effects on a random Unit Leader of the country in scope, that fulfills the \"limit\" trigger.
 tooltip=key can be added to override tooltip title.
-ex: GER = {
+ex: DEU = {
   random_unit_leader = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -5328,7 +5328,7 @@ Randomize weather effect
 * Supported Targets: THIS, ROOT, PREV, FROM, OWNER, CONTROLLER, OCCUPIED, CAPITAL
 
 ```
-Scope country recalls attache from target country. Example: GER = { recall_attache = CHI } means Germany recalls attache from China.
+Scope country recalls attache from target country. Example: DEU = { recall_attache = CHI } means Germany recalls attache from China.
 ```
 
 ## recall_volunteers_from
@@ -5339,8 +5339,8 @@ Scope country recalls attache from target country. Example: GER = { recall_attac
 ```
 The scoped in country recall the volunteers sent to the target country.
 Example:
-# FRA recalls the volunteers it sent to SPR
-FRA = { recall_volunteers_from = SPR }
+# FRA recalls the volunteers it sent to ESP
+FRA = { recall_volunteers_from = ESP }
 
 ```
 
@@ -5353,7 +5353,7 @@ FRA = { recall_volunteers_from = SPR }
 Attach a character to a country. Must be in country scope.
 
 Example:
-GER = { recruit_character = GER_Character_token }
+DEU = { recruit_character = GER_Character_token }
 
 ```
 
@@ -5374,7 +5374,7 @@ releases specified country as a puppet using your owned states
 ```
 releases specified country with specified level of autonomy.
 Example:
-ENG = { 
+GBR = { 
  release_autonomy = { 
   target = RAJ 
   autonomy_state = autonomy_puppet 
@@ -5510,9 +5510,9 @@ The effect is localized with a localization environment containing `Country` and
 The following example has the same end result and localization.
 ```
 42 = {
-	remove_contested_owner = GER
+	remove_contested_owner = DEU
 }
-GER = {
+DEU = {
 	remove_contested_owner = 42
 }
 ```
@@ -5589,7 +5589,7 @@ Example: remove_decision_on_cooldown = some_decision_here
 example :
 remove_dynamic_modifier = {
   modifier = dynamic_modifier_name
-  scope = GER # optional, must match the scope input used in add_dynamic_modifier (if any)
+  scope = DEU # optional, must match the scope input used in add_dynamic_modifier (if any)
 }"
 ```
 
@@ -5687,7 +5687,7 @@ Example: remove_mission = some_mission_here
 ```
 Remove a specific token against against another country
 remove_operation_token = {
-	tag = GER
+	tag = DEU
 	token = some_token_id
 }
 ```
@@ -5776,7 +5776,7 @@ Example: add_relation_modifier = {
 Removes an override rule to the country's relation to other countries.The desc key can be used to supply a custom description for the effect when a named trigger is used as key
 Alternative 1:
 remove_relation_rule_override = { 
- target = GER # [Required] Target country can_not_declare_war = yes 
+ target = DEU # [Required] Target country can_not_declare_war = yes 
 }
 Alternative 2:
 remove_relation_rule_override = { 
@@ -6156,7 +6156,7 @@ set_air_oob = "ENG_1936_Air"
 makes autonomy of specified level and country.
 Example:
 set_autonomy = {
-  target=ENG 
+  target=GBR 
   autonomy_state = autonomy_puppet 
   freedom_level=0.5 
   end_wars  = yes # default yes. will not cancel non-civil wars if set to no
@@ -6263,7 +6263,7 @@ my_character = {
 
 ```
 Sets the collaboration in a target country with our currently scoped country
-GER = {
+DEU = {
   set_collaboration = {
     target = POL
     value = 0.3
@@ -6906,9 +6906,9 @@ set_naval_oob = "ENG_1936_Naval"
 The token default_law is used to remove a country or state override, or to set a country's default law to the law defined with starting_law=yes.
 
 Example:
-GER = { set_occupation_law = foreign_civilian_oversight }
-GER = { POL = { set_occupation_law = default_law } }
-GER = { 123 = { set_occupation_law = military_governor_occupation } }"
+DEU = { set_occupation_law = foreign_civilian_oversight }
+DEU = { POL = { set_occupation_law = default_law } }
+DEU = { 123 = { set_occupation_law = military_governor_occupation } }"
 ```
 
 ## set_occupation_law_where_available
@@ -7284,7 +7284,7 @@ set_temp_variable_to_random = {
 
 ```
 Sets a truce between scope country and target for days duration. 
-Example set_truce = { target = GER days = 90 }
+Example set_truce = { target = DEU days = 90 }
 ```
 
 ## set_unit_leader_flag
@@ -7527,14 +7527,14 @@ state_event = {
 	random = 6 # Equivalent to random_hours; preserverd for backwards compatibility.
 	random = { chance = 50 ... } # Specify a set of child effects to execute as part of this effect, with a percentage chance of randomly happening or not (as a group, not individually).
 	tooltip = usa.61.t # Manually specify which tooltip to use for this effect.
-	trigger_for = GER # Indicate which country this state effect applies to. Value can be any of the following:
+	trigger_for = DEU # Indicate which country this state effect applies to. Value can be any of the following:
 		# controller - The country that currently controls the state.
 		# owner - The country that currently owns the state.
 		# occupied - The country that has been occupied in the state by the current controller.
 		# from - The country of the from scope.
 		# prev - The country of the prev scope.
 		# root - The country of the root scope.
-		# TAG - A hard-coded country tag such as GER or ENG.
+		# TAG - A hard-coded country tag such as DEU or GBR.
 }
 
 ```
@@ -7671,7 +7671,7 @@ Teleport the target country's railway guns to the province to which railway guns
 ```
 Transfers the entire navy from scope country to target country. Does not support carriers!
 Example:
-ENG={
+GBR={
 	target = NZL
 	is_government_in_exile = yes #optional, default is no; the navy will be tagged as exile if this is yes so that it will return to owner if they return from exile.
 }
@@ -7685,7 +7685,7 @@ ENG={
 ```
 Transfers ship from scope country to target country.
 Example:
-ENG={
+GBR={
   transfer_ship={
     prefer_name = "HMS Achilles"
     type = light_cruiser
@@ -7769,7 +7769,7 @@ If the target country is the owner of the operative, this has no effect and an e
 WARN: the on_action might execute immediatly, before any effect listed after the occurence of turn_operative.
 
 Examples:
-GER = {
+DEU = {
     turn_operative = PREV  # where PREV is an operative (unit leader)
     # or
     turn_operative = {
@@ -7777,7 +7777,7 @@ GER = {
     }
 }
 
-turn_operative = { turned_by = GER } # where the scope is an unit leader
+turn_operative = { turned_by = DEU } # where the scope is an unit leader
 
 ```
 

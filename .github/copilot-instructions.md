@@ -104,7 +104,7 @@ For detailed information, consult these comprehensive guides:
 ## Country Tags & Scope
 
 The mod includes hundreds of custom countries with unique 3-letter tags:
-- **Major powers**: USA, GBR, GER, SOV, JPN
+- **Major powers**: USA, GBR, DEU, SOV, JPN
 - **Custom nations**: BKK (Bangkok), MAC (McDonald's), WES (Western Sahara)
 - **Formable nations**: Dynamic countries supported
 

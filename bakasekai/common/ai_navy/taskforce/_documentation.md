@@ -9,7 +9,7 @@
 ```
 generic_taskforce_1 = {
     allowed = {
-        original_tag = ENG
+        original_tag = GBR
     }
     ai_will_do = {
         # このテンプレートに対するAIの重み付け（ウェイト）修正値
