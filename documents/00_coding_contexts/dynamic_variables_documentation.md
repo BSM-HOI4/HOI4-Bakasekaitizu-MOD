@@ -103,28 +103,28 @@ agency_upgrade_number > 4
 * (Auto generated using the trigger with same name)
 
 ### ai_attitude_allied_weight
-* description: weight for an ai attitude attitude_alliedagainst country. Example: GER.ai_attitude_allied_weight@ENG
+* description: weight for an ai attitude attitude_alliedagainst country. Example: DEU.ai_attitude_allied_weight@GBR
 
 ### ai_attitude_friendly_weight
-* description: weight for an ai attitude attitude_friendlyagainst country. Example: GER.ai_attitude_friendly_weight@ENG
+* description: weight for an ai attitude attitude_friendlyagainst country. Example: DEU.ai_attitude_friendly_weight@GBR
 
 ### ai_attitude_hostile_weight
-* description: weight for an ai attitude attitude_hostileagainst country. Example: GER.ai_attitude_hostile_weight@ENG
+* description: weight for an ai attitude attitude_hostileagainst country. Example: DEU.ai_attitude_hostile_weight@GBR
 
 ### ai_attitude_is_threatened
 * description: returns 1 if ai is threatened
 
 ### ai_attitude_neutral_weight
-* description: weight for an ai attitude attitude_neutralagainst country. Example: GER.ai_attitude_neutral_weight@ENG
+* description: weight for an ai attitude attitude_neutralagainst country. Example: DEU.ai_attitude_neutral_weight@GBR
 
 ### ai_attitude_outraged_weight
-* description: weight for an ai attitude attitude_outragedagainst country. Example: GER.ai_attitude_outraged_weight@ENG
+* description: weight for an ai attitude attitude_outragedagainst country. Example: DEU.ai_attitude_outraged_weight@GBR
 
 ### ai_attitude_protective_weight
-* description: weight for an ai attitude attitude_protectiveagainst country. Example: GER.ai_attitude_protective_weight@ENG
+* description: weight for an ai attitude attitude_protectiveagainst country. Example: DEU.ai_attitude_protective_weight@GBR
 
 ### ai_attitude_threatened_weight
-* description: weight for an ai attitude attitude_threatenedagainst country. Example: GER.ai_attitude_threatened_weight@ENG
+* description: weight for an ai attitude attitude_threatenedagainst country. Example: DEU.ai_attitude_threatened_weight@GBR
 
 ### ai_attitude_wants_ally
 * description: returns 1 if ai wants ally
@@ -146,64 +146,64 @@ agency_upgrade_number > 4
 * (Auto generated using the trigger with same name)
 
 ### ai_strategy_activate_crypto
-* description: ai strategy value activate_crypto against country. Example: GER.ai_strategy_activate_crypto@ENG
+* description: ai strategy value activate_crypto against country. Example: DEU.ai_strategy_activate_crypto@GBR
 
 ### ai_strategy_alliance
-* description: ai strategy value alliance against country. Example: GER.ai_strategy_alliance@ENG
+* description: ai strategy value alliance against country. Example: DEU.ai_strategy_alliance@GBR
 
 ### ai_strategy_antagonize
-* description: ai strategy value antagonize against country. Example: GER.ai_strategy_antagonize@ENG
+* description: ai strategy value antagonize against country. Example: DEU.ai_strategy_antagonize@GBR
 
 ### ai_strategy_befriend
-* description: ai strategy value befriend against country. Example: GER.ai_strategy_befriend@ENG
+* description: ai strategy value befriend against country. Example: DEU.ai_strategy_befriend@GBR
 
 ### ai_strategy_conquer
-* description: ai strategy value conquer against country. Example: GER.ai_strategy_conquer@ENG
+* description: ai strategy value conquer against country. Example: DEU.ai_strategy_conquer@GBR
 
 ### ai_strategy_consider_weak
-* description: ai strategy value consider_weak against country. Example: GER.ai_strategy_consider_weak@ENG
+* description: ai strategy value consider_weak against country. Example: DEU.ai_strategy_consider_weak@GBR
 
 ### ai_strategy_contain
-* description: ai strategy value contain against country. Example: GER.ai_strategy_contain@ENG
+* description: ai strategy value contain against country. Example: DEU.ai_strategy_contain@GBR
 
 ### ai_strategy_declare_war
-* description: ai strategy value declare_war against country. Example: GER.ai_strategy_declare_war@ENG
+* description: ai strategy value declare_war against country. Example: DEU.ai_strategy_declare_war@GBR
 
 ### ai_strategy_decrypt_target
-* description: ai strategy value decrypt_target against country. Example: GER.ai_strategy_decrypt_target@ENG
+* description: ai strategy value decrypt_target against country. Example: DEU.ai_strategy_decrypt_target@GBR
 
 ### ai_strategy_dont_defend_ally_borders
-* description: ai strategy value dont_defend_ally_borders against country. Example: GER.ai_strategy_dont_defend_ally_borders@ENG
+* description: ai strategy value dont_defend_ally_borders against country. Example: DEU.ai_strategy_dont_defend_ally_borders@GBR
 
 ### ai_strategy_force_defend_ally_borders
-* description: ai strategy value force_defend_ally_borders against country. Example: GER.ai_strategy_force_defend_ally_borders@ENG
+* description: ai strategy value force_defend_ally_borders against country. Example: DEU.ai_strategy_force_defend_ally_borders@GBR
 
 ### ai_strategy_ignore
-* description: ai strategy value ignore against country. Example: GER.ai_strategy_ignore@ENG
+* description: ai strategy value ignore against country. Example: DEU.ai_strategy_ignore@GBR
 
 ### ai_strategy_ignore_claim
-* description: ai strategy value ignore_claim against country. Example: GER.ai_strategy_ignore_claim@ENG
+* description: ai strategy value ignore_claim against country. Example: DEU.ai_strategy_ignore_claim@GBR
 
 ### ai_strategy_influence
-* description: ai strategy value influence against country. Example: GER.ai_strategy_influence@ENG
+* description: ai strategy value influence against country. Example: DEU.ai_strategy_influence@GBR
 
 ### ai_strategy_invade
-* description: ai strategy value invade against country. Example: GER.ai_strategy_invade@ENG
+* description: ai strategy value invade against country. Example: DEU.ai_strategy_invade@GBR
 
 ### ai_strategy_occupation_policy
-* description: ai strategy value occupation_policy against country. Example: GER.ai_strategy_occupation_policy@ENG
+* description: ai strategy value occupation_policy against country. Example: DEU.ai_strategy_occupation_policy@GBR
 
 ### ai_strategy_prepare_for_war
-* description: ai strategy value prepare_for_war against country. Example: GER.ai_strategy_prepare_for_war@ENG
+* description: ai strategy value prepare_for_war against country. Example: DEU.ai_strategy_prepare_for_war@GBR
 
 ### ai_strategy_protect
-* description: ai strategy value protect against country. Example: GER.ai_strategy_protect@ENG
+* description: ai strategy value protect against country. Example: DEU.ai_strategy_protect@GBR
 
 ### ai_strategy_send_volunteers_desire
-* description: ai strategy value send_volunteers_desire against country. Example: GER.ai_strategy_send_volunteers_desire@ENG
+* description: ai strategy value send_volunteers_desire against country. Example: DEU.ai_strategy_send_volunteers_desire@GBR
 
 ### ai_strategy_support
-* description: ai strategy value support against country. Example: GER.ai_strategy_support@ENG
+* description: ai strategy value support against country. Example: DEU.ai_strategy_support@GBR
 
 ### ai_wants_divisions
 * description: Will compare towards the amount of divisions an ai wants to have.
@@ -216,7 +216,7 @@ agency_upgrade_number > 4
 * description: air experience of a country
 
 ### air_intel
-* description: air intel against a target country. example GER.air_intel@ENG
+* description: air intel against a target country. example DEU.air_intel@GBR
 
 ### alliance_naval_strength_ratio
 * description: Compares the estimated naval strength between the scope country, his allies and his enemies.
@@ -249,7 +249,7 @@ agency_upgrade_number > 4
 * description: army experience of a country
 
 ### army_intel
-* description: army intel against a target country. example GER.army_intel@ENG
+* description: army intel against a target country. example DEU.army_intel@GBR
 
 ### army_leaders
 * description: all army leaders of a country
@@ -269,7 +269,7 @@ agency_upgrade_number > 4
 * (Auto generated using the trigger with same name)
 
 ### civilian_intel
-* description: civilian intel against a target country. example GER.civilian_intel@ENG
+* description: civilian intel against a target country. example DEU.civilian_intel@GBR
 
 ### command_power
 * description: total command power of country
@@ -322,17 +322,17 @@ compare_autonomy_progress_ratio > 0.5
 Examples:
 	HOL = { has_capitulated = yes days_since_capitulated > 60 } # The Netherlands has been capitulated for more than two months
 	FRA = { has_capitulated = yes days_since_capitulated < 21 } # France has capitulated sometime within the past three weeks
-	GER = { OR = { has_capitulated = no days_since_capitulated > 14 } } # Germany is not both actively and recently capitulated
+	DEU = { OR = { has_capitulated = no days_since_capitulated > 14 } } # Germany is not both actively and recently capitulated
 
 * (Auto generated using the trigger with same name)
 
 ### decryption_progress
 * description: checks decryption ratio against a country. Example: 
 decryption_progress = { 
- target = GER
+ target = DEU
  value > 0.5
 } 
-#or decryption_progress@GER as variable
+#or decryption_progress@DEU as variable
 
 * (Auto generated using the trigger with same name)
 
@@ -408,10 +408,10 @@ Example: fuel_ratio > 0.5
 ### has_collaboration
 * description: checks the collaboration in a target country with our currently scoped country. Example: 
 has_collaboration = { 
- target = GER
+ target = DEU
  value > 0.5
 } 
-#or has_collaboration@GER as variable
+#or has_collaboration@DEU as variable
 
 * (Auto generated using the trigger with same name)
 
@@ -502,7 +502,7 @@ manpower_per_military_factory < 1000
 * description: navy experience of a country
 
 ### navy_intel
-* description: navy intel against a target country. example GER.navy_intel@ENG
+* description: navy intel against a target country. example DEU.navy_intel@GBR
 
 ### navy_leaders
 * description: all navy leaders of a country
@@ -516,7 +516,7 @@ manpower_per_military_factory < 1000
 ### network_national_coverage
 * description: checks network national coverage you have over a country. Example: 
 network_national_coverage = { 
- target = GER
+ target = DEU
  value > 0.5
 } 
 
@@ -609,7 +609,7 @@ Note that this is not necessarily greater than zero if num_operative_slots retur
 * (Auto generated using the trigger with same name)
 
 ### num_of_civilian_factories_in_cores
-* description: calculates the number of civilian factories on core states of current country scope, on those states that are under control of @Tag <Tag | ROOT | my_var> example num_of_civilian_factories_in_cores@GER
+* description: calculates the number of civilian factories on core states of current country scope, on those states that are under control of @Tag <Tag | ROOT | my_var> example num_of_civilian_factories_in_cores@DEU
 
 ### num_of_controlled_factories
 * description: check the number of factories in controlled states excluding any gained or lost through trade, relations, modifiers etc.
@@ -622,7 +622,7 @@ Note that this is not necessarily greater than zero if num_operative_slots retur
 ### num_of_factories
 * description: Check amount of available factories (excluding temporary sources like trade and lend-lease)
 Example:
-GER = { num_of_factories < 50 }
+DEU = { num_of_factories < 50 }
 * (Auto generated using the trigger with same name)
 
 ### num_of_military_factories
@@ -630,7 +630,7 @@ GER = { num_of_factories < 50 }
 * (Auto generated using the trigger with same name)
 
 ### num_of_military_factories_in_cores
-* description: calculates the number of civilian factories on core states of current country scope, on those states that are under control of @Tag  <Tag | ROOT | my_var> example num_of_military_factories_in_cores@GER
+* description: calculates the number of civilian factories on core states of current country scope, on those states that are under control of @Tag  <Tag | ROOT | my_var> example num_of_military_factories_in_cores@DEU
 
 ### num_of_naval_factories
 * description: check amount of naval factories
@@ -700,7 +700,7 @@ If this differs from the number of operative, this does not mean the country can
 * description: all operatives of a country
 
 ### opinion
-* description: opinion of a country targeted on another one. example GER.opinion@ENG
+* description: opinion of a country targeted on another one. example DEU.opinion@GBR
 
 ### original_research_slots
 * description: check number of research slots at start of game
