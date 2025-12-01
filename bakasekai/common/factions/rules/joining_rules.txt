@@ -1,4 +1,4 @@
-##########################################################################################
+﻿##########################################################################################
 
 ### ###  ###  ##  #    ##   ##  #   #     ###   ##   ## ### ###      ###  #  # #   ###  ## 
  #  #  # #   #  # #   #  # #     # #      #  # #  # #   #   #  #     #  # #  # #   #   #   
@@ -11,22 +11,22 @@
 joining_rule_non_fascist = {
 	type = joining_rules
 	visible = {
-		NOT = { has_government = fascism }
+		NOT = { has_government = fascism_ideology }
 	}
 	ai_will_do = {
 		base = 0
 		modifier = {
 			add = 1
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 		}
 		modifier = {
 			add = 1
-			has_government = communism
+			has_government = communism_ideology
 		}
 	}
 	trigger = {
 		NOT = {
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
@@ -38,22 +38,22 @@ joining_rule_non_fascist = {
 joining_rule_non_democratic = {
 	type = joining_rules
 	visible = {
-		NOT = { has_government = democratic }
+		NOT = { has_government = democratic_ideology }
 	}
 	ai_will_do = {
 		base = 0
 		modifier = {
 			add = 1
-			NOT = { has_government = democratic }
+			NOT = { has_government = democratic_ideology }
 		}
 		modifier = {
 			add = 1
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 	}
 	trigger = {
 		NOT = {
-			has_government = democratic 
+			has_government = democratic_ideology 
 		}
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
@@ -65,17 +65,17 @@ joining_rule_non_democratic = {
 joining_rule_non_communist = {
 	type = joining_rules
 	visible = {
-		NOT = { has_government = communism }
+		NOT = { has_government = communism_ideology }
 	}
 	ai_will_do = {
 		base = 0
 		modifier = {
 			add = 1
-			NOT = { has_government = communism }
+			NOT = { has_government = communism_ideology }
 		}
 		modifier = {
 			add = 1
-			has_government = fascism
+			has_government = fascism_ideology
 		}
 	}
 	available = {
@@ -86,7 +86,7 @@ joining_rule_non_communist = {
 			NOT = {
 				any_enemy_country = {
 					is_major = yes
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 			}
 		}
@@ -94,7 +94,7 @@ joining_rule_non_communist = {
 	can_remove = {
 		IF = {
 			limit = {
-				ROOT = { original_tag = JPN }
+				ROOT = { original_tag = JAP }
 			}
 			always = no 
 		}
@@ -105,7 +105,7 @@ joining_rule_non_communist = {
 	}
 	trigger = {
 		NOT = {
-			has_government = communism 
+			has_government = communism_ideology 
 		}
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
@@ -120,10 +120,10 @@ joining_rule_fascist_only = {
 		base = 0
 	}
 	available = {
-		has_government = fascism
+		has_government = fascism_ideology
 	}
 	trigger = {
-		has_government = fascism
+		has_government = fascism_ideology
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
 			has_government = FROM
@@ -137,12 +137,12 @@ joining_rule_democratic_non_aligned = {
 		base = 0
 	}
 	available = {
-		has_government = democratic
+		has_government = democratic_ideology
 	}
 	trigger = {
 		OR = {
-			has_government = democratic
-			has_government = neutrality
+			has_government = democratic_ideology
+			has_government = neutrality_ideology
 		}
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
@@ -167,10 +167,10 @@ joining_rule_communist_only = {
 		base = 0
 	}
 	available = {
-		has_government = communism
+		has_government = communism_ideology
 	}
 	trigger = {
-		has_government = communism
+		has_government = communism_ideology
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
 			has_government = FROM
@@ -235,7 +235,7 @@ joining_rule_has_no_war = {
 		base = 0
 		modifier = {
 			add = 3
-			has_government = neutrality
+			has_government = neutrality_ideology
 			has_war = no 
 		}
 	}
@@ -253,11 +253,11 @@ joining_rule_has_no_offensive_war = {
 		base = 0
 		modifier = {
 			add = 2
-			NOT = { tag = GBR }
+			NOT = { tag = ENG }
 			NOT = { tag = USA }
 			OR = {
-				has_government = democratic
-				has_government = neutrality
+				has_government = democratic_ideology
+				has_government = neutrality_ideology
 			}
 		}
 	}
@@ -285,7 +285,7 @@ joining_rule_neighbors_only = {
 		base = 0
 		modifier = {
 			add = 1
-			has_government = neutrality
+			has_government = neutrality_ideology
 			has_war = no 
 		}
 	}
@@ -836,7 +836,7 @@ joining_rule_hispanic_only = {
 			original_tag = HON
 			original_tag = ELS
 			original_tag = EQG
-			original_tag = ESP
+			original_tag = SPR
 		}
 	}
 	can_remove = {
@@ -876,7 +876,7 @@ joining_rule_hispanic_only = {
 				original_tag = HON
 				original_tag = ELS
 				original_tag = EQG
-				original_tag = ESP
+				original_tag = SPR
 			}
 		}
 	}
@@ -889,7 +889,7 @@ joining_rule_east_asia_only = {
 	}
 	visible = {
 		OR = {
-			original_tag = JPN
+			original_tag = JAP
 			original_tag = KOR
 			WTT_is_chinese_country = yes 
 		}
@@ -899,7 +899,7 @@ joining_rule_east_asia_only = {
 	}
 	trigger = {
 		OR = {
-			original_tag = JPN
+			original_tag = JAP
 			original_tag = KOR
 			WTT_is_chinese_country = yes 
 		}
