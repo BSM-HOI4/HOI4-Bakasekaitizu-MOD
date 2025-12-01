@@ -4,20 +4,20 @@
 
 ######################################################################
 
-###  ##   ##  ### ###  ##  #  #      ## ###  ###  ##  ### ### ###  ##  
-#   #  # #  #  #   #  #  # ## #     #   #  # #   #  #  #  #    #  #  # 
-##  #### #     #   #  #  # # ##      #  ###  ##  #     #  ##   #  #    
-#   #  # #  #  #   #  #  # #  #       # #    #   #  #  #  #    #  #  # 
-#   #  #  ##   #  ###  ##  #  #     ##  #    ###  ##  ### #   ###  ##  
+###  ##   ##  ### ###  ##  #  #      ## ###  ###  ##  ### ### ###  ##
+#   #  # #  #  #   #  #  # ## #     #   #  # #   #  #  #  #    #  #  #
+##  #### #     #   #  #  # # ##      #  ###  ##  #     #  ##   #  #
+#   #  # #  #  #   #  #  # #  #       # #    #   #  #  #  #    #  #  #
+#   #  #  ##   #  ###  ##  #  #     ##  #    ###  ##  ### #   ###  ##
 
 ######################################################################
 
 
- ##  #   # ###  ## 
-#  #  # #   #  #   
-####   #    #   #  
-#  #  # #   #    # 
-#  # #   # ### ##  
+ ##  #   # ###  ##
+#  #  # #   #  #
+####   #    #   #
+#  #  # #   #    #
+#  # #   # ### ##
 
 
 faction_goal_one_germany = {
@@ -30,15 +30,15 @@ faction_goal_one_germany = {
 			original_tag = DEU
 		}
 	}
-	cancel = { 
+	cancel = {
 		FROM = {
-			NOT = { has_government = fascism }
+			NOT = { has_government = fascism_ideology }
 		}
 	}
 	completed = {
 		any_country_with_original_tag = {
 			original_tag_to_check = AUS
-			exists = no 
+			exists = no
 		}
 		any_country_with_original_tag = {
 			original_tag_to_check = DEU
@@ -56,11 +56,11 @@ faction_goal_one_germany = {
 }
 
 
-#  #  ##  ##  
-#  # #   #  # 
-#  #  #  #### 
-#  #   # #  # 
- ##  ##  #  # 
+#  #  ##  ##
+#  # #   #  #
+#  #  #  ####
+#  #   # #  #
+ ##  ##  #  #
 
 
 faction_goal_building_up_guam = {
@@ -71,14 +71,14 @@ faction_goal_building_up_guam = {
 	visible = {
 		FROM = { tag = USA}
 	}
-	cancel = { 
+	cancel = {
 		FROM = { NOT = { controls_state = 638 } }
 	}
 	completed = {
 		638 = { naval_base > 3 }
 	}
 	complete_effect = {
-		add_faction_power_projection = 50 
+		add_faction_power_projection = 50
 		custom_effect_tooltip = THE_FACTION_LEADER
 		add_war_support = 0.02
 	}
@@ -88,21 +88,21 @@ faction_goal_building_up_guam = {
 }
 
 
-### #  # ###      ##  #   #   ### ###  ## 
- #  #  # #       #  # #   #    #  #   #   
- #  #### ##      #### #   #    #  ##   #  
- #  #  # #       #  # #   #    #  #     # 
- #  #  # ###     #  # ### ### ### ### ## 
+### #  # ###      ##  #   #   ### ###  ##
+ #  #  # #       #  # #   #    #  #   #
+ #  #### ##      #### #   #    #  ##   #
+ #  #  # #       #  # #   #    #  #     #
+ #  #  # ###     #  # ### ### ### ### ##
 
 
 ### none!
 
 
- ##  #  # ### #  #  ##  
-#  # #  #  #  ## # #  # 
-#    ####  #  # ## #### 
-#  # #  #  #  #  # #  # 
- ##  #  # ### #  # #  # 
+ ##  #  # ### #  #  ##
+#  # #  #  #  ## # #  #
+#    ####  #  # ## ####
+#  # #  #  #  #  # #  #
+ ##  #  # ### #  # #  #
 
 
 faction_goal_guerilla_expansion = {
@@ -129,8 +129,8 @@ faction_goal_guerilla_expansion = {
 		every_collection_element = {
 			input = {
 				input = game:scope
-				operators =  { 
-					faction_members 
+				operators =  {
+					faction_members
 					limit = {
 						check_variable = { THIS.guerilla_counter > 2 }
 					}
@@ -158,7 +158,7 @@ faction_goal_north_subjugated = {
 	visible = {
 		FROM = {
 			original_tag = CHI
-			has_faction_template = faction_template_chinese_united_front 
+			has_faction_template = faction_template_chinese_united_front
 			NOT = {
 				has_country_flag = CHI_tour_the_south_flag
 				has_country_flag = CHI_tour_the_west_flag
@@ -206,13 +206,13 @@ faction_goal_north_subjugated = {
 		every_collection_element = {
 			input = {
 				input = game:scope
-				operators =  { 
+				operators =  {
 					faction_members
 					limit = {
 						is_subject = yes
 					}
 				}
-				
+
 				name = ALL_FACTION_MEMBERS
 			}
 			custom_effect_tooltip = ALL_FACTION_MEMBERS
@@ -249,7 +249,7 @@ faction_goal_unlock_research = {
 			}
 			add_to_temp_variable = { total_techs = num_researched_technologies }
 		}
-		
+
 		multiply_temp_variable = {
 			var = total_techs
 			value = 1.20
@@ -262,7 +262,7 @@ faction_goal_unlock_research = {
 		scope:faction = {
 			hidden_trigger = {
 				tooltip_evaluation = eval
-				set_temp_variable = { unlock_military_techs_researched_compare = 0 }			
+				set_temp_variable = { unlock_military_techs_researched_compare = 0 }
 				all_collection_elements = {
 					collection = {
 						input = game:scope
@@ -325,7 +325,7 @@ faction_goal_unlock_military = {
 			}
 			add_to_temp_variable = { total_divs = num_armies }
 		}
-		
+
 		multiply_temp_variable = {
 			var = total_divs
 			value = 1.20
@@ -338,7 +338,7 @@ faction_goal_unlock_military = {
 		scope:faction = {
 			hidden_trigger = {
 				tooltip_evaluation = eval
-				set_temp_variable = { unlock_compare = 0 }			
+				set_temp_variable = { unlock_compare = 0 }
 				all_collection_elements = {
 					collection = {
 						input = game:scope
@@ -387,7 +387,7 @@ faction_goal_west_subjugated = {
 	visible = {
 		FROM = {
 			original_tag = CHI
-			has_faction_template = faction_template_chinese_united_front 
+			has_faction_template = faction_template_chinese_united_front
 			NOT = {
 				has_country_flag = CHI_tour_the_south_flag
 				has_country_flag = CHI_tour_the_north_flag
@@ -413,24 +413,24 @@ faction_goal_west_subjugated = {
 				is_owned_by = ROOT
 			}
 		}
-		SIC = {
-			all_core_state = {
-				is_owned_by = ROOT
-			}
-		}
+		#SIC = { # 未定義の国タグのためコメントアウト
+		#	all_core_state = {
+		#		is_owned_by = ROOT
+		#	}
+		#}
 	}
 	complete_effect = {
 		add_faction_power_projection = 50
 		every_collection_element = {
 			input = {
 				input = game:scope
-				operators =  { 
+				operators =  {
 					faction_members
 					limit = {
 						is_subject = yes
 					}
 				}
-				
+
 				name = ALL_FACTION_MEMBERS
 			}
 			custom_effect_tooltip = ALL_FACTION_MEMBERS
@@ -453,7 +453,7 @@ faction_goal_south_subjugated = {
 	visible = {
 		FROM = {
 			original_tag = CHI
-			has_faction_template = faction_template_chinese_united_front 
+			has_faction_template = faction_template_chinese_united_front
 			NOT = {
 				has_country_flag = CHI_tour_the_north_flag
 				has_country_flag = CHI_tour_the_west_flag
@@ -464,11 +464,11 @@ faction_goal_south_subjugated = {
 		FROM = { has_completed_focus = CHI_tour_the_south }
 	}
 	completed = {
-		GDC = {
-			all_core_state = {
-				is_owned_by = ROOT
-			}
-		}
+		#GDC = { # 未定義の国タグのためコメントアウト
+		#	all_core_state = {
+		#		is_owned_by = ROOT
+		#	}
+		#}
 		GXC = {
 			all_core_state = {
 				is_owned_by = ROOT
@@ -485,13 +485,13 @@ faction_goal_south_subjugated = {
 		every_collection_element = {
 			input = {
 				input = game:scope
-				operators =  { 
+				operators =  {
 					faction_members
 					limit = {
 						is_subject = yes
 					}
 				}
-				
+
 				name = ALL_FACTION_MEMBERS
 			}
 			custom_effect_tooltip = ALL_FACTION_MEMBERS
@@ -507,11 +507,11 @@ faction_goal_south_subjugated = {
 }
 
 
- ###  ##  ###   ##  #  # 
-   # #  # #  # #  # ## # 
-   # #### ###  #### # ## 
-#  # #  # #    #  # #  # 
- ##  #  # #    #  # #  # 
+ ###  ##  ###   ##  #  #
+   # #  # #  # #  # ## #
+   # #### ###  #### # ##
+#  # #  # #    #  # #  #
+ ##  #  # #    #  # #  #
 
 
 faction_goal_coastal_security = {
@@ -540,9 +540,9 @@ faction_goal_coastal_security = {
 		every_collection_element = {
 			input = {
 				input = game:scope
-				operators =  { 
-					faction_members 
-				}	
+				operators =  {
+					faction_members
+				}
 				name = ALL_FACTION_MEMBERS
 			}
 			navy_experience = 50
@@ -558,11 +558,11 @@ faction_goal_coastal_security = {
 }
 
 
- ##  ##  #   # ### ### ###     #  # #  # ###  ##  #  # 
-#   #  # #   #  #  #    #      #  # ## #  #  #  # ## # 
- #  #  #  # #   #  ##   #      #  # # ##  #  #  # # ## 
-  # #  #  # #   #  #    #      #  # #  #  #  #  # #  # 
-##   ##    #   ### ###  #       ##  #  # ###  ##  #  # 
+ ##  ##  #   # ### ### ###     #  # #  # ###  ##  #  #
+#   #  # #   #  #  #    #      #  # ## #  #  #  # ## #
+ #  #  #  # #   #  ##   #      #  # # ##  #  #  # # ##
+  # #  #  # #   #  #    #      #  # #  #  #  #  # #  #
+##   ##    #   ### ###  #       ##  #  # ###  ##  #  #
 
 
 #faction_goal_production_quotas = {
@@ -573,7 +573,7 @@ faction_goal_coastal_security = {
 #		tag = SOV
 #	}
 #	completed = {
-#		
+#
 #		custom_trigger_tooltip = {
 #			tooltip = "TODO Count faction Equipment - tanks - Infantry EQ - Planes"
 #			check_variable = { ROOT.num_equipment@infantry_equipment > 1000}
@@ -587,7 +587,7 @@ faction_goal_coastal_security = {
 #		#	equipment = { infantry_equipment }
 #		#	size > 50000
 #		#}
-#		
+#
 #	}
 #	complete_effect = {
 #		add_faction_power_projection = 200
@@ -658,11 +658,11 @@ faction_goal_stall_the_fascist_threat = {
 
 ##########################################################
 
- ##  ### #  # ### ###  ###  ##       ##   ##   ##  #    ## 
-#    #   ## # #   #  #  #  #  #     #    #  # #  # #   #   
-# ## ##  # ## ##  ###   #  #        # ## #  # #### #    #  
-#  # #   #  # #   #  #  #  #  #     #  # #  # #  # #     # 
- ##  ### #  # ### #  # ###  ##       ##   ##  #  # ### ##  
+ ##  ### #  # ### ###  ###  ##       ##   ##   ##  #    ##
+#    #   ## # #   #  #  #  #  #     #    #  # #  # #   #
+# ## ##  # ## ##  ###   #  #        # ## #  # #### #    #
+#  # #   #  # #   #  #  #  #  #     #  # #  # #  # #     #
+ ##  ### #  # ### #  # ###  ##       ##   ##  #  # ### ##
 
 ##########################################################
 
@@ -681,22 +681,22 @@ faction_goal_growing_the_faction = {
 		num_faction_members > 4
 	}
 	complete_effect = {
-		add_faction_power_projection = 50 
+		add_faction_power_projection = 50
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = THE_FACTION_LEADER
 		add_faction_initiative = 1
 	}
 	ai_will_do = {
 		base = 0
-		modifier = {  
+		modifier = {
 			add = 1
 			num_faction_members < 5
 		}
-		modifier = {  
+		modifier = {
 			add = 1
 			num_faction_members < 4
 		}
-		modifier = {  
+		modifier = {
 			add = 3
 			num_faction_members < 3
 		}
@@ -733,13 +733,13 @@ faction_goal_spy_master = {
 		custom_effect_tooltip = THE_SPY_MASTER
 		add_faction_initiative = 1
 		custom_effect_tooltip = generic_skip_one_line_tt
-		every_faction_member = { 
+		every_faction_member = {
 			limit = {
 				has_intelligence_agency = no
 			}
 			create_intelligence_agency = yes
 		}
-		every_faction_member = { 
+		every_faction_member = {
 			limit = {
 				has_intelligence_agency = yes
 				NOT = { has_done_agency_upgrade  = upgrade_form_department }
@@ -754,7 +754,7 @@ faction_goal_spy_master = {
 			}
 			upgrade_intelligence_agency = upgrade_crypto_strength
 		}
-		every_faction_member = { 
+		every_faction_member = {
 			limit = {
 				has_intelligence_agency = yes
 				has_done_agency_upgrade = upgrade_crypto_strength
@@ -764,7 +764,7 @@ faction_goal_spy_master = {
 			add_faction_initiative = 1
 			upgrade_intelligence_agency = upgrade_crypto_strength_2
 		}
-		every_faction_member = { 
+		every_faction_member = {
 			limit = {
 				has_intelligence_agency = yes
 				NOT = { agency_upgrade_number > 30 }
@@ -788,7 +788,7 @@ faction_goal_spy_master = {
 	}
 	ai_will_do = {
 		base = 1
-		modifier = {  
+		modifier = {
 			add = 2
 			has_intelligence_agency = yes
 		}
@@ -815,13 +815,13 @@ faction_goal_spy_master = {
 #		custom_effect_tooltip = generic_skip_one_line_tt
 #		every_faction_member = {
 #			tooltip = AT_LEAST_50_MILS
-#			visible_when_empty = yes 
+#			visible_when_empty = yes
 #			limit = {
 #				num_of_military_factories > 49
 #			}
 #			add_faction_initiative = 1
 #		}
-#		
+#
 #	}
 #}
 
@@ -837,7 +837,7 @@ faction_goal_ensure_military_r_d = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							land_facility > 0
 						}
 					}
@@ -850,7 +850,7 @@ faction_goal_ensure_military_r_d = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							naval_facility > 0
 						}
 					}
@@ -863,7 +863,7 @@ faction_goal_ensure_military_r_d = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							air_facility > 0
 						}
 					}
@@ -879,7 +879,7 @@ faction_goal_ensure_military_r_d = {
 				input = game:all_states
 				operators = {
 					limit = {
-						is_controlled_by_ROOT_or_ally = yes 
+						is_controlled_by_ROOT_or_ally = yes
 						land_facility > 0
 					}
 				}
@@ -892,7 +892,7 @@ faction_goal_ensure_military_r_d = {
 				input = game:all_states
 				operators = {
 					limit = {
-						is_controlled_by_ROOT_or_ally = yes 
+						is_controlled_by_ROOT_or_ally = yes
 						naval_facility > 0
 					}
 				}
@@ -905,7 +905,7 @@ faction_goal_ensure_military_r_d = {
 				input = game:all_states
 				operators = {
 					limit = {
-						is_controlled_by_ROOT_or_ally = yes 
+						is_controlled_by_ROOT_or_ally = yes
 						air_facility > 0
 					}
 				}
@@ -1034,7 +1034,7 @@ faction_goal_military_infrastructure = {
 				operators = {
 					limit = {
 						is_core_of = CONTROLLER
-						is_controlled_by_ROOT_or_ally = yes 
+						is_controlled_by_ROOT_or_ally = yes
 						any_neighbor_state = {
 							controller = {
 								NOT = { is_in_faction_with = ROOT }
@@ -1054,7 +1054,7 @@ faction_goal_military_infrastructure = {
 				input = game:all_states
 				operators = {
 					limit = {
-						is_controlled_by_ROOT_or_ally = yes 
+						is_controlled_by_ROOT_or_ally = yes
 						any_neighbor_state = {
 							controller = {
 								NOT = { is_in_faction_with = ROOT }
@@ -1078,7 +1078,7 @@ faction_goal_military_infrastructure = {
 	}
 	ai_will_do = {
 		base = 0
-		modifier = {  
+		modifier = {
 			add = 1
 			has_war = no
 		}
@@ -1163,11 +1163,11 @@ faction_goal_preemptive_strike_on_fascism = {
 	visible = {
 		FROM = {
 			NOT = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 			NOT = {
 				any_enemy_country = {
-					has_government = fascism
+					has_government = fascism_ideology
 				}
 			}
 		}
@@ -1179,7 +1179,7 @@ faction_goal_preemptive_strike_on_fascism = {
 		any_allied_country = {
 			has_offensive_war = yes
 			any_enemy_country = {
-				has_government = fascism
+				has_government = fascism_ideology
 			}
 		}
 	}
@@ -1213,24 +1213,24 @@ faction_goal_war_on_communism = {
 	visible = {
 		FROM = {
 			NOT = {
-				has_government = communism
+				has_government = communism_ideology
 			}
 		}
 		any_country = {
-			has_government = communism
+			has_government = communism_ideology
 			is_on_same_continent_as = FROM
 		}
-		NOT = { original_tag = JPN } # they have their own goal 
+		NOT = { original_tag = JPN } # they have their own goal
 	}
 	completed = {
 		OR = {
 			any_enemy_country = {
-				has_government = communism
+				has_government = communism_ideology
 				is_on_same_continent_as = ROOT
 			}
 			any_allied_country = {
 				any_enemy_country = {
-					has_government = communism
+					has_government = communism_ideology
 					is_on_same_continent_as = PREV
 				}
 			}
@@ -1260,23 +1260,23 @@ faction_goal_war_on_democracy = {
 	visible = {
 		FROM = {
 			NOT = {
-				has_government = democratic
+				has_government = democratic_ideology
 			}
 		}
 		any_country = {
-			has_government = democratic
+			has_government = democratic_ideology
 			is_on_same_continent_as = FROM
 		}
 	}
 	completed = {
 		OR = {
 			any_enemy_country = {
-				has_government = democratic
+				has_government = democratic_ideology
 				is_on_same_continent_as = ROOT
 			}
 			any_allied_country = {
 				any_enemy_country = {
-					has_government = democratic
+					has_government = democratic_ideology
 					is_on_same_continent_as = PREV
 				}
 			}
@@ -1319,22 +1319,22 @@ faction_goal_an_armored_fist = {
 			unit = armor
 			size > 14
 		}
-		
-		
+
+
 	}
 	complete_effect = {
 		add_faction_power_projection = 200
 		custom_effect_tooltip = ALL_FACTION_MEMBERS
 		every_faction_member = {
-			army_experience = 50 
+			army_experience = 50
 			random_character = {
-				tooltip = ONE_PANZER_GENERAL	
+				tooltip = ONE_PANZER_GENERAL
 				visible_when_empty = yes
 				limit = {
-					is_unit_leader = yes 
+					is_unit_leader = yes
 					OR = {
 						has_trait = panzer_leader
-						has_trait = panzer_expert 
+						has_trait = panzer_expert
 					}
 				}
 				gain_xp = 400
@@ -1367,15 +1367,15 @@ faction_goal_an_infantry_army = {
 		add_faction_power_projection = 200
 		custom_effect_tooltip = ALL_FACTION_MEMBERS
 		every_faction_member = {
-			army_experience = 50 
+			army_experience = 50
 			random_character = {
 				tooltip = ONE_INFANTRY_GENERAL
 				visible_when_empty = yes
 				limit = {
-					is_unit_leader = yes 
+					is_unit_leader = yes
 					OR = {
 						has_trait = infantry_leader
-						has_trait = infantry_expert 
+						has_trait = infantry_expert
 					}
 				}
 				gain_xp = 400
@@ -1397,14 +1397,14 @@ faction_goal_develop_mexican_oil = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
 			480 = { is_controlled_by_ROOT_or_ally = yes }
 			479 = {	is_controlled_by_ROOT_or_ally = yes }
 			477 = {	is_controlled_by_ROOT_or_ally = yes }
-			476 = {	is_controlled_by_ROOT_or_ally = yes }	
+			476 = {	is_controlled_by_ROOT_or_ally = yes }
 		}
 	}
 	available = {
@@ -1488,7 +1488,7 @@ faction_goal_develop_curacao_oil = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		695 = { is_controlled_by_ROOT_or_ally = yes }
@@ -1546,7 +1546,7 @@ faction_goal_develop_venezuelan_oil = {
 	group = resources_to_market_icon
 
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
@@ -1621,7 +1621,7 @@ faction_goal_develop_guyanan_bauxite = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		687 = { is_controlled_by_ROOT_or_ally = yes }
@@ -1690,7 +1690,7 @@ faction_goal_develop_suriname_bauxite = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		309 = { is_controlled_by_ROOT_or_ally = yes }
@@ -1759,7 +1759,7 @@ faction_goal_develop_lappland_metals = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
@@ -1905,7 +1905,7 @@ faction_goal_develop_ploiesti_oil_fields = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		46 = { is_controlled_by_ROOT_or_ally = yes }
@@ -1963,7 +1963,7 @@ faction_goal_develop_baku_oil_fields = {
 	group = resources_to_market_icon
 
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
@@ -2047,13 +2047,13 @@ faction_goal_develop_iraqi_oil = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
 			291 = { is_controlled_by_ROOT_or_ally = yes }
 			676 = {	is_controlled_by_ROOT_or_ally = yes }
-			1010 = { is_controlled_by_ROOT_or_ally = yes }	
+			1010 = { is_controlled_by_ROOT_or_ally = yes }
 		}
 	}
 	available = {
@@ -2063,7 +2063,7 @@ faction_goal_develop_iraqi_oil = {
 		}
 		291 = { is_controlled_by_ROOT_or_ally = yes }
 		676 = {	is_controlled_by_ROOT_or_ally = yes }
-		1010 = { is_controlled_by_ROOT_or_ally = yes }	
+		1010 = { is_controlled_by_ROOT_or_ally = yes }
 	}
 	completed = {
 		291 = {
@@ -2131,13 +2131,13 @@ faction_goal_develop_persian_oil = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
 			411 = { is_controlled_by_ROOT_or_ally = yes }
 			412 = {	is_controlled_by_ROOT_or_ally = yes }
-			413 = { is_controlled_by_ROOT_or_ally = yes }	
+			413 = { is_controlled_by_ROOT_or_ally = yes }
 		}
 	}
 	available = {
@@ -2403,7 +2403,7 @@ faction_goal_develop_malayan_riches = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
@@ -2627,7 +2627,7 @@ faction_goal_develop_indonesian_riches = {
 	category = short_term
 	group = resources_to_market_icon
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
@@ -2863,13 +2863,13 @@ faction_goal_expand_newfoundland_bases = {
 	group = FOCUS_FILTER_CONSOLIDATION
 
 	allowed = {
-		
+
 	}
 	visible = {
 		331 = { is_controlled_by_ROOT_or_ally = yes }
 	}
 	available = {
-		
+
 	}
 	completed = {
 		331 = {
@@ -2887,7 +2887,7 @@ faction_goal_expand_newfoundland_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 331
@@ -2905,7 +2905,7 @@ faction_goal_expand_newfoundland_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -2918,7 +2918,7 @@ faction_goal_expand_newfoundland_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -2944,13 +2944,13 @@ faction_goal_expand_bermuda_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		696 = { is_controlled_by_ROOT_or_ally = yes }
 	}
 	available = {
-		
+
 	}
 	completed = {
 		696 = {
@@ -2986,7 +2986,7 @@ faction_goal_expand_bermuda_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -2999,7 +2999,7 @@ faction_goal_expand_bermuda_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -3025,7 +3025,7 @@ faction_goal_expand_bahamas_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
@@ -3063,7 +3063,7 @@ faction_goal_expand_bahamas_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				OR = {
@@ -3084,7 +3084,7 @@ faction_goal_expand_bahamas_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -3097,7 +3097,7 @@ faction_goal_expand_bahamas_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -3123,7 +3123,7 @@ faction_goal_fortify_panama_canal = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		685 = { is_controlled_by_ROOT_or_ally = yes }
@@ -3167,7 +3167,7 @@ faction_goal_fortify_panama_canal = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 685
@@ -3219,7 +3219,7 @@ faction_goal_expand_trinidad_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		691 = { is_controlled_by_ROOT_or_ally = yes }
@@ -3243,7 +3243,7 @@ faction_goal_expand_trinidad_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 691
@@ -3261,7 +3261,7 @@ faction_goal_expand_trinidad_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -3274,7 +3274,7 @@ faction_goal_expand_trinidad_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -3301,7 +3301,7 @@ faction_goal_expand_azores_bases = {
 	group = FOCUS_FILTER_CONSOLIDATION
 
 	allowed = {
-		
+
 	}
 	visible = {
 		698 = { is_controlled_by_ROOT_or_ally = yes }
@@ -3325,7 +3325,7 @@ faction_goal_expand_azores_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 698
@@ -3343,7 +3343,7 @@ faction_goal_expand_azores_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -3356,7 +3356,7 @@ faction_goal_expand_azores_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -3382,7 +3382,7 @@ faction_goal_expand_iceland_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		100 = { is_controlled_by_ROOT_or_ally = yes }
@@ -3406,7 +3406,7 @@ faction_goal_expand_iceland_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 100
@@ -3424,7 +3424,7 @@ faction_goal_expand_iceland_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -3437,7 +3437,7 @@ faction_goal_expand_iceland_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -3463,7 +3463,7 @@ faction_goal_expand_faroese_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		337 = { is_controlled_by_ROOT_or_ally = yes }
@@ -3487,7 +3487,7 @@ faction_goal_expand_faroese_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 337
@@ -3505,7 +3505,7 @@ faction_goal_expand_faroese_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -3518,7 +3518,7 @@ faction_goal_expand_faroese_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -3544,7 +3544,7 @@ faction_goal_expand_narvik_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		144 = { is_controlled_by_ROOT_or_ally = yes }
@@ -3568,7 +3568,7 @@ faction_goal_expand_narvik_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 144
@@ -3601,7 +3601,7 @@ faction_goal_fortify_danish_belts = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
@@ -3665,7 +3665,7 @@ faction_goal_fortify_danish_belts = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				OR = {
@@ -3747,7 +3747,7 @@ faction_goal_fortify_gibraltar = {
 	group = FOCUS_FILTER_CONSOLIDATION
 
 	allowed = {
-		
+
 	}
 	visible = {
 		118 = { is_controlled_by_ROOT_or_ally = yes }
@@ -3791,7 +3791,7 @@ faction_goal_fortify_gibraltar = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 118
@@ -3867,7 +3867,7 @@ faction_goal_expand_maltese_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		116 = { is_controlled_by_ROOT_or_ally = yes }
@@ -3891,7 +3891,7 @@ faction_goal_expand_maltese_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 116
@@ -3949,7 +3949,7 @@ faction_goal_expand_cretan_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		182 = { is_controlled_by_ROOT_or_ally = yes }
@@ -3973,7 +3973,7 @@ faction_goal_expand_cretan_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 182
@@ -4031,7 +4031,7 @@ faction_goal_expand_cypriot_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		183 = { is_controlled_by_ROOT_or_ally = yes }
@@ -4055,7 +4055,7 @@ faction_goal_expand_cypriot_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 183
@@ -4113,7 +4113,7 @@ faction_goal_fortify_bosporus = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		797 = { is_controlled_by_ROOT_or_ally = yes }
@@ -4154,7 +4154,7 @@ faction_goal_fortify_bosporus = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 797
@@ -4218,7 +4218,7 @@ faction_goal_fortify_dardanelles = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		OR = {
@@ -4281,7 +4281,7 @@ faction_goal_fortify_dardanelles = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				OR = {
@@ -4362,7 +4362,7 @@ faction_goal_fortify_suez_canal = {
 	group = FOCUS_FILTER_CONSOLIDATION
 
 	allowed = {
-		
+
 	}
 	visible = {
 		446 = { is_controlled_by_ROOT_or_ally = yes }
@@ -4407,7 +4407,7 @@ faction_goal_fortify_suez_canal = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 446
@@ -4496,7 +4496,7 @@ faction_goal_expand_gulf_of_aden_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		992 = { is_controlled_by_ROOT_or_ally = yes }
@@ -4520,7 +4520,7 @@ faction_goal_expand_gulf_of_aden_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 992
@@ -4538,7 +4538,7 @@ faction_goal_expand_gulf_of_aden_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -4551,7 +4551,7 @@ faction_goal_expand_gulf_of_aden_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = asia
 						}
 					}
@@ -4640,7 +4640,7 @@ faction_goal_fortify_strait_of_hormuz = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				OR = {
@@ -4715,7 +4715,7 @@ faction_goal_fortify_strait_of_hormuz = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = middle_east
 						}
 					}
@@ -4741,7 +4741,7 @@ faction_goal_expand_ceylonese_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		422 = { is_controlled_by_ROOT_or_ally = yes }
@@ -4765,7 +4765,7 @@ faction_goal_expand_ceylonese_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 422
@@ -4783,7 +4783,7 @@ faction_goal_expand_ceylonese_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -4796,7 +4796,7 @@ faction_goal_expand_ceylonese_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = asia
 						}
 					}
@@ -4822,7 +4822,7 @@ faction_goal_expand_singapore_naval_base = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		1021 = { is_controlled_by_ROOT_or_ally = yes }
@@ -4853,7 +4853,7 @@ faction_goal_expand_singapore_naval_base = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 1021
@@ -4878,7 +4878,7 @@ faction_goal_expand_singapore_naval_base = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = europe
 						}
 					}
@@ -4891,7 +4891,7 @@ faction_goal_expand_singapore_naval_base = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = asia
 						}
 					}
@@ -4922,7 +4922,7 @@ faction_goal_fortify_manila_bay = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		327 = { is_controlled_by_ROOT_or_ally = yes }
@@ -4956,7 +4956,7 @@ faction_goal_fortify_manila_bay = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 327
@@ -5001,7 +5001,7 @@ faction_goal_fortify_okinawa = {
 	group = FOCUS_FILTER_CONSOLIDATION
 
 	allowed = {
-		
+
 	}
 	visible = {
 		526 = { is_controlled_by_ROOT_or_ally = yes }
@@ -5029,7 +5029,7 @@ faction_goal_fortify_okinawa = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 526
@@ -5078,7 +5078,7 @@ faction_goal_fortify_iwo_jima = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		645 = { is_controlled_by_ROOT_or_ally = yes }
@@ -5103,7 +5103,7 @@ faction_goal_fortify_iwo_jima = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 645
@@ -5152,7 +5152,7 @@ faction_goal_expand_caroline_islands_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		684 = { is_controlled_by_ROOT_or_ally = yes }
@@ -5176,7 +5176,7 @@ faction_goal_expand_caroline_islands_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 684
@@ -5194,7 +5194,7 @@ faction_goal_expand_caroline_islands_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -5207,7 +5207,7 @@ faction_goal_expand_caroline_islands_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = asia
 						}
 					}
@@ -5233,7 +5233,7 @@ faction_goal_expand_guadalcanal_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		634 = { is_controlled_by_ROOT_or_ally = yes }
@@ -5257,7 +5257,7 @@ faction_goal_expand_guadalcanal_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 634
@@ -5298,7 +5298,7 @@ faction_goal_expand_guadalcanal_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = australia
 						}
 					}
@@ -5324,7 +5324,7 @@ faction_goal_expand_wake_island_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		632 = { is_controlled_by_ROOT_or_ally = yes }
@@ -5348,7 +5348,7 @@ faction_goal_expand_wake_island_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 632
@@ -5366,7 +5366,7 @@ faction_goal_expand_wake_island_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -5379,7 +5379,7 @@ faction_goal_expand_wake_island_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = asia
 						}
 					}
@@ -5405,7 +5405,7 @@ faction_goal_expand_midway_island_bases = {
 	category = short_term
 	group = FOCUS_FILTER_CONSOLIDATION
 	allowed = {
-		
+
 	}
 	visible = {
 		631 = { is_controlled_by_ROOT_or_ally = yes }
@@ -5429,7 +5429,7 @@ faction_goal_expand_midway_island_bases = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
 		custom_effect_tooltip = TARGET_STATE_CONTROLLERS
-		every_faction_member = { 
+		every_faction_member = {
 			visible_when_empty = yes
 			limit = {
 				controls_state = 631
@@ -5447,7 +5447,7 @@ faction_goal_expand_midway_island_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = north_america
 						}
 					}
@@ -5460,7 +5460,7 @@ faction_goal_expand_midway_island_bases = {
 					input = game:all_states
 					operators = {
 						limit = {
-							is_controlled_by_ROOT_or_ally = yes 
+							is_controlled_by_ROOT_or_ally = yes
 							is_on_continent = asia
 						}
 					}
