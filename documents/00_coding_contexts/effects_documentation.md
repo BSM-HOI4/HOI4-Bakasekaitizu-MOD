@@ -7483,7 +7483,7 @@ Starts a limited peace conference between the two countries if at war. Only the 
 Example:
 SOV = {
   start_peace_conference = {
-    tag = FIN  # main loser
+    tag = NKA  # main loser
     score_factor = 0.2  # 0-1, the fraction of conference score allocated to winners. Can use a variable like eg PREV.surrender_progress. 0.0 implies a white peace.
     
     # winner_scope and loser_scope can be ALL (all relevant countries), FACTION (members of main country's faction and overlordship), LIMITED_FACTION (faction members if main country is faction leader, and subjects if main country is overlord), and LIMITED (main country and their subjects)
@@ -7856,7 +7856,7 @@ unlock_decision_tooltip = {
 "Display a tooltip saying the MIO is made available (aka unlocked).
 Accepts MIO token, variables or keywords
 ex:
-FIN = {
+NKA = {
 	unlock_military_industrial_organization_tooltip = mio:my_mio_token
 	unlock_military_industrial_organization_tooltip = var:my_mio_var
 }
@@ -7940,7 +7940,7 @@ Makes a white peace between the two countries if at war. ROOT is considered the 
 Example:
 SOV = {
   white_peace = {
-    tag = FIN
+    tag = NKA
     message = FIN_agree_peace
   }
 }

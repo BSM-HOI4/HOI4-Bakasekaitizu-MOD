@@ -633,7 +633,7 @@
 		"create_colonial_division_template":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["none"],
-			"description":	"Create a colonial division template for overlord/owner. Available parameters are subject and division_template, where the subject parameter is the country tag for an overlords subject. And the division_template is the regular effect to create a division template.\nExample.\nIn country scope of overlord, E.g. ROOT = ENG\ncreate_colonial_division_template = {\n    subject = RAJ # Country tag\n    division_template = {\n        name = \"Infantry Division\"\n        division_names_group = RAJ_INF_01\n        ...\n        regiments = {\n            infantry = { x = 0 y = 0 }\n            infantry = { x = 0 y = 1 }\n            }\n        }\n    }\n}"
+			"description": "Create a colonial division template for overlord/owner. Available parameters are subject and division_template, where the subject parameter is the country tag for an overlords subject. And the division_template is the regular effect to create a division template.\nExample.\nIn country scope of overlord, E.g. ROOT = GBR\ncreate_colonial_division_template = {\n    subject = RAJ # Country tag\n    division_template = {\n        name = \"Infantry Division\"\n        division_names_group = RAJ_INF_01\n        ...\n        regiments = {\n            infantry = { x = 0 y = 0 }\n            infantry = { x = 0 y = 1 }\n            }\n        }\n    }\n}"
 		},
 		"add_scientist_level":	{
 			"supported_scope":	["CHARACTER"],
@@ -743,7 +743,7 @@
 		"state_event":	{
 			"supported_scope":	["STATE", "COUNTRY"],
 			"supported_target":	["none"],
-			"description":	"Fires a state event.\nExample:\nstate_event = {\n\tid = usa.61 # The event to fire.\n\t# Optional Fields:\n\thours = 12 # The number of hours to wait before firing the event.\n\tdays = 5 # The number of days to wait before firing the event.\n\tmonths = 1 # The number of months to wait before firing the event, where a month is treated as 30 days.\n\t\t# Note:  hours, days, and months can all be used and will simply be added together.\n\trandom_hours = 18 # A random amount of hours to be added to the delay before firing, from 0 up to but not including random_hours.\n\trandom_days = 2 # A random amount of days to be added to the delay before firing, from 0 up to but one hour less than random_days.\n\t\t# Note:  random_hours and random_days can both be used and will simply be added together.\n\trandom = 6 # Equivalent to random_hours; preserverd for backwards compatibility.\n\trandom = { chance = 50 ... } # Specify a set of child effects to execute as part of this effect, with a percentage chance of randomly happening or not (as a group, not individually).\n\ttooltip = usa.61.t # Manually specify which tooltip to use for this effect.\n\ttrigger_for = DEU # Indicate which country this state effect applies to. Value can be any of the following:\n\t\t# controller - The country that currently controls the state.\n\t\t# owner - The country that currently owns the state.\n\t\t# occupied - The country that has been occupied in the state by the current controller.\n\t\t# from - The country of the from scope.\n\t\t# prev - The country of the prev scope.\n\t\t# root - The country of the root scope.\n\t\t# TAG - A hard-coded country tag such as DEU or ENG.\n}\n"
+			"description": "Fires a state event.\nExample:\nstate_event = {\n\tid = usa.61 # The event to fire.\n\t# Optional Fields:\n\thours = 12 # The number of hours to wait before firing the event.\n\tdays = 5 # The number of days to wait before firing the event.\n\tmonths = 1 # The number of months to wait before firing the event, where a month is treated as 30 days.\n\t\t# Note:  hours, days, and months can all be used and will simply be added together.\n\trandom_hours = 18 # A random amount of hours to be added to the delay before firing, from 0 up to but not including random_hours.\n\trandom_days = 2 # A random amount of days to be added to the delay before firing, from 0 up to but one hour less than random_days.\n\t\t# Note:  random_hours and random_days can both be used and will simply be added together.\n\trandom = 6 # Equivalent to random_hours; preserverd for backwards compatibility.\n\trandom = { chance = 50 ... } # Specify a set of child effects to execute as part of this effect, with a percentage chance of randomly happening or not (as a group, not individually).\n\ttooltip = usa.61.t # Manually specify which tooltip to use for this effect.\n\ttrigger_for = DEU # Indicate which country this state effect applies to. Value can be any of the following:\n\t\t# controller - The country that currently controls the state.\n\t\t# owner - The country that currently owns the state.\n\t\t# occupied - The country that has been occupied in the state by the current controller.\n\t\t# from - The country of the from scope.\n\t\t# prev - The country of the prev scope.\n\t\t# root - The country of the root scope.\n\t\t# TAG - A hard-coded country tag such as DEU or GBR.\n}\n"
 		},
 		"remove_province_modifier":	{
 			"supported_scope":	["STATE"],
@@ -793,7 +793,7 @@
 		"white_peace":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["THIS", "ROOT", "PREV", "FROM", "OWNER", "CONTROLLER", "OCCUPIED", "CAPITAL"],
-			"description":	"Makes a white peace between the two countries if at war. ROOT is considered the winner while the target tag is considered the loser (which affects things like name of the PC as well as PC related on-actions).\nExample:\nSOV = {\n  white_peace = {\n    tag = FIN\n    message = FIN_agree_peace\n  }\n}"
+			"description": "Makes a white peace between the two countries if at war. ROOT is considered the winner while the target tag is considered the loser (which affects things like name of the PC as well as PC related on-actions).\nExample:\nSOV = {\n  white_peace = {\n    tag = NKA\n    message = FIN_agree_peace\n  }\n}"
 		},
 		"hidden_effect":	{
 			"supported_scope":	["any"],
@@ -1518,7 +1518,7 @@
 		"set_autonomy":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["THIS", "ROOT", "PREV", "FROM", "OWNER", "CONTROLLER", "OCCUPIED", "CAPITAL"],
-			"description":	"makes autonomy of specified level and country.\nExample:\nset_autonomy = {\n  target=ENG \n  autonomy_state = autonomy_puppet \n  freedom_level=0.5 \n  end_wars  = yes # default yes. will not cancel non-civil wars if set to no\n  end_civil_wars = yes # default yes. will not cancel civil wars if set to no\n}"
+			"description": "makes autonomy of specified level and country.\nExample:\nset_autonomy = {\n  target=GBR \n  autonomy_state = autonomy_puppet \n  freedom_level=0.5 \n  end_wars  = yes # default yes. will not cancel non-civil wars if set to no\n  end_civil_wars = yes # default yes. will not cancel civil wars if set to no\n}"
 		},
 		"add_to_tech_sharing_group":	{
 			"supported_scope":	["COUNTRY"],
@@ -1833,7 +1833,7 @@
 		"free_random_operative":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["any"],
-			"description":	"Free a random captured operative of a certain tag by a certain tag\nCan be used from a country scope of the operative in question.\n`all` is optional, default value is no - if set to yes it will free all operatives captured by the target country\nGER = { free_random_operative = { all = yes captured_by = ENG } }\n"
+			"description": "Free a random captured operative of a certain tag by a certain tag\nCan be used from a country scope of the operative in question.\n`all` is optional, default value is no - if set to yes it will free all operatives captured by the target country\nGER = { free_random_operative = { all = yes captured_by = GBR } }\n"
 		},
 		"add_max_trait":	{
 			"supported_scope":	["CHARACTER"],
@@ -2508,7 +2508,7 @@
 		"create_purchase_contract":	{
 			"supported_scope":	["any"],
 			"supported_target":	["none"],
-			"description":	"\"Creates a purchase contract between the countries.\nExample:\ncreate_purchase_contract = \n{\n\tseller = ENG\n\tbuyer = RAJ\n\tcivilian_factories = 2\n\tequipment = {\n\t\ttype = infantry_equipment\n\t\tamount = 600\n\t}\n\tequipment = {\n\t\ttype = armored_car1\n\t\tamount = 100\n\t}\n}\""
+			"description": "\"Creates a purchase contract between the countries.\nExample:\ncreate_purchase_contract = \n{\n\tseller = GBR\n\tbuyer = RAJ\n\tcivilian_factories = 2\n\tequipment = {\n\t\ttype = infantry_equipment\n\t\tamount = 600\n\t}\n\tequipment = {\n\t\ttype = armored_car1\n\t\tamount = 100\n\t}\n}\""
 		},
 		"generate_scientist_character":	{
 			"supported_scope":	["COUNTRY"],
@@ -2653,7 +2653,7 @@
 		"add_resistance_target":	{
 			"supported_scope":	["STATE"],
 			"supported_target":	["any"],
-			"description":	"adds resistance target to the scoped state :\nadd_resistance_target = 10\nadd_resistance_target = { \n  id = 123 #if set, id can be used for removing an added resistance target using remove_resistance_target effect  amount = 10 #original tag of new country\n  occupied = DEU #if set, the resistance target will only apply if the occupied country is DEU\n  occupier = ENG #if set, the resistance target will only apply if the occupier country is ENG\n  days = 42 #if set the newly added resistance target will be only active for this many days\n  tooltip = \"BLABLA\" #tooltip loc key to display in resistance target tooltips\n}"
+			"description": "adds resistance target to the scoped state :\nadd_resistance_target = 10\nadd_resistance_target = { \n  id = 123 #if set, id can be used for removing an added resistance target using remove_resistance_target effect  amount = 10 #original tag of new country\n  occupied = DEU #if set, the resistance target will only apply if the occupied country is DEU\n  occupier = GBR #if set, the resistance target will only apply if the occupier country is GBR\n  days = 42 #if set the newly added resistance target will be only active for this many days\n  tooltip = \"BLABLA\" #tooltip loc key to display in resistance target tooltips\n}"
 		},
 		"remove_resistance_target":	{
 			"supported_scope":	["STATE"],
@@ -2673,12 +2673,12 @@
 		"random_country_with_original_tag":	{
 			"supported_scope":	["any"],
 			"supported_target":	["none"],
-			"description":	"Executes children effects on a random country with original tag. Example:\nrandom_country_with_original_tag = { \n  original_tag_to_check = ENG # the effect will only run on countries that has this original tag \n  limit = { always = yes } # a limit can be defined to limit scopes\n  # ... effects to execute \n}"
+			"description": "Executes children effects on a random country with original tag. Example:\nrandom_country_with_original_tag = { \n  original_tag_to_check = GBR # the effect will only run on countries that has this original tag \n  limit = { always = yes } # a limit can be defined to limit scopes\n  # ... effects to execute \n}"
 		},
 		"every_country_with_original_tag":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["none"],
-			"description":	"\"Executes children effects on a all countries with original tag (or \\\"random_select_amount\\\" of random country if specified) that fulfills the \\\"limit\\\" trigger.\ntooltip=key can be added to override tooltip title.\nBy default the effects are only displayed once, you may display them for each matching country with display_individual_scopes.\nex:\nevery_country_with_original_tag = {\n\toriginal_tag_to_check = ENG # the effect will only run on countries that has this original tag\n\ttooltip = my_loc_key # Optional\n\trandom_select_amount = 3 # Optional\n\tdisplay_individual_scopes = yes # Optional - default = no\n\t... country scope effects ...\n}\""
+			"description": "\"Executes children effects on a all countries with original tag (or \\\"random_select_amount\\\" of random country if specified) that fulfills the \\\"limit\\\" trigger.\ntooltip=key can be added to override tooltip title.\nBy default the effects are only displayed once, you may display them for each matching country with display_individual_scopes.\nex:\nevery_country_with_original_tag = {\n\toriginal_tag_to_check = GBR # the effect will only run on countries that has this original tag\n\ttooltip = my_loc_key # Optional\n\trandom_select_amount = 3 # Optional\n\tdisplay_individual_scopes = yes # Optional - default = no\n\t... country scope effects ...\n}\""
 		},
 		"add_decryption":	{
 			"supported_scope":	["COUNTRY"],
@@ -2693,12 +2693,12 @@
 		"force_enable_resistance":	{
 			"supported_scope":	["STATE"],
 			"supported_target":	["any"],
-			"description":	"force enables resistance for scoped state. the resistance will be active even if other conditions doesn't satisfy (even if it is core or resistance check trigger is false)  :\nforce_enable_resistance = DEU # same as occupier = DEU \nforce_enable_resistance = { \n  clear = no #if yes, will clear previously set resistance\n  occupier = DEU #if set, the resistance will be enabled when the occupier is DEU\n  occupied = ENG #if set, the resistance will be enabled if the occupier country is target\n}"
+			"description": "force enables resistance for scoped state. the resistance will be active even if other conditions doesn't satisfy (even if it is core or resistance check trigger is false)  :\nforce_enable_resistance = DEU # same as occupier = DEU \nforce_enable_resistance = { \n  clear = no #if yes, will clear previously set resistance\n  occupier = DEU #if set, the resistance will be enabled when the occupier is DEU\n  occupied = GBR #if set, the resistance will be enabled if the occupier country is target\n}"
 		},
 		"force_disable_resistance":	{
 			"supported_scope":	["STATE"],
 			"supported_target":	["any"],
-			"description":	"force disables resistance for scoped state.  :\nforce_disable_resistance = DEU # same as occupier = DEU \nforce_disable_resistance = { \n  clear = no #if yes, will clear previously disabled resistance\n  occupier = DEU #if set, the resistance will be disabled when the occupier is DEU\n  occupied = ENG #if set, the resistance will be disabled if the occupier country is target\n}"
+			"description": "force disables resistance for scoped state.  :\nforce_disable_resistance = DEU # same as occupier = DEU \nforce_disable_resistance = { \n  clear = no #if yes, will clear previously disabled resistance\n  occupier = DEU #if set, the resistance will be disabled when the occupier is DEU\n  occupied = GBR #if set, the resistance will be disabled if the occupier country is target\n}"
 		},
 		"create_intelligence_agency":	{
 			"supported_scope":	["COUNTRY"],
@@ -2713,7 +2713,7 @@
 		"create_ship":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["none"],
-			"description":	"create a ship from another country and assign it to the reserve fleet.\n'creator' is optional. If not set, it will be the scoped country.\n'name' is optional.\nFRA = {\n  create_ship = {\n    type = ship_hull_submarine_1\n    equipment_variant = \"S Class\"\n    creator = ENG\n    name = \"My ship name\"\n    amount = 5 #amount to add\n  }\n}\n"
+			"description": "create a ship from another country and assign it to the reserve fleet.\n'creator' is optional. If not set, it will be the scoped country.\n'name' is optional.\nFRA = {\n  create_ship = {\n    type = ship_hull_submarine_1\n    equipment_variant = \"S Class\"\n    creator = GBR\n    name = \"My ship name\"\n    amount = 5 #amount to add\n  }\n}\n"
 		},
 		"set_faction_spymaster":	{
 			"supported_scope":	["COUNTRY"],
@@ -3013,7 +3013,7 @@
 		"start_peace_conference":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["THIS", "ROOT", "PREV", "FROM", "OWNER", "CONTROLLER", "OCCUPIED", "CAPITAL"],
-			"description":	"Starts a limited peace conference between the two countries if at war. Only the specified loser country and their potential subjects are included as losers in the conference. ROOT is the winner while the target tag is the loser.\nExample:\nSOV = {\n  start_peace_conference = {\n    tag = FIN  # main loser\n    score_factor = 0.2  # 0-1, the fraction of conference score allocated to winners. Can use a variable like eg PREV.surrender_progress. 0.0 implies a white peace.\n    \n    # winner_scope and loser_scope can be ALL (all relevant countries), FACTION (members of main country's faction and overlordship), LIMITED_FACTION (faction members if main country is faction leader, and subjects if main country is overlord), and LIMITED (main country and their subjects)\n    winner_scope = FACTION  # optional, default is LIMITED_FACTION\n    loser_scope = FACTION  # optional, default is LIMITED_FACTION\n    message = FIN_agree_peace  # optional, custom message to display in post-conference popup\n  }\n}"
+			"description": "Starts a limited peace conference between the two countries if at war. Only the specified loser country and their potential subjects are included as losers in the conference. ROOT is the winner while the target tag is the loser.\nExample:\nSOV = {\n  start_peace_conference = {\n    tag = NKA  # main loser\n    score_factor = 0.2  # 0-1, the fraction of conference score allocated to winners. Can use a variable like eg PREV.surrender_progress. 0.0 implies a white peace.\n    \n    # winner_scope and loser_scope can be ALL (all relevant countries), FACTION (members of main country's faction and overlordship), LIMITED_FACTION (faction members if main country is faction leader, and subjects if main country is overlord), and LIMITED (main country and their subjects)\n    winner_scope = FACTION  # optional, default is LIMITED_FACTION\n    loser_scope = FACTION  # optional, default is LIMITED_FACTION\n    message = FIN_agree_peace  # optional, custom message to display in post-conference popup\n  }\n}"
 		},
 		"add_units_to_division_template":	{
 			"supported_scope":	["COUNTRY"],
@@ -4155,7 +4155,7 @@
 		"is_justifying_wargoal_against":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["THIS", "ROOT", "PREV", "FROM", "OWNER", "CONTROLLER", "OCCUPIED", "CAPITAL"],
-			"description":	"Checks if country is justifying a wargoal against the target. \nExample: ENG = { is_justifying_wargoal_against = DEU }"
+			"description": "Checks if country is justifying a wargoal against the target. \nExample: GBR = { is_justifying_wargoal_against = DEU }"
 		},
 		"is_owner_neighbor_of":	{
 			"supported_scope":	["COUNTRY"],
@@ -4400,7 +4400,7 @@
 		"is_licensing_any_to":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["THIS", "ROOT", "PREV", "FROM", "OWNER", "CONTROLLER", "OCCUPIED", "CAPITAL"],
-			"description":	"Current country is licensing something to target country\nExample: is_licensing_any_to = ENG"
+			"description": "Current country is licensing something to target country\nExample: is_licensing_any_to = GBR"
 		},
 		"is_licensing_to":	{
 			"supported_scope":	["COUNTRY"],
@@ -4760,7 +4760,7 @@
 		"is_exiled_in":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["THIS", "ROOT", "PREV", "FROM", "OWNER", "CONTROLLER", "OCCUPIED", "CAPITAL"],
-			"description":	"Checks if scope country is a government in exile in target tag. is_exiled_in = ENG"
+			"description": "Checks if scope country is a government in exile in target tag. is_exiled_in = GBR"
 		},
 		"is_hosting_exile":	{
 			"supported_scope":	["COUNTRY"],
@@ -5395,12 +5395,12 @@
 		"any_country_with_original_tag":	{
 			"supported_scope":	["any"],
 			"supported_target":	["THIS", "ROOT", "PREV", "FROM", "OWNER", "CONTROLLER", "OCCUPIED", "CAPITAL"],
-			"description":	"check if any country with current scope's original tag meets the trigger. Example:\nany_country_with_original_tag = { \n  original_tag_to_check = ENG # the trigger check all countries that has this original tag \n  # ... triggers to check \n}"
+			"description": "check if any country with current scope's original tag meets the trigger. Example:\nany_country_with_original_tag = { \n  original_tag_to_check = GBR # the trigger check all countries that has this original tag \n  # ... triggers to check \n}"
 		},
 		"all_country_with_original_tag":	{
 			"supported_scope":	["any"],
 			"supported_target":	["THIS", "ROOT", "PREV", "FROM", "OWNER", "CONTROLLER", "OCCUPIED", "CAPITAL"],
-			"description":	"check if all country with current scope's original tag meets the trigger. Example:\nall_country_with_original_tag = { \n  original_tag_to_check = ENG # the trigger check all countries that has this original tag \n  # ... triggers to check \n}"
+			"description": "check if all country with current scope's original tag meets the trigger. Example:\nall_country_with_original_tag = { \n  original_tag_to_check = GBR # the trigger check all countries that has this original tag \n  # ... triggers to check \n}"
 		},
 		"has_done_agency_upgrade":	{
 			"supported_scope":	["COUNTRY"],
@@ -5755,7 +5755,7 @@
 		"pc_is_on_same_side_as":	{
 			"supported_scope":	["COUNTRY"],
 			"supported_target":	["THIS", "ROOT", "PREV", "FROM", "OWNER", "CONTROLLER", "OCCUPIED", "CAPITAL"],
-			"description":	"Checks if country is on same side (winning or losing side) as another country in the peace conference.\nExample:\nPOL = { pc_is_on_same_side_as = ENG }"
+			"description": "Checks if country is on same side (winning or losing side) as another country in the peace conference.\nExample:\nPOL = { pc_is_on_same_side_as = GBR }"
 		},
 		"pc_is_puppeted_by":	{
 			"supported_scope":	["COUNTRY"],
@@ -10158,7 +10158,7 @@
 				"description":	"DEPRECATED, MAY OVERFLOW. total manpower of country"
 			},
 			"air_intel":	{
-				"description":	"air intel against a target country. example DEU.air_intel@ENG"
+				"description": "air intel against a target country. example DEU.air_intel@GBR"
 			},
 			"overlord":	{
 				"description":	"master of this subject"
@@ -10192,7 +10192,7 @@
 				"description":	"total deployed navy manpower of country in thousands."
 			},
 			"navy_intel":	{
-				"description":	"navy intel against a target country. example DEU.navy_intel@ENG"
+				"description": "navy intel against a target country. example DEU.navy_intel@GBR"
 			},
 			"manpower_k":	{
 				"description":	"total manpower of country in thousands"
@@ -10229,13 +10229,13 @@
 				"description":	"Total produced equipment of typefloating_harbor"
 			},
 			"ai_strategy_dont_defend_ally_borders":	{
-				"description":	"ai strategy value dont_defend_ally_borders against country. Example: DEU.ai_strategy_dont_defend_ally_borders@ENG"
+				"description": "ai strategy value dont_defend_ally_borders against country. Example: DEU.ai_strategy_dont_defend_ally_borders@GBR"
 			},
 			"max_available_manpower_k":	{
 				"description":	"total available manpower of country in thousands"
 			},
 			"opinion":	{
-				"description":	"opinion of a country targeted on another one. example DEU.opinion@ENG"
+				"description": "opinion of a country targeted on another one. example DEU.opinion@GBR"
 			},
 			"num_battalions":	{
 				"description":	"number of battalions"
@@ -10272,7 +10272,7 @@
 				"description":	"number of armies"
 			},
 			"ai_strategy_ignore_claim":	{
-				"description":	"ai strategy value ignore_claim against country. Example: DEU.ai_strategy_ignore_claim@ENG"
+				"description": "ai strategy value ignore_claim against country. Example: DEU.ai_strategy_ignore_claim@GBR"
 			},
 			"party_popularity":	{
 				"description":	"popularity of targeted party [0.00, 1.00]. example party_popularity@democratic. May also target ruling_party. This also supports country variables, so you can party_popularity@my_var_name for variables that store ideologies"
@@ -10310,13 +10310,13 @@
 				"description":	"number of armies with dominant type, dominant type is defined in target. example: num_armies_with_type@light_armor"
 			},
 			"army_intel":	{
-				"description":	"army intel against a target country. example DEU.army_intel@ENG"
+				"description": "army intel against a target country. example DEU.army_intel@GBR"
 			},
 			"num_battalions_with_type":	{
 				"description":	"number of battalions with sub unit type, sub unit type is defined in target. example: num_battalions_with_type@light_armor"
 			},
 			"civilian_intel":	{
-				"description":	"civilian intel against a target country. example DEU.civilian_intel@ENG"
+				"description": "civilian intel against a target country. example DEU.civilian_intel@GBR"
 			},
 			"stability":	{
 				"description":	"stability of a country"
@@ -10394,7 +10394,7 @@
 				"description":	"faction leader of this country's faction"
 			},
 			"ai_attitude_protective_weight":	{
-				"description":	"weight for an ai attitude attitude_protectiveagainst country. Example: DEU.ai_attitude_protective_weight@ENG"
+				"description": "weight for an ai attitude attitude_protectiveagainst country. Example: DEU.ai_attitude_protective_weight@GBR"
 			},
 			"resource_exported":	{
 				"description":	"number of resources exported by country, resource type is defined in target resource_exported@steel"
@@ -10503,7 +10503,7 @@
 				"description":	"returns the current country leader of the country"
 			},
 			"ai_strategy_alliance":	{
-				"description":	"ai strategy value alliance against country. Example: DEU.ai_strategy_alliance@ENG"
+				"description": "ai strategy value alliance against country. Example: DEU.ai_strategy_alliance@GBR"
 			},
 			"theorist":	{
 				"description":	"returns the currently hired theorist of the country"
@@ -10548,7 +10548,7 @@
 				"description":	"calculates the number of civilian factories on core states of current country scope, on those states that are under control of @Tag  <Tag | ROOT | my_var> example num_of_naval_factories_in_cores@my_var"
 			},
 			"ai_strategy_declare_war":	{
-				"description":	"ai strategy value declare_war against country. Example: DEU.ai_strategy_declare_war@ENG"
+				"description": "ai strategy value declare_war against country. Example: DEU.ai_strategy_declare_war@GBR"
 			},
 			"num_of_controlled_factories":	{
 				"description":	"check the number of factories in controlled states excluding any gained or lost through trade, relations, modifiers etc.",
@@ -10636,7 +10636,7 @@
 				"is_trigger":	true
 			},
 			"ai_strategy_antagonize":	{
-				"description":	"ai strategy value antagonize against country. Example: DEU.ai_strategy_antagonize@ENG"
+				"description": "ai strategy value antagonize against country. Example: DEU.ai_strategy_antagonize@GBR"
 			},
 			"num_divisions":	{
 				"description":	"Will compare towards the amount of divisions a country has control over, if strength matters use has_army_size.",
@@ -10674,7 +10674,7 @@
 				"is_trigger":	true
 			},
 			"ai_strategy_invade":	{
-				"description":	"ai strategy value invade against country. Example: DEU.ai_strategy_invade@ENG"
+				"description": "ai strategy value invade against country. Example: DEU.ai_strategy_invade@GBR"
 			},
 			"num_occupied_states":	{
 				"description":	"check the number of states occupied by nation",
@@ -10716,7 +10716,7 @@
 				"is_trigger":	true
 			},
 			"ai_strategy_conquer":	{
-				"description":	"ai strategy value conquer against country. Example: DEU.ai_strategy_conquer@ENG"
+				"description": "ai strategy value conquer against country. Example: DEU.ai_strategy_conquer@GBR"
 			},
 			"pc_current_score":	{
 				"description":	"Checks country's total peace conference score. Only usable if the country is on the winning side.\nExample:\nCZE = { pc_current_score > 400 }",
@@ -10791,70 +10791,70 @@
 				"is_trigger":	true
 			},
 			"ai_strategy_befriend":	{
-				"description":	"ai strategy value befriend against country. Example: DEU.ai_strategy_befriend@ENG"
+				"description": "ai strategy value befriend against country. Example: DEU.ai_strategy_befriend@GBR"
 			},
 			"ai_strategy_consider_weak":	{
-				"description":	"ai strategy value consider_weak against country. Example: DEU.ai_strategy_consider_weak@ENG"
+				"description": "ai strategy value consider_weak against country. Example: DEU.ai_strategy_consider_weak@GBR"
 			},
 			"ai_strategy_protect":	{
-				"description":	"ai strategy value protect against country. Example: DEU.ai_strategy_protect@ENG"
+				"description": "ai strategy value protect against country. Example: DEU.ai_strategy_protect@GBR"
 			},
 			"ai_strategy_contain":	{
-				"description":	"ai strategy value contain against country. Example: DEU.ai_strategy_contain@ENG"
+				"description": "ai strategy value contain against country. Example: DEU.ai_strategy_contain@GBR"
 			},
 			"ai_strategy_support":	{
-				"description":	"ai strategy value support against country. Example: DEU.ai_strategy_support@ENG"
+				"description": "ai strategy value support against country. Example: DEU.ai_strategy_support@GBR"
 			},
 			"ai_strategy_force_defend_ally_borders":	{
-				"description":	"ai strategy value force_defend_ally_borders against country. Example: DEU.ai_strategy_force_defend_ally_borders@ENG"
+				"description": "ai strategy value force_defend_ally_borders against country. Example: DEU.ai_strategy_force_defend_ally_borders@GBR"
 			},
 			"ai_strategy_influence":	{
-				"description":	"ai strategy value influence against country. Example: DEU.ai_strategy_influence@ENG"
+				"description": "ai strategy value influence against country. Example: DEU.ai_strategy_influence@GBR"
 			},
 			"total_equipment_produced_ballistic_missile":	{
 				"description":	"Total produced equipment of typeballistic_missile"
 			},
 			"ai_strategy_ignore":	{
-				"description":	"ai strategy value ignore against country. Example: DEU.ai_strategy_ignore@ENG"
+				"description": "ai strategy value ignore against country. Example: DEU.ai_strategy_ignore@GBR"
 			},
 			"ai_strategy_send_volunteers_desire":	{
-				"description":	"ai strategy value send_volunteers_desire against country. Example: DEU.ai_strategy_send_volunteers_desire@ENG"
+				"description": "ai strategy value send_volunteers_desire against country. Example: DEU.ai_strategy_send_volunteers_desire@GBR"
 			},
 			"ai_strategy_occupation_policy":	{
-				"description":	"ai strategy value occupation_policy against country. Example: DEU.ai_strategy_occupation_policy@ENG"
+				"description": "ai strategy value occupation_policy against country. Example: DEU.ai_strategy_occupation_policy@GBR"
 			},
 			"total_constructed_infrastructure":	{
 				"description":	"Total constructions of infrastructure"
 			},
 			"ai_strategy_prepare_for_war":	{
-				"description":	"ai strategy value prepare_for_war against country. Example: DEU.ai_strategy_prepare_for_war@ENG"
+				"description": "ai strategy value prepare_for_war against country. Example: DEU.ai_strategy_prepare_for_war@GBR"
 			},
 			"ai_strategy_decrypt_target":	{
-				"description":	"ai strategy value decrypt_target against country. Example: DEU.ai_strategy_decrypt_target@ENG"
+				"description": "ai strategy value decrypt_target against country. Example: DEU.ai_strategy_decrypt_target@GBR"
 			},
 			"ai_strategy_activate_crypto":	{
-				"description":	"ai strategy value activate_crypto against country. Example: DEU.ai_strategy_activate_crypto@ENG"
+				"description": "ai strategy value activate_crypto against country. Example: DEU.ai_strategy_activate_crypto@GBR"
 			},
 			"ai_attitude_neutral_weight":	{
-				"description":	"weight for an ai attitude attitude_neutralagainst country. Example: DEU.ai_attitude_neutral_weight@ENG"
+				"description": "weight for an ai attitude attitude_neutralagainst country. Example: DEU.ai_attitude_neutral_weight@GBR"
 			},
 			"total_equipment_produced_submarine":	{
 				"description":	"Total produced equipment of typesubmarine"
 			},
 			"ai_attitude_hostile_weight":	{
-				"description":	"weight for an ai attitude attitude_hostileagainst country. Example: DEU.ai_attitude_hostile_weight@ENG"
+				"description": "weight for an ai attitude attitude_hostileagainst country. Example: DEU.ai_attitude_hostile_weight@GBR"
 			},
 			"ai_attitude_friendly_weight":	{
-				"description":	"weight for an ai attitude attitude_friendlyagainst country. Example: DEU.ai_attitude_friendly_weight@ENG"
+				"description": "weight for an ai attitude attitude_friendlyagainst country. Example: DEU.ai_attitude_friendly_weight@GBR"
 			},
 			"ai_attitude_outraged_weight":	{
-				"description":	"weight for an ai attitude attitude_outragedagainst country. Example: DEU.ai_attitude_outraged_weight@ENG"
+				"description": "weight for an ai attitude attitude_outragedagainst country. Example: DEU.ai_attitude_outraged_weight@GBR"
 			},
 			"ai_attitude_threatened_weight":	{
-				"description":	"weight for an ai attitude attitude_threatenedagainst country. Example: DEU.ai_attitude_threatened_weight@ENG"
+				"description": "weight for an ai attitude attitude_threatenedagainst country. Example: DEU.ai_attitude_threatened_weight@GBR"
 			},
 			"ai_attitude_allied_weight":	{
-				"description":	"weight for an ai attitude attitude_alliedagainst country. Example: DEU.ai_attitude_allied_weight@ENG"
+				"description": "weight for an ai attitude attitude_alliedagainst country. Example: DEU.ai_attitude_allied_weight@GBR"
 			},
 			"total_equipment_produced_fighter":	{
 				"description":	"Total produced equipment of typefighter"
