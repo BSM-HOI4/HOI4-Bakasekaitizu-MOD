@@ -327,6 +327,38 @@ focus_tree = {
 			add_political_power = 300
 		}
 	}
+	focus = {
+		id = JPN_open_ports_to_allies
+		icon = GFX_JPN_lianhehenogangjiefang-331214
+		relative_position_id = JPN_restore_strong_japan
+		x = -2
+		y = 3
+		cost = 7
+		search_filters = {
+			FOCUS_FILTER_POLITICAL
+		}
+		prerequisite = {
+			focus = JPN_revive_old_alliance
+		}
+		prerequisite = {
+			focus = JPN_joint_exercises
+		}
+		completion_reward = {
+			give_military_access = GBR
+			navy_experience = 100
+			every_country = {
+				limit = {
+					is_in_faction_with = JPN
+				}
+				every_country = {
+					limit = {
+						is_in_faction_with = GBR
+					}
+					give_military_access = PREV
+				}
+			}
+		}
+	}
 	#三ヵ年計画の始動
 	focus = {
 		id = JPN_launch_three_year_plan
@@ -344,6 +376,27 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_ideas = three_year_plan
+		}
+	}
+	focus = {
+		id = JPN_sacred_education
+		icon = GFX_JPN_shenshengjiaoyu-331184
+		relative_position_id = JPN_vote_divine_party
+		x = 4
+		y = 1
+		cost = 6
+		search_filters = {
+			FOCUS_FILTER_RESEARCH
+		}
+		prerequisite = {
+			focus = JPN_vote_divine_party
+		}
+		allow_branch = {
+			has_completed_focus = JPN_vote_divine_party
+		}
+		completion_reward = {
+			add_ideas = JAP_supremacy_of_technology_w
+			add_research_slot = 1
 		}
 	}
 	#文化活動の推奨
@@ -837,6 +890,45 @@ focus_tree = {
 			}
 		}
 	}
+	focus = {
+		id = JPN_otherworld_admiral
+		icon = GFX_JPN_yijienotidu-331160
+		relative_position_id = JPN_otherworld_commanders
+		x = 0
+		y = 1
+		cost = 7
+		search_filters = {
+			FOCUS_FILTER_WAR_SUPPORT
+		}
+		prerequisite = {
+			focus = JPN_otherworld_commanders
+		}
+		completion_reward = {
+			if = {
+				limit = {
+					has_country_flag = JPN_tatenaga_flag
+				}
+				# recruit_character = JPN_otoko
+				# recruit_character = JPN_mitsume
+				# add_field_marshal_role = {
+				# 	character = JPN_mitsume
+				# 	skill = 4
+				# 	attack_skill = 2
+				# 	defense_skill = 3
+				# 	planning_skill = 3
+				# 	logistics_skill = 5
+				# }
+				add_naval_commander_role = {
+					Character = JPN_otoko
+					skill = 4
+					attack_skill = 2
+					defense_skill = 3
+					coordination_skill = 5
+					maneuvering_skill = 5
+				}
+			}
+		}
+	}
 	#異界の政治家
 	focus = {
 		id = JPN_otherworld_politicians
@@ -1041,27 +1133,7 @@ focus_tree = {
 		}
 	}
 	#神聖教育
-	focus = {
-		id = JPN_sacred_education
-		icon = GFX_JPN_shenshengjiaoyu-331184
-		relative_position_id = JPN_vote_divine_party
-		x = 4
-		y = 1
-		cost = 6
-		search_filters = {
-			FOCUS_FILTER_RESEARCH
-		}
-		prerequisite = {
-			focus = JPN_vote_divine_party
-		}
-		allow_branch = {
-			has_completed_focus = JPN_vote_divine_party
-		}
-		completion_reward = {
-			add_ideas = JAP_supremacy_of_technology_w
-			add_research_slot = 1
-		}
-	}
+
 	#可愛いリーダー
 	focus = {
 		id = JPN_invite_cute_leader
@@ -1474,6 +1546,16 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 100
 			set_country_flag = JPN_ENG
+			
+			# 経済同盟 (Allies) に加盟/結成
+			# 英国がすでにAllies経済同盟にいると仮定、あるいはここで追加
+			GBR = {
+				set_temp_variable = { temp_alliance_id = 2 }
+				add_to_economic_alliance = yes
+			}
+			set_temp_variable = { temp_alliance_id = 2 }
+			add_to_economic_alliance = yes
+			
 			country_event = {
 				id = jpn_pol.3
 				days = 1
@@ -1500,103 +1582,37 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 100
 			set_country_flag = ASEAN
-			# 既存陣営から脱退し、新陣営を作成
-			if = {
-				limit = {
-					is_in_faction = yes
-					is_faction_leader = no
-				}
-				leave_faction = yes
-			}
-			if = {
-				limit = {
-					is_in_faction = yes
-					is_faction_leader = yes
-				}
-				dismantle_faction = yes
-			}
-			# 新陣営作成
-			create_faction = ASEAN_2
-			add_to_faction = TWN
-			add_to_faction = NSI
-			add_to_faction = GMI
-			add_to_faction = HAW
-			add_to_faction = SJK
-			add_to_faction = DRS
-			add_to_faction = ECU
+			
+			# 経済同盟 (GEACPS) 結成
+			set_temp_variable = { temp_alliance_id = 3 }
+			add_to_economic_alliance = yes
+			
+			TWN = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
+			NSI = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
+			GMI = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
+			HAW = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
+			SJK = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
+			DRS = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
+			ECU = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
+			
 			# 陣営内での相互保証（自分以外）
+			# Note: is_in_faction checks won't work if we haven't formed a faction yet.
+			# We should guarantee these specific countries instead.
+			
 			hidden_effect = {
-				every_country = {
-					limit = {
-						is_in_faction_with = JPN
-						NOT = {
-							tag = JPN
-						}
-					}
-					save_event_target_as = current_faction_member
-					every_country = {
-						limit = {
-							is_in_faction_with = JPN
-							NOT = {
-								tag = JPN
-							}
-							NOT = {
-								tag = event_target:current_faction_member
-							}
-						}
-						give_guarantee = event_target:current_faction_member
-					}
-					# 日本への保証
-					give_guarantee = JPN
-				}
-				# 日本から他メンバーへの保証
-				every_country = {
-					limit = {
-						is_in_faction_with = JPN
-						NOT = {
-							tag = JPN
-						}
-					}
-					ROOT = {
-						give_guarantee = PREV
-					}
-				}
+				# 日本への保証と日本からの保証
+				TWN = { give_guarantee = JPN JPN = { give_guarantee = TWN } }
+				NSI = { give_guarantee = JPN JPN = { give_guarantee = NSI } }
+				GMI = { give_guarantee = JPN JPN = { give_guarantee = GMI } }
+				HAW = { give_guarantee = JPN JPN = { give_guarantee = HAW } }
+				SJK = { give_guarantee = JPN JPN = { give_guarantee = SJK } }
+				DRS = { give_guarantee = JPN JPN = { give_guarantee = DRS } }
+				ECU = { give_guarantee = JPN JPN = { give_guarantee = ECU } }
 			}
 		}
 	}
 	#連合への港解放
-	focus = {
-		id = JPN_open_ports_to_allies
-		icon = GFX_JPN_lianhehenogangjiefang-331214
-		relative_position_id = JPN_restore_strong_japan
-		x = -2
-		y = 3
-		cost = 7
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		prerequisite = {
-			focus = JPN_revive_old_alliance
-		}
-		prerequisite = {
-			focus = JPN_joint_exercises
-		}
-		completion_reward = {
-			give_military_access = GBR
-			navy_experience = 100
-			every_country = {
-				limit = {
-					is_in_faction_with = JPN
-				}
-				every_country = {
-					limit = {
-						is_in_faction_with = GBR
-					}
-					give_military_access = PREV
-				}
-			}
-		}
-	}
+
 	#合同演習
 	focus = {
 		id = JPN_joint_exercises
@@ -1617,6 +1633,10 @@ focus_tree = {
 				limit = {
 					has_country_flag = JPN_ENG
 				}
+				# 日英同盟 (Anglo-Japanese Alliance)
+				create_faction = Anglo_Japanese_Alliance
+				add_to_faction = GBR
+				
 				GBR = {
 					army_experience = 100
 					air_experience = 100
@@ -1628,29 +1648,43 @@ focus_tree = {
 					army_experience = 100
 					air_experience = 100
 				}
-				every_country = {
-					limit = {
-						is_in_faction_with = GBR
-					}
-					army_experience = 100
-					air_experience = 100
-				}
 			}
 			else_if = {
 				limit = {
 					has_country_flag = ASEAN
 				}
+				# 大東亜共栄圏 (Greater East Asia Co-Prosperity Sphere)
+				# 既存陣営から脱退し、新陣営を作成 (念のため)
+				if = {
+					limit = {
+						is_in_faction = yes
+						is_faction_leader = no
+					}
+					leave_faction = yes
+				}
+				if = {
+					limit = {
+						is_in_faction = yes
+						is_faction_leader = yes
+					}
+					dismantle_faction = yes
+				}
+				
+				create_faction = GEACPS_FACTION
+				add_to_faction = TWN
+				add_to_faction = NSI
+				add_to_faction = GMI
+				add_to_faction = HAW
+				add_to_faction = SJK
+				add_to_faction = DRS
+				add_to_faction = ECU
+				
 				every_country = {
 					limit = {
 						is_in_faction_with = JPN
 					}
-					every_country = {
-						limit = {
-							is_in_faction_with = GBR
-						}
-						army_experience = 100
-						air_experience = 100
-					}
+					army_experience = 100
+					air_experience = 100
 				}
 				set_faction_spymaster = yes
 			}
@@ -1911,45 +1945,7 @@ focus_tree = {
 		}
 	}
 	#異界の提督
-	focus = {
-		id = JPN_otherworld_admiral
-		icon = GFX_JPN_yijienotidu-331160
-		relative_position_id = JPN_otherworld_commanders
-		x = 0
-		y = 1
-		cost = 7
-		search_filters = {
-			FOCUS_FILTER_WAR_SUPPORT
-		}
-		prerequisite = {
-			focus = JPN_otherworld_commanders
-		}
-		completion_reward = {
-			if = {
-				limit = {
-					has_country_flag = JPN_tatenaga_flag
-				}
-				# recruit_character = JPN_otoko
-				# recruit_character = JPN_mitsume
-				# add_field_marshal_role = {
-				# 	character = JPN_mitsume
-				# 	skill = 4
-				# 	attack_skill = 2
-				# 	defense_skill = 3
-				# 	planning_skill = 3
-				# 	logistics_skill = 5
-				# }
-				add_naval_commander_role = {
-					Character = JPN_otoko
-					skill = 4
-					attack_skill = 2
-					defense_skill = 3
-					coordination_skill = 5
-					maneuvering_skill = 5
-				}
-			}
-		}
-	}
+
 	#御前会議
 	focus = {
 		id = JPN_imperial_conference
