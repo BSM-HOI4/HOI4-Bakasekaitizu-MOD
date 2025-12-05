@@ -35,8 +35,14 @@ Dieting_decision = {
 			custom_effect_tooltip = MAC_Dieting_1_tt
 			hidden_effect = {
 				random_list = {
-					20 = { add_timed_idea = { idea = Dieting_1  days = 30 } }
-					80 = { add_timed_idea = { idea = Dieting_1_2  days = 30 } }
+					20 = { 
+						add_timed_idea = { idea = Dieting_1  days = 30 } 
+						country_event = { id = MCD.1 days = 28}
+					}
+					80 = {
+						add_timed_idea = { idea = Dieting_1_2  days = 30 } 
+						country_event = { id = MCD.4 days = 28}
+					}
 				}
 			}
 		}
@@ -79,8 +85,14 @@ Dieting_decision = {
 			custom_effect_tooltip = MAC_Dieting_2_tt
             hidden_effect = {
 				random_list = {
-					40 = { add_timed_idea = { idea = Dieting_2  days = 60 } }
-					60 = { add_timed_idea = { idea = Dieting_2_2  days = 60 } }
+					40 = { 
+						add_timed_idea = { idea = Dieting_2  days = 60 } 
+						country_event = { id = MCD.2 days = 58}
+					}
+					60 = { 
+						add_timed_idea = { idea = Dieting_2_2  days = 60 } 
+						country_event = { id = MCD.5 days = 58}
+					}
 				}
 			}
 
@@ -125,6 +137,7 @@ Dieting_decision = {
 			custom_effect_tooltip = MAC_Dieting_3_tt
             hidden_effect = {
 				add_timed_idea = { idea = Dieting_3  days = 180 }
+				country_event = { id = MCD.3 days = 178}
 			}
 		}
 		ai_will_do = {
@@ -232,6 +245,7 @@ Progression_of_obesity = {
 			#GER_can_delay_mefo_payment = yes
 			hidden_trigger = { always = no }
 			has_completed_focus = MAC_sales_start_in_the_USA
+			NOT = { has_idea = MAC_constitution_improved }
 		}
         visible = {
             has_completed_focus = MAC_sales_start_in_the_USA
@@ -352,6 +366,61 @@ Progression_of_obesity = {
 			factor = 200
 		}
 	}
+	Constitution_Improvement ={#体質改善
+		icon = GFX_decision_generic_decision
+
+		allowed = {
+			original_tag = MAC
+			always = yes
+		}
+
+		
+		visible = {
+			has_completed_focus = MAC_sales_start_in_the_USA
+		}
+
+		cost = 100
+
+		fire_only_once = yes
+		complete_effect = {
+			add_ideas = MAC_constitution_improved
+			custom_effect_tooltip = MAC_constitution_tt
+			hidden_effect = {
+				set_country_flag = MAC_constitution_improved_flag
+			}
+			if = {
+				limit = {
+					has_idea = Obesity_1
+				}
+				remove_ideas = Obesity_1
+
+			}
+			else = {
+				if = {
+					limit = {
+						has_idea = Obesity_2
+					}
+					remove_ideas = Obesity_2
+
+				}
+				else = {
+					if = {
+						limit = {
+							has_idea = Obesity_3
+						}
+						remove_ideas = Obesity_3
+					}
+					else = {
+						remove_ideas = Obesity_4
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
 }
 
 McDonald_Store_Opening_Policy = {
@@ -388,6 +457,38 @@ McDonald_Store_Opening_Policy = {
 					country_event = { id = MCD.6 }
 				}
 			}
+
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}
+
+debug_McDonald_Store_Opening_Policy = {
+
+	debug_Determination_of_policy = {
+
+		icon = GFX_decision_eng_trade_unions_support
+
+		allowed = {
+            original_tag = MAC
+            always = yes
+			is_debug = yes
+        }
+
+		available = {
+		}
+        visible = {
+        }
+
+		cost = 0
+
+		fire_only_once = yes
+        complete_effect = {
+			load_focus_tree = McDonald
+			add_ideas = tightly_bound_feelings
 
 		}
 
@@ -1001,7 +1102,7 @@ MAC_balance_of_power_category = {
 			}
         }
 
-		cost = 30
+		cost = 40
 
 		days_re_enable = 100
 
@@ -1028,7 +1129,7 @@ MAC_balance_of_power_category = {
 			}
         }
 
-		cost = 20
+		cost = 50
 
 		days_re_enable = 100
 
@@ -1055,12 +1156,12 @@ MAC_balance_of_power_category = {
 			}
         }
 
-		cost = 40
+		cost = 50
 
 		days_re_enable = 100
 
 		complete_effect = {
-			MAC_bop_low_decrease_effect = yes
+			MAC_bop_very_low_decrease_effect = yes
 		}
 	}
 
@@ -1083,7 +1184,7 @@ MAC_balance_of_power_category = {
 			}
         }
 
-		cost = 30
+		cost = 40
 
 		days_re_enable = 100
 
@@ -1110,7 +1211,7 @@ MAC_balance_of_power_category = {
 			}
         }
 
-		cost = 20
+		cost = 50
 
 		days_re_enable = 100
 
@@ -1137,12 +1238,12 @@ MAC_balance_of_power_category = {
 			}
         }
 
-		cost = 40
+		cost = 50
 
 		days_re_enable = 100
 
 		complete_effect = {
-			MAC_bop_low_increase_effect = yes
+			MAC_bop_very_low_increase_effect = yes
 		}
 	}
 	MAC_pepsi_charange = {
@@ -1164,7 +1265,7 @@ MAC_balance_of_power_category = {
 			}
         }
 
-		cost = 40
+		cost = 30
 
 		days_re_enable = 100
 
@@ -1197,11 +1298,11 @@ MAC_balance_of_power_category = {
 				OR = {
 					power_balance_value = {
 						id = MAC_power_balance
-						value > 0.69
+						value > 0.79
 					}
 					power_balance_value = {
 						id = MAC_power_balance
-						value < -0.59
+						value < -0.79
 					}
 				}
 			}
@@ -1228,10 +1329,75 @@ MAC_balance_of_power_category = {
 				}
 				custom_effect_tooltip = MAC_elect_pepsi_tt
 				set_country_flag = MAC_elect_pepsi
+				country_event = { id = MCD.22}
 			}
 			else = {
 				custom_effect_tooltip = MAC_elect_coke_tt
 				set_country_flag = MAC_elect_coke
+				country_event = { id = MCD.23}
+			}
+		}
+	}
+
+	MAC_Determination_of_bevarages_auto = {
+		allowed = {
+            original_tag = MAC
+            always = yes
+        }
+
+		available = {
+			AND = { 
+				has_completed_focus = MAC_Overseas_shop_openings
+				has_country_flag = MAC_finish_bop_1
+				OR = {
+					power_balance_value = {
+						id = MAC_power_balance
+						value > 0.79
+					}
+					power_balance_value = {
+						id = MAC_power_balance
+						value < -0.79
+					}
+				}
+			}
+		}
+        visible = {
+			AND = { 
+				has_completed_focus = MAC_Overseas_shop_openings
+				has_country_flag = MAC_finish_bop_1
+			}
+        }
+		days_mission_timeout = 720
+		fire_only_once = yes
+
+		timeout_effect = {
+			country_event = { id = MCD.24 }
+		}
+
+		complete_effect = {
+			set_country_flag = MAC_finish_bop_2
+			set_country_flag = MAC_finish_cola_war
+			custom_effect_tooltip = MAC_fault_decide_drink_tt
+			if = {
+				limit = {
+					power_balance_value = {
+						id = MAC_power_balance
+						value > 0.69
+					}
+				}
+				custom_effect_tooltip = MAC_elect_pepsi_tt
+				set_country_flag = MAC_elect_pepsi
+				country_event = { id = MCD.22}
+			}
+			else_if = {
+				limit = {
+					power_balance_value = {
+						id = MAC_power_balance
+						value < -0.69
+					}
+				}
+				set_country_flag = MAC_elect_coke
+				country_event = { id = MCD.23}
 			}
 		}
 	}
@@ -1442,9 +1608,11 @@ MAC_congress = {
 			NOT = {
 				has_country_flag = MAC_cola_check_stop
 			}
+			NOT = { has_country_flag = MAC_finish_cola_war}
 		}
         visible = {
             has_country_flag = MAC_start_cola_war
+			NOT = { has_country_flag = MAC_finish_cola_war}
         }
 
 		#cost = GER_mefo_bill_counter?10
@@ -1652,6 +1820,7 @@ MAC_congress = {
 			if = {
 				limit = {
 					NOT = { has_country_flag = MAC_cola_check_stop } 
+					NOT = { has_country_flag = MAC_finish_cola_war }
 				}
 				activate_mission = MAC_weekly_check_2
 			}
@@ -1679,7 +1848,7 @@ MAC_congress = {
 		}
 		cost = 0
 		modifier = {
-			political_power_gain = -0.15
+			political_power_gain = -0.3
 		}
 		days_remove = 30
 		remove_effect = {
@@ -1703,7 +1872,7 @@ MAC_congress = {
 		}
 		cost = 0
 		modifier = {
-			political_power_gain = -0.15
+			political_power_gain = -0.3
 		}
 		days_remove = 30
 		remove_effect = {
@@ -1727,7 +1896,7 @@ MAC_congress = {
 		}
 		cost = 0
 		modifier = {
-			political_power_gain = -0.35
+			political_power_gain = -0.6
 		}
 		days_remove = 45
 		remove_effect = {
@@ -1751,7 +1920,7 @@ MAC_congress = {
 		}
 		cost = 0
 		modifier = {
-			political_power_gain = -0.35
+			political_power_gain = -0.6
 		}
 		days_remove = 45
 		remove_effect = {
@@ -1766,7 +1935,7 @@ MAC_congress = {
 				check_variable = { representatives_support < representatives_total }
 			}
 		}
-		cost = 50
+		cost = 100
 		days_re_enable = 90
 		complete_effect = {
 			MAC_congress_small_support = yes
@@ -1865,23 +2034,363 @@ MAC_congress = {
 	}
 }
 
-MAC_oppose_move = {
+MAC_cola_war_oppose_move = {
 	MAC_NF_cola_capitalism = {
 		icon = ger_mefo_bills
 		available = {
-
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0
-			}
+			has_country_flag = MAC_finish_cola_war
 		}
 		timeout_effect = {
-			activate_decision = MAC_NF_
-			add_ideas = MAC_e_cola_capitalism_idea
+			activate_mission = MAC_NF_promote_lobbying
+			add_ideas = MAC_cola_capitalism_idea
+			MAC_congress_medium_opposition = yes
+			MAC_bop_low_decrease_effect = yes
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
 
+	MAC_NF_promote_lobbying = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			if = {
+				limit = { has_country_flag = MAC_loans_from_banks_flag_P }
+				activate_mission = MAC_NF_partnership_with_WalMart
+			}
+			else = {
+				activate_mission = MAC_NF_loans_from_banks
+			}
+			MAC_congress_medium_opposition = yes
+			MAC_congress_small_opposition = yes
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+
+	MAC_NF_loans_from_banks = {
+		icon = ger_mefo_bills
+		available = {
+			OR = {
+				has_country_flag = MAC_finish_cola_war
+				has_country_flag = MAC_loans_from_banks_flag_P
+			}
+		}
+		
+		timeout_effect = {
+			if = {
+				limit = {
+					has_country_flag = MAC_pepsi_flag
+				}
+				activate_mission = MAC_NF_partnership_with_WalMart
+			}
+			if = {
+				limit = {
+					has_country_flag = MAC_coca_flag
+				}
+				activate_mission = MAC_NF_pepsi_march
+			}
+			
+			set_country_flag = MAC_loans_from_banks_flag
+		}
+		complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = MAC_pepsi_flag
+				}
+				activate_mission = MAC_NF_partnership_with_WalMart
+			}
+			if = {
+				limit = {
+					has_country_flag = MAC_coca_flag
+				}
+				activate_mission = MAC_NF_pepsi_march
+			}
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_partnership_with_WalMart = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			MAC_congress_small_opposition = yes
+			add_ideas = MAC_spread_coke
+			if = {
+				limit = { has_country_flag = MAC_loans_from_banks_flag_P }
+				if = {
+					limit = { has_country_flag = MAC_dr_pepper_flag_P }
+					activate_mission = MAC_NF_mass_propaganda_campaign
+				}
+				else = {
+					activate_mission = MAC_NF_dr_pepper
+				}
+			}
+			else = {
+				activate_mission = MAC_NF_plant_expansion
+			}
+			
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_plant_expansion = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			activate_mission = MAC_NF_dr_pepper
+			MAC_congress_medium_opposition = yes
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_dr_pepper = {
+		icon = ger_mefo_bills
+		available = {
+			OR = {
+				has_country_flag = MAC_finish_cola_war
+				has_country_flag = MAC_dr_pepper_flag_P
+			}
+		}
+		
+		complete_effect = {
+			if = {
+				limit = {
+					has_country_flag = MAC_pepsi_flag
+				}
+				activate_mission = MAC_NF_mass_propaganda_campaign
+			}
+			if = {
+				limit = {
+					has_country_flag = MAC_coca_flag
+				}
+				activate_mission = MAC_NF_pepsi_guerrilla
+			}
+			
+		}
+		timeout_effect = {
+			set_country_flag = MAC_dr_pepper_flag
+			activate_mission = MAC_NF_saida
+			MAC_shareholder_small_opposition = yes
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_saida = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			if = {
+				limit = {
+					has_country_flag = MAC_pepsi_flag
+				}
+				activate_mission = MAC_NF_mass_propaganda_campaign
+			}
+			if = {
+				limit = {
+					has_country_flag = MAC_coca_flag
+				}
+				activate_mission = MAC_NF_pepsi_guerrilla
+			}
+			add_ideas = MAC_saida_idea
+			MAC_shareholder_small_opposition = yes
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_mass_propaganda_campaign = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			activate_mission = MAC_NF_cooperation_with_NRA
+			MAC_bop_medium_decrease_effect = yes
+			add_ideas = MAC_mass_propaganda_campaign_idea
+			MAC_congress_medium_opposition = yes
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_cooperation_with_NRA = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			if = {
+				limit = { has_country_flag = MAC_loans_from_banks_flag_P }
+				if = {
+					limit = { has_country_flag = MAC_dr_pepper_flag_P }
+				}
+				else = {
+					activate_mission = MAC_NF_alcola
+				}
+			}
+			else = {
+				activate_mission = MAC_NF_state_of_US_congress
+			}
+			add_ideas = MAC_NRA_support
+			MAC_congress_small_opposition = yes
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_state_of_US_congress = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			if = {
+				limit = { has_country_flag = MAC_dr_pepper_flag_P }
+			}
+			else = {
+				activate_mission = MAC_NF_alcola
+			}
+			MAC_congress_large_opposition = yes
+			MAC_congress_small_opposition = yes
+			set_country_flag = MAC_fin_state_of_US_congress
+			if = {
+				limit = {
+					has_country_flag = MAC_coca_flag
+				}
+				country_event = { id = MCD.19 }
+			}
+			if = {
+				limit = {
+					has_country_flag = MAC_pepsi_flag
+				}
+				country_event = { id = MCD.18 }
+			}
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_alcola = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			add_ideas = MAC_alcola_idea
+			MAC_congress_small_opposition = yes
 		}
 		days_mission_timeout = 70
 		is_good = no
@@ -1900,18 +2409,118 @@ MAC_oppose_move = {
 	MAC_NF_pepsi_propaganda = {
 		icon = ger_mefo_bills
 		available = {
-
+			has_country_flag = MAC_finish_cola_war
 		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				congress_low_support_trigger = yes
-				factor = 0
+		
+		timeout_effect = {
+			activate_mission = MAC_NF_alliance_with_Soviets
+			add_ideas = MAC_pepsi_propaganda_idea
+			MAC_congress_medium_opposition = yes
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
 			}
 		}
+	}
+	MAC_NF_alliance_with_Soviets = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
 		timeout_effect = {
-			activate_decision = MAC_NF_
+			activate_mission = MAC_NF_loans_from_banks
+			SOV = { country_event = { id = MCD.13 } }
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_pepsi_march = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			activate_mission = MAC_NF_plant_expansion
+			MAC_congress_medium_opposition = yes
+			MAC_congress_small_opposition = yes
 
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_pepsi_guerrilla = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			activate_mission = MAC_NF_VS_Leonard
+			add_ideas = MAC_pepsi_guerrilla_idea
+		}
+		days_mission_timeout = 70
+		is_good = no
+		activation = {
+			has_country_flag = MAC_start_cola_war
+			has_country_flag = MAC_pepsi_flag
+			NOT = {
+				OR = {
+					has_country_flag = MAC_finish_cola_war
+					has_country_flag = MAC_start_cola_battle
+				}
+			}
+		}
+	}
+	MAC_NF_VS_Leonard = {
+		icon = ger_mefo_bills
+		available = {
+			has_country_flag = MAC_finish_cola_war
+		}
+		
+		timeout_effect = {
+			country_event = { id = MCD.21 }
+			if = {
+				limit = { has_country_flag = MAC_loans_from_banks_flag_P }
+				if = {
+					limit = { has_country_flag = MAC_dr_pepper_flag_P }
+				}
+				else = {
+					activate_mission = MAC_NF_alcola
+				}
+			}
+			else = {
+				activate_mission = MAC_NF_state_of_US_congress
+			}
 		}
 		days_mission_timeout = 70
 		is_good = no
