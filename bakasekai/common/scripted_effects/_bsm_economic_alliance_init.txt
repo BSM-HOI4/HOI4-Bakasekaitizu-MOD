@@ -6,13 +6,12 @@ bsm_initialize_economic_alliances = {
 	if = {
 		limit = {
 			NOT = {
-				check_variable = {
-					global.next_alliance_id >= 10
-				}
+				check_variable = { var = global.next_alliance_id value = 10 compare = greater_than_or_equals }
 			}
 		}
-		set_global_variable = {
-			next_alliance_id = 10
+		set_variable = {
+			var = global.next_alliance_id
+			value = 10
 		}
 	}
 	# EU (ID: 1) -> EUR
@@ -21,8 +20,8 @@ bsm_initialize_economic_alliances = {
 			country_exists = EUR
 		}
 		EUR = {
-			set_global_variable = {
-				var = economic_alliance_leader
+			set_variable = {
+				var = global.economic_alliance_leader
 				index = 1
 				value = id
 			}
@@ -42,8 +41,8 @@ bsm_initialize_economic_alliances = {
 			country_exists = GBR
 		}
 		GBR = {
-			set_global_variable = {
-				var = economic_alliance_leader
+			set_variable = {
+				var = global.economic_alliance_leader
 				index = 2
 				value = id
 			}
@@ -63,8 +62,8 @@ bsm_initialize_economic_alliances = {
 			country_exists = JPN
 		}
 		JPN = {
-			set_global_variable = {
-				var = economic_alliance_leader
+			set_variable = {
+				var = global.economic_alliance_leader
 				index = 3
 				value = id
 			}

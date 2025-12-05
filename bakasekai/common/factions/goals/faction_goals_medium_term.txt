@@ -61,14 +61,14 @@ faction_goal_undo_versailles = {
 		51 = { is_demilitarized_zone = no }
 		978 = { is_demilitarized_zone = no }
 	}
-	complete_effect = {
 		add_faction_power_projection = 100
-		every_faction_member = {
-			limit = {
-				original_tag = DEU
-			}
-			add_faction_initiative = 1
-		}
+		custom_effect_tooltip = generic_skip_one_line_tt
+		every_collection_element = {
+			input = {
+				input = game:scope
+				operators = {
+					faction_members
+					limit = {
 		custom_effect_tooltip = generic_skip_one_line_tt
 		every_faction_member = {
 			tooltip = INFLUENCE_ABOVE_30_PERCENT
@@ -139,14 +139,18 @@ faction_goal_secure_european_continent = {
 	}
 }
 
-faction_goal_secure_north_africa = {
-	name = secure_north_africa_goal_name
-	description = secure_north_africa_goal_desc
-	group = FOCUS_FILTER_ANNEXATION
-	category = medium_term
-	visible = {
-		OR = {
-			FROM = { original_tag = ITA }
+# faction_goal_secure_north_africa = {
+# 	name = secure_north_africa_goal_name
+# 	description = secure_north_africa_goal_desc
+# 	group = FOCUS_FILTER_ANNEXATION
+# 	category = medium_term
+# 	visible = {
+# 		OR = {
+# 			FROM = { original_tag = ITA }
+# 		}
+# 	}
+# }
+
 ###########################################################
 
  ##  ### #  # ### ###  ###  ##       ##   ##   ##  #    ##
@@ -154,9 +158,6 @@ faction_goal_secure_north_africa = {
 # ## ##  # ## ##  ###   #  #        # ## #  # #### #    #
 #  # #   #  # #   #  #  #  #  #     #  # #  # #  # #     #
  ##  ### #  # ### #  # ###  ##       ##   ##  #  # ### ##
-
-###########################################################
-
 
 ### Faction Growth
 
@@ -198,20 +199,6 @@ faction_goal_marine_corps = {
 				operators = { faction_members }
 				name = FACTION
 			}
-			unit_category = category_amphibious_tanks
-			size > 9
-		}
-	}
-	complete_effect = {
-		add_faction_power_projection = 100
-		custom_effect_tooltip = generic_skip_one_line_tt
-		every_collection_element = {
-			input = {
-				input = game:scope
-				operators = {
-					faction_members
-					limit = {
-						has_army_size = {
 							size > 0
 							unit_category = category_amphibious_tanks
 						}
@@ -2615,18 +2602,6 @@ faction_goal_control_bermuda = {
 			}
 		}
 	}
-}
-
-# Bahamas
-faction_goal_control_bahamas_bases = {
-	name = control_bahamas_bases_goal_name
-	description = control_bahamas_bases_goal_desc
-	category = medium_term
-	group = FOCUS_FILTER_NAVY_XP
-	allowed = {
-
-	}
-	visible = {
 		FROM = {
 			NOT = {
 				original_tag = GBR

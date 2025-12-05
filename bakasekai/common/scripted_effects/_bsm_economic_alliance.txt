@@ -6,30 +6,31 @@ bsm_form_economic_alliance_effect = {
 	# コスト支払い
 	add_political_power = -100
 	add_to_variable = {
-		Unified_Currency = -100
+		var = Unified_Currency
+		value = -100
 	}
 	# ID生成
 	if = {
 		limit = {
 			NOT = {
-				check_variable = {
-					global.next_alliance_id >= 10
-				}
+				check_variable = { var = global.next_alliance_id value = 10 compare = greater_than_or_equals }
 			}
 		}
-		set_global_variable = {
-			next_alliance_id = 10
+		set_variable = {
+			var = global.next_alliance_id
+			value = 10
 		}
 	}
 	set_temp_variable = {
 		new_alliance_id = global.next_alliance_id
 	}
-	add_to_global_variable = {
-		next_alliance_id = 1
+	add_to_variable = {
+		var = global.next_alliance_id
+		value = 1
 	}
 	# リーダー登録
-	set_global_variable = {
-		var = economic_alliance_leader
+	set_variable = {
+		var = global.economic_alliance_leader
 		index = new_alliance_id
 		value = ROOT.id
 	}
@@ -52,14 +53,13 @@ bsm_form_economic_alliance_effect = {
 # ----------------------------------------------------------------------
 # 汎用: 経済同盟への加盟
 # ----------------------------------------------------------------------
-# ----------------------------------------------------------------------
-# 汎用: 経済同盟への加盟
-# ----------------------------------------------------------------------
+
 bsm_join_economic_alliance_effect = {
 	# コスト支払い
 	add_political_power = -10
 	add_to_variable = {
-		Unified_Currency = -25
+		var = Unified_Currency
+		value = -25
 	}
 	# 対象(FROM)がリーダーとなっている同盟IDを探す
 	set_temp_variable = {
@@ -103,7 +103,7 @@ bsm_join_economic_alliance_effect = {
 # 既存のスクリプト (互換性維持のため残すか、統合するか)
 # ----------------------------------------------------------------------
 # 国を経済同盟に追加する
-# 使用法: 
+# 使用法:
 # set_temp_variable = { temp_alliance_id = 1 } # 1:EU, 2:Allies, 3:GEACPS
 # add_to_economic_alliance = yes
 add_to_economic_alliance = {
@@ -133,7 +133,7 @@ add_to_economic_alliance = {
 			# リーダー国の配列に追加
 			# リーダーが存在しない場合のフェイルセーフが必要かもしれないが、
 			# 初期化で設定されている前提とする。
-			any_country = {
+			every_country = {
 				limit = {
 					check_variable = {
 						id = alliance_leader_id
@@ -180,21 +180,23 @@ add_to_economic_alliance = {
 				}
 			}
 			add_to_variable = {
-				economic_alliance_count = 1
+				var = economic_alliance_count
+				value = 1
 			}
 			# 表示用変数の更新
 			set_variable = {
 				ucs_alliance_bonus_amount = economic_alliance_count
 			}
 			multiply_variable = {
-				ucs_alliance_bonus_amount = 0.15
+				var = ucs_alliance_bonus_amount
+				value = 0.15
 			}
 		}
 	}
 }
 
 # 国を経済同盟から削除する
-# 使用法: 
+# 使用法:
 # set_temp_variable = { temp_alliance_id = 1 }
 # remove_from_economic_alliance = yes
 remove_from_economic_alliance = {
@@ -207,7 +209,7 @@ remove_from_economic_alliance = {
 		alliance_leader_id = global.economic_alliance_leader^temp_alliance_id
 	}
 	# リーダー国の配列から削除
-	any_country = {
+	every_country = {
 		limit = {
 			check_variable = {
 				id = alliance_leader_id
@@ -256,14 +258,16 @@ remove_from_economic_alliance = {
 			has_variable = economic_alliance_count
 		}
 		subtract_from_variable = {
-			economic_alliance_count = 1
+			var = economic_alliance_count
+			value = 1
 		}
 		# 表示用変数の更新
 		set_variable = {
 			ucs_alliance_bonus_amount = economic_alliance_count
 		}
 		multiply_variable = {
-			ucs_alliance_bonus_amount = 0.15
+			var = ucs_alliance_bonus_amount
+			value = 0.15
 		}
 	}
 }
