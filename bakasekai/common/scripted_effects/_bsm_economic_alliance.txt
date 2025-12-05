@@ -1,0 +1,273 @@
+# 経済同盟スクリプト効果
+# ----------------------------------------------------------------------
+# 汎用: 経済同盟の結成
+# ----------------------------------------------------------------------
+bsm_form_economic_alliance_effect = {
+	# コスト支払い
+	add_political_power = -100
+	add_to_variable = {
+		var = Unified_Currency
+		value = -100
+	}
+	# ID生成
+	if = {
+		limit = {
+			NOT = {
+				check_variable = { var = global.next_alliance_id value = 10 compare = greater_than_or_equals }
+			}
+		}
+		set_variable = {
+			var = global.next_alliance_id
+			value = 10
+		}
+	}
+	set_temp_variable = {
+		new_alliance_id = global.next_alliance_id
+	}
+	add_to_variable = {
+		var = global.next_alliance_id
+		value = 1
+	}
+	# リーダー登録
+	set_variable = {
+		var = global.economic_alliance_leader
+		index = new_alliance_id
+		value = ROOT.id
+	}
+	# 自分を追加
+	set_temp_variable = {
+		temp_alliance_id = new_alliance_id
+	}
+	add_to_economic_alliance = yes
+	set_country_flag = is_economic_alliance_leader	# Legacy/Flag support
+	# 相手を追加
+	FROM = {
+		set_temp_variable = {
+			temp_alliance_id = new_alliance_id
+		}
+		add_to_economic_alliance = yes
+		set_country_flag = is_economic_alliance_member		# Legacy/Flag support
+	}
+}
+
+# ----------------------------------------------------------------------
+# 汎用: 経済同盟への加盟
+# ----------------------------------------------------------------------
+
+bsm_join_economic_alliance_effect = {
+	# コスト支払い
+	add_political_power = -10
+	add_to_variable = {
+		var = Unified_Currency
+		value = -25
+	}
+	# 対象(FROM)がリーダーとなっている同盟IDを探す
+	set_temp_variable = {
+		target_alliance_id = 0
+	}
+	FROM = {
+		for_each_loop = {
+			array = economic_alliance_ids
+			value = current_id
+			set_temp_variable = {
+				leader_id = global.economic_alliance_leader^current_id
+			}
+			if = {
+				limit = {
+					check_variable = {
+						leader_id = id
+					}
+				}
+				set_temp_variable = {
+					PREV.target_alliance_id = current_id
+				}
+			}
+		}
+	}
+	# 加盟処理
+	if = {
+		limit = {
+			check_variable = {
+				target_alliance_id > 0
+			}
+		}
+		set_temp_variable = {
+			temp_alliance_id = target_alliance_id
+		}
+		add_to_economic_alliance = yes
+		set_country_flag = is_economic_alliance_member		# Legacy/Flag support
+	}
+}
+
+# ----------------------------------------------------------------------
+# 既存のスクリプト (互換性維持のため残すか、統合するか)
+# ----------------------------------------------------------------------
+# 国を経済同盟に追加する
+# 使用法:
+# set_temp_variable = { temp_alliance_id = 1 } # 1:EU, 2:Allies, 3:GEACPS
+# add_to_economic_alliance = yes
+add_to_economic_alliance = {
+	if = {
+		limit = {
+			NOT = {
+				is_fallen_empire = yes
+			}
+		}
+		# 重複チェック
+		if = {
+			limit = {
+				NOT = {
+					is_in_array = {
+						economic_alliance_ids = temp_alliance_id
+					}
+				}
+			}
+			# 国別IDリストに追加
+			add_to_array = {
+				economic_alliance_ids = temp_alliance_id
+			}
+			# リーダー国を特定
+			set_temp_variable = {
+				alliance_leader_id = global.economic_alliance_leader^temp_alliance_id
+			}
+			# リーダー国の配列に追加
+			# リーダーが存在しない場合のフェイルセーフが必要かもしれないが、
+			# 初期化で設定されている前提とする。
+			every_country = {
+				limit = {
+					check_variable = {
+						id = alliance_leader_id
+					}
+				}
+				add_to_array = {
+					economic_alliance_members = ROOT
+				}
+			}
+			# フラグ設定 (Legacy support for triggers/loc)
+			if = {
+				limit = {
+					check_variable = {
+						temp_alliance_id = 1
+					}
+				}
+				set_country_flag = in_economic_alliance_EU
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						temp_alliance_id = 2
+					}
+				}
+				set_country_flag = in_economic_alliance_Allies
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						temp_alliance_id = 3
+					}
+				}
+				set_country_flag = in_economic_alliance_GEACPS
+			}
+			# 共通処理: カウント増加
+			if = {
+				limit = {
+					NOT = {
+						has_variable = economic_alliance_count
+					}
+				}
+				set_variable = {
+					economic_alliance_count = 0
+				}
+			}
+			add_to_variable = {
+				var = economic_alliance_count
+				value = 1
+			}
+			# 表示用変数の更新
+			set_variable = {
+				ucs_alliance_bonus_amount = economic_alliance_count
+			}
+			multiply_variable = {
+				var = ucs_alliance_bonus_amount
+				value = 0.15
+			}
+		}
+	}
+}
+
+# 国を経済同盟から削除する
+# 使用法:
+# set_temp_variable = { temp_alliance_id = 1 }
+# remove_from_economic_alliance = yes
+remove_from_economic_alliance = {
+	# IDリストから削除
+	remove_from_array = {
+		economic_alliance_ids = temp_alliance_id
+	}
+	# リーダー国を特定
+	set_temp_variable = {
+		alliance_leader_id = global.economic_alliance_leader^temp_alliance_id
+	}
+	# リーダー国の配列から削除
+	every_country = {
+		limit = {
+			check_variable = {
+				id = alliance_leader_id
+			}
+		}
+		remove_from_array = {
+			economic_alliance_members = ROOT
+		}
+	}
+	# フラグ削除 (Legacy support)
+	if = {
+		limit = {
+			check_variable = {
+				temp_alliance_id = 1
+			}
+		}
+		clr_country_flag = in_economic_alliance_EU
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				temp_alliance_id = 2
+			}
+		}
+		clr_country_flag = in_economic_alliance_Allies
+	}
+	else_if = {
+		limit = {
+			check_variable = {
+				temp_alliance_id = 3
+			}
+		}
+		clr_country_flag = in_economic_alliance_GEACPS
+	}
+	# 統一脱退タイマー設定
+	add_timed_idea = {
+		idea = recently_left_economic_alliance
+		days = 365
+	}
+	set_variable = {
+		recently_left_alliance_id = temp_alliance_id
+	}
+	# 共通処理: カウント減少
+	if = {
+		limit = {
+			has_variable = economic_alliance_count
+		}
+		subtract_from_variable = {
+			var = economic_alliance_count
+			value = 1
+		}
+		# 表示用変数の更新
+		set_variable = {
+			ucs_alliance_bonus_amount = economic_alliance_count
+		}
+		multiply_variable = {
+			var = ucs_alliance_bonus_amount
+			value = 0.15
+		}
+	}
+}

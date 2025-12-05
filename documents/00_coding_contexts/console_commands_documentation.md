@@ -194,7 +194,7 @@ Adds ideas (ministers or national spirits) with \<ID\> to the country. Use 'all'
 
 ## add_intel
 
-Set the values of a static intel pool against a specific country. E.g. `add_intel GER POL army=10`
+Set the values of a static intel pool against a specific country. E.g. `add_intel DEU POL army=10`
 
 ## add_latest_equipment
 * Aliases: ale

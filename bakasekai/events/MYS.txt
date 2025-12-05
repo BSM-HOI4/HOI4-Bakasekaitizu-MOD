@@ -1,4 +1,5 @@
 add_namespace = MYS
+add_namespace = MYS_direction
 
 country_event = {
 	id = MYS.1	#調査隊の帰還
@@ -47,4 +48,160 @@ country_event = {
                        }
                }
        }
+}
+
+# 指向選択イベント
+country_event = {
+	id = MYS_direction.1
+	title = MYS_direction.1.t
+	desc = MYS_direction.1.d
+	picture = GFX_report_event_fascist_gathering
+	
+	is_triggered_only = yes
+	
+	# 早期暴発指向
+	option = {
+		name = MYS_direction.1.a
+		ai_chance = {
+			factor = 25
+		}
+		set_country_flag = MYS_early_outbreak_chosen
+		add_political_power = 50
+	}
+	
+	# 中期暴走指向
+	option = {
+		name = MYS_direction.1.b
+		ai_chance = {
+			factor = 25
+		}
+		set_country_flag = MYS_mid_rampage_chosen
+		add_political_power = 75
+	}
+	
+	# 後期災害指向
+	option = {
+		name = MYS_direction.1.c
+		ai_chance = {
+			factor = 25
+		}
+		set_country_flag = MYS_late_disaster_chosen
+		add_political_power = 100
+	}
+	
+	# 末期危機指向
+	option = {
+		name = MYS_direction.1.d
+		ai_chance = {
+			factor = 25
+		}
+		set_country_flag = MYS_end_crisis_chosen
+		add_political_power = 125
+	}
+}
+
+# 早期暴発実行イベント
+country_event = {
+	id = MYS_direction.11
+	title = MYS_direction.11.t
+	desc = MYS_direction.11.d
+	picture = GFX_report_event_military_planning
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = MYS_direction.11.a
+		add_threat = 10
+		add_war_support = 0.15
+		add_named_threat = {
+			threat = 5
+			name = MYS_early_outbreak_threat
+		}
+	}
+}
+
+# 中期暴走実行イベント
+country_event = {
+	id = MYS_direction.12
+	title = MYS_direction.12.t
+	desc = MYS_direction.12.d
+	picture = GFX_report_event_generic_army
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = MYS_direction.12.a
+		add_threat = 20
+		add_war_support = 0.25
+		add_named_threat = {
+			threat = 10
+			name = MYS_mid_rampage_threat
+		}
+	}
+}
+
+# 後期災害実行イベント
+country_event = {
+	id = MYS_direction.13
+	title = MYS_direction.13.t
+	desc = MYS_direction.13.d
+	picture = GFX_report_event_fascist_militia
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = MYS_direction.13.a
+		add_threat = 30
+		add_war_support = 0.35
+		add_named_threat = {
+			threat = 15
+			name = MYS_late_disaster_threat
+		}
+	}
+}
+
+# 末期危機実行イベント
+country_event = {
+	id = MYS_direction.14
+	title = MYS_direction.14.t
+	desc = MYS_direction.14.d
+	picture = GFX_report_event_gathering_protests
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = MYS_direction.14.a
+		add_threat = 40
+		add_war_support = 0.50
+		add_named_threat = {
+			threat = 20
+			name = MYS_end_crisis_threat
+		}
+	}
+}
+
+news_event = {
+  id = MYS.100
+  title = MYS.100.t
+  desc = MYS.100.d
+  picture = GFX_news_event_generic_riot
+
+  is_triggered_only = yes
+  major = yes
+
+  option = {
+    name = MYS.100.a
+    trigger = { tag = MYS }
+  }
+  option = {
+    name = MYS.100.b
+    trigger = { tag = GBR }
+  }
+  option = {
+    name = MYS.100.c
+    trigger = {
+      NOT = { tag = MYS }
+      NOT = { tag = GBR }
+    }
+  }
 }

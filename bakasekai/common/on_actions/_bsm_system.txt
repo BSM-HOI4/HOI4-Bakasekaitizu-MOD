@@ -4,6 +4,10 @@ on_actions = {
             #### global変数の設定 ####
             set_variable = { global.month = 1 }#月を示す変数
             set_variable = { global.passed_month = 1 }  #経過月数
+
+            # 経済同盟初期化
+            bsm_initialize_economic_alliances = yes
+
             #### Opening Event ####
             every_country = {
                 #プレイヤー国家のみOEを開く
@@ -11,7 +15,9 @@ on_actions = {
                 set_variable = { OE_page = 1 }
             }
             ### Anomaly System ###
-            AS_first_setting = yes
+            every_country = {
+                AS_first_setting = yes
+            }
             #### 宗教 ####
             every_country = {
                 if = {
@@ -112,7 +118,7 @@ on_actions = {
                             tag = DEN
                             tag = SWE
                             tag = NOR
-                            tag = FIN
+                            tag = NKA
                             tag = LAT
                             tag = EST
                             tag = GBR
@@ -264,7 +270,7 @@ on_actions = {
             #仮削除
             #### 鉱山 ####
             JPN = { calc_gold_demand = yes }#代表計算
-            
+
             every_country = {
                 limit = { always = yes }
                 mine_first_setting = yes
@@ -290,18 +296,18 @@ on_actions = {
                 }
             }
             #### その他汎用システム #####
-            every_country = {
-                #北国汎用アイデア
-                limit = {
-                    OR = {
-                        tag = NOR
-                        tag = ISL
-                        tag = POL
-                        tag = NPL
-                    }
-                }
-                add_ideas = ice_elemental
-            }
+            # every_country = {
+            #     #北国汎用アイデア
+            #     limit = {
+            #         OR = {
+            #             tag = NOR
+            #             tag = ISL
+            #             tag = POL
+            #             tag = NPL
+            #         }
+            #     }
+            #     add_ideas = ice_elemental
+            # }
             #### その他固有システム #####
         }
     }
@@ -320,8 +326,8 @@ on_actions = {
                 } #1月にリセット
             }
             add_to_variable = { global.month = 1 }
-            
-            ucs_on_monthly = yes #通貨 月毎処理				
+
+            ucs_on_monthly = yes #通貨 月毎処理
             mine_on_monthly = yes #鉱山 月毎処理
         }
     }
@@ -341,6 +347,21 @@ on_actions = {
                 #国家統合力に文明度を追加
                 add_to_variable = {
                     National_Unity_Power = Cultural_Degree
+                }
+            }
+            if = {
+                limit = {
+                    country_exists = DIS
+                }
+                DIS = {
+                    if = {
+                        limit = {
+                            NOT = { has_country_flag = DIS_super_event_north_america_fired }
+                            dis_controls_north_america = yes
+                        }
+                        set_country_flag = DIS_super_event_north_america_fired
+                        news_event = { id = baka_super_news.8 }
+                    }
                 }
             }
         }
@@ -417,20 +438,23 @@ on_actions = {
         }
     }
     on_state_control_changed = {
-        #州の失陥に関する処理
-        ucs_on_dairy_effects = yes
+        effect = {
+            #州の失陥に関する処理
+            ucs_on_dairy_effects = yes
+        }
     }
     on_declare_war = {
-        #戦時補正
-        if = {
-            limit = {
-                has_war = yes
-                NOT = {
-                    has_idea = war_effort_1
+        effect = {
+            #戦時補正
+            if = {
+                limit = {
+                    has_war = yes
+                    NOT = {
+                        has_idea = war_effort_1
+                    }
                 }
+                add_ideas = war_effort_1
             }
-            add_ideas = war_effort_1
         }
-        
     }
 }
