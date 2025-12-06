@@ -1,38 +1,43 @@
-bsm_fabricate_claim_action = {
-	category = political_actions
-	name = "DIPLOMACY_BSM_FABRICATE_CLAIM_NAME"
-	icon = "GFX_goal_generic_major_power_challenge"
+# BSM Custom Diplomatic Actions
+# scripted_diplomatic_actionsは diplomatic_actions = { ... } でラップする必要がある
 
-	visible = {
-		NOT = { check_variable = { ROOT = FROM } }
-		NOT = { has_war_with = FROM }
-	}
+diplomatic_actions = {
+	bsm_fabricate_claim_action = {
+		category = political_actions
+		name = "DIPLOMACY_BSM_FABRICATE_CLAIM_NAME"
+		icon = "GFX_goal_generic_major_power_challenge"
 
-	enabled = {
-		custom_trigger_tooltip = {
-			tooltip = "BSM_FABRICATE_CLAIM_ENABLED_TOOLTIP"
-			bsm_can_initiate_fabricate_claim_diplo_action_trigger = yes
+		visible = {
+			NOT = { check_variable = { ROOT = FROM } }
+			NOT = { has_war_with = FROM }
 		}
-	}
 
-	cost_string = "BSM_FABRICATE_CLAIM_DIPLO_COST"
-
-	effect = {
-		country_event = {
-			id = bsm_fabricate_claim_events.1
-			days = 1
+		enabled = {
+			custom_trigger_tooltip = {
+				tooltip = "BSM_FABRICATE_CLAIM_ENABLED_TOOLTIP"
+				bsm_can_initiate_fabricate_claim_diplo_action_trigger = yes
+			}
 		}
-	}
 
-	ai_will_do = {
-		factor = 5
-		modifier = {
-			factor = 0
-			FROM = { is_major = yes }
+		cost_string = "BSM_FABRICATE_CLAIM_DIPLO_COST"
+
+		effect = {
+			country_event = {
+				id = bsm_fabricate_claim_events.1
+				days = 1
+			}
 		}
-		modifier = {
-			factor = 0
-			ROOT = { NOT = { check_variable = { Unified_Currency = { value > 300 } } } }
+
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 0
+				FROM = { is_major = yes }
+			}
+			modifier = {
+				factor = 0
+				ROOT = { NOT = { check_variable = { Unified_Currency > 300 } } }
+			}
 		}
 	}
 }

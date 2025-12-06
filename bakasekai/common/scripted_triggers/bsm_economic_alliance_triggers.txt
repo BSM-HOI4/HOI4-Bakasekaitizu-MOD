@@ -14,7 +14,7 @@ bsm_can_form_economic_alliance_visible = {
 	}
 	# 対象と経済同盟を結成していない (重複防止)
 	NOT = {
-		is_in_economic_alliance_with = FROM
+		is_in_economic_alliance_with = yes
 	}
 	# 戦争していない
 	NOT = {
@@ -105,7 +105,7 @@ bsm_can_join_economic_alliance_allowed = {
 				any_of = {
 					array = economic_alliance_ids
 					value = v
-					tooltip = KEY_RECENTLY_LEFT_CHECK
+
 					# FROMがこの同盟のリーダーであることを確認
 					check_variable = {
 						global.economic_alliance_leader^v = id
@@ -160,7 +160,7 @@ bsm_ai_will_accept_economic_alliance = {
 	}
 	# 国際緊張度 (申し出た側 FROM が10以上高めていない)
 	FROM = {
-		generated_world_tension < 10
+		check_variable = { generated_world_tension < 10 }
 	}
 }
 
