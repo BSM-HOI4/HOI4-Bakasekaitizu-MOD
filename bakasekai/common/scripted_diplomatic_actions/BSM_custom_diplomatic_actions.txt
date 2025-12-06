@@ -1,10 +1,6 @@
-# BSM Custom Diplomatic Actions
-# scripted_diplomatic_actionsは diplomatic_actions = { ... } でラップする必要がある
-
-diplomatic_actions = {
+scripted_diplomatic_actions = {
 	bsm_fabricate_claim_action = {
-		category = political_actions
-		name = "DIPLOMACY_BSM_FABRICATE_CLAIM_NAME"
+		# name = "DIPLOMACY_BSM_FABRICATE_CLAIM_NAME" # Using ID for localization to avoid syntax error
 		icon = "GFX_goal_generic_major_power_challenge"
 
 		visible = {
@@ -12,24 +8,25 @@ diplomatic_actions = {
 			NOT = { has_war_with = FROM }
 		}
 
-		enabled = {
+		allowed = {
 			custom_trigger_tooltip = {
 				tooltip = "BSM_FABRICATE_CLAIM_ENABLED_TOOLTIP"
 				bsm_can_initiate_fabricate_claim_diplo_action_trigger = yes
 			}
 		}
 
+		cost = 25
 		cost_string = "BSM_FABRICATE_CLAIM_DIPLO_COST"
 
-		effect = {
+		complete_effect = {
 			country_event = {
 				id = bsm_fabricate_claim_events.1
 				days = 1
 			}
 		}
 
-		ai_will_do = {
-			factor = 5
+		ai_desire = {
+			base = 5
 			modifier = {
 				factor = 0
 				FROM = { is_major = yes }

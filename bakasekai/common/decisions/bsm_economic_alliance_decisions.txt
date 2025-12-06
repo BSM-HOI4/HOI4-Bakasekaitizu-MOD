@@ -224,16 +224,14 @@ bsm_economic_alliance_decisions = {
 				tooltip = KEY_GENERIC_ALLIANCE_LEAVE_CHECK
 				any_of = {
 					array = economic_alliance_ids
-					value = v
-					check_variable = { v >= 10 }
+					check_variable = { value = 10 compare = greater_than_or_equals }
 				}
 			}
 		}
 		visible = {
 			any_of = {
 				array = economic_alliance_ids
-				value = v
-				check_variable = { v >= 10 }
+				check_variable = { value = 10 compare = greater_than_or_equals }
 			}
 		}
 		cost = 50
@@ -242,36 +240,23 @@ bsm_economic_alliance_decisions = {
 			factor = 0
 		}
 		complete_effect = {
-			# 脱退する汎用同盟IDを特定 (最初に見つかったもの)
-			set_temp_variable = {
-				target_leave_id = 0
-			}
+			# 脱退する汎用同盟IDを特定 (最初に見つかったID >= 10)
+			set_temp_variable = { target_leave_id = 0 }
 			for_each_loop = {
 				array = economic_alliance_ids
-				value = v
 				if = {
 					limit = {
-						check_variable = {
-							v >= 10
-						}
-						check_variable = {
-							target_leave_id = 0
-						}
+						check_variable = { v = 10 compare = greater_than_or_equals }
+						check_variable = { target_leave_id = 0 }
 					}
-					set_temp_variable = {
-						PREV.target_leave_id = v
-					}
+					set_temp_variable = { target_leave_id = v }
 				}
 			}
 			if = {
 				limit = {
-					check_variable = {
-						target_leave_id > 0
-					}
+					check_variable = { target_leave_id = 0 compare = greater_than }
 				}
-				set_temp_variable = {
-					temp_alliance_id = target_leave_id
-				}
+				set_temp_variable = { temp_alliance_id = target_leave_id }
 				remove_from_economic_alliance = yes
 			}
 		}
