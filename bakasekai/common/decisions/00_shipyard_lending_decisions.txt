@@ -4,7 +4,7 @@ shipyard_lending_category = { # カテゴリをここで参照
         icon = GFX_decision_shipyard_lending # ディシジョンアイコン (後で定義)
         cost = 50 # 政治力コスト
         days_re_enable = 90 # 90日後に再利用可能
-        
+
         # 貸し出し対象国の条件 #[cite: 1747, 1880, 1881, 1882]
         target_root_trigger = {
             is_in_faction = yes # 自国がどこかの派閥に属していること #[cite: 72]
@@ -21,12 +21,12 @@ shipyard_lending_category = { # カテゴリをここで参照
                 }
             }
         }
-        
+
         # UI表示条件 (ツールチップに影響) #[cite: 1749]
         visible = {
             always = yes #[cite: 36]
         }
-        
+
         # ディシジョン実行条件 #[cite: 1751]
         available = {
             ROOT = {
@@ -38,7 +38,7 @@ shipyard_lending_category = { # カテゴリをここで参照
         complete_effect = {
             # 貸し出し期間を一時変数に設定 (30日) #[cite: 369]
             set_temp_variable = { shipyard_lending_duration = 30 }
-            
+
             # 利用可能な海軍工場を1つ選んでターゲット国に貸し出す #[cite: 351]
             random_owned_state = { #[cite: 351]
                 limit = {
@@ -53,7 +53,7 @@ shipyard_lending_category = { # カテゴリをここで参照
 
             if = { #[cite: 32]
                 limit = { has_event_target = state_to_lend } # 貸し出す州が見つかった場合のみ実行 #[cite: 50, 975]
-                
+
                 # 貸し出しエフェクト
                 event_target:state_to_lend = { # 貸し出す州のスコープ #[cite: 284]
                     add_building_construction = { # 州に海軍工場を建設（貸し出しを表現） #[cite: 478]
@@ -62,7 +62,7 @@ shipyard_lending_category = { # カテゴリをここで参照
                         instant_build = yes #[cite: 478]
                     }
                     set_state_controller_to = FROM # 州のコントローラーをターゲット国に設定 #[cite: 476]
-                    add_state_flag = { # 貸し出し中フラグを設定 (期間付き) #[cite: 476]
+                    set_state_flag = { # 貸し出し中フラグを設定 (期間付き) #[cite: 476]
                         flag = shipyard_lending_active_flag_@FROM # ターゲット国固有のフラグ #[cite: 938]
                         days = shipyard_lending_duration # 期間は一時変数から取得 #[cite: 959]
                     }
@@ -76,7 +76,7 @@ shipyard_lending_category = { # カテゴリをここで参照
                     }
                     set_temp_variable = { add_value = 50 } # UCの基本値を設定 #[cite: 369]
                     ucs_add_Unified_Currency = yes # UCを追加
-                    
+
                     log = "[ROOT.GetName]が[FROM.GetName]に造船所を貸し出しました。([?state_to_lend.GetName])" #[cite: 362] # デバッグログ
                 }
 
@@ -89,7 +89,7 @@ shipyard_lending_category = { # カテゴリをここで参照
                     }
                     log = "自国([ROOT.GetName])は[FROM.GetName]に造船所を貸し出し、UCを50獲得しました。" #[cite: 362] # デバッグログ
                 }
-                
+
                 # 貸し出し終了イベントの発動（隠しイベントを遅延実行）
                 country_event = {
                     id = shipyard_lending.on_lend_end
