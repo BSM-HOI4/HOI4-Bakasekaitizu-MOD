@@ -1,0 +1,225 @@
+scripted_diplomatic_actions = {
+	# ----------------------------------------------------------------------
+	# 1. Join Request (Member -> Leader)
+	# ----------------------------------------------------------------------
+	bsm_action_join_economic_alliance = {
+		icon = GFX_goal_generic_positive_trade_relations
+		visible = {
+			NOT = {
+				has_war_with = FROM
+			}
+			NOT = {
+				is_in_faction_with = FROM
+			}
+			# Target must be a leader
+			FROM = {
+				has_country_flag = is_economic_alliance_leader
+			}
+			# Must NOT be in this specific alliance already
+			NOT = {
+				is_in_array = {
+					array = economic_alliance_ids
+					value = FROM
+				}
+			}
+		}
+		allowed = {
+			always = yes
+		}
+		selectable = {
+			always = yes
+		}
+		cost = 25
+		complete_effect = {
+			# Send Event to Leader
+			FROM = {
+				country_event = {
+					id = bsm_economic_alliance_actions.1
+				}
+			}
+		}
+		ai_acceptance = {
+			condition = {
+				base = 100
+			}
+		}
+		ai_desire = {
+			base = 0
+		}
+	}
+	# ----------------------------------------------------------------------
+	# 2. Leave (Member -> Leader)
+	# ----------------------------------------------------------------------
+	bsm_action_leave_economic_alliance = {
+		icon = GFX_goal_generic_dangerous_deal
+		visible = {
+			# Must be in this specific alliance
+			is_in_array = {
+				array = economic_alliance_ids
+				value = FROM
+			}
+		}
+		selectable = {
+			always = yes
+		}
+		allowed = {
+			ROOT = {
+				has_war = no
+			}
+			is_in_array = {
+				array = economic_alliance_ids
+				value = FROM
+			}
+		}
+		cost = 50
+		complete_effect = {
+			# Notify Leader
+			FROM = {
+				country_event = {
+					id = bsm_economic_alliance_actions.2
+				}
+			}
+			# Execute Leave Effect
+			bsm_leave_specific_leader_alliance_effect = yes
+		}
+		ai_acceptance = {
+			condition = {
+				base = 100
+			}
+		}
+		ai_desire = {
+			factor = 0
+		}
+	}
+	# ----------------------------------------------------------------------
+	# 3. Kick (Leader -> Member)
+	# ----------------------------------------------------------------------
+	bsm_action_kick_from_economic_alliance = {
+		icon = GFX_goal_generic_dangerous_deal
+		visible = {
+			has_country_flag = is_economic_alliance_leader
+			# Check if Target is in MY alliance
+			is_in_array = {
+				array = economic_alliance_members
+				value = FROM
+			}
+		}
+		allowed = {
+			is_in_array = {
+				array = economic_alliance_members
+				value = FROM
+			}
+		}
+		selectable = {
+			always = yes
+		}
+		cost = 100
+		complete_effect = {
+			# Notify & Kick Target
+			FROM = {
+				country_event = {
+					id = bsm_economic_alliance_actions.3
+				}
+				bsm_kicked_by_root_effect = yes
+			}
+		}
+		ai_acceptance = {
+			condition = {
+				base = 100
+			}
+		}
+		ai_desire = {
+			factor = 0
+		}
+	}
+	# ----------------------------------------------------------------------
+	# 4. Invite (Leader -> Non-Member)
+	# ----------------------------------------------------------------------
+	bsm_action_invite_to_economic_alliance = {
+		icon = GFX_goal_generic_positive_trade_relations
+		visible = {
+			has_country_flag = is_economic_alliance_leader
+			has_opinion = {
+				target = FROM
+				value > 0
+			}
+			# Not already in MY alliance
+			NOT = {
+				is_in_array = {
+					array = economic_alliance_members
+					value = FROM
+				}
+			}
+		}
+		selectable = {
+			always = yes
+		}
+		allowed = {
+			always = yes
+		}
+		cost = 25
+		complete_effect = {
+			# Send Invite to Target
+			FROM = {
+				country_event = {
+					id = bsm_economic_alliance_actions.4
+				}
+			}
+		}
+		ai_acceptance = {
+			condition = {
+				base = 100
+			}
+		}
+		ai_desire = {
+			factor = 0
+		}
+	}
+	# ----------------------------------------------------------------------
+	# 5. Create (Non-Leader -> Non-Leader)
+	# ----------------------------------------------------------------------
+	bsm_action_create_economic_alliance = {
+		icon = GFX_goal_generic_positive_trade_relations
+		visible = {
+			# Must NOT be a leader (One leadership per country)
+			NOT = {
+				has_country_flag = is_economic_alliance_leader
+			}
+			# Target also not a leader
+			FROM = {
+				NOT = {
+					has_country_flag = is_economic_alliance_leader
+				}
+			}
+			has_opinion = {
+				target = FROM
+				value > 0
+			}
+		}
+		selectable = {
+			always = yes
+		}
+		allowed = {
+			ROOT = {
+				has_war = no
+			}
+		}
+		cost = 50
+		complete_effect = {
+			# Send Proposal to Target
+			FROM = {
+				country_event = {
+					id = bsm_economic_alliance_actions.5
+				}
+			}
+		}
+		ai_acceptance = {
+			condition = {
+				base = 100
+			}
+		}
+		ai_desire = {
+			factor = 0
+		}
+	}
+}

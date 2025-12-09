@@ -1,16 +1,34 @@
 ﻿l_japanese:
 BSM_FABRICATE_CLAIM_ACTION_TITLE:0 "請求権の捏造"
-BSM_FABRICATE_CLAIM_ACTION_ACTION_DESC:0  "§Y[FROM.GetNameDefCap]§!の州のいずれか一つに対する請求権の捏造プロセスを開始します。統一通貨を消費し、外交関係が悪化する可能性があります。"
+BSM_FABRICATE_CLAIM_ACTION_ACTION_DESC:0  "§Y[FROM.GetName]§!の州のいずれか一つに対する請求権の捏造プロセスを開始します。統一通貨を消費し、外交関係が悪化する可能性があります。"
 BSM_FABRICATE_CLAIM_DIPLO_COST:0 "£resource_energy_large §H100§!"
 BSM_FABRICATE_CLAIM_DIPLO_COST_DESC:0 "請求権の捏造には、£resource_energy_large §H統一通貨§!が§Y100§!必要です。"
 # 外交アクション
 
   # スクリプトトリガー (ツールチップ用、任意)
   bsm_can_initiate_fabricate_claim_diplo_action_trigger:0 "請求権捏造を開始可能"
+ BSM_diplomacy_idea_token:0 "外交"
+ BSM_ideology_drift:0 "$IDEOLOGY$からの圧力"
+
+ # Iberian Economic Sphere
+ SPR_grant_north_african_autonomy:0 "北アフリカへの自治付与"
+ SPR_grant_north_african_autonomy_desc:0 "我々の北アフリカ領土、セウタとメリリャに自治権を与え、経済的な連携を強化します。"
+ BSM_iberian_economic_sphere_category:0 "イベリア経済圏"
+ BSM_iberian_sphere.1.t:0 "イベリア経済圏の形成"
+ BSM_iberian_sphere.1.d:0 "スペインは北アフリカのセウタとメリリャに自治権を認め、それらを包含する新たな経済圏「イベリア経済圏」の設立を宣言しました。"
+ BSM_iberian_sphere.1.a:0 "素晴らしい！"
+
+ # Iberian Expansion
+ BSM_petition_to_join_iberian_sphere:0 "イベリア経済圏への加盟申請"
+ BSM_petition_to_join_iberian_sphere_desc:0 "我々の利益のため、イベリア経済圏への加盟を申請します。"
+ bsm_iberian_sphere.10.t:0 "イベリア経済圏への加盟申請"
+ bsm_iberian_sphere.10.d:0 "[FROM.GetName]がイベリア経済圏への加盟を希望しています。"
+ bsm_iberian_sphere.10.a:0 "歓迎しよう"
+ bsm_iberian_sphere.10.b:0 "断る"
   bsm_can_fabricate_claim_on_this_state_in_event_trigger:0 "この州に請求権を捏造可能"
   # イベント
-  BSM_FABRICATE_CLAIM_EVENT_1_TITLE:0 "[FROM.GetNameDefCap]に対する請求権の捏造"
-  BSM_FABRICATE_CLAIM_EVENT_1_DESC:0 "諜報部員が[FROM.GetNameDefCap]の領土である§Y[event_target:bsm_target_state_for_claim_fabrication.GetName]§!に対する請求権の捏造準備を完了しました。\n\nこれには§R[ROOT.bsm_fabrication_actual_cost]統一通貨（UC）§!を消費し、間違いなく国際的な非難を浴び、[FROM.GetNameDefCap]との関係は悪化するでしょう。" 
+  BSM_FABRICATE_CLAIM_EVENT_1_TITLE:0 "[FROM.GetName]に対する請求権の捏造"
+  BSM_FABRICATE_CLAIM_EVENT_1_DESC:0 "諜報部員が[FROM.GetName]の領土である§Y[event_target:bsm_target_state_for_claim_fabrication.GetName]§!に対する請求権の捏造準備を完了しました。\n\nこれには§R[ROOT.bsm_fabrication_actual_cost]統一通貨（UC）§!を消費し、間違いなく国際的な非難を浴び、[FROM.GetName]との関係は悪化するでしょう。" 
 # [ROOT.bsm_fabrication_actual_cost] はイベント内で計算したコストを表示する一時変数
   BSM_FABRICATE_CLAIM_EVENT_1_OPT_A:0 "実行せよ！[event_target:bsm_target_state_for_claim_fabrication.GetName]は我々のものだ！"
   BSM_FABRICATE_CLAIM_EVENT_1_OPT_B:0 "今はその時ではない。"
@@ -18,3 +36,30 @@ BSM_FABRICATE_CLAIM_DIPLO_COST_DESC:0 "請求権の捏造には、£resource_ene
   BSM_FABRICATE_CLAIM_UC_SHORTAGE_TITLE:0 "資金不足"
   BSM_FABRICATE_CLAIM_UC_SHORTAGE_DESC:0 "請求権の捏造に必要な統一通貨が不足しています。"
   OKAY:0 "了解"
+ RECALL_VOLUNTEERS_TITLE:0 "義勇軍の撤退"
+ RECALL_VOLUNTEERS_DESC:0 "§Y[FROM.GetName]§!に派遣している義勇軍を撤退させます。"
+ RECALL_VOLUNTEERS_TOOLTIP:0 "§R[FROM.GetName]に義勇軍を派遣していません§!"
+ RECALL_VOLUNTEERS_TOOLTIP_G:0 "義勇軍を撤退させる"
+ 
+ # Economic Alliance GUI
+ BSM_EA_MY_ALLIANCE_HEADER:0 "§H所属している経済同盟§!"
+ BSM_EA_RANKING_HEADER:0 "§H世界の経済同盟ランキング§!"
+ BSM_EA_RANK_LABEL:0 "順位"
+ BSM_EA_NAME_LABEL:0 "同盟（盟主）"
+ BSM_EA_POWER_LABEL:0 "総合国力"
+ BSM_EA_ENTRY_TEXT:0 "[THIS.GetFactionName] ([THIS.GetName])"
+ BSM_EA_POWER_VALUE:0 "[?bsm_ea_total_power|Y0]"
+ BSM_EA_RANK_VALUE:0 "[?bsm_ea_rank]"
+ BSM_EA_MEMBERS_TOOLTIP:0 "§H加盟国一覧§!\n(合計国力: [?bsm_ea_total_power|Y0])\n[GetEAMember0][GetEAMember1][GetEAMember2][GetEAMember3][GetEAMember4][GetEAMember5][GetEAMember6][GetEAMember7][GetEAMember8][GetEAMember9][GetEAMember10][GetEAMember11]"
+ BSM_EA_MEM_0_LOC:0 "[?bsm_ea_mem_0.GetName]\n"
+ BSM_EA_MEM_1_LOC:0 "[?bsm_ea_mem_1.GetName]\n"
+ BSM_EA_MEM_2_LOC:0 "[?bsm_ea_mem_2.GetName]\n"
+ BSM_EA_MEM_3_LOC:0 "[?bsm_ea_mem_3.GetName]\n"
+ BSM_EA_MEM_4_LOC:0 "[?bsm_ea_mem_4.GetName]\n"
+ BSM_EA_MEM_5_LOC:0 "[?bsm_ea_mem_5.GetName]\n"
+ BSM_EA_MEM_6_LOC:0 "[?bsm_ea_mem_6.GetName]\n"
+ BSM_EA_MEM_7_LOC:0 "[?bsm_ea_mem_7.GetName]\n"
+ BSM_EA_MEM_8_LOC:0 "[?bsm_ea_mem_8.GetName]\n"
+ BSM_EA_MEM_9_LOC:0 "[?bsm_ea_mem_9.GetName]\n"
+ BSM_EA_MEM_10_LOC:0 "[?bsm_ea_mem_10.GetName]\n"
+ BSM_EA_MEM_11_LOC:0 "[?bsm_ea_mem_11.GetName]\n"

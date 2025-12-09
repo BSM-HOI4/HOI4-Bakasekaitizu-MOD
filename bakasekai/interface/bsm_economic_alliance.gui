@@ -1,0 +1,230 @@
+guiTypes = {
+	# Main Window
+	containerWindowType = {
+		name = "bsm_economic_alliance_window"
+		position = { x = -250 y = -300 } # Higher up to fit more content
+		orientation = center
+		size = { width = 500 height = 600 } # Taller
+		
+		moveable = yes
+		click_to_front = yes
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window_1b_border"
+		}
+
+		buttonType = {
+			name = "bsm_close_ea_window_button"
+			position = { x = -43 y = 15 }
+			quadTextureSprite = "GFX_closebutton"
+			buttonFont = "hoi_16mbs"
+			shortcut = "ESCAPE"
+			Orientation = "UPPER_RIGHT"
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+		}
+
+		# Title
+		instantTextboxType = {
+			name = "title"
+			position = { x = 0 y = 15 }
+			font = "bsm_24h"
+			text = "BSM_ECONOMIC_ALLIANCE_INFO_TITLE"
+			maxWidth = 500
+			format = center
+		}
+
+		# --- My Alliance Section ---
+		instantTextboxType = {
+			name = "my_alliance_header"
+			position = { x = 20 y = 50 }
+			font = "hoi_16mbs"
+			text = "BSM_EA_MY_ALLIANCE_HEADER"
+			maxWidth = 460
+			format = left
+		}
+
+		containerWindowType = {
+			name = "my_alliance_container"
+			position = { x = 20 y = 75 }
+			size = { width = 460 height = 50 }
+			
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+
+			gridBoxType = {
+				name = "economic_alliance_ids" # Matched to SGUI
+				position = { x = 0 y = 0 }
+				size = { width = 100% height = 100% }
+				slotsize = { width = 460 height = 40 }
+				format = "UPPER_LEFT"
+				max_slots_horizontal = 1
+			}
+		}
+		
+		# --- Global Ranking Section ---
+		instantTextboxType = {
+			name = "ranking_header"
+			position = { x = 20 y = 135 }
+			font = "hoi_16mbs"
+			text = "BSM_EA_RANKING_HEADER"
+			maxWidth = 460
+			format = left
+		}
+
+		containerWindowType = {
+			name = "ranking_container"
+			position = { x = 20 y = 160 }
+			size = { width = 460 height = 420 }
+			
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+			
+			# Header Row for Ranking
+			containerWindowType = {
+				name = "ranking_header_row"
+				position = { x = 0 y = 0 }
+				size = { width = 460 height = 20 }
+				
+				instantTextboxType = {
+					name = "rank_label"
+					position = { x = 10 y = 0 }
+					font = "hoi_16mbs"
+					text = "BSM_EA_RANK_LABEL"
+					maxWidth = 50
+					format = center
+				}
+				instantTextboxType = {
+					name = "name_label"
+					position = { x = 70 y = 0 }
+					font = "hoi_16mbs"
+					text = "BSM_EA_NAME_LABEL"
+					maxWidth = 250
+					format = left
+				}
+				instantTextboxType = {
+					name = "power_label"
+					position = { x = 330 y = 0 }
+					font = "hoi_16mbs"
+					text = "BSM_EA_POWER_LABEL"
+					maxWidth = 100
+					format = right
+				}
+			}
+
+			gridBoxType = {
+				name = "economic_alliance_ranking_list" # Matched to SGUI
+				position = { x = 0 y = 25 }
+				size = { width = 100% height = 100% }
+				slotsize = { width = 460 height = 35 }
+				format = "UPPER_LEFT"
+				max_slots_horizontal = 1
+			}
+		}
+	}
+
+	# Entry: My Alliance
+	containerWindowType = {
+		name = "economic_alliance_ids_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 460 height = 40 }
+		
+		# Background needs tooltip
+		buttonType = {
+			name = "entry_bg"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_tiled_plain_bg"
+			size = { x=460 y=40 }
+			pdx_tooltip = "BSM_EA_MEMBERS_TOOLTIP" # Dynamic Tooltip
+		}
+		
+		instantTextboxType = {
+			name = "alliance_info"
+			position = { x = 10 y = 10 }
+			font = "bsm_16"
+			text = "BSM_EA_ENTRY_TEXT" # "[THIS.GetName]"
+			maxWidth = 300
+			format = left
+			alwaystransparent = yes
+		}
+		
+		instantTextboxType = {
+			name = "alliance_power"
+			position = { x = 330 y = 10 }
+			font = "bsm_16"
+			text = "BSM_EA_POWER_VALUE" # "[?bsm_ea_total_power] factories"
+			maxWidth = 110
+			format = right
+			alwaystransparent = yes
+		}
+	}
+
+	# Entry: Ranking
+	containerWindowType = {
+		name = "economic_alliance_ranking_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 460 height = 30 }
+		
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_plain_bg_small"
+			pdx_tooltip = "BSM_EA_MEMBERS_TOOLTIP"
+		}
+		
+		instantTextboxType = {
+			name = "rank"
+			position = { x = 10 y = 6 }
+			font = "bsm_16"
+			text = "BSM_EA_RANK_VALUE" # "[?bsm_ea_rank]"
+			maxWidth = 50
+			format = center
+			alwaystransparent = yes
+		}
+		
+		instantTextboxType = {
+			name = "name"
+			position = { x = 70 y = 6 }
+			font = "bsm_16"
+			text = "BSM_EA_ENTRY_TEXT"
+			maxWidth = 250
+			format = left
+			alwaystransparent = yes
+			fixedsize = yes
+		}
+		
+		instantTextboxType = {
+			name = "power"
+			position = { x = 330 y = 6 }
+			font = "bsm_16"
+			text = "BSM_EA_POWER_VALUE"
+			maxWidth = 100
+			format = right
+			alwaystransparent = yes
+		}
+	}
+
+	# Button Container (unchanged mostly, but pos might need adjustment if using absolute)
+	# The previous file had this, but SGUI expects it.
+	containerWindowType = {
+			name = "bsm_ea_button_container"
+			position = { x = 380 y = 390 } # Keep this pos or adjust? It's parented to politics tab usually?
+			# SGUI says: parent_window_token = politics_tab. So coordinates are relative to Politics Tab.
+			size = { width = 200 height = 50 }
+			
+			buttonType = {
+				name = "bsm_open_ea_window_button"
+				position = { x = 0 y = 0 }
+				quadTextureSprite = "GFX_government_button"
+				buttonText = "BSM_OPEN_EA_GUI"
+				buttonFont = "hoi_16mbs"
+				Orientation = "UPPER_LEFT"
+				clicksound = click_ok
+				pdx_tooltip = "BSM_OPEN_EA_GUI_TT"
+		}
+	}
+}

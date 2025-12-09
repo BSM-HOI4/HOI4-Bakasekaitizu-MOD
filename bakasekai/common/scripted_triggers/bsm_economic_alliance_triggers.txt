@@ -180,3 +180,26 @@ is_in_economic_alliance_with = {
 		}
 	}
 }
+
+# ----------------------------------------------------------------------
+# Helper: Is FROM a member of an alliance where ROOT is leader?
+# ----------------------------------------------------------------------
+is_economic_alliance_member_of_root_trigger = {
+	# ROOT = Leader
+	# FROM = Member check
+
+	any_of = {
+		array = economic_alliance_ids
+		value = v
+
+		# For this ID, is ROOT leader?
+		check_variable = {
+			var = global.economic_alliance_leader^v
+			value = ROOT.id
+		}
+		# And is FROM a member? (FROM has this ID in their list)
+		FROM = {
+			is_in_array = { economic_alliance_ids = PREV.v }
+		}
+	}
+}

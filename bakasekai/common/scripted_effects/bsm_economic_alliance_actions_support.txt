@@ -1,0 +1,153 @@
+
+# ----------------------------------------------------------------------
+# Scripted Effects & Triggers
+# ----------------------------------------------------------------------
+
+# Effect: Join Alliance
+# ROOT = Joiner
+# bsm_ea_leader = Leader (Must be saved as event target)
+bsm_join_economic_alliance_effect = {
+	# 1. Add Leader ID to Joiner's list
+	add_to_array = { array = economic_alliance_ids value = event_target:bsm_ea_leader }
+
+	# 2. Add Joiner ID to Leader's list
+	# 2. Add Joiner ID to Leader's list
+	event_target:bsm_ea_leader = {
+		add_to_array = { array = economic_alliance_members value = ROOT }
+	}
+
+	# 3. Add Relations (Joiner <-> Leader)
+	# 3. Add Relations (Joiner <-> Leader)
+	add_opinion_modifier = { target = event_target:bsm_ea_leader modifier = bsm_economic_alliance_relation_boost }
+	event_target:bsm_ea_leader = { add_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost } }
+
+	# 4. Add Relations (Joiner <-> Other Members)
+	# 4. Add Relations (Joiner <-> Other Members)
+	event_target:bsm_ea_leader = {
+		for_each_scope_loop = {
+			array = economic_alliance_members
+			# Apply to all members except ROOT (and Leader, already done)
+			if = {
+				limit = {
+					NOT = { tag = ROOT }
+					NOT = { tag = event_target:bsm_ea_leader }
+				}
+				# Mutual Relation Boost
+				add_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost }
+				ROOT = { add_opinion_modifier = { target = PREV modifier = bsm_economic_alliance_relation_boost } }
+			}
+		}
+	}
+
+	# 5. Set Member Flag
+	set_country_flag = is_economic_alliance_member
+}
+
+# Effect: Form Alliance
+# ROOT = Leader
+# FROM = Joiner
+# Assumes bsm_ea_leader and bsm_ea_joiner are NOT set yet?
+# Usually called from event where ROOT=Leader, FROM=Joiner.
+bsm_form_economic_alliance_effect = {
+	# Set up targets
+	save_global_event_target_as = bsm_ea_leader
+	FROM = { save_global_event_target_as = bsm_ea_joiner }
+
+	# Leader Setup
+	set_country_flag = is_economic_alliance_leader
+	set_country_flag = is_economic_alliance_member
+
+	# Leader joins their own member list
+	add_to_array = { array = economic_alliance_members value = ROOT }
+	# Leader adds themselves to their alliance list (to support "I am in an alliance")
+	add_to_array = { array = economic_alliance_ids value = ROOT }
+
+	# Joiner Joins
+	FROM = {
+		bsm_join_economic_alliance_effect = yes
+	}
+}
+
+
+# Effect: Leave alliance where FROM is leader. (Used in Action 2 Leave - Action context)
+# In Action Context: ROOT=Leaver, FROM=Leader.
+# We need to adapt this to use bsm_ea_leader if we want consistency, or keep using FROM if called directly from action.
+# Action 2 calls 'bsm_leave_specific_leader_alliance_effect' in 'complete_effect'.
+# Since Action 2 sends event 2, but ALSO calls the effect directly in 'complete_effect' (lines 94 in original).
+# Wait, original code:
+# complete_effect = { FROM = { country_event... } bsm_leave_specific_leader_alliance_effect = yes }
+# So here ROOT=Leaver, FROM=Leader.
+bsm_leave_specific_leader_alliance_effect = {
+	# ROOT = Leaver
+	# FROM = Leader
+
+	# Remove Leader ID from Joiner's list
+	remove_from_array = { array = economic_alliance_ids value = FROM }
+
+	# Remove Joiner ID from Leader's list
+	FROM = {
+		remove_from_array = { array = economic_alliance_members value = ROOT }
+	}
+
+	# Remove Relations (Joiner <-> Leader)
+	remove_opinion_modifier = { target = FROM modifier = bsm_economic_alliance_relation_boost }
+	FROM = { remove_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost } }
+
+	# Remove Relations (Joiner <-> Other Members)
+	FROM = {
+		for_each_scope_loop = {
+			array = economic_alliance_members
+			if = {
+				limit = {
+					NOT = { tag = ROOT }
+					NOT = { tag = FROM }
+				}
+				remove_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost }
+				ROOT = { remove_opinion_modifier = { target = PREV modifier = bsm_economic_alliance_relation_boost } }
+			}
+		}
+	}
+
+	# Check if ROOT is in ANY other alliance.
+	if = {
+		limit = {
+			OR = {
+				NOT = { has_variable = economic_alliance_ids }
+				check_variable = { economic_alliance_ids^num = 0 }
+			}
+		}
+		clr_country_flag = is_economic_alliance_member
+	}
+}
+
+bsm_kicked_by_root_effect = {
+	# ROOT = Kicked Member
+	# FROM = Leader (Kicker)
+	bsm_leave_specific_leader_alliance_effect = yes
+}
+
+# Initial Setup: Spain Alliance (SPR + CEU + PML)
+bsm_initialize_spain_alliance = {
+
+		# Set as Leader
+		save_global_event_target_as = bsm_ea_leader
+		set_country_flag = is_economic_alliance_leader
+		set_country_flag = is_economic_alliance_member
+
+		# Leader self-add
+		add_to_array = { array = economic_alliance_members value = ESP }
+		add_to_array = { array = economic_alliance_ids value = ESP }
+
+		# Add Members (if they exist)
+		every_other_country = {
+			limit = {
+				OR = {
+					original_tag = CEU
+					original_tag = PML
+				}
+				exists = yes
+			}
+			bsm_join_economic_alliance_effect = yes
+		}
+	
+}

@@ -1,0 +1,76 @@
+
+# Economic Alliance Power Share Calculation
+# Called weekly/monthly
+bsm_update_economic_alliance_power_share = {
+    # 1. Reset Buff Value for all potential members
+    every_country = {
+        limit = {
+            OR = {
+                has_country_flag = is_economic_alliance_member
+                has_country_flag = is_economic_alliance_leader
+            }
+        }
+        set_variable = { economic_alliance_pp_buff_value = 0 }
+    }
+
+    # 2. Calculate Shares per Alliance
+    every_country = {
+        limit = {
+            has_country_flag = is_economic_alliance_leader
+        }
+
+        # Calculate Total Alliance IC
+        set_variable = { economic_alliance_total_production = 0 }
+
+        for_each_loop = {
+            array = economic_alliance_members
+            value = member_scope
+
+            # Check if member exists/is valid
+            if = {
+                limit = { var:member_scope = { exists = yes } }
+                var:member_scope = {
+                    add_to_variable = {
+                        PREV.economic_alliance_total_production = industrial_capacity_ic
+                    }
+                }
+            }
+        }
+
+        # Distribute Shares
+        if = {
+            limit = { check_variable = { economic_alliance_total_production > 0 } }
+
+            for_each_loop = {
+                array = economic_alliance_members
+                value = member_scope
+
+                if = {
+                    limit = { var:member_scope = { exists = yes } }
+                    var:member_scope = {
+                        # Calculate Share: MyIC / TotalIC
+                        set_temp_variable = { my_share = industrial_capacity_ic }
+                        divide_temp_variable = { my_share = PREV.economic_alliance_total_production }
+
+                        # Cap at 5% (0.05) per alliance
+                        clamp_temp_variable = { var = my_share min = 0 max = 0.05 }
+
+                        # Accumulate
+                        add_to_variable = { economic_alliance_pp_buff_value = my_share }
+                    }
+                }
+            }
+        }
+    }
+
+    # 3. Apply Modifiers
+    every_country = {
+        limit = {
+            check_variable = { economic_alliance_pp_buff_value > 0 }
+        }
+        add_dynamic_modifier = {
+            modifier = bsm_economic_alliance_pp_buff
+            days = 15 # Refresh duration
+        }
+    }
+}
