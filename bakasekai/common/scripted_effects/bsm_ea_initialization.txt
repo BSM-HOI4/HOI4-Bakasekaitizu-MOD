@@ -1,0 +1,139 @@
+# ==========================================
+# BSM 経済陣営 初期化スクリプト
+# ==========================================
+# ------------------------------------------
+# ヘルパー: 盟主への精神付与
+# 入力:
+#   bsm_ea_target_idea (パラメータ)
+#   THIS = 盟主
+# ------------------------------------------
+# ------------------------------------------
+# 初期経済陣営の一括作成
+# on_startup から呼び出される
+# ------------------------------------------
+bsm_ea_init_initial_factions = {
+	# --------------------------------------
+	# 1. 欧州連合 (EUR / European Union)
+	# --------------------------------------
+	if = {
+		limit = {
+			country_exists = EUR
+		}
+		EUR = {
+			bsm_ea_generate_new_token = yes
+			bsm_ea_create_sphere = yes
+			add_ideas = bsm_ea_idea_european_union
+			# Initial Members
+			set_temp_variable = {
+				t_eu_token = bsm_ea_sphere
+			}
+			# OZY
+			if = {
+				limit = {
+					country_exists = OZY
+				}
+				OZY = {
+					set_temp_variable = {
+						bsm_ea_token = prev.t_eu_token
+					}
+					bsm_ea_join_sphere = yes
+					add_ideas = bsm_ea_idea_european_union
+				}
+			}
+			# DEU
+			if = {
+				limit = {
+					country_exists = DEU
+				}
+				DEU = {
+					set_temp_variable = {
+						bsm_ea_token = prev.t_eu_token
+					}
+					bsm_ea_join_sphere = yes
+					add_ideas = bsm_ea_idea_european_union
+				}
+			}
+			# FRA
+			if = {
+				limit = {
+					country_exists = FRA
+				}
+				FRA = {
+					set_temp_variable = {
+						bsm_ea_token = prev.t_eu_token
+					}
+					bsm_ea_join_sphere = yes
+					add_ideas = bsm_ea_idea_european_union
+				}
+			}
+			# ITA
+			if = {
+				limit = {
+					country_exists = ITA
+				}
+				ITA = {
+					set_temp_variable = {
+						bsm_ea_token = prev.t_eu_token
+					}
+					bsm_ea_join_sphere = yes
+					add_ideas = bsm_ea_idea_european_union
+				}
+			}
+			# SAN
+			if = {
+				limit = {
+					country_exists = SAN
+				}
+				SAN = {
+					set_temp_variable = {
+						bsm_ea_token = prev.t_eu_token
+					}
+					bsm_ea_join_sphere = yes
+					add_ideas = bsm_ea_idea_european_union
+				}
+			}
+		}
+	}
+	else_if = {
+		# Fallback checked safely
+	}
+	# --------------------------------------
+	# 2. コモンウェルス (GBR / Commonwealth)
+	# --------------------------------------
+	if = {
+		limit = {
+			country_exists = GBR
+		}
+		GBR = {
+			bsm_ea_generate_new_token = yes
+			bsm_ea_create_sphere = yes
+			add_ideas = bsm_ea_idea_commonwealth
+		}
+	}
+	# --------------------------------------
+	# 3. 東亜連盟 (JPN / East Asia League)
+	# --------------------------------------
+	if = {
+		limit = {
+			country_exists = JPN
+		}
+		JPN = {
+			bsm_ea_generate_new_token = yes
+			bsm_ea_create_sphere = yes
+			add_ideas = bsm_ea_idea_east_asia_league
+		}
+	}
+	# --------------------------------------
+	# 4. イベリア経済連合 (ESP / Iberian Union)
+	# --------------------------------------
+	if = {
+		limit = {
+			country_exists = ESP
+		}
+		ESP = {
+			bsm_ea_generate_new_token = yes
+			bsm_ea_create_sphere = yes
+			add_ideas = bsm_ea_idea_iberian_union
+		}
+	}
+}

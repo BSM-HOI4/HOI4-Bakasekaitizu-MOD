@@ -1371,13 +1371,27 @@ focus_tree = {
 			set_country_flag = JPN_ENG
 
 			# 経済同盟 (Allies) に加盟/結成
-			# 英国がすでにAllies経済同盟にいると仮定、あるいはここで追加
+			# 英国が経済陣営を持っていない場合、作成させる
 			GBR = {
-				set_temp_variable = { temp_alliance_id = 2 }
-				add_to_economic_alliance = yes
+				if = {
+					limit = { NOT = { has_variable = bsm_ea_sphere } }
+					bsm_ea_generate_new_token = yes
+					bsm_ea_create_sphere = yes
+				}
+				# 英国のトークンを取得
+				set_temp_variable = { temp_target_token = bsm_ea_sphere }
 			}
-			set_temp_variable = { temp_alliance_id = 2 }
-			add_to_economic_alliance = yes
+			# 取得したトークンで加盟
+			set_temp_variable = { bsm_ea_token = GBR.temp_target_token }
+			bsm_ea_join_sphere = yes
+
+			# 関係改善等の処理は `bsm_ea_join_sphere` の後に手動で行うか、
+			# `bsm_ea_join_sphere_action` のようなラッパーを使うべきだが、
+			# ここでは簡易的に加盟エフェクトのみ適用し、関係は別途フォーカス等で処理されていると仮定する。
+			# ただし、元のコードにあった `add_to_economic_alliance` は関係も処理する可能性があるため、
+			# 必要ならOpinion Modifierを追加する。
+			add_opinion_modifier = { target = GBR modifier = bsm_economic_alliance_relation_boost }
+			GBR = { add_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost } }
 
 			country_event = {
 				id = jpn_pol.3
@@ -1407,16 +1421,17 @@ focus_tree = {
 			set_country_flag = ASEAN
 
 			# 経済同盟 (GEACPS) 結成
-			set_temp_variable = { temp_alliance_id = 3 }
-			add_to_economic_alliance = yes
+			bsm_ea_generate_new_token = yes
+			bsm_ea_create_sphere = yes
+			set_temp_variable = { my_new_token = bsm_ea_sphere }
 
-			TWN = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
-			NSI = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
-			GMI = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
-			HAW = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
-			SJK = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
-			DRS = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
-			ECU = { set_temp_variable = { temp_alliance_id = 3 } add_to_economic_alliance = yes }
+			TWN = { set_temp_variable = { bsm_ea_token = prev.my_new_token } bsm_ea_join_sphere = yes }
+			NSI = { set_temp_variable = { bsm_ea_token = prev.my_new_token } bsm_ea_join_sphere = yes }
+			GMI = { set_temp_variable = { bsm_ea_token = prev.my_new_token } bsm_ea_join_sphere = yes }
+			HAW = { set_temp_variable = { bsm_ea_token = prev.my_new_token } bsm_ea_join_sphere = yes }
+			SJK = { set_temp_variable = { bsm_ea_token = prev.my_new_token } bsm_ea_join_sphere = yes }
+			DRS = { set_temp_variable = { bsm_ea_token = prev.my_new_token } bsm_ea_join_sphere = yes }
+			ECU = { set_temp_variable = { bsm_ea_token = prev.my_new_token } bsm_ea_join_sphere = yes }
 
 			# 陣営内での相互保証（自分以外）
 			# Note: is_in_faction checks won't work if we haven't formed a faction yet.

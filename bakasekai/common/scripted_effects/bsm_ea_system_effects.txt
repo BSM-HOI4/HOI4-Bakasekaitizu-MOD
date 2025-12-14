@@ -1,0 +1,436 @@
+# ==========================================
+# BSM 経済陣営システム Effect
+# prefix: bsm_ea_
+# ==========================================
+# ------------------------------------------
+# 初期化
+# ------------------------------------------
+bsm_ea_init_system = {
+	if = {
+		limit = {
+			NOT = {
+				has_global_flag = bsm_ea_system_initialized
+			}
+		}
+		set_global_flag = bsm_ea_system_initialized
+		clear_array = global.bsm_ea_sphere_list
+	}
+}
+
+# ------------------------------------------
+# 経済陣営管理
+# ------------------------------------------
+# 新しい経済陣営を作成
+# 入力: 
+#   bsm_ea_token (一時変数, 文字列/トークン)
+#   THIS = 盟主国
+bsm_ea_create_sphere = {
+	# グローバルリストに追加
+	add_to_array = {
+		global.bsm_ea_sphere_list = var:bsm_ea_token
+	}
+	# 盟主の初期設定
+	set_variable = {
+		bsm_ea_is_leader = yes
+	}
+	set_variable = {
+		bsm_ea_sphere = var:bsm_ea_token
+	}
+	# この経済陣営のメンバーリストを初期化
+	clear_array = global.bsm_ea_member_list_@var:bsm_ea_token
+	add_to_array = {
+		global.bsm_ea_member_list_@var:bsm_ea_token = THIS
+	}
+}
+
+# 経済陣営に加盟
+# 入力:
+#   bsm_ea_token (一時変数)
+#   THIS = 加盟国
+bsm_ea_join_sphere = {
+	# 既に所属している場合は離脱（安全策）
+	if = {
+		limit = {
+			has_variable = bsm_ea_sphere
+		}
+		bsm_ea_leave_sphere = yes
+	}
+	# 変数を設定
+	set_variable = {
+		bsm_ea_sphere = var:bsm_ea_token
+	}
+	# メンバーリストに追加
+	add_to_array = {
+		global.bsm_ea_member_list_@var:bsm_ea_token = THIS
+	}
+}
+
+# 現在の経済陣営から離脱
+# 入力: THIS = 離脱国
+bsm_ea_leave_sphere = {
+	if = {
+		limit = {
+			has_variable = bsm_ea_sphere
+		}
+		set_temp_variable = {
+			t_token = bsm_ea_sphere
+		}
+		# メンバーリストから削除
+		remove_from_array = {
+			global.bsm_ea_member_list_@var:t_token = THIS
+		}
+		# 国変数をクリーンアップ
+		clear_variable = bsm_ea_sphere
+		clear_variable = bsm_ea_is_leader		# 念のため
+		# リストが空になった場合の処理? (必要に応じて追加)
+	}
+}
+
+# ------------------------------------------
+# GUI & 計算
+# ------------------------------------------
+# 経済陣営リストを国力順にソート
+# global.bsm_ea_sphere_list をソートする
+# ------------------------------------------
+# ヘルパー: 新しいトークン生成
+# ------------------------------------------
+bsm_ea_generate_new_token = {
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					global.next_alliance_id > 9
+				}
+			}
+		}
+		set_variable = {
+			global.next_alliance_id = 10
+		}
+	}
+	set_temp_variable = {
+		bsm_ea_token = global.next_alliance_id
+	}
+	add_to_variable = {
+		global.next_alliance_id = 1
+	}
+}
+
+# ------------------------------------------
+# アクション: 経済陣営の結成
+# 入力: FROM = 招待国
+# ------------------------------------------
+bsm_ea_form_sphere_action = {
+	# 1. Generate Token
+	bsm_ea_generate_new_token = yes
+	# 2. Pay Costs
+	add_political_power = -100
+	add_to_variable = {
+		var = Unified_Currency
+		value = -100
+	}
+	# 3. Create Sphere (Leader init)
+	bsm_ea_create_sphere = yes
+	# 4. Add Member (FROM)
+	FROM = {
+		bsm_ea_join_sphere = yes
+	}
+	# 5. Legacy Flags / Relations Support
+	set_country_flag = is_economic_alliance_leader
+	set_country_flag = is_economic_alliance_member
+	FROM = {
+		set_country_flag = is_economic_alliance_member
+	}
+	# Relations
+	add_opinion_modifier = {
+		target = FROM
+		modifier = bsm_economic_alliance_relation_boost
+	}
+	FROM = {
+		add_opinion_modifier = {
+			target = ROOT
+			modifier = bsm_economic_alliance_relation_boost
+		}
+	}
+}
+
+# ------------------------------------------
+# アクション: 経済陣営への加盟
+# 入力: FROM = 盟主国 (Leader)
+# ------------------------------------------
+bsm_ea_join_sphere_action = {
+	# Pre-requisite: FROM must have a sphere token
+	# 1. Pay Costs
+	add_political_power = -10
+	add_to_variable = {
+		var = Unified_Currency
+		value = -25
+	}
+	# 2. Get Token from Leader
+	set_temp_variable = {
+		bsm_ea_token = FROM.bsm_ea_sphere
+	}
+	# 3. Join Sphere
+	bsm_ea_join_sphere = yes
+	# 4. Legacy Flags / Relations Support
+	set_country_flag = is_economic_alliance_member
+	# Leader Relations
+	add_opinion_modifier = {
+		target = FROM
+		modifier = bsm_economic_alliance_relation_boost
+	}
+	FROM = {
+		add_opinion_modifier = {
+			target = ROOT
+			modifier = bsm_economic_alliance_relation_boost
+		}
+	}
+	# Member Relations
+	FROM = {
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_member
+			if = {
+				limit = {
+					var:v_member = {
+						tag = ROOT
+					}
+					var:v_member = {
+						tag = FROM
+					}
+					var:v_member = {
+						tag = THIS
+					}
+				}
+				var:v_member = {
+					save_event_target_as = temp_ea_member_leave
+				}
+				event_target:temp_ea_member_leave = {
+					remove_opinion_modifier = {
+						target = THIS
+						modifier = bsm_economic_alliance_relation_boost
+					}
+				}
+				THIS = {
+					remove_opinion_modifier = {
+						target = event_target:temp_ea_member_leave
+						modifier = bsm_economic_alliance_relation_boost
+					}
+				}
+			}
+		}
+		# Leave Logic
+		bsm_ea_leave_sphere = yes
+		# Legacy Flags
+		clr_country_flag = is_economic_alliance_member
+		if = {
+			limit = {
+				has_country_flag = is_economic_alliance_leader
+			}
+			clr_country_flag = is_economic_alliance_leader
+			# Leader leaving logic? (Transfer leadership or disband?)
+			# For now, just disband/cleanup if needed, or just leave.
+		}
+		# Cooldown
+		add_timed_idea = {
+			idea = recently_left_economic_alliance
+			days = 365
+		}
+	}
+}
+
+# ------------------------------------------
+# GUI & 計算
+# ------------------------------------------
+# 計算ヘルパー: 特定の陣営の国力を計算
+# 入力: bsm_ea_calc_token
+bsm_ea_calc_sphere_power = {
+	set_variable = {
+		t_total_power = 0
+	}
+	set_variable = {
+		t_mem_count = 0
+	}
+	# Clear previous mem vars on leader (optimization: assumes leader is first in list or we access it later)
+	# But we need to know who the leader is first to clear variables?
+	# We can do it after finding leader.
+	set_temp_variable = {
+		t_leader = global.bsm_ea_member_list_@var:bsm_ea_calc_token^0
+	}
+	for_each_loop = {
+		array = global.bsm_ea_member_list_@var:bsm_ea_calc_token
+		value = v_mem
+		var:v_mem = {
+			set_temp_variable = {
+				t_p = Unified_Currency_Last_Month_gain
+			}
+			divide_temp_variable = {
+				t_p = 10
+			}
+			# Store individual power for GUI
+			set_variable = {
+				bsm_ea_member_power = PREV.t_p
+			}
+		}
+		add_to_variable = {
+			t_total_power = var:v_mem.t_p
+		}
+		# Tooltip Member List Logic
+		if = {
+			limit = {
+				check_variable = {
+					t_mem_count < 12
+				}
+			}
+			var:t_leader = {
+				set_variable = {
+					var = bsm_ea_mem_@PREV.t_mem_count
+					value = var:v_mem
+				}
+			}
+			add_to_variable = {
+				t_mem_count = 1
+			}
+		}
+	}
+	# Store power on Leader (using correct name for Loc)
+	var:t_leader = {
+		set_variable = {
+			bsm_ea_total_power = PREV.t_total_power
+		}
+		set_variable = {
+			bsm_ea_mem_count = PREV.t_mem_count
+		}
+	}
+}
+
+# すべての経済陣営を再計算するヘルパー
+bsm_ea_recalc_all_spheres = {
+	for_each_loop = {
+		array = global.bsm_ea_sphere_list
+		value = v_token
+		set_temp_variable = {
+			bsm_ea_calc_token = var:v_token
+		}
+		bsm_ea_calc_sphere_power = yes
+	}
+}
+
+# 経済陣営リストを国力順にソート
+# global.bsm_ea_sphere_list をソートし、global.bsm_ea_sorted_sphere_list に格納
+bsm_ea_sort_sphere_list = {
+	# 1. Recalculate all powers
+	bsm_ea_recalc_all_spheres = yes
+	# 2. Prepare lists
+	clear_array = global.bsm_ea_sorted_sphere_list
+	# Copy to temp list for processing
+	clear_array = global.bsm_ea_temp_sort_list
+	for_each_loop = {
+		array = global.bsm_ea_sphere_list
+		value = v_t
+		add_to_array = {
+			global.bsm_ea_temp_sort_list = var:v_t
+		}
+	}
+	# 3. Selection Sort (Descending)
+	set_temp_variable = {
+		t_rank_counter = 1
+	}
+	while_loop_effect = {
+		limit = {
+			check_variable = {
+				global.bsm_ea_temp_sort_list^num > 0
+			}
+		}
+		# Find Max
+		set_temp_variable = {
+			t_max_power = -1
+		}
+		set_temp_variable = {
+			t_best_token = -1
+		}
+		set_temp_variable = {
+			t_best_index = -1
+		}
+		for_each_loop = {
+			array = global.bsm_ea_temp_sort_list
+			value = v_check_token
+			index = i_index
+			# Get Power (stored on Leader)
+			set_temp_variable = {
+				t_ldr = global.bsm_ea_member_list_@var:v_check_token^0
+			}
+			var:t_ldr = {
+				set_temp_variable = {
+					t_p = bsm_ea_total_power
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						var:t_ldr.t_p > t_max_power
+					}
+				}
+				set_temp_variable = {
+					t_max_power = var:t_ldr.t_p
+				}
+				set_temp_variable = {
+					t_best_token = var:v_check_token
+				}
+				set_temp_variable = {
+					t_best_index = i_index
+				}
+				# Track the leader scope
+				set_temp_variable = {
+					t_best_leader = var:t_ldr
+				}
+			}
+		}
+		# Set Ranking on Leader
+		var:t_best_leader = {
+			set_variable = {
+				bsm_ea_rank = PREV.t_rank_counter
+			}
+		}
+		add_to_variable = {
+			t_rank_counter = 1
+		}
+		# Add best to sorted list (Add Leader Scope)
+		add_to_array = {
+			global.bsm_ea_sorted_sphere_list = var:t_best_leader
+		}
+		# Note: 'var:t_best_leader' is a scope reference. 'countr:' might be safer if it's a tag, 
+		# but if it's a scope variable, just var:t_best_leader should work if add_to_array supports it.
+		# If t_best_leader is a Scope Object, add_to_array works.
+		# Let's try direct var usage.
+		# Actually, 'add_to_array = { array = ... value = var:t_best_leader }'
+		# Retrying with simple var.
+		# Remove best from temp list
+		remove_from_array = {
+			global.bsm_ea_temp_sort_list = t_best_token
+		}
+	}
+}
+
+# GUI表示/計算用に経済陣営を選択
+# 入力: bsm_ea_selected_token
+# スコープ: プレイヤー/ROOT
+bsm_ea_select_sphere_for_gui = {
+	# Calculate logic is already in bsm_ea_calc_sphere_power, but we need variables for GUI text
+	# Use the common calc logic
+	set_temp_variable = {
+		bsm_ea_calc_token = var:bsm_ea_selected_token
+	}
+	bsm_ea_calc_sphere_power = yes
+	# Retrieve calculated power (it's in t_total_power temp var of the effect, but scope lost?)
+	# Re-get from leader
+	set_temp_variable = {
+		t_leader = global.bsm_ea_member_list_@var:bsm_ea_selected_token^0
+	}
+	set_variable = {
+		bsm_ea_total_power = var:t_leader.bsm_ea_total_power
+	}
+	# 盟主設定
+	set_variable = {
+		bsm_ea_selected_leader = var:t_leader
+	}
+}

@@ -1,290 +1,36 @@
 bsm_update_ea_gui_data = {
-	# 1. Update My Alliance View
-	# --------------------------------------------------
-	clear_array = ROOT.bsm_current_view_alliance_members
-	# If ROOT is in an alliance (check economic_alliance_ids)
+	# 1. Initialize System if needed
+	bsm_ea_init_system = yes
+	
+	# 2. Sort Ranking (Stub)
+	bsm_ea_sort_sphere_list = yes
+	
+	# 3. Determine Default View (My Sphere)
+	# If Player is in a sphere, select it.
 	if = {
-		limit = {
-			check_variable = {
-				economic_alliance_ids^num > 0
-			}
-		}
-		# Get the leader (first element)
-		ROOT = {
-			set_temp_variable = {
-				t_my_leader = economic_alliance_ids^0
-			}
-		}
-		# Add leader to view array (for the GUI list)
-		add_to_array = {
-			bsm_current_view_alliance_members = t_my_leader
-		}
-		# Process this leader to prepare display data (total power, members)
-		var:t_my_leader = {
-			bsm_calc_alliance_power_and_members = yes
-		}
+		limit = { has_variable = bsm_ea_sphere }
+		set_variable = { bsm_ea_selected_token = bsm_ea_sphere }
 	}
-	# 2. Update Global Ranking
-	# --------------------------------------------------
-	clear_array = ROOT.bsm_economic_alliance_ranking
-	# Phase A: Calculate Power for all Leaders
-	every_country = {
-		limit = {
-			has_country_flag = is_economic_alliance_leader
-		}
-		# Calculate and cache power/members for this leader
-		bsm_calc_alliance_power_and_members = yes
-		# Mark as not yet ranked
-		set_variable = {
-			bsm_is_ranked_flg = 0
-		}
-	}
-	# Phase B: Sort Top Leaders (Selection Sort - Top 10)
-	# We loop 10 times to find the next best leader
-	# Loop 1 --
-	bsm_find_and_add_next_best_alliance = yes
-	# Loop 2
-	bsm_find_and_add_next_best_alliance = yes
-	# Loop 3
-	bsm_find_and_add_next_best_alliance = yes
-	# Loop 4
-	bsm_find_and_add_next_best_alliance = yes
-	# Loop 5
-	bsm_find_and_add_next_best_alliance = yes
-	# Loop 6
-	bsm_find_and_add_next_best_alliance = yes
-	# Loop 7
-	bsm_find_and_add_next_best_alliance = yes
-	# Loop 8
-	bsm_find_and_add_next_best_alliance = yes
-	# Loop 9
-	bsm_find_and_add_next_best_alliance = yes
-	# Loop 10
-	bsm_find_and_add_next_best_alliance = yes
-	# Rank 11-15 (Optional, add more if needed)
-}
-
-# Helper: Calculate Power and Prep Member List
-bsm_calc_alliance_power_and_members = {
-	# THIS is Leader
-	# Clear Power
-	set_variable = {
-		bsm_ea_total_power = 0
-	}
-	# Add Leader Power (UC gain / 10)
-	add_to_variable = {
-		bsm_ea_total_power = Unified_Currency_Last_Month_gain
-	}
-	divide_variable = {
-		bsm_ea_total_power = 10
-	}
-	# Iterate Members
-	set_variable = {
-		t_mem_i = 0
-	}
-	# Add Members Power and set variables for Tooltip
-	# We iterate the 'economic_alliance_members' array
-	for_each_scope_loop = {
-		array = economic_alliance_members
-		# Add Factory Count (UC gain / 10)
-		PREV = {
-			set_temp_variable = {
-				t_mem_pow = THIS.Unified_Currency_Last_Month_gain
-			}
-			divide_temp_variable = {
-				t_mem_pow = 10
-			}
-			add_to_variable = {
-				bsm_ea_total_power = t_mem_pow
-			}
-		}
-		# Save Member Scope for Tooltip (up to 12 members) - Explicit Unroll to avoid dynamic token error
-		PREV = {
-			if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 0
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_0 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 1
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_1 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 2
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_2 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 3
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_3 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 4
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_4 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 5
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_5 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 6
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_6 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 7
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_7 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 8
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_8 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 9
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_9 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 10
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_10 = THIS
-				}
-			}
-			else_if = {
-				limit = {
-					check_variable = {
-						t_mem_i = 11
-					}
-				}
-				set_variable = {
-					bsm_ea_mem_11 = THIS
-				}
-			}
-			add_to_variable = {
-				t_mem_i = 1
-			}
-		}
-	}
-	# Save total count
-	set_variable = {
-		bsm_ea_mem_count = t_mem_i
-	}
-}
-
-# Helper: Find Max Power among unranked
-bsm_find_and_add_next_best_alliance = {
-	# Use GLOBAL variables to ensure scope safety
-	set_variable = {
-		global.bsm_rank_search_max = -1
-	}
-	set_variable = {
-		global.bsm_rank_search_best_tag = 0
-	}
-	every_country = {
-		limit = {
-			has_country_flag = is_economic_alliance_leader
-			check_variable = {
-				bsm_is_ranked_flg = 0
-			}
-		}
+	else = {
+		# Fallback: Select the first ranked sphere if available, or none?
+		# For now, if no sphere, clear token (list will be empty)
 		if = {
-			limit = {
-				# Compare against GLOBAL max
-				check_variable = {
-					bsm_ea_total_power > global.bsm_rank_search_max
-				}
+			limit = { 
+				check_variable = { global.bsm_ea_sphere_list^num > 0 }
 			}
-			# Update GLOBAL max
-			set_variable = {
-				global.bsm_rank_search_max = bsm_ea_total_power
-			}
-			set_variable = {
-				global.bsm_rank_search_best_tag = THIS
-			}
+			set_variable = { bsm_ea_selected_token = global.bsm_ea_sphere_list^0 }
+		}
+		else = {
+			set_variable = { bsm_ea_selected_token = 0 }
 		}
 	}
-	# If we found one
+	
+	# 4. Calculate Data for Selected Sphere (for Title/Members view)
 	if = {
-		limit = {
-			check_variable = {
-				global.bsm_rank_search_max > -1
-			}
+		limit = { 
+			# Check if token is valid/set
+			NOT = { check_variable = { bsm_ea_selected_token = 0 } }
 		}
-		# Add to ranking array (on ROOT)
-		ROOT = {
-			add_to_array = {
-				bsm_economic_alliance_ranking = global.bsm_rank_search_best_tag
-			}
-		}
-		# Mark as ranked
-		var:global.bsm_rank_search_best_tag = {
-			set_variable = {
-				bsm_is_ranked_flg = 1
-			}
-			# Store Rank for display if needed
-			set_variable = {
-				bsm_ea_rank = ROOT.bsm_economic_alliance_ranking^num
-			}
-		}
+		bsm_ea_select_sphere_for_gui = yes
 	}
 }

@@ -1,46 +1,42 @@
-
-# ----------------------------------------------------------------------
-# Scripted Effects & Triggers
-# ----------------------------------------------------------------------
-
-# Effect: Join Alliance
-# ROOT = Joiner
-# bsm_ea_leader = Leader (Must be saved as event target)
 bsm_join_economic_alliance_effect = {
-	# 1. Add Leader ID to Joiner's list
-	add_to_array = { array = economic_alliance_ids value = event_target:bsm_ea_leader }
-
-	# 2. Add Joiner ID to Leader's list
-	# 2. Add Joiner ID to Leader's list
-	event_target:bsm_ea_leader = {
-		add_to_array = { array = economic_alliance_members value = ROOT }
-	}
-
-	# 3. Add Relations (Joiner <-> Leader)
-	# 3. Add Relations (Joiner <-> Leader)
-	add_opinion_modifier = { target = event_target:bsm_ea_leader modifier = bsm_economic_alliance_relation_boost }
-	event_target:bsm_ea_leader = { add_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost } }
-
-	# 4. Add Relations (Joiner <-> Other Members)
-	# 4. Add Relations (Joiner <-> Other Members)
-	event_target:bsm_ea_leader = {
-		for_each_scope_loop = {
-			array = economic_alliance_members
-			# Apply to all members except ROOT (and Leader, already done)
-			if = {
-				limit = {
-					NOT = { tag = ROOT }
-					NOT = { tag = event_target:bsm_ea_leader }
-				}
-				# Mutual Relation Boost
-				add_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost }
-				ROOT = { add_opinion_modifier = { target = PREV modifier = bsm_economic_alliance_relation_boost } }
-			}
+	# Determine Leader Scope
+	if = {
+		limit = {
+			event_target:bsm_ea_leader = { always = yes }
+		}
+		event_target:bsm_ea_leader = {
+			save_global_event_target_as = temp_leader_scope
 		}
 	}
+	else = {
+		# Fallback: Assume FROM is leader if not set
+		FROM = { save_global_event_target_as = temp_leader_scope }
+	}
 
-	# 5. Set Member Flag
+	# Manual Join Logic (No Costs)
+	# 1. Get Token
+	event_target:temp_leader_scope = {
+		set_temp_variable = { t_token = bsm_ea_sphere }
+	}
+	set_temp_variable = { bsm_ea_token = event_target:temp_leader_scope.t_token }
+
+	# 2. Join Sphere
+	bsm_ea_join_sphere = yes
+
+	# 3. Flags
 	set_country_flag = is_economic_alliance_member
+
+	# 4. Relations (Simplified: Leader <-> Member)
+	add_opinion_modifier = {
+		target = event_target:temp_leader_scope
+		modifier = bsm_economic_alliance_relation_boost
+	}
+	event_target:temp_leader_scope = {
+		add_opinion_modifier = {
+			target = ROOT
+			modifier = bsm_economic_alliance_relation_boost
+		}
+	}
 }
 
 # Effect: Form Alliance
@@ -49,23 +45,8 @@ bsm_join_economic_alliance_effect = {
 # Assumes bsm_ea_leader and bsm_ea_joiner are NOT set yet?
 # Usually called from event where ROOT=Leader, FROM=Joiner.
 bsm_form_economic_alliance_effect = {
-	# Set up targets
-	save_global_event_target_as = bsm_ea_leader
-	FROM = { save_global_event_target_as = bsm_ea_joiner }
-
-	# Leader Setup
-	set_country_flag = is_economic_alliance_leader
-	set_country_flag = is_economic_alliance_member
-
-	# Leader joins their own member list
-	add_to_array = { array = economic_alliance_members value = ROOT }
-	# Leader adds themselves to their alliance list (to support "I am in an alliance")
-	add_to_array = { array = economic_alliance_ids value = ROOT }
-
-	# Joiner Joins
-	FROM = {
-		bsm_join_economic_alliance_effect = yes
-	}
+	# New action uses ROOT=Leader, FROM=Joiner.
+	bsm_ea_form_sphere_action = yes
 }
 
 
@@ -78,45 +59,39 @@ bsm_form_economic_alliance_effect = {
 # complete_effect = { FROM = { country_event... } bsm_leave_specific_leader_alliance_effect = yes }
 # So here ROOT=Leaver, FROM=Leader.
 bsm_leave_specific_leader_alliance_effect = {
-	# ROOT = Leaver
-	# FROM = Leader
-
-	# Remove Leader ID from Joiner's list
-	remove_from_array = { array = economic_alliance_ids value = FROM }
-
-	# Remove Joiner ID from Leader's list
-	FROM = {
-		remove_from_array = { array = economic_alliance_members value = ROOT }
-	}
-
-	# Remove Relations (Joiner <-> Leader)
-	remove_opinion_modifier = { target = FROM modifier = bsm_economic_alliance_relation_boost }
-	FROM = { remove_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost } }
-
-	# Remove Relations (Joiner <-> Other Members)
-	FROM = {
-		for_each_scope_loop = {
-			array = economic_alliance_members
+	# Manual Leave Logic
+	if = {
+		limit = { has_variable = bsm_ea_sphere }
+		set_temp_variable = { t_token = bsm_ea_sphere }
+		
+		# Remove Relations
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_token
+			value = v_member
 			if = {
 				limit = {
-					NOT = { tag = ROOT }
-					NOT = { tag = FROM }
+					NOT = { var:v_member = { tag = THIS } }
 				}
-				remove_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost }
-				ROOT = { remove_opinion_modifier = { target = PREV modifier = bsm_economic_alliance_relation_boost } }
+				var:v_member = { save_event_target_as = temp_ea_member_leave }
+				event_target:temp_ea_member_leave = {
+					remove_opinion_modifier = { target = THIS modifier = bsm_economic_alliance_relation_boost }
+				}
+				THIS = {
+					remove_opinion_modifier = { target = event_target:temp_ea_member_leave modifier = bsm_economic_alliance_relation_boost }
+				}
 			}
 		}
-	}
 
-	# Check if ROOT is in ANY other alliance.
-	if = {
-		limit = {
-			OR = {
-				NOT = { has_variable = economic_alliance_ids }
-				check_variable = { economic_alliance_ids^num = 0 }
-			}
-		}
+		# Core Leave Effect
+		bsm_ea_leave_sphere = yes
+
+		# Cleanup Flags & Add Cooldown
 		clr_country_flag = is_economic_alliance_member
+		if = {
+			limit = { has_country_flag = is_economic_alliance_leader }
+			clr_country_flag = is_economic_alliance_leader
+		}
+		add_timed_idea = { idea = recently_left_economic_alliance days = 365 }
 	}
 }
 
@@ -128,26 +103,28 @@ bsm_kicked_by_root_effect = {
 
 # Initial Setup: Spain Alliance (SPR + CEU + PML)
 bsm_initialize_spain_alliance = {
+	# Determine Leader
+	set_variable = { bsm_ea_is_leader = yes }
+	save_global_event_target_as = bsm_ea_leader # Save leader for join effect
 
-		# Set as Leader
-		save_global_event_target_as = bsm_ea_leader
-		set_country_flag = is_economic_alliance_leader
-		set_country_flag = is_economic_alliance_member
+	# Generate Token manually or use effect if possible
+	bsm_ea_generate_new_token = yes
+	bsm_ea_create_sphere = yes
 
-		# Leader self-add
-		add_to_array = { array = economic_alliance_members value = ESP }
-		add_to_array = { array = economic_alliance_ids value = ESP }
+	set_country_flag = is_economic_alliance_leader
+	set_country_flag = is_economic_alliance_member
 
-		# Add Members (if they exist)
-		every_other_country = {
-			limit = {
-				OR = {
-					original_tag = CEU
-					original_tag = PML
-				}
-				exists = yes
+	# Add Members
+	every_other_country = {
+		limit = {
+			OR = {
+				original_tag = CEU
+				original_tag = PML
 			}
-			bsm_join_economic_alliance_effect = yes
+			exists = yes
 		}
-	
+		# Make them join
+		# bsm_join_economic_alliance_effect now uses event_target:bsm_ea_leader if set.
+		bsm_join_economic_alliance_effect = yes
+	}
 }

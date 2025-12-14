@@ -245,14 +245,12 @@ ucs_on_monthly = {
 		}
 
 		# 経済同盟の統合経済力計算
-		# 経済同盟の統合経済力計算 (重複可能・合算)
+		# 経済同盟の統合経済力計算 (重複なし・単一所属)
 		set_variable = { var = unified_economic_power_bonus value = 0 }
 
-		# 加盟している全ての同盟IDをループ
-		for_each_loop = {
-			array = economic_alliance_ids
-			value = temp_alliance_id # ループ変数を temp_alliance_id にセット
-
+		# 陣営に所属している場合
+		if = {
+			limit = { has_variable = bsm_ea_sphere }
 			# 統合経済力計算呼び出し
 			ucs_accumulate_alliance_power = yes
 		}
@@ -310,19 +308,18 @@ combined_unified_currency = {
 ucs_accumulate_alliance_power = {
 	set_temp_variable = { var = temp_power value = 0 }
 
-	# 統一ロジック: リーダー経由でメンバーを取得
+	# 統一ロジック: 現在の陣営メンバーを取得
+	if = {
+		limit = { has_variable = bsm_ea_sphere }
 
-	# リーダー国を特定
-	set_temp_variable = { alliance_leader_id = global.economic_alliance_leader^temp_alliance_id }
+		set_temp_variable = { t_token = bsm_ea_sphere }
 
-	# リーダー国の配列をループ
-	every_country = {
-		limit = { check_variable = { id = alliance_leader_id } }
-
-		# メンバーの工場を加算 (リーダー自身も含まれる)
-		for_each_scope_loop = {
-			array = economic_alliance_members
-			add_to_temp_variable = { PREV.PREV.temp_power = num_of_factories }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_token
+			value = v_mem
+			var:v_mem = {
+				add_to_variable = { PREV.temp_power = num_of_factories }
+			}
 		}
 	}
 

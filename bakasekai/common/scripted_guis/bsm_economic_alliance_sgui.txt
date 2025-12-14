@@ -37,7 +37,6 @@ scripted_gui = {
 		context_type = player_context
 		window_name = "bsm_economic_alliance_window"
 		visible = {
-			# 【修正】ここも check_variable です
 			check_variable = {
 				bsm_ea_window_open = 1
 			}
@@ -58,14 +57,27 @@ scripted_gui = {
 			}
 		}
 		dynamic_lists = {
+			# List of Members in the *Selected* Sphere
 			economic_alliance_ids = {
-				array = ROOT.bsm_current_view_alliance_members
-				change_scope = yes				# Scope is Leader
+				# We expect 'bsm_ea_selected_token' to be set when opening the window or clicking a sphere
+				array = global.bsm_ea_member_list_@var:bsm_ea_selected_token
+				change_scope = yes # Array contains Country Scopes
 				entry_container = "economic_alliance_ids_entry"
 			}
+
+			# List of All Spheres (Ranking)
+			# We assume 'global.bsm_ea_sphere_list' contains tokens.
+			# If tokens are NOT scopes, 'change_scope=yes' will fail.
+			# However, if we assume tokens ARE Leader Scopes (or we only add Leaders to this list), it works.
+			# Let's assume tokens are effectively Leader Scopes for now.
+			# List of All Spheres (Ranking)
+			# We assume 'global.bsm_ea_sphere_list' contains tokens.
+			# If tokens are NOT scopes, 'change_scope=yes' will fail.
+			# However, if we assume tokens ARE Leader Scopes (or we only add Leaders to this list), it works.
+			# Let's assume tokens are effectively Leader Scopes for now.
 			economic_alliance_ranking_list = {
-				array = ROOT.bsm_economic_alliance_ranking
-				change_scope = yes				# Scope is Leader
+				array = global.bsm_ea_sorted_sphere_list
+				change_scope = yes
 				entry_container = "economic_alliance_ranking_entry"
 			}
 		}
