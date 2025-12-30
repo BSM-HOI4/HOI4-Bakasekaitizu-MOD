@@ -1,0 +1,130 @@
+# ==========================================
+# BSM 経済陣営システム GUI 操作用 Effect
+# prefix: bsm_ea_
+# ==========================================
+
+# ------------------------------------------
+# ビュー切り替え: 次の陣営
+# ------------------------------------------
+bsm_ea_switch_view_next = {
+	# 現在のインデックスを取得
+	set_temp_variable = { t_found_index = -1 }
+	set_temp_variable = { t_loop_index = 0 }
+	set_temp_variable = { t_target_token = var:bsm_ea_selected_token }
+
+	for_each_loop = {
+		array = bsm_ea_joined_spheres
+		value = v_chk
+		if = {
+			limit = { check_variable = { var:v_chk = var:t_target_token } }
+			set_temp_variable = { t_found_index = t_loop_index }
+		}
+		add_to_variable = { t_loop_index = 1 }
+	}
+
+	if = {
+		limit = { check_variable = { t_found_index > -1 } }
+
+		# 次のインデックスへ
+		add_to_variable = { t_found_index = 1 }
+
+		# 範囲チェック (ループ)
+		# if index >= size, wrap to 0
+		if = {
+			limit = {
+				NOT = { check_variable = { t_found_index < bsm_ea_joined_spheres^num } }
+			}
+			set_temp_variable = { t_found_index = 0 }
+		}
+
+		# 新しいトークンを設定 (配列から取得)
+		set_temp_variable = { t_new_token = 0 }
+		for_loop_effect = {
+			start = 0
+			end = bsm_ea_joined_spheres^num
+			value = idx
+			if = {
+				limit = { check_variable = { idx = t_found_index } }
+				set_temp_variable = { t_new_token = bsm_ea_joined_spheres^idx }
+			}
+		}
+		set_variable = { bsm_ea_selected_token = t_new_token }
+
+		# データ更新
+		bsm_ea_select_sphere_for_gui = yes
+	}
+	else = {
+		# フォールバック
+		if = {
+			limit = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
+			set_variable = {
+				bsm_ea_selected_token = bsm_ea_joined_spheres^0
+			}
+			bsm_ea_select_sphere_for_gui = yes
+		}
+	}
+}
+
+# ------------------------------------------
+# ビュー切り替え: 前の陣営
+# ------------------------------------------
+bsm_ea_switch_view_prev = {
+	# 現在のインデックスを取得
+	set_temp_variable = { t_found_index = -1 }
+	set_temp_variable = { t_loop_index = 0 }
+	set_temp_variable = { t_target_token = var:bsm_ea_selected_token }
+
+	for_each_loop = {
+		array = bsm_ea_joined_spheres
+		value = v_chk
+		if = {
+			limit = { check_variable = { var:v_chk = var:t_target_token } }
+			set_temp_variable = { t_found_index = t_loop_index }
+		}
+		add_to_variable = { t_loop_index = 1 }
+	}
+
+	if = {
+		limit = { check_variable = { t_found_index > -1 } }
+
+		# 前のインデックスへ
+		add_to_variable = { t_found_index = -1 }
+
+		# 範囲チェック (ループ)
+		if = {
+			limit = {
+				check_variable = { t_found_index < 0 }
+			}
+			set_temp_variable = {
+				t_found_index = bsm_ea_joined_spheres^num
+			}
+			add_to_variable = { t_found_index = -1 }
+		}
+
+		# 新しいトークンを設定 (配列から取得)
+		set_temp_variable = { t_new_token = 0 }
+		for_loop_effect = {
+			start = 0
+			end = bsm_ea_joined_spheres^num
+			value = idx
+			if = {
+				limit = { check_variable = { idx = t_found_index } }
+				set_temp_variable = { t_new_token = bsm_ea_joined_spheres^idx }
+			}
+		}
+		set_variable = { bsm_ea_selected_token = t_new_token }
+
+		# データ更新
+		bsm_ea_select_sphere_for_gui = yes
+	}
+	else = {
+		# フォールバック
+		if = {
+			limit = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
+			set_variable = {
+				bsm_ea_selected_token = bsm_ea_joined_spheres^0
+			}
+			bsm_ea_select_sphere_for_gui = yes
+		}
+	}
+}

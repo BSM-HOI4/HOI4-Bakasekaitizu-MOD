@@ -48,6 +48,12 @@ scripted_gui = {
 				}
 				log = "[BSM] EA Window Closed via Close Button"
 			}
+			bsm_ea_next_button_click = {
+				bsm_ea_switch_view_next = yes
+			}
+			bsm_ea_prev_button_click = {
+				bsm_ea_switch_view_prev = yes
+			}
 		}
 		triggers = {
 			bsm_ea_window_visible = {
@@ -55,26 +61,31 @@ scripted_gui = {
 					bsm_ea_window_open = 1
 				}
 			}
+			# We can use triggers here to hide nav buttons via SGUI visible_when?
+			# No, button visibility is usually in .gui file triggers.
+			# But we can expose a trigger for the GUI to check if multiple spheres exist.
+			bsm_ea_has_multiple_spheres = {
+				check_variable = { bsm_ea_joined_spheres^num > 1 }
+			}
 		}
 		dynamic_lists = {
-			# List of Members in the *Selected* Sphere
-			economic_alliance_ids = {
-				# We expect 'bsm_ea_selected_token' to be set when opening the window or clicking a sphere
-				array = global.bsm_ea_member_list_@var:bsm_ea_selected_token
+			# List of Player's Alliances (alliances the player is a member of)
+			economic_alliance_player_list = {
+				array = global.bsm_ea_player_alliance_list
+				change_scope = yes # Array contains Country Scopes (alliance leaders)
+				entry_container = "economic_alliance_player_entry"
+			}
+
+			# List of Members in the *Selected* Sphere (displayed in "Member List" section)
+			economic_alliance_member_list = {
+				# We use a static global array populated by 'bsm_ea_select_sphere_for_gui'
+				# to avoid scope issues with dynamic path interpolation in SGUI.
+				array = global.bsm_ea_gui_display_list
 				change_scope = yes # Array contains Country Scopes
-				entry_container = "economic_alliance_ids_entry"
+				entry_container = "economic_alliance_member_entry"
 			}
 
 			# List of All Spheres (Ranking)
-			# We assume 'global.bsm_ea_sphere_list' contains tokens.
-			# If tokens are NOT scopes, 'change_scope=yes' will fail.
-			# However, if we assume tokens ARE Leader Scopes (or we only add Leaders to this list), it works.
-			# Let's assume tokens are effectively Leader Scopes for now.
-			# List of All Spheres (Ranking)
-			# We assume 'global.bsm_ea_sphere_list' contains tokens.
-			# If tokens are NOT scopes, 'change_scope=yes' will fail.
-			# However, if we assume tokens ARE Leader Scopes (or we only add Leaders to this list), it works.
-			# Let's assume tokens are effectively Leader Scopes for now.
 			economic_alliance_ranking_list = {
 				array = global.bsm_ea_sorted_sphere_list
 				change_scope = yes

@@ -1,0 +1,171 @@
+# Info Display Pattern Template
+# Creates an information panel showing dynamic values
+# Common for topbar resources, stat displays, etc.
+# Placeholders:
+# - SYSTEM_NAME: Your system name
+# - RESOURCE_NAME: Name of the resource/stat (e.g., unity, influence, energy)
+# - VARIABLE_NAME: Variable to display
+
+### SCRIPTED GUI FILE (common/scripted_guis/bsm_SYSTEM_NAME_info.txt) ###
+
+scripted_gui = {
+	bsm_SYSTEM_NAME_info = {
+		context_type = player_context
+		window_name = "bsm_SYSTEM_NAME_info"
+		parent_window_token = top_bar  # Or omit for custom placement
+
+		visible = {
+			has_country_flag = SYSTEM_NAME_enabled
+		}
+
+		# Optional: Use dirty variable if display doesn't need per-tick updates
+		# dirty = SYSTEM_NAME_update_trigger
+
+		ai_enabled = {
+			always = no
+		}
+	}
+}
+
+### GUI FILE (interface/bsm_SYSTEM_NAME_info.gui) ###
+
+guiTypes = {
+	containerWindowType = {
+		name = "bsm_SYSTEM_NAME_info"
+		position = { x = 0 y = 0 }
+		size = { width = 100%% height = 100%% }
+
+		# Single stat display (topbar style)
+		containerWindowType = {
+			name = "RESOURCE_NAME_display"
+			position = { x = 100 y = 8 }  # Adjust position for topbar
+			size = { width = 56 height = 30 }
+			orientation = UPPER_LEFT
+
+			background = {
+				position = { x = 2 y = 1 }
+				name = "resource_bg"
+				quadTextureSprite = "GFX_bg_mini_tooltip"
+				pdx_tooltip = "RESOURCE_NAME_tooltip_title"
+				pdx_tooltip_delayed = "RESOURCE_NAME_tooltip_desc"
+			}
+
+			iconType = {
+				name = "resource_icon"
+				spriteType = "GFX_resource_RESOURCE_NAME"
+				position = { x = 4 y = 2 }
+				orientation = UPPER_LEFT
+				alwaystransparent = yes
+
+				pdx_tooltip = "RESOURCE_NAME_tooltip_title"
+				pdx_tooltip_delayed = "RESOURCE_NAME_tooltip_desc"
+			}
+
+			instantTextBoxType = {
+				name = "RESOURCE_VALUE"
+				position = { x = 19 y = 5 }
+				font = "vanilla_hoi_18mbs"
+				text = "RESOURCE_VALUE"  # Scripted loc key
+				format = left
+				maxWidth = 50
+				maxHeight = 24
+				fixedsize = yes
+				alwaystransparent = yes
+
+				pdx_tooltip = "RESOURCE_NAME_tooltip_title"
+				pdx_tooltip_delayed = "RESOURCE_NAME_tooltip_desc"
+			}
+		}
+
+		# Multi-stat panel
+		containerWindowType = {
+			name = "stats_panel"
+			position = { x = -300 y = 100 }
+			size = { width = 280 height = 200 }
+			orientation = UPPER_RIGHT
+
+			background = {
+				name = "panel_bg"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+
+			# Stat row template
+			containerWindowType = {
+				name = "stat_row_1"
+				position = { x = 10 y = 10 }
+				size = { width = 260 height = 30 }
+
+				iconType = {
+					name = "stat_icon"
+					spriteType = "GFX_stat_icons"
+					position = { x = 0 y = 0 }
+					frame = 1
+				}
+
+				instantTextBoxType = {
+					name = "stat_label"
+					position = { x = 35 y = 5 }
+					font = "hoi_18mbs"
+					text = "stat_label_1"
+					format = left
+					maxWidth = 120
+				}
+
+				instantTextBoxType = {
+					name = "stat_value"
+					position = { x = 160 y = 5 }
+					font = "hoi_18mbs"
+					text = "STAT_VALUE_1"  # Scripted loc
+					format = right
+					maxWidth = 90
+				}
+			}
+
+			# Add more stat rows as needed (stat_row_2, stat_row_3, etc.)
+		}
+	}
+}
+
+### SCRIPTED LOCALISATION FILE (common/scripted_localisation/bsm_SYSTEM_NAME_loc.txt) ###
+
+defined_text = {
+	name = RESOURCE_VALUE
+	text = {
+		localization_key = "resource_value_display"
+		trigger = { always = yes }
+	}
+}
+
+defined_text = {
+	name = STAT_VALUE_1
+	text = {
+		localization_key = "stat_1_display"
+		trigger = { always = yes }
+	}
+}
+
+### LOCALISATION FILE (localisation/japanese/bsm_SYSTEM_NAME_l_japanese.yml) ###
+
+l_japanese:
+ RESOURCE_NAME_tooltip_title:0 "RESOURCE_NAME"
+ RESOURCE_NAME_tooltip_desc:0 "詳細説明: [?VARIABLE_NAME]"
+
+ resource_value_display:0 "[?VARIABLE_NAME]"
+ stat_1_display:0 "[?stat_variable]"
+ stat_label_1:0 "統計1:"
+
+### SCRIPTED EFFECT (common/scripted_effects/bsm_SYSTEM_NAME_effects.txt) ###
+
+# Update resource value
+bsm_SYSTEM_NAME_update_resource = {
+	add_to_variable = { VARIABLE_NAME = 10 }
+
+	# If using dirty variable, trigger GUI update
+	# add_to_variable = { SYSTEM_NAME_update_trigger = 1 }
+}
+
+# Initialize
+bsm_SYSTEM_NAME_initialize = {
+	set_variable = { VARIABLE_NAME = 0 }
+	set_country_flag = SYSTEM_NAME_enabled
+}

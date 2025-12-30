@@ -34,14 +34,14 @@ bsm_ea_can_form_sphere_visible = {
 	}
 	# 対象と経済陣営を結成していない (Both must be empty or different?)
 	# Usually means neither is in a sphere
-	NOT = {
-		has_variable = bsm_ea_sphere
-	}
-	FROM = {
-		NOT = {
-			has_variable = bsm_ea_sphere
-		}
-	}
+	# NOT = {
+	# 	has_variable = bsm_ea_sphere
+	# }
+	# FROM = {
+	# 	NOT = {
+	# 		has_variable = bsm_ea_sphere
+	# 	}
+	# }
 	# 戦争していない
 	NOT = {
 		has_war_with = FROM
@@ -94,8 +94,12 @@ bsm_ea_can_join_sphere_visible = {
 		}
 	}
 	# Already in sphere?
+	# NOT = {
+	# 	has_variable = bsm_ea_sphere
+	# }
+	# Prevent duplicate join
 	NOT = {
-		has_variable = bsm_ea_sphere
+		is_in_array = { bsm_ea_joined_spheres = FROM.bsm_ea_sphere }
 	}
 }
 

@@ -1,0 +1,185 @@
+# BSM経済同盟システムテスト用ディシジョン
+
+bsm_ea_test_category = {
+
+	bsm_ea_test_create_sphere = {
+		icon = GFX_decision_generic_political_discourse
+		
+		available = {
+			always = yes
+		}
+		
+		visible = {
+			always = yes
+		}
+		
+		cost = 10
+		fire_only_once = no
+		
+		complete_effect = {
+			log = "[BSM EA TEST] === Creating test economic sphere ==="
+			bsm_ea_generate_new_token = yes
+			bsm_ea_create_sphere = yes
+			log = "[BSM EA TEST] === Test sphere created ==="
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	bsm_ea_test_refresh_gui = {
+		icon = GFX_decision_generic_prepare_civil_war
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			bsm_update_ea_gui_data = yes
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	bsm_ea_test_reset_flags = {
+		icon = GFX_decision_generic_ignite_civil_war
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[BSM EA TEST] Resetting all EA flags and variables for [THIS.GetName]"
+			clear_variable = bsm_ea_is_leader
+			clear_array = bsm_ea_joined_spheres
+			log = "[BSM EA TEST] Reset completed"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	bsm_ea_test_init_currency = {
+		icon = GFX_decision_generic_form_nation
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[BSM EA TEST] Initializing Unified_Currency_Last_Month_gain = 100"
+			set_variable = {
+				Unified_Currency_Last_Month_gain = 100
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	bsm_ea_test_clear_global_flag = {
+		icon = GFX_decision_generic_ignite_civil_war
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[BSM EA TEST] Clearing global flag: bsm_ea_initial_factions_created"
+			clr_global_flag = bsm_ea_initial_factions_created
+			log = "[BSM EA TEST] Global flag cleared"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	bsm_ea_test_run_initialization = {
+		icon = GFX_decision_generic_political_discourse
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[BSM EA TEST] Manually triggering bsm_ea_init_initial_factions"
+			bsm_ea_init_initial_factions = yes
+			log = "[BSM EA TEST] Initialization trigger completed"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	bsm_ea_test_reset_all_countries = {
+		icon = GFX_decision_generic_ignite_civil_war
+
+		available = {
+			always = yes
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[BSM EA TEST] Resetting all countries' EA variables"
+			every_country = {
+				clear_variable = bsm_ea_is_leader
+				clear_variable = bsm_ea_sphere
+				clear_array = bsm_ea_joined_spheres
+			}
+			clear_array = global.bsm_ea_sphere_list
+			log = "[BSM EA TEST] All countries reset. Global sphere list size: [?global.bsm_ea_sphere_list^num]"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

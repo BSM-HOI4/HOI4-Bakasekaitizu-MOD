@@ -1,9 +1,18 @@
 on_actions = {
+
 	on_startup = {
 		effect = {
-			ESP =  {bsm_initialize_spain_alliance = yes}
+			# Use system country tag '_' for initialization
+			'_' = {
+				log = "========== ON_STARTUP TRIGGERED =========="
+				log = "[BSM EA] About to call bsm_ea_init_initial_factions"
+				bsm_ea_init_system = yes
+				bsm_ea_init_initial_factions = yes
+				log = "[BSM EA] Returned from bsm_ea_init_initial_factions"
+			}
 		}
 	}
+
 	on_weekly = {
 		effect = {
 			bsm_update_economic_alliance_power_share = yes

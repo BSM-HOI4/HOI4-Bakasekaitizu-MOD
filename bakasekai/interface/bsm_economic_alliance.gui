@@ -35,21 +35,21 @@ guiTypes = {
 			format = center
 		}
 
-		# --- My Alliance Section ---
+		# --- Player's Alliances Section ---
 		instantTextboxType = {
-			name = "my_alliance_header"
+			name = "my_alliances_header"
 			position = { x = 20 y = 50 }
 			font = "hoi_16mbs"
-			text = "BSM_EA_MY_ALLIANCE_HEADER"
+			text = "BSM_EA_MY_ALLIANCES_HEADER"
 			maxWidth = 460
 			format = left
 		}
 
+		# Player's Alliances List Container
 		containerWindowType = {
-			name = "my_alliance_container"
+			name = "player_alliance_list_container"
 			position = { x = 20 y = 75 }
-			size = { width = 460 height = 50 }
-			margin = { top = 0 bottom = 0 }
+			size = { width = 460 height = 60 }
 			verticalScrollbar = "right_vertical_slider"
 
 			background = {
@@ -58,19 +58,61 @@ guiTypes = {
 			}
 
 			gridBoxType = {
-				name = "economic_alliance_ids"
+				name = "economic_alliance_player_list"
 				position = { x = 0 y = 0 }
-				size = { width = 440 height = 100% } # Reduce width for scrollbar
-				slotsize = { width = 460 height = 40 }
+				size = { width = 440 height = 100% }
+				slotsize = { width = 440 height = 30 }
 				format = "UPPER_LEFT"
 				max_slots_horizontal = 1
 			}
 		}
-		
+
+		# --- Selected Alliance Members Section ---
+		instantTextboxType = {
+			name = "members_header"
+			position = { x = 20 y = 145 }
+			font = "hoi_16mbs"
+			text = "BSM_EA_MEMBERS_HEADER"
+			maxWidth = 460
+			format = left
+		}
+
+		# Members List Container
+		containerWindowType = {
+			name = "member_list_container"
+			position = { x = 20 y = 170 }
+			size = { width = 460 height = 80 }
+			verticalScrollbar = "right_vertical_slider"
+
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+
+			gridBoxType = {
+				name = "economic_alliance_member_list"
+				position = { x = 0 y = 0 }
+				size = { width = 440 height = 100% }
+				slotsize = { width = 440 height = 30 }
+				format = "UPPER_LEFT"
+				max_slots_horizontal = 1
+			}
+		}
+
+		# No Alliance Text (shown when not in any alliance)
+		instantTextboxType = {
+			name = "no_alliance_text"
+			position = { x = 20 y = 85 }
+			font = "hoi_16mbs"
+			text = "[GetNoAllianceText]"
+			maxWidth = 460
+			format = center
+		}
+
 		# --- Global Ranking Section ---
 		instantTextboxType = {
 			name = "ranking_header"
-			position = { x = 20 y = 135 }
+			position = { x = 20 y = 260 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_RANKING_HEADER"
 			maxWidth = 460
@@ -80,7 +122,7 @@ guiTypes = {
 		# Ranking Header Labels (Outside Scroll)
 		containerWindowType = {
 			name = "ranking_header_row"
-			position = { x = 20 y = 160 }
+			position = { x = 20 y = 285 }
 			size = { width = 460 height = 20 }
 			
 			instantTextboxType = {
@@ -112,8 +154,8 @@ guiTypes = {
 		# Ranking List (Scrollable)
 		containerWindowType = {
 			name = "ranking_container"
-			position = { x = 20 y = 185 } # Adjusted Y down to make room for header
-			size = { width = 460 height = 395 } # Adjusted height
+			position = { x = 20 y = 310 } # Adjusted Y down to make room for player & member lists
+			size = { width = 460 height = 270 } # Adjusted height
 			margin = { top = 0 bottom = 0 }
 			verticalScrollbar = "right_vertical_slider"
 			
@@ -133,36 +175,82 @@ guiTypes = {
 		}
 	}
 
-	# Entry: My Alliance
+	# Entry: Player's Alliance (alliance the player is in)
 	containerWindowType = {
-		name = "economic_alliance_ids_entry"
+		name = "economic_alliance_player_entry"
 		position = { x = 0 y = 0 }
-		size = { width = 460 height = 40 }
-		
+		size = { width = 460 height = 30 }
+
 		# Background needs tooltip
 		buttonType = {
 			name = "entry_bg"
 			position = { x = 0 y = 0 }
 			quadTextureSprite = "GFX_tiled_plain_bg"
-			size = { x=460 y=40 }
-			pdx_tooltip = "BSM_EA_MEMBERS_TOOLTIP" # Dynamic Tooltip
+			size = { x=460 y=30 }
+			pdx_tooltip = "[GetEATooltip]"
 		}
-		
+
 		instantTextboxType = {
-			name = "alliance_info"
-			position = { x = 10 y = 10 }
+			name = "alliance_name"
+			position = { x = 10 y = 6 }
 			font = "bsm_16"
-			text = "[THIS.GetName]" # Direct name for members
-			maxWidth = 300
+			text = "[THIS.GetFlag] [THIS.GetEAName]"
+			maxWidth = 280
 			format = left
 			alwaystransparent = yes
 		}
-		
+
+		instantTextboxType = {
+			name = "alliance_members"
+			position = { x = 320 y = 6 }
+			font = "bsm_16"
+			text = "[?bsm_ea_mem_count|Y0]"
+			maxWidth = 50
+			format = center
+			alwaystransparent = yes
+		}
+
 		instantTextboxType = {
 			name = "alliance_power"
-			position = { x = 330 y = 10 }
+			position = { x = 380 y = 6 }
 			font = "bsm_16"
-			text = "[?bsm_ea_member_power|Y0]" # Member power
+			text = "[?bsm_ea_total_power|Y0]"
+			maxWidth = 60
+			format = right
+			alwaystransparent = yes
+		}
+	}
+
+	# Entry: Member in Selected Alliance
+	containerWindowType = {
+		name = "economic_alliance_member_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 460 height = 30 }
+
+		# Background needs tooltip
+		buttonType = {
+			name = "entry_bg"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_tiled_plain_bg_small"
+			size = { x=460 y=30 }
+			pdx_tooltip = "BSM_EA_MEMBER_TOOLTIP"
+		}
+
+		instantTextboxType = {
+			name = "member_name"
+			position = { x = 10 y = 6 }
+			font = "bsm_16"
+			text = "[THIS.GetFlag] [THIS.GetName]"
+			maxWidth = 290
+			format = left
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "member_power"
+			position = { x = 330 y = 6 }
+			font = "bsm_16"
+			text = "[?bsm_ea_member_power|Y0]"
 			maxWidth = 110
 			format = right
 			alwaystransparent = yes
@@ -174,34 +262,36 @@ guiTypes = {
 		name = "economic_alliance_ranking_entry"
 		position = { x = 0 y = 0 }
 		size = { width = 460 height = 30 }
-		
-		background = {
-			name = "Background"
+
+		buttonType = {
+			name = "entry_bg"
+			position = { x = 0 y = 0 }
 			quadTextureSprite = "GFX_tiled_plain_bg_small"
-			pdx_tooltip = "BSM_EA_MEMBERS_TOOLTIP"
+			size = { x = 460 y = 30 }
+			pdx_tooltip = "BSM_EA_RANKING_TOOLTIP"
 		}
-		
+
 		instantTextboxType = {
 			name = "rank"
 			position = { x = 10 y = 6 }
 			font = "bsm_16"
-			text = "BSM_EA_RANK_VALUE" # "[?bsm_ea_rank]"
+			text = "BSM_EA_RANK_VALUE"
 			maxWidth = 50
 			format = center
 			alwaystransparent = yes
 		}
-		
+
 		instantTextboxType = {
 			name = "name"
 			position = { x = 70 y = 6 }
 			font = "bsm_16"
-			text = "BSM_EA_ENTRY_TEXT"
+			text = "[THIS.GetFlag] [THIS.GetEAName]"
 			maxWidth = 250
 			format = left
 			alwaystransparent = yes
 			fixedsize = yes
 		}
-		
+
 		instantTextboxType = {
 			name = "power"
 			position = { x = 330 y = 6 }
@@ -213,14 +303,35 @@ guiTypes = {
 		}
 	}
 
-	# Button Container (unchanged mostly, but pos might need adjustment if using absolute)
-	# The previous file had this, but SGUI expects it.
+	# Navigation Buttons (Multiple Spheres)
+	containerWindowType = {
+		name = "bsm_ea_nav_container"
+		position = { x = 20 y = 50 } # Same Y as Header
+		size = { width = 460 height = 30 }
+		
+		buttonType = {
+			name = "bsm_ea_prev_button"
+			position = { x = 300 y = -5 }
+			quadTextureSprite = "GFX_browser_back" # Placeholder sprite, needs check
+			scale = 0.8
+			pdx_tooltip = "BSM_EA_PREV_TOOLTIP"
+		}
+
+		buttonType = {
+			name = "bsm_ea_next_button"
+			position = { x = 340 y = -5 }
+			quadTextureSprite = "GFX_browser_forward" # Placeholder sprite, needs check
+			scale = 0.8
+			pdx_tooltip = "BSM_EA_NEXT_TOOLTIP"
+		}
+	}
+
+	# Button Container
 	containerWindowType = {
 			name = "bsm_ea_button_container"
-			position = { x = 380 y = 390 } # Keep this pos or adjust? It's parented to politics tab usually?
-			# SGUI says: parent_window_token = politics_tab. So coordinates are relative to Politics Tab.
+			position = { x = 380 y = 390 }
 			size = { width = 200 height = 50 }
-			
+
 			buttonType = {
 				name = "bsm_open_ea_window_button"
 				position = { x = 0 y = 0 }
