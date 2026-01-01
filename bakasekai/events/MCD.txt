@@ -8,15 +8,11 @@ country_event = {
 	fire_only_once = no
 
 	major = no
-	is_triggered_only = no
+	is_triggered_only = yes
 
 	trigger = {
 		tag = MAC
 		MAC = { has_idea = Dieting_1 }
-	}
-
-	mean_time_to_happen = {
-		days = 30
 	}
 
 	option = {
@@ -68,15 +64,11 @@ country_event = {
 	fire_only_once = no
 
 	major = no
-	is_triggered_only = no
+	is_triggered_only = yes
 
 	trigger = {
 		tag = MAC
 		MAC = { has_idea = Dieting_2 }
-	}
-
-	mean_time_to_happen = {
-		days = 60
 	}
 
 	option = {
@@ -126,15 +118,11 @@ country_event = {
 	fire_only_once = no
 
 	major = no
-	is_triggered_only = no
+	is_triggered_only = yes
 
 	trigger = {
 		tag = MAC
 		MAC = { has_idea = Dieting_3 }
-	}
-
-	mean_time_to_happen = {
-		days = 180
 	}
 
 	option = {
@@ -184,15 +172,11 @@ country_event = {
 	fire_only_once = no
 
 	major = no
-	is_triggered_only = no
+	is_triggered_only = yes
 
 	trigger = {
 		tag = MAC
 		MAC = { has_idea = Dieting_1_2}
-	}
-
-	mean_time_to_happen = {
-		days = 30
 	}
 
 	option = {
@@ -212,15 +196,11 @@ country_event = {
 	fire_only_once = no
 
 	major = no
-	is_triggered_only = no
+	is_triggered_only = yes
 
 	trigger = {
 		tag = MAC
 		MAC = { has_idea = Dieting_2_2 }
-	}
-
-	mean_time_to_happen = {
-		days = 60
 	}
 
 	option = {
@@ -312,8 +292,8 @@ country_event = {
 }
 
 country_event = {
-	id = MCD.8	#国家元首の旅行
-	title = MCD.8.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
+	id = MCD.8	#
+	title = MCD.8.t #
 	desc = MCD.8.d
 
 	fire_only_once = yes
@@ -326,7 +306,7 @@ country_event = {
 	}
 
 	option = {
-		name = MCD.8.a  #絶対に止めるべきだ!
+		name = MCD.8.a  #
 		trigger = {
 			has_country_flag = MAC_MAC
 		}
@@ -384,7 +364,6 @@ country_event = {
 	title = MCD.9.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
 	desc = MCD.9.d
 
-	fire_only_once = yes
 
 	major = no
 	is_triggered_only = yes
@@ -419,7 +398,6 @@ country_event = {
 	title = MCD.10.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
 	desc = MCD.10.d
 
-	fire_only_once = yes
 
 	major = no
 	is_triggered_only = yes
@@ -521,5 +499,482 @@ country_event = {
 		}
 		set_country_flag = MAC_pepsi_flag
 		country_event = { id = MCD.11 }
+	}
+}
+
+country_event = {
+	id = MCD.13	#ペプシ派からの電報
+	title = MCD.13.t 
+	desc = MCD.13.d
+	#ペプシ社から業務提携の申し出があった。現在[countryname]国内で現在コカコーラ社とペプシ社が争っており我が国の協力を得ることで国内での影響力を高めようとしている。
+	#見返りとしてソ連国内にペプシコーラの支社を我が国政府と合同で設立し国内で生産・販売するということだそうだ。認めるべきだろうか。
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = SOV
+	}
+
+	option = {
+		name = MCD.13.a  #国民に嗜好飲料を提供することは非常に重要だ
+		ai_chance = {
+			factor = 100
+		}
+		add_offsite_building = { type = industrial_complex level = 3 }
+		if = {
+			limit = {
+				MAC ={ has_country_flag = MAC_pepsi_flag}
+			}
+			MAC = { 
+				country_event = { id = MCD.14 }
+			}
+		}
+		else = {
+			MAC = { 
+				country_event = { id = MCD.16 }
+			}
+		}
+		
+	}
+	option = {
+		name = MCD.13.b  #我々はいかなる形の資本主義にも屈しない!
+		ai_chance = {
+			factor = 0
+		}
+		if = {
+			limit = {
+				MAC ={ has_country_flag = MAC_pepsi_flag}
+			}
+			MAC = { country_event = { id = MCD.15 } }
+		}
+		add_political_power = 50
+	}
+}
+
+country_event = {
+	id = MCD.14	#ソビエトからの返答
+	title = MCD.14.t 
+	desc = MCD.14.d
+	#彼らは我々の申し出を受け、国内に工場を建設することを受諾した。これで国内での影響力を高められるだろう。
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+	}
+
+	option = {
+		name = MCD.14.a  #素晴らしい
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
+		MAC_congress_medium_support = yes
+		MAC = { country_event = { id = MCD.14 } }
+	}
+}
+
+country_event = {
+	id = MCD.15	#ソビエトからの返答
+	title = MCD.15.t 
+	desc = MCD.15.d
+	#彼らはたれわれの申し出を断った。
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+	}
+
+	option = {
+		name = MCD.15.a  #なんてことだ
+		ai_chance = {
+			factor = 100
+		}
+		add_political_power = -30
+	}
+}
+
+country_event = {
+	id = MCD.16	#ペプシ社の交渉
+	title = MCD.16.t 
+	desc = MCD.16.d
+	#ペプシ社はあろうことかソビエト政府とコーラ販売に関する交渉を行い、成功させた。我々はこのことを断固非難すべきだ。
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+		has_country_flag = MAC_coca_flag
+	}
+
+	option = {
+		name = MCD.16.a  #即座に対応すべき
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
+		}
+		MAC_congress_medium_opposition = yes
+	}
+}
+
+country_event = {
+	id = MCD.17	#ペプシ社の交渉
+	title = MCD.17.t 
+	desc = MCD.17.d
+	#ペプシ社はあろうことかソビエト政府とコーラ販売に関する交渉を行ったが失敗している。彼らの影響力は低下するだろう。
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+		has_country_flag = MAC_coca_flag
+	}
+
+	option = {
+		name = MCD.17.a  #ざまあみろ！
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
+		}
+	}
+}
+
+country_event = {
+	id = MCD.18	#コカ・コーラ社の演説
+	title = MCD.18.t 
+	desc = MCD.18.d
+	#コカ・コーラ社は連邦議会に於ける努力が実りついに議会演説をすることができた。結果としては大成功であり議会のコカ・コーラ社への支持は不動のものとなった。
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+		has_country_flag = MAC_coca_flag
+	}
+
+	option = {
+		name = MCD.18.a  #我々は一歩勝利に近づいた
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
+		}
+	}
+
+	option = {
+		name = MCD.18.b  #先を越されてしまった…
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
+	}
+}
+
+country_event = {
+	id = MCD.19	#ペプシ社の演説
+	title = MCD.19.t 
+	desc = MCD.19.d
+	#ペプシ社は連邦議会に於ける努力が実りついに議会演説をすることができた。結果としては大成功であり議会のペプシ社への支持は不動のものとなった。
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+		has_country_flag = MAC_coca_flag
+	}
+
+	option = {
+		name = MCD.19.a  #我々は一歩勝利に近づいた
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
+	}
+
+	option = {
+		name = MCD.19.b  #先を越されてしまった…
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
+		}
+	}
+}
+
+country_event = {
+	id = MCD.20	#マック・マクド論争
+	title = MCD.20.t 
+	desc = MCD.20.d
+	#マクドナルドの略称は「マック」であるか「マクド」であるかは日ごろから論争が繰り広げられていたがマクドナルドが正式に国家になるにあたってこの論争は激化の一途をたどっている。我々はこの問題を終結に導かなければならない
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+	}
+
+	option = {
+		name = MCD.19.a  #我々の呼び方こそが正しく、理にかなっている！
+		ai_chance = {
+			factor = 100
+		}
+		custom_effect_tooltip = start_MACMCD_war_tt#マック・マクドのBoPが開始する
+	}
+}
+
+country_event = {
+	id = MCD.21	#レナード対ペプシコ事件
+	title = MCD.21.t 
+	desc = MCD.21.d
+	#
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+	}
+
+	option = {
+		name = MCD.21.a  #この訴訟を見届けよう
+		ai_chance = {
+			factor = 100
+		}
+		MAC_bop_medium_increase_effect = yes
+		
+	}
+}
+
+country_event = {
+	id = MCD.22 #ペプシの勝利
+	title = MCD.22.t 
+	desc = MCD.22.d
+	#
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+	}
+
+	option = {
+		name = MCD.22.a  #我々の勝利だ！
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
+		MAC_bop_remove_bop_effect = yes
+		add_ideas = MAC_elect_pepsi_idea
+		remove_ideas = MAC_cola_capitalism_idea
+		remove_ideas = MAC_spread_coke
+		remove_ideas = MAC_mass_propaganda_campaign_idea
+		remove_ideas = MAC_NRA_support
+		
+	}
+
+	option = {
+		name = MCD.22.b  #我々の敗北だ…
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
+		}
+		MAC_bop_remove_bop_effect = yes
+		add_ideas = MAC_elect_pepsi_idea
+		remove_ideas = MAC_cola_capitalism_idea
+		remove_ideas = MAC_spread_coke
+		remove_ideas = MAC_mass_propaganda_campaign_idea
+		remove_ideas = MAC_NRA_support
+		
+	}
+}
+
+country_event = {
+	id = MCD.23 #コカ・コーラの勝利
+	title = MCD.23.t 
+	desc = MCD.23.d
+	#
+	fire_only_once = yes
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+		tag = MAC
+	}
+
+	option = {
+		name = MCD.23.a  #我々の勝利だ！
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
+		}
+		MAC_bop_remove_bop_effect = yes
+		add_ideas = MAC_elect_coke_idea
+		remove_ideas = MAC_pepsi_propaganda_idea
+		remove_ideas = MAC_pepsi_guerrilla_idea
+	}
+
+	option = {
+		name = MCD.23.b  #我々の敗北だ…
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
+		MAC_bop_remove_bop_effect = yes
+		add_ideas = MAC_elect_coke_idea
+		remove_ideas = MAC_pepsi_propaganda_idea
+		remove_ideas = MAC_pepsi_guerrilla_idea
+		
+	}
+}
+
+country_event = {
+	id = MCD.24 #争いの激化
+	title = MCD.24.t 
+	desc = MCD.24.d
+	#
+	fire_only_once = yes
+	major = no
+	is_triggered_only = yes
+	trigger = {
+		tag = MAC
+	}
+	option = {
+		name = MCD.24.a  #我々は実力行使も辞さない
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_flag
+		}
+		MAC_bop_remove_bop_effect = yes
+		if = {
+			limit = {
+				has_cosmetic_tag = MACbyMAC
+			}
+			set_cosmetic_tag = MACbyMAC_pepsi
+			start_civil_war = {
+				ideology = stupidism
+				size = 0.5
+				set_cosmetic_tag = MACbyMAC_coke
+			}
+		}
+		else_if = {
+			limit = {
+				has_cosmetic_tag = MCDbyMAC
+			}
+			set_cosmetic_tag = MCDbyMACbyMAC
+			start_civil_war = {
+				ideology = stupidism
+				size = 0.5
+				set_cosmetic_tag = MCDbyMAC_coke
+			}
+		}
+		set_cosmetic_tag = MAC_pepsi
+		start_civil_war = {
+			ideology = stupidism
+			size = 0.5
+			set_cosmetic_tag = MAC_coke
+		}
+
+	}
+
+	option = {
+		name = MCD.24.b  #我々は実力行使も辞さない
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_coca_flag
+		}
+		MAC_bop_remove_bop_effect = yes
+		if = {
+			limit = {
+				has_cosmetic_tag = MACbyMAC
+			}
+			set_cosmetic_tag = MACbyMAC_coke
+			start_civil_war = {
+				ideology = stupidism
+				size = 0.5
+				set_cosmetic_tag = MACbyMAC_pepsi
+			}
+		}
+		else_if = {
+			limit = {
+				has_cosmetic_tag = MCDbyMAC
+			}
+			set_cosmetic_tag = MCDbyMAC_coke
+			start_civil_war = {
+				ideology = stupidism
+				size = 0.5
+				set_cosmetic_tag = MCDbyMAC_pepsi
+			}
+		}
+		set_cosmetic_tag = MAC_coke
+		start_civil_war = {
+			ideology = stupidism
+			size = 0.5
+			set_cosmetic_tag = MAC_pepsi
+		}
+	}
+}
+
+country_event = {
+	id = MCD.25 #志高い民衆
+	title = MCD.25.t 
+	desc = MCD.25.d
+	#
+	fire_only_once = yes
+	major = no
+	is_triggered_only = yes
+	trigger = {
+		tag = MAC
+	}
+	option = {
+		name = MCD.25.a  #すばらしい
+		ai_chance = {
+			factor = 100
+		}
+		load_oob = "MAC_cola_war_units"
 	}
 }
