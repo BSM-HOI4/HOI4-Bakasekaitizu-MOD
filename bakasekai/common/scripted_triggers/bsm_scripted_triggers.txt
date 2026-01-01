@@ -14,6 +14,23 @@ have_free_slot_for_arms_factory = {
     }
 }
 
+# 謎がヨーロッパ大陸を支配しているかどうか
+mys_controls_european_continent_trigger = {
+    NOT = {
+        any_state = {
+            is_on_continent = europe
+            NOT = {
+                OR = {
+                    is_owned_by = ROOT
+                    owner = {
+                        is_subject_of = ROOT
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 # 外交アクション「請求権捏造」を開始できるかどうかのトリガー
 # ROOTスコープ: アクションを実行しようとしている国 (自国)
@@ -55,4 +72,27 @@ bsm_can_fabricate_claim_on_this_state_in_event_trigger = {
         is_neighbor_of = ROOT # イベントのROOTは自国
         is_coastal = yes
     }
+}
+# ディズニーランドが北米大陸を完全支配しているかどうか
+# DIS限定のチェックであり、北米大陸のいずれかの州がDIS以外に支配されていれば失敗する
+# 大陸判定はis_on_continent = north_americaを利用する
+# 将来的に他国でも再利用する場合はROOT参照に置き換えること
+# ここではシンプルにDIS専用で十分
+# NOTE: すべての北米州に支配国が存在することを前提としている（HOI4デフォルト仕様）
+dis_controls_north_america = {
+    NOT = {
+        any_state = {
+            is_on_continent = north_america
+            NOT = { is_controlled_by = DIS }
+        }
+    }
+}
+
+NOR_AAT = {
+    tag = NOR
+    has_dlc = "Arms Against Tyranny"
+}
+
+PHI_SEA = {
+	always = no
 }

@@ -177,9 +177,9 @@ country_event = {
     title = LON.11.t
     desc = LON.11.desc
     picture = GFX_report_event_ireland_generic_1 # 適当な汎用画像
-    
+
     is_triggered_only = yes
-    
+
     option = {
         name = LON.11.a # 交渉を進める
         ai_chance = { factor = 80 }
@@ -204,7 +204,7 @@ country_event = {
     picture = GFX_report_event_ireland_generic_2 # 適当な汎用画像
 
     is_triggered_only = yes
-    
+
     trigger = {
         has_country_flag = LON_ireland_negotiations_ongoing# [cite: 13]
     }
@@ -233,9 +233,9 @@ country_event = {
     title = LON.13.t
     desc = LON.13.desc
     picture = GFX_report_event_dominion # 適当な画像
-    
+
     is_triggered_only = yes
-    
+
     option = {
         name = LON.13.a # イギリスが同意
         ai_chance = {
@@ -278,9 +278,9 @@ country_event = {
     title = LON.14.t
     desc = LON.14.desc
     picture = GFX_report_event_london_bridge_destroyed # ロンドン橋破壊の画像
-    
+
     is_triggered_only = yes
-    
+
     immediate = {
         clr_country_flag = LON_london_bridge_exists
         add_stability = -0.15
@@ -288,7 +288,7 @@ country_event = {
         # 橋の損耗度を最大に設定
         set_variable = { LON_london_bridge_condition = 100 }# [cite: 20]
     }
-    
+
     option = {
         name = EVT_OK
     }
@@ -300,7 +300,7 @@ country_event = {
     title = LON.15.t
     desc = LON.15.desc
     picture = GFX_report_event_bridge_damage # 橋の損傷の画像
-    
+
     # is_triggered_only を削除するか no に設定しないと mean_time_to_happen は機能しません。
     # 今回は手動でトリガーされることを想定しているため、mean_time_to_happen を削除します。
     # is_triggered_only = yes# [cite: 21] # この行はコメントアウトまたは削除します。
@@ -349,7 +349,7 @@ country_event = {
     title = LON.16.t
     desc = LON.16.desc
     picture = GFX_report_event_bridge_critical # 橋が危険な状態の画像
-    
+
     is_triggered_only = yes # mean_time_to_happen がないため is_triggered_only を維持
 
     trigger = {
@@ -364,7 +364,7 @@ country_event = {
         add_stability = -0.05
         add_war_support = -0.03
     }
-    
+
     option = {
         name = EVT_OK
     }
@@ -378,7 +378,7 @@ country_event = {
     title = LON.17.t
     desc = LON.17.desc
     picture = GFX_report_event_economic_crisis # 経済危機を示す汎用画像# [cite: 27]
-    
+
     is_triggered_only = yes # グローバルフラッグでトリガーされる
 
     trigger = {
@@ -387,7 +387,7 @@ country_event = {
 
     # イベントが発火した際に当該国に当該ディシジョン群が表示されるようにする
     immediate = {
-        activate_decision = LON_respond_battle_crisis_category
+        # activate_decision = LON_respond_battle_crisis_category
         # 通貨システム連携: 月間通貨収入を激減させる
         set_temp_variable = { UC_penalty = 50 } # 例として50%減
         multiply_temp_variable = { UC_penalty = -1 }# [cite: 28]

@@ -15,7 +15,7 @@ script_enum_advisor_slot_type = {
 	political_advisor
 }
 
-script_enum_equipment_stat = {	
+script_enum_equipment_stat = {
 								#Viktors note for modders and future CDs: If you want to use a stat in the MIOs it has to be in the equipment category itself, not on the battalion level. So stuff like defense works because its contained within the equipment, but stuff like recon will not work because its owned by the battalion. Adding stuff like recon will not throw an error, but it will _not_ work. Moving stats to the equipment level from the bat-level might fix this if you are brave enough, but it is very risk and might break other stuff. Ive commented what is currently on the battalion level below and should not be used with MIOs.
 
 	default_morale 					#Cannot be used with MIOS
@@ -77,7 +77,7 @@ script_enum_equipment_stat = {
 	railway_gun_hours_between_redistribution
 	max_organisation			#Cannot be used with MIOS
 	max_strength				##Cannot be used with MIOS
-	maximum_speed	
+	maximum_speed
 	armor_value
 	ap_attack
 	reliability
@@ -93,6 +93,9 @@ script_enum_equipment_stat = {
 	night_penalty				#Cannot be used with MIOS
 	build_cost_ic
 	naval_weather_penalty_factor
+	carrier_sub_detection
+	carrier_surface_detection
+	submarine_carrier_size
 }
 
 script_enum_production_stat = {
@@ -106,6 +109,7 @@ script_enum_production_stat = {
 }
 
 script_enum_equipment_category = {
+
 	convoy
 	train
 	floating_harbor
@@ -143,6 +147,7 @@ script_enum_equipment_category = {
 	rocket
 	flame
 	land_cruiser
+	support_ship
 }
 
 script_enum_equipment_bonus_type = {
@@ -154,7 +159,9 @@ script_enum_equipment_bonus_type = {
 
 	## This enum should be updated every time either of those is updated
 	## (there will be a log error at startup as a reminder)
-
+	mercenary_equipment
+	mercenary_equipment_1
+	mercenary_equipment_2
 	# Equipment categories
 	convoy
 	train
@@ -208,6 +215,16 @@ script_enum_equipment_bonus_type = {
 	motorbike_equipment
 	motorbike_equipment_1
 	infantry_equipment_early_0
+	support_ship
+	tribal_equipment
+	tribal_equipment_1
+	ancient_enhanced_equipment
+	repair_ship_hull
+	repair_ship_1
+	repair_ship_2
+	support_ship_hull
+	support_ship_1
+	support_ship_2
 	# Equipment archetypes & types
 	land_cruiser_chassis
 	land_cruiser_chassis_1
@@ -372,6 +389,8 @@ script_enum_equipment_bonus_type = {
 	nuclear_missile_submarine
 	rocket_submarine
 	ship_hull_cruiser_submarine
+	ship_hull_carrier_submarine
+	ship_hull_escort_carrier
 	ship_hull_midget_submarine
 	ship_hull_nuclear_submarine
 	ship_hull_fleet_submarine
@@ -441,7 +460,7 @@ script_enum_equipment_bonus_type = {
 	cv_small_plane_naval_bomber_airframe_2
 	cv_small_plane_naval_bomber_airframe_3
 	cv_small_plane_naval_bomber_airframe_4
-	
+
 	small_plane_suicide_airframe_0
 	small_plane_suicide_airframe_1
 	small_plane_suicide_airframe_2

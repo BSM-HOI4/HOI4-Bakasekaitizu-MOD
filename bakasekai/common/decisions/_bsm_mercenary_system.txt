@@ -1,3 +1,174 @@
+bsm_gold_conversion = {
+	convert_consumer_goods_to_gold = {
+		icon = GFX_decision_generic_industry
+		priority = 50
+		available = {
+			has_idea = consumer_goods
+		}
+		visible = {
+			has_country_flag = Mercenary_System_Allowed
+		}
+		cost = 50
+		days_remove = 30
+		modifier = {
+			consumer_goods_factor = 0.10
+		}
+		remove_effect = {
+			add_to_variable = { Unified_Currency = 50 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				check_variable = { Unified_Currency > 100 }
+			}
+		}
+	}
+
+	convert_pp_to_gold = {
+		icon = GFX_decision_generic_political_actions
+		priority = 50
+		available = {
+			has_political_power > 99
+		}
+		visible = {
+			has_country_flag = Mercenary_System_Allowed
+		}
+		cost = 100
+		complete_effect = {
+			add_to_variable = { Unified_Currency = 30 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				check_variable = { Unified_Currency > 100 }
+			}
+			modifier = {
+				factor = 0
+				has_political_power < 200
+			}
+		}
+	}
+
+	buy_equipment_with_gold = {
+		icon = GFX_decision_generic_industry
+		priority = 50
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = tt_buy_equipment_with_gold_available
+				check_variable = { Unified_Currency > 49 }
+				check_variable = { MS_sum_num = 0 }
+				NOT = { has_country_flag = recent_gold_income }
+			}
+		}
+		visible = {
+			has_country_flag = Mercenary_System_Allowed
+		}
+		days_remove = 60
+		complete_effect = {
+			subtract_from_variable = { Unified_Currency = 50 }
+			set_country_flag = {
+				flag = recent_gold_income
+				days = 180
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 1000
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_equipment = {
+					infantry_equipment > 5000
+				}
+			}
+		}
+	}
+
+	buy_support_equipment_with_gold = {
+		icon = GFX_decision_generic_industry
+		priority = 50
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = tt_buy_equipment_with_gold_available
+				check_variable = { Unified_Currency > 29 }
+				check_variable = { MS_sum_num = 0 }
+				NOT = { has_country_flag = recent_gold_income }
+			}
+		}
+		visible = {
+			has_country_flag = Mercenary_System_Allowed
+		}
+		days_remove = 45
+		complete_effect = {
+			subtract_from_variable = { Unified_Currency = 30 }
+			set_country_flag = {
+				flag = recent_gold_income
+				days = 180
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 500
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_equipment = {
+					support_equipment > 2000
+				}
+			}
+		}
+	}
+
+	buy_artillery_with_gold = {
+		icon = GFX_decision_generic_prepare_civil_war
+		priority = 50
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = tt_buy_equipment_with_gold_available
+				check_variable = { Unified_Currency > 69 }
+				check_variable = { MS_sum_num = 0 }
+				NOT = { has_country_flag = recent_gold_income }
+			}
+		}
+		visible = {
+			has_country_flag = Mercenary_System_Allowed
+		}
+		days_remove = 90
+		complete_effect = {
+			subtract_from_variable = { Unified_Currency = 70 }
+			set_country_flag = {
+				flag = recent_gold_income
+				days = 180
+			}
+		}
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment
+				amount = 200
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_equipment = {
+					artillery_equipment > 1000
+				}
+			}
+		}
+	}
+}
+
 mercenary_system_koyou = {
 	mercenary_system_koyou_s = {
 		icon = GFX_resource_energy_large
@@ -97,6 +268,106 @@ mercenary_system_koyou = {
 					owner = ROOT
 					count = 1
 				}
+			}
+		}
+	}
+
+	mercenary_system_koyou_s_pp = {
+		icon = GFX_decision_generic_political_actions
+		priority = 50
+		available = {
+			AND = {
+				has_political_power > 149
+				custom_trigger_tooltip ={
+					check_variable = {
+						MS_sum_num < MS_max
+					}
+					tooltip =  MS_max_tt
+				}
+				NOT = { has_country_flag = Mercenary_System_Allowed }
+			}
+		}
+		visible = {
+			has_country_flag = Mercenary_System_Allowed
+		}
+		cost = 150
+		complete_effect = {
+			add_to_variable = {
+				MS_sum_num = 2
+			}
+			division_template = {
+				name = MS_NAME
+				is_locked = yes
+				regiments = {
+					mercenary = { x = 0 y = 0 }
+					mercenary = { x = 0 y = 1 }
+				}
+				priority = 0
+			}
+			random_owned_state = {
+				create_unit = {
+					division = "division_template = MS_NAME start_experience_factor = 1 start_equipment_factor = 1"
+					owner = ROOT
+					count = 1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				check_variable = { Unified_Currency > 30 }
+			}
+		}
+	}
+
+	mercenary_system_koyou_m_pp = {
+		icon = GFX_decision_generic_political_actions
+		priority = 50
+		available = {
+			AND = {
+				has_political_power > 249
+				custom_trigger_tooltip ={
+					check_variable = {
+						MS_sum_num < MS_max
+					}
+					tooltip =  MS_max_tt
+				}
+				NOT = { has_country_flag = Mercenary_System_Allowed }
+			}
+		}
+		visible = {
+			has_country_flag = Mercenary_System_Allowed
+		}
+		cost = 250
+		complete_effect = {
+			add_to_variable = {
+				MS_sum_num = 4
+			}
+			division_template = {
+				name = MS_NAME_2
+				is_locked = yes
+				regiments = {
+					mercenary = { x = 0 y = 0 }
+					mercenary = { x = 0 y = 1 }
+					mercenary = { x = 1 y = 0 }
+					mercenary = { x = 1 y = 1 }
+				}
+				priority = 0
+			}
+			random_owned_state = {
+				create_unit = {
+					division = "division_template = MS_NAME_2 start_experience_factor = 1 start_equipment_factor = 1"
+					owner = ROOT
+					count = 1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				check_variable = { Unified_Currency > 50 }
 			}
 		}
 	}

@@ -1,0 +1,127 @@
+# ==========================================
+# BSM 経済陣営システム Triggers
+# prefix: bsm_ea_
+# ==========================================
+# 国家がいずれかの経済陣営に所属しているかチェック
+is_in_bsm_ea_sphere = {
+	has_variable = bsm_ea_sphere
+}
+
+# 国家が特定の経済陣営に所属しているかチェック
+# 入力: token
+is_in_specific_bsm_ea_sphere = {
+	check_variable = {
+		bsm_ea_sphere = $token$
+	}
+}
+
+# 国家が盟主かチェック
+is_bsm_ea_leader = {
+	has_variable = bsm_ea_is_leader
+}
+
+# ------------------------------------------
+# トリガー: 経済陣営の結成
+# ------------------------------------------
+bsm_ea_can_form_sphere_visible = {
+	has_political_power > 100
+	check_variable = {
+		Unified_Currency > 100
+	}
+	has_opinion = {
+		target = FROM
+		value > 25
+	}
+	# 対象と経済陣営を結成していない (Both must be empty or different?)
+	# Usually means neither is in a sphere
+	# NOT = {
+	# 	has_variable = bsm_ea_sphere
+	# }
+	# FROM = {
+	# 	NOT = {
+	# 		has_variable = bsm_ea_sphere
+	# 	}
+	# }
+	# 戦争していない
+	NOT = {
+		has_war_with = FROM
+	}
+	NOT = {
+		has_wargoal_against = FROM
+	}
+}
+
+bsm_ea_can_form_sphere_allowed = {
+	has_civil_war = no
+	NOT = {
+		has_war_with = FROM
+	}
+	NOT = {
+		has_wargoal_against = FROM
+	}
+	NOT = {
+		has_government = ruinism
+	}
+	NOT = {
+		has_government = anarchism
+	}
+	NOT = {
+		has_idea = isolation
+	}
+	has_stability > 0
+}
+
+# ------------------------------------------
+# トリガー: 経済陣営への加盟
+# ------------------------------------------
+bsm_ea_can_join_sphere_visible = {
+	has_political_power > 10
+	check_variable = {
+		Unified_Currency > 25
+	}
+	has_opinion = {
+		target = FROM
+		value > 25
+	}
+	# FROM is Leader?
+	FROM = {
+		has_variable = bsm_ea_is_leader
+	}
+	# Not at war
+	NOT = {
+		FROM = {
+			has_war_with = ROOT
+		}
+	}
+	# Already in sphere?
+	# NOT = {
+	# 	has_variable = bsm_ea_sphere
+	# }
+	# Prevent duplicate join
+	NOT = {
+		is_in_array = { bsm_ea_joined_spheres = FROM.bsm_ea_sphere }
+	}
+}
+
+bsm_ea_can_join_sphere_allowed = {
+	has_civil_war = no
+	NOT = {
+		has_war_with = FROM
+	}
+	NOT = {
+		has_wargoal_against = FROM
+	}
+	NOT = {
+		has_government = ruinism
+	}
+	NOT = {
+		has_government = anarchism
+	}
+	NOT = {
+		has_idea = isolation
+	}
+	has_stability > 0
+	NOT = {
+		has_idea = recently_left_economic_alliance
+	}
+}

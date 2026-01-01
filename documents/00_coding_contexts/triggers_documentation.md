@@ -744,7 +744,7 @@ Will compare towards the amount of divisions an ai wants to have.
 
 ```
 "Checks if all active scientists of the Country in scope matches the triggers.
-ex: GER = {
+ex: DEU = {
   all_active_scientists = {
 	tooltip = my_loc_key # Optional
      ... Character scope triggers ...
@@ -769,7 +769,7 @@ Check if all allied countries meet the trigger. Does not include the country its
 ```
 "Checks if All Army Leader of the Country in scope match the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   all_army_leader = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -822,7 +822,7 @@ check if all countries meets the trigger. tooltip=key can be defined to override
 ```
 check if all country with current scope's original tag meets the trigger. Example:
 all_country_with_original_tag = { 
-  original_tag_to_check = ENG # the trigger check all countries that has this original tag 
+  original_tag_to_check = GBR # the trigger check all countries that has this original tag 
   # ... triggers to check 
 }
 ```
@@ -856,7 +856,7 @@ all_country_with_original_tag = {
 ```
 "Checks if all Military Industrial Organisations of the Country in scope match the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   any_military_industrial_organization = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -873,7 +873,7 @@ ex: GER = {
 ```
 "Checks if all Navy Leaders of the Country in scope match the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   all_navy_leader = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -975,7 +975,7 @@ check if all owned states meets the trigger. tooltip=key can be defined to overr
 ```
 "Checks if all purchase contracts of the Country in scope matches the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   all_purchase_contracts = {
 	tooltip = my_loc_key # Optional
      ... Purchase Contract scope triggers ...
@@ -991,7 +991,7 @@ ex: GER = {
 ```
 "Checks if all scientists of the Country in scope matches the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   all_scientists = {
 	tooltip = my_loc_key # Optional
      ... Character scope triggers ...
@@ -1025,7 +1025,7 @@ check if all subject countries meet the trigger. tooltip=key can be defined to o
 ```
 "Checks if all Unit Leaders of the Country in scope match the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   all_unit_leader = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -1111,7 +1111,7 @@ all inside trigger must be true
 
 ```
 "Checks if at least one active scientist of the Country in scope matches the triggers.
-ex: GER = {
+ex: DEU = {
   any_active_scientist = {
 	tooltip = my_loc_key # Optional
     ... Character scope triggers ...
@@ -1136,7 +1136,7 @@ Check if any allied country meets the trigger. Does not include the country itse
 ```
 "Checks if at least one Army Leader of the Country in scope matches the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   any_army_leader = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -1216,7 +1216,7 @@ check if any country with a core on the scoped state meets the trigger. tooltip=
 ```
 check if any country with current scope's original tag meets the trigger. Example:
 any_country_with_original_tag = { 
-  original_tag_to_check = ENG # the trigger check all countries that has this original tag 
+  original_tag_to_check = GBR # the trigger check all countries that has this original tag 
   # ... triggers to check 
 }
 ```
@@ -1259,7 +1259,7 @@ check if any neighbor country in the home area meets the trigger. tooltip=key ca
 ```
 "Checks if at least one Military Industrial Organisation of the Country in scope matches the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   any_military_industrial_organization = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -1276,7 +1276,7 @@ ex: GER = {
 ```
 "Checks if at least one Navy Leader of the Country in scope matches the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   any_navy_leader = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -1400,7 +1400,7 @@ any_province_building_level = {
 ```
 "Checks if at least one Purchase contract of the Country in scope matches the triggers. 
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   any_purchase_contract = {
 	tooltip = my_loc_key # Optional
     ... Purchase Contract scope triggers ...
@@ -1416,7 +1416,7 @@ ex: GER = {
 ```
 "Checks if at least one scientist of the Country in scope matches the triggers. 
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   any_scientist = {
 	tooltip = my_loc_key # Optional
     ... Character scope triggers ...
@@ -1481,7 +1481,7 @@ check if any subject country meets the trigger. tooltip=key can be defined to ov
 ```
 "Checks if at least one Unit Leader of the Country in scope matches the triggers.
 tooltip=key can be defined to override title.
-ex: GER = {
+ex: DEU = {
   any_unit_leader = {
 	tooltip = my_loc_key # Optional
 	include_invisible = yes # Optional - default = no
@@ -1568,7 +1568,7 @@ Supported buildings: infrastructure, arms_factory, industrial_complex, air_base,
 * Supported Targets: THIS, ROOT, PREV, FROM, OWNER, CONTROLLER, OCCUPIED, CAPITAL
 
 ```
-Check the buyer country. Example: buyer = GER
+Check the buyer country. Example: buyer = DEU
 ```
 
 ## can_be_country_leader
@@ -1627,7 +1627,7 @@ can_build_railway = {
 ```
 "Checks if the country (as ROOT) and state in scope can build a building in the state.
 ex:
-GER = {
+DEU = {
 	65 = {
 		can_construct_building = land_facility
 	}
@@ -1640,7 +1640,7 @@ GER = {
 * Supported Targets: THIS, ROOT, PREV, FROM, OWNER, CONTROLLER, OCCUPIED, CAPITAL
 
 ```
-checks if the country could potentially declare a war on the target ( according to game rules, relationship, etc... ). Example can_declare_war_on = GER
+checks if the country could potentially declare a war on the target ( according to game rules, relationship, etc... ). Example can_declare_war_on = DEU
 ```
 
 ## can_research
@@ -1776,7 +1776,7 @@ Check the amount of casualties a country has suffered in all of it's wars
 ```
 Checks the casualties infliced by the speficied country to the scopped country.
 E.g. true if Germany has been inflicted more than 200k casualties by Poland:
-GER = {
+DEU = {
   casualties_inflicted_by = {
     opponent = POL
     thousands > 200
@@ -1894,13 +1894,13 @@ compare_autonomy_state > puppet
 
 ```
 Compare the intel of the scoped country with the specified one:
-GER = {
+DEU = {
   # is true if all predicates are satisfied
   compare_intel_with = { 
     target = POL
-    civilian_intel > 0.5  # GER has at least 0.5 more civ. intel than POL
-    army_intel = 0  # GER has as much army intel as POL
-    navy_intel < 0  # POL has more navy intel than GER
+    civilian_intel > 0.5  # DEU has at least 0.5 more civ. intel than POL
+    army_intel = 0  # DEU has as much army intel as POL
+    navy_intel < 0  # POL has more navy intel than DEU
     # airforce_intel is not specified and thus ignored in the comparison
   }
 }
@@ -2110,7 +2110,7 @@ Checks the number of days since the country last capitulated, even if it is no l
 Examples:
 	HOL = { has_capitulated = yes days_since_capitulated > 60 } # The Netherlands has been capitulated for more than two months
 	FRA = { has_capitulated = yes days_since_capitulated < 21 } # France has capitulated sometime within the past three weeks
-	GER = { OR = { has_capitulated = no days_since_capitulated > 14 } } # Germany is not both actively and recently capitulated
+	DEU = { OR = { has_capitulated = no days_since_capitulated > 14 } } # Germany is not both actively and recently capitulated
 
 ```
 
@@ -2142,10 +2142,10 @@ Check value of purchase contract completion. Example: deal_completition < 0.6
 ```
 checks decryption ratio against a country. Example: 
 decryption_progress = { 
- target = GER
+ target = DEU
  value > 0.5
 } 
-#or decryption_progress@GER as variable
+#or decryption_progress@DEU as variable
 
 ```
 
@@ -2733,7 +2733,7 @@ Checks if a there is a border against a state/country
 "Checks if the country in scope has enough breakthroughs within a given specialization.
 specialization = <specialization_token>
 value = <point>
-ex: GER = {
+ex: DEU = {
 	  has_breakthrough_points = {
 	    specialization = specialization_nuclear
 		value = 1
@@ -2771,7 +2771,7 @@ checks if the country has capitulated
 
 ```
 Checks if a country has a captured an operative ( supports scoped variables )
-has_captured_operative = GER/yes/no
+has_captured_operative = DEU/yes/no
 
 ```
 
@@ -2858,10 +2858,10 @@ check if participant in civil war as revolter or target
 ```
 checks the collaboration in a target country with our currently scoped country. Example: 
 has_collaboration = { 
- target = GER
+ target = DEU
  value > 0.5
 } 
-#or has_collaboration@GER as variable
+#or has_collaboration@DEU as variable
 
 ```
 
@@ -2911,9 +2911,9 @@ The trigger is localized with a localization environment containing `Country` an
 The following example has the same end result and localization.
 ```
 42 = {
-	has_contested_owner = GER
+	has_contested_owner = DEU
 }
-GER = {
+DEU = {
 	has_contested_owner = 42
 }
 ```
@@ -3108,7 +3108,7 @@ has country done this intelligence agency upgrade (to its highest level)
 Checks if scope has a dynamic modifier.
 has_dynamic_modifier = {
     modifier = dynamic_modifier_name
-    scope = GER #optional, if the original modifier has been targeted
+    scope = DEU #optional, if the original modifier has been targeted
 }
 
 ```
@@ -3357,7 +3357,7 @@ check if manpower is enough to switch recruitment laws not to be negative
 * Supported Targets: THIS, ROOT, PREV, FROM, OWNER, CONTROLLER, OCCUPIED, CAPITAL
 
 ```
-Check if the country has market access with another country. Example: has_market_access_with = GER
+Check if the country has market access with another country. Example: has_market_access_with = DEU
 ```
 
 ## has_max_planning
@@ -3387,7 +3387,7 @@ check country has military access to specified country
 "Checks if the Country in scope has a  Military Industrial Organisation matching the input token.
 Can use variable as input.
 ex: 
-GER = { 
+DEU = { 
   has_military_industrial_organization = infantry_mio_token
   has_military_industrial_organization = var:my_mio_var
 }"
@@ -3400,7 +3400,7 @@ GER = {
 
 ```
 Checks the mines planted by the country of the parent scope on the coastline of the target countryE.g. true if Germany has more than 1000 mines around Poland coast:
-GER = {
+DEU = {
   has_mined = {
     target = POL
     value > 1000
@@ -3550,7 +3550,7 @@ mio:my_mio = {
 Checks whether the operative has the specified nationality.
 NOTE: this is invalid on non-operatives.
 Examples:
-has_nationality = GER
+has_nationality = DEU
 
 ```
 
@@ -3661,7 +3661,7 @@ Examples:
 ```
 Checks if a country has a specific token against another country
 has_operation_token = {
-	tag = GER
+	tag = DEU
 	token = some_token_id
 }
 ```
@@ -3851,7 +3851,7 @@ Checks for resources rights in state.Warning! this always returns false if the s
 Example:
 has_resources_rights = {
 	state = 60 # optional - can be used in state scope instead
-	receiver = GER # optional - can be used in country scope instead
+	receiver = DEU # optional - can be used in country scope instead
 	resources = {steel oil} # optional - if not provided checks all resources.
 ```
 
@@ -4159,11 +4159,11 @@ is country at war with a major
 Checks if country has a war started with a wargoal against the target.
 Example 1:
 has_war_with_wargoal_against = {
-  target = GER
+  target = DEU
   type = take_state  # (optional: if not specified any wargoal will do)
 }
 Example 2:
-has_war_with_wargoal_against = GER  # (any wargoal will do)
+has_war_with_wargoal_against = DEU  # (any wargoal will do)
 ```
 
 ## has_wargoal_against
@@ -4174,11 +4174,11 @@ has_war_with_wargoal_against = GER  # (any wargoal will do)
 ```
 Checks if country has a wargoal against the target.
 Example 1:
-ENG = { has_wargoal_against = GER }
+GBR = { has_wargoal_against = DEU }
 Example 2:
-ENG = {
+GBR = {
   has_wargoal_against = {
-    target = GER
+    target = DEU
     type = take_state  # (optional: if not specified any wargoal will do)
   }
 }
@@ -4240,13 +4240,13 @@ checks if a state is impassable
 ```
 Compare the absolute, percentage based, intel level the scoped country has over
 the specified one:
-GER = {
+DEU = {
   # is true if all predicates are satisfied
   intel_level_over = { 
     target = POL
-    civilian_intel > 0.5  # GER has more than 50% civ. intel over POL
-    army_intel = 0  # GER has no army intel over POL
-    navy_intel > 0  # GER has at least some navy intel over POL
+    civilian_intel > 0.5  # DEU has more than 50% civ. intel over POL
+    army_intel = 0  # DEU has no army intel over POL
+    navy_intel > 0  # DEU has at least some navy intel over POL
     # airforce_intel is not specified and thus ignored in the comparison
 
     # NOTE: since we are comparing the intel level of a country over another,
@@ -4264,7 +4264,7 @@ GER = {
 * Supported Targets: THIS, ROOT, PREV, FROM, OWNER, CONTROLLER, OCCUPIED, CAPITAL
 
 ```
-checks if the country activated their active cipher decryption bonuses. Example is_active_decryption_bonuses_enabled = GER
+checks if the country activated their active cipher decryption bonuses. Example is_active_decryption_bonuses_enabled = DEU
 ```
 
 ## is_active_scientist
@@ -4488,7 +4488,7 @@ returns true if game is in debug mode (launched with -debug argument)
 * Supported Targets: THIS, ROOT, PREV, FROM, OWNER, CONTROLLER, OCCUPIED, CAPITAL
 
 ```
-checks if is currently decrypting a cipher. Example is_decrypting = GER
+checks if is currently decrypting a cipher. Example is_decrypting = DEU
 ```
 
 ## is_defender
@@ -4551,7 +4551,7 @@ Checks if scope country is hosting an exile. is_exile_host = yes
 * Supported Targets: THIS, ROOT, PREV, FROM, OWNER, CONTROLLER, OCCUPIED, CAPITAL
 
 ```
-Checks if scope country is a government in exile in target tag. is_exiled_in = ENG
+Checks if scope country is a government in exile in target tag. is_exiled_in = GBR
 ```
 
 ## is_exiled_leader
@@ -4647,7 +4647,7 @@ Checks if state is fully controlled by specified tag
 * Supported Targets: THIS, ROOT, PREV, FROM, OWNER, CONTROLLER, OCCUPIED, CAPITAL
 
 ```
-checks if fully decrypted a cipher. Example is_fully_decrypted = GER
+checks if fully decrypted a cipher. Example is_fully_decrypted = DEU
 ```
 
 ## is_government_in_exile
@@ -4796,7 +4796,7 @@ ex: 145 = {
 
 ```
 Checks if country is justifying a wargoal against the target. 
-Example: ENG = { is_justifying_wargoal_against = GER }
+Example: GBR = { is_justifying_wargoal_against = DEU }
 ```
 
 ## is_leading_army
@@ -4851,7 +4851,7 @@ is lend-leasing country
 
 ```
 Current country is licensing something to target country
-Example: is_licensing_any_to = ENG
+Example: is_licensing_any_to = GBR
 ```
 
 ## is_licensing_to
@@ -5372,7 +5372,7 @@ meta_trigger = {
             political_power > [POW]
         }
     }
-    COUNTRY = "GER"
+    COUNTRY = "DEU"
     POW = 42
     debug = no #set to yes if you want to see what game actually executes
 }
@@ -5432,7 +5432,7 @@ var = num_dogs
 ```
 Compares navies of two sides.
 naval_strength_comparison = {
-	other = GER # by default compares to the from scope
+	other = DEU # by default compares to the from scope
   tooltip = 'key' #tooltip is 'navy strength' by default, the key can be overridden if wanted 
 	ratio > 1.5   # default is 1
 	sub_unit_def_weights = { # if not specified, it will weigh all ships as 1. otherwise only specified sub unit types will be counted
@@ -5451,7 +5451,7 @@ naval_strength_comparison = {
 ```
 Compares the estimated navy strength between the scope country and the one set with 'tag' 
 naval_strength_ratio = { 
-  tag = GER 
+  tag = DEU 
   ratio > 0.5 
 }
 ```
@@ -5464,7 +5464,7 @@ naval_strength_ratio = {
 ```
 checks network national coverage you have over a country. Example: 
 network_national_coverage = { 
- target = GER
+ target = DEU
  value > 0.5
 } 
 
@@ -5479,13 +5479,13 @@ network_national_coverage = {
 checks network strength you have in a country. Examples: 
 # country has a network strength greater than 50% over germany
 network_strength = { 
- target = GER
+ target = DEU
  value > 50
 }
 
 # country has a network strength greater than 50% over germany in state 53
 network_strength = { 
- target = GER
+ target = DEU
  state = 53 value > 50
 }
 
@@ -5745,7 +5745,7 @@ check amount of controlled stats
 ```
 Check amount of available factories (excluding temporary sources like trade and lend-lease)
 Example:
-GER = { num_of_factories < 50 }
+DEU = { num_of_factories < 50 }
 ```
 
 ## num_of_military_factories
@@ -5884,8 +5884,8 @@ Check number of units commanded by the unit leader
 - If THIS is a state, then the occupier's state law is checked.
 
 Example:
-GER = { occupation_law = autonomous_occupation }
-GER = { POL = { occupation_law = foreign_civilian_oversight } }
+DEU = { occupation_law = autonomous_occupation }
+DEU = { POL = { occupation_law = foreign_civilian_oversight } }
 123 = { occupation_law = local_police_force_garrison }"
 ```
 
@@ -6015,7 +6015,7 @@ CZE = { pc_is_forced_government = yes }
 ```
 Checks if country has had their government force-changed by a certain country in the peace conference.
 Example:
-CZE = { pc_is_forced_government_by = GER }
+CZE = { pc_is_forced_government_by = DEU }
 ```
 
 ## pc_is_forced_government_to
@@ -6048,7 +6048,7 @@ CZE = { pc_is_liberated = yes }
 ```
 Checks if country is a loser in the peace conference.
 Example:
-ENG = { pc_is_loser = yes }
+GBR = { pc_is_loser = yes }
 ```
 
 ## pc_is_on_same_side_as
@@ -6059,7 +6059,7 @@ ENG = { pc_is_loser = yes }
 ```
 Checks if country is on same side (winning or losing side) as another country in the peace conference.
 Example:
-POL = { pc_is_on_same_side_as = ENG }
+POL = { pc_is_on_same_side_as = GBR }
 ```
 
 ## pc_is_on_winning_side
@@ -6092,7 +6092,7 @@ CZE = { pc_is_puppeted = yes }
 ```
 Checks if country is a puppet of a certain country, or has been released as a puppet by a certain country in the peace conference.
 Example:
-CZE = { pc_is_puppeted_by = GER }
+CZE = { pc_is_puppeted_by = DEU }
 ```
 
 ## pc_is_state_claimed
@@ -6146,7 +6146,7 @@ pc_is_state_outside_influence_for_winner = SOV/ROOT/ROOT.FROM
 ```
 Checks if country is a winner in the peace conference.
 Example:
-ENG = { pc_is_winner = yes }
+GBR = { pc_is_winner = yes }
 ```
 
 ## pc_total_score
@@ -6290,7 +6290,7 @@ province_vp < 3"
 ```
 Checks that the country in scope has received the specified amount of expeditionary forces from the specified country
 E.g. true if Germany is commaning more than 100 expeditionary forces from Poland:
-GER = {
+DEU = {
   received_expeditionary_forces = {
     sender = POL
     value > 100
@@ -6432,7 +6432,7 @@ var:my_var = {
 * Supported Targets: THIS, ROOT, PREV, FROM, OWNER, CONTROLLER, OCCUPIED, CAPITAL
 
 ```
-Check the seller country. Example: seller = GER
+Check the seller country. Example: seller = DEU
 ```
 
 ## set_temp_variable
