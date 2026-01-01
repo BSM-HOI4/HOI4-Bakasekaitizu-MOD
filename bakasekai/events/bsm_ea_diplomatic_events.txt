@@ -1,0 +1,261 @@
+add_namespace = bsm_ea_diplomatic
+
+# ----------------------------------------------------------------------
+# 1. Join Request (received by Leader)
+# ----------------------------------------------------------------------
+country_event = {
+	id = bsm_ea_diplomatic.1
+	title = bsm_ea_diplomatic.1.t
+	desc = bsm_ea_diplomatic.1.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	# Accept
+	option = {
+		name = bsm_ea_diplomatic.1.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 50
+				has_opinion = { target = FROM value > 50 }
+			}
+		}
+		# Add FROM to our alliance
+		FROM = {
+			set_temp_variable = { bsm_ea_token = ROOT.bsm_ea_sphere }
+			bsm_ea_join_sphere = yes
+			country_event = { id = bsm_ea_diplomatic.11 }
+		}
+		bsm_update_ea_gui_data = yes
+	}
+
+	# Reject
+	option = {
+		name = bsm_ea_diplomatic.1.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = -50
+				has_opinion = { target = FROM value > 50 }
+			}
+		}
+		FROM = {
+			country_event = { id = bsm_ea_diplomatic.12 }
+		}
+	}
+}
+
+# 1.1 Join Request Accepted (notification to requester)
+country_event = {
+	id = bsm_ea_diplomatic.11
+	title = bsm_ea_diplomatic.11.t
+	desc = bsm_ea_diplomatic.11.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ea_diplomatic.11.a
+	}
+}
+
+# 1.2 Join Request Rejected (notification to requester)
+country_event = {
+	id = bsm_ea_diplomatic.12
+	title = bsm_ea_diplomatic.12.t
+	desc = bsm_ea_diplomatic.12.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ea_diplomatic.12.a
+	}
+}
+
+# ----------------------------------------------------------------------
+# 2. Leave Notification (received by Leader)
+# ----------------------------------------------------------------------
+country_event = {
+	id = bsm_ea_diplomatic.2
+	title = bsm_ea_diplomatic.2.t
+	desc = bsm_ea_diplomatic.2.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ea_diplomatic.2.a
+		bsm_update_ea_gui_data = yes
+	}
+}
+
+# ----------------------------------------------------------------------
+# 3. Kick Notification (received by kicked Member)
+# ----------------------------------------------------------------------
+country_event = {
+	id = bsm_ea_diplomatic.3
+	title = bsm_ea_diplomatic.3.t
+	desc = bsm_ea_diplomatic.3.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ea_diplomatic.3.a
+	}
+}
+
+# ----------------------------------------------------------------------
+# 4. Invite (received by potential Member)
+# ----------------------------------------------------------------------
+country_event = {
+	id = bsm_ea_diplomatic.4
+	title = bsm_ea_diplomatic.4.t
+	desc = bsm_ea_diplomatic.4.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	# Accept
+	option = {
+		name = bsm_ea_diplomatic.4.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 50
+				has_opinion = { target = FROM value > 50 }
+			}
+		}
+		# Join FROM's alliance
+		set_temp_variable = { bsm_ea_token = FROM.bsm_ea_sphere }
+		bsm_ea_join_sphere = yes
+		FROM = {
+			country_event = { id = bsm_ea_diplomatic.41 }
+			bsm_update_ea_gui_data = yes
+		}
+	}
+
+	# Reject
+	option = {
+		name = bsm_ea_diplomatic.4.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = -50
+				has_opinion = { target = FROM value > 50 }
+			}
+		}
+		FROM = {
+			country_event = { id = bsm_ea_diplomatic.42 }
+		}
+	}
+}
+
+# 4.1 Invite Accepted (notification to Leader)
+country_event = {
+	id = bsm_ea_diplomatic.41
+	title = bsm_ea_diplomatic.41.t
+	desc = bsm_ea_diplomatic.41.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ea_diplomatic.41.a
+	}
+}
+
+# 4.2 Invite Rejected (notification to Leader)
+country_event = {
+	id = bsm_ea_diplomatic.42
+	title = bsm_ea_diplomatic.42.t
+	desc = bsm_ea_diplomatic.42.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ea_diplomatic.42.a
+	}
+}
+
+# ----------------------------------------------------------------------
+# 5. Create Alliance Proposal (received by potential co-founder)
+# ----------------------------------------------------------------------
+country_event = {
+	id = bsm_ea_diplomatic.5
+	title = bsm_ea_diplomatic.5.t
+	desc = bsm_ea_diplomatic.5.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	# Accept - FROM becomes leader, ROOT joins
+	option = {
+		name = bsm_ea_diplomatic.5.a
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 50
+				has_opinion = { target = FROM value > 75 }
+			}
+		}
+		FROM = {
+			# FROM becomes leader
+			bsm_ea_generate_new_token = yes
+			bsm_ea_create_sphere = yes
+			country_event = { id = bsm_ea_diplomatic.51 }
+		}
+		# ROOT joins FROM's new alliance
+		set_temp_variable = { bsm_ea_token = FROM.bsm_ea_sphere }
+		bsm_ea_join_sphere = yes
+		FROM = {
+			bsm_update_ea_gui_data = yes
+		}
+	}
+
+	# Reject
+	option = {
+		name = bsm_ea_diplomatic.5.b
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = -50
+				has_opinion = { target = FROM value > 75 }
+			}
+		}
+		FROM = {
+			country_event = { id = bsm_ea_diplomatic.52 }
+		}
+	}
+}
+
+# 5.1 Create Alliance Accepted (notification to proposer)
+country_event = {
+	id = bsm_ea_diplomatic.51
+	title = bsm_ea_diplomatic.51.t
+	desc = bsm_ea_diplomatic.51.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ea_diplomatic.51.a
+	}
+}
+
+# 5.2 Create Alliance Rejected (notification to proposer)
+country_event = {
+	id = bsm_ea_diplomatic.52
+	title = bsm_ea_diplomatic.52.t
+	desc = bsm_ea_diplomatic.52.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ea_diplomatic.52.a
+	}
+}

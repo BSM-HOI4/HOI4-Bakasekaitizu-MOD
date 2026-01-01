@@ -1,0 +1,40 @@
+# 傭兵システム用スクリプトローカライゼーション
+
+# 傭兵維持費の表示
+defined_text = {
+	name = GetMercenaryMaintenanceInfo
+
+	text = {
+		trigger = {
+			has_country_flag = Mercenary_System_Allowed
+			check_variable = { MS_sum_num > 0 }
+		}
+		localization_key = mercenary_maintenance_info_active
+	}
+
+	text = {
+		trigger = {
+			always = yes
+		}
+		localization_key = mercenary_maintenance_info_none
+	}
+}
+
+# 傭兵維持費の詳細
+defined_text = {
+	name = GetMercenaryMaintenanceCost
+
+	text = {
+		trigger = {
+			check_variable = { MS_sum_num > 0 }
+		}
+		localization_key = mercenary_maintenance_cost_value
+	}
+
+	text = {
+		trigger = {
+			always = yes
+		}
+		localization_key = mercenary_no_cost
+	}
+}

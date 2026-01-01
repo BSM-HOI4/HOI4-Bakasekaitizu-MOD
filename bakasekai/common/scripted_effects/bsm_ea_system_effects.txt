@@ -364,23 +364,24 @@ bsm_ea_calc_sphere_power = {
 			t_total_power = t_member_p
 		}
 	}
-	# Store power on Leader (using correct name for Loc)
-	# Store token for use inside leader scope
+	# Store power and member count on Leader
+	# Calculate member count in current scope first
 	set_temp_variable = {
-		t_token_copy = var:bsm_ea_calc_token
+		final_count = global.bsm_ea_member_list_@var:bsm_ea_calc_token^num
 	}
+	set_temp_variable = {
+		final_power = t_total_power
+	}
+	log = "[BSM EA] About to store on leader - count: [?final_count], power: [?final_power]"
+
 	var:t_leader = {
 		set_variable = {
-			bsm_ea_total_power = PREV.t_total_power
-		}
-		# Recalculate member count inside this scope directly
-		set_temp_variable = {
-			calc_count = global.bsm_ea_member_list_@PREV.t_token_copy^num
+			bsm_ea_total_power = PREV.final_power
 		}
 		set_variable = {
-			bsm_ea_mem_count = calc_count
+			bsm_ea_mem_count = PREV.final_count
 		}
-		log = "[BSM EA] [THIS.GetName] - Total power: [?bsm_ea_total_power], Member count: [?bsm_ea_mem_count], calc_count: [?calc_count]"
+		log = "[BSM EA] [THIS.GetName] - Total power: [?bsm_ea_total_power], Member count: [?bsm_ea_mem_count]"
 	}
 }
 

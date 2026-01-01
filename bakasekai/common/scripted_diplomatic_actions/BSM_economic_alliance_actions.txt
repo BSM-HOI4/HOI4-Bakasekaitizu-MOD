@@ -1,50 +1,50 @@
 scripted_diplomatic_actions = {
 	# ----------------------------------------------------------------------
-	# 1. Join Request (Member -> Leader)
+	# 1. Join Request (Non-Member -> Leader)
 	# ----------------------------------------------------------------------
-	bsm_action_join_economic_alliance = {
+	bsm_ea_join_request = {
 		icon = GFX_goal_generic_positive_trade_relations
 		visible = {
+			NOT = { has_war_with = FROM }
+			# Target must be an EA leader
+			FROM = { has_variable = bsm_ea_is_leader }
+			# Must NOT already be in FROM's alliance
 			NOT = {
-				has_war_with = FROM
-			}
-			NOT = {
-				is_in_faction_with = FROM
-			}
-			# Target must be a leader
-			FROM = {
-				has_country_flag = is_economic_alliance_leader
-			}
-			# Must NOT be in this specific alliance already
-			NOT = {
-				is_in_array = {
-					array = economic_alliance_ids
-					value = FROM
+				AND = {
+					has_variable = bsm_ea_joined_spheres
+					FROM = { has_variable = bsm_ea_sphere }
+					is_in_array = {
+						array = bsm_ea_joined_spheres
+						value = FROM.bsm_ea_sphere
+					}
 				}
 			}
 		}
 		allowed = {
-			always = yes
+			ROOT = {
+				has_war = no
+				NOT = { has_idea = recently_left_economic_alliance }
+			}
 		}
-		selectable = {
-			always = yes
-		}
-		cost = 25
+		selectable = { always = yes }
+
 		complete_effect = {
-			# Send Event to Leader
+			# Deduct costs
+			add_political_power = -10
+			set_temp_variable = { add_value = -25 }
+			ucs_add_Unified_Currency = yes
+
 			FROM = {
-				country_event = {
-					id = bsm_economic_alliance_actions.1
-				}
+				country_event = { id = bsm_ea_diplomatic.1 }
 			}
 		}
-		ai_acceptance = {
-			condition = {
-				base = 100
-			}
-		}
+
 		ai_desire = {
-			base = 0
+			base = 10
+			modifier = {
+				add = 50
+				has_opinion = { target = FROM value > 50 }
+			}
 		}
 	}
 	# ----------------------------------------------------------------------
@@ -53,42 +53,41 @@ scripted_diplomatic_actions = {
 	bsm_action_leave_economic_alliance = {
 		icon = GFX_goal_generic_dangerous_deal
 		visible = {
-			# Must be in this specific alliance
+			# Must be in FROM's alliance
+			FROM = { has_variable = bsm_ea_is_leader }
+			has_variable = bsm_ea_joined_spheres
+			FROM = { has_variable = bsm_ea_sphere }
 			is_in_array = {
-				array = economic_alliance_ids
-				value = FROM
+				array = bsm_ea_joined_spheres
+				value = FROM.bsm_ea_sphere
 			}
 		}
 		selectable = {
 			always = yes
 		}
 		allowed = {
-			ROOT = {
-				has_war = no
-			}
-			is_in_array = {
-				array = economic_alliance_ids
-				value = FROM
-			}
+			ROOT = { has_war = no }
 		}
-		cost = 50
+
 		complete_effect = {
+			# Deduct cost
+			add_political_power = -50
+
 			# Notify Leader
 			FROM = {
-				country_event = {
-					id = bsm_economic_alliance_actions.2
-				}
+				country_event = { id = bsm_ea_diplomatic.2 }
 			}
 			# Execute Leave Effect
-			bsm_leave_specific_leader_alliance_effect = yes
+			set_temp_variable = { bsm_ea_token = FROM.bsm_ea_sphere }
+			bsm_ea_leave_sphere = yes
 		}
-		ai_acceptance = {
-			condition = {
-				base = 100
-			}
-		}
+
 		ai_desire = {
-			factor = 0
+			base = 0
+			modifier = {
+				add = 100
+				has_opinion = { target = FROM value < -50 }
+			}
 		}
 	}
 	# ----------------------------------------------------------------------
@@ -97,39 +96,49 @@ scripted_diplomatic_actions = {
 	bsm_action_kick_from_economic_alliance = {
 		icon = GFX_goal_generic_dangerous_deal
 		visible = {
-			has_country_flag = is_economic_alliance_leader
+			has_variable = bsm_ea_is_leader
+			has_variable = bsm_ea_sphere
 			# Check if Target is in MY alliance
-			is_in_array = {
-				array = economic_alliance_members
-				value = FROM
+			FROM = {
+				has_variable = bsm_ea_joined_spheres
+				is_in_array = {
+					array = bsm_ea_joined_spheres
+					value = ROOT.bsm_ea_sphere
+				}
 			}
 		}
 		allowed = {
-			is_in_array = {
-				array = economic_alliance_members
-				value = FROM
+			ROOT = {
+				FROM = {
+					is_in_array = {
+						array = bsm_ea_joined_spheres
+						value = ROOT.bsm_ea_sphere
+					}
+				}
 			}
 		}
 		selectable = {
 			always = yes
 		}
-		cost = 100
+
 		complete_effect = {
+			# Deduct cost
+			add_political_power = -100
+
 			# Notify & Kick Target
 			FROM = {
-				country_event = {
-					id = bsm_economic_alliance_actions.3
-				}
-				bsm_kicked_by_root_effect = yes
+				country_event = { id = bsm_ea_diplomatic.3 }
+				set_temp_variable = { bsm_ea_token = ROOT.bsm_ea_sphere }
+				bsm_ea_leave_sphere = yes
 			}
 		}
-		ai_acceptance = {
-			condition = {
-				base = 100
-			}
-		}
+
 		ai_desire = {
-			factor = 0
+			base = 0
+			modifier = {
+				add = 100
+				has_opinion = { target = FROM value < -75 }
+			}
 		}
 	}
 	# ----------------------------------------------------------------------
@@ -138,16 +147,20 @@ scripted_diplomatic_actions = {
 	bsm_action_invite_to_economic_alliance = {
 		icon = GFX_goal_generic_positive_trade_relations
 		visible = {
-			has_country_flag = is_economic_alliance_leader
+			has_variable = bsm_ea_is_leader
+			has_variable = bsm_ea_sphere
 			has_opinion = {
 				target = FROM
 				value > 0
 			}
 			# Not already in MY alliance
 			NOT = {
-				is_in_array = {
-					array = economic_alliance_members
-					value = FROM
+				FROM = {
+					has_variable = bsm_ea_joined_spheres
+					is_in_array = {
+						array = bsm_ea_joined_spheres
+						value = ROOT.bsm_ea_sphere
+					}
 				}
 			}
 		}
@@ -157,22 +170,27 @@ scripted_diplomatic_actions = {
 		allowed = {
 			always = yes
 		}
-		cost = 25
+
 		complete_effect = {
+			# Deduct cost
+			add_political_power = -25
+
 			# Send Invite to Target
 			FROM = {
-				country_event = {
-					id = bsm_economic_alliance_actions.4
-				}
+				country_event = { id = bsm_ea_diplomatic.4 }
 			}
 		}
-		ai_acceptance = {
-			condition = {
-				base = 100
-			}
-		}
+
 		ai_desire = {
-			factor = 0
+			base = 10
+			modifier = {
+				add = 50
+				has_opinion = { target = FROM value > 50 }
+			}
+			modifier = {
+				add = 25
+				is_in_faction_with = FROM
+			}
 		}
 	}
 	# ----------------------------------------------------------------------
@@ -182,14 +200,10 @@ scripted_diplomatic_actions = {
 		icon = GFX_goal_generic_positive_trade_relations
 		visible = {
 			# Must NOT be a leader (One leadership per country)
-			NOT = {
-				has_country_flag = is_economic_alliance_leader
-			}
+			NOT = { has_variable = bsm_ea_is_leader }
 			# Target also not a leader
 			FROM = {
-				NOT = {
-					has_country_flag = is_economic_alliance_leader
-				}
+				NOT = { has_variable = bsm_ea_is_leader }
 			}
 			has_opinion = {
 				target = FROM
@@ -200,26 +214,30 @@ scripted_diplomatic_actions = {
 			always = yes
 		}
 		allowed = {
-			ROOT = {
-				has_war = no
-			}
+			ROOT = { has_war = no }
 		}
-		cost = 50
+
 		complete_effect = {
+			# Deduct cost
+			add_political_power = -50
+
 			# Send Proposal to Target
 			FROM = {
-				country_event = {
-					id = bsm_economic_alliance_actions.5
-				}
+				country_event = { id = bsm_ea_diplomatic.5 }
 			}
 		}
-		ai_acceptance = {
-			condition = {
-				base = 100
-			}
-		}
+
 		ai_desire = {
-			factor = 0
+			base = 5
+			modifier = {
+				add = 50
+				has_opinion = { target = FROM value > 75 }
+			}
+			modifier = {
+				add = 100
+				is_in_faction_with = FROM
+				is_faction_leader = yes
+			}
 		}
 	}
 }
