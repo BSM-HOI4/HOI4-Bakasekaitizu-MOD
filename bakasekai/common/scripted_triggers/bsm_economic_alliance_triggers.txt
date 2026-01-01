@@ -1,59 +1,15 @@
-# 経済同盟関連のトリガー
+# 経済陣営関連のトリガー
 # ----------------------------------------------------------------------
 # 結成 (Formation)
 # ----------------------------------------------------------------------
 # 表示条件 (Visible)
 bsm_can_form_economic_alliance_visible = {
-	has_political_power > 100
-	check_variable = {
-		Unified_Currency > 100
-	}
-	has_opinion = {
-		target = FROM
-		value > 25
-	}
-	# 対象と経済同盟を結成していない (重複防止)
-	NOT = {
-		is_in_economic_alliance_with = FROM
-	}
-	# 戦争していない
-	NOT = {
-		has_war_with = FROM
-	}
-	# 戦争目標がない
-	NOT = {
-		has_wargoal_against = FROM
-	}
+	bsm_ea_can_form_sphere_visible = yes
 }
 
 # 絶対条件 (Allowed)
 bsm_can_form_economic_alliance_allowed = {
-	# 自国と戦争をしていない (Civil War check or Peace check)
-	# "自国と戦争をしていない" -> usually means "Not at war with FROM" or "Not in civil war"
-	# Assuming "Not at war with FROM" is the main point, but let's add civil war check too.
-	has_civil_war = no
-	NOT = {
-		has_war_with = FROM
-	}
-	NOT = {
-		has_wargoal_against = FROM
-	}
-	# イデオロギー制限
-	NOT = {
-		has_government = ruinism
-	}
-	# 破滅主義
-	NOT = {
-		has_government = anarchism
-	}
-	# 無政府主義
-	# 経済法制限
-	NOT = {
-		has_idea = isolation
-	}
-	# 孤立 (Vanilla check, might need mod specific check if different)
-	# 安定度
-	has_stability > 0
+	bsm_ea_can_form_sphere_allowed = yes
 }
 
 # ----------------------------------------------------------------------
@@ -61,63 +17,12 @@ bsm_can_form_economic_alliance_allowed = {
 # ----------------------------------------------------------------------
 # 表示条件 (Visible)
 bsm_can_join_economic_alliance_visible = {
-	has_political_power > 10
-	check_variable = {
-		Unified_Currency > 25
-	}
-	# 経済盟主国(FROM)と友好度が25以上
-	has_opinion = {
-		target = FROM
-		value > 25
-	}
-	# 加盟国が自国と戦争をしていない (Simplified: Leader is not at war with ROOT)
-	NOT = {
-		FROM = {
-			has_war_with = ROOT
-		}
-	}
+	bsm_ea_can_join_sphere_visible = yes
 }
 
 # 絶対条件 (Allowed)
 bsm_can_join_economic_alliance_allowed = {
-	has_civil_war = no
-	NOT = {
-		has_war_with = FROM
-	}
-	NOT = {
-		has_wargoal_against = FROM
-	}
-	NOT = {
-		has_government = ruinism
-	}
-	NOT = {
-		has_government = anarchism
-	}
-	NOT = {
-		has_idea = isolation
-	}
-	has_stability > 0
-	# 脱退ペナルティチェック (統一ロジック)
-	NOT = {
-		AND = {
-			has_idea = recently_left_economic_alliance
-			FROM = {
-				any_of = {
-					array = economic_alliance_ids
-					value = v
-					tooltip = KEY_RECENTLY_LEFT_CHECK
-					# FROMがこの同盟のリーダーであることを確認
-					check_variable = {
-						global.economic_alliance_leader^v = id
-					}
-					# ROOTがこの同盟を最近脱退したか確認
-					check_variable = {
-						ROOT.recently_left_alliance_id = v
-					}
-				}
-			}
-		}
-	}
+	bsm_ea_can_join_sphere_allowed = yes
 }
 
 # ----------------------------------------------------------------------
@@ -160,23 +65,30 @@ bsm_ai_will_accept_economic_alliance = {
 	}
 	# 国際緊張度 (申し出た側 FROM が10以上高めていない)
 	FROM = {
-		generated_world_tension < 10
+		check_variable = { generated_world_tension < 10 }
 	}
 }
 
-# ヘルパー: 経済同盟に加盟しているかチェック
+# ヘルパー: 経済陣営に加盟している（同じ陣営内にいる）かチェック
 is_in_economic_alliance_with = {
-	# 共通の同盟IDを持っているかチェック
-	OR = {
-		# ROOTの同盟IDリストのいずれかが、FROMの同盟IDリストに含まれているか
-		any_of = {
-			array = economic_alliance_ids
-			value = v
-			FROM = {
-				is_in_array = {
-					economic_alliance_ids = v
-				}
-			}
-		}
-	}
+	# 新システム: bsm_ea_sphere 変数が一致するかチェック
+	# 1. 両方とも経済陣営に所属しているか
+	has_variable = bsm_ea_sphere
+	FROM = { has_variable = bsm_ea_sphere }
+	# 2. トークンが一致するか
+	check_variable = { bsm_ea_sphere = FROM.bsm_ea_sphere }
+}
+
+# ----------------------------------------------------------------------
+# Helper: Is FROM a member of an alliance where ROOT is leader?
+# ----------------------------------------------------------------------
+is_economic_alliance_member_of_root_trigger = {
+	# ROOT = Leader
+	# FROM = Member check
+	
+	# 1. ROOT is leader of its sphere
+	is_bsm_ea_leader = yes
+	
+	# 2. FROM is in the same sphere
+	is_in_economic_alliance_with = yes
 }

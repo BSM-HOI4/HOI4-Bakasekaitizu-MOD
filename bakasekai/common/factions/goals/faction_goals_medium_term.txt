@@ -61,15 +61,10 @@ faction_goal_undo_versailles = {
 		51 = { is_demilitarized_zone = no }
 		978 = { is_demilitarized_zone = no }
 	}
+	complete_effect = {
 		add_faction_power_projection = 100
 		custom_effect_tooltip = generic_skip_one_line_tt
-		every_collection_element = {
-			input = {
-				input = game:scope
-				operators = {
-					faction_members
-					limit = {
-		custom_effect_tooltip = generic_skip_one_line_tt
+		add_faction_initiative = 1
 		every_faction_member = {
 			tooltip = INFLUENCE_ABOVE_30_PERCENT
 			visible_when_empty = yes
@@ -199,9 +194,20 @@ faction_goal_marine_corps = {
 				operators = { faction_members }
 				name = FACTION
 			}
-							size > 0
-							unit_category = category_amphibious_tanks
-						}
+			size > 0
+			unit_category = category_amphibious_tanks
+		}
+	}
+	complete_effect = {
+		add_faction_power_projection = 100
+		custom_effect_tooltip = generic_skip_one_line_tt
+		every_collection_element = {
+			input = {
+				input = game:scope
+				operators = {
+					faction_members
+					limit = {
+						has_tech = amphibious_tank
 					}
 				}
 				name = ALL_FACTION_MEMBERS_WITH_1_AMPHIBIOUS
@@ -2602,6 +2608,14 @@ faction_goal_control_bermuda = {
 			}
 		}
 	}
+	}
+
+faction_goal_control_newfoundland = {
+	name = control_newfoundland_goal_name
+	description = control_newfoundland_goal_desc
+	category = medium_term
+	group = resources_to_market_icon
+	visible = {
 		FROM = {
 			NOT = {
 				original_tag = GBR
@@ -3999,8 +4013,8 @@ faction_goal_control_crete = {
 	visible = {
 		FROM = {
 			NOT = {
-				original_tag = GRE
-				is_in_faction_with = GRE
+				original_tag = GRC
+				is_in_faction_with = GRC
 			}
 		}
 		any_collection_element = {

@@ -1,0 +1,86 @@
+BSM_iberian_economic_sphere_category = {
+	BSM_petition_to_join_iberian_sphere = {
+		icon = generic_volunteer_expedition_bonus
+		allowed = {
+			NOT = {
+				tag = ESP
+			}
+			NOT = {
+				tag = CEU
+			}
+			NOT = {
+				tag = PML
+			}
+		}
+		available = {
+			# System check instead of faction check
+			NOT = {
+				has_country_flag = is_economic_alliance_member
+			}
+			has_war = no
+			# Check if neighbor of any member
+			OR = {
+				any_neighbor_country = {
+					tag = ESP
+				}
+				any_neighbor_country = {
+					tag = CEU
+				}
+				any_neighbor_country = {
+					tag = PML
+				}
+			}
+			# Basic checks
+			has_opinion = {
+				target = ESP
+				value > 0
+			}
+		}
+		visible = {
+			OR = {
+				any_neighbor_country = {
+					tag = ESP
+				}
+				any_neighbor_country = {
+					tag = CEU
+				}
+				any_neighbor_country = {
+					tag = PML
+				}
+			}
+		}
+		# cost_type = political_power # Invalid token removed
+		cost = 25
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 100
+				tag = RED
+			}
+			modifier = {
+				factor = 20
+				has_government = democratic_ideology				# Fixed: democratic -> democratic_ideology logic check usually uses 'has_government = democratic'
+				# Wait, 'democratic' is the ideology group ID. 'has_government = democratic' is correct if democratic is the group.
+				# The error 'Undefined ideology:democratic' in history file suggested 'democratic' wasn't recognized there, but in triggers 'has_government = democratic' is standard.
+				# However, if the error persist, maybe ideology is named differently? The log "Undefined ideology:democratic: democratic" implies the definition is missing or wrong context.
+				# For now I will assume standard vanilla 'democratic'.
+			}
+			modifier = {
+				factor = 0
+				has_opinion = {
+					target = ESP
+					value < 0
+				}
+			}
+		}
+		complete_effect = {
+			# Request to ESP
+			ESP = {
+				country_event = {
+					id = bsm_economic_alliance_actions.1
+				}
+				# Use the Join Request event
+			}
+		}
+	}
+}

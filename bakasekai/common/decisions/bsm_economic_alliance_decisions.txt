@@ -2,43 +2,24 @@ bsm_economic_alliance_decisions = {
 	# 従属国への利益分配切り替え
 	ucs_toggle_profit_distribution = {
 		icon = generic_trade
-		allowed = {
-			always = yes
-		}
+		allowed = { always = yes }
 		available = {
 			is_subject = no
-			any_subject_country = {
-				always = yes
-			}
+			any_subject_country = { always = yes }
 			# 経済同盟加盟国のみ
-			OR = {
-				has_country_flag = in_economic_alliance_EU
-				has_country_flag = in_economic_alliance_Allies
-				has_country_flag = in_economic_alliance_GEACPS
-				has_country_flag = is_economic_alliance_leader				# 汎用リーダー
-			}
+			is_in_bsm_ea_sphere = yes
 		}
 		visible = {
 			is_subject = no
-			any_subject_country = {
-				always = yes
-			}
-			OR = {
-				has_country_flag = in_economic_alliance_EU
-				has_country_flag = in_economic_alliance_Allies
-				has_country_flag = in_economic_alliance_GEACPS
-				has_country_flag = is_economic_alliance_leader				# 汎用リーダー
-			}
+			any_subject_country = { always = yes }
+			is_in_bsm_ea_sphere = yes
 		}
-		modifier = {
-		}
+		modifier = { }
 		days_re_enable = 30
 		fire_only_once = no
 		complete_effect = {
 			if = {
-				limit = {
-					has_country_flag = ucs_distribute_profit
-				}
+				limit = { has_country_flag = ucs_distribute_profit }
 				clr_country_flag = ucs_distribute_profit
 			}
 			else = {
@@ -49,10 +30,7 @@ bsm_economic_alliance_decisions = {
 			factor = 1
 			modifier = {
 				factor = 0
-				NOT = {
-					has_country_flag = ucs_distribute_profit
-				}
-				# AIはデフォルトでは分配しない（仮）
+				NOT = { has_country_flag = ucs_distribute_profit }
 			}
 		}
 	}
@@ -61,217 +39,82 @@ bsm_economic_alliance_decisions = {
 	# ----------------------------------------------------------------------
 	bsm_form_economic_alliance = {
 		icon = generic_research
-		allowed = {
-			always = yes
-		}
-		target_array = neighbors		# 隣国のみ対象 (あるいは全国家？ 隣国が無難)
+		allowed = { always = yes }
+		target_array = neighbors
 		target_trigger = {
 			FROM = {
-				bsm_can_form_economic_alliance_visible = yes
-				bsm_can_form_economic_alliance_allowed = yes
+				# Use new triggers
+				bsm_ea_can_form_sphere_visible = yes
+				bsm_ea_can_form_sphere_allowed = yes
 			}
 		}
 		visible = {
 			FROM = {
-				bsm_can_form_economic_alliance_visible = yes
+				bsm_ea_can_form_sphere_visible = yes
 			}
 		}
 		available = {
 			FROM = {
-				bsm_can_form_economic_alliance_allowed = yes
+				bsm_ea_can_form_sphere_allowed = yes
 			}
 		}
 		fire_only_once = no
 		days_re_enable = 30
-		cost = 0		# Effectで処理
+		cost = 0 # Effect handles cost
 		complete_effect = {
-			bsm_form_economic_alliance_effect = yes
+			bsm_ea_form_sphere_action = yes
 		}
-		ai_will_do = {
-			factor = 0			# AIは今のところ自発的に結成しない (複雑なため)
-		}
+		ai_will_do = { factor = 0 }
 	}
 	# ----------------------------------------------------------------------
 	# 汎用経済同盟への加盟
 	# ----------------------------------------------------------------------
 	bsm_join_economic_alliance = {
 		icon = generic_diplomacy
-		allowed = {
-			always = yes
-		}
-		# ターゲットは経済同盟のリーダーである必要がある
-		target_array = neighbors		# 隣国のみ (あるいは全国家)
+		allowed = { always = yes }
+		target_array = neighbors
 		target_trigger = {
 			FROM = {
-				has_country_flag = is_economic_alliance_leader
-				bsm_can_join_economic_alliance_visible = yes
-				bsm_can_join_economic_alliance_allowed = yes
+				is_bsm_ea_leader = yes
+				bsm_ea_can_join_sphere_visible = yes
+				bsm_ea_can_join_sphere_allowed = yes
 			}
 		}
 		visible = {
 			FROM = {
-				has_country_flag = is_economic_alliance_leader
-				bsm_can_join_economic_alliance_visible = yes
+				is_bsm_ea_leader = yes
+				bsm_ea_can_join_sphere_visible = yes
 			}
 		}
 		available = {
 			FROM = {
-				bsm_can_join_economic_alliance_allowed = yes
+				bsm_ea_can_join_sphere_allowed = yes
 			}
 		}
 		fire_only_once = no
 		days_re_enable = 30
-		cost = 0		# Effectで処理
+		cost = 0
 		complete_effect = {
-			bsm_join_economic_alliance_effect = yes
+			bsm_ea_join_sphere_action = yes
 		}
-		ai_will_do = {
-			factor = 0			# AIは今のところ自発的に加盟しない
-		}
-		# 経済同盟からの脱退 (EU)
-		bsm_leave_economic_alliance_EU = {
-			icon = generic_volunteer_expedition_bonus
-			allowed = {
-				always = yes
-			}
-			available = {
-				is_in_array = {
-					economic_alliance_ids = 1
-				}
-			}
-			visible = {
-				is_in_array = {
-					economic_alliance_ids = 1
-				}
-			}
-			cost = 50
-			fire_only_once = no
-			ai_will_do = {
-				factor = 0
-			}
-			complete_effect = {
-				set_temp_variable = {
-					temp_alliance_id = 1
-				}
-				remove_from_economic_alliance = yes
-			}
-		}
-		# 経済同盟からの脱退 (Allies)
-		bsm_leave_economic_alliance_Allies = {
-			icon = generic_volunteer_expedition_bonus
-			allowed = {
-				always = yes
-			}
-			available = {
-				is_in_array = {
-					economic_alliance_ids = 2
-				}
-			}
-			visible = {
-				is_in_array = {
-					economic_alliance_ids = 2
-				}
-			}
-			cost = 50
-			fire_only_once = no
-			ai_will_do = {
-				factor = 0
-			}
-			complete_effect = {
-				set_temp_variable = {
-					temp_alliance_id = 2
-				}
-				remove_from_economic_alliance = yes
-			}
-		}
-		# 経済同盟からの脱退 (GEACPS)
-		bsm_leave_economic_alliance_GEACPS = {
-			icon = generic_volunteer_expedition_bonus
-			allowed = {
-				always = yes
-			}
-			available = {
-				is_in_array = {
-					economic_alliance_ids = 3
-				}
-			}
-			visible = {
-				is_in_array = {
-					economic_alliance_ids = 3
-				}
-			}
-			cost = 50
-			fire_only_once = no
-			ai_will_do = {
-				factor = 0
-			}
-			complete_effect = {
-				set_temp_variable = {
-					temp_alliance_id = 3
-				}
-				remove_from_economic_alliance = yes
-			}
-		}
-		# 経済同盟からの脱退 (汎用)
-		bsm_leave_generic_economic_alliance = {
-			icon = generic_volunteer_expedition_bonus
-			allowed = {
-				always = yes
-			}
-			available = {
-				any_of = {
-					array = economic_alliance_ids
-					value = v
-					tooltip = KEY_GENERIC_ALLIANCE_LEAVE_CHECK
-					v >= 10
-				}
-			}
-			visible = {
-				any_of = {
-					array = economic_alliance_ids
-					value = v
-					v >= 10
-				}
-			}
-			cost = 50
-			fire_only_once = no
-			ai_will_do = {
-				factor = 0
-			}
-			complete_effect = {
-				# 脱退する汎用同盟IDを特定 (最初に見つかったもの)
-				set_temp_variable = {
-					target_leave_id = 0
-				}
-				for_each_loop = {
-					array = economic_alliance_ids
-					value = v
-					if = {
-						limit = {
-							check_variable = {
-								v >= 10
-							}
-							check_variable = {
-								target_leave_id = 0
-							}
-						}
-						set_temp_variable = {
-							PREV.target_leave_id = v
-						}
-					}
-				}
-				if = {
-					limit = {
-						check_variable = {
-							target_leave_id > 0
-						}
-					}
-					set_temp_variable = {
-						temp_alliance_id = target_leave_id
-					}
-					remove_from_economic_alliance = yes
-				}
-			}
-		}
+		ai_will_do = { factor = 0 }
 	}
+
+	# 経済同盟からの脱退 (汎用・統合版)
+	# bsm_leave_generic_economic_alliance = {
+	# 	icon = generic_volunteer_expedition_bonus
+	# 	allowed = { always = yes }
+	# 	available = {
+	# 		is_in_bsm_ea_sphere = yes
+	# 	}
+	# 	visible = {
+	# 		is_in_bsm_ea_sphere = yes
+	# 	}
+	# 	cost = 50
+	# 	fire_only_once = no
+	# 	ai_will_do = { factor = 0 }
+	# 	complete_effect = {
+	# 		bsm_ea_leave_sphere_action = yes
+	# 	}
+	# }
 }

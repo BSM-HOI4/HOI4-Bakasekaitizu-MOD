@@ -1,4 +1,14 @@
-﻿joining_rule_non_fascist = {
+##########################################################################################
+
+### ###  ###  ##  #    ##   ##  #   #     ###   ##   ## ### ###      ###  #  # #   ###  ## 
+ #  #  # #   #  # #   #  # #     # #      #  # #  # #   #   #  #     #  # #  # #   #   #   
+ #  #  # ##  #  # #   #  # # ##   #       ###  ####  #  ##  #  #     ###  #  # #   ##   #  
+ #  #  # #   #  # #   #  # #  #   #       #  # #  #   # #   #  #     #  # #  # #   #     # 
+### ###  ###  ##  ###  ##   ##    #       ###  #  # ##  ### ###      #  #  ##  ### ### ## 
+
+########################################################################################## 
+
+joining_rule_non_fascist = {
 	type = joining_rules
 	visible = {
 		NOT = { has_government = fascism_ideology }
@@ -43,7 +53,7 @@ joining_rule_non_democratic = {
 	}
 	trigger = {
 		NOT = {
-			has_government = democratic_ideology
+			has_government = democratic_ideology 
 		}
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
@@ -84,18 +94,18 @@ joining_rule_non_communist = {
 	can_remove = {
 		IF = {
 			limit = {
-				ROOT = { original_tag = JPN }
+				ROOT = { original_tag = JAP }
 			}
-			always = no
+			always = no 
 		}
 		ELSE = {
-			always = yes
+			always = yes 
 		}
-
+		
 	}
 	trigger = {
 		NOT = {
-			has_government = communism_ideology
+			has_government = communism_ideology 
 		}
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
@@ -121,22 +131,107 @@ joining_rule_fascist_only = {
 	}
 }
 
-joining_rule_democratic_non_aligned = {
+joining_rule_close_ideology = {
 	type = joining_rules
 	ai_will_do = {
 		base = 0
 	}
-	available = {
-		has_government = democratic_ideology
-	}
 	trigger = {
 		OR = {
-			has_government = democratic_ideology
-			has_government = neutrality_ideology
+			# Democratic Block
+			AND = {
+				OR = {
+					has_government = democratic_ideology
+					has_government = conservative_democracy
+					has_government = constitutional_monarchy
+					has_government = direct_democracy
+					has_government = philanthropy
+				}
+				FROM = {
+					OR = {
+						has_government = democratic_ideology
+						has_government = conservative_democracy
+						has_government = constitutional_monarchy
+						has_government = direct_democracy
+						has_government = philanthropy
+					}
+				}
+			}
+			# Fascist Block
+			AND = {
+				OR = {
+					has_government = fascism_ideology
+					has_government = futurism
+				}
+				FROM = {
+					 OR = {
+						has_government = fascism_ideology
+						has_government = futurism
+					}
+				}
+			}
+			# Communist Block
+			AND = {
+				OR = {
+					has_government = communism_ideology
+					has_government = anarchism
+					has_government = transformationism
+					has_government = ruinism
+					has_government = longitudinalism
+					has_government = horizontalism
+					has_government = hinnulism
+					has_government = kyonulism
+				}
+				FROM = {
+					 OR = {
+						has_government = communism_ideology
+						has_government = anarchism
+						has_government = transformationism
+						has_government = ruinism
+						has_government = longitudinalism
+						has_government = horizontalism
+						has_government = hinnulism
+						has_government = kyonulism
+					}
+				}
+			}
+			# Traditional Neutral Block
+			AND = {
+				OR = {
+					has_government = neutrality_ideology
+					has_government = rightneutrality
+					has_government = mythologicalism
+				}
+				FROM = {
+					OR = {
+						has_government = neutrality_ideology
+						has_government = rightneutrality
+						has_government = mythologicalism
+					}
+				}
+			}
+			# Scientific/Civil Neutral Block
+			AND = {
+				OR = {
+					has_government = civilism
+					has_government = intellectualism
+					has_government = technicalism
+					has_government = stupidism
+				}
+				FROM = {
+					OR = {
+						has_government = civilism
+						has_government = intellectualism
+						has_government = technicalism
+						has_government = stupidism
+					}
+				}
+			}
 		}
 		IF = {
 			limit = { NOT = { has_rule = can_join_opposite_factions } }
-			has_government = FROM
+			# Note: has_government = FROM (Same Ideology) is already a separate rule, 
+			# but this block allows mixed.
 		}
 	}
 }
@@ -208,6 +303,17 @@ joining_rule_puppets_only = {
 	}
 }
 
+#######################################################
+
+#   #  ##  ###      ###  ### #    ##  ### ###  ##  #  #     
+#   # #  # #  #     #  # #   #   #  #  #   #  #  # ## #     
+# # # #### ###      ###  ##  #   ####  #   #  #  # # ##     
+# # # #  # #  #     #  # #   #   #  #  #   #  #  # #  #     
+ # #  #  # #  #     #  # ### ### #  #  #  ###  ##  #  #
+
+ ######################################################     
+
+
 joining_rule_has_no_war = {
 	type = joining_rules
 	ai_will_do = {
@@ -215,7 +321,7 @@ joining_rule_has_no_war = {
 		modifier = {
 			add = 3
 			has_government = neutrality_ideology
-			has_war = no
+			has_war = no 
 		}
 	}
 	trigger = {
@@ -232,7 +338,7 @@ joining_rule_has_no_offensive_war = {
 		base = 0
 		modifier = {
 			add = 2
-			NOT = { tag = GBR }
+			NOT = { tag = ENG }
 			NOT = { tag = USA }
 			OR = {
 				has_government = democratic_ideology
@@ -248,6 +354,16 @@ joining_rule_has_no_offensive_war = {
 	}
 }
 
+########################################################
+
+ ##  ###  ##   ##  ###   ##  ###  #  # ###  ##   ##  #   
+#    #   #  # #    #  # #  # #  # #  #  #  #  # #  # #   
+# ## ##  #  # # ## ###  #### ###  ####  #  #    #### #   
+#  # #   #  # #  # #  # #  # #    #  #  #  #  # #  # #   
+ ##  ###  ##   ##  #  # #  # #    #  # ###  ##  #  # ###
+
+######################################################## 
+
 joining_rule_neighbors_only = {
 	type = joining_rules
 	ai_will_do = {
@@ -255,10 +371,10 @@ joining_rule_neighbors_only = {
 		modifier = {
 			add = 1
 			has_government = neutrality_ideology
-			has_war = no
+			has_war = no 
 		}
 	}
-
+	
 	trigger = {
 		any_neighbor_country = {
 			is_in_faction_with = FROM
@@ -299,7 +415,7 @@ joining_rule_africa_only = {
 		base = 0
 		modifier = {
 			add = 1
-			is_faction_leader = yes
+			is_faction_leader = yes 
 			capital_scope = { is_on_continent = africa }
 		}
 	}
@@ -383,7 +499,7 @@ joining_rule_nordics_only = {
 	visible = {
 		capital_scope = {
 			OR = {
-				region = 275
+				region = 275 
 				region = 10
 				region = 11
 				region = 192
@@ -393,10 +509,10 @@ joining_rule_nordics_only = {
 				region = 278
 				region = 13
 				region = 161
-				region = 36
-				region = 45
+				region = 36 
+				region = 45 
 				region = 12
-				region = 265
+				region = 265 
 			}
 		}
 	}
@@ -416,7 +532,7 @@ joining_rule_nordics_only = {
 			tooltip = has_nordic_capital_state_tt
 			capital_scope = {
 				OR = {
-					region = 275
+					region = 275 
 					region = 10
 					region = 11
 					region = 192
@@ -426,10 +542,10 @@ joining_rule_nordics_only = {
 					region = 278
 					region = 13
 					region = 161
-					region = 36
-					region = 45
+					region = 36 
+					region = 45 
 					region = 12
-					region = 265
+					region = 265 
 				}
 			}
 		}
@@ -443,9 +559,9 @@ joining_rule_balkans_only = {
 		OR = {
 			original_tag = HUN
 			original_tag = AUS
-			original_tag = ROM
-			original_tag = TUR
-			original_tag = GRE
+			original_tag = ROM 
+			original_tag = TUR 
+			original_tag = GRE 
 			capital_scope = {
 				OR = {
 					state = 102
@@ -491,11 +607,11 @@ joining_rule_balkans_only = {
 					state = 78
 					state = 80
 					state = 341
-					state = 797
+					state = 797  
 				}
 			}
 		}
-
+		
 	}
 	can_remove = {
 		faction_manifest_fulfillment > 0.85
@@ -556,7 +672,7 @@ joining_rule_balkans_only = {
 					state = 78
 					state = 80
 					state = 341
-					state = 797
+					state = 797  
 				}
 			}
 		}
@@ -569,10 +685,10 @@ joining_rule_baltics_only = {
 		capital_scope = {
 			OR = {
 				region = 37
-				state = 763
-				state = 784
-				state = 208
-				state = 209
+				state = 763 
+				state = 784  
+				state = 208  
+				state = 209   
 			}
 		}
 	}
@@ -593,10 +709,10 @@ joining_rule_baltics_only = {
 			capital_scope = {
 				OR = {
 					region = 37
-					state = 763
-					state = 784
-					state = 208
-					state = 209
+					state = 763 
+					state = 784  
+					state = 208  
+					state = 209   
 				}
 			}
 		}
@@ -656,23 +772,23 @@ joining_rule_islamic_only = {
 			original_tag = TMS
 			original_tag = KKP
 			original_tag = SIN
-			original_tag = KAS
-			original_tag = CRI
-			original_tag = KOS
-			original_tag = KUR
-			original_tag = BLC
-			original_tag = IMO
-			original_tag = KLT
-			original_tag = KBK
-			original_tag = DJI
-			original_tag = HAR
-			original_tag = SEN
-			original_tag = GAM
-			original_tag = GNB
-			original_tag = SIE
-			original_tag = VOL
-			original_tag = GNA
-			original_tag = XSM
+			original_tag = KAS                  
+			original_tag = CRI              
+			original_tag = KOS              
+			original_tag = KUR      
+			original_tag = BLC      
+			original_tag = IMO      
+			original_tag = KLT      
+			original_tag = KBK      
+			original_tag = DJI      
+			original_tag = HAR      
+			original_tag = SEN      
+			original_tag = GAM      
+			original_tag = GNB      
+			original_tag = SIE      
+			original_tag = VOL      
+			original_tag = GNA      
+			original_tag = XSM      
 			original_tag = SIK
 			original_tag = KHM
 			original_tag = GSM
@@ -680,7 +796,7 @@ joining_rule_islamic_only = {
 			original_tag = KUM
 			original_tag = SAB
 			original_tag = BRN
-			original_tag = CHM
+			original_tag = CHM  
 			original_tag = AFG
 		}
 	}
@@ -748,23 +864,23 @@ joining_rule_islamic_only = {
 				original_tag = TMS
 				original_tag = KKP
 				original_tag = SIN
-				original_tag = KAS
-				original_tag = CRI
-				original_tag = KOS
-				original_tag = KUR
-				original_tag = BLC
-				original_tag = IMO
-				original_tag = KLT
-				original_tag = KBK
-				original_tag = DJI
-				original_tag = HAR
-				original_tag = SEN
-				original_tag = GAM
-				original_tag = GNB
-				original_tag = SIE
-				original_tag = VOL
-				original_tag = GNA
-				original_tag = XSM
+				original_tag = KAS                  
+				original_tag = CRI              
+				original_tag = KOS              
+				original_tag = KUR      
+				original_tag = BLC      
+				original_tag = IMO      
+				original_tag = KLT      
+				original_tag = KBK      
+				original_tag = DJI      
+				original_tag = HAR      
+				original_tag = SEN      
+				original_tag = GAM      
+				original_tag = GNB      
+				original_tag = SIE      
+				original_tag = VOL      
+				original_tag = GNA      
+				original_tag = XSM      
 				original_tag = SIK
 				original_tag = KHM
 				original_tag = GSM
@@ -772,7 +888,7 @@ joining_rule_islamic_only = {
 				original_tag = KUM
 				original_tag = SAB
 				original_tag = BRN
-				original_tag = CHM
+				original_tag = CHM  
 				original_tag = AFG
 			}
 		}
@@ -858,19 +974,19 @@ joining_rule_east_asia_only = {
 	}
 	visible = {
 		OR = {
-			original_tag = JPN
+			original_tag = JAP
 			original_tag = KOR
-			WTT_is_chinese_country = yes
+			WTT_is_chinese_country = yes 
 		}
 	}
 	can_remove = {
-		faction_manifest_fulfillment > 0.95
+		faction_manifest_fulfillment > 0.95	
 	}
 	trigger = {
 		OR = {
-			original_tag = JPN
+			original_tag = JAP
 			original_tag = KOR
-			WTT_is_chinese_country = yes
+			WTT_is_chinese_country = yes 
 		}
 	}
 }
@@ -886,7 +1002,7 @@ joining_rule_asia_pacific_ocenania_only = {
 			capital_scope = { is_on_continent = australia }
 		}
 	}
-
+	
 	trigger = {
 		OR = {
 			capital_scope = { is_on_continent = asia }
@@ -902,10 +1018,34 @@ joining_rule_asia_only = {
 	}
 	visible = {
 		capital_scope = { is_on_continent = asia }
-
+			
 	}
-
+	
 	trigger = {
 		capital_scope = { is_on_continent = asia }
+	}
+}
+
+joining_rule_democratic_non_aligned = {
+	type = joining_rules
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 1
+			OR = {
+				has_government = democratic_ideology
+				has_government = neutrality_ideology
+			}
+		}
+	}
+	trigger = {
+		OR = {
+			has_government = democratic_ideology
+			has_government = neutrality_ideology
+		}
+		IF = {
+			limit = { NOT = { has_rule = can_join_opposite_factions } }
+			has_government = FROM
+		}
 	}
 }

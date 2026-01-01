@@ -1,27 +1,25 @@
 NSI_internal_development = {
-	
+
 	NSI_expand_underground_city = {
 		icon = generic_industry
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = chikatoshi
-			has_political_power = { value = 149 }
+			has_political_power > 149
 			num_of_controlled_states > 0
 		}
-		
-		political_power_cost = {
-			add_political_power = -150
-		}
+
+		cost = 150
 		days_remove = 60
-		
+
 		ai_will_do = {
 			factor = 2
 		}
-		
+
 		remove_effect = {
 			random_owned_controlled_state = {
 				add_extra_state_shared_building_slots = 1
@@ -32,29 +30,29 @@ NSI_internal_development = {
 				}
 			}
 		}
-		
+
 		complete_effect = {
 			country_event = { id = nsi_events.1 }
 		}
 	}
-	
+
 	NSI_strengthen_defenses = {
 		icon = generic_fortify_the_borders
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = nsi_isolation_policy
-			has_political_power = { value = 99 }
+			has_political_power > 99
 			command_power > 24
 		}
-		
-		political_power_cost = 100
-		command_power_cost = 25
+
+		cost = 100
+		#command_power_cost = 25
 		days_remove = 45
-		
+
 		ai_will_do = {
 			factor = 3
 			modifier = {
@@ -62,68 +60,74 @@ NSI_internal_development = {
 				enemies_strength_ratio > 0.5
 			}
 		}
-		
+
 		remove_effect = {
 			every_owned_state = {
+				limit = {
+					# Valid limit if needed, or empty
+				}
 				add_building_construction = {
 					type = bunker
 					level = 1
 					instant_build = yes
+					province = {
+						all_provinces = yes
+					}
 				}
 			}
 		}
 	}
-	
+
 	NSI_spiritual_meditation = {
 		icon = generic_support_the_left_right
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = nsi_ancestral_worship
-			has_political_power = { value = 74 }
+			has_political_power > 74
 		}
-		
-		political_power_cost = 75
+
+		cost = 75
 		days_remove = 30
-		
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 3
-				stability < 0.7
+				has_stability < 0.7
 			}
 		}
-		
+
 		remove_effect = {
 			add_stability = 0.05
 			add_war_support = 0.05
 			add_political_power = 25
 		}
 	}
-	
+
 	NSI_ancient_research = {
 		icon = generic_research
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = nsi_forbidden_knowledge
-			has_political_power = { value = 199 }
-			num_of_research_slots > 2
+			has_political_power > 199
+			amount_research_slots > 2
 		}
-		
-		political_power_cost = 200
+
+		cost = 200
 		days_remove = 90
-		
+
 		ai_will_do = {
 			factor = 2
 		}
-		
+
 		remove_effect = {
 			add_tech_bonus = {
 				bonus = 1.5
@@ -151,25 +155,25 @@ NSI_internal_development = {
 			}
 		}
 	}
-	
+
 	NSI_recruit_elite_warriors = {
 		icon = generic_military_mission
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = nsi_warrior_tradition
-			manpower > 4999
-			has_political_power = { value = 99 }
+			has_manpower > 4999
+			has_political_power > 99
 			command_power > 49
 		}
-		
-		political_power_cost = 100
-		command_power_cost = 50
+
+		cost = 100
+		#command_power_cost = 50
 		days_remove = 75
-		
+
 		ai_will_do = {
 			factor = 2
 			modifier = {
@@ -177,30 +181,30 @@ NSI_internal_development = {
 				has_war = yes
 			}
 		}
-		
+
 		remove_effect = {
 			add_manpower = -5000
 			load_oob = "NSI_elite_reinforcements"
 			army_experience = 15
 		}
 	}
-	
+
 	NSI_commune_with_spirits = {
 		icon = generic_self_management
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = nsi_guardian_spirits
-			has_political_power = { value = 124 }
+			has_political_power > 124
 			NOT = { has_war = yes }
 		}
-		
-		political_power_cost = 125
+
+		cost = 125
 		days_remove = 60
-		
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -208,7 +212,7 @@ NSI_internal_development = {
 				has_war = yes
 			}
 		}
-		
+
 		remove_effect = {
 			add_stability = 0.1
 			add_war_support = 0.05
@@ -228,29 +232,29 @@ NSI_internal_development = {
 }
 
 NSI_awakened_actions = {
-	
+
 	NSI_mobilize_ancient_arsenal = {
 		icon = generic_military_equipment
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = nsi_awakened_empire
 			has_war = yes
-			has_political_power = { value = 199 }
+			has_political_power > 199
 			command_power > 99
 		}
-		
-		political_power_cost = 200
-		command_power_cost = 100
+
+		cost = 200
+
 		days_remove = 30
-		
+
 		ai_will_do = {
 			factor = 5
 		}
-		
+
 		remove_effect = {
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
@@ -266,27 +270,27 @@ NSI_awakened_actions = {
 			}
 		}
 	}
-	
+
 	NSI_divine_wrath = {
 		icon = generic_strike_at_democracy1
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = nsi_divine_retribution
 			has_war = yes
-			has_political_power = { value = 299 }
+			has_political_power > 299
 		}
-		
-		political_power_cost = 300
+
+		cost = 300
 		days_remove = 15
-		
+
 		ai_will_do = {
 			factor = 10
 		}
-		
+
 		remove_effect = {
 			add_war_support = 0.25
 			add_stability = 0.1
@@ -296,26 +300,26 @@ NSI_awakened_actions = {
 			}
 		}
 	}
-	
+
 	NSI_reality_alteration = {
 		icon = generic_industry_3
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = nsi_reality_bending
-			has_political_power = { value = 499 }
+			has_political_power > 499
 		}
-		
-		political_power_cost = 500
+
+		cost = 500
 		days_remove = 120
-		
+
 		ai_will_do = {
 			factor = 3
 		}
-		
+
 		remove_effect = {
 			random_owned_controlled_state = {
 				add_extra_state_shared_building_slots = 5
@@ -332,28 +336,28 @@ NSI_awakened_actions = {
 			}
 		}
 	}
-	
+
 	NSI_temporal_manipulation = {
 		icon = generic_self_management
-		
+
 		allowed = {
 			tag = NSI
 		}
-		
+
 		available = {
 			has_idea = nsi_temporal_control
-			has_political_power = { value = 399 }
+			has_political_power > 399
 			command_power > 199
 		}
-		
-		political_power_cost = 400
-		command_power_cost = 200
+
+		cost = 400
+		#command_power_cost = 200
 		days_remove = 90
-		
+
 		ai_will_do = {
 			factor = 2
 		}
-		
+
 		remove_effect = {
 			add_tech_bonus = {
 				bonus = 3.0

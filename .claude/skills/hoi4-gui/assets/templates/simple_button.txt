@@ -1,0 +1,69 @@
+# Simple Button Pattern Template
+# Copy this template and replace placeholders:
+# - SYSTEM_NAME: Your system/feature name (e.g., harvest, mine_dev, economic_alliance)
+# - ACTION_NAME: What the button does (e.g., open, confirm, select)
+
+### SCRIPTED GUI FILE (common/scripted_guis/bsm_SYSTEM_NAME_sgui.txt) ###
+
+scripted_gui = {
+	bsm_SYSTEM_NAME_gui = {
+		context_type = player_context  # Or decision_category, selected_country_context, etc.
+		window_name = "bsm_SYSTEM_NAME_gui"
+
+		visible = {
+			has_country_flag = SYSTEM_NAME_enabled
+		}
+
+		effects = {
+			ACTION_NAME_button_click = {
+				# Add your effect here
+				add_political_power = 50
+				set_country_flag = ACTION_NAME_used
+			}
+		}
+
+		triggers = {
+			ACTION_NAME_button_click_enabled = {
+				# Condition for button to be clickable
+				has_political_power > 25
+			}
+		}
+
+		ai_enabled = {
+			always = no  # Disable for player-only features
+		}
+	}
+}
+
+### GUI FILE (interface/bsm_SYSTEM_NAME.gui) ###
+
+guiTypes = {
+	containerWindowType = {
+		name = "bsm_SYSTEM_NAME_gui"
+		position = { x = 0 y = 0 }
+		size = { width = 100%% height = 100%% }
+
+		containerWindowType = {
+			name = "button_container"
+			position = { x = 100 y = 100 }
+
+			buttonType = {
+				name = "ACTION_NAME_button"
+				position = { x = 0 y = 0 }
+				quadTextureSprite = "GFX_button_sprite"
+				orientation = UPPER_LEFT
+
+				shortcut = "a"  # Optional keyboard shortcut
+				clicksound = click_default
+				oversound = ui_menu_over
+
+				pdx_tooltip = "ACTION_NAME_button_tooltip"
+			}
+		}
+	}
+}
+
+### LOCALISATION FILE (localisation/japanese/bsm_SYSTEM_NAME_l_japanese.yml) ###
+
+l_japanese:
+ ACTION_NAME_button_tooltip:0 "クリックしてACTION_NAMEを実行"

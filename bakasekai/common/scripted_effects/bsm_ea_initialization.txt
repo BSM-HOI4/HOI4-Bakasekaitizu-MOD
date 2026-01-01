@@ -1,0 +1,439 @@
+# ==========================================
+# BSM 経済陣営 初期化スクリプト
+# ==========================================
+# ------------------------------------------
+# ヘルパー: 盟主への精神付与
+# 入力:
+#   bsm_ea_target_idea (パラメータ)
+#   THIS = 盟主
+# ------------------------------------------
+# ------------------------------------------
+# 初期経済陣営の一括作成
+# on_startup から呼び出される
+# ------------------------------------------
+bsm_ea_init_initial_factions = {
+	log = "[BSM EA] *** bsm_ea_init_initial_factions CALLED ***"
+
+	# Guard against double execution
+	if = {
+		limit = {
+			has_global_flag = bsm_ea_initial_factions_created
+		}
+		log = "[BSM EA] Initial factions already created, skipping"
+	}
+	else = {
+		set_global_flag = bsm_ea_initial_factions_created
+		log = "[BSM EA] === Creating initial economic alliances ==="
+
+		# --------------------------------------
+		# 1. 欧州連合 (EUR / European Union)
+		# --------------------------------------
+		if = {
+			limit = {
+				country_exists = EUR
+			}
+			EUR = {
+				bsm_ea_generate_new_token = yes
+				log = "[BSM EA] EUR creating sphere with token [?bsm_ea_token]"
+				bsm_ea_create_sphere = yes
+				add_ideas = bsm_ea_idea_european_union
+
+				# bsm_ea_create_sphere already stores the token as bsm_ea_sphere on EUR
+				log = "[BSM EA] EUR sphere token is: [?bsm_ea_sphere]"
+
+				# OZY
+				if = {
+					limit = {
+						country_exists = OZY
+					}
+					log = "[BSM EA] Adding OZY to EUR alliance"
+					OZY = {
+						set_temp_variable = {
+							bsm_ea_token = PREV.bsm_ea_sphere
+						}
+						log = "[BSM EA] OZY joining with token [?bsm_ea_token]"
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_european_union
+						log = "[BSM EA] OZY joined, array size: [?bsm_ea_joined_spheres^num]"
+					}
+				}
+				else = {
+					log = "[BSM EA] OZY does not exist"
+				}
+				# DEU
+				if = {
+					limit = {
+						country_exists = DEU
+					}
+					log = "[BSM EA] Adding DEU to EUR alliance"
+					DEU = {
+						set_temp_variable = {
+							bsm_ea_token = PREV.bsm_ea_sphere
+						}
+						log = "[BSM EA] DEU joining with token [?bsm_ea_token]"
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_european_union
+					}
+				}
+				else = {
+					log = "[BSM EA] DEU does not exist"
+				}
+				# FRA
+				if = {
+					limit = {
+						country_exists = FRA
+					}
+					log = "[BSM EA] Adding FRA to EUR alliance"
+					FRA = {
+						set_temp_variable = {
+							bsm_ea_token = PREV.bsm_ea_sphere
+						}
+						log = "[BSM EA] FRA joining with token [?bsm_ea_token]"
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_european_union
+					}
+				}
+				else = {
+					log = "[BSM EA] FRA does not exist"
+				}
+				# ITA
+				if = {
+					limit = {
+						country_exists = ITA
+					}
+					log = "[BSM EA] Adding ITA to EUR alliance"
+					ITA = {
+						set_temp_variable = {
+							bsm_ea_token = PREV.bsm_ea_sphere
+						}
+						log = "[BSM EA] ITA joining with token [?bsm_ea_token]"
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_european_union
+					}
+				}
+				else = {
+					log = "[BSM EA] ITA does not exist"
+				}
+				# SAN
+				if = {
+					limit = {
+						country_exists = SAN
+					}
+					log = "[BSM EA] Adding SAN to EUR alliance"
+					SAN = {
+						set_temp_variable = {
+							bsm_ea_token = PREV.bsm_ea_sphere
+						}
+						log = "[BSM EA] SAN joining with token [?bsm_ea_token]"
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_european_union
+					}
+				}
+				else = {
+					log = "[BSM EA] SAN does not exist"
+				}
+				log = "[BSM EA] EUR final member count: [?global.bsm_ea_member_list_@var:bsm_ea_sphere^num]"
+			}
+		}
+
+		# --------------------------------------
+		# 2. コモンウェルス (GBR / Commonwealth)
+		# --------------------------------------
+		if = {
+			limit = {
+				country_exists = GBR
+			}
+			GBR = {
+				bsm_ea_generate_new_token = yes
+				log = "[BSM EA] GBR creating sphere with token [?bsm_ea_token]"
+				bsm_ea_create_sphere = yes
+				add_ideas = bsm_ea_idea_commonwealth
+
+				log = "[BSM EA] GBR sphere token is: [?bsm_ea_sphere]"
+
+				# CAN (Canada)
+				if = {
+					limit = { country_exists = CAN }
+					log = "[BSM EA] Adding CAN to GBR alliance"
+					CAN = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# AST (Australia)
+				if = {
+					limit = { country_exists = AST }
+					log = "[BSM EA] Adding AST to GBR alliance"
+					AST = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# NZL (New Zealand)
+				if = {
+					limit = { country_exists = NZL }
+					log = "[BSM EA] Adding NZL to GBR alliance"
+					NZL = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# IND (British Raj)
+				if = {
+					limit = { country_exists = IND }
+					log = "[BSM EA] Adding IND to GBR alliance"
+					IND = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# MAL (Malaysia)
+				if = {
+					limit = { country_exists = MAL }
+					log = "[BSM EA] Adding MAL to GBR alliance"
+					MAL = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# RAJ (Rajputana)
+				if = {
+					limit = { country_exists = RAJ }
+					log = "[BSM EA] Adding RAJ to GBR alliance"
+					RAJ = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# ZAF (South Africa)
+				if = {
+					limit = { country_exists = ZAF }
+					log = "[BSM EA] Adding ZAF to GBR alliance"
+					ZAF = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# BRM (Burma / ビルマ)
+				if = {
+					limit = { country_exists = BRM }
+					log = "[BSM EA] Adding BRM to GBR alliance"
+					BRM = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# LON (London)
+				if = {
+					limit = { country_exists = LON }
+					log = "[BSM EA] Adding LON to GBR alliance"
+					LON = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# HOL (Netherlands / オランダ)
+				if = {
+					limit = { country_exists = HOL }
+					log = "[BSM EA] Adding HOL to GBR alliance"
+					HOL = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# JEY (Jersey / ジャージー島)
+				if = {
+					limit = { country_exists = JEY }
+					log = "[BSM EA] Adding JEY to GBR alliance"
+					JEY = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# GGY (Guernsey / ガーンジー島)
+				if = {
+					limit = { country_exists = GGY }
+					log = "[BSM EA] Adding GGY to GBR alliance"
+					GGY = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# GIB (Gibraltar / ジブラルタル)
+				if = {
+					limit = { country_exists = GIB }
+					log = "[BSM EA] Adding GIB to GBR alliance"
+					GIB = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				# HRH (?)
+				if = {
+					limit = { country_exists = HRH }
+					log = "[BSM EA] Adding HRH to GBR alliance"
+					HRH = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_commonwealth
+					}
+				}
+
+				log = "[BSM EA] GBR final member count: [?global.bsm_ea_member_list_@var:bsm_ea_sphere^num]"
+			}
+		}
+
+		# --------------------------------------
+		# 3. 東亜連盟 (JPN / East Asia League)
+		# --------------------------------------
+		if = {
+			limit = {
+				country_exists = JPN
+			}
+			JPN = {
+				bsm_ea_generate_new_token = yes
+				log = "[BSM EA] JPN creating sphere with token [?bsm_ea_token]"
+				bsm_ea_create_sphere = yes
+				add_ideas = bsm_ea_idea_east_asia_league
+
+				log = "[BSM EA] JPN sphere token is: [?bsm_ea_sphere]"
+
+				# MAN (Manchukuo / 満州国)
+				if = {
+					limit = { country_exists = MAN }
+					log = "[BSM EA] Adding MAN to JPN alliance"
+					MAN = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_east_asia_league
+					}
+				}
+
+				# MEN (Mengkukuo / 蒙古国)
+				if = {
+					limit = { country_exists = MEN }
+					log = "[BSM EA] Adding MEN to JPN alliance"
+					MEN = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_east_asia_league
+					}
+				}
+
+				# KOR (Korea / 朝鮮)
+				if = {
+					limit = { country_exists = KOR }
+					log = "[BSM EA] Adding KOR to JPN alliance"
+					KOR = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_east_asia_league
+					}
+				}
+
+				# TWN (Taiwan / 台湾)
+				# if = {
+				# 	limit = { country_exists = TWN }
+				# 	log = "[BSM EA] Adding TWN to JPN alliance"
+				# 	TWN = {
+				# 		set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+				# 		bsm_ea_join_sphere = yes
+				# 		add_ideas = bsm_ea_idea_east_asia_league
+				# 	}
+				# }
+
+				# SIA (Siam / シャム/タイ)
+				if = {
+					limit = { country_exists = SIA }
+					log = "[BSM EA] Adding SIA to JPN alliance"
+					SIA = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_east_asia_league
+					}
+				}
+
+				# CHI (China / 中国)
+				if = {
+					limit = { country_exists = CHI }
+					log = "[BSM EA] Adding CHI to JPN alliance"
+					CHI = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						bsm_ea_join_sphere = yes
+						add_ideas = bsm_ea_idea_east_asia_league
+					}
+				}
+
+				log = "[BSM EA] JPN final member count: [?global.bsm_ea_member_list_@var:bsm_ea_sphere^num]"
+			}
+		}
+
+		# --------------------------------------
+		# 4. イベリア経済連合 (ESP / Iberian Union)
+		# --------------------------------------
+		if = {
+			limit = {
+				country_exists = ESP
+			}
+			ESP = {
+				bsm_ea_generate_new_token = yes
+				bsm_ea_create_sphere = yes
+				add_ideas = bsm_ea_idea_iberian_union
+
+				log = "[BSM EA] ESP sphere token is: [?bsm_ea_sphere]"
+
+				# CEU (Ceuta)
+				if = {
+					limit = { country_exists = CEU }
+					log = "[BSM EA] Adding CEU to ESP alliance"
+					CEU = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						log = "[BSM EA] CEU joining with token [?bsm_ea_token]"
+						bsm_ea_join_sphere = yes
+					}
+				}
+
+				# PML (Melilla)
+				if = {
+					limit = { country_exists = PML }
+					log = "[BSM EA] Adding PML to ESP alliance"
+					PML = {
+						set_temp_variable = { bsm_ea_token = PREV.bsm_ea_sphere }
+						log = "[BSM EA] PML joining with token [?bsm_ea_token]"
+						bsm_ea_join_sphere = yes
+					}
+				}
+
+				log = "[BSM EA] ESP final member count: [?global.bsm_ea_member_list_@var:bsm_ea_sphere^num]"
+			}
+		}
+
+		log = "[BSM EA] === Initial economic alliances created ==="
+	}
+}

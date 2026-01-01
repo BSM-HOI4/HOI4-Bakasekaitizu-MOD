@@ -14,14 +14,14 @@ country_event = {
     immediate = {
         # 貸し出しフラグを確認し、対応する州にエフェクトを適用
         if = {
-            limit = { 
+            limit = {
                 FROM = { has_country_flag = shipyard_lending_active_flag_@ROOT } # FROMが貸し出しを受けているか確認
                 has_event_target = state_to_lend # 貸し出された州が指定されているか確認
             }
 
-            state_to_lend = { # 貸し出された州のスコープ
+            event_target:state_to_lend = { # 貸し出された州のスコープ
                 set_state_controller_to = ROOT # 州のコントローラーを元の所有者に戻す [cite: 476]
-                remove_state_flag = shipyard_lending_active_flag_@FROM # 貸し出し中フラグを削除
+                clr_state_flag = shipyard_lending_active_flag_@FROM # 貸し出し中フラグを削除
             }
 
             # FROM（貸し出した相手国）から意見補正を削除
