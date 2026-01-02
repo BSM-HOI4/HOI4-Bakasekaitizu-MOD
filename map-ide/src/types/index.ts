@@ -115,6 +115,7 @@ export interface AIArea {
   name: string;
   strategicRegions?: number[];
   continents?: string[];
+  filePath?: string;
 }
 
 // Country color from common/countries/colors.txt

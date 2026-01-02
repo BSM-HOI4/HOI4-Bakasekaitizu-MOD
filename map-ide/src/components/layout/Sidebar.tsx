@@ -67,9 +67,9 @@ const Sidebar: React.FC = () => {
                 <div className="bg-ide-panel p-2 rounded">
                   <div className="text-ide-text font-medium">Statistics</div>
                   <div className="mt-1 space-y-1 text-ide-text-muted">
-                    <div>Provinces: {provinces.length}</div>
-                    <div>States: {states.length}</div>
-                    <div>Strategic Regions: {strategicRegions.length}</div>
+                    <div>Provinces: {provinces.size}</div>
+                    <div>States: {states.size}</div>
+                    <div>Strategic Regions: {strategicRegions.size}</div>
                     <div>AI Areas: {aiAreas.length}</div>
                   </div>
                 </div>
@@ -78,13 +78,13 @@ const Sidebar: React.FC = () => {
                   <div className="text-ide-text font-medium">Province Types</div>
                   <div className="mt-1 space-y-1 text-ide-text-muted">
                     <div>
-                      Land: {provinces.filter((p) => p.type === 'land').length}
+                      Land: {Array.from(provinces.values()).filter((p) => p.type === 'land').length}
                     </div>
                     <div>
-                      Sea: {provinces.filter((p) => p.type === 'sea').length}
+                      Sea: {Array.from(provinces.values()).filter((p) => p.type === 'sea').length}
                     </div>
                     <div>
-                      Lake: {provinces.filter((p) => p.type === 'lake').length}
+                      Lake: {Array.from(provinces.values()).filter((p) => p.type === 'lake').length}
                     </div>
                   </div>
                 </div>
