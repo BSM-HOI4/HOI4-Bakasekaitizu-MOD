@@ -342,12 +342,16 @@ const WebGLMapCanvas: React.FC = () => {
     [mouseState, activeTool, selectedColor, screenToImage, commitChanges, applyLine, applyRect]
   );
 
-  const handleWheel = useCallback(
-    (e: React.WheelEvent) => {
-      e.preventDefault();
+  // Handle wheel event with native listener for passive: false
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-      const rect = canvasRef.current?.getBoundingClientRect();
-      if (!rect) return;
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const rect = canvas.getBoundingClientRect();
 
       // Get mouse position relative to canvas
       const mouseX = e.clientX - rect.left;
@@ -363,9 +367,12 @@ const WebGLMapCanvas: React.FC = () => {
 
       setZoom(newZoom);
       setPan(newPanX, newPanY);
-    },
-    [zoom, panX, panY, setZoom, setPan]
-  );
+    };
+
+    // Add with passive: false to allow preventDefault
+    canvas.addEventListener('wheel', handleWheel, { passive: false });
+    return () => canvas.removeEventListener('wheel', handleWheel);
+  }, [zoom, panX, panY, setZoom, setPan]);
 
   const handleMouseLeave = useCallback(() => {
     setMouseState({
@@ -425,7 +432,6 @@ const WebGLMapCanvas: React.FC = () => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
-        onWheel={handleWheel}
         onContextMenu={(e) => e.preventDefault()}
         className="w-full h-full"
       />
