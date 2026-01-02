@@ -4,6 +4,7 @@ import { parseDefinitionCSV, parseAdjacenciesCSV, createProvinceMaps, serializeD
 import { parseParadoxScript, ASTNode } from '../parsers/paradox/parser';
 import { serializeParadoxScript } from '../parsers/paradox/serializer';
 import { rgbToKey } from '../utils/colorUtils';
+import { LocalisationData, loadAllLocalisations, getStateName, getStrategicRegionName } from '../parsers/localisationParser';
 
 interface ProjectState {
   // Project info
@@ -30,6 +31,10 @@ interface ProjectState {
 
   // Adjacencies
   adjacencies: Adjacency[];
+
+  // Localisation
+  localisation: LocalisationData | null;
+  currentLanguage: 'japanese' | 'english';
 
   // Actions
   openProject: (rootPath: string) => Promise<void>;
@@ -63,6 +68,12 @@ interface ProjectState {
   // Mark dirty
   markDirty: () => void;
   markClean: () => void;
+
+  // Localisation
+  loadLocalisation: (language: 'japanese' | 'english') => Promise<void>;
+  setLanguage: (language: 'japanese' | 'english') => void;
+  getStateName: (stateId: number) => string;
+  getStrategicRegionName: (regionId: number) => string;
 }
 
 export const useProjectStore = create<ProjectState>((set, get) => ({
@@ -84,6 +95,9 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
   aiAreas: [],
 
   adjacencies: [],
+
+  localisation: null,
+  currentLanguage: 'japanese',
 
   openProject: async (rootPath: string) => {
     set({ isLoading: true, error: null });
@@ -237,6 +251,9 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
         isDirty: false,
         error: null,
       });
+
+      // Load localisation
+      await get().loadLocalisation('japanese');
     } catch (error) {
       set({
         isLoading: false,
@@ -257,6 +274,7 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
       strategicRegionById: new Map(),
       aiAreas: [],
       adjacencies: [],
+      localisation: null,
       isDirty: false,
       error: null,
     });
@@ -633,6 +651,83 @@ export const useProjectStore = create<ProjectState>((set, get) => ({
 
   markDirty: () => set({ isDirty: true }),
   markClean: () => set({ isDirty: false }),
+
+  loadLocalisation: async (language: 'japanese' | 'english') => {
+    const { project } = get();
+    if (!project) return;
+
+    try {
+      const api = window.electronAPI;
+      const basePath = `${project.rootPath}/localisation/${language}`;
+      
+      // Check if localisation directory exists
+      if (!await api.exists(basePath)) {
+        console.warn(`Localisation directory not found: ${basePath}`);
+        return;
+      }
+
+      const locData = await loadAllLocalisations(
+        async (path: string) => {
+          const result = await api.readDir(path);
+          if (result.success && result.data) {
+            return {
+              success: true,
+              data: result.data.map(entry => ({
+                name: entry.name,
+                isDirectory: entry.isDirectory,
+                isFile: entry.isFile,
+              })),
+            };
+          }
+          return { success: false };
+        },
+        async (path: string) => {
+          return api.readTextFile(path);
+        },
+        basePath
+      );
+
+      console.log(`[projectStore] Loaded localisation: ${locData.states.size} states, ${locData.strategicRegions.size} regions`);
+      set({ localisation: locData, currentLanguage: language });
+    } catch (error) {
+      console.error('Failed to load localisation:', error);
+    }
+  },
+
+  setLanguage: (language: 'japanese' | 'english') => {
+    const { currentLanguage } = get();
+    if (currentLanguage !== language) {
+      get().loadLocalisation(language);
+    }
+  },
+
+  getStateName: (stateId: number) => {
+    const { localisation, states } = get();
+    const locName = getStateName(localisation, stateId);
+    if (locName !== `State ${stateId}`) {
+      return locName;
+    }
+    // Fall back to state.name if localisation not found
+    const state = states.get(stateId);
+    if (state?.name && state.name !== `STATE_${stateId}`) {
+      return state.name;
+    }
+    return `State ${stateId}`;
+  },
+
+  getStrategicRegionName: (regionId: number) => {
+    const { localisation, strategicRegions } = get();
+    const locName = getStrategicRegionName(localisation, regionId);
+    if (locName !== `Strategic Region ${regionId}`) {
+      return locName;
+    }
+    // Fall back to region.name if localisation not found
+    const region = strategicRegions.get(regionId);
+    if (region?.name && region.name !== `STRATEGICREGION_${regionId}`) {
+      return region.name;
+    }
+    return `Region ${regionId}`;
+  },
 }));
 
 // Helper functions to parse AST to domain objects

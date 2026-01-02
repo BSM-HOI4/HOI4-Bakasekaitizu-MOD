@@ -23,6 +23,7 @@ export interface RenderState {
   hoveredProvinceId: number | null;
   activeLayer: 'provinces' | 'states' | 'strategicRegions' | 'aiAreas';
   layerOpacity: number;
+  layerOverlay?: Uint8Array | null; // RGBA overlay for layer coloring
 }
 
 // Vertex shader for WebGL rendering
@@ -59,8 +60,10 @@ in vec2 v_texCoord;
 
 uniform sampler2D u_mapTexture;
 uniform sampler2D u_highlightTexture;
+uniform sampler2D u_layerTexture;
 uniform float u_zoom;
 uniform bool u_useSmoothing;
+uniform bool u_useLayerOverlay;
 
 out vec4 outColor;
 
@@ -74,6 +77,14 @@ void main() {
   } else {
     // Use nearest neighbor for pixel-perfect at high zoom
     mapColor = texture(u_mapTexture, v_texCoord);
+  }
+  
+  // Get layer overlay (state/region colors)
+  if (u_useLayerOverlay) {
+    vec4 layerColor = texture(u_layerTexture, v_texCoord);
+    if (layerColor.a > 0.0) {
+      mapColor = mix(mapColor, layerColor, layerColor.a);
+    }
   }
   
   // Get highlight overlay
@@ -134,6 +145,7 @@ export class WebGLRenderer {
   private lineProgram: WebGLProgram | null = null;
   private mapTexture: WebGLTexture | null = null;
   private highlightTexture: WebGLTexture | null = null;
+  private layerTexture: WebGLTexture | null = null;
   private quadVAO: WebGLVertexArrayObject | null = null;
   private quadBuffer: WebGLBuffer | null = null;
   private texCoordBuffer: WebGLBuffer | null = null;
@@ -215,6 +227,7 @@ export class WebGLRenderer {
     // Create textures
     this.mapTexture = this.createTexture();
     this.highlightTexture = this.createTexture();
+    this.layerTexture = this.createTexture();
     
     // Enable blending
     gl.enable(gl.BLEND);
@@ -418,6 +431,19 @@ export class WebGLRenderer {
       this.uploadMapTextureWebGL(pixels, this.mapWidth, this.mapHeight);
     } else {
       this.createMapImageData(pixels, this.mapWidth, this.mapHeight);
+    }
+  }
+
+  /**
+   * Upload layer overlay data (RGBA)
+   */
+  uploadLayerOverlay(overlayData: Uint8Array | null): void {
+    if (!this.mapWidth || !this.mapHeight) return;
+    
+    if (this.useWebGL && this.gl && this.layerTexture && overlayData) {
+      const gl = this.gl;
+      gl.bindTexture(gl.TEXTURE_2D, this.layerTexture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.mapWidth, this.mapHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, overlayData);
     }
   }
 
@@ -736,12 +762,18 @@ export class WebGLRenderer {
     const smoothLoc = gl.getUniformLocation(this.mapProgram, 'u_useSmoothing');
     const mapTexLoc = gl.getUniformLocation(this.mapProgram, 'u_mapTexture');
     const highlightTexLoc = gl.getUniformLocation(this.mapProgram, 'u_highlightTexture');
+    const layerTexLoc = gl.getUniformLocation(this.mapProgram, 'u_layerTexture');
+    const useLayerOverlayLoc = gl.getUniformLocation(this.mapProgram, 'u_useLayerOverlay');
     
     gl.uniform2f(resLoc, state.viewportWidth, state.viewportHeight);
     gl.uniform2f(transLoc, state.panX, state.panY);
     gl.uniform1f(scaleLoc, state.zoom);
     gl.uniform1f(zoomLoc, state.zoom);
     gl.uniform1i(smoothLoc, state.zoom < 4 ? 1 : 0);
+    
+    // Set layer overlay state
+    const hasLayerOverlay = state.layerOverlay && state.layerOverlay.length > 0;
+    gl.uniform1i(useLayerOverlayLoc, hasLayerOverlay ? 1 : 0);
     
     // Bind textures
     gl.activeTexture(gl.TEXTURE0);
@@ -751,6 +783,10 @@ export class WebGLRenderer {
     gl.activeTexture(gl.TEXTURE1);
     gl.bindTexture(gl.TEXTURE_2D, this.highlightTexture);
     gl.uniform1i(highlightTexLoc, 1);
+    
+    gl.activeTexture(gl.TEXTURE2);
+    gl.bindTexture(gl.TEXTURE_2D, this.layerTexture);
+    gl.uniform1i(layerTexLoc, 2);
     
     // Update texture filtering based on zoom
     gl.bindTexture(gl.TEXTURE_2D, this.mapTexture);
