@@ -251,23 +251,30 @@ export class WebGLRenderer {
   private createMainVAO(): WebGLVertexArrayObject {
     const { gl } = this;
     const vao = gl.createVertexArray()!;
+    
+    // Create buffers first
+    this.positionBuffer = gl.createBuffer()!;
+    this.texCoordBuffer = gl.createBuffer()!;
+    
+    // Initialize buffers with empty data
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(12), gl.DYNAMIC_DRAW);
+    
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(12), gl.DYNAMIC_DRAW);
+    
+    // Now setup VAO
     gl.bindVertexArray(vao);
     
-    // Position buffer
-    const positionBuffer = gl.createBuffer()!;
-    this.positionBuffer = positionBuffer;
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    
+    // Position attribute
     const positionLocation = gl.getAttribLocation(this.mainProgram, 'a_position');
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
     gl.enableVertexAttribArray(positionLocation);
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
     
-    // Texture coordinate buffer
-    const texCoordBuffer = gl.createBuffer()!;
-    this.texCoordBuffer = texCoordBuffer;
-    gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-    
+    // Texture coordinate attribute
     const texCoordLocation = gl.getAttribLocation(this.mainProgram, 'a_texCoord');
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
     gl.enableVertexAttribArray(texCoordLocation);
     gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
     
@@ -368,7 +375,7 @@ export class WebGLRenderer {
   private updateQuadVertices(): void {
     const { gl } = this;
     
-    // Position vertices (full quad)
+    // Position vertices (full quad - two triangles)
     const positions = new Float32Array([
       0, 0,
       this.mapWidth, 0,
@@ -381,14 +388,14 @@ export class WebGLRenderer {
     gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
     
-    // Texture coordinates
+    // Texture coordinates (matching position order)
     const texCoords = new Float32Array([
-      0, 0,
-      1, 0,
-      0, 1,
-      0, 1,
-      1, 0,
-      1, 1,
+      0, 0,  // top-left
+      1, 0,  // top-right
+      0, 1,  // bottom-left
+      0, 1,  // bottom-left
+      1, 0,  // top-right
+      1, 1,  // bottom-right
     ]);
     
     gl.bindBuffer(gl.ARRAY_BUFFER, this.texCoordBuffer);
