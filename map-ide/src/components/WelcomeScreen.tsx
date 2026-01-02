@@ -2,9 +2,10 @@ import React from 'react';
 
 interface WelcomeScreenProps {
   onOpenProject: () => void;
+  onTestMode?: () => void;
 }
 
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onOpenProject }) => {
+const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onOpenProject, onTestMode }) => {
   return (
     <div className="w-full h-full flex items-center justify-center bg-ide-bg">
       <div className="max-w-lg text-center">
@@ -30,6 +31,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onOpenProject }) => {
           >
             Open Mod Folder
           </button>
+          
+          {onTestMode && (
+            <button
+              onClick={onTestMode}
+              className="ml-4 px-6 py-3 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+            >
+              Test Mode (Demo)
+            </button>
+          )}
           
           <div className="mt-6 text-xs text-ide-text-muted">
             <p>Keyboard shortcut: <kbd className="px-2 py-1 bg-ide-bg rounded">Ctrl/Cmd + O</kbd></p>
