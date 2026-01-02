@@ -119,9 +119,12 @@ const App: React.FC = () => {
   // Test mode handler - generates test map for browser debugging
   // IMPORTANT: This must be defined before any early returns
   const handleTestMode = useCallback(() => {
+    console.log('[App] handleTestMode called');
     // Generate test BMP
     const testBMP = generateTestBMP(512, 512);
+    console.log('[App] Generated test BMP, size:', testBMP.byteLength);
     loadBMP(testBMP);
+    console.log('[App] loadBMP called');
     
     // Set up a dummy project
     useProjectStore.setState({

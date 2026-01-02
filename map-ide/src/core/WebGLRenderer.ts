@@ -337,6 +337,7 @@ export class WebGLRenderer {
    * Upload map pixel data
    */
   uploadMapData(pixels: Uint8Array, width: number, height: number): void {
+    console.log('[WebGLRenderer] uploadMapData called:', width, 'x', height, 'pixels:', pixels.length);
     this.mapWidth = width;
     this.mapHeight = height;
     this.provincePixelData = new Uint8Array(pixels);
@@ -356,6 +357,7 @@ export class WebGLRenderer {
   }
 
   private uploadMapTextureWebGL(pixels: Uint8Array, width: number, height: number): void {
+    console.log('[WebGLRenderer] uploadMapTextureWebGL called');
     const gl = this.gl!;
     
     // Convert RGB to RGBA for WebGL
@@ -389,6 +391,7 @@ export class WebGLRenderer {
   }
 
   private createMapImageData(pixels: Uint8Array, width: number, height: number): void {
+    console.log('[WebGLRenderer] createMapImageData called');
     this.mapImageData = new ImageData(width, height);
     const data = this.mapImageData.data;
     
