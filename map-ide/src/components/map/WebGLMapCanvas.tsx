@@ -30,6 +30,7 @@ const WebGLMapCanvas: React.FC = () => {
   });
   
   const [rendererType, setRendererType] = useState<'webgl' | 'canvas2d' | 'none'>('none');
+  const [rendererReady, setRendererReady] = useState(false);
   const [debugInfo, setDebugInfo] = useState<string>('');
 
   // Map store state
@@ -77,38 +78,65 @@ const WebGLMapCanvas: React.FC = () => {
   // Initialize WebGL renderer
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    try {
-      rendererRef.current = new WebGLRenderer(canvas);
-      setRendererType(rendererRef.current.getRendererType());
-      console.log('Renderer initialized:', rendererRef.current.getRendererType());
-    } catch (error) {
-      console.error('Failed to initialize renderer:', error);
-      setRendererType('none');
-    }
-
-    return () => {
-      rendererRef.current?.dispose();
-      rendererRef.current = null;
-    };
-  }, []);
-
-  // Upload map data to GPU when BMP editor changes
-  useEffect(() => {
-    const renderer = rendererRef.current;
-    if (!renderer || !bmpEditor) {
-      setDebugInfo(`No renderer: ${!renderer}, No bmpEditor: ${!bmpEditor}`);
+    if (!canvas) {
+      console.log('[WebGLMapCanvas] Canvas ref not ready yet');
       return;
     }
 
-    console.log('Uploading map data:', bmpEditor.width, 'x', bmpEditor.height);
+    // Check if renderer already exists
+    if (rendererRef.current) {
+      console.log('[WebGLMapCanvas] Renderer already exists');
+      return;
+    }
+
+    try {
+      console.log('[WebGLMapCanvas] Creating WebGLRenderer...');
+      rendererRef.current = new WebGLRenderer(canvas);
+      const type = rendererRef.current.getRendererType();
+      setRendererType(type);
+      setRendererReady(true);
+      console.log('[WebGLMapCanvas] Renderer initialized:', type);
+    } catch (error) {
+      console.error('[WebGLMapCanvas] Failed to initialize renderer:', error);
+      setRendererType('none');
+      setRendererReady(false);
+    }
+
+    return () => {
+      console.log('[WebGLMapCanvas] Disposing renderer');
+      rendererRef.current?.dispose();
+      rendererRef.current = null;
+      setRendererReady(false);
+    };
+  }, []);
+
+  // Upload map data to GPU when BMP editor changes AND renderer is ready
+  useEffect(() => {
+    console.log('[WebGLMapCanvas] Upload effect triggered - rendererReady:', rendererReady, 'bmpEditor:', !!bmpEditor);
+    
+    if (!rendererReady) {
+      setDebugInfo('Waiting for renderer...');
+      return;
+    }
+    
+    const renderer = rendererRef.current;
+    if (!renderer) {
+      setDebugInfo('Renderer ref is null');
+      return;
+    }
+    
+    if (!bmpEditor) {
+      setDebugInfo('Waiting for BMP data...');
+      return;
+    }
+
+    console.log('[WebGLMapCanvas] Uploading map data:', bmpEditor.width, 'x', bmpEditor.height);
     setDebugInfo(`Map: ${bmpEditor.width}x${bmpEditor.height}`);
     renderer.uploadMapData(bmpEditor.pixels, bmpEditor.width, bmpEditor.height);
     
     // Fit to view after loading
     setTimeout(fitToView, 100);
-  }, [bmpEditor, fitToView]);
+  }, [bmpEditor, rendererReady, fitToView]);
 
   // Update map texture when pixels change
   useEffect(() => {
