@@ -439,26 +439,13 @@ const WebGLMapCanvas: React.FC = () => {
     }
   };
 
-  if (!bmpEditor) {
-    return (
-      <div className="flex-1 flex items-center justify-center bg-ide-bg text-ide-text-muted">
-        <div className="text-center">
-          <div className="text-6xl mb-4">🗺️</div>
-          <div className="text-xl font-medium">Loading map...</div>
-          <div className="text-sm mt-2 text-ide-text-muted">
-            Open a project folder to start editing
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div
       ref={containerRef}
       className="flex-1 overflow-hidden bg-ide-bg relative"
       style={{ cursor: getCursor() }}
     >
+      {/* Canvas is always rendered so ref is available for WebGL initialization */}
       <canvas
         ref={canvasRef}
         onMouseDown={handleMouseDown}
@@ -467,7 +454,21 @@ const WebGLMapCanvas: React.FC = () => {
         onMouseLeave={handleMouseLeave}
         onContextMenu={(e) => e.preventDefault()}
         className="w-full h-full"
+        style={{ display: bmpEditor ? 'block' : 'none' }}
       />
+      
+      {/* Loading overlay when no bmpEditor */}
+      {!bmpEditor && (
+        <div className="absolute inset-0 flex items-center justify-center bg-ide-bg text-ide-text-muted">
+          <div className="text-center">
+            <div className="text-6xl mb-4">🗺️</div>
+            <div className="text-xl font-medium">Loading map...</div>
+            <div className="text-sm mt-2 text-ide-text-muted">
+              Open a project folder to start editing
+            </div>
+          </div>
+        </div>
+      )}
       
       {/* Layer indicator */}
       <div className="absolute top-4 right-4 bg-ide-sidebar px-3 py-2 rounded-lg shadow-lg border border-ide-border">
