@@ -72,16 +72,75 @@ const App: React.FC = () => {
     const loadMapBMP = async () => {
       if (!project) return;
 
+      // Check if electronAPI is available
+      if (typeof window.electronAPI === 'undefined') {
+        console.warn('ElectronAPI not available, generating test map');
+        // Generate a test BMP for browser debugging
+        const testBMP = generateTestBMP(512, 512);
+        loadBMP(testBMP);
+        return;
+      }
+
       const bmpPath = `${project.mapPath}/provinces.bmp`;
+      console.log('Loading BMP from:', bmpPath);
       const result = await window.electronAPI.readFile(bmpPath);
       
       if (result.success && result.data) {
+        console.log('BMP loaded successfully, size:', result.data.byteLength);
         loadBMP(result.data);
+      } else {
+        console.error('Failed to load BMP:', result.error);
       }
     };
 
     loadMapBMP();
   }, [project, loadBMP]);
+
+  // Generate test BMP for browser debugging
+  function generateTestBMP(width: number, height: number): ArrayBuffer {
+    const rowPadding = (4 - ((width * 3) % 4)) % 4;
+    const paddedRowSize = width * 3 + rowPadding;
+    const imageSize = paddedRowSize * height;
+    const fileSize = 54 + imageSize;
+
+    const buffer = new ArrayBuffer(fileSize);
+    const view = new DataView(buffer);
+    const data = new Uint8Array(buffer);
+
+    // BMP header
+    view.setUint8(0, 0x42); // 'B'
+    view.setUint8(1, 0x4D); // 'M'
+    view.setUint32(2, fileSize, true);
+    view.setUint32(10, 54, true);
+    view.setUint32(14, 40, true);
+    view.setInt32(18, width, true);
+    view.setInt32(22, height, true);
+    view.setUint16(26, 1, true);
+    view.setUint16(28, 24, true);
+    view.setUint32(30, 0, true);
+    view.setUint32(34, imageSize, true);
+
+    // Generate colorful province-like data
+    for (let y = 0; y < height; y++) {
+      const srcY = height - 1 - y;
+      const dstOffset = 54 + y * paddedRowSize;
+
+      for (let x = 0; x < width; x++) {
+        const dstIdx = dstOffset + x * 3;
+        // Create a grid of different colored "provinces"
+        const gridX = Math.floor(x / 32);
+        const gridY = Math.floor(srcY / 32);
+        const seed = (gridX * 17 + gridY * 31) % 256;
+        
+        // BGR order
+        data[dstIdx] = (seed * 3 + 50) % 256;     // B
+        data[dstIdx + 1] = (seed * 7 + 100) % 256; // G
+        data[dstIdx + 2] = (seed * 11 + 150) % 256; // R
+      }
+    }
+
+    return buffer;
+  }
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -195,8 +254,27 @@ const App: React.FC = () => {
     );
   }
 
+  // Test mode handler - generates test map for browser debugging
+  const handleTestMode = useCallback(() => {
+    // Generate test BMP
+    const testBMP = generateTestBMP(512, 512);
+    loadBMP(testBMP);
+    
+    // Set up a dummy project
+    useProjectStore.setState({
+      project: {
+        rootPath: '/test',
+        mapPath: '/test/map',
+        commonPath: '/test/common',
+        historyPath: '/test/history',
+        loaded: true,
+      },
+      isLoading: false,
+    });
+  }, [loadBMP]);
+
   if (!project) {
-    return <WelcomeScreen onOpenProject={handleOpenProject} />;
+    return <WelcomeScreen onOpenProject={handleOpenProject} onTestMode={handleTestMode} />;
   }
 
   return (

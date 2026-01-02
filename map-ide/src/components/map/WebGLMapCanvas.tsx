@@ -30,6 +30,7 @@ const WebGLMapCanvas: React.FC = () => {
   });
   
   const [rendererType, setRendererType] = useState<'webgl' | 'canvas2d' | 'none'>('none');
+  const [debugInfo, setDebugInfo] = useState<string>('');
 
   // Map store state
   const bmpEditor = useMapStore((state) => state.bmpEditor);
@@ -96,9 +97,13 @@ const WebGLMapCanvas: React.FC = () => {
   // Upload map data to GPU when BMP editor changes
   useEffect(() => {
     const renderer = rendererRef.current;
-    if (!renderer || !bmpEditor) return;
+    if (!renderer || !bmpEditor) {
+      setDebugInfo(`No renderer: ${!renderer}, No bmpEditor: ${!bmpEditor}`);
+      return;
+    }
 
     console.log('Uploading map data:', bmpEditor.width, 'x', bmpEditor.height);
+    setDebugInfo(`Map: ${bmpEditor.width}x${bmpEditor.height}`);
     renderer.uploadMapData(bmpEditor.pixels, bmpEditor.width, bmpEditor.height);
     
     // Fit to view after loading
@@ -462,6 +467,14 @@ const WebGLMapCanvas: React.FC = () => {
         <div className="absolute bottom-4 left-4 bg-ide-sidebar px-3 py-2 rounded-lg shadow-lg border border-ide-border">
           <div className="text-xs text-ide-text-muted">Province ID</div>
           <div className="text-sm font-mono text-ide-text">{hoveredProvinceId}</div>
+        </div>
+      )}
+      
+      {/* Debug info */}
+      {debugInfo && (
+        <div className="absolute top-4 left-4 bg-ide-sidebar px-3 py-2 rounded-lg shadow-lg border border-ide-border">
+          <div className="text-xs text-ide-text-muted">Debug</div>
+          <div className="text-xs font-mono text-ide-text">{debugInfo}</div>
         </div>
       )}
     </div>
