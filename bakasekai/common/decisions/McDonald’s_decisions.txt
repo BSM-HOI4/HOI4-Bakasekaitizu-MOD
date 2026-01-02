@@ -144,6 +144,60 @@ Dieting_decision = {
 			factor = 10000
 		}
     }
+	The_Ultimate_Solution_to_Obesity = {
+		icon = GFX_decision_generic_national_unity
+
+		allowed = {
+			original_tag = MAC
+			always = yes
+		}
+
+		cost = 30
+		fire_only_once = yes
+
+		available = {
+			has_completed_focus = MAC_sales_start_in_the_USA
+			OR = {
+				MAC = {has_idea = Obesity_1}
+				MAC= {has_idea = Obesity_2}
+				MAC= {has_idea = Obesity_3}
+				MAC= {has_idea = Obesity_4}
+			}
+		}
+		visible = {
+			has_completed_focus = MAC_sales_start_in_the_USA
+		}
+		#visible = {has_country_flag=gone_sand}
+
+		complete_effect = {
+			custom_effect_tooltip = MAC_Ultimate_Solution_tt
+			add_ideas = health_conscious
+			hidden_effect = {
+				if = {
+					limit = { has_idea = Obesity_1 }
+					remove_ideas = Obesity_1
+				}
+				else = {
+					if = {
+						limit = { has_idea = Obesity_2 }
+						remove_ideas = Obesity_2
+					}
+					else = {
+						if = {
+							limit = { has_idea = Obesity_3 }
+							remove_ideas = Obesity_3
+						}
+						else = {
+							remove_ideas = Obesity_4
+						}
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 10000
+		}
+	}
 }
 
 Progression_of_obesity = {
@@ -1282,6 +1336,37 @@ MAC_balance_of_power_category = {
 					70 = { MAC_bop_medium_increase_effect = yes }
 				}
 			}
+		}
+	}
+
+	MAC_Reduction_in_Pepsi_Legal_Department = {
+		allowed = {
+			original_tag = MAC
+			always = yes
+		}
+
+		available = {
+			AND = {
+				has_completed_focus = MAC_Overseas_shop_openings
+				has_country_flag = MAC_finish_bop_1
+				has_country_flag = MAC_pepsi_flag
+			}
+		}
+		visible = {
+			AND = {
+				has_completed_focus = MAC_Overseas_shop_openings
+				has_country_flag = MAC_finish_bop_1
+				has_country_flag = MAC_pepsi_flag
+			}
+		}
+
+		cost = 0
+
+		days_re_enable = 100
+
+		complete_effect = {
+			add_political_power = 150
+			set_country_flag = MAC_pepsi_legal_reduction
 		}
 	}
 
