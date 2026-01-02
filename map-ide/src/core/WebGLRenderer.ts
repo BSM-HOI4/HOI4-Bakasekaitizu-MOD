@@ -337,14 +337,17 @@ export class WebGLRenderer {
    * Upload map pixel data
    */
   uploadMapData(pixels: Uint8Array, width: number, height: number): void {
+    console.log('[WebGLRenderer] uploadMapData called:', width, 'x', height, 'pixels:', pixels.length);
     this.mapWidth = width;
     this.mapHeight = height;
     this.provincePixelData = new Uint8Array(pixels);
     
     if (this.useWebGL && this.gl) {
+      console.log('[WebGLRenderer] Using WebGL path');
       this.uploadMapTextureWebGL(pixels, width, height);
       this.updateQuadBuffer();
     } else {
+      console.log('[WebGLRenderer] Using Canvas 2D path');
       this.createMapImageData(pixels, width, height);
     }
     
@@ -353,9 +356,11 @@ export class WebGLRenderer {
     this.offscreenCtx = this.offscreenCanvas.getContext('2d');
     
     this.highlightDirty = true;
+    console.log('[WebGLRenderer] uploadMapData complete. mapWidth:', this.mapWidth, 'mapHeight:', this.mapHeight);
   }
 
   private uploadMapTextureWebGL(pixels: Uint8Array, width: number, height: number): void {
+    console.log('[WebGLRenderer] uploadMapTextureWebGL called');
     const gl = this.gl!;
     
     // Convert RGB to RGBA for WebGL
@@ -389,6 +394,7 @@ export class WebGLRenderer {
   }
 
   private createMapImageData(pixels: Uint8Array, width: number, height: number): void {
+    console.log('[WebGLRenderer] createMapImageData called');
     this.mapImageData = new ImageData(width, height);
     const data = this.mapImageData.data;
     
@@ -691,6 +697,7 @@ export class WebGLRenderer {
     if (this.canvas.width !== state.viewportWidth || this.canvas.height !== state.viewportHeight) {
       this.canvas.width = state.viewportWidth;
       this.canvas.height = state.viewportHeight;
+      console.log('[WebGLRenderer] Canvas resized to', state.viewportWidth, 'x', state.viewportHeight);
     }
     
     // Update highlight texture if dirty
@@ -713,7 +720,10 @@ export class WebGLRenderer {
     gl.clearColor(0.12, 0.12, 0.12, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     
-    if (!this.mapWidth || !this.mapHeight || !this.mapProgram) return;
+    if (!this.mapWidth || !this.mapHeight || !this.mapProgram) {
+      // Log only once to avoid spam
+      return;
+    }
     
     // Use map program
     gl.useProgram(this.mapProgram);
@@ -867,7 +877,10 @@ export class WebGLRenderer {
     ctx.fillStyle = '#1e1e1e';
     ctx.fillRect(0, 0, state.viewportWidth, state.viewportHeight);
     
-    if (!this.mapWidth || !this.mapHeight || !this.mapImageData) return;
+    if (!this.mapWidth || !this.mapHeight || !this.mapImageData) {
+      // Log only once to avoid spam
+      return;
+    }
     
     // Save context state
     ctx.save();

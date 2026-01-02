@@ -116,14 +116,18 @@ export const useMapStore = create<MapState>((set, get) => ({
   pendingChanges: [],
 
   loadBMP: (buffer: ArrayBuffer) => {
+    console.log('[mapStore] loadBMP called, buffer size:', buffer.byteLength);
     try {
       const editor = new BMPEditor(buffer);
+      console.log('[mapStore] BMPEditor created, dimensions:', editor.width, 'x', editor.height);
       set({
         bmpEditor: editor,
         bmpLoaded: true,
         bmpError: null,
       });
+      console.log('[mapStore] State updated with bmpEditor');
     } catch (error) {
+      console.error('[mapStore] Error loading BMP:', error);
       set({
         bmpEditor: null,
         bmpLoaded: false,

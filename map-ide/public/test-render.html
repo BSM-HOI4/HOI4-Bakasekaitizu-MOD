@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map Render Test</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #1e1e1e;
+      color: white;
+      font-family: sans-serif;
+    }
+    #canvas {
+      border: 1px solid #444;
+      max-width: 100%;
+    }
+    #log {
+      margin-top: 20px;
+      padding: 10px;
+      background: #2d2d2d;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .log-entry { margin: 2px 0; }
+    .error { color: #ff6b6b; }
+    .success { color: #69db7c; }
+    .info { color: #74c0fc; }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      background: #4263eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover { background: #364fc7; }
+    #controls { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Map Render Test</h1>
+  <div id="controls">
+    <button onclick="loadTestMap()">Load Test Map (512x512)</button>
+    <input type="file" id="fileInput" accept=".bmp" style="display:none" onchange="loadFile(event)">
+    <button onclick="document.getElementById('fileInput').click()">Load BMP File</button>
+  </div>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  <div id="log"></div>
+
+  <script type="module">
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const logDiv = document.getElementById('log');
+
+    function log(message, type = 'info') {
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.textContent = `[${new Date().toISOString().slice(11,19)}] ${message}`;
+      logDiv.appendChild(entry);
+      logDiv.scrollTop = logDiv.scrollHeight;
+      console.log(message);
+    }
+
+    window.log = log;
+
+    // Parse BMP
+    function parseBMP(buffer) {
+      log('Parsing BMP...', 'info');
+      const view = new DataView(buffer);
+      
+      const signature = String.fromCharCode(view.getUint8(0), view.getUint8(1));
+      if (signature !== 'BM') {
+        throw new Error('Invalid BMP signature: ' + signature);
+      }
+
+      const fileSize = view.getUint32(2, true);
+      const dataOffset = view.getUint32(10, true);
+      const headerSize = view.getUint32(14, true);
+      const width = view.getInt32(18, true);
+      const height = view.getInt32(22, true);
+      const bitsPerPixel = view.getUint16(28, true);
+      const compression = view.getUint32(30, true);
+
+      log(`BMP: ${Math.abs(width)}x${Math.abs(height)}, ${bitsPerPixel}bpp`, 'info');
+
+      if (bitsPerPixel !== 24) {
+        throw new Error('Only 24-bit BMP supported');
+      }
+      if (compression !== 0) {
+        throw new Error('Compressed BMP not supported');
+      }
+
+      const absWidth = Math.abs(width);
+      const absHeight = Math.abs(height);
+      const isTopDown = height < 0;
+      const rowSize = absWidth * 3;
+      const rowPadding = (4 - (rowSize % 4)) % 4;
+      const paddedRowSize = rowSize + rowPadding;
+
+      log(`Row padding: ${rowPadding}, Top-down: ${isTopDown}`, 'info');
+
+      // Convert to RGBA
+      const pixels = new Uint8ClampedArray(absWidth * absHeight * 4);
+      const rawData = new Uint8Array(buffer, dataOffset);
+
+      for (let y = 0; y < absHeight; y++) {
+        const srcY = isTopDown ? y : (absHeight - 1 - y);
+        const srcOffset = srcY * paddedRowSize;
+        const dstOffset = y * absWidth * 4;
+
+        for (let x = 0; x < absWidth; x++) {
+          const srcIdx = srcOffset + x * 3;
+          const dstIdx = dstOffset + x * 4;
+          
+          // BGR to RGBA
+          pixels[dstIdx] = rawData[srcIdx + 2];     // R
+          pixels[dstIdx + 1] = rawData[srcIdx + 1]; // G
+          pixels[dstIdx + 2] = rawData[srcIdx];     // B
+          pixels[dstIdx + 3] = 255;                 // A
+        }
+      }
+
+      return { width: absWidth, height: absHeight, pixels };
+    }
+
+    // Render to canvas
+    function renderMap(mapData) {
+      log(`Rendering ${mapData.width}x${mapData.height}...`, 'info');
+      
+      canvas.width = mapData.width;
+      canvas.height = mapData.height;
+      
+      const imageData = new ImageData(mapData.pixels, mapData.width, mapData.height);
+      ctx.putImageData(imageData, 0, 0);
+      
+      log('Render complete!', 'success');
+    }
+
+    // Generate test map
+    window.loadTestMap = function() {
+      log('Generating test map...', 'info');
+      
+      const width = 512;
+      const height = 512;
+      const rowPadding = (4 - ((width * 3) % 4)) % 4;
+      const paddedRowSize = width * 3 + rowPadding;
+      const imageSize = paddedRowSize * height;
+      const fileSize = 54 + imageSize;
+
+      const buffer = new ArrayBuffer(fileSize);
+      const view = new DataView(buffer);
+      const data = new Uint8Array(buffer);
+
+      // BMP header
+      view.setUint8(0, 0x42);
+      view.setUint8(1, 0x4D);
+      view.setUint32(2, fileSize, true);
+      view.setUint32(10, 54, true);
+      view.setUint32(14, 40, true);
+      view.setInt32(18, width, true);
+      view.setInt32(22, height, true);
+      view.setUint16(26, 1, true);
+      view.setUint16(28, 24, true);
+      view.setUint32(30, 0, true);
+      view.setUint32(34, imageSize, true);
+
+      // Generate colorful grid
+      for (let y = 0; y < height; y++) {
+        const srcY = height - 1 - y;
+        const dstOffset = 54 + y * paddedRowSize;
+
+        for (let x = 0; x < width; x++) {
+          const dstIdx = dstOffset + x * 3;
+          const gridX = Math.floor(x / 32);
+          const gridY = Math.floor(srcY / 32);
+          const seed = (gridX * 17 + gridY * 31) % 256;
+          
+          data[dstIdx] = (seed * 3 + 50) % 256;
+          data[dstIdx + 1] = (seed * 7 + 100) % 256;
+          data[dstIdx + 2] = (seed * 11 + 150) % 256;
+        }
+      }
+
+      log('Test BMP generated', 'success');
+      
+      try {
+        const mapData = parseBMP(buffer);
+        renderMap(mapData);
+      } catch (e) {
+        log('Error: ' + e.message, 'error');
+      }
+    };
+
+    // Load file
+    window.loadFile = function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      log(`Loading file: ${file.name} (${file.size} bytes)`, 'info');
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const mapData = parseBMP(e.target.result);
+          renderMap(mapData);
+        } catch (err) {
+          log('Error: ' + err.message, 'error');
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    };
+
+    log('Ready! Click a button to test.', 'success');
+  </script>
+</body>
+</html>
