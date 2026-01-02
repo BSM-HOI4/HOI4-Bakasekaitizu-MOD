@@ -28,6 +28,8 @@ const WebGLMapCanvas: React.FC = () => {
     lastPos: null,
     lineStart: null,
   });
+  
+  const [rendererType, setRendererType] = useState<'webgl' | 'canvas2d' | 'none'>('none');
 
   // Map store state
   const bmpEditor = useMapStore((state) => state.bmpEditor);
@@ -78,8 +80,11 @@ const WebGLMapCanvas: React.FC = () => {
 
     try {
       rendererRef.current = new WebGLRenderer(canvas);
+      setRendererType(rendererRef.current.getRendererType());
+      console.log('Renderer initialized:', rendererRef.current.getRendererType());
     } catch (error) {
-      console.error('Failed to initialize WebGL renderer:', error);
+      console.error('Failed to initialize renderer:', error);
+      setRendererType('none');
     }
 
     return () => {
@@ -93,6 +98,7 @@ const WebGLMapCanvas: React.FC = () => {
     const renderer = rendererRef.current;
     if (!renderer || !bmpEditor) return;
 
+    console.log('Uploading map data:', bmpEditor.width, 'x', bmpEditor.height);
     renderer.uploadMapData(bmpEditor.pixels, bmpEditor.width, bmpEditor.height);
     
     // Fit to view after loading
@@ -439,6 +445,9 @@ const WebGLMapCanvas: React.FC = () => {
       <div className="absolute bottom-4 right-4 bg-ide-sidebar px-3 py-2 rounded-lg shadow-lg border border-ide-border">
         <div className="text-sm font-mono text-ide-text">
           {(zoom * 100).toFixed(0)}%
+        </div>
+        <div className="text-xs text-ide-text-muted mt-1">
+          {rendererType === 'webgl' ? '🎮 WebGL' : rendererType === 'canvas2d' ? '🖌️ Canvas' : '⏳'}
         </div>
       </div>
       
