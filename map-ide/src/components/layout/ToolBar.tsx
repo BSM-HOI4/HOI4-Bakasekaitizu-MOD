@@ -1,19 +1,10 @@
 import React from 'react';
 import { useMapStore } from '../../stores/mapStore';
+import { useSettingsStore } from '../../stores/settingsStore';
 import { ToolType } from '../../types';
 
-const tools: { type: ToolType; icon: string; label: string; shortcut: string }[] = [
-  { type: 'select', icon: '👆', label: 'Select', shortcut: 'V' },
-  { type: 'brush', icon: '🖌️', label: 'Brush', shortcut: 'B' },
-  { type: 'fill', icon: '🪣', label: 'Fill', shortcut: 'G' },
-  { type: 'pencil', icon: '✏️', label: 'Pencil', shortcut: 'P' },
-  { type: 'eyedropper', icon: '🔍', label: 'Eyedropper', shortcut: 'I' },
-  { type: 'eraser', icon: '🧹', label: 'Eraser', shortcut: 'E' },
-  { type: 'line', icon: '📐', label: 'Line', shortcut: 'L' },
-  { type: 'rectangle', icon: '🔲', label: 'Rectangle', shortcut: 'R' },
-];
-
 const ToolBar: React.FC = () => {
+  const t = useSettingsStore((state) => state.t);
   const activeTool = useMapStore((state) => state.activeTool);
   const setActiveTool = useMapStore((state) => state.setActiveTool);
   const brushSize = useMapStore((state) => state.brushSize);
@@ -25,6 +16,17 @@ const ToolBar: React.FC = () => {
   const zoomOut = useMapStore((state) => state.zoomOut);
   const fitToView = useMapStore((state) => state.fitToView);
   const zoom = useMapStore((state) => state.zoom);
+
+  const tools: { type: ToolType; icon: string; label: string; shortcut: string }[] = [
+    { type: 'select', icon: '👆', label: t.select, shortcut: 'V' },
+    { type: 'brush', icon: '🖌️', label: t.brush, shortcut: 'B' },
+    { type: 'fill', icon: '🪣', label: t.fill, shortcut: 'G' },
+    { type: 'pencil', icon: '✏️', label: t.pencil, shortcut: 'P' },
+    { type: 'eyedropper', icon: '🔍', label: t.eyedropper, shortcut: 'I' },
+    { type: 'eraser', icon: '🧹', label: t.eraser, shortcut: 'E' },
+    { type: 'line', icon: '📐', label: t.line, shortcut: 'L' },
+    { type: 'rectangle', icon: '🔲', label: t.rectangle, shortcut: 'R' },
+  ];
 
   return (
     <div className="flex items-center gap-1">
@@ -50,7 +52,7 @@ const ToolBar: React.FC = () => {
       {(activeTool === 'brush' || activeTool === 'eraser') && (
         <>
           <div className="flex items-center gap-2 mx-2">
-            <span className="text-ide-text-muted text-xs">Size:</span>
+            <span className="text-ide-text-muted text-xs">{t.brushSize}:</span>
             <input
               type="range"
               min="1"
@@ -70,6 +72,7 @@ const ToolBar: React.FC = () => {
                   ? 'bg-ide-accent text-white'
                   : 'bg-ide-panel text-ide-text'
               }`}
+              title={t.circle}
             >
               ●
             </button>
@@ -80,6 +83,7 @@ const ToolBar: React.FC = () => {
                   ? 'bg-ide-accent text-white'
                   : 'bg-ide-panel text-ide-text'
               }`}
+              title={t.square}
             >
               ■
             </button>
@@ -92,7 +96,7 @@ const ToolBar: React.FC = () => {
       {/* Selected Color */}
       {selectedColor && (
         <div className="flex items-center gap-2 mx-2">
-          <span className="text-ide-text-muted text-xs">Color:</span>
+          <span className="text-ide-text-muted text-xs">{t.selectedColor}:</span>
           <div
             className="w-6 h-6 border border-ide-border rounded"
             style={{
@@ -110,7 +114,7 @@ const ToolBar: React.FC = () => {
         <button
           onClick={zoomOut}
           className="p-1 hover:bg-ide-panel text-ide-text rounded"
-          title="Zoom Out (-)"
+          title="ズームアウト (-)"
         >
           ➖
         </button>
@@ -120,14 +124,14 @@ const ToolBar: React.FC = () => {
         <button
           onClick={zoomIn}
           className="p-1 hover:bg-ide-panel text-ide-text rounded"
-          title="Zoom In (+)"
+          title="ズームイン (+)"
         >
           ➕
         </button>
         <button
           onClick={fitToView}
           className="p-1 hover:bg-ide-panel text-ide-text rounded ml-1"
-          title="Fit to View"
+          title="全体表示"
         >
           🔳
         </button>

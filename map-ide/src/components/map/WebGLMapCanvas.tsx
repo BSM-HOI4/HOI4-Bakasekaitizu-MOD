@@ -6,8 +6,19 @@
 import React, { useRef, useEffect, useCallback, useState, useMemo } from 'react';
 import { useMapStore } from '../../stores/mapStore';
 import { useProjectStore } from '../../stores/projectStore';
+import { useSettingsStore } from '../../stores/settingsStore';
 import { WebGLRenderer, RenderState } from '../../core/WebGLRenderer';
 import { rgbToKey } from '../../utils/colorUtils';
+import {
+  buildStateAdjacency,
+  buildStrategicRegionAdjacency,
+  buildAIAreaAdjacency,
+  generateStateColors,
+  generateStrategicRegionColors,
+  generateAIAreaColors,
+  createLayerOverlay,
+} from '../../utils/layerColors';
+import { RGB } from '../../types';
 
 interface MouseState {
   isDragging: boolean;
@@ -32,6 +43,15 @@ const WebGLMapCanvas: React.FC = () => {
   const [rendererType, setRendererType] = useState<'webgl' | 'canvas2d' | 'none'>('none');
   const [rendererReady, setRendererReady] = useState(false);
   const [debugInfo, setDebugInfo] = useState<string>('');
+  
+  // Layer color caches
+  const [stateColors, setStateColors] = useState<Map<number, RGB>>(new Map());
+  const [regionColors, setRegionColors] = useState<Map<number, RGB>>(new Map());
+  const [aiAreaColors, setAIAreaColors] = useState<Map<string, RGB>>(new Map());
+  const [layerOverlay, setLayerOverlay] = useState<Uint8Array | null>(null);
+  
+  // i18n
+  const t = useSettingsStore((state) => state.t);
 
   // Map store state
   const bmpEditor = useMapStore((state) => state.bmpEditor);
@@ -146,26 +166,127 @@ const WebGLMapCanvas: React.FC = () => {
     renderer.updateMapTexture(bmpEditor.pixels);
   }, [bmpEditor?.pixels]);
 
-  // Generate borders when data changes
+  // Generate borders and layer colors when data changes
   useEffect(() => {
     const renderer = rendererRef.current;
     if (!renderer || !bmpEditor || provinces.size === 0) return;
 
-    // Generate state borders
+    console.log('[WebGLMapCanvas] Generating borders and colors...');
+
+    // Build adjacency graphs and generate colors
     if (states.size > 0) {
+      // Generate state borders
       renderer.generateStateBorders(states, provinces, provinceByColor);
-    }
+      
+      // Build state adjacency and colors
+      const stateAdj = buildStateAdjacency(
+        states, provinces, bmpEditor.pixels, bmpEditor.width, bmpEditor.height, provinceByColor
+      );
+      const colors = generateStateColors(states, stateAdj);
+      setStateColors(colors);
+      console.log('[WebGLMapCanvas] Generated colors for', colors.size, 'states');
+      
+      // Build strategic region adjacency based on state adjacency
+      if (strategicRegions.size > 0) {
+        renderer.generateStrategicRegionBorders(strategicRegions, provinces, provinceByColor);
+        
+        const regionAdj = buildStrategicRegionAdjacency(strategicRegions, states, stateAdj);
+        const rColors = generateStrategicRegionColors(strategicRegions, regionAdj);
+        setRegionColors(rColors);
+        console.log('[WebGLMapCanvas] Generated colors for', rColors.size, 'strategic regions');
+        
+        // Build AI area adjacency based on region adjacency
+        if (aiAreas.length > 0) {
+          renderer.generateAIAreaBorders(aiAreas, strategicRegions, provinces, provinceByColor);
+          
+          const aiAdj = buildAIAreaAdjacency(aiAreas, regionAdj);
+          const aColors = generateAIAreaColors(aiAreas, aiAdj);
+          setAIAreaColors(aColors);
+          console.log('[WebGLMapCanvas] Generated colors for', aColors.size, 'AI areas');
+        }
+      }
+    } else {
+      // Generate strategic region borders even without states
+      if (strategicRegions.size > 0) {
+        renderer.generateStrategicRegionBorders(strategicRegions, provinces, provinceByColor);
+      }
 
-    // Generate strategic region borders
-    if (strategicRegions.size > 0) {
-      renderer.generateStrategicRegionBorders(strategicRegions, provinces, provinceByColor);
-    }
-
-    // Generate AI area borders
-    if (aiAreas.length > 0) {
-      renderer.generateAIAreaBorders(aiAreas, strategicRegions, provinces, provinceByColor);
+      // Generate AI area borders
+      if (aiAreas.length > 0) {
+        renderer.generateAIAreaBorders(aiAreas, strategicRegions, provinces, provinceByColor);
+      }
     }
   }, [bmpEditor, provinces, provinceByColor, states, strategicRegions, aiAreas]);
+
+  // Generate layer overlay when active layer or colors change
+  useEffect(() => {
+    if (!bmpEditor || provinces.size === 0) {
+      setLayerOverlay(null);
+      return;
+    }
+
+    let overlay: Uint8Array | null = null;
+    let provinceToEntity: Map<number, number | string> | null = null;
+    let entityColors: Map<number | string, RGB> | null = null;
+
+    if (activeLayer === 'states' && stateColors.size > 0) {
+      // Map provinces to states
+      provinceToEntity = new Map();
+      for (const [stateId, state] of states) {
+        for (const provId of state.provinces) {
+          provinceToEntity.set(provId, stateId);
+        }
+      }
+      entityColors = stateColors as Map<number | string, RGB>;
+    } else if (activeLayer === 'strategicRegions' && regionColors.size > 0) {
+      // Map provinces to regions
+      provinceToEntity = new Map();
+      for (const [regionId, region] of strategicRegions) {
+        for (const provId of region.provinces) {
+          provinceToEntity.set(provId, regionId);
+        }
+      }
+      entityColors = regionColors as Map<number | string, RGB>;
+    } else if (activeLayer === 'aiAreas' && aiAreaColors.size > 0) {
+      // Map provinces to AI areas via regions
+      provinceToEntity = new Map();
+      for (const area of aiAreas) {
+        if (area.strategicRegions) {
+          for (const regionId of area.strategicRegions) {
+            const region = strategicRegions.get(regionId);
+            if (region) {
+              for (const provId of region.provinces) {
+                provinceToEntity.set(provId, area.name);
+              }
+            }
+          }
+        }
+      }
+      entityColors = aiAreaColors as Map<number | string, RGB>;
+    }
+
+    if (provinceToEntity && entityColors && provinceToEntity.size > 0 && entityColors.size > 0) {
+      overlay = createLayerOverlay(
+        bmpEditor.width,
+        bmpEditor.height,
+        bmpEditor.pixels,
+        provinceByColor,
+        provinceToEntity,
+        entityColors,
+        0.6 // opacity
+      );
+      console.log('[WebGLMapCanvas] Created layer overlay for', activeLayer);
+    }
+
+    setLayerOverlay(overlay);
+
+    // Upload to renderer
+    const renderer = rendererRef.current;
+    if (renderer) {
+      renderer.uploadLayerOverlay(overlay);
+    }
+  }, [activeLayer, bmpEditor, provinces, provinceByColor, states, strategicRegions, aiAreas,
+      stateColors, regionColors, aiAreaColors]);
 
   // Update highlight overlay
   useEffect(() => {
@@ -208,7 +329,8 @@ const WebGLMapCanvas: React.FC = () => {
           selectedProvinceId,
           hoveredProvinceId,
           activeLayer,
-          layerOpacity: 0.7,
+          layerOpacity: 0.6,
+          layerOverlay,
         };
         renderer.render(renderState);
       }
@@ -218,7 +340,7 @@ const WebGLMapCanvas: React.FC = () => {
     animationFrameRef.current = requestAnimationFrame(render);
     return () => cancelAnimationFrame(animationFrameRef.current);
   }, [zoom, panX, panY, viewportWidth, viewportHeight, showGrid, showBorders, 
-      selectedProvinceId, hoveredProvinceId, activeLayer]);
+      selectedProvinceId, hoveredProvinceId, activeLayer, layerOverlay]);
 
   // Convert screen coordinates to image coordinates
   const screenToImage = useCallback(
@@ -462,9 +584,9 @@ const WebGLMapCanvas: React.FC = () => {
         <div className="absolute inset-0 flex items-center justify-center bg-ide-bg text-ide-text-muted">
           <div className="text-center">
             <div className="text-6xl mb-4">🗺️</div>
-            <div className="text-xl font-medium">Loading map...</div>
+            <div className="text-xl font-medium">{t.loadingMap}</div>
             <div className="text-sm mt-2 text-ide-text-muted">
-              Open a project folder to start editing
+              {t.welcomeDescription}
             </div>
           </div>
         </div>
@@ -472,12 +594,12 @@ const WebGLMapCanvas: React.FC = () => {
       
       {/* Layer indicator */}
       <div className="absolute top-4 right-4 bg-ide-sidebar px-3 py-2 rounded-lg shadow-lg border border-ide-border">
-        <div className="text-xs text-ide-text-muted mb-1">Active Layer</div>
+        <div className="text-xs text-ide-text-muted mb-1">{t.activeLayer}</div>
         <div className="text-sm font-medium text-ide-text">
-          {activeLayer === 'provinces' && '🟡 Provinces'}
-          {activeLayer === 'states' && '🟠 States'}
-          {activeLayer === 'strategicRegions' && '🔵 Strategic Regions'}
-          {activeLayer === 'aiAreas' && '🟣 AI Areas'}
+          {activeLayer === 'provinces' && `🟡 ${t.provinces}`}
+          {activeLayer === 'states' && `🟠 ${t.states}`}
+          {activeLayer === 'strategicRegions' && `🔵 ${t.strategicRegions}`}
+          {activeLayer === 'aiAreas' && `🟣 ${t.aiAreas}`}
         </div>
       </div>
       
@@ -487,14 +609,14 @@ const WebGLMapCanvas: React.FC = () => {
           {(zoom * 100).toFixed(0)}%
         </div>
         <div className="text-xs text-ide-text-muted mt-1">
-          {rendererType === 'webgl' ? '🎮 WebGL' : rendererType === 'canvas2d' ? '🖌️ Canvas' : '⏳'}
+          {rendererType === 'webgl' ? `🎮 ${t.webgl}` : rendererType === 'canvas2d' ? `🖌️ ${t.canvas}` : '⏳'}
         </div>
       </div>
       
       {/* Coordinate indicator */}
       {hoveredProvinceId && (
         <div className="absolute bottom-4 left-4 bg-ide-sidebar px-3 py-2 rounded-lg shadow-lg border border-ide-border">
-          <div className="text-xs text-ide-text-muted">Province ID</div>
+          <div className="text-xs text-ide-text-muted">{t.provinceId}</div>
           <div className="text-sm font-mono text-ide-text">{hoveredProvinceId}</div>
         </div>
       )}

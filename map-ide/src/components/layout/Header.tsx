@@ -1,6 +1,8 @@
 import React from 'react';
 import { useMapStore } from '../../stores/mapStore';
 import { useProjectStore } from '../../stores/projectStore';
+import { useSettingsStore } from '../../stores/settingsStore';
+import { getAvailableLanguages, Language } from '../../i18n';
 import ToolBar from './ToolBar';
 
 interface HeaderProps {
@@ -12,6 +14,11 @@ const Header: React.FC<HeaderProps> = ({ onOpenProject }) => {
   const bmpEditor = useMapStore((state) => state.bmpEditor);
   const undo = useMapStore((state) => state.undo);
   const redo = useMapStore((state) => state.redo);
+  
+  const t = useSettingsStore((state) => state.t);
+  const language = useSettingsStore((state) => state.language);
+  const setLanguage = useSettingsStore((state) => state.setLanguage);
+  const languages = getAvailableLanguages();
 
   const handleSave = async () => {
     if (!bmpEditor || !project) return;
@@ -24,9 +31,9 @@ const Header: React.FC<HeaderProps> = ({ onOpenProject }) => {
 
     if (result.success) {
       bmpEditor.markSaved();
-      alert('Saved successfully!');
+      alert(t.saved + '!');
     } else {
-      alert(`Failed to save: ${result.error}`);
+      alert(`${t.error}: ${result.error}`);
     }
   };
 
@@ -35,22 +42,35 @@ const Header: React.FC<HeaderProps> = ({ onOpenProject }) => {
       {/* Menu Bar */}
       <div className="flex items-center h-8 px-2 text-sm border-b border-ide-border">
         <button className="px-3 py-1 hover:bg-ide-panel text-ide-text rounded">
-          File
+          ファイル
         </button>
         <button className="px-3 py-1 hover:bg-ide-panel text-ide-text rounded">
-          Edit
+          編集
         </button>
         <button className="px-3 py-1 hover:bg-ide-panel text-ide-text rounded">
-          View
+          表示
         </button>
         <button className="px-3 py-1 hover:bg-ide-panel text-ide-text rounded">
-          Map
+          マップ
         </button>
         <button className="px-3 py-1 hover:bg-ide-panel text-ide-text rounded">
-          Help
+          ヘルプ
         </button>
         
         <div className="flex-1" />
+        
+        {/* Language Selector */}
+        <select
+          value={language}
+          onChange={(e) => setLanguage(e.target.value as Language)}
+          className="bg-ide-panel text-ide-text text-xs px-2 py-1 rounded border border-ide-border mr-4"
+        >
+          {languages.map((lang) => (
+            <option key={lang.code} value={lang.code}>
+              {lang.name}
+            </option>
+          ))}
+        </select>
         
         {project && (
           <span className="text-ide-text-muted text-xs mr-4">
@@ -65,7 +85,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenProject }) => {
         <button
           onClick={onOpenProject}
           className="p-2 hover:bg-ide-panel text-ide-text rounded"
-          title="Open Folder (Ctrl+O)"
+          title={`${t.openProjectFolder} (Ctrl+O)`}
         >
           📂
         </button>
@@ -74,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenProject }) => {
           className={`p-2 hover:bg-ide-panel rounded ${
             bmpEditor?.isDirty ? 'text-ide-accent' : 'text-ide-text'
           }`}
-          title="Save (Ctrl+S)"
+          title={`${t.save} (Ctrl+S)`}
           disabled={!bmpEditor}
         >
           💾
@@ -86,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenProject }) => {
         <button
           onClick={() => undo()}
           className="p-2 hover:bg-ide-panel text-ide-text rounded disabled:opacity-50"
-          title="Undo (Ctrl+Z)"
+          title={`${t.undo} (Ctrl+Z)`}
           disabled={!bmpEditor?.canUndo()}
         >
           ↩️
@@ -94,7 +114,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenProject }) => {
         <button
           onClick={() => redo()}
           className="p-2 hover:bg-ide-panel text-ide-text rounded disabled:opacity-50"
-          title="Redo (Ctrl+Shift+Z)"
+          title={`${t.redo} (Ctrl+Shift+Z)`}
           disabled={!bmpEditor?.canRedo()}
         >
           ↪️
