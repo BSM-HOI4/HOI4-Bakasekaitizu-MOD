@@ -167,6 +167,9 @@ export class WebGLRenderer {
   private selectedProvince: Province | null = null;
   private hoveredProvince: Province | null = null;
   private highlightDirty: boolean = true;
+  
+  // Layer overlay cache
+  private currentLayerOverlay: Uint8Array | null = null;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -771,9 +774,21 @@ export class WebGLRenderer {
     gl.uniform1f(zoomLoc, state.zoom);
     gl.uniform1i(smoothLoc, state.zoom < 4 ? 1 : 0);
     
-    // Set layer overlay state
+    // Set layer overlay state - update texture only if overlay changed
     const hasLayerOverlay = state.layerOverlay && state.layerOverlay.length > 0;
     gl.uniform1i(useLayerOverlayLoc, hasLayerOverlay ? 1 : 0);
+    
+    // Update layer texture only if it changed (compare by reference)
+    if (hasLayerOverlay && this.layerTexture && this.mapWidth > 0 && this.mapHeight > 0) {
+      if (this.currentLayerOverlay !== state.layerOverlay) {
+        this.currentLayerOverlay = state.layerOverlay!;
+        gl.bindTexture(gl.TEXTURE_2D, this.layerTexture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.mapWidth, this.mapHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, state.layerOverlay!);
+        console.log('[WebGLRenderer] Layer overlay texture updated');
+      }
+    } else if (!hasLayerOverlay && this.currentLayerOverlay !== null) {
+      this.currentLayerOverlay = null;
+    }
     
     // Bind textures
     gl.activeTexture(gl.TEXTURE0);
@@ -928,6 +943,11 @@ export class WebGLRenderer {
     // Draw map
     this.renderMapCanvas2D(ctx);
     
+    // Draw layer overlay
+    if (state.layerOverlay && state.layerOverlay.length > 0) {
+      this.renderLayerOverlayCanvas2D(ctx, state.layerOverlay);
+    }
+    
     // Draw selection highlights
     this.renderHighlightsCanvas2D(ctx);
     
@@ -971,6 +991,25 @@ export class WebGLRenderer {
       hCtx.putImageData(this.highlightImageData, 0, 0);
       ctx.globalCompositeOperation = 'source-over';
       ctx.drawImage(highlightCanvas, 0, 0);
+    }
+  }
+
+  private renderLayerOverlayCanvas2D(ctx: CanvasRenderingContext2D, overlayData: Uint8Array): void {
+    if (!this.mapWidth || !this.mapHeight) return;
+    
+    // Create ImageData from overlay - copy to new Uint8ClampedArray
+    const clampedData = new Uint8ClampedArray(overlayData.length);
+    clampedData.set(overlayData);
+    const layerImageData = new ImageData(clampedData, this.mapWidth, this.mapHeight);
+    
+    // Create temporary canvas for layer overlay
+    const layerCanvas = new OffscreenCanvas(this.mapWidth, this.mapHeight);
+    const lCtx = layerCanvas.getContext('2d');
+    
+    if (lCtx) {
+      lCtx.putImageData(layerImageData, 0, 0);
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.drawImage(layerCanvas, 0, 0);
     }
   }
 
