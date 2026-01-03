@@ -230,39 +230,65 @@ const WebGLMapCanvas: React.FC = () => {
     let entityColors: Map<number | string, RGB> | null = null;
 
     if (activeLayer === 'states' && stateColors.size > 0) {
-      // Map provinces to states
       provinceToEntity = new Map();
+      // Prefer province.stateId to ensure consistency even if state definitions are out of sync
+      for (const province of provinces.values()) {
+        if (province.stateId !== undefined) {
+          provinceToEntity.set(province.id, province.stateId);
+        }
+      }
+      // Fallback to state definitions to catch any missing references
       for (const [stateId, state] of states) {
         for (const provId of state.provinces) {
-          provinceToEntity.set(provId, stateId);
-        }
-      }
-      entityColors = stateColors as Map<number | string, RGB>;
-    } else if (activeLayer === 'strategicRegions' && regionColors.size > 0) {
-      // Map provinces to regions
-      provinceToEntity = new Map();
-      for (const [regionId, region] of strategicRegions) {
-        for (const provId of region.provinces) {
-          provinceToEntity.set(provId, regionId);
-        }
-      }
-      entityColors = regionColors as Map<number | string, RGB>;
-    } else if (activeLayer === 'aiAreas' && aiAreaColors.size > 0) {
-      // Map provinces to AI areas via regions
-      provinceToEntity = new Map();
-      for (const area of aiAreas) {
-        if (area.strategicRegions) {
-          for (const regionId of area.strategicRegions) {
-            const region = strategicRegions.get(regionId);
-            if (region) {
-              for (const provId of region.provinces) {
-                provinceToEntity.set(provId, area.name);
-              }
-            }
+          if (!provinceToEntity.has(provId)) {
+            provinceToEntity.set(provId, stateId);
           }
         }
       }
-      entityColors = aiAreaColors as Map<number | string, RGB>;
+      entityColors = new Map(stateColors) as Map<number | string, RGB>;
+    } else if (activeLayer === 'strategicRegions' && regionColors.size > 0) {
+      provinceToEntity = new Map();
+      for (const province of provinces.values()) {
+        if (province.strategicRegionId !== undefined) {
+          provinceToEntity.set(province.id, province.strategicRegionId);
+        }
+      }
+      for (const [regionId, region] of strategicRegions) {
+        for (const provId of region.provinces) {
+          if (!provinceToEntity.has(provId)) {
+            provinceToEntity.set(provId, regionId);
+          }
+        }
+      }
+      entityColors = new Map(regionColors) as Map<number | string, RGB>;
+    } else if (activeLayer === 'aiAreas' && aiAreaColors.size > 0) {
+      provinceToEntity = new Map();
+      const regionToArea = new Map<number, string>();
+      for (const area of aiAreas) {
+        if (area.strategicRegions) {
+          for (const regionId of area.strategicRegions) {
+            regionToArea.set(regionId, area.name);
+          }
+        }
+      }
+      for (const province of provinces.values()) {
+        if (province.strategicRegionId !== undefined) {
+          const areaName = regionToArea.get(province.strategicRegionId);
+          if (areaName) {
+            provinceToEntity.set(province.id, areaName);
+          }
+        }
+      }
+      for (const [regionId, region] of strategicRegions) {
+        const areaName = regionToArea.get(regionId);
+        if (!areaName) continue;
+        for (const provId of region.provinces) {
+          if (!provinceToEntity.has(provId)) {
+            provinceToEntity.set(provId, areaName);
+          }
+        }
+      }
+      entityColors = new Map(aiAreaColors) as Map<number | string, RGB>;
     }
 
     if (provinceToEntity && entityColors && provinceToEntity.size > 0 && entityColors.size > 0) {
