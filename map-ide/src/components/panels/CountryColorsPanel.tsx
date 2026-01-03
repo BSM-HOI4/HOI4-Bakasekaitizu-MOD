@@ -133,7 +133,13 @@ const CountryColorsPanel: React.FC = () => {
       }
     }
     
-    return result.sort((a, b) => a.tag.localeCompare(b.tag));
+    // Deduplicate by tag, keeping the last occurrence
+    const deduped = new Map<string, CountryColor>();
+    for (const entry of result) {
+      deduped.set(entry.tag, entry);
+    }
+    
+    return Array.from(deduped.values()).sort((a, b) => a.tag.localeCompare(b.tag));
   };
 
   // Handle edit start

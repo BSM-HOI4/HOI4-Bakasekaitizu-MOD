@@ -110,7 +110,7 @@ void main() {
   vec2 translated = scaled + u_translation;
   vec2 clipSpace = (translated / u_resolution) * 2.0 - 1.0;
   gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
-  gl_PointSize = 2.0;
+  gl_PointSize = 3.0;
 }
 `;
 
@@ -441,12 +441,21 @@ export class WebGLRenderer {
    * Upload layer overlay data (RGBA)
    */
   uploadLayerOverlay(overlayData: Uint8Array | null): void {
+    console.log('[WebGLRenderer] uploadLayerOverlay called:', {
+      hasData: !!overlayData,
+      dataLength: overlayData?.length,
+      mapWidth: this.mapWidth,
+      mapHeight: this.mapHeight,
+      expectedLength: this.mapWidth * this.mapHeight * 4,
+    });
+    
     if (!this.mapWidth || !this.mapHeight) return;
     
     if (this.useWebGL && this.gl && this.layerTexture && overlayData) {
       const gl = this.gl;
       gl.bindTexture(gl.TEXTURE_2D, this.layerTexture);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, this.mapWidth, this.mapHeight, 0, gl.RGBA, gl.UNSIGNED_BYTE, overlayData);
+      console.log('[WebGLRenderer] Layer overlay texture uploaded to WebGL');
     }
   }
 
@@ -616,17 +625,29 @@ export class WebGLRenderer {
     
     const width = this.mapWidth;
     const height = this.mapHeight;
-    const step = Math.max(1, Math.floor(width / 1024));
+    // Use step=1 for full resolution border detection
+    // This ensures continuous border lines rather than dotted points
+    const step = 1;
     
     for (let y = 0; y < height - 1; y += step) {
       for (let x = 0; x < width - 1; x += step) {
-        const color1 = this.getPixelColor(x, y);
-        const color2 = this.getPixelColor(x + 1, y);
-        const color3 = this.getPixelColor(x, y + 1);
+        const idx1 = (y * width + x) * 3;
+        const r1 = this.provincePixelData[idx1];
+        const g1 = this.provincePixelData[idx1 + 1];
+        const b1 = this.provincePixelData[idx1 + 2];
+        const key1 = `${r1},${g1},${b1}`;
         
-        const key1 = `${color1.r},${color1.g},${color1.b}`;
-        const key2 = `${color2.r},${color2.g},${color2.b}`;
-        const key3 = `${color3.r},${color3.g},${color3.b}`;
+        const idx2 = (y * width + x + 1) * 3;
+        const r2 = this.provincePixelData[idx2];
+        const g2 = this.provincePixelData[idx2 + 1];
+        const b2 = this.provincePixelData[idx2 + 2];
+        const key2 = `${r2},${g2},${b2}`;
+        
+        const idx3 = ((y + 1) * width + x) * 3;
+        const r3 = this.provincePixelData[idx3];
+        const g3 = this.provincePixelData[idx3 + 1];
+        const b3 = this.provincePixelData[idx3 + 2];
+        const key3 = `${r3},${g3},${b3}`;
         
         const p1 = provinceByColor.get(key1);
         const p2 = provinceByColor.get(key2);
@@ -638,6 +659,7 @@ export class WebGLRenderer {
       }
     }
     
+    console.log('[WebGLRenderer] Detected', borderPixels.length, 'border pixels');
     return borderPixels;
   }
 
@@ -1030,7 +1052,7 @@ export class WebGLRenderer {
         return;
     }
     
-    const pointSize = Math.max(1, 2 / state.zoom);
+    const pointSize = Math.max(2, 3 / state.zoom);
     
     for (const [, segment] of borders) {
       const [r, g, b, a] = segment.color;
@@ -1038,7 +1060,7 @@ export class WebGLRenderer {
       
       const points = segment.points;
       for (let i = 0; i < points.length; i += 2) {
-        ctx.fillRect(points[i], points[i + 1], pointSize, pointSize);
+        ctx.fillRect(points[i] - pointSize/2, points[i + 1] - pointSize/2, pointSize, pointSize);
       }
     }
   }

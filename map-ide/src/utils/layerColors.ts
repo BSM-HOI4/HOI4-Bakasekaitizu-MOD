@@ -235,6 +235,85 @@ export function generateStateColors(
 }
 
 /**
+ * Build adjacency graph for strategic regions directly from pixel data
+ * Used when state data is not available
+ */
+export function buildStrategicRegionAdjacencyDirect(
+  regions: Map<number, StrategicRegion>,
+  _provinces: Map<number, Province>,
+  provincePixelData: Uint8Array,
+  mapWidth: number,
+  mapHeight: number,
+  provinceByColor: Map<string, Province>
+): Map<number, Set<number>> {
+  const adjacency = new Map<number, Set<number>>();
+  
+  // Initialize adjacency sets
+  for (const regionId of regions.keys()) {
+    adjacency.set(regionId, new Set());
+  }
+  
+  // Build province to region mapping
+  const provinceToRegion = new Map<number, number>();
+  for (const [regionId, region] of regions) {
+    for (const provId of region.provinces) {
+      provinceToRegion.set(provId, regionId);
+    }
+  }
+  
+  // Scan pixels to find adjacent provinces
+  const step = Math.max(1, Math.floor(mapWidth / 512));
+  
+  for (let y = 0; y < mapHeight - 1; y += step) {
+    for (let x = 0; x < mapWidth - 1; x += step) {
+      const idx = (y * mapWidth + x) * 3;
+      const r1 = provincePixelData[idx];
+      const g1 = provincePixelData[idx + 1];
+      const b1 = provincePixelData[idx + 2];
+      const key1 = `${r1},${g1},${b1}`;
+      
+      // Check right neighbor
+      const idx2 = (y * mapWidth + x + 1) * 3;
+      const r2 = provincePixelData[idx2];
+      const g2 = provincePixelData[idx2 + 1];
+      const b2 = provincePixelData[idx2 + 2];
+      const key2 = `${r2},${g2},${b2}`;
+      
+      // Check bottom neighbor
+      const idx3 = ((y + 1) * mapWidth + x) * 3;
+      const r3 = provincePixelData[idx3];
+      const g3 = provincePixelData[idx3 + 1];
+      const b3 = provincePixelData[idx3 + 2];
+      const key3 = `${r3},${g3},${b3}`;
+      
+      const prov1 = provinceByColor.get(key1);
+      const prov2 = provinceByColor.get(key2);
+      const prov3 = provinceByColor.get(key3);
+      
+      if (prov1 && prov2 && prov1.id !== prov2.id) {
+        const region1 = provinceToRegion.get(prov1.id);
+        const region2 = provinceToRegion.get(prov2.id);
+        if (region1 !== undefined && region2 !== undefined && region1 !== region2) {
+          adjacency.get(region1)?.add(region2);
+          adjacency.get(region2)?.add(region1);
+        }
+      }
+      
+      if (prov1 && prov3 && prov1.id !== prov3.id) {
+        const region1 = provinceToRegion.get(prov1.id);
+        const region3 = provinceToRegion.get(prov3.id);
+        if (region1 !== undefined && region3 !== undefined && region1 !== region3) {
+          adjacency.get(region1)?.add(region3);
+          adjacency.get(region3)?.add(region1);
+        }
+      }
+    }
+  }
+  
+  return adjacency;
+}
+
+/**
  * Build adjacency graph for strategic regions
  */
 export function buildStrategicRegionAdjacency(
@@ -369,6 +448,10 @@ export function createLayerOverlay(
   const rgba = new Uint8Array(width * height * 4);
   const alpha = Math.round(opacity * 255);
   
+  let coloredPixels = 0;
+  let unmappedProvinces = 0;
+  let noEntityMapping = 0;
+  
   for (let i = 0; i < width * height; i++) {
     const r = provincePixelData[i * 3];
     const g = provincePixelData[i * 3 + 1];
@@ -385,14 +468,29 @@ export function createLayerOverlay(
           rgba[i * 4 + 1] = color.g;
           rgba[i * 4 + 2] = color.b;
           rgba[i * 4 + 3] = alpha;
+          coloredPixels++;
           continue;
         }
+      } else {
+        noEntityMapping++;
       }
+    } else {
+      unmappedProvinces++;
     }
     
     // Transparent if no mapping
     rgba[i * 4 + 3] = 0;
   }
+  
+  console.log('[createLayerOverlay] Stats:', {
+    totalPixels: width * height,
+    coloredPixels,
+    unmappedProvinces,
+    noEntityMapping,
+    provinceByColorSize: provinceByColor.size,
+    provinceToEntitySize: provinceToEntity.size,
+    entityColorsSize: entityColors.size,
+  });
   
   return rgba;
 }
