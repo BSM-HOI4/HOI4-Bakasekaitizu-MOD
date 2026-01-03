@@ -12,6 +12,7 @@ import { rgbToKey } from '../../utils/colorUtils';
 import {
   buildStateAdjacency,
   buildStrategicRegionAdjacency,
+  buildStrategicRegionAdjacencyDirect,
   buildAIAreaAdjacency,
   generateStateColors,
   generateStrategicRegionColors,
@@ -166,60 +167,102 @@ const WebGLMapCanvas: React.FC = () => {
     renderer.updateMapTexture(bmpEditor.pixels);
   }, [bmpEditor?.pixels]);
 
-  // Generate borders and layer colors when data changes
+  // Generate layer colors when data changes (colors for fill overlay)
   useEffect(() => {
-    const renderer = rendererRef.current;
-    if (!renderer || !bmpEditor || provinces.size === 0) return;
+    if (!bmpEditor || provinces.size === 0) return;
 
-    console.log('[WebGLMapCanvas] Generating borders and colors...');
+    console.log('[WebGLMapCanvas] Generating layer colors...', {
+      statesSize: states.size,
+      regionsSize: strategicRegions.size,
+      aiAreasLength: aiAreas.length,
+      provincesSize: provinces.size,
+    });
 
-    // Build adjacency graphs and generate colors
-    if (states.size > 0) {
-      // Generate state borders
-      renderer.generateStateBorders(states, provinces, provinceByColor);
+    // Use setTimeout to avoid blocking the main thread
+    const timeoutId = setTimeout(() => {
+      // Build state adjacency for use by regions
+      let stateAdj: Map<number, Set<number>> | null = null;
       
-      // Build state adjacency and colors
-      const stateAdj = buildStateAdjacency(
-        states, provinces, bmpEditor.pixels, bmpEditor.width, bmpEditor.height, provinceByColor
-      );
-      const colors = generateStateColors(states, stateAdj);
-      setStateColors(colors);
-      console.log('[WebGLMapCanvas] Generated colors for', colors.size, 'states');
+      // Generate state colors
+      if (states.size > 0) {
+        stateAdj = buildStateAdjacency(
+          states, provinces, bmpEditor.pixels, bmpEditor.width, bmpEditor.height, provinceByColor
+        );
+        const colors = generateStateColors(states, stateAdj);
+        setStateColors(colors);
+        console.log('[WebGLMapCanvas] Generated colors for', colors.size, 'states');
+      }
       
-      // Build strategic region adjacency based on state adjacency
+      // Generate strategic region colors
       if (strategicRegions.size > 0) {
-        renderer.generateStrategicRegionBorders(strategicRegions, provinces, provinceByColor);
-        
-        const regionAdj = buildStrategicRegionAdjacency(strategicRegions, states, stateAdj);
+        // Build region adjacency - use state adjacency if available, otherwise build directly
+        let regionAdj: Map<number, Set<number>>;
+        if (stateAdj && states.size > 0) {
+          regionAdj = buildStrategicRegionAdjacency(strategicRegions, states, stateAdj);
+        } else {
+          // Build region adjacency directly from pixel data
+          regionAdj = buildStrategicRegionAdjacencyDirect(
+            strategicRegions, provinces, bmpEditor.pixels, bmpEditor.width, bmpEditor.height, provinceByColor
+          );
+        }
         const rColors = generateStrategicRegionColors(strategicRegions, regionAdj);
         setRegionColors(rColors);
         console.log('[WebGLMapCanvas] Generated colors for', rColors.size, 'strategic regions');
         
-        // Build AI area adjacency based on region adjacency
+        // Generate AI area colors
         if (aiAreas.length > 0) {
-          renderer.generateAIAreaBorders(aiAreas, strategicRegions, provinces, provinceByColor);
-          
           const aiAdj = buildAIAreaAdjacency(aiAreas, regionAdj);
           const aColors = generateAIAreaColors(aiAreas, aiAdj);
           setAIAreaColors(aColors);
           console.log('[WebGLMapCanvas] Generated colors for', aColors.size, 'AI areas');
         }
       }
-    } else {
-      // Generate strategic region borders even without states
+    }, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [bmpEditor, provinces, provinceByColor, states, strategicRegions, aiAreas]);
+
+  // Generate borders separately (can be slow)
+  useEffect(() => {
+    const renderer = rendererRef.current;
+    if (!renderer || !bmpEditor || provinces.size === 0) return;
+
+    console.log('[WebGLMapCanvas] Generating borders...');
+    
+    // Defer border generation to avoid blocking UI
+    const timeoutId = setTimeout(() => {
+      if (states.size > 0) {
+        renderer.generateStateBorders(states, provinces, provinceByColor);
+      }
+      
       if (strategicRegions.size > 0) {
         renderer.generateStrategicRegionBorders(strategicRegions, provinces, provinceByColor);
       }
-
-      // Generate AI area borders
+      
       if (aiAreas.length > 0) {
         renderer.generateAIAreaBorders(aiAreas, strategicRegions, provinces, provinceByColor);
       }
-    }
+      
+      console.log('[WebGLMapCanvas] Borders generated');
+    }, 500); // Delay border generation
+
+    return () => clearTimeout(timeoutId);
   }, [bmpEditor, provinces, provinceByColor, states, strategicRegions, aiAreas]);
 
   // Generate layer overlay when active layer or colors change
   useEffect(() => {
+    console.log('[WebGLMapCanvas] Layer overlay effect triggered:', {
+      activeLayer,
+      hasEditor: !!bmpEditor,
+      provincesSize: provinces.size,
+      statesSize: states.size,
+      stateColorsSize: stateColors.size,
+      regionsSize: strategicRegions.size,
+      regionColorsSize: regionColors.size,
+      aiAreasLength: aiAreas.length,
+      aiAreaColorsSize: aiAreaColors.size,
+    });
+    
     if (!bmpEditor || provinces.size === 0) {
       setLayerOverlay(null);
       return;
@@ -229,6 +272,14 @@ const WebGLMapCanvas: React.FC = () => {
     let provinceToEntity: Map<number, number | string> | null = null;
     let entityColors: Map<number | string, RGB> | null = null;
 
+    console.log('[WebGLMapCanvas] Checking layer conditions:', {
+      activeLayer,
+      statesHasData: states.size > 0,
+      stateColorsHasData: stateColors.size > 0,
+      regionsHasData: strategicRegions.size > 0,
+      regionColorsHasData: regionColors.size > 0,
+    });
+    
     if (activeLayer === 'states' && stateColors.size > 0) {
       provinceToEntity = new Map();
       // Prefer province.stateId to ensure consistency even if state definitions are out of sync
@@ -291,6 +342,11 @@ const WebGLMapCanvas: React.FC = () => {
       entityColors = new Map(aiAreaColors) as Map<number | string, RGB>;
     }
 
+    console.log('[WebGLMapCanvas] Layer mapping:', {
+      provinceToEntitySize: provinceToEntity?.size ?? 0,
+      entityColorsSize: entityColors?.size ?? 0,
+    });
+
     if (provinceToEntity && entityColors && provinceToEntity.size > 0 && entityColors.size > 0) {
       overlay = createLayerOverlay(
         bmpEditor.width,
@@ -299,9 +355,11 @@ const WebGLMapCanvas: React.FC = () => {
         provinceByColor,
         provinceToEntity,
         entityColors,
-        1.0 // opacity
+        0.6 // opacity - slightly transparent to see province colors underneath
       );
-      console.log('[WebGLMapCanvas] Created layer overlay for', activeLayer);
+      console.log('[WebGLMapCanvas] Created layer overlay for', activeLayer, 'size:', overlay.length);
+    } else {
+      console.log('[WebGLMapCanvas] Skipping overlay creation - missing data');
     }
 
     setLayerOverlay(overlay);
