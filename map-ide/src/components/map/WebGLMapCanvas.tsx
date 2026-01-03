@@ -273,7 +273,7 @@ const WebGLMapCanvas: React.FC = () => {
         provinceByColor,
         provinceToEntity,
         entityColors,
-        0.6 // opacity
+        1.0 // opacity
       );
       console.log('[WebGLMapCanvas] Created layer overlay for', activeLayer);
     }
