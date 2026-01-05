@@ -771,6 +771,14 @@ country_event = {
 			factor = 100
 		}
 		MAC_bop_medium_increase_effect = yes
+		hidden_effect = {
+			if = {
+				limit = {
+					has_country_flag = MAC_pepsi_legal_reduction
+				}
+				country_event = { id = MCD.26 }
+			}
+		}
 		
 	}
 }
@@ -976,5 +984,52 @@ country_event = {
 			factor = 100
 		}
 		load_oob = "MAC_cola_war_units"
+	}
+}
+
+country_event = {
+	id = MCD.26 #レナード対ペプシコ事件続報
+	title = MCD.26.t 
+	desc = MCD.26.d
+	#
+	fire_only_once = yes
+	major = no
+	is_triggered_only = yes
+	trigger = {
+		tag = MAC
+	}
+	option = {
+		name = MCD.26.a  #我々の勝利だ！
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_legal_reduction
+		}
+		MAC_congress_medium_support = yes
+	}
+}
+
+country_event = {
+	id = MCD.27 #レナード対ペプシコ事件続報
+	title = MCD.27.t 
+	desc = MCD.27.d
+	#
+	fire_only_once = yes
+	major = no
+	is_triggered_only = yes
+	trigger = {
+		tag = MAC
+	}
+	option = {
+		name = MCD.27.a  #我々の敗北だ…
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			has_country_flag = MAC_pepsi_legal_increase
+		}
+		MAC_congress_medium_opposition = yes
+		set_country_flag = MAC_pepsi_lose_legal_battle
 	}
 }
