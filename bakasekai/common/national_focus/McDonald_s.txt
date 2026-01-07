@@ -1155,7 +1155,7 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAC_get_Harrier #ハリアーを入手
+		id = MAC_get_Harrier # ハリアーを入手
 		icon = GFX_focus_SMB_purchase_aircraft
 		relative_position_id = MAC_pepsi_win
 		x = 0
@@ -1171,40 +1171,145 @@ focus_tree = {
 			factor = 30
 		}
 		completion_reward = {
-			add_political_power = 150
-			country_event = { id = MCD.12 }
-			if = {
-				limit = {
-					has_country_flag = MAC_pepsi_lose_legal_battle
+			# ジェット機とモジュール技術を全解禁
+			#set_technology = {
+			#	jet_fighter2 = 1
+			#	aircraft_construction = 1
+			#	electronic_engineering = 1
+			#	rocket_interceptor_tech_1 = 1 # ロケット技術
+			#}
+			
+			# ハリアーの設計図作成 (マルチロール機: 対空+対地)
+			create_equipment_variant = {
+				name = "AV-8B Pepsi Harrier"
+				type = cv_small_plane_airframe # 最新ジェット機フレーム
+				default_variant = yes # これを主力にする
+				modules = {
+					# エンジン: ジェットエンジンx2 (推力マシマシ)
+					engine_type_slot = jet_engine_2_2x 
+					# 武装: 20mm機関砲x2 (対空)
+					fixed_wing_weapon_slot_1 = aircraft_cannon_2_2x
+					# 補助: ロケット弾 (対地攻撃・ハリアーらしさ)
+					fixed_wing_support_slot_1 = rocket_rails
+					# 補助: 落下増槽 (航続距離)
+					fixed_wing_support_slot_2 = drop_tanks
+					# 補助: 空対空レーダー
+					fixed_wing_support_slot_3 = air_air_radar_2
+					# 特別: ダイブブレーキ (急降下爆撃/CAS用)
+					special_type_slot_1 = dive_brakes
 				}
+				icon = "GFX_USA_jet_fighter2_medium" # 米軍ジェットのアイコン
 			}
+
+			# 在庫に100機追加
+			add_equipment_to_stockpile = {
+				type = jet_fighter_equipment_2
+				version_name = "AV-8B Pepsi Harrier"
+				amount = 100
+				producer = ROOT
+			}
+
+			if = {
+				limit = { has_country_flag = MAC_pepsi_lose_legal_battle }
+				add_political_power = -200
+				effect_tooltip = { text = MAC_paid_7_million_points_tt }
+			}
+			else = {
+				add_political_power = 150
+			}
+			
 		} 
 	}
 
 	focus = {
-		id = MAC_pepsi_navy #ペプシ海軍
+		id = MAC_pepsi_navy # ペプシ海軍
 		icon = GFX_focus_hol_legacy_of_the_de_zeven_provincien_mutiny
 		relative_position_id = MAC_pepsi_win
 		x = 0
 		y = 2
 		cost = 10
-		search_filters = {
-			FOCUS_FILTER_POLITICAL
-		}
-		prerequisite = {
-			focus = MAC_get_Harrier
-		}
-		ai_will_do = {
-			factor = 30
-		}
-		completion_reward = {
-			add_political_power = 150
-			country_event = { id = MCD.12 }
-		}
+		# 1944年型艦船技術とモジュール全解禁
+			#set_technology = {
+			#	carrier_4 = 1
+			#	submarine_4 = 1
+			#	destroyer_4 = 1
+			#	cruiser_4 = 1
+			#	ship_torpedo_4 = 1
+			#	ship_sonar_2 = 1
+			#	radar_4 = 1
+			#	fire_control_system_4 = 1
+			#	ship_engine_4 = 1
+			#	ship_armor_cruiser_3 = 1
+			#	depth_charge_4 = 1
+			#	battery_medium_4 = 1
+			#	battery_light_4 = 1
+			#}
+
+			# 1. 潜水艦 (ウィスキー級: シュノーケル付き)
+			create_equipment_variant = {
+				name = "Whiskey Class"
+				type = ship_hull_submarine_4
+				modules = {
+					fixed_ship_torpedo_slot = ship_torpedo_4
+					fixed_ship_engine_slot = ship_engine_4
+					rear_1_custom_slot = ship_torpedo_4
+					rear_2_custom_slot = ship_mine_layer_4 # 魚雷や機雷
+					fixed_ship_radar_slot = ship_snorkel_2 # シュノーケル
+				}
+			}
+
+			# 2. 駆逐艦 (スコルイ級: 汎用護衛艦)
+			create_equipment_variant = {
+				name = "Skoryy Class"
+				type = ship_hull_destroyer_4
+				modules = {
+					fixed_ship_battery_slot = battery_light_4
+					fixed_ship_anti_air_slot = ship_anti_air_4
+					fixed_ship_fire_control_system_slot = fire_control_system_4
+					fixed_ship_radar_slot = radar_4
+					fixed_ship_engine_slot = ship_engine_4
+					fixed_ship_torpedo_slot = ship_torpedo_4
+					mid_1_custom_slot = ship_torpedo_4
+					rear_1_custom_slot = ship_depth_charge_4
+					rear_2_custom_slot = ship_sonar_2
+				}
+			}
+
+			# 3. 巡洋艦 (スヴェルドロフ級: ミサイル巡洋艦的な強武装)
+			create_equipment_variant = {
+				name = "Sverdlov Class"
+				type = ship_hull_cruiser_4
+				modules = {
+					fixed_ship_battery_slot = battery_medium_4
+					fixed_ship_anti_air_slot = ship_anti_air_4
+					fixed_ship_fire_control_system_slot = fire_control_system_4
+					fixed_ship_radar_slot = radar_4
+					fixed_ship_engine_slot = ship_engine_4
+					fixed_ship_armor_slot = ship_armor_cruiser_3
+					mid_1_custom_slot = battery_medium_4
+					mid_2_custom_slot = ship_torpedo_4
+					rear_1_custom_slot = ship_airplane_launcher_2 # 水上機
+					fixed_ship_secondaries_slot = battery_light_4
+				}
+			}
+
+			# 艦隊生成 (作成したバリアントを指定)
+			create_navy = {
+				name = "Pepsi Fleet"
+				ship = { name = "PFS Pepsi" definition = cruiser type = ship_hull_cruiser_4 version_name = "Sverdlov Class" }
+				ship = { name = "PFS Diet Pepsi" definition = destroyer type = ship_hull_destroyer_4 version_name = "Skoryy Class" }
+				ship = { name = "PFS Mountain Dew" definition = destroyer type = ship_hull_destroyer_4 version_name = "Skoryy Class" }
+				ship = { name = "Sub-01" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
+				ship = { name = "Sub-02" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
+				ship = { name = "Sub-03" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
+				ship = { name = "Sub-04" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
+				ship = { name = "Sub-05" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
+				# 潜水艦17隻ならここに行を増やす
+			}
 	}
 
 	focus = {
-		id = MAC_pepsiman_division #ペプシマン師団
+		id = MAC_pepsiman_division # ペプシマン師団
 		icon = GFX_SOV_war_measures_in_the_east_ccp_2d_sov_compatibility
 		relative_position_id = MAC_pepsi_win
 		x = 0
@@ -1220,13 +1325,60 @@ focus_tree = {
 			factor = 30
 		}
 		completion_reward = {
-			add_political_power = 150
-			country_event = { id = MCD.12 }
+			set_country_flag = MAC_pepsiman_unlocked
+			
+			# 独自装備「ペプシマン・ボディ」の生産を解禁
+			enable_equipment_production = pepsiman_body
+
+			# 在庫に追加（即戦力）
+			add_equipment_to_stockpile = {
+				type = pepsiman_body
+				amount = 2000 # 2000体
+				producer = ROOT
+			}
+
+			# 師団テンプレート作成
+			division_template = {
+				name = "Pepsiman Corps"
+				regiments = {
+					# ペプシマン大隊（独自装備を使用する歩兵）
+					pepsiman_battalion = { x = 0 y = 0 }
+					pepsiman_battalion = { x = 0 y = 1 }
+					pepsiman_battalion = { x = 0 y = 2 }
+					pepsiman_battalion = { x = 0 y = 3 }
+					pepsiman_battalion = { x = 0 y = 4 }
+					
+					# 随伴歩兵（機械化歩兵で速度を合わせる）
+					# ※ペプシマンが30km/hでも、随伴が遅いと師団速度は落ちます
+					# 純粋な速度を楽しみたいなら、オール・ペプシマン編成推奨
+				}
+				support = {
+				}
+			}
+
+			# ユニット生成
+			create_unit = {
+				division = "name = \"1st Pepsiman Division\" division_template = \"Pepsiman Corps\" start_experience_factor = 1.0 start_equipment_factor = 1.0" 
+				owner = ROOT
+			}
+			
+			create_corps_commander = {
+				name = "Pepsiman"
+				portrait_path = "gfx/leaders/MAC/pepsiman.png"
+				traits = { infantry_leader trickster }
+				skill = 5
+				attack_skill = 5
+				defense_skill = 1
+				planning_skill = 2
+				logistics_skill = 5
+			}
+			
+			
 		}
 	}
 
 	focus = {
-		id = MAC_securing_rawmaterials #原材料の確保
+		id = MAC_securing_rawmaterials # 原材料の確保
 		icon = GFX_MAC_pepsi_MEX
 		relative_position_id = MAC_pepsi_win
 		x = 0
@@ -1243,7 +1395,12 @@ focus_tree = {
 		}
 		completion_reward = {
 			add_political_power = 150
-			country_event = { id = MCD.12 }
+			create_wargoal = {
+				type = puppet_wargoal
+				target = SAM
+			}
+			
+			
 		}
 	}
 
