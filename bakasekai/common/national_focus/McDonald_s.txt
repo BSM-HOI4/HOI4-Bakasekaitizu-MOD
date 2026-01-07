@@ -752,7 +752,7 @@ focus_tree = {
 
 	focus = {
 		id = MAC_coca_cola_win #コカ・コーラの勝利
-		icon = GFX_focus_generic_railroad
+		icon = GFX_focus_mex_privatisation
 		relative_position_id = MAC_start_cola_war
 		x = -7
 		y = 2
@@ -787,14 +787,14 @@ focus_tree = {
 	}
 
 	focus = {
-		id = MAC_coca_cola_wi
-		icon = GFX_focus_mex_privatisation
+		id = MAC_Global_Distribution_Network # 旧: MAC_coca_cola_wi
+		icon = GFX_focus_generic_railroad
 		relative_position_id = MAC_coca_cola_win
 		x = 0
 		y = 1
 		cost = 10
 		search_filters = {
-			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_INDUSTRY
 		}
 		prerequisite = {
 			focus = MAC_coca_cola_win
@@ -803,74 +803,90 @@ focus_tree = {
 			factor = 30
 		}
 		completion_reward = {
-			add_political_power = 150
-			country_event = { id = MCD.12 }
+			add_political_power = 100
+			add_equipment_to_stockpile = {
+				type = convoy
+				amount = 500
+				producer = ROOT
+			}
+			add_ideas = MAC_global_distribution_idea
 		}
 	}
 
 	focus = {
-		id = MAC_coca_cola_w
+		id = MAC_The_Santa_Claus_Image # 旧: MAC_coca_cola_w
 		icon = GFX_focus_ETH_re-convene_the_parliament
 		relative_position_id = MAC_coca_cola_win
 		x = 0
-		y = 2
+		y = 2 
 		cost = 10
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
 		prerequisite = {
-			focus = MAC_coca_cola_wi
+			focus = MAC_Global_Distribution_Network
 		}
 		ai_will_do = {
 			factor = 30
 		}
 		completion_reward = {
 			add_political_power = 150
-			country_event = { id = MCD.12 }
+			add_stability = 0.10
+			add_war_support = 0.05
+			add_ideas = MAC_santa_claus_image_idea
 		}
 	}
 
 	focus = {
-		id = MAC_coca_cola_
+		id = MAC_Formula_No_7 # 旧: MAC_coca_cola_
 		icon = GFX_focus_generic_american_investments
 		relative_position_id = MAC_coca_cola_win
 		x = 0
-		y = 3
+		y = 3 
 		cost = 10
 		search_filters = {
-			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_RESEARCH
 		}
 		prerequisite = {
-			focus = MAC_coca_cola_w
+			focus = MAC_The_Santa_Claus_Image
 		}
 		ai_will_do = {
 			factor = 30
 		}
 		completion_reward = {
-			add_political_power = 150
-			country_event = { id = MCD.12 }
+			add_political_power = 100
+			add_research_slot = 1
+			add_ideas = MAC_formula_no7_idea
 		}
 	}
 
 	focus = {
-		id = MAC_coca_cola__
+		id = MAC_Global_Bottling_Plants # 旧: MAC_coca_cola__
 		icon = GFX_focus_generic_improve_the_administration
 		relative_position_id = MAC_coca_cola_win
 		x = 0
-		y = 4
+		y = 4 
 		cost = 10
 		search_filters = {
-			FOCUS_FILTER_POLITICAL
+			FOCUS_FILTER_INDUSTRY
 		}
 		prerequisite = {
-			focus = MAC_coca_cola_
+			focus = MAC_Formula_No_7
 		}
 		ai_will_do = {
 			factor = 30
 		}
 		completion_reward = {
 			add_political_power = 150
-			country_event = { id = MCD.12 }
+			add_offsite_building = {
+				type = industrial_complex
+				level = 3
+			}
+			add_offsite_building = {
+				type = arms_factory
+				level = 2
+			}
+			add_ideas = MAC_global_bottling_idea
 		}
 	}
 
