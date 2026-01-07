@@ -1,0 +1,43 @@
+# common/units/equipment/MAC_pepsiman_gear.txt
+
+equipments = {
+    # 独自装備カテゴリの定義
+    pepsiman_archetype = {
+        year = 1944
+        is_archetype = yes
+        picture = GFX_archetype_infantry_equipment # 汎用画像（後で差し替え可）
+        type = infantry
+        group_by = archetype
+        interface_category = interface_category_land_infantry
+    }
+
+    # 実際の装備：ペプシマン・ボディ
+    pepsiman_body = {
+        year = 1944
+        archetype = pepsiman_archetype # 独自カテゴリ
+        family = pepsiman_archetype
+        priority = 100
+        visual_level = 0
+        
+        # 最初は生産不可（NFで解禁）
+        active = no
+
+        # 生産コスト（高い）
+        build_cost_ic = 10.0
+        
+        # 必要資源（アルミ缶とシロップ）
+        resources = {
+            aluminium = 3
+            oil = 2
+        }
+
+        # 装備としての性能（生身だが強い）
+        maximum_speed = 35.0   # 装備自体が持つ速度ポテンシャル
+        soft_attack = 20.0     # タックル
+        hard_attack = 10.0     # 金属ボディでの打撃
+        defense = 25.0         # 頑丈
+        breakthrough = 15.0    # 突破力
+        ap_attack = 10.0       # 貫通力
+        armor_value = 20.0     # 生身だが装甲がある
+    }
+}

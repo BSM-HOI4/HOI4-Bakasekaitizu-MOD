@@ -1127,4 +1127,54 @@ sub_units = {
 		}
 	}
 
+	pepsiman_battalion = {
+        sprite = infantry # マップ上では歩兵として表示
+        map_icon_category = infantry # 兵科記号も歩兵
+        
+        priority = 2500
+        active = no
+
+        # カテゴリ：特殊部隊的な歩兵
+        type = infantry
+        group = infantry
+
+        categories = {
+			category_front_line
+			category_light_infantry
+			category_all_infantry
+			category_army
+		}
+        combat_width = 4
+
+        # ★重要：ここで独自装備を要求する
+        need = {
+            pepsiman_body = 100 # 1大隊あたり100体のペプシマン
+        }
+
+        # ユニット性能（装備の補正＋ユニット自体の補正）
+        # 戦車ではないので燃料を使わない！
+        supply_consumption = 0.03 # 燃費は良い（コーラがあれば動く）
+        
+        # 速度設定（ここが重要）
+        # 歩兵カテゴリだが、最高速度を強制的に上書き設定
+        maximum_speed = 20.0 # スポーツカー並みの速度
+        
+        # 地形適正（市街地で最強）
+        urban = {
+            movement = 0.5
+            attack = 0.5
+            defense = 0.5
+        }
+        
+        # HPと指揮統制
+        max_strength = 40
+        max_organisation = 80 # 恐怖を知らないので統制が高い
+        default_morale = 0.8    # 回復が早い
+        manpower = 2000
+        
+        # 戦闘補正
+        suppression = 3      # 鎮圧能力も高い
+        weight = 0.5            # 軽い
+    }
+
 }
