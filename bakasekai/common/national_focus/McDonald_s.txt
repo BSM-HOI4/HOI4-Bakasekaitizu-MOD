@@ -1146,12 +1146,12 @@ focus_tree = {
 		ai_will_do = {
 			factor = 30
 		}
-		completion_reward = {
-			add_ideas = MAC_pepsi_idea
-		}
-		bypass_effect = {
-			add_ideas = MAC_pepsi_idea
-		}
+		# completion_reward = {
+		# 	add_ideas = MAC_pepsi_idea
+		# }
+		# bypass_effect = {
+		# 	add_ideas = MAC_pepsi_idea
+		# }
 	}
 
 	focus = {
@@ -1225,6 +1225,9 @@ focus_tree = {
 		id = MAC_pepsi_navy # ペプシ海軍
 		icon = GFX_focus_hol_legacy_of_the_de_zeven_provincien_mutiny
 		relative_position_id = MAC_pepsi_win
+		prerequisite = {
+			focus = MAC_get_Harrier
+		}
 		x = 0
 		y = 2
 		cost = 10
@@ -1326,9 +1329,12 @@ focus_tree = {
 		}
 		completion_reward = {
 			set_country_flag = MAC_pepsiman_unlocked
-			
+			set_technology = {
+				pepsiman_tech = 1
+			}
 			# 独自装備「ペプシマン・ボディ」の生産を解禁
 			enable_equipment_production = pepsiman_body
+			
 
 			# 在庫に追加（即戦力）
 			add_equipment_to_stockpile = {
