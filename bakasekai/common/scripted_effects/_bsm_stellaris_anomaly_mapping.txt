@@ -1,0 +1,112 @@
+# ==========================================
+# BSM ステラリス要素 - アノマリーマッピング
+# prefix: bsm_stellaris_anomaly
+# ==========================================
+
+# ------------------------------------------
+# アノマリーカテゴリ研究分野マッピング
+# ------------------------------------------
+bsm_stellaris_anomaly_get_research_field = {
+  set_temp_variable = { t_research_field = 0 }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_category value = 1 compare = equals } }
+    set_temp_variable = { t_research_field = 2 }
+  }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_category value = 2 compare = equals } }
+    set_temp_variable = { t_research_field = 3 }
+  }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_category value = 3 compare = equals } }
+    set_temp_variable = { t_research_field = 3 }
+  }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_category value = 4 compare = equals } }
+    set_temp_variable = { t_research_field = 3 }
+  }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_category value = 5 compare = equals } }
+    set_temp_variable = { t_research_field = 4 }
+  }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_category value = 6 compare = equals } }
+    set_temp_variable = { t_research_field = 4 }
+  }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_category value = 7 compare = equals } }
+    set_temp_variable = { t_research_field = 1 }
+  }
+
+  set_variable = { bsm_stellaris_anomaly_research_field = t_research_field }
+}
+
+# ------------------------------------------
+# アノマリー難易度からレベルを取得
+# ------------------------------------------
+bsm_stellaris_anomaly_get_difficulty_level = {
+  set_temp_variable = { t_difficulty_level = 0 }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_difficulty value = 85 compare = greater_than_or_equals } }
+    set_temp_variable = { t_difficulty_level = 1 }
+  }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_difficulty value = 60 compare = greater_than_or_equals } }
+    if = {
+      limit = { check_variable = { var = t_anomaly_difficulty value = 85 compare = less_than } }
+      set_temp_variable = { t_difficulty_level = 2 }
+    }
+  }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_difficulty value = 40 compare = greater_than_or_equals } }
+    if = {
+      limit = { check_variable = { var = t_anomaly_difficulty value = 60 compare = less_than } }
+      set_temp_variable = { t_difficulty_level = 3 }
+    }
+  }
+
+  if = {
+    limit = { check_variable = { var = t_anomaly_difficulty value = 40 compare = less_than } }
+    set_temp_variable = { t_difficulty_level = 4 }
+  }
+
+  set_variable = { bsm_stellaris_anomaly_difficulty_level = t_difficulty_level }
+}
+
+# ------------------------------------------
+# アノマリー報酬計算（ステラリス要素）
+# ------------------------------------------
+bsm_stellaris_anomaly_reward = {
+  bsm_stellaris_anomaly_tradition_bonus = yes
+
+  bsm_stellaris_anomaly_get_research_field = yes
+
+  if = {
+    limit = { check_variable = { var = bsm_stellaris_anomaly_research_field value = 1 compare = equals } }
+    add_to_variable = { bsm_stellaris_tradition_economy_progress = 10 }
+  }
+
+  if = {
+    limit = { check_variable = { var = bsm_stellaris_anomaly_research_field value = 2 compare = equals } }
+    add_to_variable = { bsm_stellaris_tradition_society_progress = 10 }
+  }
+
+  if = {
+    limit = { check_variable = { var = bsm_stellaris_anomaly_research_field value = 3 compare = equals } }
+    add_to_variable = { bsm_stellaris_tradition_military_progress = 10 }
+  }
+
+  if = {
+    limit = { check_variable = { var = bsm_stellaris_anomaly_research_field value = 4 compare = equals } }
+    add_to_variable = { bsm_stellaris_tradition_civilization_progress = 10 }
+  }
+}

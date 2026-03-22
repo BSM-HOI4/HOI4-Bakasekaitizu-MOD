@@ -16,6 +16,18 @@ on_actions = {
 	on_weekly = {
 		effect = {
 			bsm_update_economic_alliance_power_share = yes
+			for_each_loop = {
+				array = global.bsm_ea_sphere_list
+				value = v_token
+				set_temp_variable = { bsm_ea_token = var:v_token }
+				bsm_ea_vote_weekly_update = yes
+			}
+		}
+	}
+
+	on_monthly = {
+		effect = {
+			bsm_ea_monthly_update = yes
 		}
 	}
 }

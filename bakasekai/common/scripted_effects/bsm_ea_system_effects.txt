@@ -14,6 +14,7 @@ bsm_ea_init_system = {
 		}
 		set_global_flag = bsm_ea_system_initialized
 		clear_array = global.bsm_ea_sphere_list
+		bsm_ea_init_goal_system = yes
 	}
 }
 
@@ -53,6 +54,13 @@ bsm_ea_create_sphere = {
 		add_to_array = {
 			global.bsm_ea_member_list_@var:bsm_ea_token = THIS
 		}
+		# 目標リスト初期化
+		clear_array = global.bsm_ea_goal_list_@var:bsm_ea_token
+		# 運営モード初期値
+		set_variable = { bsm_ea_governance_mode = 1 }
+		set_variable = { bsm_ea_maturity = 1 }
+		# 盟主のクールダウン初期化
+		bsm_ea_init_member_cooldowns = yes
 		log = "[BSM EA] Sphere [?bsm_ea_token] created successfully. Global list size: [?global.bsm_ea_sphere_list^num]"
 		log = "[BSM EA] Member list size: [?global.bsm_ea_member_list_@var:bsm_ea_token^num]"
 	}
@@ -85,6 +93,14 @@ bsm_ea_join_sphere = {
 		add_to_array = {
 			global.bsm_ea_member_list_@var:bsm_ea_token = THIS
 		}
+		# 目標を付与
+		for_each_loop = {
+			array = global.bsm_ea_goal_list_@var:bsm_ea_token
+			value = v_goal
+			add_ideas = temp_var:v_goal
+		}
+		# 新規加盟クールダウン
+		bsm_ea_init_member_cooldowns = yes
 		log = "[BSM EA] [THIS.GetName] added to sphere [?bsm_ea_token]"
 		log = "[BSM EA] New joined spheres count: [?bsm_ea_joined_spheres^num]"
 		log = "[BSM EA] New member list size: [?global.bsm_ea_member_list_@var:bsm_ea_token^num]"
@@ -151,7 +167,7 @@ bsm_ea_generate_new_token = {
 		limit = {
 			NOT = {
 				check_variable = {
-					global.next_alliance_id > 9
+					global.next_alliance_id > 0
 				}
 			}
 		}
@@ -236,56 +252,31 @@ bsm_ea_join_sphere_action = {
 			modifier = bsm_economic_alliance_relation_boost
 		}
 	}
-	# Member Relations
-	FROM = {
-		for_each_loop = {
-			array = global.bsm_ea_member_list_@var:bsm_ea_token
-			value = v_member
-			if = {
-				limit = {
-					var:v_member = {
-						tag = ROOT
-					}
-					var:v_member = {
-						tag = FROM
-					}
-					var:v_member = {
-						tag = THIS
-					}
-				}
-				var:v_member = {
-					save_event_target_as = temp_ea_member_leave
-				}
-				event_target:temp_ea_member_leave = {
-					remove_opinion_modifier = {
-						target = THIS
-						modifier = bsm_economic_alliance_relation_boost
-					}
-				}
-				THIS = {
-					remove_opinion_modifier = {
-						target = event_target:temp_ea_member_leave
-						modifier = bsm_economic_alliance_relation_boost
-					}
-				}
-			}
-		}
-		# Leave Logic
-		bsm_ea_leave_sphere = yes
-		# Legacy Flags
-		clr_country_flag = is_economic_alliance_member
+	# Member Relations: 新規加盟国(ROOT)と既存メンバー全員の間にオピニオン修正値を付与
+	# (盟主FROMとは上で既に処理済みのため除外)
+	for_each_loop = {
+		array = global.bsm_ea_member_list_@var:bsm_ea_token
+		value = v_member
 		if = {
 			limit = {
-				has_country_flag = is_economic_alliance_leader
+				NOT = { var:v_member = { tag = FROM } }
+				NOT = { var:v_member = { tag = ROOT } }
 			}
-			clr_country_flag = is_economic_alliance_leader
-			# Leader leaving logic? (Transfer leadership or disband?)
-			# For now, just disband/cleanup if needed, or just leave.
-		}
-		# Cooldown
-		add_timed_idea = {
-			idea = recently_left_economic_alliance
-			days = 365
+			var:v_member = {
+				save_event_target_as = bsm_ea_temp_existing_member
+			}
+			event_target:bsm_ea_temp_existing_member = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = bsm_economic_alliance_relation_boost
+				}
+			}
+			ROOT = {
+				add_opinion_modifier = {
+					target = event_target:bsm_ea_temp_existing_member
+					modifier = bsm_economic_alliance_relation_boost
+				}
+			}
 		}
 	}
 }
@@ -299,6 +290,14 @@ bsm_ea_calc_sphere_power = {
 	log = "[BSM EA] Calculating power for sphere token [?bsm_ea_calc_token]"
 	set_variable = {
 		t_total_power = 0
+	}
+	# Guard: メンバーリストが空の場合はスキップ
+	if = {
+		limit = {
+			NOT = { check_variable = { global.bsm_ea_member_list_@var:bsm_ea_calc_token^num > 0 } }
+		}
+		log = "[BSM EA] Warning: sphere [?bsm_ea_calc_token] has no members, skipping calc"
+		break = yes
 	}
 	# Get leader
 	set_temp_variable = {
@@ -419,11 +418,15 @@ bsm_ea_sort_sphere_list = {
 	set_temp_variable = {
 		t_rank_counter = 1
 	}
+	set_temp_variable = {
+		t_safety_counter = 0
+	}
 	while_loop_effect = {
 		limit = {
 			check_variable = {
 				global.bsm_ea_temp_sort_list^num > 0
 			}
+			check_variable = { t_safety_counter < 100 }
 		}
 		# Find Max
 		set_temp_variable = {
@@ -499,6 +502,7 @@ bsm_ea_sort_sphere_list = {
 		remove_from_array = {
 			global.bsm_ea_temp_sort_list = var:t_best_token
 		}
+		add_to_variable = { t_safety_counter = 1 }
 	}
 	log = "[BSM EA] === Sort completed. Sorted list size: [?global.bsm_ea_sorted_sphere_list^num] ==="
 }

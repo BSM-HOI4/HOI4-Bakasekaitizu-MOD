@@ -54,6 +54,66 @@ scripted_gui = {
 			bsm_ea_prev_button_click = {
 				bsm_ea_switch_view_prev = yes
 			}
+			bsm_ea_player_entry_button_click = {
+				set_variable = { bsm_ea_selected_token = FROM.bsm_ea_sphere }
+				bsm_ea_select_sphere_for_gui = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_target_entry_button_click = {
+				set_variable = { bsm_ea_has_selected_member = 1 }
+				FROM = { save_event_target_as = bsm_ea_selected_member }
+			}
+			bsm_ea_governance_leader_button_click = {
+				bsm_ea_set_governance_leader = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_governance_democratic_button_click = {
+				bsm_ea_set_governance_democratic = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_goal_01_button_click = {
+				set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_01_cooperation }
+				bsm_ea_set_goal_or_vote = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_goal_02_button_click = {
+				set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_02_tariff }
+				bsm_ea_set_goal_or_vote = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_goal_03_button_click = {
+				set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_03_currency }
+				bsm_ea_set_goal_or_vote = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_goal_04_button_click = {
+				set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_04_market }
+				bsm_ea_set_goal_or_vote = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_goal_05_button_click = {
+				set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_05_union }
+				bsm_ea_set_goal_or_vote = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_vote_yes_button_click = {
+				bsm_ea_vote_yes = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_vote_no_button_click = {
+				bsm_ea_vote_no = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_vote_abstain_button_click = {
+				bsm_ea_vote_abstain = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_action_oda_button_click = { bsm_ea_action_oda = yes }
+			bsm_ea_action_loan_long_button_click = { bsm_ea_action_loan_long = yes }
+			bsm_ea_action_loan_short_button_click = { bsm_ea_action_loan_short = yes }
+			bsm_ea_action_debt_relief_button_click = { bsm_ea_action_debt_relief = yes }
+			bsm_ea_action_infra_button_click = { bsm_ea_action_infra_invest = yes }
+			bsm_ea_action_tech_button_click = { bsm_ea_action_tech_support = yes }
 		}
 		triggers = {
 			bsm_ea_window_visible = {
@@ -83,6 +143,13 @@ scripted_gui = {
 				array = global.bsm_ea_gui_display_list
 				change_scope = yes # Array contains Country Scopes
 				entry_container = "economic_alliance_member_entry"
+			}
+
+			# Target selection list for actions
+			economic_alliance_target_list = {
+				array = global.bsm_ea_gui_display_list
+				change_scope = yes
+				entry_container = "economic_alliance_target_entry"
 			}
 
 			# List of All Spheres (Ranking)

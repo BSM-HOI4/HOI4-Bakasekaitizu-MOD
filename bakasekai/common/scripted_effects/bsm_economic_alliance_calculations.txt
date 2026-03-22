@@ -42,7 +42,10 @@ bsm_update_economic_alliance_power_share = {
 					# Accumulate (though usually only in 1 alliance)
 					set_variable = { economic_alliance_pp_buff_value = my_share }
 					
-					# Apply Modifier
+					# Apply Modifier (スタック防止のため先に削除してから再付与)
+					remove_dynamic_modifier = {
+						modifier = bsm_economic_alliance_pp_buff
+					}
 					add_dynamic_modifier = {
 						modifier = bsm_economic_alliance_pp_buff
 						days = 15

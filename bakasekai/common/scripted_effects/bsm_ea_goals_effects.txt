@@ -1,0 +1,459 @@
+# ==========================================
+# BSM 経済同盟 目標/信頼/投票システム
+# prefix: bsm_ea_
+# ==========================================
+
+# ------------------------------------------
+# 初期化
+# ------------------------------------------
+bsm_ea_init_goal_system = {
+  if = {
+    limit = {
+      NOT = { has_global_flag = bsm_ea_goal_system_initialized }
+    }
+    set_global_flag = bsm_ea_goal_system_initialized
+    clear_array = global.bsm_ea_goal_master_list
+    add_to_array = { global.bsm_ea_goal_master_list = token:bsm_ea_goal_01_cooperation }
+    add_to_array = { global.bsm_ea_goal_master_list = token:bsm_ea_goal_02_tariff }
+    add_to_array = { global.bsm_ea_goal_master_list = token:bsm_ea_goal_03_currency }
+    add_to_array = { global.bsm_ea_goal_master_list = token:bsm_ea_goal_04_market }
+    add_to_array = { global.bsm_ea_goal_master_list = token:bsm_ea_goal_05_union }
+  }
+}
+
+# ------------------------------------------
+# 信頼度計算
+# ------------------------------------------
+bsm_ea_calculate_trust = {
+  set_temp_variable = { t_trust = 0 }
+
+  # 文明度 (0~1) × 50
+  set_temp_variable = { t_cd = Cultural_Degree }
+  multiply_temp_variable = { t_cd = 50 }
+  add_to_temp_variable = { t_trust = t_cd }
+
+  # 統合力 (0~1000+) × 0.05
+  set_temp_variable = { t_po = National_Unity_Power }
+  multiply_temp_variable = { t_po = 0.05 }
+  add_to_temp_variable = { t_trust = t_po }
+
+  # UC貯蓄 ÷ 100
+  set_temp_variable = { t_uc = Unified_Currency }
+  divide_temp_variable = { t_uc = 100 }
+  add_to_temp_variable = { t_trust = t_uc }
+
+  clamp_temp_variable = { t_trust = 0 max = 100 }
+  set_variable = { bsm_ea_trust = t_trust }
+}
+
+# ------------------------------------------
+# 陣営指標更新
+# 入力: bsm_ea_token
+# ------------------------------------------
+bsm_ea_update_sphere_metrics = {
+  if = {
+    limit = { has_variable = bsm_ea_token }
+    set_temp_variable = { t_member_count = global.bsm_ea_member_list_@var:bsm_ea_token^num }
+    set_temp_variable = { t_high_trust = 0 }
+    set_temp_variable = { t_very_high_trust = 0 }
+
+    for_each_loop = {
+      array = global.bsm_ea_member_list_@var:bsm_ea_token
+      value = v_member
+      var:v_member = {
+        if = {
+          limit = { check_variable = { bsm_ea_trust > 29 } }
+          add_to_temp_variable = { PREV.t_high_trust = 1 }
+        }
+        if = {
+          limit = { check_variable = { bsm_ea_trust > 49 } }
+          add_to_temp_variable = { PREV.t_very_high_trust = 1 }
+        }
+      }
+    }
+
+    # 成熟度計算
+    set_temp_variable = { t_maturity = 1 }
+    if = {
+      limit = {
+        OR = {
+          check_variable = { t_member_count > 7 }
+          check_variable = { t_high_trust > 4 }
+        }
+      }
+      set_temp_variable = { t_maturity = 5 }
+    }
+    else_if = {
+      limit = {
+        OR = {
+          check_variable = { t_member_count > 5 }
+          check_variable = { t_high_trust > 2 }
+        }
+      }
+      set_temp_variable = { t_maturity = 4 }
+    }
+    else_if = {
+      limit = {
+        OR = {
+          check_variable = { t_member_count > 3 }
+          check_variable = { t_high_trust > 1 }
+        }
+      }
+      set_temp_variable = { t_maturity = 3 }
+    }
+    else_if = {
+      limit = {
+        OR = {
+          check_variable = { t_member_count > 1 }
+          check_variable = { t_high_trust > 0 }
+        }
+      }
+      set_temp_variable = { t_maturity = 2 }
+    }
+
+    # 盟主に保存
+    set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+    var:t_leader = {
+      if = { limit = { NOT = { has_variable = bsm_ea_governance_mode } } set_variable = { bsm_ea_governance_mode = 1 } }
+      set_variable = { bsm_ea_maturity = PREV.t_maturity }
+      set_variable = { bsm_ea_member_count = PREV.t_member_count }
+      set_variable = { bsm_ea_high_trust_count = PREV.t_high_trust }
+    }
+  }
+}
+
+# ------------------------------------------
+# 盟主: 運営モード設定
+# 入力: bsm_ea_selected_token
+# ------------------------------------------
+bsm_ea_set_governance_leader = {
+  if = {
+    limit = { has_variable = bsm_ea_selected_token }
+    set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 }
+    var:t_leader = { set_variable = { bsm_ea_governance_mode = 1 } }
+  }
+}
+
+bsm_ea_set_governance_democratic = {
+  if = {
+    limit = { has_variable = bsm_ea_selected_token }
+    set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 }
+    var:t_leader = { set_variable = { bsm_ea_governance_mode = 2 } }
+  }
+}
+
+# ------------------------------------------
+# 目標追加/削除
+# 入力: bsm_ea_token, bsm_ea_goal_token
+# ------------------------------------------
+bsm_ea_add_goal_to_sphere = {
+  if = {
+    limit = {
+      has_variable = bsm_ea_token
+      has_variable = bsm_ea_goal_token
+    }
+    add_to_array = { global.bsm_ea_goal_list_@var:bsm_ea_token = var:bsm_ea_goal_token }
+    for_each_loop = {
+      array = global.bsm_ea_member_list_@var:bsm_ea_token
+      value = v_member
+      var:v_member = { add_ideas = bsm_ea_goal_@bsm_ea_goal_token }
+    }
+  }
+}
+
+bsm_ea_remove_goal_from_sphere = {
+  if = {
+    limit = {
+      has_variable = bsm_ea_token
+      has_variable = bsm_ea_goal_token
+    }
+    remove_from_array = { global.bsm_ea_goal_list_@var:bsm_ea_token = var:bsm_ea_goal_token }
+    for_each_loop = {
+      array = global.bsm_ea_member_list_@var:bsm_ea_token
+      value = v_member
+      var:v_member = { remove_ideas = bsm_ea_goal_@bsm_ea_goal_token }
+    }
+  }
+}
+
+# ------------------------------------------
+# 目標設定 (盟主/投票)
+# 入力: bsm_ea_selected_token, bsm_ea_goal_token
+# ------------------------------------------
+bsm_ea_set_goal_or_vote = {
+  if = {
+    limit = {
+      has_variable = bsm_ea_selected_token
+      has_variable = bsm_ea_goal_token
+      check_variable = { bsm_ea_is_selected_leader = 1 }
+    }
+    set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 }
+    var:t_leader = {
+      if = {
+        limit = { check_variable = { bsm_ea_vote_active = 0 } }
+        if = {
+          limit = { check_variable = { bsm_ea_governance_mode = 1 } }
+          set_temp_variable = { bsm_ea_token = PREV.bsm_ea_selected_token }
+          set_temp_variable = { bsm_ea_goal_token = PREV.bsm_ea_goal_token }
+          bsm_ea_add_goal_to_sphere = yes
+        }
+        else_if = {
+          limit = { check_variable = { bsm_ea_governance_mode = 2 } }
+          set_temp_variable = { bsm_ea_token = PREV.bsm_ea_selected_token }
+          set_temp_variable = { bsm_ea_goal_token = PREV.bsm_ea_goal_token }
+          bsm_ea_start_goal_vote = yes
+        }
+      }
+    }
+  }
+}
+
+# ------------------------------------------
+    # 投票開始
+    # 入力: bsm_ea_token, bsm_ea_goal_token
+    # ------------------------------------------
+    bsm_ea_start_goal_vote = {
+      if = {
+        limit = {
+          has_variable = bsm_ea_token
+          has_variable = bsm_ea_goal_token
+        }
+        set_temp_variable = { t_member_count = global.bsm_ea_member_list_@var:bsm_ea_token^num }
+        
+        # 投票状態初期化
+        for_each_loop = {
+          array = global.bsm_ea_member_list_@var:bsm_ea_token
+          value = v_member
+          var:v_member = {
+            set_variable = { bsm_ea_vote_choice = 0 }
+          }
+        }
+        
+        global.bsm_ea_member_list_@var:bsm_ea_token^0 = {
+          set_variable = { bsm_ea_vote_active = 1 }
+          set_variable = { bsm_ea_vote_goal_token = PREV.bsm_ea_goal_token }
+          set_variable = { bsm_ea_vote_days = 30 }
+          set_variable = { bsm_ea_vote_yes = 0 }
+          set_variable = { bsm_ea_vote_no = 0 }
+          set_variable = { bsm_ea_vote_abstain = PREV.t_member_count }
+        }
+        
+        # AI投票（盟主以外）
+        for_each_loop = {
+          array = global.bsm_ea_member_list_@var:bsm_ea_token
+          value = v_member
+          var:v_member = {
+            if = {
+              limit = { is_ai = yes }
+              if = {
+                limit = { has_opinion = { target = global.bsm_ea_member_list_@var:bsm_ea_token^0 value > 30 } }
+                set_variable = { bsm_ea_vote_choice = 1 }
+                global.bsm_ea_member_list_@var:bsm_ea_token^0 = {
+                  add_to_variable = { bsm_ea_vote_yes = 1 }
+                  subtract_from_variable = { bsm_ea_vote_abstain = 1 }
+                }
+              }
+              else_if = {
+                limit = { has_opinion = { target = global.bsm_ea_member_list_@var:bsm_ea_token^0 value < -10 } }
+                set_variable = { bsm_ea_vote_choice = 2 }
+                global.bsm_ea_member_list_@var:bsm_ea_token^0 = {
+                  add_to_variable = { bsm_ea_vote_no = 1 }
+                  subtract_from_variable = { bsm_ea_vote_abstain = 1 }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+
+# ------------------------------------------
+# 投票更新（週次）
+# 入力: bsm_ea_token
+# ------------------------------------------
+bsm_ea_vote_weekly_update = {
+  if = {
+    limit = { has_variable = bsm_ea_token }
+    set_variable = { bsm_ea_sphere = bsm_ea_token }
+    global.bsm_ea_member_list_@var:bsm_ea_token^0 = {
+      if = {
+        limit = { check_variable = { bsm_ea_vote_active = 1 } }
+        subtract_from_variable = { bsm_ea_vote_days = 7 }
+        if = {
+          limit = { check_variable = { bsm_ea_vote_days < 1 } }
+          ROOT.bsm_ea_finalize_vote = yes
+        }
+      }
+    }
+  }
+}
+
+# ------------------------------------------
+# 投票最終処理
+# ------------------------------------------
+bsm_ea_finalize_vote = {
+  set_temp_variable = { t_total = global.bsm_ea_member_list_@var:bsm_ea_token^num }
+  set_temp_variable = { t_half = t_total }
+  divide_temp_variable = { t_half = 2 }
+
+  global.bsm_ea_member_list_@var:bsm_ea_token^0 = {
+    set_variable = { bsm_ea_vote_active = 0 }
+    if = {
+      limit = {
+        check_variable = { bsm_ea_vote_yes > bsm_ea_vote_no }
+        check_variable = { bsm_ea_vote_yes > PREV.t_half }
+      }
+      set_temp_variable = { bsm_ea_token = THIS.bsm_ea_sphere }
+      set_temp_variable = { bsm_ea_goal_token = THIS.bsm_ea_vote_goal_token }
+      bsm_ea_add_goal_to_sphere = yes
+    }
+    set_variable = { bsm_ea_vote_goal_token = 0 }
+    set_variable = { bsm_ea_vote_yes = 0 }
+    set_variable = { bsm_ea_vote_no = 0 }
+    set_variable = { bsm_ea_vote_abstain = 0 }
+  }
+}
+
+# ------------------------------------------
+# 投票: ROOTの投票リセット
+# ------------------------------------------
+bsm_ea_vote_reset_root = {
+  if = {
+    limit = { check_variable = { bsm_ea_vote_choice = 1 } }
+    global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 = {
+      add_to_variable = { bsm_ea_vote_abstain = 1 }
+      subtract_from_variable = { bsm_ea_vote_yes = 1 }
+    }
+  }
+  if = {
+    limit = { check_variable = { bsm_ea_vote_choice = 2 } }
+    global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 = {
+      add_to_variable = { bsm_ea_vote_abstain = 1 }
+      subtract_from_variable = { bsm_ea_vote_no = 1 }
+    }
+  }
+  if = {
+    limit = { check_variable = { bsm_ea_vote_choice = 3 } }
+    global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 = {
+      add_to_variable = { bsm_ea_vote_abstain = 1 }
+    }
+  }
+  set_variable = { bsm_ea_vote_choice = 0 }
+}
+
+# ------------------------------------------
+# 投票: ROOTが賛成/反対/棄権
+# 入力: bsm_ea_selected_token
+# ------------------------------------------
+bsm_ea_vote_yes = {
+  if = {
+    limit = { has_variable = bsm_ea_selected_token }
+    bsm_ea_vote_reset_root = yes
+    set_variable = { bsm_ea_vote_choice = 1 }
+    global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 = {
+      add_to_variable = { bsm_ea_vote_yes = 1 }
+      subtract_from_variable = { bsm_ea_vote_abstain = 1 }
+    }
+  }
+}
+
+bsm_ea_vote_no = {
+  if = {
+    limit = { has_variable = bsm_ea_selected_token }
+    bsm_ea_vote_reset_root = yes
+    set_variable = { bsm_ea_vote_choice = 2 }
+    global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 = {
+      add_to_variable = { bsm_ea_vote_no = 1 }
+      subtract_from_variable = { bsm_ea_vote_abstain = 1 }
+    }
+  }
+}
+
+bsm_ea_vote_abstain = {
+  if = {
+    limit = { has_variable = bsm_ea_selected_token }
+    bsm_ea_vote_reset_root = yes
+    set_variable = { bsm_ea_vote_choice = 3 }
+    global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 = {
+      add_to_variable = { bsm_ea_vote_abstain = 1 }
+    }
+  }
+}
+
+# ------------------------------------------
+# GUI表示更新
+# 入力: bsm_ea_selected_token
+# ------------------------------------------
+bsm_ea_refresh_selection_data = {
+  # 初期化
+  clear_variable = bsm_ea_selected_member
+  set_variable = { bsm_ea_has_selected_member = 0 }
+  set_variable = { bsm_ea_selected_maturity = 0 }
+  set_variable = { bsm_ea_selected_governance_mode = 0 }
+  set_variable = { bsm_ea_is_selected_leader = 0 }
+
+  set_variable = { bsm_ea_goal_01_active = 0 }
+  set_variable = { bsm_ea_goal_02_active = 0 }
+  set_variable = { bsm_ea_goal_03_active = 0 }
+  set_variable = { bsm_ea_goal_04_active = 0 }
+  set_variable = { bsm_ea_goal_05_active = 0 }
+
+  set_variable = { bsm_ea_goal_01_available = 0 }
+  set_variable = { bsm_ea_goal_02_available = 0 }
+  set_variable = { bsm_ea_goal_03_available = 0 }
+  set_variable = { bsm_ea_goal_04_available = 0 }
+  set_variable = { bsm_ea_goal_05_available = 0 }
+
+  set_variable = { bsm_ea_vote_active = 0 }
+  set_variable = { bsm_ea_vote_days = 0 }
+  set_variable = { bsm_ea_vote_yes = 0 }
+  set_variable = { bsm_ea_vote_no = 0 }
+  set_variable = { bsm_ea_vote_abstain = 0 }
+
+  if = {
+    limit = { has_variable = bsm_ea_selected_token }
+    global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 = {
+      set_variable = { PREV.bsm_ea_selected_maturity = bsm_ea_maturity }
+      set_variable = { PREV.bsm_ea_selected_governance_mode = bsm_ea_governance_mode }
+      if = { limit = { tag = ROOT } set_variable = { PREV.bsm_ea_is_selected_leader = 1 } }
+
+      if = { limit = { has_idea = bsm_ea_goal_01_cooperation } set_variable = { PREV.bsm_ea_goal_01_active = 1 } }
+      if = { limit = { has_idea = bsm_ea_goal_02_tariff } set_variable = { PREV.bsm_ea_goal_02_active = 1 } }
+      if = { limit = { has_idea = bsm_ea_goal_03_currency } set_variable = { PREV.bsm_ea_goal_03_active = 1 } }
+      if = { limit = { has_idea = bsm_ea_goal_04_market } set_variable = { PREV.bsm_ea_goal_04_active = 1 } }
+      if = { limit = { has_idea = bsm_ea_goal_05_union } set_variable = { PREV.bsm_ea_goal_05_active = 1 } }
+
+      if = { limit = { check_variable = { bsm_ea_vote_active = 1 } } set_variable = { PREV.bsm_ea_vote_active = 1 } }
+      if = { limit = { check_variable = { bsm_ea_vote_active = 1 } } set_variable = { PREV.bsm_ea_vote_days = bsm_ea_vote_days } }
+      if = { limit = { check_variable = { bsm_ea_vote_active = 1 } } set_variable = { PREV.bsm_ea_vote_yes = bsm_ea_vote_yes } }
+      if = { limit = { check_variable = { bsm_ea_vote_active = 1 } } set_variable = { PREV.bsm_ea_vote_no = bsm_ea_vote_no } }
+      if = { limit = { check_variable = { bsm_ea_vote_active = 1 } } set_variable = { PREV.bsm_ea_vote_abstain = bsm_ea_vote_abstain } }
+    }
+
+    # 目標の解放判定
+    if = { limit = { check_variable = { bsm_ea_selected_maturity > 0 } check_variable = { bsm_ea_goal_01_active = 0 } } set_variable = { bsm_ea_goal_01_available = 1 } }
+    if = { limit = { check_variable = { bsm_ea_selected_maturity > 1 } check_variable = { bsm_ea_goal_02_active = 0 } } set_variable = { bsm_ea_goal_02_available = 1 } }
+    if = { limit = { check_variable = { bsm_ea_selected_maturity > 2 } check_variable = { bsm_ea_goal_03_active = 0 } } set_variable = { bsm_ea_goal_03_available = 1 } }
+    if = { limit = { check_variable = { bsm_ea_selected_maturity > 3 } check_variable = { bsm_ea_goal_04_active = 0 } } set_variable = { bsm_ea_goal_04_available = 1 } }
+    if = { limit = { check_variable = { bsm_ea_selected_maturity > 4 } check_variable = { bsm_ea_goal_05_active = 0 } } set_variable = { bsm_ea_goal_05_available = 1 } }
+  }
+}
+
+# ------------------------------------------
+# 月次更新
+# ------------------------------------------
+bsm_ea_monthly_update = {
+  bsm_ea_init_goal_system = yes
+  every_country = {
+    limit = { has_variable = bsm_ea_joined_spheres }
+    bsm_ea_calculate_trust = yes
+    bsm_ea_update_cooldowns = yes
+  }
+  for_each_loop = {
+    array = global.bsm_ea_sphere_list
+    value = v_token
+    set_temp_variable = { bsm_ea_token = var:v_token }
+    bsm_ea_update_sphere_metrics = yes
+  }
+}
