@@ -9,7 +9,7 @@ jobs:
   cwtools_job:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - uses: cwtools/cwtools-action@v1.1.0
         with:
           game: hoi4
@@ -17,7 +17,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload artifact
         if: always()
-        uses: actions/upload-artifact@v1.1.0
+        uses: actions/upload-artifact@v4
         with:
           name: cwtools_output
           path: output.json
