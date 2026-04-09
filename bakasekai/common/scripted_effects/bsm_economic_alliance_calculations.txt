@@ -1,54 +1,73 @@
 # Economic Alliance Power Share Calculation
-# Called weekly/monthly
+# Called weekly
 bsm_update_economic_alliance_power_share = {
 	# 0. Update Ranking (New System)
 	bsm_ea_sort_sphere_list = yes
 
-	# 1. Reset Buff Value for all potential members (or just iterate variable clearance?)
-	# Resetting via every_country is slow but safe.
-	# Alternatively, clear it in the loop below if we are sure we cover everyone.
-	# But if someone leaves, they shouldn't keep the buff.
-	every_country = { set_variable = { economic_alliance_pp_buff_value = 0 } }
+	# 1. メンバーのみバフリセット（every_country を避ける）
+	for_each_loop = {
+		array = global.bsm_ea_sphere_list
+		value = v_token_reset
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:v_token_reset
+			value = v_mem_reset
+			var:v_mem_reset = {
+				set_variable = { economic_alliance_pp_buff_value = 0 }
+			}
+		}
+	}
 
 	# 2. Iterate Spheres
 	for_each_loop = {
 		array = global.bsm_ea_sphere_list
 		value = v_token
-		
-		# Calculate Total IC for this sphere
-		set_temp_variable = { t_total_ic = 0 }
-		for_each_loop = {
-			array = global.bsm_ea_member_list_@var:v_token
-			value = v_mem
-			var:v_mem = {
-				add_to_variable = { PREV.t_total_ic = industrial_capacity_ic }
-			}
-		}
-		
-		# Distribute Shares
+
+		# メンバーリストが空でないかチェック
 		if = {
-			limit = { check_variable = { t_total_ic > 0 } }
+			limit = { check_variable = { global.bsm_ea_member_list_@var:v_token^num > 0 } }
+
+			# Calculate Total IC for this sphere
+			set_temp_variable = { t_total_ic = 0 }
 			for_each_loop = {
 				array = global.bsm_ea_member_list_@var:v_token
 				value = v_mem
 				var:v_mem = {
-					# Calculate Share: MyIC / TotalIC
-					set_temp_variable = { my_share = industrial_capacity_ic }
-					divide_temp_variable = { my_share = PREV.t_total_ic }
-					
-					# Cap at 5% (0.05) per alliance
-					clamp_temp_variable = { var = my_share min = 0 max = 0.05 }
-					
-					# Accumulate (though usually only in 1 alliance)
-					set_variable = { economic_alliance_pp_buff_value = my_share }
-					
-					# Apply Modifier (スタック防止のため先に削除してから再付与)
-					remove_dynamic_modifier = {
-						modifier = bsm_economic_alliance_pp_buff
-					}
-					add_dynamic_modifier = {
-						modifier = bsm_economic_alliance_pp_buff
-						days = 15
+					# num_of_factories を代替として使用
+					set_temp_variable = { t_my_ic = num_of_civilian_factories }
+					add_to_temp_variable = { t_my_ic = num_of_military_factories }
+					set_temp_variable = { PREV.t_add_ic = t_my_ic }
+				}
+				add_to_temp_variable = { t_total_ic = t_add_ic }
+			}
+
+			# Distribute Shares
+			if = {
+				limit = { check_variable = { t_total_ic > 0 } }
+				for_each_loop = {
+					array = global.bsm_ea_member_list_@var:v_token
+					value = v_mem2
+					var:v_mem2 = {
+						# Calculate Share: MyIC / TotalIC
+						set_temp_variable = { my_ic = num_of_civilian_factories }
+						add_to_temp_variable = { my_ic = num_of_military_factories }
+						set_temp_variable = { my_share = my_ic }
+						divide_temp_variable = { my_share = PREV.t_total_ic }
+
+						# Cap at 5% (0.05) per alliance
+						clamp_temp_variable = { var = my_share min = 0 max = 0.05 }
+
+						# Set buff value
+						add_to_variable = { economic_alliance_pp_buff_value = my_share }
+
+						# Apply Modifier (スタック防止のため先に削除してから再付与)
+						if = {
+							limit = { has_dynamic_modifier = { modifier = bsm_economic_alliance_pp_buff } }
+							remove_dynamic_modifier = { modifier = bsm_economic_alliance_pp_buff }
+						}
+						add_dynamic_modifier = {
+							modifier = bsm_economic_alliance_pp_buff
+							days = 15
+						}
 					}
 				}
 			}

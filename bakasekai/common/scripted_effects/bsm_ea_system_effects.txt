@@ -38,13 +38,10 @@ bsm_ea_create_sphere = {
 			global.bsm_ea_sphere_list = var:bsm_ea_token
 		}
 		# 盟主の初期設定
-		set_variable = {
-			bsm_ea_is_leader = yes
-		}
+		set_variable = { bsm_ea_is_leader = 1 }
+		set_variable = { bsm_ea_leader_of = var:bsm_ea_token }
 		# Store sphere token on leader for future reference
-		set_variable = {
-			bsm_ea_sphere = var:bsm_ea_token
-		}
+		set_variable = { bsm_ea_sphere = var:bsm_ea_token }
 		# 配列に追加 (Multiple Support)
 		add_to_array = {
 			bsm_ea_joined_spheres = var:bsm_ea_token
@@ -62,11 +59,8 @@ bsm_ea_create_sphere = {
 		# 盟主のクールダウン初期化
 		bsm_ea_init_member_cooldowns = yes
 		log = "[BSM EA] Sphere [?bsm_ea_token] created successfully. Global list size: [?global.bsm_ea_sphere_list^num]"
-		log = "[BSM EA] Member list size: [?global.bsm_ea_member_list_@var:bsm_ea_token^num]"
 	}
 }
-
-
 
 # 経済陣営に加盟
 # 入力:
@@ -74,8 +68,6 @@ bsm_ea_create_sphere = {
 #   THIS = 加盟国
 bsm_ea_join_sphere = {
 	log = "[BSM EA] [THIS.GetName] attempting to join sphere [?bsm_ea_token]"
-	log = "[BSM EA] Current joined spheres: [?bsm_ea_joined_spheres^num]"
-	log = "[BSM EA] Member list before join: [?global.bsm_ea_member_list_@var:bsm_ea_token^num]"
 
 	# Check for duplicate join
 	if = {
@@ -84,26 +76,37 @@ bsm_ea_join_sphere = {
 				is_in_array = { bsm_ea_joined_spheres = var:bsm_ea_token }
 			}
 		}
-		log = "[BSM EA] [THIS.GetName] not already in sphere, adding now"
 		# 変数を設定 (Array)
 		add_to_array = {
 			bsm_ea_joined_spheres = var:bsm_ea_token
+		}
+		# bsm_ea_sphere を最初の所属陣営に設定（未設定の場合）
+		if = {
+			limit = { NOT = { has_variable = bsm_ea_sphere } }
+			set_variable = { bsm_ea_sphere = var:bsm_ea_token }
 		}
 		# メンバーリストに追加
 		add_to_array = {
 			global.bsm_ea_member_list_@var:bsm_ea_token = THIS
 		}
-		# 目標を付与
+		# 目標を付与（配列内のトークンから）
+		set_temp_variable = { t_join_token = var:bsm_ea_token }
 		for_each_loop = {
 			array = global.bsm_ea_goal_list_@var:bsm_ea_token
 			value = v_goal
-			add_ideas = temp_var:v_goal
+			add_ideas = var:v_goal
+			# Tech Sharing グループが有効なら追加
+			if = {
+				limit = {
+					check_variable = { v_goal = token:bsm_ea_goal_06_tech_sharing }
+				}
+				set_temp_variable = { bsm_ea_token = t_join_token }
+				bsm_ea_join_tech_group = yes
+			}
 		}
 		# 新規加盟クールダウン
 		bsm_ea_init_member_cooldowns = yes
 		log = "[BSM EA] [THIS.GetName] added to sphere [?bsm_ea_token]"
-		log = "[BSM EA] New joined spheres count: [?bsm_ea_joined_spheres^num]"
-		log = "[BSM EA] New member list size: [?global.bsm_ea_member_list_@var:bsm_ea_token^num]"
 	}
 	else = {
 		log = "[BSM EA] [THIS.GetName] already in sphere [?bsm_ea_token], skipping"
@@ -119,6 +122,13 @@ bsm_ea_leave_sphere = {
 		limit = {
 			is_in_array = { bsm_ea_joined_spheres = var:bsm_ea_token }
 		}
+		# Tech Sharing グループが有効なら離脱
+		if = {
+			limit = {
+				is_in_array = { global.bsm_ea_goal_list_@var:bsm_ea_token = token:bsm_ea_goal_06_tech_sharing }
+			}
+			bsm_ea_leave_tech_group = yes
+		}
 		# メンバーリストから削除
 		remove_from_array = {
 			global.bsm_ea_member_list_@var:bsm_ea_token = THIS
@@ -128,37 +138,116 @@ bsm_ea_leave_sphere = {
 			bsm_ea_joined_spheres = var:bsm_ea_token
 		}
 
-		# Leader Logic Cleanup
-		# If this country was leader of THIS sphere?
-		# Currently `bsm_ea_is_leader` is a boolean flag, doesn't say WHICH sphere.
-		# Ideally we check if we were the leader of THIS sphere.
-		# (Leader is usually index 0 of member list).
-		# Since we just removed ourselves, if we were 0, index 0 is now someone else or empty.
+		# --- 盟主離脱時のリーダー移譲 ---
+		if = {
+			limit = {
+				has_variable = bsm_ea_is_leader
+				check_variable = { bsm_ea_leader_of = var:bsm_ea_token }
+			}
+			clear_variable = bsm_ea_is_leader
+			clear_variable = bsm_ea_leader_of
+			# メンバーが残っている場合、新盟主を設定
+			if = {
+				limit = {
+					check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+				}
+				# index 0 の国を新盟主にする
+				set_temp_variable = { t_new_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+				var:t_new_leader = {
+					set_variable = { bsm_ea_is_leader = 1 }
+					set_variable = { bsm_ea_leader_of = PREV.bsm_ea_token }
+					# 運営モードを引き継ぎ
+					if = {
+						limit = { NOT = { has_variable = bsm_ea_governance_mode } }
+						set_variable = { bsm_ea_governance_mode = 1 }
+					}
+					log = "[BSM EA] New leader: [THIS.GetName] for sphere [?PREV.bsm_ea_token]"
+				}
+			}
+			else = {
+				# メンバーゼロ → 陣営解散
+				remove_from_array = {
+					global.bsm_ea_sphere_list = var:bsm_ea_token
+				}
+				clear_array = global.bsm_ea_goal_list_@var:bsm_ea_token
+				log = "[BSM EA] Sphere [?bsm_ea_token] dissolved (no members)"
+			}
+		}
 
-		# For now, simplistic cleanup:
-		# If joined_spheres is empty, remove leader flag?
-
-		# Cleanup bsm_ea_sphere if we are no longer in any sphere (or if we need to update to another one)
+		# bsm_ea_sphere の更新
 		if = {
 			limit = { check_variable = { bsm_ea_joined_spheres^num = 0 } }
 			clear_variable = bsm_ea_sphere
 			clear_variable = bsm_ea_is_leader
+			clear_variable = bsm_ea_leader_of
 		}
 		else = {
-			# If we are still in other spheres, update bsm_ea_sphere to the first one in list
-			# to ensure GUI has something to show
-			set_variable = {
-				bsm_ea_sphere = bsm_ea_joined_spheres^0
+			# 残っている最初の陣営を設定
+			set_variable = { bsm_ea_sphere = bsm_ea_joined_spheres^0 }
+		}
+		log = "[BSM EA] [THIS.GetName] left sphere [?bsm_ea_token]"
+	}
+}
+
+# ------------------------------------------
+# アクション: 離脱
+# 入力: THIS = 離脱国
+# 選択済みトークン優先、フォールバックで bsm_ea_sphere
+# ------------------------------------------
+bsm_ea_leave_sphere_action = {
+	# 離脱対象トークンの決定
+	set_temp_variable = { bsm_ea_token = 0 }
+	if = {
+		limit = {
+			has_variable = bsm_ea_selected_token
+			NOT = { check_variable = { bsm_ea_selected_token = 0 } }
+			is_in_array = { bsm_ea_joined_spheres = var:bsm_ea_selected_token }
+		}
+		set_temp_variable = { bsm_ea_token = var:bsm_ea_selected_token }
+	}
+	else_if = {
+		limit = {
+			has_variable = bsm_ea_sphere
+			is_in_array = { bsm_ea_joined_spheres = var:bsm_ea_sphere }
+		}
+		set_temp_variable = { bsm_ea_token = bsm_ea_sphere }
+	}
+
+	if = {
+		limit = { NOT = { check_variable = { bsm_ea_token = 0 } } }
+
+		# リレーション削除
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_member
+			if = {
+				limit = {
+					NOT = { var:v_member = { tag = ROOT } }
+				}
+				var:v_member = {
+					save_event_target_as = bsm_ea_temp_member
+					remove_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost }
+				}
+				remove_opinion_modifier = { target = event_target:bsm_ea_temp_member modifier = bsm_economic_alliance_relation_boost }
 			}
 		}
+
+		# コア離脱処理
+		bsm_ea_leave_sphere = yes
+
+		# フラグ・クールダウン
+		clr_country_flag = is_economic_alliance_member
+		if = {
+			limit = { has_country_flag = is_economic_alliance_leader }
+			clr_country_flag = is_economic_alliance_leader
+		}
+		add_timed_idea = { idea = recently_left_economic_alliance days = 365 }
+		add_political_power = -50
 	}
 }
 
 # ------------------------------------------
 # GUI & 計算
-# ------------------------------------------
-# 経済陣営リストを国力順にソート
-# global.bsm_ea_sphere_list をソートする
 # ------------------------------------------
 # ヘルパー: 新しいトークン生成
 # ------------------------------------------
@@ -166,21 +255,13 @@ bsm_ea_generate_new_token = {
 	if = {
 		limit = {
 			NOT = {
-				check_variable = {
-					global.next_alliance_id > 0
-				}
+				check_variable = { global.next_alliance_id > 0 }
 			}
 		}
-		set_variable = {
-			global.next_alliance_id = 10
-		}
+		set_variable = { global.next_alliance_id = 10 }
 	}
-	set_temp_variable = {
-		bsm_ea_token = global.next_alliance_id
-	}
-	add_to_variable = {
-		global.next_alliance_id = 1
-	}
+	set_temp_variable = { bsm_ea_token = global.next_alliance_id }
+	add_to_variable = { global.next_alliance_id = 1 }
 }
 
 # ------------------------------------------
@@ -192,14 +273,13 @@ bsm_ea_form_sphere_action = {
 	bsm_ea_generate_new_token = yes
 	# 2. Pay Costs
 	add_political_power = -100
-	add_to_variable = {
-		var = Unified_Currency
-		value = -100
-	}
+	add_to_variable = { Unified_Currency = -100 }
 	# 3. Create Sphere (Leader init)
 	bsm_ea_create_sphere = yes
-	# 4. Add Member (FROM)
+	# 4. トークンを保存してFROMに渡す
+	set_temp_variable = { t_saved_token = var:bsm_ea_token }
 	FROM = {
+		set_temp_variable = { bsm_ea_token = PREV.t_saved_token }
 		bsm_ea_join_sphere = yes
 	}
 	# 5. Legacy Flags / Relations Support
@@ -226,17 +306,11 @@ bsm_ea_form_sphere_action = {
 # 入力: FROM = 盟主国 (Leader)
 # ------------------------------------------
 bsm_ea_join_sphere_action = {
-	# Pre-requisite: FROM must have a sphere token
 	# 1. Pay Costs
 	add_political_power = -10
-	add_to_variable = {
-		var = Unified_Currency
-		value = -25
-	}
+	add_to_variable = { Unified_Currency = -25 }
 	# 2. Get Token from Leader
-	set_temp_variable = {
-		bsm_ea_token = FROM.bsm_ea_sphere
-	}
+	set_temp_variable = { bsm_ea_token = FROM.bsm_ea_sphere }
 	# 3. Join Sphere
 	bsm_ea_join_sphere = yes
 	# 4. Legacy Flags / Relations Support
@@ -253,7 +327,6 @@ bsm_ea_join_sphere_action = {
 		}
 	}
 	# Member Relations: 新規加盟国(ROOT)と既存メンバー全員の間にオピニオン修正値を付与
-	# (盟主FROMとは上で既に処理済みのため除外)
 	for_each_loop = {
 		array = global.bsm_ea_member_list_@var:bsm_ea_token
 		value = v_member
@@ -263,19 +336,15 @@ bsm_ea_join_sphere_action = {
 				NOT = { var:v_member = { tag = ROOT } }
 			}
 			var:v_member = {
-				save_event_target_as = bsm_ea_temp_existing_member
-			}
-			event_target:bsm_ea_temp_existing_member = {
+				save_event_target_as = bsm_ea_temp_member
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = bsm_economic_alliance_relation_boost
 				}
 			}
-			ROOT = {
-				add_opinion_modifier = {
-					target = event_target:bsm_ea_temp_existing_member
-					modifier = bsm_economic_alliance_relation_boost
-				}
+			add_opinion_modifier = {
+				target = event_target:bsm_ea_temp_member
+				modifier = bsm_economic_alliance_relation_boost
 			}
 		}
 	}
@@ -287,100 +356,60 @@ bsm_ea_join_sphere_action = {
 # 計算ヘルパー: 特定の陣営の国力を計算
 # 入力: bsm_ea_calc_token
 bsm_ea_calc_sphere_power = {
-	log = "[BSM EA] Calculating power for sphere token [?bsm_ea_calc_token]"
-	set_variable = {
-		t_total_power = 0
-	}
+	set_variable = { t_total_power = 0 }
+
 	# Guard: メンバーリストが空の場合はスキップ
 	if = {
 		limit = {
-			NOT = { check_variable = { global.bsm_ea_member_list_@var:bsm_ea_calc_token^num > 0 } }
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_calc_token^num > 0 }
 		}
-		log = "[BSM EA] Warning: sphere [?bsm_ea_calc_token] has no members, skipping calc"
-		break = yes
-	}
-	# Get leader
-	set_temp_variable = {
-		t_leader = global.bsm_ea_member_list_@var:bsm_ea_calc_token^0
-	}
-	# Calculate member count BEFORE entering scope
-	set_temp_variable = {
-		t_mem_count = global.bsm_ea_member_list_@var:bsm_ea_calc_token^num
-	}
-	log = "[BSM EA] Member list size for token [?bsm_ea_calc_token]: [?t_mem_count]"
+		# Get leader
+		set_temp_variable = {
+			t_leader = global.bsm_ea_member_list_@var:bsm_ea_calc_token^0
+		}
+		set_temp_variable = {
+			t_mem_count = global.bsm_ea_member_list_@var:bsm_ea_calc_token^num
+		}
 
-	for_each_loop = {
-		array = global.bsm_ea_member_list_@var:bsm_ea_calc_token
-		value = v_mem
-		var:v_mem = {
-			# Calculate power based on available variables
-			set_temp_variable = {
-				t_p = 0
-			}
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_calc_token
+			value = v_mem
+			var:v_mem = {
+				set_temp_variable = { t_p = 0 }
 
-			# Check if Unified_Currency_Last_Month_gain exists AND is greater than 0
-			if = {
-				limit = {
-					has_variable = Unified_Currency_Last_Month_gain
-					check_variable = { Unified_Currency_Last_Month_gain > 0 }
+				# Check if Unified_Currency_Last_Month_gain exists AND is greater than 0
+				if = {
+					limit = {
+						has_variable = Unified_Currency_Last_Month_gain
+						check_variable = { Unified_Currency_Last_Month_gain > 0 }
+					}
+					set_temp_variable = { t_p = Unified_Currency_Last_Month_gain }
+					divide_temp_variable = { t_p = 10 }
 				}
-				set_temp_variable = {
-					t_p = Unified_Currency_Last_Month_gain
+				else = {
+					# Fallback: Use factory count as power measure
+					set_temp_variable = { t_civ = num_of_civilian_factories }
+					set_temp_variable = { t_mil = num_of_military_factories }
+					set_temp_variable = { t_p = t_civ }
+					add_to_temp_variable = { t_p = t_mil }
 				}
-				divide_temp_variable = {
-					t_p = 10
-				}
-				log = "[BSM EA] [THIS.GetName] using Unified_Currency: [?t_p]"
-			}
-			else = {
-				# Fallback: Use factory count as power measure
-				set_temp_variable = {
-					t_civ = num_of_civilian_factories
-				}
-				set_temp_variable = {
-					t_mil = num_of_military_factories
-				}
-				set_temp_variable = {
-					t_p = t_civ
-				}
-				add_to_temp_variable = {
-					t_p = t_mil
-				}
-				log = "[BSM EA] [THIS.GetName] using factory count (civ: [?t_civ], mil: [?t_mil], total: [?t_p])"
-			}
 
-			# Store individual power for GUI
-			set_variable = {
-				bsm_ea_member_power = t_p
+				# Store individual power for GUI
+				set_variable = { bsm_ea_member_power = t_p }
+				# Pass value to parent scope for total calculation
+				set_temp_variable = { PREV.t_member_p = t_p }
 			}
-			# Pass value to parent scope for total calculation
-			set_temp_variable = {
-				PREV.t_member_p = t_p
-			}
-			log = "[BSM EA] Member [THIS.GetName] final power: [?t_p]"
+			add_to_variable = { t_total_power = t_member_p }
 		}
-		add_to_variable = {
-			t_total_power = t_member_p
-		}
-	}
-	# Store power and member count on Leader
-	# Calculate member count in current scope first
-	set_temp_variable = {
-		final_count = global.bsm_ea_member_list_@var:bsm_ea_calc_token^num
-	}
-	set_temp_variable = {
-		final_power = t_total_power
-	}
-	log = "[BSM EA] About to store on leader - count: [?final_count], power: [?final_power]"
 
-	var:t_leader = {
-		set_variable = {
-			bsm_ea_total_power = PREV.final_power
+		# Store power and member count on Leader
+		# Use set_variable (persistent) so PREV access works reliably
+		set_variable = { bsm_ea_temp_final_power = t_total_power }
+
+		var:t_leader = {
+			set_variable = { bsm_ea_total_power = PREV.bsm_ea_temp_final_power }
+			set_variable = { bsm_ea_mem_count = global.bsm_ea_member_list_@var:bsm_ea_sphere^num }
 		}
-		set_variable = {
-			bsm_ea_mem_count = PREV.final_count
-		}
-		log = "[BSM EA] [THIS.GetName] - Total power: [?bsm_ea_total_power], Member count: [?bsm_ea_mem_count]"
 	}
 }
 
@@ -389,169 +418,105 @@ bsm_ea_recalc_all_spheres = {
 	for_each_loop = {
 		array = global.bsm_ea_sphere_list
 		value = v_token
-		set_temp_variable = {
-			bsm_ea_calc_token = var:v_token
-		}
+		set_temp_variable = { bsm_ea_calc_token = var:v_token }
 		bsm_ea_calc_sphere_power = yes
 	}
 }
 
 # 経済陣営リストを国力順にソート
 # global.bsm_ea_sphere_list をソートし、global.bsm_ea_sorted_sphere_list に格納
+# ソート結果は盟主スコープの配列（dynamic_list用）
 bsm_ea_sort_sphere_list = {
-	log = "[BSM EA] === Starting sphere list sort ==="
-	log = "[BSM EA] Input sphere list size: [?global.bsm_ea_sphere_list^num]"
 	# 1. Recalculate all powers
 	bsm_ea_recalc_all_spheres = yes
 	# 2. Prepare lists
 	clear_array = global.bsm_ea_sorted_sphere_list
-	# Copy to temp list for processing
-	clear_array = global.bsm_ea_temp_sort_list
+	clear_temp_array = temp_sort_tokens
+	clear_temp_array = temp_sort_powers
+
 	for_each_loop = {
 		array = global.bsm_ea_sphere_list
 		value = v_t
-		add_to_array = {
-			global.bsm_ea_temp_sort_list = var:v_t
+		add_to_temp_array = { temp_sort_tokens = var:v_t }
+		# メンバーリストが空でないかチェック
+		if = {
+			limit = { check_variable = { global.bsm_ea_member_list_@var:v_t^num > 0 } }
+			set_temp_variable = { t_ldr = global.bsm_ea_member_list_@var:v_t^0 }
+			set_temp_variable = { t_pw = 0 }
+			var:t_ldr = {
+				set_temp_variable = { PREV.t_pw = bsm_ea_total_power }
+			}
+			add_to_temp_array = { temp_sort_powers = t_pw }
+		}
+		else = {
+			add_to_temp_array = { temp_sort_powers = 0 }
 		}
 	}
-	# 3. Selection Sort (Descending)
-	set_temp_variable = {
-		t_rank_counter = 1
-	}
-	set_temp_variable = {
-		t_safety_counter = 0
-	}
+
+	# 3. Selection Sort (Descending) using find_highest_in_array
+	set_temp_variable = { t_rank_counter = 1 }
+	set_temp_variable = { t_sort_size = temp_sort_tokens^num }
+
 	while_loop_effect = {
 		limit = {
-			check_variable = {
-				global.bsm_ea_temp_sort_list^num > 0
+			check_variable = { temp_sort_tokens^num > 0 }
+			check_variable = { t_rank_counter < 100 }
+		}
+		find_highest_in_array = {
+			array = temp_sort_powers
+			index = t_best_index
+			value = t_best_power
+		}
+
+		# 該当トークンを取得
+		set_temp_variable = { t_best_token = temp_sort_tokens^t_best_index }
+
+		# 盟主を取得してランクを設定 & sorted_sphere_list に追加
+		if = {
+			limit = { check_variable = { global.bsm_ea_member_list_@var:t_best_token^num > 0 } }
+			set_temp_variable = { t_best_leader = global.bsm_ea_member_list_@var:t_best_token^0 }
+			var:t_best_leader = {
+				set_variable = { bsm_ea_rank = PREV.t_rank_counter }
 			}
-			check_variable = { t_safety_counter < 100 }
+			add_to_array = { global.bsm_ea_sorted_sphere_list = var:t_best_leader }
 		}
-		# Find Max
-		set_temp_variable = {
-			t_max_power = -1
-		}
-		set_temp_variable = {
-			t_best_token = -1
-		}
-		set_temp_variable = {
-			t_best_index = -1
-		}
-		for_each_loop = {
-			array = global.bsm_ea_temp_sort_list
-			value = v_check_token
-			index = i_index
-			# Get Power (stored on Leader)
-			set_temp_variable = {
-				t_ldr = global.bsm_ea_member_list_@var:v_check_token^0
+
+		# temp配列から削除（インデックス有効性チェック）
+		if = {
+			limit = {
+				check_variable = { t_best_index < temp_sort_tokens^num }
+				check_variable = { t_best_index < temp_sort_powers^num }
 			}
-			set_temp_variable = {
-				t_current_power = 0
-			}
-			var:t_ldr = {
-				set_temp_variable = {
-					t_p = bsm_ea_total_power
-				}
-				# Pass value to parent scope
-				set_temp_variable = {
-					PREV.t_current_power = t_p
-				}
-			}
-			if = {
-				limit = {
-					check_variable = {
-						t_current_power > t_max_power
-					}
-				}
-				set_temp_variable = {
-					t_max_power = t_current_power
-				}
-				set_temp_variable = {
-					t_best_token = var:v_check_token
-				}
-				set_temp_variable = {
-					t_best_index = i_index
-				}
-				# Track the leader scope
-				set_temp_variable = {
-					t_best_leader = var:t_ldr
-				}
-			}
+			remove_from_temp_array = { array = temp_sort_tokens index = t_best_index }
+			remove_from_temp_array = { array = temp_sort_powers index = t_best_index }
 		}
-		# Set Ranking on Leader
-		var:t_best_leader = {
-			set_variable = {
-				bsm_ea_rank = PREV.t_rank_counter
-			}
-		}
-		add_to_variable = {
-			t_rank_counter = 1
-		}
-		# Add best to sorted list (Add Leader Scope)
-		add_to_array = {
-			global.bsm_ea_sorted_sphere_list = var:t_best_leader
-		}
-		# Note: 'var:t_best_leader' is a scope reference. 'countr:' might be safer if it's a tag,
-		# but if it's a scope variable, just var:t_best_leader should work if add_to_array supports it.
-		# If t_best_leader is a Scope Object, add_to_array works.
-		# Let's try direct var usage.
-		# Actually, 'add_to_array = { array = ... value = var:t_best_leader }'
-		# Retrying with simple var.
-		# Remove best from temp list
-		remove_from_array = {
-			global.bsm_ea_temp_sort_list = var:t_best_token
-		}
-		add_to_variable = { t_safety_counter = 1 }
+		add_to_temp_variable = { t_rank_counter = 1 }
 	}
-	log = "[BSM EA] === Sort completed. Sorted list size: [?global.bsm_ea_sorted_sphere_list^num] ==="
 }
 
 # GUI表示/計算用に経済陣営を選択
 # 入力: bsm_ea_selected_token
 # スコープ: プレイヤー/ROOT
 bsm_ea_select_sphere_for_gui = {
-	# Verify Token Validity
 	if = {
 		limit = {
-			OR = {
-				check_variable = { bsm_ea_selected_token = 0 }
-				# Check if array exists/has size (indirect check via token in main list?)
-				# Or just check if member list 0 exists
-				# NOT = { check_variable = { global.bsm_ea_member_list_@var:bsm_ea_selected_token^num > 0 } }
-			}
+			has_variable = bsm_ea_selected_token
+			NOT = { check_variable = { bsm_ea_selected_token = 0 } }
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_selected_token^num > 0 }
 		}
-		# Invalid Token
-		set_variable = { bsm_ea_total_power = 0 }
-		clear_variable = bsm_ea_selected_leader
-		clear_array = global.bsm_ea_gui_display_list
-	}
-	else = {
 		# Calculate Power
-		set_temp_variable = {
-			bsm_ea_calc_token = var:bsm_ea_selected_token
-		}
+		set_temp_variable = { bsm_ea_calc_token = var:bsm_ea_selected_token }
 		bsm_ea_calc_sphere_power = yes
 
 		# Retrieve calculated power
-		set_temp_variable = {
-			t_leader = global.bsm_ea_member_list_@var:bsm_ea_selected_token^0
-		}
-		set_temp_variable = {
-			t_sphere_power = 0
-		}
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 }
+		set_temp_variable = { t_sphere_power = 0 }
 		var:t_leader = {
-			set_temp_variable = {
-				PREV.t_sphere_power = bsm_ea_total_power
-			}
+			set_temp_variable = { PREV.t_sphere_power = bsm_ea_total_power }
 		}
-		set_variable = {
-			bsm_ea_total_power = t_sphere_power
-		}
+		set_variable = { bsm_ea_total_power = t_sphere_power }
 		# 盟主設定
-		set_variable = {
-			bsm_ea_selected_leader = var:t_leader
-		}
+		set_variable = { bsm_ea_selected_leader = var:t_leader }
 
 		# GUI用リストの作成 (静的配列へのコピー)
 		clear_array = global.bsm_ea_gui_display_list
@@ -561,10 +526,12 @@ bsm_ea_select_sphere_for_gui = {
 			add_to_array = {
 				global.bsm_ea_gui_display_list = var:v_mem
 			}
-			var:v_mem = {
-				log = "[BSM EA] Added member to display list: [THIS.GetName]"
-			}
 		}
-		log = "[BSM EA] Display list size: [?global.bsm_ea_gui_display_list^num]"
+	}
+	else = {
+		# Invalid Token or empty
+		set_variable = { bsm_ea_total_power = 0 }
+		clear_variable = bsm_ea_selected_leader
+		clear_array = global.bsm_ea_gui_display_list
 	}
 }

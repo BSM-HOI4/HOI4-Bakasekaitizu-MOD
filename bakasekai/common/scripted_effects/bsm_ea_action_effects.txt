@@ -1,0 +1,136 @@
+# ==========================================
+# BSM 経済同盟 GUIアクションエフェクト
+# context_type = player_context (ROOT = プレイヤー国)
+# ターゲット: event_target:bsm_ea_selected_member
+# prefix: bsm_ea_
+# ==========================================
+
+# ------------------------------------------
+# ODA（政府開発援助）UC:50
+# ------------------------------------------
+bsm_ea_action_oda = {
+	if = {
+		limit = {
+			check_variable = { Unified_Currency > 49 }
+			check_variable = { bsm_ea_has_selected_member = 1 }
+			has_event_target = bsm_ea_selected_member
+			check_variable = { bsm_ea_cd_oda = 0 }
+		}
+		add_to_variable = { Unified_Currency = -50 }
+		set_variable = { bsm_ea_cd_oda = 90 }
+		event_target:bsm_ea_selected_member = {
+			add_to_variable = { Unified_Currency = 50 }
+			add_stability = 0.01
+		}
+		add_opinion_modifier = {
+			target = event_target:bsm_ea_selected_member
+			modifier = bsm_economic_alliance_relation_boost
+		}
+	}
+}
+
+# ------------------------------------------
+# 長期融資 UC:100 → 対象に200UC付与（-30PP 負担）
+# ------------------------------------------
+bsm_ea_action_loan_long = {
+	if = {
+		limit = {
+			check_variable = { Unified_Currency > 99 }
+			check_variable = { bsm_ea_has_selected_member = 1 }
+			has_event_target = bsm_ea_selected_member
+			check_variable = { bsm_ea_cd_loan_long = 0 }
+		}
+		add_to_variable = { Unified_Currency = -100 }
+		set_variable = { bsm_ea_cd_loan_long = 180 }
+		event_target:bsm_ea_selected_member = {
+			add_to_variable = { Unified_Currency = 200 }
+			add_political_power = -30
+		}
+	}
+}
+
+# ------------------------------------------
+# 短期融資 UC:200 → 対象に400UC付与（-50PP 負担）
+# ------------------------------------------
+bsm_ea_action_loan_short = {
+	if = {
+		limit = {
+			check_variable = { Unified_Currency > 199 }
+			check_variable = { bsm_ea_has_selected_member = 1 }
+			has_event_target = bsm_ea_selected_member
+			check_variable = { bsm_ea_cd_loan_short = 0 }
+		}
+		add_to_variable = { Unified_Currency = -200 }
+		set_variable = { bsm_ea_cd_loan_short = 90 }
+		event_target:bsm_ea_selected_member = {
+			add_to_variable = { Unified_Currency = 400 }
+			add_political_power = -50
+		}
+	}
+}
+
+# ------------------------------------------
+# 負債肩代わり UC:300 → 対象の政治力+安定度回復
+# ------------------------------------------
+bsm_ea_action_debt_relief = {
+	if = {
+		limit = {
+			check_variable = { Unified_Currency > 299 }
+			check_variable = { bsm_ea_has_selected_member = 1 }
+			has_event_target = bsm_ea_selected_member
+			check_variable = { bsm_ea_cd_debt_relief = 0 }
+		}
+		add_to_variable = { Unified_Currency = -300 }
+		set_variable = { bsm_ea_cd_debt_relief = 365 }
+		event_target:bsm_ea_selected_member = {
+			add_political_power = 100
+			add_stability = 0.03
+			if = {
+				limit = { has_idea = recently_left_economic_alliance }
+				remove_ideas = recently_left_economic_alliance
+			}
+		}
+	}
+}
+
+# ------------------------------------------
+# インフラ投資 UC:150 → 対象の安定度+戦意向上
+# ------------------------------------------
+bsm_ea_action_infra_invest = {
+	if = {
+		limit = {
+			check_variable = { Unified_Currency > 149 }
+			check_variable = { bsm_ea_has_selected_member = 1 }
+			has_event_target = bsm_ea_selected_member
+			check_variable = { bsm_ea_cd_infra = 0 }
+		}
+		add_to_variable = { Unified_Currency = -150 }
+		set_variable = { bsm_ea_cd_infra = 180 }
+		event_target:bsm_ea_selected_member = {
+			add_to_variable = { Unified_Currency = 100 }
+			add_stability = 0.02
+			add_war_support = 0.01
+		}
+	}
+}
+
+# ------------------------------------------
+# 技術支援 UC:250 → 対象の安定度+PP向上
+# ------------------------------------------
+bsm_ea_action_tech_support = {
+	if = {
+		limit = {
+			check_variable = { Unified_Currency > 249 }
+			check_variable = { bsm_ea_has_selected_member = 1 }
+			has_event_target = bsm_ea_selected_member
+			check_variable = { bsm_ea_cd_tech = 0 }
+		}
+		add_to_variable = { Unified_Currency = -250 }
+		set_variable = { bsm_ea_cd_tech = 365 }
+		event_target:bsm_ea_selected_member = {
+			add_to_variable = { Unified_Currency = 100 }
+			add_stability = 0.02
+			add_political_power = 50
+		}
+	}
+}

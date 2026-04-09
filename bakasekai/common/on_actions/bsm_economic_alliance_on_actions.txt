@@ -2,7 +2,8 @@ on_actions = {
 
 	on_startup = {
 		effect = {
-			# Use system country tag '_' for initialization
+			# システムタグ _ から初期化を呼び出す
+			# ※ _ 自体はどの陣営にも加盟しない
 			'_' = {
 				log = "========== ON_STARTUP TRIGGERED =========="
 				log = "[BSM EA] About to call bsm_ea_init_initial_factions"
@@ -15,7 +16,9 @@ on_actions = {
 
 	on_weekly = {
 		effect = {
+			# パワーシェア計算（ランキング更新含む）
 			bsm_update_economic_alliance_power_share = yes
+			# 投票の週次更新
 			for_each_loop = {
 				array = global.bsm_ea_sphere_list
 				value = v_token

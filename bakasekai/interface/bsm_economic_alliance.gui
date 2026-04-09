@@ -1,11 +1,33 @@
 guiTypes = {
-	# Main Window
+	# =====================================================
+	# Economic Alliance Open Button
+	# =====================================================
+	containerWindowType = {
+		name = "bsm_ea_button_container"
+		position = { x = 10 y = 420 }
+		size = { width = 210 height = 32 }
+
+		buttonType = {
+			name = "bsm_open_ea_window_button"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_sort_button_202x29"
+			buttonText = "BSM_OPEN_EA_GUI"
+			buttonFont = "hoi_16mbs"
+			Orientation = "UPPER_LEFT"
+			clicksound = click_ok
+			pdx_tooltip = "BSM_OPEN_EA_GUI_TT"
+		}
+	}
+
+	# =====================================================
+	# Main Window  (width: 620px / inner: 580px)
+	# =====================================================
 	containerWindowType = {
 		name = "bsm_economic_alliance_window"
-		position = { x = -250 y = -300 } # Higher up to fit more content
+		position = { x = -310 y = -490 }
 		orientation = center
-		size = { width = 500 height = 900 } # Taller
-		
+		size = { width = 620 height = 980 }
+
 		moveable = yes
 		click_to_front = yes
 
@@ -25,31 +47,58 @@ guiTypes = {
 			pdx_tooltip = "CLOSE"
 		}
 
-		# Title
+		# ----- タイトル -----
 		instantTextboxType = {
 			name = "title"
 			position = { x = 0 y = 15 }
-			font = "bsm_24h"
+			font = "hoi_24header"
 			text = "BSM_ECONOMIC_ALLIANCE_INFO_TITLE"
-			maxWidth = 500
+			maxWidth = 620
 			format = center
 		}
 
-		# --- Player's Alliances Section ---
+		# =====================================================
+		# Section 1: 所属同盟リスト
+		# =====================================================
 		instantTextboxType = {
 			name = "my_alliances_header"
-			position = { x = 20 y = 50 }
+			position = { x = 20 y = 52 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_MY_ALLIANCES_HEADER"
-			maxWidth = 460
+			maxWidth = 380
 			format = left
 		}
 
-		# Player's Alliances List Container
+		# 前後ナビゲーション (複数陣営所属時)
+		containerWindowType = {
+			name = "bsm_ea_nav_container"
+			position = { x = 455 y = 48 }
+			size = { width = 145 height = 30 }
+
+			buttonType = {
+				name = "bsm_ea_prev_button"
+				position = { x = 0 y = 0 }
+				quadTextureSprite = "GFX_sort_button_83x29"
+				buttonFont = "hoi_16mbs"
+				text = "◀"
+				pdx_tooltip = "BSM_EA_PREV_TOOLTIP"
+			}
+
+			buttonType = {
+				name = "bsm_ea_next_button"
+				position = { x = 62 y = 0 }
+				quadTextureSprite = "GFX_sort_button_83x29"
+				buttonFont = "hoi_16mbs"
+				text = "▶"
+				pdx_tooltip = "BSM_EA_NEXT_TOOLTIP"
+			}
+		}
+
+		# 所属同盟リスト (スクロール可、最大4行表示)
 		containerWindowType = {
 			name = "player_alliance_list_container"
-			position = { x = 20 y = 75 }
-			size = { width = 460 height = 60 }
+			position = { x = 20 y = 74 }
+			size = { width = 580 height = 60 }
 			verticalScrollbar = "right_vertical_slider"
 
 			background = {
@@ -60,28 +109,40 @@ guiTypes = {
 			gridBoxType = {
 				name = "economic_alliance_player_list"
 				position = { x = 0 y = 0 }
-				size = { width = 440 height = 100% }
-				slotsize = { width = 440 height = 30 }
+				size = { width = 560 height = 100% }
+				slotsize = { width = 560 height = 30 }
 				format = "UPPER_LEFT"
 				max_slots_horizontal = 1
 			}
 		}
 
-		# --- Selected Alliance Members Section ---
+		# 未加盟テキスト
+		instantTextboxType = {
+			name = "no_alliance_text"
+			position = { x = 20 y = 84 }
+			font = "hoi_16mbs"
+			text = "[GetNoAllianceText]"
+			maxWidth = 580
+			format = center
+		}
+
+		# =====================================================
+		# Section 2: 選択中同盟のメンバーリスト
+		# =====================================================
 		instantTextboxType = {
 			name = "members_header"
 			position = { x = 20 y = 145 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_MEMBERS_HEADER"
-			maxWidth = 460
+			maxWidth = 580
 			format = left
 		}
 
-		# Members List Container
+		# メンバーリスト (スクロール可、4行表示)
 		containerWindowType = {
 			name = "member_list_container"
-			position = { x = 20 y = 170 }
-			size = { width = 460 height = 80 }
+			position = { x = 20 y = 165 }
+			size = { width = 580 height = 120 }
 			verticalScrollbar = "right_vertical_slider"
 
 			background = {
@@ -92,35 +153,27 @@ guiTypes = {
 			gridBoxType = {
 				name = "economic_alliance_member_list"
 				position = { x = 0 y = 0 }
-				size = { width = 440 height = 100% }
-				slotsize = { width = 440 height = 30 }
+				size = { width = 560 height = 100% }
+				slotsize = { width = 560 height = 30 }
 				format = "UPPER_LEFT"
 				max_slots_horizontal = 1
 			}
 		}
 
-		# No Alliance Text (shown when not in any alliance)
-		instantTextboxType = {
-			name = "no_alliance_text"
-			position = { x = 20 y = 85 }
-			font = "hoi_16mbs"
-			text = "[GetNoAllianceText]"
-			maxWidth = 460
-			format = center
-		}
-
-		# --- Alliance Status Section ---
+		# =====================================================
+		# Section 3: ステータス (成熟度 / 運営モード)
+		# =====================================================
 		instantTextboxType = {
 			name = "maturity_label"
-			position = { x = 20 y = 245 }
+			position = { x = 20 y = 298 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_MATURITY_LABEL"
-			maxWidth = 120
+			maxWidth = 100
 			format = left
 		}
 		instantTextboxType = {
 			name = "maturity_value"
-			position = { x = 140 y = 245 }
+			position = { x = 125 y = 298 }
 			font = "hoi_16mbs"
 			text = "[?bsm_ea_selected_maturity|Y0]/5"
 			maxWidth = 80
@@ -128,7 +181,7 @@ guiTypes = {
 		}
 		instantTextboxType = {
 			name = "governance_label"
-			position = { x = 250 y = 245 }
+			position = { x = 230 y = 298 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_GOV_LABEL"
 			maxWidth = 80
@@ -136,91 +189,105 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "bsm_ea_governance_leader_button"
-			position = { x = 270 y = 240 }
-			spriteType = "GFX_government_button"
+			position = { x = 320 y = 293 }
+			spriteType = "GFX_sort_button_83x29"
 			buttonFont = "hoi_16mbs"
 			text = "BSM_EA_GOV_LEADER"
 			clicksound = decisions_ui_button
 		}
 		buttonType = {
 			name = "bsm_ea_governance_democratic_button"
-			position = { x = 390 y = 240 }
-			spriteType = "GFX_government_button"
+			position = { x = 412 y = 293 }
+			spriteType = "GFX_sort_button_83x29"
 			buttonFont = "hoi_16mbs"
 			text = "BSM_EA_GOV_DEMO"
 			clicksound = decisions_ui_button
 		}
 
-		# --- Alliance Goals Section ---
+		# =====================================================
+		# Section 4: 同盟目標
+		# =====================================================
 		instantTextboxType = {
 			name = "goals_header"
-			position = { x = 20 y = 275 }
+			position = { x = 20 y = 334 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_GOALS_HEADER"
-			maxWidth = 460
+			maxWidth = 580
 			format = left
 		}
+
+		# 設定済み目標
 		instantTextboxType = {
 			name = "goals_active_label"
-			position = { x = 20 y = 300 }
+			position = { x = 20 y = 356 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_GOALS_ACTIVE"
-			maxWidth = 220
+			maxWidth = 200
 			format = left
 		}
+		# Goal 01〜06 (2列 × 3行)
 		instantTextboxType = {
 			name = "goal_01_active"
-			position = { x = 40 y = 320 }
+			position = { x = 30 y = 376 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_GOAL_01_NAME"
-			maxWidth = 420
+			maxWidth = 270
 			format = left
 		}
 		instantTextboxType = {
 			name = "goal_02_active"
-			position = { x = 40 y = 340 }
+			position = { x = 310 y = 376 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_GOAL_02_NAME"
-			maxWidth = 420
+			maxWidth = 270
 			format = left
 		}
 		instantTextboxType = {
 			name = "goal_03_active"
-			position = { x = 40 y = 360 }
+			position = { x = 30 y = 394 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_GOAL_03_NAME"
-			maxWidth = 420
+			maxWidth = 270
 			format = left
 		}
 		instantTextboxType = {
 			name = "goal_04_active"
-			position = { x = 40 y = 380 }
+			position = { x = 310 y = 394 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_GOAL_04_NAME"
-			maxWidth = 420
+			maxWidth = 270
 			format = left
 		}
 		instantTextboxType = {
 			name = "goal_05_active"
-			position = { x = 40 y = 400 }
+			position = { x = 30 y = 412 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_GOAL_05_NAME"
-			maxWidth = 420
+			maxWidth = 270
+			format = left
+		}
+		instantTextboxType = {
+			name = "goal_06_active"
+			position = { x = 310 y = 412 }
+			font = "hoi_16mbs"
+			text = "BSM_EA_GOAL_06_NAME"
+			maxWidth = 270
 			format = left
 		}
 
+		# 設定可能目標ボタン (2列 × 3行, 202px幅)
 		instantTextboxType = {
 			name = "goals_available_label"
-			position = { x = 20 y = 430 }
+			position = { x = 20 y = 436 }
 			font = "hoi_16mbs"
 			text = "BSM_EA_GOALS_AVAILABLE"
-			maxWidth = 220
+			maxWidth = 200
 			format = left
 		}
 		buttonType = {
 			name = "bsm_ea_goal_01_button"
-			position = { x = 40 y = 450 }
-			spriteType = "GFX_difficulty_button_civilian"
+			position = { x = 20 y = 458 }
+			spriteType = "GFX_sort_button_202x29"
 			buttonFont = "hoi_16mbs"
 			text = "BSM_EA_GOAL_01_NAME"
 			pdx_tooltip = "BSM_EA_GOAL_01_DESC"
@@ -228,8 +295,8 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "bsm_ea_goal_02_button"
-			position = { x = 40 y = 470 }
-			spriteType = "GFX_difficulty_button_regular"
+			position = { x = 330 y = 458 }
+			spriteType = "GFX_sort_button_202x29"
 			buttonFont = "hoi_16mbs"
 			text = "BSM_EA_GOAL_02_NAME"
 			pdx_tooltip = "BSM_EA_GOAL_02_DESC"
@@ -237,8 +304,8 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "bsm_ea_goal_03_button"
-			position = { x = 40 y = 490 }
-			spriteType = "GFX_difficulty_button_elite"
+			position = { x = 20 y = 490 }
+			spriteType = "GFX_sort_button_202x29"
 			buttonFont = "hoi_16mbs"
 			text = "BSM_EA_GOAL_03_NAME"
 			pdx_tooltip = "BSM_EA_GOAL_03_DESC"
@@ -246,8 +313,8 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "bsm_ea_goal_04_button"
-			position = { x = 40 y = 510 }
-			spriteType = "GFX_difficulty_button_regular"
+			position = { x = 330 y = 490 }
+			spriteType = "GFX_sort_button_202x29"
 			buttonFont = "hoi_16mbs"
 			text = "BSM_EA_GOAL_04_NAME"
 			pdx_tooltip = "BSM_EA_GOAL_04_DESC"
@@ -255,143 +322,47 @@ guiTypes = {
 		}
 		buttonType = {
 			name = "bsm_ea_goal_05_button"
-			position = { x = 40 y = 530 }
-			spriteType = "GFX_difficulty_button_recruit"
+			position = { x = 20 y = 522 }
+			spriteType = "GFX_sort_button_202x29"
 			buttonFont = "hoi_16mbs"
 			text = "BSM_EA_GOAL_05_NAME"
 			pdx_tooltip = "BSM_EA_GOAL_05_DESC"
 			clicksound = decisions_ui_button
 		}
-
-		# --- Alliance Actions Section ---
-		instantTextboxType = {
-			name = "actions_header"
-			position = { x = 20 y = 560 }
-			font = "hoi_16mbs"
-			text = "BSM_EA_ACTIONS_HEADER"
-			maxWidth = 460
-			format = left
-		}
-		instantTextboxType = {
-			name = "action_target_label"
-			position = { x = 20 y = 585 }
-			font = "hoi_16mbs"
-			text = "BSM_EA_ACTION_TARGET"
-			maxWidth = 120
-			format = left
-		}
-		instantTextboxType = {
-			name = "action_target_value"
-			position = { x = 140 y = 585 }
-			font = "hoi_16mbs"
-			text = "[GetEASelectedTargetName]"
-			maxWidth = 320
-			format = left
-		}
-		containerWindowType = {
-			name = "target_list_container"
-			position = { x = 20 y = 605 }
-			size = { width = 460 height = 50 }
-			verticalScrollbar = "right_vertical_slider"
-			background = {
-				name = "Background"
-				quadTextureSprite = "GFX_tiled_window_transparent"
-			}
-			gridBoxType = {
-				name = "economic_alliance_target_list"
-				position = { x = 0 y = 0 }
-				size = { width = 440 height = 100% }
-				slotsize = { width = 140 height = 30 }
-				format = "UPPER_LEFT"
-				max_slots_horizontal = 3
-			}
-		}
 		buttonType = {
-			name = "bsm_ea_action_oda_button"
-			position = { x = 20 y = 665 }
-			spriteType = "GFX_difficulty_button_civilian"
+			name = "bsm_ea_goal_06_button"
+			position = { x = 330 y = 522 }
+			spriteType = "GFX_sort_button_202x29"
 			buttonFont = "hoi_16mbs"
-			text = "BSM_EA_ACTION_ODA"
-			pdx_tooltip = "BSM_EA_ACTION_ODA_DESC"
-			clicksound = decisions_ui_button
-		}
-		buttonType = {
-			name = "bsm_ea_action_loan_long_button"
-			position = { x = 170 y = 665 }
-			spriteType = "GFX_difficulty_button_regular"
-			buttonFont = "hoi_16mbs"
-			text = "BSM_EA_ACTION_LOAN_LONG"
-			pdx_tooltip = "BSM_EA_ACTION_LOAN_LONG_DESC"
-			clicksound = decisions_ui_button
-		}
-		buttonType = {
-			name = "bsm_ea_action_loan_short_button"
-			position = { x = 320 y = 665 }
-			spriteType = "GFX_difficulty_button_elite"
-			buttonFont = "hoi_16mbs"
-			text = "BSM_EA_ACTION_LOAN_SHORT"
-			pdx_tooltip = "BSM_EA_ACTION_LOAN_SHORT_DESC"
-			clicksound = decisions_ui_button
-		}
-		buttonType = {
-			name = "bsm_ea_action_debt_relief_button"
-			position = { x = 20 y = 695 }
-			spriteType = "GFX_difficulty_button_recruit"
-			buttonFont = "hoi_16mbs"
-			text = "BSM_EA_ACTION_DEBT_RELIEF"
-			pdx_tooltip = "BSM_EA_ACTION_DEBT_RELIEF_DESC"
-			clicksound = decisions_ui_button
-		}
-		buttonType = {
-			name = "bsm_ea_action_infra_button"
-			position = { x = 170 y = 695 }
-			spriteType = "GFX_difficulty_button_regular"
-			buttonFont = "hoi_16mbs"
-			text = "BSM_EA_ACTION_INFRA"
-			pdx_tooltip = "BSM_EA_ACTION_INFRA_DESC"
-			clicksound = decisions_ui_button
-		}
-		buttonType = {
-			name = "bsm_ea_action_tech_button"
-			position = { x = 320 y = 695 }
-			spriteType = "GFX_difficulty_button_elite"
-			buttonFont = "hoi_16mbs"
-			text = "BSM_EA_ACTION_TECH"
-			pdx_tooltip = "BSM_EA_ACTION_TECH_DESC"
+			text = "BSM_EA_GOAL_06_NAME"
+			pdx_tooltip = "BSM_EA_GOAL_06_DESC"
 			clicksound = decisions_ui_button
 		}
 
-		# --- Vote Section ---
-		instantTextboxType = {
-			name = "vote_header"
-			position = { x = 20 y = 730 }
-			font = "hoi_16mbs"
-			text = "BSM_EA_VOTE_HEADER"
-			maxWidth = 460
-			format = left
-		}
+		# =====================================================
+		# Section 5: 投票セクション
+		# =====================================================
 		containerWindowType = {
 			name = "vote_container"
-			position = { x = 20 y = 610 }
-			size = { width = 460 height = 70 }
+			position = { x = 20 y = 560 }
+			size = { width = 580 height = 68 }
+
 			background = {
 				name = "Background"
 				quadTextureSprite = "GFX_tiled_window_transparent"
 			}
 
-		instantTextboxType = {
-			name = "vote_empty_text"
-			position = { x = 20 y = 610 }
-			font = "hoi_16mbs"
-			text = "BSM_EA_VOTE_EMPTY_TEXT"
-			maxWidth = 460
-			format = left
-		}
-
-
+			instantTextboxType = {
+				name = "vote_header"
+				position = { x = 8 y = 4 }
+				font = "hoi_16mbs"
+				text = "BSM_EA_VOTE_HEADER"
+				maxWidth = 200
+				format = left
+			}
 			instantTextboxType = {
 				name = "vote_days"
-				position = { x = 10 y = 5 }
+				position = { x = 8 y = 24 }
 				font = "hoi_16mbs"
 				text = "[GetEAVoteDaysText]"
 				maxWidth = 200
@@ -399,54 +370,175 @@ guiTypes = {
 			}
 			instantTextboxType = {
 				name = "vote_status"
-				position = { x = 10 y = 25 }
+				position = { x = 8 y = 44 }
 				font = "hoi_16mbs"
 				text = "[GetEAVoteStatusText]"
-				maxWidth = 440
+				maxWidth = 260
 				format = left
 			}
-		buttonType = {
-			name = "bsm_ea_vote_yes_button"
-			position = { x = 260 y = 5 }
-			spriteType = "GFX_difficulty_button_civilian"
-			buttonFont = "hoi_16mbs"
-			text = "BSM_EA_VOTE_YES"
-			clicksound = decisions_ui_button
-		}
-		buttonType = {
-			name = "bsm_ea_vote_no_button"
-			position = { x = 320 y = 5 }
-			spriteType = "GFX_difficulty_button_regular"
-			buttonFont = "hoi_16mbs"
-			text = "BSM_EA_VOTE_NO"
-			clicksound = decisions_ui_button
-		}
-		buttonType = {
-			name = "bsm_ea_vote_abstain_button"
-			position = { x = 380 y = 5 }
-			spriteType = "GFX_difficulty_button_recruit"
-			buttonFont = "hoi_16mbs"
-			text = "BSM_EA_VOTE_ABSTAIN"
-			clicksound = decisions_ui_button
-		}
+			buttonType = {
+				name = "bsm_ea_vote_yes_button"
+				position = { x = 293 y = 6 }
+				spriteType = "GFX_sort_button_83x29"
+				buttonFont = "hoi_16mbs"
+				text = "BSM_EA_VOTE_YES"
+				clicksound = decisions_ui_button
+			}
+			buttonType = {
+				name = "bsm_ea_vote_no_button"
+				position = { x = 385 y = 6 }
+				spriteType = "GFX_sort_button_83x29"
+				buttonFont = "hoi_16mbs"
+				text = "BSM_EA_VOTE_NO"
+				clicksound = decisions_ui_button
+			}
+			buttonType = {
+				name = "bsm_ea_vote_abstain_button"
+				position = { x = 477 y = 6 }
+				spriteType = "GFX_sort_button_83x29"
+				buttonFont = "hoi_16mbs"
+				text = "BSM_EA_VOTE_ABSTAIN"
+				clicksound = decisions_ui_button
+			}
 		}
 
-		# --- Global Ranking Section ---
+		# =====================================================
+		# Section 6: アクション
+		# =====================================================
 		instantTextboxType = {
-			name = "ranking_header"
-			position = { x = 20 y = 780 }
+			name = "actions_header"
+			position = { x = 20 y = 640 }
 			font = "hoi_16mbs"
-			text = "BSM_EA_RANKING_HEADER"
-			maxWidth = 460
+			text = "BSM_EA_ACTIONS_HEADER"
+			maxWidth = 580
+			format = left
+		}
+		instantTextboxType = {
+			name = "action_target_label"
+			position = { x = 20 y = 662 }
+			font = "hoi_16mbs"
+			text = "BSM_EA_ACTION_TARGET"
+			maxWidth = 100
+			format = left
+		}
+		instantTextboxType = {
+			name = "action_target_value"
+			position = { x = 130 y = 662 }
+			font = "hoi_16mbs"
+			text = "[GetEASelectedTargetName]"
+			maxWidth = 450
 			format = left
 		}
 
-		# Ranking Header Labels (Outside Scroll)
+		# ターゲット選択リスト (スクロール可、1国=180px、横3列)
+		containerWindowType = {
+			name = "target_list_container"
+			position = { x = 20 y = 684 }
+			size = { width = 580 height = 62 }
+			verticalScrollbar = "right_vertical_slider"
+
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+
+			gridBoxType = {
+				name = "economic_alliance_target_list"
+				position = { x = 0 y = 0 }
+				size = { width = 560 height = 100% }
+				slotsize = { width = 180 height = 30 }
+				format = "UPPER_LEFT"
+				max_slots_horizontal = 3
+			}
+		}
+
+		# アクションボタン (3列 × 2行)
+		buttonType = {
+			name = "bsm_ea_action_oda_button"
+			position = { x = 20 y = 754 }
+			spriteType = "GFX_sort_button_140x29"
+			buttonFont = "hoi_16mbs"
+			text = "BSM_EA_ACTION_ODA"
+			pdx_tooltip = "BSM_EA_ACTION_ODA_DESC"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_ea_action_loan_long_button"
+			position = { x = 240 y = 754 }
+			spriteType = "GFX_sort_button_140x29"
+			buttonFont = "hoi_16mbs"
+			text = "BSM_EA_ACTION_LOAN_LONG"
+			pdx_tooltip = "BSM_EA_ACTION_LOAN_LONG_DESC"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_ea_action_loan_short_button"
+			position = { x = 460 y = 754 }
+			spriteType = "GFX_sort_button_140x29"
+			buttonFont = "hoi_16mbs"
+			text = "BSM_EA_ACTION_LOAN_SHORT"
+			pdx_tooltip = "BSM_EA_ACTION_LOAN_SHORT_DESC"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_ea_action_debt_relief_button"
+			position = { x = 20 y = 786 }
+			spriteType = "GFX_sort_button_140x29"
+			buttonFont = "hoi_16mbs"
+			text = "BSM_EA_ACTION_DEBT_RELIEF"
+			pdx_tooltip = "BSM_EA_ACTION_DEBT_RELIEF_DESC"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_ea_action_infra_button"
+			position = { x = 240 y = 786 }
+			spriteType = "GFX_sort_button_140x29"
+			buttonFont = "hoi_16mbs"
+			text = "BSM_EA_ACTION_INFRA"
+			pdx_tooltip = "BSM_EA_ACTION_INFRA_DESC"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_ea_action_tech_button"
+			position = { x = 460 y = 786 }
+			spriteType = "GFX_sort_button_140x29"
+			buttonFont = "hoi_16mbs"
+			text = "BSM_EA_ACTION_TECH"
+			pdx_tooltip = "BSM_EA_ACTION_TECH_DESC"
+			clicksound = decisions_ui_button
+		}
+
+		# =====================================================
+		# Section 7: 離脱ボタン
+		# =====================================================
+		buttonType = {
+			name = "bsm_ea_leave_button"
+			position = { x = 20 y = 826 }
+			spriteType = "GFX_sort_button_202x29"
+			buttonFont = "hoi_16mbs"
+			text = "BSM_EA_LEAVE_BUTTON"
+			pdx_tooltip = "BSM_EA_LEAVE_TOOLTIP"
+			clicksound = decisions_ui_button
+		}
+
+		# =====================================================
+		# Section 8: 世界ランキング
+		# =====================================================
+		instantTextboxType = {
+			name = "ranking_header"
+			position = { x = 20 y = 866 }
+			font = "hoi_16mbs"
+			text = "BSM_EA_RANKING_HEADER"
+			maxWidth = 580
+			format = left
+		}
+
+		# ランキング列ヘッダー
 		containerWindowType = {
 			name = "ranking_header_row"
-			position = { x = 20 y = 805 }
-			size = { width = 460 height = 20 }
-			
+			position = { x = 20 y = 886 }
+			size = { width = 580 height = 20 }
+
 			instantTextboxType = {
 				name = "rank_label"
 				position = { x = 10 y = 0 }
@@ -457,15 +549,15 @@ guiTypes = {
 			}
 			instantTextboxType = {
 				name = "name_label"
-				position = { x = 70 y = 0 }
+				position = { x = 75 y = 0 }
 				font = "hoi_16mbs"
 				text = "BSM_EA_NAME_LABEL"
-				maxWidth = 250
+				maxWidth = 360
 				format = left
 			}
 			instantTextboxType = {
 				name = "power_label"
-				position = { x = 330 y = 0 }
+				position = { x = 460 y = 0 }
 				font = "hoi_16mbs"
 				text = "BSM_EA_POWER_LABEL"
 				maxWidth = 100
@@ -473,105 +565,106 @@ guiTypes = {
 			}
 		}
 
-		# Ranking List (Scrollable)
+		# ランキングリスト (スクロール可、3行以上表示)
 		containerWindowType = {
 			name = "ranking_container"
-			position = { x = 20 y = 830 }
-			size = { width = 460 height = 60 }
-			margin = { top = 0 bottom = 0 }
+			position = { x = 20 y = 908 }
+			size = { width = 580 height = 52 }
 			verticalScrollbar = "right_vertical_slider"
-			
+
 			background = {
 				name = "Background"
 				quadTextureSprite = "GFX_tiled_window_transparent"
 			}
-			
+
 			gridBoxType = {
 				name = "economic_alliance_ranking_list"
 				position = { x = 0 y = 0 }
-				size = { width = 440 height = 100% }
-				slotsize = { width = 460 height = 35 }
+				size = { width = 560 height = 100% }
+				slotsize = { width = 560 height = 30 }
 				format = "UPPER_LEFT"
 				max_slots_horizontal = 1
 			}
 		}
 	}
 
-	# Entry: Player's Alliance (alliance the player is in)
+	# =====================================================
+	# Entry Templates (dynamic_list用)
+	# =====================================================
+
+	# Entry: 所属同盟行 (width=560)
 	containerWindowType = {
 		name = "economic_alliance_player_entry"
 		position = { x = 0 y = 0 }
-		size = { width = 460 height = 30 }
+		size = { width = 560 height = 30 }
 
-		# Background needs tooltip
 		buttonType = {
 			name = "bsm_ea_player_entry_button"
 			position = { x = 0 y = 0 }
 			quadTextureSprite = "GFX_tiled_plain_bg"
-			size = { x=460 y=30 }
+			size = { x = 560 y = 30 }
 			pdx_tooltip = "[GetEATooltip]"
 		}
 
 		instantTextboxType = {
 			name = "alliance_name"
 			position = { x = 10 y = 6 }
-			font = "bsm_16"
+			font = "hoi_16mbs"
 			text = "[THIS.GetFlag] [THIS.GetEAName]"
-			maxWidth = 280
+			maxWidth = 330
 			format = left
 			alwaystransparent = yes
 		}
 
 		instantTextboxType = {
 			name = "alliance_members"
-			position = { x = 320 y = 6 }
-			font = "bsm_16"
-			text = "[?bsm_ea_mem_count|Y0]"
-			maxWidth = 50
+			position = { x = 370 y = 6 }
+			font = "hoi_16mbs"
+			text = "[?bsm_ea_mem_count|Y0] 国"
+			maxWidth = 70
 			format = center
 			alwaystransparent = yes
 		}
 
 		instantTextboxType = {
 			name = "alliance_power"
-			position = { x = 380 y = 6 }
-			font = "bsm_16"
+			position = { x = 455 y = 6 }
+			font = "hoi_16mbs"
 			text = "[?bsm_ea_total_power|Y0]"
-			maxWidth = 60
+			maxWidth = 95
 			format = right
 			alwaystransparent = yes
 		}
 	}
 
-	# Entry: Member in Selected Alliance
+	# Entry: 選択中同盟のメンバー行 (width=560)
 	containerWindowType = {
 		name = "economic_alliance_member_entry"
 		position = { x = 0 y = 0 }
-		size = { width = 460 height = 30 }
+		size = { width = 560 height = 30 }
 
-		# Background needs tooltip
 		buttonType = {
 			name = "entry_bg"
 			position = { x = 0 y = 0 }
-			quadTextureSprite = "GFX_tiled_plain_bg_small"
-			size = { x=460 y=30 }
+			quadTextureSprite = "GFX_tiled_plain_bg"
+			size = { x = 560 y = 30 }
 			pdx_tooltip = "BSM_EA_MEMBER_TOOLTIP"
 		}
 
 		instantTextboxType = {
 			name = "member_name"
 			position = { x = 10 y = 6 }
-			font = "bsm_16"
+			font = "hoi_16mbs"
 			text = "[THIS.GetFlag] [THIS.GetName]"
-			maxWidth = 290
+			maxWidth = 390
 			format = left
 			alwaystransparent = yes
 		}
 
 		instantTextboxType = {
 			name = "member_power"
-			position = { x = 330 y = 6 }
-			font = "bsm_16"
+			position = { x = 440 y = 6 }
+			font = "hoi_16mbs"
 			text = "[?bsm_ea_member_power|Y0]"
 			maxWidth = 110
 			format = right
@@ -579,50 +672,50 @@ guiTypes = {
 		}
 	}
 
-	# Entry: Action Target
+	# Entry: アクションターゲット選択行 (width=180)
 	containerWindowType = {
 		name = "economic_alliance_target_entry"
 		position = { x = 0 y = 0 }
-		size = { width = 140 height = 30 }
+		size = { width = 178 height = 30 }
 
 		buttonType = {
 			name = "bsm_ea_target_entry_button"
 			position = { x = 0 y = 0 }
-			quadTextureSprite = "GFX_tiled_plain_bg_small"
-			size = { x = 140 y = 30 }
+			quadTextureSprite = "GFX_tiled_plain_bg"
+			size = { x = 178 y = 30 }
 			pdx_tooltip = "BSM_EA_TARGET_SELECT_TT"
 		}
 
 		instantTextboxType = {
 			name = "target_name"
 			position = { x = 6 y = 6 }
-			font = "bsm_16"
+			font = "hoi_16mbs"
 			text = "[THIS.GetFlag] [THIS.GetName]"
-			maxWidth = 130
+			maxWidth = 164
 			format = left
 			alwaystransparent = yes
 		}
 	}
 
-	# Entry: Ranking
+	# Entry: ランキング行 (width=560)
 	containerWindowType = {
 		name = "economic_alliance_ranking_entry"
 		position = { x = 0 y = 0 }
-		size = { width = 460 height = 30 }
+		size = { width = 560 height = 30 }
 
 		buttonType = {
 			name = "entry_bg"
 			position = { x = 0 y = 0 }
-			quadTextureSprite = "GFX_tiled_plain_bg_small"
-			size = { x = 460 y = 30 }
+			quadTextureSprite = "GFX_tiled_plain_bg"
+			size = { x = 560 y = 30 }
 			pdx_tooltip = "BSM_EA_RANKING_TOOLTIP"
 		}
 
 		instantTextboxType = {
 			name = "rank"
 			position = { x = 10 y = 6 }
-			font = "bsm_16"
-			text = "BSM_EA_RANK_VALUE"
+			font = "hoi_16mbs"
+			text = "[?bsm_ea_rank|Y0]"
 			maxWidth = 50
 			format = center
 			alwaystransparent = yes
@@ -630,10 +723,10 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "name"
-			position = { x = 70 y = 6 }
-			font = "bsm_16"
+			position = { x = 75 y = 6 }
+			font = "hoi_16mbs"
 			text = "[THIS.GetFlag] [THIS.GetEAName]"
-			maxWidth = 250
+			maxWidth = 360
 			format = left
 			alwaystransparent = yes
 			fixedsize = yes
@@ -641,53 +734,12 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "power"
-			position = { x = 330 y = 6 }
-			font = "bsm_16"
-			text = "BSM_EA_POWER_VALUE"
-			maxWidth = 100
+			position = { x = 460 y = 6 }
+			font = "hoi_16mbs"
+			text = "[?bsm_ea_total_power|Y0]"
+			maxWidth = 90
 			format = right
 			alwaystransparent = yes
-		}
-	}
-
-	# Navigation Buttons (Multiple Spheres)
-	containerWindowType = {
-		name = "bsm_ea_nav_container"
-		position = { x = 20 y = 50 } # Same Y as Header
-		size = { width = 460 height = 30 }
-		
-		buttonType = {
-			name = "bsm_ea_prev_button"
-			position = { x = 300 y = -5 }
-			quadTextureSprite = "GFX_browser_back" # Placeholder sprite, needs check
-			scale = 0.8
-			pdx_tooltip = "BSM_EA_PREV_TOOLTIP"
-		}
-
-		buttonType = {
-			name = "bsm_ea_next_button"
-			position = { x = 340 y = -5 }
-			quadTextureSprite = "GFX_browser_forward" # Placeholder sprite, needs check
-			scale = 0.8
-			pdx_tooltip = "BSM_EA_NEXT_TOOLTIP"
-		}
-	}
-
-	# Button Container
-	containerWindowType = {
-			name = "bsm_ea_button_container"
-			position = { x = 380 y = 390 }
-			size = { width = 200 height = 50 }
-
-			buttonType = {
-				name = "bsm_open_ea_window_button"
-				position = { x = 0 y = 0 }
-				quadTextureSprite = "GFX_government_button"
-				buttonText = "BSM_OPEN_EA_GUI"
-				buttonFont = "hoi_16mbs"
-				Orientation = "UPPER_LEFT"
-				clicksound = click_ok
-				pdx_tooltip = "BSM_OPEN_EA_GUI_TT"
 		}
 	}
 }
