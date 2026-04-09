@@ -121,7 +121,7 @@ advisor = {
 ## 5. キャラクターの配置方法
 
 ```hoi4
-# history/countries/XXX - 国家ファイル
+# history/countries/'_' - 国家ファイル
 recruit_character = TAG_hogehoge
 ```
 
