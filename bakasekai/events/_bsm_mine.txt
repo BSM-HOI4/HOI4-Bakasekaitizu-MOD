@@ -20,12 +20,12 @@ state_event = { #大規模な落盤事故
 	is_triggered_only = yes
 	option = {
 		name = mine.1.a
-		ROOT = {
+		owner = {
 
 			set_temp_variable = { add_value = -250 }
 			ucs_add_Unified_Currency = yes
 
-			set_temp_variable = { state_id = FROM }
+			set_temp_variable = { state_id = PREV }
 			set_temp_variable = { level = -2 }
 			add_gold_mine_level = yes
 		}
@@ -40,12 +40,12 @@ state_event = { #中規模な落盤事故
 	is_triggered_only = yes
 	option = {
 		name = mine.2.a
-		ROOT = {
+		owner = {
 
 			set_temp_variable = { add_value = -100 }
 			ucs_add_Unified_Currency = yes
 
-			set_temp_variable = { state_id = FROM }
+			set_temp_variable = { state_id = PREV }
 			set_temp_variable = { level = -1 }
 			add_gold_mine_level = yes
 		}
@@ -60,7 +60,7 @@ state_event = { #軽度な落盤事故
 	is_triggered_only = yes
 	option = {
 		name = mine.3.a
-		ROOT = {
+		owner = {
 			set_temp_variable = { add_value = -20 }
 			ucs_add_Unified_Currency = yes
 		}
@@ -109,8 +109,8 @@ state_event = { #鉱脈発見
 	is_triggered_only = yes
 	option = {
 		name = mine.7.a
-		ROOT = {
-			set_temp_variable = { state_id = FROM }
+		owner = {
+			set_temp_variable = { state_id = PREV }
 			set_temp_variable = { level = 1 }
 			add_gold_mine_level = yes
 		}
@@ -127,17 +127,15 @@ state_event = { #鉱山での事故
 
 	option = { #安全対策を無視して生産継続
 		name = mine.8.a
-		ROOT = {
+		owner = {
 			add_stability = -0.05
 		}
 		ai_chance = {
 			factor = 30
 			modifier = {
 				factor = 2
-				FROM = {
-					OWNER = {
-						has_stability < 0.40
-					}
+				owner = {
+					has_stability < 0.40
 				}
 			}
 		}
@@ -145,28 +143,24 @@ state_event = { #鉱山での事故
 
 	option = { #鉱山を一時閉鎖して安全対策
 		name = mine.8.b
-		ROOT = {
+		owner = {
 			set_country_flag = {
 				flag = bsm_mine_accident_closed
 				days = 180
 				value = 1
 			}
 		}
-		FROM = {
-			set_state_flag = {
-				flag = bsm_mine_closed
-				days = 180
-				value = 1
-			}
+		set_state_flag = {
+			flag = bsm_mine_closed
+			days = 180
+			value = 1
 		}
 		ai_chance = {
 			factor = 70
 			modifier = {
 				factor = 2
-				FROM = {
-					OWNER = {
-						has_stability > 0.60
-					}
+				owner = {
+					has_stability > 0.60
 				}
 			}
 		}
