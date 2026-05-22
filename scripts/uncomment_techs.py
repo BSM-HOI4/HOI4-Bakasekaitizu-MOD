@@ -1,6 +1,8 @@
 import re
+from pathlib import Path
 
-file_path = "/Users/eightman/Desktop/HOI4_modding/bsm_test/bakasekai/common/scripted_effects/_bsm_fallen_empire_effects.txt"
+repo_root = Path(__file__).resolve().parents[1]
+file_path = repo_root / "bakasekai" / "common" / "scripted_effects" / "_bsm_fallen_empire_effects.txt"
 
 with open(file_path, 'r') as f:
     lines = f.readlines()

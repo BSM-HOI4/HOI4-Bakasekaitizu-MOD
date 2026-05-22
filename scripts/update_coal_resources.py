@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-テスト用: 単一ファイルでスクリプトをテスト
+ステート資源の自動計算と更新スクリプト
+各ステートファイルのSteel産出量×1.5 + Oil産出量÷2の値をCoal産出量として設定
 """
 
 import os
@@ -115,34 +116,76 @@ def update_coal_in_resources(content, coal_value):
     return new_content
 
 
-# テスト用のファイルパス
-test_file = Path(__file__).parent / 'bakasekai' / 'history' / 'states' / '67-Oberschlesien.txt'
+def process_state_file(file_path):
+    """
+    単一のステートファイルを処理
+    
+    Returns:
+        bool: ファイルが更新された場合True
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # resourcesブロックを解析
+        steel, oil, existing_coal, _, _ = parse_resources(content)
+        
+        # resourcesブロックが存在しない場合はスキップ
+        if steel is None and oil is None:
+            return False
+        
+        # steelもoilも0の場合はスキップ
+        if steel == 0 and oil == 0:
+            return False
+        
+        # coal値を計算
+        calculated_coal = calculate_coal(steel, oil)
+        
+        # coal値が0の場合はスキップ
+        if calculated_coal == 0:
+            return False
+        
+        # coal値を更新
+        new_content = update_coal_in_resources(content, calculated_coal)
+        
+        # ファイルに書き込み
+        if new_content != content:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(new_content)
+            print(f"✓ Updated: {file_path.name} (steel={steel}, oil={oil} -> coal={calculated_coal})")
+            return True
+        
+        return False
+        
+    except Exception as e:
+        print(f"✗ Error processing {file_path.name}: {e}")
+        return False
 
-print(f"Testing with: {test_file.name}")
-print("-" * 60)
 
-# ファイルを読み込む
-with open(test_file, 'r', encoding='utf-8') as f:
-    original_content = f.read()
+def main():
+    """メイン処理"""
+    repo_root = Path(__file__).resolve().parents[1]
+    # ステートファイルのディレクトリ
+    states_dir = repo_root / 'bakasekai' / 'history' / 'states'
+    
+    if not states_dir.exists():
+        print(f"Error: Directory not found: {states_dir}")
+        return
+    
+    # すべての.txtファイルを処理
+    state_files = sorted(states_dir.glob('*.txt'))
+    
+    print(f"Processing {len(state_files)} state files...")
+    print("-" * 60)
+    
+    updated_count = 0
+    for state_file in state_files:
+        if process_state_file(state_file):
+            updated_count += 1
+    
+    print("-" * 60)
+    print(f"Completed! Updated {updated_count} out of {len(state_files)} files.")
 
-print("Original file length:", len(original_content), "bytes")
-print("Original file lines:", len(original_content.split('\n')))
 
-# resourcesを解析
-steel, oil, existing_coal, _, _ = parse_resources(original_content)
-print(f"Steel: {steel}, Oil: {oil}")
-
-# coal値を計算
-calculated_coal = calculate_coal(steel, oil)
-print(f"Calculated coal: {calculated_coal}")
-
-# coal値を更新
-new_content = update_coal_in_resources(original_content, calculated_coal)
-
-print("\nNew file length:", len(new_content), "bytes")
-print("New file lines:", len(new_content.split('\n')))
-
-print("\n" + "=" * 60)
-print("UPDATED CONTENT:")
-print("=" * 60)
-print(new_content)
+if __name__ == '__main__':
+    main()

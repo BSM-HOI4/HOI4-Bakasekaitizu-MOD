@@ -110,7 +110,7 @@ def write_sorted_file(filepath, header, sorted_focuses, footer):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print("Usage: python reorder_focuses.py <focus_file>")
+        print("Usage: python scripts/reorder_focuses.py <focus_file>")
         sys.exit(1)
     
     filepath = sys.argv[1]

@@ -1,7 +1,7 @@
 import os
 import re
 from collections import defaultdict
-from opcode import def_op
+from pathlib import Path
 
 
 def update_loc_list(modid):
@@ -163,7 +163,8 @@ def read_country_name(TAG, modid,lang,TYPE):
 
 
 if __name__ == '__main__':
-    modid = "bakasekai"
+    repo_root = Path(__file__).resolve().parents[1]
+    modid = str(repo_root / "bakasekai")
     cs,cc = all_country_getter(modid)
     print(cs)
     print(cc)
