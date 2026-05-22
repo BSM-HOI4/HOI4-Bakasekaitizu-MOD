@@ -1,9 +1,16 @@
 on_actions = {
     on_startup = {
         effect = {
+            log = "[BSM SYSTEM] ========== ON_STARTUP TRIGGERED =========="
             #### global変数の設定 ####
             set_variable = { global.month = 1 }#月を示す変数
             set_variable = { global.passed_month = 1 }  #経過月数
+            every_country = {
+                set_variable = { bsm_ea_window_open = 0 }
+            }
+            # 経済同盟初期化 (New System)
+
+
             #### Opening Event ####
             every_country = {
                 #プレイヤー国家のみOEを開く
@@ -11,7 +18,17 @@ on_actions = {
                 set_variable = { OE_page = 1 }
             }
             ### Anomaly System ###
-            AS_first_setting = yes
+            every_country = {
+                AS_first_setting = yes
+            }
+
+            ### Economic Alliance System - Initialize ONCE ###
+            random_country = {
+                bsm_ea_init_system = yes
+                log = "[BSM SYSTEM] About to call bsm_ea_init_initial_factions"
+                bsm_ea_init_initial_factions = yes
+                log = "[BSM SYSTEM] Returned from bsm_ea_init_initial_factions"
+            }
             #### 宗教 ####
             every_country = {
                 if = {
@@ -112,7 +129,7 @@ on_actions = {
                             tag = DEN
                             tag = SWE
                             tag = NOR
-                            tag = FIN
+                            tag = NKA
                             tag = LAT
                             tag = EST
                             tag = GBR
@@ -257,6 +274,9 @@ on_actions = {
             #### 通貨 ####
             every_country = {
                 ucs_first_setting = yes
+                set_variable = {
+                    bsm_ea_window_open = 0
+                }
             }
             #### 国家統合力 ####
             #仮削除
@@ -264,7 +284,7 @@ on_actions = {
             #仮削除
             #### 鉱山 ####
             JPN = { calc_gold_demand = yes }#代表計算
-            
+
             every_country = {
                 limit = { always = yes }
                 mine_first_setting = yes
@@ -320,9 +340,15 @@ on_actions = {
                 } #1月にリセット
             }
             add_to_variable = { global.month = 1 }
-            
-            ucs_on_monthly = yes #通貨 月毎処理				
+
+            ucs_on_monthly = yes #通貨 月毎処理
             mine_on_monthly = yes #鉱山 月毎処理
+
+            # 傭兵の維持費処理
+            every_country = {
+                limit = { has_country_flag = Mercenary_System_Allowed }
+                mercenary_monthly_maintenance = yes
+            }
         }
     }
     on_daily = {
@@ -341,6 +367,21 @@ on_actions = {
                 #国家統合力に文明度を追加
                 add_to_variable = {
                     National_Unity_Power = Cultural_Degree
+                }
+            }
+            if = {
+                limit = {
+                    country_exists = DIS
+                }
+                DIS = {
+                    if = {
+                        limit = {
+                            NOT = { has_country_flag = DIS_super_event_north_america_fired }
+                            dis_controls_north_america = yes
+                        }
+                        set_country_flag = DIS_super_event_north_america_fired
+                        news_event = { id = baka_super_news.8 }
+                    }
                 }
             }
         }

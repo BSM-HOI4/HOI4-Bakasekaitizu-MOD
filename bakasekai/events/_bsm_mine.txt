@@ -117,3 +117,58 @@ state_event = { #鉱脈発見
 
 	}
 }
+
+state_event = { #鉱山での事故
+	id = mine.8
+	title = mine.8.title
+	desc = mine.8.desc
+	picture = GFX_report_event_nuke
+	is_triggered_only = yes
+
+	option = { #安全対策を無視して生産継続
+		name = mine.8.a
+		ROOT = {
+			add_stability = -0.05
+		}
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 2
+				FROM = {
+					OWNER = {
+						has_stability < 0.40
+					}
+				}
+			}
+		}
+	}
+
+	option = { #鉱山を一時閉鎖して安全対策
+		name = mine.8.b
+		ROOT = {
+			set_country_flag = {
+				flag = bsm_mine_accident_closed
+				days = 180
+				value = 1
+			}
+		}
+		FROM = {
+			set_state_flag = {
+				flag = bsm_mine_closed
+				days = 180
+				value = 1
+			}
+		}
+		ai_chance = {
+			factor = 70
+			modifier = {
+				factor = 2
+				FROM = {
+					OWNER = {
+						has_stability > 0.60
+					}
+				}
+			}
+		}
+	}
+}

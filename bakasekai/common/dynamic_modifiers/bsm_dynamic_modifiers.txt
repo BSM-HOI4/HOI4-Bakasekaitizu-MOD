@@ -11,7 +11,7 @@ civ_research_buff = {
 # 	daily_Unified_Currency_gain = mercenary_cost
 # }
 
-bsm_dropped_nuke_modifier = {#核の落ちた町
+bsm_dropped_nuke_modifier = { #核の落ちた町
 	# icon = GFX_nuke_dropped
 	enable = { always = yes }
 	local_resources = -0.75
@@ -21,16 +21,46 @@ bsm_dropped_nuke_modifier = {#核の落ちた町
 }
 
 bsm_uc_factor = {
-        enable = { always = yes }
-        Unified_Currency_gain_factor = combined_uc_factor
+	enable = { always = yes }
+	Unified_Currency_gain_factor = combined_uc_factor
 }
 
 mys_expedition_penalty_1 = {
-       enable = { always = yes }
-       base_Cultural_Degree = -0.55
+	enable = { always = yes }
+	base_Cultural_Degree = -0.55
 }
 
 mys_expedition_penalty_2 = {
-       enable = { always = yes }
-       base_Cultural_Degree = -0.50
+	enable = { always = yes }
+	base_Cultural_Degree = -0.50
+}
+
+# Economic System Dynamic Modifiers
+
+# Penalty for Low Currency
+# Applied when Unified Currency < Required EC
+ucs_low_currency_penalty_modifier = {
+	icon = gfx/interface/icons/modifiers/stability_icon.dds
+	stability_factor = -0.10 # -10% Stability
+}
+
+# Penalty for Over State Limit
+# Applied when Owned States > State Limit
+ucs_over_state_limit_penalty_modifier = {
+	icon = gfx/interface/icons/modifiers/political_power_icon.dds
+	political_power_gain = -0.20 # -20% PP Gain
+	stability_factor = -0.05 # -5% Stability
+}
+
+# Bonus from Unified Economic Power (Economic Alliance)
+ucs_economic_power_bonus_modifier = {
+	icon = gfx/interface/icons/modifiers/production_speed_icon.dds
+	industrial_capacity_factory = var:unified_economic_power_bonus
+	research_speed_factor = var:unified_economic_power_bonus
+}
+
+bsm_economic_alliance_pp_buff = {
+	icon = gfx/interface/icons/modifiers/political_power_icon.dds
+	political_power_factor = var:economic_alliance_pp_buff_value
+	Unified_Currency_gain_factor = var:economic_alliance_pp_buff_value
 }

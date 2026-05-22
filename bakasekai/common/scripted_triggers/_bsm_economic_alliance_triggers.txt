@@ -1,0 +1,16 @@
+# 経済同盟スクリプトトリガー
+# 国が特定の経済同盟に所属しているか確認する
+# 使用法: is_in_economic_alliance = { ALLIANCE = EU }
+is_in_economic_alliance = {
+	has_country_flag = in_economic_alliance_$ALLIANCE$
+}
+
+# 国が経済同盟のリーダーであるか確認する (概念的 - 通常は創設者または主要国)
+# 今のところ、最初のメンバーか明示的にフラグが立てられているかを確認します。
+# 簡単のため、配列の最初のメンバーがリーダーであると仮定するか、特定のタグを確認します。
+is_economic_alliance_leader = {
+	# プレースホルダーロジック。リーダーに特定のフラグを設定したいかもしれません。
+	# 今のところ、グローバル配列の最初の要素がTHISであるかを確認しましょう。
+	# HOI4のスクリプトは「最初の要素である」ことを簡単にサポートしていないため、フラグが必要かもしれません。
+	has_country_flag = economic_alliance_$ALLIANCE$_leader
+}

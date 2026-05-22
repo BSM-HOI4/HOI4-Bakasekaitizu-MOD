@@ -1,0 +1,120 @@
+bsm_economic_alliance_decisions = {
+	# 従属国への利益分配切り替え
+	ucs_toggle_profit_distribution = {
+		icon = generic_trade
+		allowed = { always = yes }
+		available = {
+			is_subject = no
+			any_subject_country = { always = yes }
+			# 経済同盟加盟国のみ
+			is_in_bsm_ea_sphere = yes
+		}
+		visible = {
+			is_subject = no
+			any_subject_country = { always = yes }
+			is_in_bsm_ea_sphere = yes
+		}
+		modifier = { }
+		days_re_enable = 30
+		fire_only_once = no
+		complete_effect = {
+			if = {
+				limit = { has_country_flag = ucs_distribute_profit }
+				clr_country_flag = ucs_distribute_profit
+			}
+			else = {
+				set_country_flag = ucs_distribute_profit
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_country_flag = ucs_distribute_profit }
+			}
+		}
+	}
+	# ----------------------------------------------------------------------
+	# 汎用経済同盟の結成
+	# ----------------------------------------------------------------------
+	bsm_form_economic_alliance = {
+		icon = generic_research
+		allowed = { always = yes }
+		target_array = neighbors
+		target_trigger = {
+			FROM = {
+				# Use new triggers
+				bsm_ea_can_form_sphere_visible = yes
+				bsm_ea_can_form_sphere_allowed = yes
+			}
+		}
+		visible = {
+			FROM = {
+				bsm_ea_can_form_sphere_visible = yes
+			}
+		}
+		available = {
+			FROM = {
+				bsm_ea_can_form_sphere_allowed = yes
+			}
+		}
+		fire_only_once = no
+		days_re_enable = 30
+		cost = 0 # Effect handles cost
+		complete_effect = {
+			bsm_ea_form_sphere_action = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+	# ----------------------------------------------------------------------
+	# 汎用経済同盟への加盟
+	# ----------------------------------------------------------------------
+	bsm_join_economic_alliance = {
+		icon = generic_diplomacy
+		allowed = { always = yes }
+		target_array = neighbors
+		target_trigger = {
+			FROM = {
+				is_bsm_ea_leader = yes
+				bsm_ea_can_join_sphere_visible = yes
+				bsm_ea_can_join_sphere_allowed = yes
+			}
+		}
+		visible = {
+			FROM = {
+				is_bsm_ea_leader = yes
+				bsm_ea_can_join_sphere_visible = yes
+			}
+		}
+		available = {
+			FROM = {
+				bsm_ea_can_join_sphere_allowed = yes
+			}
+		}
+		fire_only_once = no
+		days_re_enable = 30
+		cost = 0
+		complete_effect = {
+			bsm_ea_join_sphere_action = yes
+		}
+		ai_will_do = { factor = 0 }
+	}
+
+	# 経済同盟からの脱退 (汎用・統合版)
+	# bsm_leave_generic_economic_alliance = {
+	# 	icon = generic_volunteer_expedition_bonus
+	# 	allowed = { always = yes }
+	# 	available = {
+	# 		is_in_bsm_ea_sphere = yes
+	# 	}
+	# 	visible = {
+	# 		is_in_bsm_ea_sphere = yes
+	# 	}
+	# 	cost = 50
+	# 	fire_only_once = no
+	# 	ai_will_do = { factor = 0 }
+	# 	complete_effect = {
+	# 		bsm_ea_leave_sphere_action = yes
+	# 	}
+	# }
+}

@@ -2,22 +2,22 @@ sell_gold_for_resources = {
 	icon = generic_trade
 	available = {
 		OR = {
-			has_focus = generic_sell_gold_for_resources
+			has_completed_focus = generic_sell_gold_for_resources
 		}
-		gold > 0
+		check_variable = { var = gold value = 0 compare = greater_than }
 	}
 	visible = {
 		OR = {
-			has_focus = generic_sell_gold_for_resources
+			has_completed_focus = generic_sell_gold_for_resources
 		}
-		gold > 0
+		check_variable = { var = gold value = 0 compare = greater_than }
 	}
 	cost = 50
 	fire_only_once = no
 	remove_effect = {
-		add_resource = {
-			type = gold
-			amount = -10
+		add_to_variable = {
+			var = gold
+			value = -10
 		}
 	}
 	complete_effect = {
@@ -30,7 +30,7 @@ sell_gold_for_resources = {
 			amount = 5
 		}
 		add_resource = {
-			type = aluminum
+			type = aluminium
 			amount = 5
 		}
 		add_resource = {
@@ -47,7 +47,7 @@ sell_gold_for_resources = {
 		factor = 1
 		modifier = {
 			factor = 0
-			gold < 10
+			check_variable = { var = gold value = 10 compare = less_than }
 		}
 	}
 }

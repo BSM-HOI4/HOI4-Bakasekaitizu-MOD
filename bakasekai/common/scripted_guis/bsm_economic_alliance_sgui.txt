@@ -1,0 +1,96 @@
+scripted_gui = {
+	# ボタン側の設定
+	bsm_economic_alliance_sgui = {
+		context_type = player_context
+		window_name = "bsm_ea_button_container"
+		parent_window_token = politics_tab
+		visible = {
+			always = yes
+		}
+		effects = {
+			bsm_open_ea_window_button_click = {
+				if = {
+					limit = {
+						check_variable = {
+							bsm_ea_window_open = 1
+						}
+					}
+					# 開いているなら閉じる
+					set_variable = {
+						bsm_ea_window_open = 0
+					}
+					log = "[BSM] EA Window Closed"
+				}
+				else = {
+					# 閉じているなら開く
+					bsm_update_ea_gui_data = yes
+					set_variable = {
+						bsm_ea_window_open = 1
+					}
+					log = "[BSM] EA Window Opened"
+				}
+			}
+		}
+	}
+	# ウィンドウ本体の設定
+	bsm_economic_alliance_window_sgui = {
+		context_type = player_context
+		window_name = "bsm_economic_alliance_window"
+		visible = {
+			check_variable = {
+				bsm_ea_window_open = 1
+			}
+		}
+		effects = {
+			bsm_close_ea_window_button_click = {
+				set_variable = {
+					bsm_ea_window_open = 0
+				}
+				log = "[BSM] EA Window Closed via Close Button"
+			}
+			bsm_ea_next_button_click = {
+				bsm_ea_switch_view_next = yes
+			}
+			bsm_ea_prev_button_click = {
+				bsm_ea_switch_view_prev = yes
+			}
+		}
+		triggers = {
+			bsm_ea_window_visible = {
+				check_variable = {
+					bsm_ea_window_open = 1
+				}
+			}
+			# We can use triggers here to hide nav buttons via SGUI visible_when?
+			# No, button visibility is usually in .gui file triggers.
+			# But we can expose a trigger for the GUI to check if multiple spheres exist.
+			bsm_ea_has_multiple_spheres = {
+				check_variable = { bsm_ea_joined_spheres^num > 1 }
+			}
+		}
+		dynamic_lists = {
+			# List of Player's Alliances (alliances the player is a member of)
+			economic_alliance_player_list = {
+				array = global.bsm_ea_player_alliance_list
+				change_scope = yes # Array contains Country Scopes (alliance leaders)
+				entry_container = "economic_alliance_player_entry"
+			}
+
+			# List of Members in the *Selected* Sphere (displayed in "Member List" section)
+			economic_alliance_member_list = {
+				# We use a static global array populated by 'bsm_ea_select_sphere_for_gui'
+				# to avoid scope issues with dynamic path interpolation in SGUI.
+				array = global.bsm_ea_gui_display_list
+				change_scope = yes # Array contains Country Scopes
+				entry_container = "economic_alliance_member_entry"
+			}
+
+			# List of All Spheres (Ranking)
+			economic_alliance_ranking_list = {
+				array = global.bsm_ea_sorted_sphere_list
+				change_scope = yes
+				entry_container = "economic_alliance_ranking_entry"
+			}
+		}
+	}
+}

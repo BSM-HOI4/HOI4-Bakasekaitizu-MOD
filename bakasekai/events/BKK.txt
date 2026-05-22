@@ -95,7 +95,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		tag = BKK
+		tag = SJK
 	}
 
 	option = {
@@ -128,8 +128,7 @@ country_event = {
 	is_triggered_only = yes
 
 	trigger = {
-		tag = GBR
-		tag = NTS
+		
 	}
 
 	option = {
@@ -137,7 +136,7 @@ country_event = {
 		ai_chance = {
 			factor = 100
 		}
-		FROM = {puppet = ROOT}
+		#FROM = {puppet = ROOT}
 		BKK = { add_to_faction = ROOT }
 		set_politics = { ruling_party = stupidism elections_allowed = yes }
 		add_popularity = { ideology = stupidism popularity = 0.75 }
@@ -148,7 +147,7 @@ country_event = {
 			GBR = {
 				set_cosmetic_tag = GBRandNIR_united_kingdom
 			}
-			BKK = { puppet = GBR }
+			
 		}
 		if = {
 			limit = {
@@ -214,6 +213,48 @@ country_event = {
 			picture = "gfx/leaders/BKK/picasso.dds"
 			ideology = exclusionism
 			traits = { }
+		}
+	}
+}
+
+country_event = {
+	id = BKK.7	#国家元首の旅行
+	title = BKK.7.t #我らが首相閣下は東京へ旅行に公費で行くと言っている。我々はこれを止めるべきだろうか…
+	desc = BKK.7.d
+
+	fire_only_once = no
+
+	major = no
+	is_triggered_only = yes
+
+	trigger = {
+	}
+
+	option = {
+		name = BKK.7.a  #絶対に止めるべきだ!
+		ai_chance = {
+			factor = 100
+		}
+		#FROM = {puppet = ROOT}
+		BKK = { add_to_faction = NTS }
+		set_politics = { ruling_party = stupidism elections_allowed = yes }
+		add_popularity = { ideology = stupidism popularity = 0.75 }
+		if = {
+			limit = {
+				tag = NTS
+			}
+			NTS = {
+				set_cosmetic_tag = long_NTS
+			}
+			SJK = { puppet = NTS }
+		}
+
+	}
+
+	option = {
+		name = BKK.7.b  #バカは伝染するが、つける薬はない。
+		ai_chance = {
+			factor = 0
 		}
 	}
 }

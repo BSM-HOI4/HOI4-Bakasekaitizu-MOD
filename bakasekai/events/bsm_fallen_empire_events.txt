@@ -1,0 +1,141 @@
+add_namespace = bsm_fallen_empire
+# Periodic event for Fallen Empires to send gifts
+country_event = {
+	id = bsm_fallen_empire.1
+	title = bsm_fallen_empire.1.t
+	desc = bsm_fallen_empire.1.d
+	picture = GFX_report_event_generic_diplomacy
+	trigger = {
+		is_fallen_empire = yes
+	}
+	mean_time_to_happen = {
+		days = 180
+	}
+	option = {
+		name = bsm_fallen_empire.1.a
+		random_country = {
+			limit = {
+				NOT = {
+					is_fallen_empire = yes
+				}
+			}
+			country_event = {
+				id = bsm_fallen_empire.2
+			}
+		}
+	}
+}
+
+# Neighbor receives gift offer
+country_event = {
+	id = bsm_fallen_empire.2
+	title = bsm_fallen_empire.2.t
+	desc = bsm_fallen_empire.2.d
+	picture = GFX_report_event_generic_diplomacy
+	is_triggered_only = yes
+	# Accept Gift
+	option = {
+		name = bsm_fallen_empire.2.a
+		ai_chance = {
+			factor = 90
+		}
+		random_list = {
+			30 = {
+				FROM = {
+					bsm_fallen_empire_send_gift_resources = yes
+				}
+			}
+			30 = {
+				FROM = {
+					bsm_fallen_empire_send_gift_equipment = yes
+				}
+			}
+			30 = {
+				FROM = {
+					bsm_fallen_empire_send_gift_tech = yes
+				}
+			}
+			10 = {
+				FROM = {
+					bsm_fallen_empire_send_gift_data_cache = yes
+				}
+			}
+		}
+	}
+	# Refuse Gift
+	option = {
+		name = bsm_fallen_empire.2.b
+		ai_chance = {
+			factor = 10
+		}
+		FROM = {
+			country_event = {
+				id = bsm_fallen_empire.3
+			}
+		}
+	}
+}
+
+# Fallen Empire reaction to refusal
+country_event = {
+	id = bsm_fallen_empire.3
+	title = bsm_fallen_empire.3.t
+	desc = bsm_fallen_empire.3.d
+	picture = GFX_report_event_generic_diplomacy
+	is_triggered_only = yes
+	option = {
+		name = bsm_fallen_empire.3.a
+		add_opinion_modifier = {
+			target = FROM
+			modifier = bsm_fallen_empire_gift_refused
+		}
+	}
+}
+
+# Notification: Received Resources
+country_event = {
+	id = bsm_fallen_empire.10
+	title = bsm_fallen_empire.10.t
+	desc = bsm_fallen_empire.10.d
+	picture = GFX_report_event_generic_factory
+	is_triggered_only = yes
+	option = {
+		name = OK
+	}
+}
+
+# Notification: Received Equipment
+country_event = {
+	id = bsm_fallen_empire.11
+	title = bsm_fallen_empire.11.t
+	desc = bsm_fallen_empire.11.d
+	picture = GFX_report_event_generic_read_write
+	is_triggered_only = yes
+	option = {
+		name = OK
+	}
+}
+
+# Notification: Received Tech Bonus
+country_event = {
+	id = bsm_fallen_empire.12
+	title = bsm_fallen_empire.12.t
+	desc = bsm_fallen_empire.12.d
+	picture = GFX_report_event_generic_research
+	is_triggered_only = yes
+	option = {
+		name = OK
+	}
+}
+
+# Notification: Received Data Cache
+country_event = {
+	id = bsm_fallen_empire.13
+	title = bsm_fallen_empire.13.t
+	desc = bsm_fallen_empire.13.d
+	picture = GFX_report_event_generic_research
+	is_triggered_only = yes
+	option = {
+		name = OK
+	}
+}

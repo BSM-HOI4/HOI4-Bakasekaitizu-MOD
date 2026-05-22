@@ -9,17 +9,18 @@ ucs_first_setting = {
 
 	if = {
 		limit = { NOT = { has_country_flag = stop_Unified_Currency_gain } }
-		set_variable = { Unified_Currency = 0 } #リセット
-		set_variable = { Unified_Currency_Last_Month_gain = 0 } #リセット
-		set_variable = { Unified_Currency_state_loss = 0 } #リセット
-		set_temp_variable = { multiply_value = 6 } #初期値は6か月分
+		set_variable = { var = Unified_Currency value = 0 } #リセット
+		set_variable = { var = Unified_Currency_Last_Month_gain value = 0 } #リセット
+		set_variable = { var = Unified_Currency_state_loss value = 0 } #リセット
+		set_variable = { var = ucs_war_month_counter value = 0 } #戦時カウンターリセット
+		set_temp_variable = { var = multiply_value value = 6 } #初期値は6か月分
 		# log = "[?multiply_value]月分==========================="
 		ucs_add_Unified_Currency_month = yes
 
 	}
 }
 
-#指定の月数分の統一通貨を追加する  temp multiply_value  が必要  
+#指定の月数分の統一通貨を追加する  temp multiply_value  が必要
 ucs_add_Unified_Currency_month = {
 	if = {
 		limit = { has_variable = multiply_value }
@@ -29,9 +30,9 @@ ucs_add_Unified_Currency_month = {
 		add_to_variable = { temp_sum_stabiluty_civilization = Cultural_Degree } #安定度+文明
 
 		set_temp_variable = { temp_add_amount = num_of_civilian_factories } #民需出力
-		add_to_temp_variable = { temp_add_amount = 1 } #民需出力
+		add_to_temp_variable = { var = temp_add_amount value = 1 } #民需出力
 
-		multiply_temp_variable = { temp_add_amount = temp_sum_stabiluty_civilization } #民需出力 * ( 安定度+文明 ) 
+		multiply_temp_variable = { temp_add_amount = temp_sum_stabiluty_civilization } #民需出力 * ( 安定度+文明 )
 
 		set_temp_variable = { temp_state_sum = 0 }
 		set_temp_variable = { temp_state_plus_1 = 0 }
@@ -57,8 +58,109 @@ ucs_add_Unified_Currency_month = {
 		subtract_from_temp_variable = { temp_add_amount = subtract_value } #[ SUM{ 人口(m) * (飛行場レベル * 1.1) } *民需出力 * ( 安定度+文明 ) *インフラレベル平均 ]  -(徴兵*ステート数)
 		divide_temp_variable = { temp_add_amount = 100 } #[[ SUM{ 人口(m) +(飛行場レベル * 1.1) } *民需出力 * ( 安定度+文明 ) *インフラレベル平均 ]  -(徴兵*ステート数) ]/100
 		#係数
-		set_temp_variable = { temp_factor = 1 }
+		set_temp_variable = { var = temp_factor value = 1 }
 		add_to_temp_variable = { temp_factor = modifier@Unified_Currency_gain_factor }
+
+		# 戦時下（一月ごと悪化）
+		if = {
+			limit = { has_variable = ucs_war_month_counter }
+			set_temp_variable = { temp_war_penalty = ucs_war_month_counter }
+			multiply_temp_variable = { var = temp_war_penalty value = -0.02 } # 毎月-2%
+			add_to_temp_variable = { temp_factor = temp_war_penalty }
+		}
+
+		# 経済同盟 (重複可能)
+		if = {
+			limit = { check_variable = { economic_alliance_count > 0 } }
+			set_temp_variable = { temp_alliance_bonus = economic_alliance_count }
+			multiply_temp_variable = { var = temp_alliance_bonus value = 0.15 } # 同盟1つにつき+15%
+			add_to_temp_variable = { temp_factor = temp_alliance_bonus }
+		}
+
+		# 宗主国・傀儡従属国 (経済同盟関連)
+
+		# ----------------------------------------------------------------
+		# 従属国側の処理
+		# ----------------------------------------------------------------
+		if = {
+			limit = { is_subject = yes }
+
+			# デフォルトのペナルティ設定 (自治度が高いほどペナルティは軽い)
+			set_temp_variable = { temp_subject_penalty = -0.25 } # デフォルト
+
+			if = {
+				limit = { has_autonomy_state = autonomy_integrated_puppet }
+				set_temp_variable = { temp_subject_penalty = -0.30 }
+			}
+			else_if = {
+				limit = { has_autonomy_state = autonomy_puppet }
+				set_temp_variable = { temp_subject_penalty = -0.20 }
+			}
+			else_if = {
+				limit = { has_autonomy_state = autonomy_colony }
+				set_temp_variable = { temp_subject_penalty = -0.10 }
+			}
+			else_if = {
+				limit = { has_autonomy_state = autonomy_dominion }
+				set_temp_variable = { temp_subject_penalty = -0.05 }
+			}
+
+			# 宗主国の分配設定を確認
+			overlord = {
+				if = {
+					limit = { has_country_flag = ucs_distribute_profit }
+					# 分配がある場合、ペナルティを軽減 (あるいはボーナス化)
+					PREV = {
+						add_to_temp_variable = { temp_subject_penalty = 0.15 }
+					}
+				}
+			}
+
+			add_to_temp_variable = { temp_factor = temp_subject_penalty }
+		}
+
+		# ----------------------------------------------------------------
+		# 宗主国側の処理
+		# ----------------------------------------------------------------
+		set_temp_variable = { temp_subject_bonus_total = 0 }
+
+		every_subject_country = {
+			# 各従属国からの搾取/利益計算
+			# 自治度が低いほど搾取できる (ボーナス大)
+			set_temp_variable = { temp_this_subject_contribution = 0.05 }
+
+			if = {
+				limit = { has_autonomy_state = autonomy_integrated_puppet }
+				set_temp_variable = { temp_this_subject_contribution = 0.08 }
+			}
+			else_if = {
+				limit = { has_autonomy_state = autonomy_puppet }
+				set_temp_variable = { temp_this_subject_contribution = 0.05 }
+			}
+			else_if = {
+				limit = { has_autonomy_state = autonomy_colony }
+				set_temp_variable = { temp_this_subject_contribution = 0.03 }
+			}
+			else_if = {
+				limit = { has_autonomy_state = autonomy_dominion }
+				set_temp_variable = { temp_this_subject_contribution = 0.01 }
+			}
+
+			# 宗主国 (PREV) が分配設定をしているか確認
+            if = {
+                limit = {
+                    PREV = { has_country_flag = ucs_distribute_profit }
+                }
+                multiply_temp_variable = { temp_this_subject_contribution = 0.5 } # 利益半減
+            }
+
+			# 宗主国の合計に加算
+			PREV = {
+				add_to_temp_variable = { temp_subject_bonus_total = PREV.temp_this_subject_contribution }
+			}
+		}
+
+		add_to_temp_variable = { temp_factor = temp_subject_bonus_total }
 		multiply_temp_variable = { temp_add_amount = temp_factor } #[ SUM{ 人口(m) * {(飛行場レベル * 1.1)} } * 民需出力 * ( 安定度+文明 ) *インフラレベル平均 * 月毎の通過増加量補正 ] -(徴兵*ステート数)
 		set_variable = { temp_last_month = temp_add_amount } #先月の獲得量の登録
 		subtract_from_temp_variable = { temp_add_amount = Unified_Currency_additional_gain }
@@ -72,7 +174,7 @@ ucs_add_Unified_Currency_month = {
 	else = { log = "wow... No temp variable !!" }
 
 }
-#指定分分の統一通貨を追加する  temp add_value  が必要  
+#指定分分の統一通貨を追加する  temp add_value  が必要
 ucs_add_Unified_Currency = {
 	if = {
 		limit = { has_variable = add_value }
@@ -87,9 +189,82 @@ ucs_on_monthly = {
 	if = {
 		limit = { NOT = { has_country_flag = stop_Unified_Currency_gain } }
 		set_temp_variable = { multiply_value = 1 }
+
+		# 戦時カウンター更新
+		if = {
+			limit = { has_war = yes }
+			add_to_variable = { var = ucs_war_month_counter value = 1 }
+		}
+		else = {
+			set_variable = { var = ucs_war_month_counter value = 0 }
+		}
 		ucs_add_Unified_Currency_month = yes
 		set_variable = { Unified_Currency_Last_Month_gain = temp_last_month } #先月の獲得量の登録
-		set_variable = { Unified_Currency_state_loss = 0 } #リセット
+		set_variable = { var = Unified_Currency_state_loss value = 0 } #リセット
+
+		# 最低保持EC量 (IC基準)
+		# 基準: 民需 + 軍需 + 造船所 * 50 (仮)
+		set_temp_variable = { temp_required_ec = num_of_factories }
+		multiply_temp_variable = { temp_required_ec = 50 }
+		set_variable = { ucs_required_ec = temp_required_ec }
+
+		# EC不足ペナルティ判定
+		if = {
+			limit = { check_variable = { Unified_Currency < ucs_required_ec } }
+			set_country_flag = ucs_low_currency_penalty
+			set_variable = { ucs_ec_deficit = ucs_required_ec }
+			subtract_from_variable = { ucs_ec_deficit = Unified_Currency }
+			add_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+		}
+		else = {
+			clr_country_flag = ucs_low_currency_penalty
+			set_variable = { var = ucs_ec_deficit value = 0 }
+			remove_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+		}
+
+		# ステート拡大限界 (EC量基準)
+		# 基準: 5 + (EC / 1000)
+		set_temp_variable = { temp_state_limit = Unified_Currency }
+		divide_temp_variable = { temp_state_limit = 1000 }
+		add_to_temp_variable = { temp_state_limit = 5 }
+		round_temp_variable = temp_state_limit
+		set_variable = { ucs_state_limit = temp_state_limit }
+
+		# ステート超過ペナルティ判定
+		if = {
+			limit = { check_variable = { num_owned_states > ucs_state_limit } }
+			set_country_flag = ucs_over_state_limit_penalty
+			set_variable = { ucs_state_overage = num_owned_states }
+			subtract_from_variable = { ucs_state_overage = ucs_state_limit }
+			add_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+		}
+		else = {
+			clr_country_flag = ucs_over_state_limit_penalty
+			set_variable = { var = ucs_state_overage value = 0 }
+			remove_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+		}
+
+		# 経済同盟の統合経済力計算
+		# 経済同盟の統合経済力計算 (重複なし・単一所属)
+		set_variable = { var = unified_economic_power_bonus value = 0 }
+
+		# 陣営に所属している場合
+		if = {
+			limit = { has_variable = bsm_ea_sphere }
+			# 統合経済力計算呼び出し
+			ucs_accumulate_alliance_power = yes
+		}
+
+		# ボーナス適用
+		if = {
+			limit = { check_variable = { unified_economic_power_bonus > 0 } }
+			add_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+		}
+		else = {
+			remove_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+		}
+
+
 	}
 }
 #stateを失陥したときの影響
@@ -112,7 +287,7 @@ ucs_on_dairy_effects = {
 		#0.13 * 6420 = 83.346
 		#6420 - 83.346 = 6336.654
 		#まぁどうにか払えるでしょ
-	
+
 
 }
 
@@ -122,4 +297,58 @@ combined_unified_currency = {
 	add_to_variable = { combined_uc_factor = modifier@Unified_Currency_religion_factor }
 	# log = "合計したUC_Factor:[?combined_uc_factor]"
 	#logがうるさすぎるのでいったん消させてください
+}
+
+# 経済同盟の統合経済力計算
+# 経済同盟の統合経済力計算 (加算用)
+# 経済同盟の統合経済力計算 (加算用)
+# 使用法:
+# set_temp_variable = { temp_alliance_id = 1 } # 1:EU, 2:Allies, 3:GEACPS
+# ucs_accumulate_alliance_power = yes
+ucs_accumulate_alliance_power = {
+	set_temp_variable = { var = temp_power value = 0 }
+
+	# 統一ロジック: 現在の陣営メンバーを取得
+	if = {
+		limit = { has_variable = bsm_ea_sphere }
+
+		set_temp_variable = { t_token = bsm_ea_sphere }
+
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_token
+			value = v_mem
+			var:v_mem = {
+				add_to_variable = { PREV.temp_power = num_of_factories }
+			}
+		}
+	}
+
+	# ボーナス計算 (例: 50工場につき1% -> 0.01)
+	# temp_power / 5000
+	divide_temp_variable = { var = temp_power value = 5000 }
+	add_to_variable = { unified_economic_power_bonus = temp_power }
+}
+
+# 汎用経済同盟の統合経済力計算 (リーダー用)
+ucs_accumulate_generic_alliance_power = {
+	set_temp_variable = { temp_power = num_of_factories } # 自分の工場
+
+	# メンバーの工場を加算
+	for_each_scope_loop = {
+		array = economic_alliance_members
+		add_to_temp_variable = { PREV.temp_power = num_of_factories }
+	}
+
+	# グローバル変数に保存 (メンバーが参照するため)
+	# global.generic_alliance_power^MY_ID = temp_power
+	set_temp_variable = { my_id = id }
+	set_variable = {
+		var = global.generic_alliance_power
+		index = my_id
+		value = temp_power
+	}
+
+	# ボーナス計算 (例: 5000工場につき1 -> 0.01)
+	divide_temp_variable = { var = temp_power value = 5000 }
+	add_to_variable = { unified_economic_power_bonus = temp_power }
 }
