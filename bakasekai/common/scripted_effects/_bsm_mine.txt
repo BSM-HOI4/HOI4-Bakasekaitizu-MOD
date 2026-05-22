@@ -81,10 +81,7 @@ calc_gold_demand = {#金需要の計算 (globalで実行)
 	add_to_variable = { global.MD_demand = 1 } #国際緊張度+1
 	# log = "2/[?global.MD_demand]"
 
-	set_temp_variable = { temp = global.date }
-	subtract_from_variable = { temp = global.date }
-
-	multiply_variable = { global.MD_demand = 1 } #(国際緊張度+1)×経過月数
+	multiply_variable = { global.MD_demand = global.passed_month } #(国際緊張度+1)×経過月数
 	# log = "3/[?global.MD_demand]/global.passed_month"
 
 	divide_variable = { global.MD_demand = 24 } #(国際緊張度+1)×経過月数/係数
@@ -102,7 +99,7 @@ mine_on_monthly = {
 	add_to_temp_variable = { temp = 1 } 
 
 	#コストの計算
-	clear_variable = MD_gain
+	set_variable = { MD_gain = 0 }
 	set_variable = { MD_gain = MD_mine_size }
 	multiply_variable = { MD_gain = global.MD_demand } #鉱山数×金需要
 	multiply_variable = { MD_gain = temp } #

@@ -5,7 +5,6 @@ state_event = { #欠番
 	title = mine.0.title
 	desc = mine.0.desc
 	picture = GFX_report_event_nuke
-	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
 		name = mine.0.a
@@ -16,7 +15,6 @@ state_event = { #大規模な落盤事故
 	title = mine.1.title
 	desc = mine.1.desc
 	picture = GFX_report_event_nuke
-	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
 		name = mine.1.a
@@ -36,7 +34,6 @@ state_event = { #中規模な落盤事故
 	title = mine.2.title
 	desc = mine.2.desc
 	picture = GFX_report_event_nuke
-	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
 		name = mine.2.a
@@ -56,7 +53,6 @@ state_event = { #軽度な落盤事故
 	title = mine.3.title
 	desc = mine.3.desc
 	picture = GFX_report_event_nuke
-	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
 		name = mine.3.a
@@ -72,7 +68,6 @@ state_event = { #鉱山のストライキ
 	title = mine.4.title
 	desc = mine.4.desc
 	picture = GFX_report_event_nuke
-	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
 		name = mine.4.a
@@ -83,7 +78,6 @@ state_event = { #国名による占領
 	title = mine.5.title
 	desc = mine.5.desc
 	picture = GFX_report_event_nuke
-	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
 		name = mine.5.a
@@ -94,23 +88,21 @@ state_event = { #国名による解放
 	title = mine.6.title
 	desc = mine.6.desc
 	picture = GFX_report_event_nuke
-	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
 		name = mine.6.a
 	}
 }
-state_event = { #鉱脈発見
+	state_event = { #鉱脈発見
 	id = mine.7
 	title = mine.7.title
 	desc = mine.7.desc
 	picture = GFX_report_event_nuke
-	fire_only_once = yes
 	is_triggered_only = yes
 	option = {
 		name = mine.7.a
 		ROOT = {
-			set_temp_variable = { state_id = FROM }
+			set_temp_variable = { state_id = this }
 			set_temp_variable = { level = 1 }
 			add_gold_mine_level = yes
 		}
@@ -118,7 +110,7 @@ state_event = { #鉱脈発見
 	}
 }
 
-state_event = { #鉱山での事故
+	state_event = { #鉱山での事故
 	id = mine.8
 	title = mine.8.title
 	desc = mine.8.desc
@@ -127,17 +119,15 @@ state_event = { #鉱山での事故
 
 	option = { #安全対策を無視して生産継続
 		name = mine.8.a
-		ROOT = {
+		OWNER = {
 			add_stability = -0.05
 		}
 		ai_chance = {
 			factor = 30
 			modifier = {
 				factor = 2
-				FROM = {
-					OWNER = {
-						has_stability < 0.40
-					}
+				OWNER = {
+					has_stability < 0.40
 				}
 			}
 		}
@@ -145,28 +135,17 @@ state_event = { #鉱山での事故
 
 	option = { #鉱山を一時閉鎖して安全対策
 		name = mine.8.b
-		ROOT = {
-			set_country_flag = {
-				flag = bsm_mine_accident_closed
-				days = 180
-				value = 1
-			}
-		}
-		FROM = {
-			set_state_flag = {
-				flag = bsm_mine_closed
-				days = 180
-				value = 1
-			}
+		set_state_flag = {
+			flag = bsm_mine_closed
+			days = 180
+			value = 1
 		}
 		ai_chance = {
 			factor = 70
 			modifier = {
 				factor = 2
-				FROM = {
-					OWNER = {
-						has_stability > 0.60
-					}
+				OWNER = {
+					has_stability > 0.60
 				}
 			}
 		}

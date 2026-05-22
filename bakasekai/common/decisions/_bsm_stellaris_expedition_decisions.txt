@@ -1,0 +1,84 @@
+# ==========================================
+# BSM ステラリス要素 - 探検隊システム
+# prefix: bsm_stellaris_
+# ==========================================
+
+bsm_stellaris_expeditions = {
+  # 学術調査隊
+  bsm_stellaris_create_expedition_academic_decision = {
+    icon = gfx/interface/icons/research/society_research.dds
+    allowed = { always = yes }
+    available = {
+      has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = 50 compare = greater_than_or_equals }
+      has_variable = bsm_stellaris_expedition_active
+      check_variable = { var = bsm_stellaris_expedition_active value = 3 compare = less_than }
+    }
+    visible = {
+      has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = 50 compare = greater_than_or_equals }
+      has_variable = bsm_stellaris_expedition_active
+      check_variable = { var = bsm_stellaris_expedition_active value = 3 compare = less_than }
+    }
+    cost = 0
+    days_re_enable = 0
+    fire_only_once = no
+    complete_effect = {
+      set_variable = { bsm_stellaris_expedition_type = 1 }
+      bsm_stellaris_create_expedition = yes
+      country_event = { id = bsm_stellaris_expedition_start.1 days = 0 }
+    }
+  }
+
+  # 軍事偵察隊
+  bsm_stellaris_create_expedition_military_decision = {
+    icon = gfx/interface/icons/ideas/military.dds
+    allowed = { always = yes }
+    available = {
+      has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = 50 compare = greater_than_or_equals }
+      has_variable = bsm_stellaris_expedition_active
+      check_variable = { var = bsm_stellaris_expedition_active value = 3 compare = less_than }
+    }
+    visible = {
+      has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = 50 compare = greater_than_or_equals }
+      has_variable = bsm_stellaris_expedition_active
+      check_variable = { var = bsm_stellaris_expedition_active value = 3 compare = less_than }
+    }
+    cost = 0
+    days_re_enable = 0
+    fire_only_once = no
+    complete_effect = {
+      set_variable = { bsm_stellaris_expedition_type = 2 }
+      bsm_stellaris_create_expedition = yes
+      country_event = { id = bsm_stellaris_expedition_start.2 days = 0 }
+    }
+  }
+
+  # 商業探検隊
+  bsm_stellaris_create_expedition_commercial_decision = {
+    icon = gfx/interface/icons/ideas/economy.dds
+    allowed = { always = yes }
+    available = {
+      has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = 50 compare = greater_than_or_equals }
+      has_variable = bsm_stellaris_expedition_active
+      check_variable = { var = bsm_stellaris_expedition_active value = 3 compare = less_than }
+    }
+    visible = {
+      has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = 50 compare = greater_than_or_equals }
+      has_variable = bsm_stellaris_expedition_active
+      check_variable = { var = bsm_stellaris_expedition_active value = 3 compare = less_than }
+    }
+    cost = 0
+    days_re_enable = 0
+    fire_only_once = no
+    complete_effect = {
+      set_variable = { bsm_stellaris_expedition_type = 3 }
+      bsm_stellaris_create_expedition = yes
+      country_event = { id = bsm_stellaris_expedition_start.3 days = 0 }
+    }
+  }
+}

@@ -1,0 +1,709 @@
+add_namespace = bsm_ind
+
+###########################################################################
+# bsm_ind.1 - 帝国の岐路（フレーバー・オープニング）
+###########################################################################
+country_event = {
+	id = bsm_ind.1
+	title = bsm_ind.1.t
+	desc = bsm_ind.1.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.1.a
+		# 自由への道を歩む
+		add_political_power = 25
+		ai_chance = { factor = 60 }
+	}
+	option = {
+		name = bsm_ind.1.b
+		# 時を待つ
+		add_stability = 0.05
+		ai_chance = { factor = 40 }
+	}
+}
+
+###########################################################################
+# bsm_ind.2 - 自治要求をGBRへ
+###########################################################################
+country_event = {
+	id = bsm_ind.2
+	title = bsm_ind.2.t
+	desc = bsm_ind.2.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.2.a
+		# 自治領の地位を要求
+		if = {
+			limit = { GBR = { exists = yes } }
+			GBR = { country_event = { id = bsm_ind.2b days = 10 } }
+		}
+		add_political_power = 25
+		ai_chance = { factor = 60 }
+	}
+	option = {
+		name = bsm_ind.2.b
+		# 完全独立を要求
+		add_war_support = 0.05
+		add_stability = -0.05
+		if = {
+			limit = { GBR = { exists = yes } }
+			GBR = { country_event = { id = bsm_ind.2c days = 7 } }
+		}
+		ai_chance = { factor = 40 }
+	}
+}
+
+# bsm_ind.2b - GBRへの通知（自治領要求）
+country_event = {
+	id = bsm_ind.2b
+	title = bsm_ind.2b.t
+	desc = bsm_ind.2b.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.2b.a
+		# 要求を受諾する
+		FROM = {
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				set_autonomy = {
+					target = FROM
+					autonomy_state = dominion
+				}
+			}
+			add_opinion_modifier = { target = GBR modifier = medium_increase }
+			add_political_power = 50
+		}
+		add_opinion_modifier = { target = FROM modifier = small_increase }
+		ai_chance = { factor = 40 }
+	}
+	option = {
+		name = bsm_ind.2b.b
+		# 要求を拒否する
+		FROM = {
+			add_stability = -0.05
+			add_war_support = 0.05
+		}
+		add_opinion_modifier = { target = FROM modifier = small_decrease }
+		ai_chance = { factor = 60 }
+	}
+}
+
+# bsm_ind.2c - GBRへの通知（完全独立要求）
+country_event = {
+	id = bsm_ind.2c
+	title = bsm_ind.2c.t
+	desc = bsm_ind.2c.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.2c.a
+		# 独立を認める
+		FROM = {
+			add_political_power = 100
+			add_stability = 0.05
+		}
+		ai_chance = { factor = 20 }
+	}
+	option = {
+		name = bsm_ind.2c.b
+		# 拒否する
+		FROM = {
+			add_stability = -0.10
+			add_war_support = 0.10
+		}
+		add_opinion_modifier = { target = FROM modifier = large_decrease }
+		ai_chance = { factor = 80 }
+	}
+}
+
+###########################################################################
+# bsm_ind.3 - クリップス使節団
+###########################################################################
+country_event = {
+	id = bsm_ind.3
+	title = bsm_ind.3.t
+	desc = bsm_ind.3.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.3.a
+		# 使節団の条件を受諾する
+		if = {
+			limit = { GBR = { exists = yes } }
+			GBR = { add_opinion_modifier = { target = IND modifier = medium_increase } }
+			add_opinion_modifier = { target = GBR modifier = medium_increase }
+		}
+		add_war_support = 0.10
+		add_political_power = 50
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = bsm_ind.3.b
+		# 使節団の条件を拒否する
+		add_political_power = 50
+		add_stability = 0.05
+		ai_chance = { factor = 50 }
+	}
+}
+
+###########################################################################
+# bsm_ind.4 - 枢軸国の支援申し出
+###########################################################################
+country_event = {
+	id = bsm_ind.4
+	title = bsm_ind.4.t
+	desc = bsm_ind.4.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.4.a
+		# 枢軸国の支援を受け入れる
+		if = {
+			limit = {
+				GER = { exists = yes has_government = fascism_ideology }
+				is_in_faction = no
+			}
+			GER = { country_event = { id = bsm_ind.4b days = 7 } }
+		}
+		add_political_power = 50
+		ai_chance = { factor = 40 }
+	}
+	option = {
+		name = bsm_ind.4.b
+		# 独自の道を歩む
+		add_political_power = 50
+		add_stability = 0.03
+		ai_chance = { factor = 60 }
+	}
+}
+
+# bsm_ind.4b - GERへの通知
+country_event = {
+	id = bsm_ind.4b
+	title = bsm_ind.4b.t
+	desc = bsm_ind.4b.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.4b.a
+		# インドを支援する
+		FROM = {
+			add_tech_bonus = {
+				name = IND_axis_tech_bonus
+				bonus = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = {
+		name = bsm_ind.4b.b
+		# 今は支援できない
+		ai_chance = { factor = 40 }
+	}
+}
+
+###########################################################################
+# bsm_ind.5 - ソ連の支援申し出
+###########################################################################
+country_event = {
+	id = bsm_ind.5
+	title = bsm_ind.5.t
+	desc = bsm_ind.5.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.5.a
+		# ソ連の支援を受け入れる
+		if = {
+			limit = { SOV = { exists = yes } }
+			SOV = { country_event = { id = bsm_ind.5b days = 7 } }
+		}
+		add_political_power = 50
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = bsm_ind.5.b
+		# 中立を維持する
+		add_political_power = 50
+		add_stability = 0.05
+		ai_chance = { factor = 50 }
+	}
+}
+
+# bsm_ind.5b - SOVへの通知
+country_event = {
+	id = bsm_ind.5b
+	title = bsm_ind.5b.t
+	desc = bsm_ind.5b.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.5b.a
+		# インド革命を支援する
+		FROM = {
+			add_tech_bonus = {
+				name = IND_soviet_tech_bonus
+				bonus = 0.5
+				uses = 2
+				category = infantry_weapons
+			}
+			add_political_power = 50
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = {
+		name = bsm_ind.5b.b
+		# 今は支援できない
+		ai_chance = { factor = 40 }
+	}
+}
+
+###########################################################################
+# bsm_ind.6 - 自治領新憲法（帝国奉仕路線）
+###########################################################################
+country_event = {
+	id = bsm_ind.6
+	title = bsm_ind.6.t
+	desc = bsm_ind.6.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.6.a
+		# 憲法に署名する
+		if = {
+			limit = { GBR = { exists = yes } }
+			GBR = { add_opinion_modifier = { target = IND modifier = medium_increase } }
+		}
+		add_political_power = 75
+		add_stability = 0.05
+	}
+}
+
+###########################################################################
+# bsm_ind.10 - 独立宣言（国民会議派）
+###########################################################################
+country_event = {
+	id = bsm_ind.10
+	title = bsm_ind.10.t
+	desc = bsm_ind.10.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.10.a
+		# インド共和国の誕生
+		add_political_power = 100
+		add_stability = 0.05
+		news_event = { id = bsm_ind.10b days = 1 }
+	}
+}
+
+# bsm_ind.10b - ニュース: インド独立！
+news_event = {
+	id = bsm_ind.10b
+	title = bsm_ind.10b.t
+	desc = bsm_ind.10b.d
+	picture = GFX_news_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = bsm_ind.10b.a
+		trigger = { tag = IND }
+		add_political_power = 50
+	}
+	option = {
+		name = bsm_ind.10b.b
+		trigger = { NOT = { tag = IND } }
+	}
+}
+
+###########################################################################
+# bsm_ind.11 - アザド・ヒンド独立宣言
+###########################################################################
+country_event = {
+	id = bsm_ind.11
+	title = bsm_ind.11.t
+	desc = bsm_ind.11.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.11.a
+		# 共和国の樹立を宣言する
+		add_political_power = 100
+		add_war_support = 0.10
+		news_event = { id = bsm_ind.10b days = 1 }
+		ai_chance = { factor = 60 }
+	}
+	option = {
+		name = bsm_ind.11.b
+		# 国際的な承認を求める
+		add_political_power = 75
+		add_stability = 0.05
+		ai_chance = { factor = 40 }
+	}
+}
+
+###########################################################################
+# bsm_ind.12 - 独立の熱狂と混乱
+###########################################################################
+country_event = {
+	id = bsm_ind.12
+	title = bsm_ind.12.t
+	desc = bsm_ind.12.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.12.a
+		# 非常事態を宣言する
+		add_war_support = 0.10
+		add_stability = -0.05
+		add_timed_idea = {
+			idea = bsm_ind_idea_refugee_crisis
+			days = 90
+		}
+		ai_chance = { factor = 40 }
+	}
+	option = {
+		name = bsm_ind.12.b
+		# 民意を信頼する
+		add_political_power = 75
+		add_stability = 0.05
+		ai_chance = { factor = 60 }
+	}
+}
+
+###########################################################################
+# bsm_ind.15 - 分割問題（核心イベント）
+###########################################################################
+country_event = {
+	id = bsm_ind.15
+	title = bsm_ind.15.t
+	desc = bsm_ind.15.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.15.a
+		# 分割を受け入れる準備をする
+		# → IND_accept_partition フォーカスのルートへ
+		add_political_power = 25
+		ai_chance = { factor = 60 }
+	}
+	option = {
+		name = bsm_ind.15.b
+		# 統一インドを守る
+		# → IND_resist_partition フォーカスのルートへ
+		add_stability = -0.05
+		add_war_support = 0.05
+		ai_chance = { factor = 40 }
+	}
+}
+
+###########################################################################
+# bsm_ind.16 - 藩王国の統合
+###########################################################################
+country_event = {
+	id = bsm_ind.16
+	title = bsm_ind.16.t
+	desc = bsm_ind.16.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.16.a
+		# 寛大な条件で統合する
+		if = { limit = { has_idea = RAJ_princely_states } remove_ideas = RAJ_princely_states }
+		add_political_power = 75
+		add_stability = 0.05
+		ai_chance = { factor = 70 }
+	}
+	option = {
+		name = bsm_ind.16.b
+		# 即時統合を要求する
+		add_stability = -0.05
+		add_manpower = 20000
+		ai_chance = { factor = 30 }
+	}
+}
+
+###########################################################################
+# bsm_ind.17 - 州の再編成
+###########################################################################
+country_event = {
+	id = bsm_ind.17
+	title = bsm_ind.17.t
+	desc = bsm_ind.17.d
+	picture = GFX_report_event_generic_parliament
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.17.a
+		# 言語別に州を再編する
+		add_ideas = bsm_ind_idea_unified_administration
+		add_stability = 0.05
+		ai_chance = { factor = 80 }
+	}
+	option = {
+		name = bsm_ind.17.b
+		# 現状の行政区分を維持する
+		add_political_power = 50
+		ai_chance = { factor = 20 }
+	}
+}
+
+###########################################################################
+# bsm_ind.20 - パキスタンの誕生
+###########################################################################
+country_event = {
+	id = bsm_ind.20
+	title = bsm_ind.20.t
+	desc = bsm_ind.20.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	immediate = {
+		# パキスタンが存在しない場合、独立させる
+		if = {
+			limit = { PAK = { exists = no } }
+			release = PAK
+		}
+		if = {
+			limit = { PAK = { exists = yes } }
+			PAK = {
+				set_politics = {
+					ruling_party = neutrality_ideology
+					last_election = "1947.8.14"
+					elections_allowed = yes
+				}
+				add_political_power = 100
+				if = {
+					limit = { NOT = { has_idea = RAJ_marginalized_muslim_community_happy } }
+					add_ideas = RAJ_marginalized_muslim_community_happy
+				}
+			}
+		}
+	}
+
+	option = {
+		name = bsm_ind.20.a
+		# 分割を受け入れ、平和的な移行を目指す
+		add_stability = 0.05
+		add_political_power = 50
+		if = {
+			limit = { PAK = { exists = yes } }
+			PAK = { add_opinion_modifier = { target = IND modifier = small_increase } }
+			add_opinion_modifier = { target = PAK modifier = small_increase }
+		}
+		news_event = { id = bsm_ind.20b days = 1 }
+	}
+}
+
+# bsm_ind.20b - ニュース: パキスタン独立
+news_event = {
+	id = bsm_ind.20b
+	title = bsm_ind.20b.t
+	desc = bsm_ind.20b.d
+	picture = GFX_news_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = bsm_ind.20b.a
+		trigger = { tag = IND }
+	}
+	option = {
+		name = bsm_ind.20b.b
+		trigger = { tag = PAK }
+		add_political_power = 100
+	}
+	option = {
+		name = bsm_ind.20b.c
+		trigger = { NOT = { OR = { tag = IND tag = PAK } } }
+	}
+}
+
+###########################################################################
+# bsm_ind.21 - カシミール問題
+###########################################################################
+country_event = {
+	id = bsm_ind.21
+	title = bsm_ind.21.t
+	desc = bsm_ind.21.d
+	picture = GFX_report_event_RAJ_political
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.21.a
+		# カシミールの帰属を主張する
+		add_war_support = 0.05
+		add_political_power = 50
+		if = {
+			limit = { PAK = { exists = yes } }
+			PAK = { add_opinion_modifier = { target = IND modifier = large_decrease } }
+		}
+		ai_chance = { factor = 60 }
+	}
+	option = {
+		name = bsm_ind.21.b
+		# パキスタンと交渉する
+		if = {
+			limit = { PAK = { exists = yes } }
+			PAK = { add_opinion_modifier = { target = IND modifier = medium_increase } }
+			add_opinion_modifier = { target = PAK modifier = medium_increase }
+		}
+		add_political_power = 75
+		ai_chance = { factor = 40 }
+	}
+}
+
+###########################################################################
+# bsm_ind.25 - パキスタンへのSAEC招待
+###########################################################################
+country_event = {
+	id = bsm_ind.25
+	title = bsm_ind.25.t
+	desc = bsm_ind.25.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.25.a
+		# SAECへの加盟を受け入れる
+		IND = { set_temp_variable = { bsm_ea_token = IND.IND_saec_token } }
+		ROOT = {
+			set_temp_variable = { bsm_ea_token = IND.IND_saec_token }
+			bsm_ea_join_sphere = yes
+		}
+		add_opinion_modifier = { target = IND modifier = large_increase }
+		IND = { add_opinion_modifier = { target = PAK modifier = large_increase } }
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = bsm_ind.25.b
+		# 断る
+		add_political_power = 25
+		ai_chance = { factor = 50 }
+	}
+}
+
+###########################################################################
+# bsm_ind.26 - 東南アジアへの拡大招待
+###########################################################################
+country_event = {
+	id = bsm_ind.26
+	title = bsm_ind.26.t
+	desc = bsm_ind.26.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_ind.26.a
+		# SAECへ参加する
+		ROOT = {
+			set_temp_variable = { bsm_ea_token = IND.IND_saec_token }
+			bsm_ea_join_sphere = yes
+		}
+		IND = { add_opinion_modifier = { target = FROM modifier = medium_increase } }
+		add_opinion_modifier = { target = IND modifier = medium_increase }
+		ai_chance = { factor = 50 }
+	}
+	option = {
+		name = bsm_ind.26.b
+		# 断る
+		add_political_power = 25
+		ai_chance = { factor = 50 }
+	}
+}
+
+###########################################################################
+# bsm_ind.30 - 非同盟運動宣言（ニュース）
+###########################################################################
+news_event = {
+	id = bsm_ind.30
+	title = bsm_ind.30.t
+	desc = bsm_ind.30.d
+	picture = GFX_news_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = bsm_ind.30.a
+		trigger = { tag = IND }
+		add_political_power = 100
+		add_popularity = {
+			ideology = neutrality_ideology
+			popularity = 0.05
+		}
+	}
+	option = {
+		name = bsm_ind.30.b
+		trigger = { NOT = { tag = IND } }
+	}
+}
+
+###########################################################################
+# bsm_ind.31 - ニュース: 南アジア経済共同体設立
+###########################################################################
+news_event = {
+	id = bsm_ind.31
+	title = bsm_ind.31.t
+	desc = bsm_ind.31.d
+	picture = GFX_news_event_generic_sign_treaty1
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = bsm_ind.31.a
+		trigger = { tag = IND }
+		add_political_power = 100
+		add_stability = 0.05
+	}
+	option = {
+		name = bsm_ind.31.b
+		trigger = { NOT = { tag = IND } }
+	}
+}

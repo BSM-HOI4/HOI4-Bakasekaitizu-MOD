@@ -1,0 +1,781 @@
+
+focus_tree = {
+	id = SBR_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = SBR
+		}
+	}
+	default = no
+	reset_on_civilwar = no
+
+	# =====================================================
+	# ROOT: 自由の宣言
+	# =====================================================
+	focus = {
+		id = SBR_free_declaration
+		icon = GFX_goal_generic_political_pressure
+		x = 9
+		y = 0
+		cost = 5
+		ai_will_do = { factor = 100 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+		}
+	}
+
+	# =====================================================
+	# TIER 1: 国内基盤・経済
+	# =====================================================
+	focus = {
+		id = SBR_internal_order
+		icon = GFX_goal_generic_propaganda
+		x = 7
+		y = 1
+		cost = 7
+		prerequisite = { focus = SBR_free_declaration }
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 50
+			add_ideas = SBR_spirit_order
+		}
+	}
+
+	focus = {
+		id = SBR_siberian_resource
+		icon = GFX_goal_generic_production
+		x = 11
+		y = 1
+		cost = 7
+		prerequisite = { focus = SBR_free_declaration }
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			576 = {
+				add_resource = {
+					type = steel
+					amount = 8
+				}
+			}
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	# =====================================================
+	# TIER 2: 三択路線選択（相互排他）
+	# =====================================================
+	focus = {
+		id = SBR_path_ruin
+		icon = GFX_goal_generic_major_war
+		x = 3
+		y = 2
+		cost = 10
+		prerequisite = { focus = SBR_internal_order }
+		mutually_exclusive = { focus = SBR_path_holy focus = SBR_path_red }
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 3
+				has_government = ruinism
+			}
+		}
+		completion_reward = {
+			add_ideas = SBR_spirit_ruinism_fervor
+			add_war_support = 0.10
+		}
+	}
+
+	focus = {
+		id = SBR_path_holy
+		icon = GFX_goal_generic_national_unity
+		x = 9
+		y = 2
+		cost = 10
+		prerequisite = { focus = SBR_internal_order }
+		mutually_exclusive = { focus = SBR_path_ruin focus = SBR_path_red }
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 3
+				has_government = mythologicalism
+			}
+		}
+		completion_reward = {
+			add_ideas = SBR_spirit_holy_mandate
+			add_stability = 0.10
+		}
+	}
+
+	focus = {
+		id = SBR_path_red
+		icon = GFX_goal_generic_soviet_construction
+		x = 15
+		y = 2
+		cost = 10
+		prerequisite = { focus = SBR_siberian_resource }
+		mutually_exclusive = { focus = SBR_path_ruin focus = SBR_path_holy }
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 3
+				has_government = communism_ideology
+			}
+		}
+		completion_reward = {
+			set_politics = {
+				ruling_party = communism_ideology
+				elections_allowed = no
+			}
+			add_ideas = SBR_spirit_red_vanguard
+		}
+	}
+
+	# =====================================================
+	# 廃墟ブランチ (RUINISM)  x=0-5
+	# =====================================================
+
+	# --- y=3 ---
+	focus = {
+		id = SBR_ruin_doctrine
+		icon = GFX_goal_generic_army_doctrines
+		x = 1
+		y = 3
+		cost = 10
+		prerequisite = { focus = SBR_path_ruin }
+		ai_will_do = { factor = 8 }
+		completion_reward = {
+			army_experience = 50
+			add_tech_bonus = {
+				name = ruin_land_doctrine
+				bonus = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = SBR_ruin_war_economy
+		icon = GFX_goal_generic_construct_mil_factory
+		x = 4
+		y = 3
+		cost = 10
+		prerequisite = { focus = SBR_path_ruin }
+		ai_will_do = { factor = 8 }
+		completion_reward = {
+			add_war_support = 0.10
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	# --- y=4 ---
+	focus = {
+		id = SBR_ruin_purge
+		icon = GFX_goal_generic_dangerous_deal
+		x = 0
+		y = 4
+		cost = 10
+		prerequisite = { focus = SBR_ruin_doctrine }
+		ai_will_do = { factor = 7 }
+		completion_reward = {
+			add_political_power = 150
+			add_stability = -0.05
+			army_experience = 30
+			add_war_support = 0.05
+		}
+	}
+
+	focus = {
+		id = SBR_ruin_blitzkrieg
+		icon = GFX_goal_generic_army_tanks
+		x = 2
+		y = 4
+		cost = 10
+		prerequisite = { focus = SBR_ruin_doctrine }
+		ai_will_do = { factor = 7 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = ruin_armor
+				bonus = 0.5
+				uses = 1
+				category = armor
+			}
+			add_tech_bonus = {
+				name = ruin_motorized
+				bonus = 0.5
+				uses = 1
+				category = motorized_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = SBR_ruin_arsenal
+		icon = GFX_goal_generic_production
+		x = 4
+		y = 4
+		cost = 10
+		prerequisite = { focus = SBR_ruin_war_economy }
+		ai_will_do = { factor = 7 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = ruin_weapons
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+			}
+		}
+	}
+
+	# --- y=5 ---
+	focus = {
+		id = SBR_ruin_sov_ultimatum
+		icon = GFX_goal_generic_territory_or_war
+		x = 1
+		y = 5
+		cost = 10
+		prerequisite = { focus = SBR_ruin_blitzkrieg }
+		available = {
+			SOV = { exists = yes }
+		}
+		ai_will_do = { factor = 6 }
+		completion_reward = {
+			add_state_claim = 219  # ウラル地方（要BSMステート番号確認）
+			add_state_claim = 195  # モスクワ州
+			add_state_claim = 217  # 西シベリア方面
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = SOV
+			}
+		}
+	}
+
+	focus = {
+		id = SBR_ruin_total_mobilization
+		icon = GFX_goal_generic_army_artillery
+		x = 4
+		y = 5
+		cost = 10
+		prerequisite = { focus = SBR_ruin_arsenal }
+		ai_will_do = { factor = 6 }
+		completion_reward = {
+			add_war_support = 0.15
+			add_manpower = 40000
+			add_ideas = SBR_spirit_siberian_bastion
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	# --- y=6 ---
+	focus = {
+		id = SBR_ruin_west_reclaim
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		x = 0
+		y = 6
+		cost = 10
+		prerequisite = { focus = SBR_ruin_sov_ultimatum }
+		ai_will_do = { factor = 5 }
+		completion_reward = {
+			# ロシア帝国・ノルウェー方面（要BSMステート番号確認）
+			add_state_claim = 195
+			add_state_claim = 196
+			add_state_claim = 197
+			custom_effect_tooltip = SBR_ruin_west_reclaim_tt
+		}
+	}
+
+	focus = {
+		id = SBR_ruin_south_conquest
+		icon = GFX_goal_generic_major_war
+		x = 3
+		y = 6
+		cost = 10
+		prerequisite = { focus = SBR_ruin_sov_ultimatum }
+		prerequisite = { focus = SBR_ruin_total_mobilization }
+		ai_will_do = { factor = 5 }
+		completion_reward = {
+			add_war_support = 0.10
+			add_state_claim = 402  # 東方（要BSMステート番号確認）
+			add_state_claim = 403
+			add_state_claim = 524
+			custom_effect_tooltip = SBR_ruin_south_conquest_tt
+		}
+	}
+
+	# --- y=7 (RUIN CONVERGENCE) ---
+	focus = {
+		id = SBR_ruin_convergence
+		icon = GFX_goal_generic_alliance
+		x = 2
+		y = 7
+		cost = 10
+		prerequisite = { focus = SBR_ruin_west_reclaim }
+		prerequisite = { focus = SBR_ruin_south_conquest }
+		ai_will_do = { factor = 4 }
+		completion_reward = {
+			add_political_power = 200
+			add_war_support = 0.10
+			add_stability = 0.05
+			custom_effect_tooltip = SBR_ruin_convergence_tt
+		}
+	}
+
+	# =====================================================
+	# 神話ブランチ (MYTHOLOGICALISM)  x=6-12
+	# =====================================================
+
+	# --- y=3 ---
+	focus = {
+		id = SBR_holy_shaman
+		icon = GFX_goal_generic_demand_territory
+		x = 7
+		y = 3
+		cost = 10
+		prerequisite = { focus = SBR_path_holy }
+		ai_will_do = { factor = 8 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.10
+		}
+	}
+
+	focus = {
+		id = SBR_holy_divine_army
+		icon = GFX_goal_generic_allies_build_infantry
+		x = 11
+		y = 3
+		cost = 10
+		prerequisite = { focus = SBR_path_holy }
+		ai_will_do = { factor = 8 }
+		completion_reward = {
+			add_manpower = 30000
+			add_tech_bonus = {
+				name = holy_army
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+			}
+		}
+	}
+
+	# --- y=4 ---
+	focus = {
+		id = SBR_holy_theocracy
+		icon = GFX_goal_generic_national_unity
+		x = 7
+		y = 4
+		cost = 10
+		prerequisite = { focus = SBR_holy_shaman }
+		ai_will_do = { factor = 7 }
+		completion_reward = {
+			add_political_power = 100
+			add_ideas = SBR_spirit_theocracy
+		}
+	}
+
+	focus = {
+		id = SBR_holy_prophecy
+		icon = GFX_goal_generic_positive_trade_relations
+		x = 9
+		y = 4
+		cost = 10
+		prerequisite = { focus = SBR_holy_shaman }
+		ai_will_do = { factor = 7 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = holy_prophecy_research
+				bonus = 0.5
+				uses = 2
+				category = electronics
+			}
+			add_stability = 0.05
+			add_tech_bonus = {
+				name = holy_prophecy_industry
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = SBR_holy_crusade
+		icon = GFX_goal_generic_army_artillery
+		x = 11
+		y = 4
+		cost = 10
+		prerequisite = { focus = SBR_holy_divine_army }
+		ai_will_do = { factor = 7 }
+		completion_reward = {
+			add_war_support = 0.15
+			add_state_claim = 217
+			add_manpower = 20000
+			army_experience = 50
+		}
+	}
+
+	# --- y=5 ---
+	focus = {
+		id = SBR_holy_sacred_decree
+		icon = GFX_goal_generic_propaganda
+		x = 8
+		y = 5
+		cost = 10
+		prerequisite = { focus = SBR_holy_theocracy }
+		available = {
+			SOV = { exists = yes }
+		}
+		ai_will_do = { factor = 6 }
+		completion_reward = {
+			add_state_claim = 219
+			add_state_claim = 195
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = SOV
+			}
+			custom_effect_tooltip = SBR_holy_sacred_decree_tt
+		}
+	}
+
+	focus = {
+		id = SBR_holy_holy_industry
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 11
+		y = 5
+		cost = 10
+		prerequisite = { focus = SBR_holy_crusade }
+		ai_will_do = { factor = 6 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = holy_industry_tech
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+	# --- y=6 ---
+	focus = {
+		id = SBR_holy_west_return
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		x = 7
+		y = 6
+		cost = 10
+		prerequisite = { focus = SBR_holy_sacred_decree }
+		ai_will_do = { factor = 5 }
+		completion_reward = {
+			add_state_claim = 195
+			add_state_claim = 196
+			add_state_claim = 197
+			custom_effect_tooltip = SBR_holy_west_return_tt
+		}
+	}
+
+	focus = {
+		id = SBR_holy_south_mission
+		icon = GFX_goal_generic_alliance
+		x = 10
+		y = 6
+		cost = 10
+		prerequisite = { focus = SBR_holy_sacred_decree }
+		prerequisite = { focus = SBR_holy_holy_industry }
+		ai_will_do = { factor = 5 }
+		completion_reward = {
+			add_state_claim = 402
+			add_state_claim = 403
+			add_manpower = 25000
+			custom_effect_tooltip = SBR_holy_south_mission_tt
+		}
+	}
+
+	# --- y=7 (HOLY CONVERGENCE) ---
+	focus = {
+		id = SBR_holy_convergence
+		icon = GFX_goal_generic_national_unity
+		x = 9
+		y = 7
+		cost = 10
+		prerequisite = { focus = SBR_holy_west_return }
+		prerequisite = { focus = SBR_holy_south_mission }
+		ai_will_do = { factor = 4 }
+		completion_reward = {
+			add_stability = 0.10
+			add_political_power = 200
+			add_war_support = 0.05
+			custom_effect_tooltip = SBR_holy_convergence_tt
+		}
+	}
+
+	# =====================================================
+	# 共産ブランチ (COMMUNISM)  x=12-17
+	# =====================================================
+
+	# --- y=3 ---
+	focus = {
+		id = SBR_red_workers
+		icon = GFX_goal_generic_construct_civ_factory
+		x = 13
+		y = 3
+		cost = 10
+		prerequisite = { focus = SBR_path_red }
+		ai_will_do = { factor = 8 }
+		completion_reward = {
+			add_political_power = 100
+			add_stability = 0.05
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = SBR_red_army_rebuild
+		icon = GFX_goal_generic_army_doctrines
+		x = 17
+		y = 3
+		cost = 10
+		prerequisite = { focus = SBR_path_red }
+		ai_will_do = { factor = 8 }
+		completion_reward = {
+			add_manpower = 50000
+			add_tech_bonus = {
+				name = red_army_infantry
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+			}
+			add_tech_bonus = {
+				name = red_army_doctrine
+				bonus = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	# --- y=4 ---
+	focus = {
+		id = SBR_red_collectivization
+		icon = GFX_goal_generic_positive_trade_relations
+		x = 13
+		y = 4
+		cost = 10
+		prerequisite = { focus = SBR_red_workers }
+		ai_will_do = { factor = 7 }
+		completion_reward = {
+			add_stability = 0.05
+			add_manpower = 30000
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = SBR_red_heavy_industry
+		icon = GFX_goal_generic_production
+		x = 15
+		y = 4
+		cost = 10
+		prerequisite = { focus = SBR_red_workers }
+		ai_will_do = { factor = 7 }
+		completion_reward = {
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 3
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = red_industry_tech
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+	focus = {
+		id = SBR_red_purge_bourgeois
+		icon = GFX_goal_generic_dangerous_deal
+		x = 17
+		y = 4
+		cost = 10
+		prerequisite = { focus = SBR_red_army_rebuild }
+		ai_will_do = { factor = 7 }
+		completion_reward = {
+			add_war_support = 0.10
+			add_political_power = 100
+			add_stability = -0.05
+			army_experience = 30
+		}
+	}
+
+	# --- y=5 ---
+	focus = {
+		id = SBR_red_absorb_sov
+		icon = GFX_goal_generic_territory_or_war
+		x = 14
+		y = 5
+		cost = 10
+		prerequisite = { focus = SBR_red_heavy_industry }
+		available = {
+			SOV = { exists = yes }
+		}
+		ai_will_do = { factor = 6 }
+		completion_reward = {
+			add_state_claim = 195
+			add_state_claim = 219
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = SOV
+			}
+			custom_effect_tooltip = SBR_red_absorb_sov_tt
+		}
+	}
+
+	focus = {
+		id = SBR_red_eastern
+		icon = GFX_goal_generic_major_war
+		x = 17
+		y = 5
+		cost = 10
+		prerequisite = { focus = SBR_red_purge_bourgeois }
+		ai_will_do = { factor = 6 }
+		completion_reward = {
+			add_war_support = 0.10
+			add_state_claim = 402
+			add_state_claim = 403
+			add_state_claim = 524
+			army_experience = 50
+		}
+	}
+
+	# --- y=6 ---
+	focus = {
+		id = SBR_red_sov_integrate
+		icon = GFX_goal_generic_alliance
+		x = 13
+		y = 6
+		cost = 10
+		prerequisite = { focus = SBR_red_absorb_sov }
+		ai_will_do = { factor = 5 }
+		completion_reward = {
+			add_political_power = 150
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = SBR_red_sov_integrate_tt
+		}
+	}
+
+	focus = {
+		id = SBR_red_south_advance
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		x = 16
+		y = 6
+		cost = 10
+		prerequisite = { focus = SBR_red_absorb_sov }
+		prerequisite = { focus = SBR_red_eastern }
+		ai_will_do = { factor = 5 }
+		completion_reward = {
+			add_war_support = 0.10
+			add_state_claim = 524
+			add_manpower = 30000
+			custom_effect_tooltip = SBR_red_south_advance_tt
+		}
+	}
+
+	# --- y=7 (RED CONVERGENCE) ---
+	focus = {
+		id = SBR_red_convergence
+		icon = GFX_goal_generic_soviet_construction
+		x = 15
+		y = 7
+		cost = 10
+		prerequisite = { focus = SBR_red_sov_integrate }
+		prerequisite = { focus = SBR_red_south_advance }
+		ai_will_do = { factor = 4 }
+		completion_reward = {
+			add_political_power = 150
+			random_owned_controlled_state = {
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = SBR_red_convergence_tt
+		}
+	}
+
+	# =====================================================
+	# FINAL: 聖シベリアの栄光 (y=8)
+	# =====================================================
+	focus = {
+		id = SBR_saint_siberia_glory
+		icon = GFX_goal_generic_political_pressure
+		x = 9
+		y = 8
+		cost = 10
+		prerequisite = { focus = SBR_ruin_convergence }
+		prerequisite = { focus = SBR_holy_convergence }
+		prerequisite = { focus = SBR_red_convergence }
+		ai_will_do = { factor = 3 }
+		completion_reward = {
+			add_political_power = 200
+			add_stability = 0.10
+			add_war_support = 0.10
+			set_cosmetic_tag = SAINTSIBERIA_free_state
+			custom_effect_tooltip = SBR_saint_siberia_glory_tt
+		}
+	}
+}
