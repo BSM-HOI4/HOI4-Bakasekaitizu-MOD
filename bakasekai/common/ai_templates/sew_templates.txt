@@ -1,0 +1,343 @@
+# 第二次エミュー戦争 師団編制AIテンプレート
+# 対象国: HRH（ハットリバー公国）/ AST（オーストラリア連邦）/ AUS（エミュー帝国）
+
+######################################
+# HRH（ハットリバー公国）
+# 特性: 小国・民兵主体・不正規戦特化
+######################################
+
+# ─── 歩兵ロール（主力：不正規兵+民兵） ───
+HRH_sew_infantry = {
+	available_for = { HRH }
+	role = infantry
+	upgrade_prio = {
+		factor = 3
+	}
+
+	# 序盤: 軽装不正規師団（州884確保直後）
+	HRH_irregular_core = {
+		upgrade_prio = {
+			factor = 3
+		}
+		target_template = {
+			support = {
+				recon     = 1
+				engineer  = 1
+			}
+			regiments = {
+				irregular_infantry = 4
+				militia             = 3
+			}
+		}
+		replace_at_match = 0.8
+		replace_with     = HRH_irregular_reinforced
+		target_min_match = 0.5
+	}
+
+	# 中盤: AST装備支給後に強化（sew_support.2 装備支援選択後）
+	HRH_irregular_reinforced = {
+		upgrade_prio = {
+			factor = 2
+			modifier = {
+				factor = 3
+				# AST装備支援を受けた場合に優先度UP
+				has_idea = HRH_sew_ast_equipped
+			}
+		}
+		target_template = {
+			support = {
+				recon     = 1
+				engineer  = 1
+				artillery = 1
+			}
+			regiments = {
+				irregular_infantry = 5
+				militia             = 3
+				infantry            = 1
+			}
+		}
+		replace_at_match = 0.9
+		replace_with     = HRH_regular_combined
+		target_min_match = 0.5
+	}
+
+	# 後期: AST顧問団指導後の正規化師団
+	HRH_regular_combined = {
+		upgrade_prio = {
+			factor = 1
+			modifier = {
+				factor = 4
+				has_idea = HRH_sew_ast_advisors
+			}
+		}
+		target_template = {
+			support = {
+				recon     = 1
+				engineer  = 1
+				artillery = 1
+				anti_tank = 1
+			}
+			regiments = {
+				infantry            = 6
+				irregular_infantry  = 3
+			}
+		}
+	}
+}
+
+# ─── 守備ロール（拠点防衛） ───
+HRH_sew_garrison = {
+	available_for = { HRH }
+	role = garrison
+	upgrade_prio = {
+		factor = 2
+	}
+
+	HRH_garrison_militia = {
+		reinforce_prio = 0
+		custom_icon = 7
+		upgrade_prio = {
+			factor = 1
+		}
+		target_template = {
+			regiments = {
+				militia = 4
+			}
+		}
+	}
+}
+
+# ─── 制圧ロール（占領地維持） ───
+HRH_sew_suppression = {
+	available_for = { HRH }
+	role = suppression
+	upgrade_prio = {
+		factor = 1
+	}
+
+	HRH_suppression_light = {
+		reinforce_prio = 0
+		custom_icon = 13
+		upgrade_prio = {
+			factor = 1
+		}
+		target_template = {
+			regiments = {
+				irregular_infantry = 3
+				militia             = 2
+			}
+		}
+	}
+}
+
+######################################
+# AST（オーストラリア連邦）
+# 特性: タスマニア亡命政府・海軍重視・
+#       HRH支援後は本土上陸戦力を構築
+######################################
+
+# ─── 歩兵ロール ───
+AST_sew_infantry = {
+	available_for = { AST }
+	role = infantry
+	upgrade_prio = {
+		factor = 3
+	}
+
+	# 序盤: 標準歩兵（タスマニア守備）
+	AST_standard_infantry = {
+		upgrade_prio = {
+			factor = 2
+		}
+		target_template = {
+			support = {
+				engineer  = 1
+				artillery = 1
+			}
+			regiments = {
+				infantry = 9
+			}
+		}
+		replace_at_match = 0.9
+		replace_with     = AST_assault_infantry
+		target_min_match = 0.5
+	}
+
+	# 中盤: 対エミュー強襲歩兵（参戦フォーカス後）
+	AST_assault_infantry = {
+		upgrade_prio = {
+			factor = 2
+			modifier = {
+				factor = 3
+				has_idea = AST_sew_war_mobilization
+			}
+		}
+		target_template = {
+			support = {
+				engineer  = 1
+				artillery = 1
+				anti_tank = 1
+				recon     = 1
+			}
+			regiments = {
+				infantry            = 9
+				anti_tank_brigade   = 1
+			}
+		}
+	}
+}
+
+# ─── 海兵ロール（本土上陸作戦） ───
+AST_sew_marines = {
+	available_for = { AST }
+	role = marines
+	upgrade_prio = {
+		factor = 2
+		modifier = {
+			factor = 4
+			# 参戦フォーカス取得後に優先度UP
+			has_completed_focus = AST_sew_declare_war
+		}
+	}
+
+	AST_marine_landing = {
+		upgrade_prio = {
+			factor = 2
+		}
+		target_template = {
+			support = {
+				engineer = 1
+				recon    = 1
+			}
+			regiments = {
+				marine   = 4
+				infantry = 2
+			}
+		}
+	}
+}
+
+# ─── 守備ロール ───
+AST_sew_garrison = {
+	available_for = { AST }
+	role = garrison
+	upgrade_prio = {
+		factor = 1
+	}
+
+	AST_garrison_standard = {
+		reinforce_prio = 0
+		custom_icon = 7
+		upgrade_prio = {
+			factor = 1
+		}
+		target_template = {
+			regiments = {
+				infantry = 4
+			}
+		}
+	}
+}
+
+######################################
+# AUS（エミュー帝国）
+# 特性: 大国・歩兵主体・機動力重視
+#       民兵で広大な本土を維持
+######################################
+
+# ─── 歩兵ロール ───
+AUS_sew_infantry = {
+	available_for = { AUS }
+	role = infantry
+	upgrade_prio = {
+		factor = 3
+	}
+
+	# 序盤〜中盤: エミュー標準師団
+	AUS_emu_standard = {
+		upgrade_prio = {
+			factor = 2
+		}
+		target_template = {
+			support = {
+				recon    = 1
+				engineer = 1
+			}
+			regiments = {
+				infantry = 9
+				cavalry  = 1   # 哨戒・機動用
+			}
+		}
+		replace_at_match = 0.9
+		replace_with     = AUS_emu_wartime
+		target_min_match = 0.5
+	}
+
+	# 戦時体制（AUS_sew_war_footing取得後）
+	AUS_emu_wartime = {
+		upgrade_prio = {
+			factor = 2
+			modifier = {
+				factor = 5
+				has_idea = AUS_sew_war_footing
+			}
+		}
+		target_template = {
+			support = {
+				recon     = 1
+				engineer  = 1
+				artillery = 1
+				anti_tank = 1
+			}
+			regiments = {
+				infantry = 9
+				militia  = 2
+			}
+		}
+	}
+}
+
+# ─── 守備ロール（本土各州の広域維持） ───
+AUS_sew_garrison = {
+	available_for = { AUS }
+	role = garrison
+	upgrade_prio = {
+		factor = 2
+	}
+
+	AUS_garrison_wide = {
+		reinforce_prio = 0
+		custom_icon = 7
+		upgrade_prio = {
+			factor = 1
+		}
+		target_template = {
+			regiments = {
+				infantry = 4
+				militia  = 2
+			}
+		}
+	}
+}
+
+# ─── 制圧ロール（占領地・解放区） ───
+AUS_sew_suppression = {
+	available_for = { AUS }
+	role = suppression
+	upgrade_prio = {
+		factor = 1
+	}
+
+	AUS_suppression_cavalry = {
+		reinforce_prio = 0
+		custom_icon = 13
+		upgrade_prio = {
+			factor = 1
+		}
+		target_template = {
+			regiments = {
+				cavalry = 4
+			}
+		}
+	}
+}
