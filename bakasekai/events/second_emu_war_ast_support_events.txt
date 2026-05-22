@@ -1,0 +1,432 @@
+# 第二次エミュー戦争 - AST支援イベント群
+# HRHが西オーストラリア(state:884)を確保した後、ASTへの支援要請フロー
+# 発火の起点: HRH_recapture_success フラグ + HRH_focus_8(牧歌同盟の結成)
+
+add_namespace = sew_support
+
+######################################
+# sew_support.1 : HRHからASTへの緊急支援要請
+# HRH_recapture_states.2 (既存) でAST側ファクションOKした後、
+# ASTに追加の支援を要請するイベントを飛ばす起点
+######################################
+country_event = {
+	id = sew_support.1
+	title = sew_support.1.t
+	desc = sew_support.1.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes   # HRH_recapture_states.2 のoption.aから呼ばれる
+
+	# HRH側に届くイベント（確認通知）
+	trigger = {
+		tag = HRH
+		has_country_flag = HRH_recapture_success
+	}
+
+	option = {
+		# ASTに支援の詳細を要請する
+		name = sew_support.1.a
+		ai_chance = { factor = 90 }
+		AST = {
+			country_event = { id = sew_support.2 days = 2 }
+		}
+		set_country_flag = HRH_ast_support_requested
+	}
+	option = {
+		# 今は独力で戦う
+		name = sew_support.1.b
+		ai_chance = { factor = 10 }
+		add_political_power = 20
+		add_ideas = HRH_sew_alone_spirit
+	}
+}
+
+######################################
+# sew_support.2 : AST側に届く支援要請通知
+# ASTプレイヤー/AIが支援内容を選択する
+######################################
+country_event = {
+	id = sew_support.2
+	title = sew_support.2.t
+	desc = sew_support.2.d
+	picture = GFX_report_event_generic_conference
+
+	is_triggered_only = yes   # sew_support.1 から呼ばれる
+
+	trigger = {
+		tag = AST
+	}
+
+	# 選択肢A: 物資・装備を送る（軽支援）
+	option = {
+		name = sew_support.2.a
+		ai_chance = { factor = 50 }
+		HRH = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 2000
+				producer = AST
+			}
+			add_equipment_to_stockpile = {
+				type = support_equipment
+				amount = 200
+				producer = AST
+			}
+			add_ideas = HRH_sew_ast_equipped
+		}
+		add_political_power = -30
+		set_country_flag = AST_sew_support_given_equipment
+	}
+
+	# 選択肢B: 軍事顧問団を派遣する（中支援）
+	option = {
+		name = sew_support.2.b
+		ai_chance = { factor = 35 }
+		HRH = {
+			add_ideas = HRH_sew_ast_advisors
+			add_tech_bonus = {
+				name = HRH_sew_ast_military_training
+				bonus = 0.3
+				uses = 2
+				category = land_doctrine
+			}
+		}
+		add_political_power = -50
+		set_country_flag = AST_sew_support_given_advisors
+	}
+
+	# 選択肢C: 正規軍を派遣し共同作戦を展開する（重支援・参戦）
+	option = {
+		name = sew_support.2.c
+		ai_chance = { factor = 10 }
+		HRH = {
+			add_ideas = HRH_sew_ast_full_support
+		}
+		set_country_flag = AST_sew_support_full_intervention
+		# ASTのフォーカスツリーでの参戦フォーカスを解禁するフラグ
+		set_country_flag = AST_sew_ready_to_intervene
+		country_event = { id = sew_support.5 days = 7 }  # 参戦準備イベントへ
+	}
+
+	# 選択肢D: 今は動けない（拒否）
+	option = {
+		name = sew_support.2.d
+		ai_chance = { factor = 5 }
+		HRH = {
+			country_event = { id = sew_support.3 days = 1 }  # 拒否通知
+		}
+		add_opinion_modifier = {
+			target = HRH
+			modifier = AST_abandoned_hrh
+		}
+	}
+}
+
+######################################
+# sew_support.3 : ASTに拒否された時のHRH側通知
+######################################
+country_event = {
+	id = sew_support.3
+	title = sew_support.3.t
+	desc = sew_support.3.d
+	picture = GFX_report_event_generic_read_write
+
+	is_triggered_only = yes
+
+	trigger = {
+		tag = HRH
+	}
+
+	option = {
+		name = sew_support.3.a
+		# 独立路線へ — 士気ボーナス＋安定度ペナルティ
+		add_ideas = HRH_sew_alone_spirit
+		add_stability = -0.05
+		add_war_support = 0.05
+	}
+}
+
+######################################
+# sew_support.4 : 物資/顧問支援後の現地報告
+# AST支援から一定期間後にHRH側で発火
+######################################
+country_event = {
+	id = sew_support.4
+	title = sew_support.4.t
+	desc = sew_support.4.d
+	picture = GFX_report_event_generic_factory
+
+	trigger = {
+		tag = HRH
+		OR = {
+			has_country_flag = AST_sew_support_given_equipment
+			has_country_flag = AST_sew_support_given_advisors
+		}
+		has_war = yes
+		date > 1937.3.1
+	}
+	mean_time_to_happen = {
+		months = 3
+	}
+	fire_only_once = yes
+
+	option = {
+		# 装備が前線に届いた！ 攻勢準備
+		name = sew_support.4.a
+		ai_chance = { factor = 100 }
+		add_war_support = 0.05
+		random_owned_controlled_state = {
+			limit = {
+				is_controlled_by = HRH
+			}
+			add_building_construction = {
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		# ASTに感謝と続きの要請を伝える
+		AST = {
+			country_event = { id = sew_support.6 days = 3 }
+		}
+	}
+}
+
+######################################
+# sew_support.5 : ASTの参戦準備（重支援ルート）
+# AST側で参戦の最終確認
+######################################
+country_event = {
+	id = sew_support.5
+	title = sew_support.5.t
+	desc = sew_support.5.d
+	picture = GFX_report_event_generic_military_parade
+
+	is_triggered_only = yes
+
+	trigger = {
+		tag = AST
+		has_country_flag = AST_sew_ready_to_intervene
+	}
+
+	option = {
+		# 即時参戦 — AUSに宣戦
+		name = sew_support.5.a
+		ai_chance = { factor = 60 }
+		declare_war_on = {
+			target = AUS
+			type = annex_everything
+		}
+		add_ideas = AST_sew_war_mobilization
+		HRH = {
+			country_event = { id = sew_support.7 days = 1 }  # HRH側通知
+		}
+		AUS = {
+			country_event = { id = sew_aus.1 days = 1 }  # AUS側反応
+		}
+	}
+	option = {
+		# もう少し準備してから参戦
+		name = sew_support.5.b
+		ai_chance = { factor = 40 }
+		add_ideas = AST_sew_war_preparation
+		set_country_flag = AST_sew_preparing_intervention
+		# 60日後に再度確認イベント
+		country_event = { id = sew_support.5 days = 60 }
+	}
+}
+
+######################################
+# sew_support.6 : HRHからの感謝と追加支援要請
+# AST側に届く
+######################################
+country_event = {
+	id = sew_support.6
+	title = sew_support.6.t
+	desc = sew_support.6.d
+	picture = GFX_report_event_generic_sign_treaty2
+
+	is_triggered_only = yes
+
+	trigger = {
+		tag = AST
+	}
+
+	option = {
+		# さらに追加支援を送る
+		name = sew_support.6.a
+		ai_chance = { factor = 70 }
+		HRH = {
+			add_equipment_to_stockpile = {
+				type = artillery_equipment_1
+				amount = 300
+				producer = AST
+			}
+			add_manpower = 5000
+		}
+		add_political_power = -40
+	}
+	option = {
+		# 今の支援で十分だ
+		name = sew_support.6.b
+		ai_chance = { factor = 30 }
+		add_political_power = 30
+	}
+}
+
+######################################
+# sew_support.7 : ASTが参戦！ HRH側通知
+######################################
+country_event = {
+	id = sew_support.7
+	title = sew_support.7.t
+	desc = sew_support.7.d
+	picture = GFX_report_event_generic_military_parade
+
+	is_triggered_only = yes
+
+	trigger = {
+		tag = HRH
+	}
+
+	option = {
+		name = sew_support.7.a
+		ai_chance = { factor = 100 }
+		add_war_support = 0.15
+		add_stability = 0.05
+		add_political_power = 50
+		# ASTとの関係強化
+		add_opinion_modifier = {
+			target = AST
+			modifier = HRH_grateful_to_ast
+		}
+	}
+}
+
+######################################
+# sew_support.8 : イギリス参観武官の到着
+# GBRが状況を注視 — AST支援中に発火
+# （GBRが健在かつAST支援フラグがある場合）
+######################################
+country_event = {
+	id = sew_support.8
+	title = sew_support.8.t
+	desc = sew_support.8.d
+	picture = GFX_report_event_generic_read_write
+
+	trigger = {
+		tag = AST
+		OR = {
+			has_country_flag = AST_sew_support_given_advisors
+			has_country_flag = AST_sew_ready_to_intervene
+		}
+		GBR = {
+			exists = yes
+			NOT = { has_war_with = AST }
+		}
+		date > 1937.6.1
+	}
+	fire_only_once = yes
+	mean_time_to_happen = {
+		months = 2
+	}
+
+	option = {
+		# 英国の支援を受け入れる
+		name = sew_support.8.a
+		ai_chance = { factor = 60 }
+		add_ideas = AST_sew_british_liaison
+		GBR = {
+			country_event = { id = sew_gbr.1 days = 3 }
+		}
+		add_opinion_modifier = {
+			target = GBR
+			modifier = AST_welcomed_british_liaison
+		}
+	}
+	option = {
+		# コモンウェルスの問題、我々で解決する
+		name = sew_support.8.b
+		ai_chance = { factor = 40 }
+		add_ideas = AST_sew_independence_spirit
+		add_stability = 0.05
+		GBR = {
+			add_opinion_modifier = {
+				target = AST
+				modifier = GBR_ast_independent_policy
+			}
+		}
+	}
+}
+
+######################################
+# sew_aus.1 : AUSがAST参戦に反応
+######################################
+country_event = {
+	id = sew_aus.1
+	title = sew_aus.1.t
+	desc = sew_aus.1.d
+	picture = GFX_report_event_generic_military_parade
+
+	is_triggered_only = yes
+
+	trigger = {
+		tag = AUS
+	}
+
+	option = {
+		# 「我らが聖域を侵すとは！全エミュー戦士よ集え！」
+		name = sew_aus.1.a
+		ai_chance = { factor = 80 }
+		add_war_support = 0.10
+		add_ideas = AUS_sew_war_footing
+	}
+	option = {
+		# 「タスマニアを揺さぶれ…戦略的撤退だ」
+		name = sew_aus.1.b
+		ai_chance = { factor = 20 }
+		add_ideas = AUS_sew_defensive_posture
+		add_stability = 0.05
+	}
+}
+
+######################################
+# sew_gbr.1 : イギリスの連絡将校がオーストラリア情勢を報告
+######################################
+country_event = {
+	id = sew_gbr.1
+	title = sew_gbr.1.t
+	desc = sew_gbr.1.d
+	picture = GFX_report_event_generic_conference
+
+	is_triggered_only = yes
+
+	trigger = {
+		tag = GBR
+	}
+
+	option = {
+		# コモンウェルスの義務として支援を続ける
+		name = sew_gbr.1.a
+		ai_chance = { factor = 50 }
+		AST = {
+			add_ideas = AST_sew_british_support_active
+			add_tech_bonus = {
+				name = GBR_ast_military_aid
+				bonus = 0.2
+				uses = 1
+				category = infantry_weapons
+			}
+		}
+		add_political_power = -50
+	}
+	option = {
+		# 現地の問題は現地で解決させる
+		name = sew_gbr.1.b
+		ai_chance = { factor = 50 }
+		add_opinion_modifier = {
+			target = AST
+			modifier = GBR_hands_off_policy
+		}
+	}
+}

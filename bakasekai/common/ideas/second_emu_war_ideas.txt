@@ -1,0 +1,241 @@
+# 第二次エミュー戦争 国家精神・アイデア
+# 関係国: AST / HRH / AUS / GBR
+
+ideas = {
+	country = {
+
+		# ─────────────────────────────────────────
+		# AST（オーストラリア連邦）用
+		# ─────────────────────────────────────────
+
+		# 動員令 — 参戦時の総動員
+		AST_sew_war_mobilization = {
+			picture = generic_manpower_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				conscription = 0.05
+				war_support_factor = 0.10
+				stability_factor = -0.05
+				industrial_capacity_factory = 0.05
+			}
+		}
+
+		# 参戦準備中 — まだ宣戦していない段階の軍備増強
+		AST_sew_war_preparation = {
+			picture = generic_prepare_civil_war
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				conscription = 0.02
+				training_time_factor = -0.10
+				army_org_factor = 0.05
+			}
+		}
+
+		# 英国連絡将校 — GBRがリエゾン派遣
+		AST_sew_british_liaison = {
+			picture = generic_military_intelligence
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_morale_factor = 0.05
+				planning_speed = 0.10
+				research_speed_factor = 0.03
+			}
+		}
+
+		# 英国の積極支援 — GBRフォーカスで支援決定後
+		AST_sew_british_support_active = {
+			picture = generic_goods_red_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				production_speed_arms_factory_factor = 0.05
+				equipment_conversion_speed = 0.10
+				army_attack_factor = 0.03
+			}
+		}
+
+		# 独立不羈の精神 — GBRを頼らず独自路線
+		AST_sew_independence_spirit = {
+			picture = generic_war_support
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.05
+				surrender_limit = 0.05
+				political_power_factor = 0.10
+				war_support_factor = 0.05
+			}
+		}
+
+		# 西海岸補給路 — 海路でHRHに物資輸送
+		AST_sew_western_coast_supply_route = {
+			picture = generic_navy_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				naval_speed_factor = 0.05
+				convoy_escort_efficiency = 0.10
+				HRH = {
+					army_org_regain = 0.05
+				}
+			}
+		}
+
+		# 西部奪還完了 — 戦後処理ボーナス
+		AST_sew_west_reclaimed = {
+			picture = generic_political_rally
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.10
+				political_power_factor = 0.15
+				war_support_factor = 0.05
+			}
+		}
+
+		# ─────────────────────────────────────────
+		# HRH（ハットリバー公国）用
+		# ─────────────────────────────────────────
+
+		# AST装備支給 — ASTから武器を受け取った
+		HRH_sew_ast_equipped = {
+			picture = generic_goods_red_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_attack_factor = 0.05
+				supply_consumption_factor = -0.05
+				equipment_capture_factor = 0.10
+			}
+		}
+
+		# AST軍事顧問団 — ASTの顧問団が指導
+		HRH_sew_ast_advisors = {
+			picture = generic_military_intelligence
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_morale_factor = 0.08
+				planning_speed = 0.15
+				army_org_factor = 0.05
+				land_doctrine_cost_factor = -0.10
+			}
+		}
+
+		# AST全面支援 — ASTが参戦を表明
+		HRH_sew_ast_full_support = {
+			picture = generic_war_support
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_morale_factor = 0.15
+				war_support_factor = 0.20
+				surrender_limit = 0.10
+				army_attack_factor = 0.08
+			}
+		}
+
+		# 合同作戦ボーナス — AST・HRH協同で戦術改善
+		HRH_sew_combined_ops_bonus = {
+			picture = generic_army_doctrines
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				coordination_bonus = 0.1
+				army_attack_factor = 0.05
+				army_defence_factor = 0.05
+			}
+		}
+
+		# 孤立した抵抗 — ASTの支援なしで独立継続
+		HRH_sew_alone_spirit = {
+			picture = generic_morale_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.10
+				resistance_target = 0.10
+				war_support_factor = 0.05
+				surrender_limit = 0.05
+			}
+		}
+
+		# ASTからの国家承認 — 戦後自治州として承認
+		HRH_sew_ast_recognition = {
+			picture = generic_political_rally
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				stability_factor = 0.15
+				political_power_factor = 0.20
+				war_support_factor = -0.05
+			}
+		}
+
+		# ─────────────────────────────────────────
+		# AUS（エミュー帝国）用
+		# ─────────────────────────────────────────
+
+		# 第二次大戦体制 — AST参戦に対する総動員
+		AUS_sew_war_footing = {
+			picture = generic_manpower_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				conscription = 0.05
+				army_morale_factor = 0.10
+				war_support_factor = 0.10
+				production_speed_arms_factory_factor = 0.10
+			}
+		}
+
+		# 防御態勢 — 攻勢より防衛に切り替え
+		AUS_sew_defensive_posture = {
+			picture = generic_fortify_city
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_core_defence_factor = 0.15
+				dig_in_speed_factor = 0.20
+				army_attack_factor = -0.05
+			}
+		}
+
+		# ─────────────────────────────────────────
+		# GBR（イギリス）用オピニオン・モディファイア参照
+		# ─────────────────────────────────────────
+		# ※ opinion_modifiers は別途 opinion_modifiers.txt に記載推奨
+		# 　 ここでは国家精神のみ定義
+
+		# コモンウェルス積極関与 — ASTへの介入決定後
+		GBR_sew_commonwealth_duty = {
+			picture = generic_goods_red_bonus
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				political_power_factor = -0.10
+				stability_factor = -0.02
+				war_support_factor = 0.05
+			}
+		}
+	}
+}
