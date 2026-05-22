@@ -6,6 +6,7 @@ bsm_economic_alliance_decisions = {
 		available = {
 			is_subject = no
 			any_subject_country = { always = yes }
+			# 経済同盟加盟国のみ
 			is_in_bsm_ea_sphere = yes
 		}
 		visible = {
@@ -42,36 +43,24 @@ bsm_economic_alliance_decisions = {
 		target_array = neighbors
 		target_trigger = {
 			FROM = {
-				exists = yes
-				NOT = { tag = XXX }
-				NOT = { has_war_with = ROOT }
+				# Use new triggers
+				bsm_ea_can_form_sphere_visible = yes
+				bsm_ea_can_form_sphere_allowed = yes
 			}
 		}
 		visible = {
-			is_subject = no
-			has_political_power > 100
-			NOT = { has_war_with = FROM }
 			FROM = {
-				exists = yes
-				NOT = { tag = XXX }
+				bsm_ea_can_form_sphere_visible = yes
 			}
 		}
 		available = {
-			has_political_power > 100
-			check_variable = { Unified_Currency > 100 }
-			has_civil_war = no
-			NOT = { has_war_with = FROM }
-			NOT = { has_government = ruinism }
-			NOT = { has_government = anarchism }
-			has_stability > 0
-			has_opinion = {
-				target = FROM
-				value > 25
+			FROM = {
+				bsm_ea_can_form_sphere_allowed = yes
 			}
 		}
 		fire_only_once = no
 		days_re_enable = 30
-		cost = 0
+		cost = 0 # Effect handles cost
 		complete_effect = {
 			bsm_ea_form_sphere_action = yes
 		}
@@ -86,35 +75,20 @@ bsm_economic_alliance_decisions = {
 		target_array = neighbors
 		target_trigger = {
 			FROM = {
-				exists = yes
-				NOT = { tag = XXX }
-				has_variable = bsm_ea_is_leader
-				NOT = { has_war_with = ROOT }
+				is_bsm_ea_leader = yes
+				bsm_ea_can_join_sphere_visible = yes
+				bsm_ea_can_join_sphere_allowed = yes
 			}
 		}
 		visible = {
-			is_subject = no
 			FROM = {
-				exists = yes
-				has_variable = bsm_ea_is_leader
-				NOT = { has_war_with = ROOT }
-			}
-			NOT = {
-				is_in_array = { bsm_ea_joined_spheres = FROM.bsm_ea_sphere }
+				is_bsm_ea_leader = yes
+				bsm_ea_can_join_sphere_visible = yes
 			}
 		}
 		available = {
-			has_political_power > 10
-			check_variable = { Unified_Currency > 25 }
-			has_civil_war = no
-			NOT = { has_war_with = FROM }
-			NOT = { has_government = ruinism }
-			NOT = { has_government = anarchism }
-			has_stability > 0
-			NOT = { has_idea = recently_left_economic_alliance }
-			has_opinion = {
-				target = FROM
-				value > 25
+			FROM = {
+				bsm_ea_can_join_sphere_allowed = yes
 			}
 		}
 		fire_only_once = no
@@ -126,25 +100,21 @@ bsm_economic_alliance_decisions = {
 		ai_will_do = { factor = 0 }
 	}
 
-	# ----------------------------------------------------------------------
-	# 経済同盟からの脱退
-	# ----------------------------------------------------------------------
-	bsm_leave_economic_alliance = {
-		icon = generic_volunteer_expedition_bonus
-		allowed = { always = yes }
-		available = {
-			is_in_bsm_ea_sphere = yes
-			NOT = { has_idea = recently_left_economic_alliance }
-		}
-		visible = {
-			is_in_bsm_ea_sphere = yes
-		}
-		cost = 50
-		fire_only_once = no
-		days_re_enable = 30
-		ai_will_do = { factor = 0 }
-		complete_effect = {
-			bsm_ea_leave_sphere_action = yes
-		}
-	}
+	# 経済同盟からの脱退 (汎用・統合版)
+	# bsm_leave_generic_economic_alliance = {
+	# 	icon = generic_volunteer_expedition_bonus
+	# 	allowed = { always = yes }
+	# 	available = {
+	# 		is_in_bsm_ea_sphere = yes
+	# 	}
+	# 	visible = {
+	# 		is_in_bsm_ea_sphere = yes
+	# 	}
+	# 	cost = 50
+	# 	fire_only_once = no
+	# 	ai_will_do = { factor = 0 }
+	# 	complete_effect = {
+	# 		bsm_ea_leave_sphere_action = yes
+	# 	}
+	# }
 }

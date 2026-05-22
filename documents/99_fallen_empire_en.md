@@ -2,7 +2,7 @@
 
 This module introduces ancient empires with overwhelming strength that remain dormant unless provoked.
 
-- At game start, NPL, MON, SPL and XXX begin as fallen empires.
+- At game start, NPL, MON, SPL and '_' begin as fallen empires.
 - Four ethos types exist: machine intelligences, fanatic xenophobes, isolationists and watchers.
 - Fallen empires rarely expand but may send gifts to nearby nations.
 - Gifts can grant resources, technology, equipment or the special idea "Ancestor Data Banks".

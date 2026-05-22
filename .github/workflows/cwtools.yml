@@ -8,10 +8,8 @@ name: CWTools CI
 jobs:
   cwtools_job:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v1
       - uses: cwtools/cwtools-action@v1.1.0
         with:
           game: hoi4
@@ -19,7 +17,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v1.1.0
         with:
           name: cwtools_output
           path: output.json
