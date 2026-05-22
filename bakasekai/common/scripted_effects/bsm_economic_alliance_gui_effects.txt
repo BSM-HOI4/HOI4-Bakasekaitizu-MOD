@@ -1,35 +1,39 @@
-# ------------------------------------------
-# 週次: 全陣営国力再計算 (on_weekly から呼ばれる)
-# ------------------------------------------
-bsm_update_economic_alliance_power_share = {
-	bsm_ea_sort_sphere_list = yes
-}
-
 bsm_update_ea_gui_data = {
 	# 1. Initialize System if needed
 	bsm_ea_init_system = yes
 
+	# DEBUG: Log initial state
+	log = "[BSM EA] === GUI Data Update Started ==="
+	log = "[BSM EA] Global sphere list size: [?global.bsm_ea_sphere_list^num]"
+	log = "[BSM EA] Player joined spheres: [?bsm_ea_joined_spheres^num]"
+
 	# 2. Sort Ranking
 	bsm_ea_sort_sphere_list = yes
+	log = "[BSM EA] Sorted sphere list size: [?global.bsm_ea_sorted_sphere_list^num]"
 
 	# 3. Build Player's Alliance List (all alliances player is in)
 	clear_array = global.bsm_ea_player_alliance_list
 	if = {
 		limit = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
+		log = "[BSM EA] Player has [?bsm_ea_joined_spheres^num] alliance(s)"
 
 		# Build list of alliance leaders for player's alliances
 		for_each_loop = {
 			array = bsm_ea_joined_spheres
 			value = v_token
-			# メンバーリストが存在するかチェック
-			if = {
-				limit = { check_variable = { global.bsm_ea_member_list_@var:v_token^num > 0 } }
-				set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:v_token^0 }
-				add_to_array = {
-					global.bsm_ea_player_alliance_list = var:t_leader
-				}
+			# Get leader of this alliance
+			set_temp_variable = {
+				t_leader = global.bsm_ea_member_list_@var:v_token^0
+			}
+			# Add leader to player's alliance list
+			add_to_array = {
+				global.bsm_ea_player_alliance_list = var:t_leader
+			}
+			var:t_leader = {
+				log = "[BSM EA] Added alliance to player list: [THIS.GetName] (token [?PREV.v_token])"
 			}
 		}
+		log = "[BSM EA] Player alliance list size: [?global.bsm_ea_player_alliance_list^num]"
 
 		# Set selected token to first joined alliance if not already set
 		if = {
@@ -41,15 +45,16 @@ bsm_update_ea_gui_data = {
 				}
 			}
 			set_variable = { bsm_ea_selected_token = bsm_ea_joined_spheres^0 }
+			log = "[BSM EA] Selected token initialized to: [?bsm_ea_selected_token]"
 		}
 
 		# Calculate and display member list for selected alliance
 		bsm_ea_select_sphere_for_gui = yes
-		bsm_ea_refresh_selection_data = yes
 	}
 	else = {
+		log = "[BSM EA] Player not in any sphere"
 		clear_array = global.bsm_ea_gui_display_list
 		clear_variable = bsm_ea_selected_token
-		bsm_ea_refresh_selection_data = yes
 	}
+	log = "[BSM EA] === GUI Data Update Completed ==="
 }

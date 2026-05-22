@@ -19,16 +19,17 @@ bsm_ea_switch_view_next = {
 			limit = { check_variable = { var:v_chk = var:t_target_token } }
 			set_temp_variable = { t_found_index = t_loop_index }
 		}
-		add_to_temp_variable = { t_loop_index = 1 }
+		add_to_variable = { t_loop_index = 1 }
 	}
 
 	if = {
 		limit = { check_variable = { t_found_index > -1 } }
 
 		# 次のインデックスへ
-		add_to_temp_variable = { t_found_index = 1 }
+		add_to_variable = { t_found_index = 1 }
 
 		# 範囲チェック (ループ)
+		# if index >= size, wrap to 0
 		if = {
 			limit = {
 				NOT = { check_variable = { t_found_index < bsm_ea_joined_spheres^num } }
@@ -80,14 +81,14 @@ bsm_ea_switch_view_prev = {
 			limit = { check_variable = { var:v_chk = var:t_target_token } }
 			set_temp_variable = { t_found_index = t_loop_index }
 		}
-		add_to_temp_variable = { t_loop_index = 1 }
+		add_to_variable = { t_loop_index = 1 }
 	}
 
 	if = {
 		limit = { check_variable = { t_found_index > -1 } }
 
 		# 前のインデックスへ
-		add_to_temp_variable = { t_found_index = -1 }
+		add_to_variable = { t_found_index = -1 }
 
 		# 範囲チェック (ループ)
 		if = {
@@ -97,7 +98,7 @@ bsm_ea_switch_view_prev = {
 			set_temp_variable = {
 				t_found_index = bsm_ea_joined_spheres^num
 			}
-			add_to_temp_variable = { t_found_index = -1 }
+			add_to_variable = { t_found_index = -1 }
 		}
 
 		# 新しいトークンを設定 (配列から取得)
