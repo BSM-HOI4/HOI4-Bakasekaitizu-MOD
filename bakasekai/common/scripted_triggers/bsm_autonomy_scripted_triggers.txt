@@ -1,0 +1,55 @@
+# BSM Scripted Triggers for MD-adapted autonomy states
+# These triggers were originally from Millennium Dawn and are stubbed here
+# for BSM compatibility.
+
+# Arabic nation check - used by UAR/Ba'athist autonomy types
+# BSM does not use MD's political faction system; UAR flags are never set
+# so these autonomy types are effectively inactive regardless.
+is_arabic_nation = {
+	OR = {
+		original_tag = EGY
+		original_tag = SYR
+		original_tag = IRQ
+		original_tag = LBA
+		original_tag = JOR
+		original_tag = SAU
+		original_tag = YEM
+		original_tag = KWT
+		original_tag = QAT
+		original_tag = UAE
+		original_tag = OMA
+		original_tag = BHR
+		original_tag = MOR
+		original_tag = TUN
+		original_tag = ALG
+		original_tag = SOM
+		original_tag = MAU
+	}
+}
+
+# Iranian/Iranic nation check - used by Tajik confederation autonomy types
+is_iranian_nation = {
+	OR = {
+		original_tag = IRN
+		original_tag = AFG
+		original_tag = TAJ
+		original_tag = KAZ
+		original_tag = UZB
+		original_tag = TKM
+		original_tag = KRG
+	}
+}
+
+# SOV political faction checks - mapped to BSM ideology system
+# (BSM renames: communism -> communism_ideology, fascism -> fascism_ideology, neutrality -> neutrality_ideology)
+emerging_communist_state_are_in_power = {
+	has_government = communism_ideology
+}
+
+nationalist_monarchists_are_in_power = {
+	has_government = neutrality_ideology
+}
+
+nationalist_right_wing_populists_are_in_power = {
+	has_government = fascism_ideology
+}

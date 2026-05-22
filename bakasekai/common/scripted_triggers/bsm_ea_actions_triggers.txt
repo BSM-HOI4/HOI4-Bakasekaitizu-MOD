@@ -1,0 +1,11 @@
+# 経済同盟アクション用トリガー
+bsm_ea_action_target_valid = {
+  has_event_target = bsm_ea_selected_member
+  check_variable = { bsm_ea_has_selected_member = 1 }
+  has_variable = bsm_ea_selected_token
+  is_in_array = { bsm_ea_joined_spheres = var:bsm_ea_selected_token }
+  is_in_array = {
+    array = global.bsm_ea_member_list_@var:bsm_ea_selected_token
+    value = event_target:bsm_ea_selected_member
+  }
+}

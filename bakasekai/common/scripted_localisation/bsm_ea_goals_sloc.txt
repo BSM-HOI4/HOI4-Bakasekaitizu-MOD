@@ -1,0 +1,87 @@
+# ==========================================
+# BSM 経済同盟 GUI Scripted Loc
+# ==========================================
+
+# 選択ターゲット名
+defined_text = {
+	name = GetEASelectedTargetName
+	text = {
+		trigger = {
+			has_event_target = bsm_ea_selected_member
+			check_variable = { bsm_ea_has_selected_member = 1 }
+		}
+		localization_key = BSM_EA_TARGET_NAME
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = BSM_EA_NO_TARGET
+	}
+}
+
+# 投票残り日数
+defined_text = {
+	name = GetEAVoteDaysText
+	text = {
+		trigger = { check_variable = { bsm_ea_gui_vote_active = 1 } }
+		localization_key = BSM_EA_VOTE_DAYS_TEXT
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = BSM_EA_VOTE_NO_ACTIVE
+	}
+}
+
+# 投票状況
+defined_text = {
+	name = GetEAVoteStatusText
+	text = {
+		trigger = { check_variable = { bsm_ea_gui_vote_active = 1 } }
+		localization_key = BSM_EA_VOTE_STATUS_TEXT
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = BSM_EA_EMPTY_TEXT
+	}
+}
+
+# 経済同盟名（カスタム名 or デフォルト名）
+defined_text = {
+	name = GetEAName
+	text = {
+		trigger = { has_variable = bsm_ea_custom_name }
+		localization_key = BSM_EA_CUSTOM_NAME
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = BSM_EA_DEFAULT_NAME
+	}
+}
+
+# 非加盟テキスト
+defined_text = {
+	name = GetNoAllianceText
+	text = {
+		trigger = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
+		localization_key = BSM_EA_EMPTY_TEXT
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = BSM_EA_NO_ALLIANCE_TEXT
+	}
+}
+
+# Player Entry ツールチップ
+defined_text = {
+	name = GetEATooltip
+	text = {
+		trigger = {
+			has_variable = bsm_ea_mem_count
+			has_variable = bsm_ea_total_power
+		}
+		localization_key = BSM_EA_TOOLTIP_WITH_DATA
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = BSM_EA_TOOLTIP_NO_DATA
+	}
+}
