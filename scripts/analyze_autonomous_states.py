@@ -12,6 +12,16 @@ from pathlib import Path
 from collections import defaultdict
 import argparse
 
+def read_text_with_fallback(path):
+    """UTF-8/BOM and common Japanese encodings."""
+    for encoding in ("utf-8-sig", "utf-8", "cp932", "shift_jis"):
+        try:
+            return path.read_text(encoding=encoding)
+        except UnicodeDecodeError:
+            continue
+    return path.read_text(encoding="utf-8", errors="replace")
+
+
 class AutonomousStatesAnalyzer:
     def __init__(self, mod_paths):
         """
@@ -24,10 +34,7 @@ class AutonomousStatesAnalyzer:
         
     def _parse_state_file(self, filepath, mod_name):
         """autonomous_states/*.txtをパース"""
-        try:
-            content = filepath.read_text(encoding="utf-8-sig") # BOM付きUTF-8に対応
-        except Exception:
-            content = filepath.read_text(encoding="utf-8")
+        content = read_text_with_fallback(filepath)
 
         # IDを抽出
         id_match = re.search(r'id\s*=\s*(autonomy_\w+)', content)
@@ -71,7 +78,7 @@ class AutonomousStatesAnalyzer:
     def _parse_localization_file(self, yml_file, lang):
         """ロケールファイルをパース"""
         try:
-            content = yml_file.read_text(encoding="utf-8-sig") # BOM付きUTF-8に対応
+            content = read_text_with_fallback(yml_file)
             
             lines = content.split('\n')
             for line in lines:
@@ -261,8 +268,14 @@ def main():
     
     # 親フォルダ直下のディレクトリをMOD候補としてリストアップ
     # .git や documents などの明らかにMODではないフォルダを除外
-    excluded_dirs = {".git", "documents", "tests", ".vscode"}
-    mod_paths = [p for p in parent_dir.glob('*') if p.is_dir() and p.name not in excluded_dirs]
+    excluded_dirs = {".git", "documents", "tests", ".vscode", "scripts"}
+    mod_paths = [
+        p for p in parent_dir.glob('*')
+        if p.is_dir()
+        and not p.name.startswith('.')
+        and p.name not in excluded_dirs
+        and ((p / "common").exists() or (p / "localisation").exists())
+    ]
     
     if not mod_paths:
         print(f"エラー: {parent_dir} に分析対象となるMODフォルダが見つかりません。")
