@@ -1,0 +1,48 @@
+# 傭兵システム用スクリプト効果
+
+# 傭兵の月次維持費計算
+mercenary_monthly_maintenance = {
+	# MS_sum_numは傭兵の大隊数を表す
+	# 2大隊 = 1中隊、4大隊 = 1連隊として計算
+	# 維持費：大隊あたり2.5金/月（中隊=5金/月、連隊=10金/月）
+
+	if = {
+		limit = {
+			check_variable = { MS_sum_num > 0 }
+		}
+
+		# 維持費 = MS_sum_num × 2.5
+		set_variable = { mercenary_maintenance = MS_sum_num }
+		multiply_variable = { mercenary_maintenance = 2.5 }
+
+		# 金が足りない場合の処理
+		if = {
+			limit = {
+				NOT = { check_variable = { Unified_Currency > mercenary_maintenance } }
+			}
+			# 金が不足している場合、傭兵の士気低下イベント
+			custom_effect_tooltip = tt_mercenary_unpaid
+			add_stability = -0.02
+			add_war_support = -0.02
+		}
+		else = {
+			# 維持費を支払う
+			subtract_from_variable = { Unified_Currency = mercenary_maintenance }
+
+			# ログ出力（デバッグ用）
+			# log = "[GetDateText]: [This.GetName] 傭兵維持費 [?mercenary_maintenance] 金を支払いました（大隊数: [?MS_sum_num]）"
+		}
+	}
+	else = {
+		# 傭兵がいない場合は維持費0
+		set_variable = { mercenary_maintenance = 0 }
+	}
+}
+
+# 傭兵システム初期化
+mercenary_system_init = {
+	set_country_flag = Mercenary_System_Allowed
+	set_variable = { MS_max = 10 }
+	set_variable = { MS_sum_num = 0 }
+	set_variable = { mercenary_maintenance = 0 }
+}

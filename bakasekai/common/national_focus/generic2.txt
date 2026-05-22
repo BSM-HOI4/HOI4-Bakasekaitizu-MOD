@@ -544,11 +544,7 @@ focus_tree = {
 		cost = 10
 		available = {
 			any_owned_state = {
-				OR = {
-					has_resources = { steel > 0 }
-					has_resources = { tungsten > 0 }
-					has_resources = { chromium > 0 }
-				}
+				is_core_of = ROOT
 			}
 		}
 		ai_will_do = { factor = 5 }
@@ -556,13 +552,6 @@ focus_tree = {
 		available_if_capitulated = yes
 		completion_reward = {
 			random_owned_controlled_state = {
-				limit = {
-					OR = {
-						has_resources = { steel > 0 }
-						has_resources = { tungsten > 0 }
-						has_resources = { chromium > 0 }
-					}
-				}
 				add_resource = {
 					type = steel
 					amount = 5
@@ -581,7 +570,7 @@ focus_tree = {
 		y = 1
 		cost = 10
 		available = {
-			NOT = { has_government = neutrality }
+			NOT = { has_government = neutrality_ideology }
 		}
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_INDUSTRY }
@@ -3914,7 +3903,7 @@ focus_tree = {
 		id = generic_longitudinalism_path
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_political_awakening }
-		x = 72
+		x = 76
 		y = 1
 		relative_position_id = generic_political_awakening
 		cost = 10
@@ -4334,7 +4323,7 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_cultural_refinement
+		id = generic_hinnulism_cultural_appeal
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_hinnulism_path }
 		x = -1
@@ -4349,7 +4338,7 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_aesthetic_values
+		id = generic_hinnulism_overwhelming_presence
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = generic_hinnulism_path }
 		x = 1
@@ -4364,12 +4353,12 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_cultural_purity
+		id = generic_hinnulism_protective_instinct
 		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = generic_hinnulism_cultural_refinement }
+		prerequisite = { focus = generic_hinnulism_cultural_appeal }
 		x = 0
 		y = 1
-		relative_position_id = generic_hinnulism_cultural_refinement
+		relative_position_id = generic_hinnulism_cultural_appeal
 		cost = 10
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4379,13 +4368,13 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_traditional_arts
-		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = generic_hinnulism_aesthetic_values }
-		prerequisite = { focus = generic_hinnulism_cultural_purity }
+		id = generic_hinnulism_nurturing_values
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = generic_hinnulism_overwhelming_presence }
+		prerequisite = { focus = generic_hinnulism_protective_instinct }
 		x = 0
 		y = 1
-		relative_position_id = generic_hinnulism_cultural_purity
+		relative_position_id = generic_hinnulism_protective_instinct
 		cost = 10
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4395,12 +4384,12 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_cultural_identity
+		id = generic_hinnulism_cultural_dominance
 		icon = GFX_goal_generic_national_unity
-		prerequisite = { focus = generic_hinnulism_cultural_purity }
+		prerequisite = { focus = generic_hinnulism_protective_instinct }
 		x = 0
 		y = 1
-		relative_position_id = generic_hinnulism_cultural_purity
+		relative_position_id = generic_hinnulism_protective_instinct
 		cost = 10
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4410,13 +4399,13 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_refined_society
+		id = generic_hinnulism_soft_power
 		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = generic_hinnulism_traditional_arts }
-		prerequisite = { focus = generic_hinnulism_cultural_identity }
+		prerequisite = { focus = generic_hinnulism_nurturing_values }
+		prerequisite = { focus = generic_hinnulism_cultural_dominance }
 		x = 0
 		y = 1
-		relative_position_id = generic_hinnulism_cultural_identity
+		relative_position_id = generic_hinnulism_cultural_dominance
 		cost = 10
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4426,12 +4415,12 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_cultural_excellence
+		id = generic_hinnulism_cultural_influence
 		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = generic_hinnulism_cultural_identity }
+		prerequisite = { focus = generic_hinnulism_cultural_dominance }
 		x = 0
 		y = 1
-		relative_position_id = generic_hinnulism_cultural_identity
+		relative_position_id = generic_hinnulism_cultural_dominance
 		cost = 10
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4441,13 +4430,13 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_aesthetic_harmony
+		id = generic_hinnulism_overwhelming_appeal
 		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = generic_hinnulism_refined_society }
-		prerequisite = { focus = generic_hinnulism_cultural_excellence }
+		prerequisite = { focus = generic_hinnulism_soft_power }
+		prerequisite = { focus = generic_hinnulism_cultural_influence }
 		x = 0
 		y = 1
-		relative_position_id = generic_hinnulism_cultural_excellence
+		relative_position_id = generic_hinnulism_cultural_influence
 		cost = 10
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4457,12 +4446,12 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_cultural_unity
+		id = generic_hinnulism_protective_unity
 		icon = GFX_goal_generic_national_unity
-		prerequisite = { focus = generic_hinnulism_cultural_excellence }
+		prerequisite = { focus = generic_hinnulism_cultural_influence }
 		x = 0
 		y = 1
-		relative_position_id = generic_hinnulism_cultural_excellence
+		relative_position_id = generic_hinnulism_cultural_influence
 		cost = 10
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4472,13 +4461,13 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_refined_culture
+		id = generic_hinnulism_ultimate_appeal
 		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = generic_hinnulism_aesthetic_harmony }
-		prerequisite = { focus = generic_hinnulism_cultural_unity }
+		prerequisite = { focus = generic_hinnulism_overwhelming_appeal }
+		prerequisite = { focus = generic_hinnulism_protective_unity }
 		x = 0
 		y = 1
-		relative_position_id = generic_hinnulism_cultural_unity
+		relative_position_id = generic_hinnulism_protective_unity
 		cost = 10
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4488,12 +4477,12 @@ focus_tree = {
 		}
 	}
 	focus = {
-		id = generic_hinnulism_cultural_supremacy
+		id = generic_hinnulism_cultural_hegemony
 		icon = GFX_goal_generic_major_alliance
-		prerequisite = { focus = generic_hinnulism_cultural_unity }
+		prerequisite = { focus = generic_hinnulism_protective_unity }
 		x = 0
 		y = 1
-		relative_position_id = generic_hinnulism_cultural_unity
+		relative_position_id = generic_hinnulism_protective_unity
 		cost = 10
 		ai_will_do = { factor = 5 }
 		search_filters = { FOCUS_FILTER_POLITICAL }
@@ -4702,6 +4691,4 @@ focus_tree = {
 			add_political_power = 100
 		}
 	}
-
-
 }

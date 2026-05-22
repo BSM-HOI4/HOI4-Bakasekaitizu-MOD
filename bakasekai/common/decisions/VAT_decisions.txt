@@ -1,0 +1,68 @@
+VAT_divine_punishment = {
+	VAT_pray = {
+		#icon = 
+		cost = 50
+		available = {
+			NOT = { has_country_flag = VAT_pray_fin }
+		}
+		complete_effect = { set_country_flag = VAT_pray_fin }
+	}
+
+	VAT_angel_rituals = {
+		#icon = 
+		cost = 50
+		available = {
+			NOT = { has_country_flag = VAT_angel_rituals_fin }
+		}
+		complete_effect = { set_country_flag = VAT_angel_rituals_fin }
+	}
+
+	VAT_Papal_rites = {
+		#icon = 
+		cost = 50
+		available = {
+			NOT = { has_country_flag = VAT_Papal_rites_fin }
+		}
+		complete_effect = { set_country_flag = VAT_Papal_rites_fin }
+	}
+	VAT_attack = {
+		#icon = 
+		cost = 50
+		available = {
+			has_country_flag = VAT_Papal_rites_fin
+			has_country_flag = VAT_angel_rituals_fin
+			has_country_flag = VAT_pray_fin
+		}
+		complete_effect = { 
+        every_country = {
+            limit = {
+                has_war_with = VAT
+            }
+            random_owned_state = {
+				VAT = {
+					launch_nuke = {
+    					state = PREV
+						use_nuke = no
+					}
+				}
+            }
+			random_owned_state = {
+				VAT = {
+					launch_nuke = {
+    					state = PREV
+						use_nuke = no
+					}
+				}
+            }
+			random_owned_state = {
+				VAT = {
+					launch_nuke = {
+    					state = PREV
+						use_nuke = no
+					}
+				}
+            }
+        }
+    }
+	}
+}

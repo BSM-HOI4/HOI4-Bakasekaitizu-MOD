@@ -681,7 +681,7 @@ sub_units = {
 		abbreviation = "MEI"
 		sprite = infantry
 		map_icon_category = infantry
-		
+
 		priority = 0
 		ai_priority = 0
 		active = no
@@ -689,18 +689,18 @@ sub_units = {
 		type = {
 			infantry
 		}
-		
+
 		group = infantry
-		
+
 		categories = {
 			category_front_line
 			category_light_infantry
 			category_all_infantry
 			category_army
 		}
-		
+
 		combat_width = 0.2
-		
+
 		#Size Definitions
 		max_strength = 10
 		max_organisation = 15
@@ -715,8 +715,12 @@ sub_units = {
 		training_time = 0
 		suppression = 0.1
 		weight = 0.1
-		
+
 		supply_consumption = 0.01
+
+		need = {
+			mercenary_equipment = 100
+		}
 	}
 
 	sand = {
@@ -1064,4 +1068,113 @@ sub_units = {
 			movement = 0.5
 		}
 	}
+
+		ranger_battalion = {
+		abbreviation = "RANBAT"
+		sprite = infantry
+		map_icon_category = infantry
+		special_forces = yes
+		rangers = yes
+		
+		priority = 601
+		ai_priority = 200
+		active = no
+
+		type = {
+			infantry
+		}
+
+		group = infantry
+
+		categories = {
+			category_front_line
+			category_light_infantry
+			category_all_infantry
+			category_army
+			category_special_forces
+			category_rangers
+			category_special_forces_leg_infantry
+		}
+
+		combat_width = 2
+
+		#Size Definitions
+		max_strength = 20
+		max_organisation = 70
+		default_morale = 0.4
+		manpower = 1000
+
+		#Misc Abilities
+		training_time = 120
+		suppression = 1
+		weight = 0.5
+
+		supply_consumption = 0.05
+		breakthrough = 0.3
+
+		need = {
+			infantry_equipment = 140
+		}
+		forest = {
+			attack = 0.1
+			defence = 0.1
+			movement = 0.15
+		}
+		jungle = {
+			attack = 0.2
+			defence = 0.1
+			movement = 0.15
+		}
+	}
+
+	pepsiman_battalion = {
+        sprite = pepsiman # マップ上では歩兵として表示
+        map_icon_category = infantry # 兵科記号も歩兵
+        
+        priority = 2500
+        active = no
+
+        # カテゴリ：特殊部隊的な歩兵
+        type = infantry
+        group = infantry
+
+        categories = {
+			category_front_line
+			category_light_infantry
+			category_all_infantry
+			category_army
+		}
+        combat_width = 4
+
+        # ★重要：ここで独自装備を要求する
+        need = {
+            pepsiman_body = 100 # 1大隊あたり100体のペプシマン
+        }
+
+        # ユニット性能（装備の補正＋ユニット自体の補正）
+        # 戦車ではないので燃料を使わない！
+        supply_consumption = 0.03 # 燃費は良い（コーラがあれば動く）
+        
+        # 速度設定（ここが重要）
+        # 歩兵カテゴリだが、最高速度を強制的に上書き設定
+        #maximum_speed = 20.0 # スポーツカー並みの速度
+        
+        # 地形適正（市街地で最強）
+        urban = {
+            movement = 0.5
+            attack = 0.5
+            defense = 0.5
+        }
+        
+        # HPと指揮統制
+        max_strength = 40
+        max_organisation = 80 # 恐怖を知らないので統制が高い
+        default_morale = 0.8    # 回復が早い
+        manpower = 2000
+        
+        # 戦闘補正
+        suppression = 3      # 鎮圧能力も高い
+        weight = 0.5            # 軽い
+    }
+
 }

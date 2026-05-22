@@ -1,38 +1,75 @@
-bsm_fabricate_claim_action = {
-	category = political_actions
-	name = "DIPLOMACY_BSM_FABRICATE_CLAIM_NAME"
-	icon = "GFX_goal_generic_major_power_challenge"
+scripted_diplomatic_actions = {
+	bsm_fabricate_claim_action = {
+		# name = "DIPLOMACY_BSM_FABRICATE_CLAIM_NAME" # Using ID for localization to avoid syntax error
+		icon = "GFX_goal_generic_major_power_challenge"
 
-	visible = {
-		NOT = { check_variable = { ROOT = FROM } }
-		NOT = { has_war_with = FROM }
-	}
+		visible = {
+			NOT = { check_variable = { ROOT = FROM } }
+			NOT = { has_war_with = FROM }
 
-	enabled = {
-		custom_trigger_tooltip = {
-			tooltip = "BSM_FABRICATE_CLAIM_ENABLED_TOOLTIP"
-			bsm_can_initiate_fabricate_claim_diplo_action_trigger = yes
+			custom_trigger_tooltip = {
+				tooltip = "BSM_FABRICATE_CLAIM_ENABLED_TOOLTIP"
+				bsm_can_initiate_fabricate_claim_diplo_action_trigger = yes
+			}
 		}
-	}
 
-	cost_string = "BSM_FABRICATE_CLAIM_DIPLO_COST"
-
-	effect = {
-		country_event = {
-			id = bsm_fabricate_claim_events.1
-			days = 1
+		allowed = {
 		}
-	}
 
-	ai_will_do = {
-		factor = 5
-		modifier = {
-			factor = 0
-			FROM = { is_major = yes }
+		cost = 25
+		cost_string = "BSM_FABRICATE_CLAIM_DIPLO_COST"
+
+		complete_effect = {
+			country_event = {
+				id = bsm_fabricate_claim_events.1
+				days = 1
+			}
 		}
-		modifier = {
-			factor = 0
-			ROOT = { NOT = { check_variable = { Unified_Currency = { value > 300 } } } }
+
+
+	}
+	recall_volunteers = {
+
+		allowed = {
+			ROOT = { is_ai = no }
+		}
+		visible = {
+			always = yes
+		}
+		selectable = {
+			# doing this for nicer tooltips
+			if = {
+				limit = {
+					NOT = { has_volunteers_amount_from = { tag = ROOT count > 0 } }
+				}
+				custom_trigger_tooltip = {
+					tooltip = RECALL_VOLUNTEERS_TOOLTIP
+					always = no
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = RECALL_VOLUNTEERS_TOOLTIP_G
+					always = yes
+				}
+			}
+		}
+
+		cost = 0
+		command_power = 0
+
+		show_acceptance_on_action_button = no
+
+		icon = 1
+
+		complete_effect = {
+			ROOT = { recall_volunteers_from = PREV }
+		}
+
+		ai_acceptance = {
+			condition = {
+				base = 100
+			}
 		}
 	}
 }

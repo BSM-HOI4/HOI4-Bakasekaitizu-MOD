@@ -3,8 +3,8 @@ on_actions = {
 		effect = {
 			# MYS指向選択イベント
 			MYS = {
-				country_event = { 
-					id = mys_direction.1 
+				country_event = {
+					id = mys_dir.1
 					days = 1
 				}
 			}
@@ -27,7 +27,7 @@ on_actions = {
 			# MYS指向選択イベント
 			MYS = {
 				country_event = {
-					id = MYS_direction.1
+					id = mys_dir.1
 					days = 1
 				}
 			}
@@ -298,75 +298,172 @@ on_actions = {
 				}
 			}
 		}
-	}
-    on_declare_war = {
-        effect = {
-            # 戦争の当事者（宣戦布告した側かされた側）に中国が含まれるかを確認
-            if = {
-                limit = {
-                    OR = {
-                        ROOT = { original_tag = CHN } # ROOT: 宣戦布告した国
-                        FROM = { original_tag = CHN } # FROM: 宣戦布告された国
-                    }
-                }
-
-                # --- 中国が戦争に関与した場合、CHNタグの国に対して以下の効果を実行 ---
-                CHN = {
-                    set_global_flag = CHN_civil_war
-                    # グローバルフラグ CHN_civil_war をセットします。
-
-                    # ゲームルール「China_divides」が「DEFAULT」オプションかつ、CHNがAI操作の場合
-                    if = {
-                        limit = {
-                            has_game_rule = {
-                                rule = China_divides # (★要確認) 実際のゲームルール名に置き換えてください
-                                option = DEFAULT    # (★要確認) 実際のオプション名に置き換えてください
-                            }
-                            is_ai = yes
-                        }
-                        country_event = {
-                            id = CHN_civil_war.1 # (★要確認・要作成) 対応するイベントID
-                        }
-                    }
-                    # (★要確認) 次の else_if ブロックの条件とイベントIDについてご確認ください
-                    else_if = {
-                        limit = {
-                            # (★要確認) この条件ブロックは現在コメントアウトされています。
-                            # もし別のゲームルールオプションに基づいた分岐が必要な場合は、
-                            # 以下のコメントを解除し、適切な rule と option を指定してください。
-                            # has_game_rule = {
-                            # rule = China_divides # (★要確認)
-                            # option = CHINA_DIVIDES_DEFAULT_PL # (★要確認) 実際のオプション名に
-                            # }
-                            # (★要確認) 上記の has_game_rule を有効にする場合、
-                            # この limit ブロックが空でないことを確認してください。
-                            # limit が空の場合、この else_if は常に真（先のifが偽の場合）と評価されます。
-                        }
-                        country_event = {
-                            # (★要確認) 現在、上の if ブロックと同じイベントID CHN_civil_war.1 を呼び出しています。
-                            # もし条件によって異なるイベントを発生させたい場合は、
-                            # ここで別のイベントIDを指定してください。
-                            id = CHN_civil_war.1 # (★要確認・要作成)
-                        }
-                    }
-                    # 他のゲームルールオプションに対応する場合は、さらに else_if や else をここに追加してください。
-                }
-            }
         }
-    }
-	on_yearly_pulse = {
+
+        on_monthly = {
+          effect = {
+            if = {
+              limit = {
+                NOT = { has_global_flag = mys_europe_enigma_news_flag }
+                MYS = {
+                  exists = yes
+                  mys_controls_european_continent_trigger = yes
+                }
+              }
+              set_global_flag = mys_europe_enigma_news_flag
+              news_event = { id = MYS.100 days = 1 }
+            }
+          }
+        }
+
+        on_declare_war = {
 		effect = {
+			# 戦争の当事者（宣戦布告した側かされた側）に中国が含まれるかを確認
 			if = {
 				limit = {
-					tag = CHN
-					NOT = { has_idea = chn_periodic_strikes }
+					OR = {
+						ROOT = {
+							original_tag = CHN
+						}
+						# ROOT: 宣戦布告した国
+						FROM = {
+							original_tag = CHN
+						}
+						# FROM: 宣戦布告された国
+					}
+				}
+				# --- 中国が戦争に関与した場合、CHNタグの国に対して以下の効果を実行 ---
+				CHN = {
+					set_global_flag = CHN_civil_war
+					# グローバルフラグ CHN_civil_war をセットします。
+					# ゲームルール「China_divides」が「DEFAULT」オプションかつ、CHNがAI操作の場合
+					if = {
+						limit = {
+							has_game_rule = {
+								rule = China_divides								# (★要確認) 実際のゲームルール名に置き換えてください
+								option = DEFAULT								# (★要確認) 実際のオプション名に置き換えてください
+							}
+							is_ai = yes
+						}
+						country_event = {
+							id = CHN_civil_war.1							# (★要確認・要作成) 対応するイベントID
+						}
+					}
+					# (★要確認) 次の else_if ブロックの条件とイベントIDについてご確認ください
+					else_if = {
+						limit = {
+							# (★要確認) この条件ブロックは現在コメントアウトされています。
+							# もし別のゲームルールオプションに基づいた分岐が必要な場合は、
+							# 以下のコメントを解除し、適切な rule と option を指定してください。
+							# has_game_rule = {
+							# rule = China_divides # (★要確認)
+							# option = CHINA_DIVIDES_DEFAULT_PL # (★要確認) 実際のオプション名に
+							# }
+							# (★要確認) 上記の has_game_rule を有効にする場合、
+							# この limit ブロックが空でないことを確認してください。
+							# limit が空の場合、この else_if は常に真（先のifが偽の場合）と評価されます。
+						}
+						country_event = {
+							# (★要確認) 現在、上の if ブロックと同じイベントID CHN_civil_war.1 を呼び出しています。
+							# もし条件によって異なるイベントを発生させたい場合は、
+							# ここで別のイベントIDを指定してください。
+							id = CHN_civil_war.1							# (★要確認・要作成)
+						}
+					}
+					# 他のゲームルールオプションに対応する場合は、さらに else_if や else をここに追加してください。
+				}
+			}
+		}
+	}
+        on_yearly = {
+                effect = {
+                        if = {
+                                limit = {
+                                        tag = CHN
+					NOT = {
+						has_idea = chn_periodic_strikes
+					}
 				}
 				random_list = {
 					30 = {
-						country_event = { id = chn_strikes.1 }
+						country_event = {
+							id = chn_strikes.1
+						}
 					}
-					70 = {}
+					70 = {
+					}
 				}
+			}
+                }
+        }
+
+        on_weekly = {
+                effect = {
+                        if = {
+                                limit = {
+                                        country_exists = NOR
+                                }
+                                NOR = {
+                                        if = {
+                                                limit = {
+                                                        NOT = { has_country_flag = NOR_RUS_empire_formed }
+                                                        NOT = { has_government = communism_ideology }
+                                                        OR = {
+                                                                AND = {
+                                                                        NOT = { country_exists = RUS }
+                                                                        controls_state = 219
+                                                                }
+                                                                AND = {
+                                                                        NOT = { country_exists = SBR }
+                                                                        controls_state = 576
+                                                                }
+                                                                AND = {
+                                                                        NOT = { country_exists = SOV }
+                                                                        controls_state = 408
+                                                                }
+                                                        }
+                                                }
+                                                news_event = { id = baka_news.4 }
+                                        }
+                                }
+                        }
+                }
+        }
+
+        # 和平会議が終了した時にこのon_actionが発動します。
+        on_peaceconference_ended = {
+                effect = {
+                        # 条件分岐: ステート922がVATによって所有されていない場合
+			# 922を実際のステートIDに、VATを実際の国タグに置き換えてください。
+			if = {
+				limit = {
+					922 = {
+						NOT = {
+							is_owned_by = VAT
+						}
+					}
+				}
+				# 条件が満たされた場合、ステート922の現在の所有者をグローバルイベントターゲットとして保存します。
+				# これにより、後でこの国を参照できます。
+				922 = {
+					owner = {
+						save_global_event_target_as = wargoal_target_country
+					}
+				}
+				# ゲーム内のすべての国をループ処理します。
+				every_country = {
+					# スコープをidea catholicismを持つ国に限定します。
+					limit = {
+						has_idea = catholicism
+					}
+					# ステート922の所有者に対して開戦事由holy_warを作成します。
+					create_wargoal = {
+						target = event_target:wargoal_target_country
+						type = take_state
+					}
+				}
+				# 潜在的な競合を防ぐために、使用したグローバルイベントターゲットをクリアします。
+				clear_global_event_target = wargoal_target_country
 			}
 		}
 	}

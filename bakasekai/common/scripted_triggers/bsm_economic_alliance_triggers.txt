@@ -1,0 +1,94 @@
+# 経済陣営関連のトリガー
+# ----------------------------------------------------------------------
+# 結成 (Formation)
+# ----------------------------------------------------------------------
+# 表示条件 (Visible)
+bsm_can_form_economic_alliance_visible = {
+	bsm_ea_can_form_sphere_visible = yes
+}
+
+# 絶対条件 (Allowed)
+bsm_can_form_economic_alliance_allowed = {
+	bsm_ea_can_form_sphere_allowed = yes
+}
+
+# ----------------------------------------------------------------------
+# 加盟 (Joining)
+# ----------------------------------------------------------------------
+# 表示条件 (Visible)
+bsm_can_join_economic_alliance_visible = {
+	bsm_ea_can_join_sphere_visible = yes
+}
+
+# 絶対条件 (Allowed)
+bsm_can_join_economic_alliance_allowed = {
+	bsm_ea_can_join_sphere_allowed = yes
+}
+
+# ----------------------------------------------------------------------
+# AI受諾ロジック (AI Acceptance)
+# ----------------------------------------------------------------------
+bsm_ai_will_accept_economic_alliance = {
+	# 友好度: 最低30
+	has_opinion = {
+		target = FROM
+		value > 30
+	}
+	# イデオロギー対立チェック
+	NOT = {
+		OR = {
+			AND = {
+				has_government = kyonulism
+				FROM = {
+					has_government = hinnulism
+				}
+			}
+			AND = {
+				has_government = hinnulism
+				FROM = {
+					has_government = kyonulism
+				}
+			}
+			AND = {
+				has_government = longitudinalism
+				FROM = {
+					has_government = horizontalism
+				}
+			}
+			AND = {
+				has_government = horizontalism
+				FROM = {
+					has_government = longitudinalism
+				}
+			}
+		}
+	}
+	# 国際緊張度 (申し出た側 FROM が10以上高めていない)
+	FROM = {
+		check_variable = { generated_world_tension < 10 }
+	}
+}
+
+# ヘルパー: 経済陣営に加盟している（同じ陣営内にいる）かチェック
+is_in_economic_alliance_with = {
+	# 新システム: bsm_ea_sphere 変数が一致するかチェック
+	# 1. 両方とも経済陣営に所属しているか
+	has_variable = bsm_ea_sphere
+	FROM = { has_variable = bsm_ea_sphere }
+	# 2. トークンが一致するか
+	check_variable = { bsm_ea_sphere = FROM.bsm_ea_sphere }
+}
+
+# ----------------------------------------------------------------------
+# Helper: Is FROM a member of an alliance where ROOT is leader?
+# ----------------------------------------------------------------------
+is_economic_alliance_member_of_root_trigger = {
+	# ROOT = Leader
+	# FROM = Member check
+	
+	# 1. ROOT is leader of its sphere
+	is_bsm_ea_leader = yes
+	
+	# 2. FROM is in the same sphere
+	is_in_economic_alliance_with = yes
+}

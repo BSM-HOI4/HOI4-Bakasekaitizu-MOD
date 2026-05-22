@@ -15,14 +15,18 @@ calc_mine_total = {
 			set_variable = { MD_mine_size = 0 }
 			#領有済
 			every_owned_state = {
-				limit = { check_variable = { THIS.gold_mine > 0 } }
+				limit = {
+					check_variable = { THIS.gold_mine > 0 }
+					NOT = { has_state_flag = bsm_mine_closed }
+				}
 				add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
 			}
 			#占領済み
 			every_controlled_state = {
-				limit = { 
-					check_variable = { THIS.gold_mine > 0 } 
-					is_in_array = { PREV.occupied_mine_state = THIS } 
+				limit = {
+					check_variable = { THIS.gold_mine > 0 }
+					is_in_array = { PREV.occupied_mine_state = THIS }
+					NOT = { has_state_flag = bsm_mine_closed }
 				}
 				add_to_variable = { PREV.MD_mine_size = THIS.gold_mine }
 			}
@@ -116,12 +120,13 @@ mine_on_monthly = {
 	random_owned_state = {
 		limit = { check_variable = { THIS.gold_mine > 0 } }
 		random_list = {
-			10 = { } #何も起きない
+			15 = { } #何も起きない
 			10 = { state_event = { id = mine.1  } log = "!" } #大規模な落盤事故
 			10 = { state_event = { id = mine.2  } log = "+" } #中規模な落盤事故
 			10 = { state_event = { id = mine.3  } log = ">" } #小規模な落盤事故
 			10 = { state_event = { id = mine.4  } log = "?" } #ストライキ
 			10 = { state_event = { id = mine.7  } log = "*" } #鉱脈の発見
+			10 = { state_event = { id = mine.8  } log = "#" } #鉱山での事故
 		}
 	}
 }
