@@ -83,6 +83,7 @@ focus_tree = {
 		ai_will_do = { factor = 9 }
 		completion_reward = {
 			add_stability = 0.10
+			recruit_character = RAJ_mahatma_mohandas_gandhi
 		}
 	}
 
@@ -227,6 +228,7 @@ focus_tree = {
 				ideology = fascism_ideology
 				popularity = 0.10
 			}
+			recruit_character = RAJ_subhas_chanda_bose
 			add_political_power = 75
 		}
 	}
@@ -293,6 +295,10 @@ focus_tree = {
 		completion_reward = {
 			add_ideas = RAJ_azad_hind
 			army_experience = 50
+			if = {
+				limit = { RAJ_lakshmi_sahgal = { is_character_alive = yes } }
+				recruit_character = RAJ_lakshmi_sahgal
+			}
 		}
 	}
 
@@ -416,6 +422,7 @@ focus_tree = {
 			if = {
 				limit = {
 					is_subject = yes
+					NOT = { autonomy_state = autonomy_free }
 				}
 				overlord = {
 					set_autonomy = {
@@ -746,6 +753,7 @@ focus_tree = {
 		ai_will_do = { factor = 9 }
 		completion_reward = {
 			add_political_power = 150
+			recruit_character = RAJ_bhimrao_ramji_ambedkar
 		}
 	}
 
@@ -824,7 +832,7 @@ focus_tree = {
 				name = IND_synth_oil_bonus
 				bonus = 1.0
 				uses = 1
-				category = synth_resources
+				technology = synth_resources
 			}
 		}
 	}
@@ -984,6 +992,10 @@ focus_tree = {
 		ai_will_do = { factor = 7 }
 		completion_reward = {
 			add_research_slot = 1
+			if = {
+				limit = { RAJ_homi_j_bhabha = { is_character_alive = yes } }
+				recruit_character = RAJ_homi_j_bhabha
+			}
 		}
 	}
 
@@ -1075,6 +1087,17 @@ focus_tree = {
 				}
 				SRL = { add_opinion_modifier = { target = IND modifier = small_increase } }
 				add_opinion_modifier = { target = SRL modifier = small_increase }
+			}
+			if = {
+				limit = {
+					NOT = { SRL = { exists = yes } }
+					CEY = { exists = yes }
+				}
+				CEY = {
+					set_temp_variable = { bsm_ea_token = IND.IND_saec_token }
+					bsm_ea_join_sphere = yes
+				}
+				add_opinion_modifier = { target = CEY modifier = small_increase }
 			}
 		}
 	}

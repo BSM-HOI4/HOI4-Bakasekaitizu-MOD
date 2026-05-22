@@ -106,7 +106,7 @@ Extensive character definitions in `common/characters/` organized by country, in
 6. **Effects and Triggers:** When implementing logic, consult the coding context references:
    - Effects: `documents/00_coding_contexts/01_effects/effects.json`
    - Triggers: `documents/00_coding_contexts/04_triggers/triggers.json`
-7. **システムタグ `_` の記述ルール:** TAGとして使用する場合は必ずアポストロフィで囲む。スコープ: `XXX = { ... }`、トリガー: `tag = XXX`、`NOT = { tag = XXX }`。囲まないと変数名として解釈される。
+7. **システムタグ `_` の記述ルール:** TAGとして使用する場合は必ずアポストロフィで囲む。スコープ: `'_' = { ... }`、トリガー: `tag = '_'`、`NOT = { tag = '_' }`。囲まないと変数名として解釈される。
 
 ## Asset References
 - For a complete list of goal interface graphics, see [goals_file_list.md](goals_file_list.md).

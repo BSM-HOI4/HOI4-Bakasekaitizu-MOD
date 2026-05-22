@@ -44,25 +44,14 @@ scripted_gui = {
 				bsm_ea_refresh_selection_data = yes
 			}
 			bsm_ea_player_entry_button_click = {
-				# dynamic_list の行スコープから、クリックした同盟盟主のトークンを取得する
-				set_temp_variable = { t_bsm_ea_selected_token = 0 }
-				var:bsm_ea_player_entry_scope = {
-					set_temp_variable = { PREV.t_bsm_ea_selected_token = bsm_ea_sphere }
-				}
-				ROOT = {
-					set_variable = { bsm_ea_selected_token = PREV.t_bsm_ea_selected_token }
-					bsm_ea_select_sphere_for_gui = yes
-					bsm_ea_refresh_selection_data = yes
-				}
+				# dynamic_list で change_scope = yes の場合、FROM = リストエントリ国
+				set_variable = { bsm_ea_selected_token = FROM.bsm_ea_sphere }
+				bsm_ea_select_sphere_for_gui = yes
+				bsm_ea_refresh_selection_data = yes
 			}
 			bsm_ea_target_entry_button_click = {
 				set_variable = { bsm_ea_has_selected_member = 1 }
-				var:bsm_ea_target_entry_scope = {
-					save_global_event_target_as = bsm_ea_selected_member
-				}
-				ROOT = {
-					set_variable = { bsm_ea_has_selected_member = 1 }
-				}
+				FROM = { save_global_event_target_as = bsm_ea_selected_member }
 			}
 			bsm_ea_governance_leader_button_click = {
 				bsm_ea_set_governance_leader = yes
@@ -253,37 +242,29 @@ scripted_gui = {
 			# List of Player's Alliances (alliances the player is a member of)
 			economic_alliance_player_list = {
 				array = global.bsm_ea_player_alliance_list
-				value = bsm_ea_player_entry_scope
-				index = bsm_ea_player_entry_index
 				change_scope = yes
-				country_scope_entry_container = "economic_alliance_player_entry"
+				entry_container = "economic_alliance_player_entry"
 			}
 
 			# List of Members in the *Selected* Sphere
 			economic_alliance_member_list = {
 				array = global.bsm_ea_gui_display_list
-				value = bsm_ea_member_entry_scope
-				index = bsm_ea_member_entry_index
 				change_scope = yes
-				country_scope_entry_container = "economic_alliance_member_entry"
+				entry_container = "economic_alliance_member_entry"
 			}
 
 			# Target selection list for actions
 			economic_alliance_target_list = {
 				array = global.bsm_ea_gui_display_list
-				value = bsm_ea_target_entry_scope
-				index = bsm_ea_target_entry_index
 				change_scope = yes
-				country_scope_entry_container = "economic_alliance_target_entry"
+				entry_container = "economic_alliance_target_entry"
 			}
 
 			# List of All Spheres (Ranking)
 			economic_alliance_ranking_list = {
 				array = global.bsm_ea_sorted_sphere_list
-				value = bsm_ea_ranking_entry_scope
-				index = bsm_ea_ranking_entry_index
 				change_scope = yes
-				country_scope_entry_container = "economic_alliance_ranking_entry"
+				entry_container = "economic_alliance_ranking_entry"
 			}
 		}
 	}
