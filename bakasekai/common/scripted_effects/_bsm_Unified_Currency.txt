@@ -358,12 +358,18 @@ ucs_on_monthly = {
 			set_country_flag = ucs_low_currency_penalty
 			set_variable = { ucs_ec_deficit = ucs_required_ec }
 			subtract_from_variable = { ucs_ec_deficit = Unified_Currency }
-			add_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier } } }
+				add_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+			}
 		}
 		else = {
 			clr_country_flag = ucs_low_currency_penalty
 			set_variable = { var = ucs_ec_deficit value = 0 }
-			remove_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+			if = {
+				limit = { has_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier } }
+				remove_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+			}
 		}
 
 		# ステート拡大限界 (EC量基準)
@@ -380,12 +386,18 @@ ucs_on_monthly = {
 			set_country_flag = ucs_over_state_limit_penalty
 			set_variable = { ucs_state_overage = num_owned_states }
 			subtract_from_variable = { ucs_state_overage = ucs_state_limit }
-			add_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier } } }
+				add_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+			}
 		}
 		else = {
 			clr_country_flag = ucs_over_state_limit_penalty
 			set_variable = { var = ucs_state_overage value = 0 }
-			remove_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+			if = {
+				limit = { has_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier } }
+				remove_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+			}
 		}
 
 		# 経済同盟の統合経済力計算
@@ -402,10 +414,16 @@ ucs_on_monthly = {
 		# ボーナス適用
 		if = {
 			limit = { check_variable = { unified_economic_power_bonus > 0 } }
-			add_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier } } }
+				add_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+			}
 		}
 		else = {
-			remove_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+			if = {
+				limit = { has_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier } }
+				remove_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+			}
 		}
 
 
