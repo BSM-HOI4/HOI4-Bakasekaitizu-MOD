@@ -62,7 +62,7 @@ name="バカ世界地図テスト版"
 dependencies={
 	"Japanese Language mod"
 }
-supported_version="1.13.*"
+supported_version="1.18.*"
 remote_file_id="2585391890"
 
 # フォントは、以下のフォントを利用させて頂いております

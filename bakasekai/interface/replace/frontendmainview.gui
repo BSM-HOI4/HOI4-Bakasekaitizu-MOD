@@ -7,7 +7,7 @@ guiTypes = {
 			width = 1920 
 			height = 1440 
 			min = { width = 100% height = 100% }
-			max = { width = 100% height = 100% }
+			max = { width = 100% height = 10000 }
 			preserve_aspect_ratio = yes
 		}
 		Orientation = center
@@ -15,11 +15,19 @@ guiTypes = {
 		clipping = no 
 		
 		background = {
-			name = "Background"		
+			name = "Background"
 			quadTextureSprite ="GFX_frontend_bg"
 			alwaystransparent = yes
 		}
-		
+
+		#BSM: カスタムメインメニュー背景(op.png)。GFX_frontend_bg(engine背景)の手前・全ボタンの奥に描画
+		iconType = {
+			name = "bsm_mainmenu_op_bg"
+			quadTextureSprite = "GFX_bsm_mainmenu_op"
+			position = { x=0 y=0 }
+			alwaystransparent = yes
+		}
+
 	}
 
 	### MAIN MENU PANEL (upperleft)
@@ -39,11 +47,7 @@ guiTypes = {
 	}
 	containerWindowType = {
 		name = "owned_dlc_item"
-		size = { width = 0 height = 0 }
-		position = {
-			x = 5000000000000
-			y = 550000000000000
-		}
+		size = { width = 50 height = 50 }
 		buttonType =
 		{
 			position = { x = -230 y = 0 }
@@ -81,11 +85,7 @@ guiTypes = {
 	
 	containerWindowType = {
 		name = "unowned_dlc_item"
-		size = { width = 0 height = 0 }
-		position = {
-			x = 5000000000000
-			y = 5000000000000
-		}
+		size = { width = 50 height = 50 }
 		buttonType =
 		{
 			position = { x = -230 y = 0 }
@@ -112,6 +112,25 @@ guiTypes = {
 		}
 		
 	}
+
+	### MAIN MENU PANEL (DLC Ownership)
+	containerWindowType = {
+		name = "mainmenu_dlc_ownership"
+		position = { x = 5 y = 0 }
+		size = { width = 370 height = 583 }
+		Orientation = lower_left
+		origo = lower_left
+
+		gridBoxType = {
+			name = "potential_dlc_list"
+			position = { x = 0 y = 0 }
+			size = { width = 50 height = 300 }
+			slotsize = { width = 50 height = 51 }
+			max_slots_vertical = 1
+			format = "RIGHT"
+		}
+	}
+
 	containerWindowType = {
 		name  ="frontend_alpha_stamp"
 		position = { x=100 y =-100  }
@@ -258,15 +277,15 @@ guiTypes = {
 			oversound = ui_menu_over
 		}
 		
-		# ButtonType = {
-		# 	name = "sp_tutorial_button"
-		# 	position = { x = 16 y = 138}
-		# 	quadTextureSprite ="GFX_main_lobby_button"	
-		# 	buttonText = "FE_TUTORIAL"
-		# 	buttonFont = "hoi_24header"
-		# 	clicksound = click_default
-		# 	oversound = ui_menu_over
-		# }
+			ButtonType = {
+				name = "sp_tutorial_button"
+				position = { x = 16 y = 11538 }
+				quadTextureSprite ="GFX_sp_load"	
+				buttonText = "FE_TUTORIAL"
+				buttonFont = "hoi_30"
+				clicksound = click_default
+				oversound = ui_menu_over
+			}
 		
 		ButtonType = {
 			name = "sp_back_button"
@@ -455,6 +474,23 @@ guiTypes = {
 				buttonText = "SUBSCRIPTION_WIDGET"
 				buttonFont = "hoi_24header"
 				multiline = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "subscription_widget_simp_chinese"
+			position = { x = 10 y = 352 }
+			size = { width = 288 height = 108 }
+			hide = yes
+
+			ButtonType = {
+				name = "show_subscription"
+				position = { x = 0 y = 0 }
+				quadTextureSprite ="GFX_subscription_widget_chinese"
+				buttonText = "SUBSCRIPTION_WIDGET_SIMP_CHINESE"
+				buttonFont = "hoi_24header"
+				multiline = yes
+				web_link = "https://cn.heartsofiron.com/add-ons"
 			}
 		}
 

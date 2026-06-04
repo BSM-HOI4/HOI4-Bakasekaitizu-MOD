@@ -18,7 +18,13 @@ on_actions = {
                 set_variable = { OE_page = 1 }
             }
             ### Anomaly System ###
-            every_country = {
+            # FIX(2026-06-03): AS_first_setting builds GLOBAL anomaly DB data and has its OWN
+            # inner every_country. Wrapping it in every_country ran it 347x (once per country),
+            # causing ~1.1M redundant global-array ops + a 347x347 nested sweep => multi-hour
+            # on_startup hang. It must run EXACTLY ONCE.
+            if = {
+                limit = { NOT = { has_global_flag = AS_initialized } }
+                set_global_flag = AS_initialized
                 AS_first_setting = yes
             }
 
