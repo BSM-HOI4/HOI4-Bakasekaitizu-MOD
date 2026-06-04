@@ -2,6 +2,26 @@
 
 This repository contains the **HOI4-Bakasekaitizu-MOD** (バカ世界地図MOD), a Hearts of Iron IV total conversion mod. This file provides GitHub Copilot with essential context for effective code assistance.
 
+Follow the repository rules in `AGENTS.md`.
+
+## Required Behavior
+
+- Do not suggest direct pushes to `main`.
+- Use work branches named `type/scope_name`.
+- Finished work should be merged into `develop`.
+- Keep suggestions consistent with existing BSM HOI4 script patterns.
+- Do not modify `.wav` or `.ogg` files unless explicitly requested.
+
+## Branch Examples
+
+```text
+feature/JPN_project
+feature/_map_africa
+feature/_system_harvest
+fix/crash_JAP_event
+archive/1.0
+```
+
 ## Project Context
 
 - **Type**: Hearts of Iron IV modification/mod
