@@ -20,14 +20,30 @@ guiTypes = {
 			alwaystransparent = yes
 		}
 
-		#BSM: カスタムメインメニュー背景(op.png)。GFX_frontend_bg(engine背景)の手前・全ボタンの奥に描画
-		iconType = {
-			name = "bsm_mainmenu_op_bg"
+	}
+
+	#BSM: カスタムメインメニュー背景(op.png)。frontend_backgroundと全く同じsize指定でコンテナの
+	#background として描画することで、iconType(ネイティブサイズ固定)と違い解像度非依存で画面いっぱい
+	#(カバー描画)になる。frontend_background(engine背景)の手前・全ボタンの奥に描画される。
+	containerWindowType = {
+		name = "bsm_frontend_op_background"
+		position = { x=0 y=0 }
+		size = {
+			width = 1920
+			height = 1440
+			min = { width = 100% height = 100% }
+			max = { width = 100% height = 10000 }
+			preserve_aspect_ratio = yes
+		}
+		Orientation = center
+		Origo = center
+		clipping = no
+
+		background = {
+			name = "Background"
 			quadTextureSprite = "GFX_bsm_mainmenu_op"
-			position = { x=0 y=0 }
 			alwaystransparent = yes
 		}
-
 	}
 
 	### MAIN MENU PANEL (upperleft)
@@ -116,7 +132,7 @@ guiTypes = {
 	### MAIN MENU PANEL (DLC Ownership)
 	containerWindowType = {
 		name = "mainmenu_dlc_ownership"
-		position = { x = 5 y = 0 }
+		position = { x = 9999 y = 0 } #BSM: DLC一覧を画面外へ移動して非表示
 		size = { width = 370 height = 583 }
 		Orientation = lower_left
 		origo = lower_left
@@ -167,6 +183,7 @@ guiTypes = {
 		ButtonType = {
 			name = "HMKS_button"
 			position = { x=0 y=50 }
+			scale = 0.5 #BSM: バナーを半分サイズに縮小
 			quadTextureSprite ="GFX_st_1"
 			clicksound = click_default
 			pdx_tooltip = "MENU_HMKS"
@@ -174,7 +191,8 @@ guiTypes = {
 		}
 		ButtonType = {
 			name = "BSR_button"
-			position = { x=0 y=310 }
+			position = { x=0 y=185 }
+			scale = 0.5 #BSM: バナーを半分サイズに縮小
 			quadTextureSprite ="GFX_st_2"
 			clicksound = click_default
 			pdx_tooltip = "MENU_BSR"
@@ -182,7 +200,8 @@ guiTypes = {
 		}
 		ButtonType = {
 			name = "ART_button"
-			position = { x=0 y=570 }
+			position = { x=0 y=320 }
+			scale = 0.5 #BSM: バナーを半分サイズに縮小
 			quadTextureSprite ="GFX_st_3"
 			clicksound = click_default
 			pdx_tooltip = "MENU_ART"
@@ -191,7 +210,8 @@ guiTypes = {
 
 		ButtonType = {
 			name = "VSE_button"
-			position = { x=0 y=830 }
+			position = { x=0 y=455 }
+			scale = 0.5 #BSM: バナーを半分サイズに縮小
 			quadTextureSprite ="GFX_st_4"
 			clicksound = click_default
 			pdx_tooltip = "MENU_VSE"
