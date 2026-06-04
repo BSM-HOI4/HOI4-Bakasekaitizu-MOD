@@ -1,6 +1,13 @@
 AS_first_setting= { #初期設定
-    AS_set_anomaly_data = yes #データの登録
-    AS_set_generic_list = yes #汎用リストへ登録
+    # FIX(2026-06-03): The global anomaly DB (AS_set_anomaly_data / AS_set_generic_list) is
+    # static catalog data and must be built ONCE. Guard it so this effect is idempotent even
+    # if some caller wraps it in every_country (the per-country list clears stay unguarded).
+    if = {
+        limit = { NOT = { has_global_flag = AS_db_built } }
+        set_global_flag = AS_db_built
+        AS_set_anomaly_data = yes #データの登録
+        AS_set_generic_list = yes #汎用リストへ登録
+    }
     every_country = {
         clear_array = AN_analyzed_list #解析済リスト
         clear_array = AN_researching_list #研究中リスト
