@@ -721,6 +721,53 @@ guiTypes = {
 			position = { x = 0 y = 0 }
 			quadTextureSprite ="achievements"
 			pdx_tooltip = "MENU_ACHIEVEMENTS"
-		}		
+		}
+	}
+
+	# FIX(errorlog): エンジンがハードコードで生成する "change_background" 窓が
+	# BSMのfrontend改変で未定義になり "Undefined GUI_TYPE: change_background"
+	# 警告(クラッシュ恐れ)が出ていた。エンジンが参照する名前付き子要素を
+	# 満たす最小スタブを定義して警告を解消する。ロード画面背景選択は未使用。
+	containerWindowType = {
+		name = "change_background"
+		position = { x = 0 y = 0 }
+		size = { width = 0 height = 0 }
+		show_position = { x = -10000 y = -10000 }
+
+		containerWindowType = {
+			name = "background_selection"
+			position = { x = 0 y = 0 }
+			size = { width = 0 height = 0 }
+
+			gridBoxType = {
+				name = "background_selection_list"
+				position = { x = 0 y = 0 }
+				size = { width = 0 height = 0 }
+				slotsize = { width = 1 height = 1 }
+				max_slots_horizontal = 1
+				format = "UPPER_LEFT"
+			}
+		}
+
+		gridBoxType = {
+			name = "available_backgrounds"
+			position = { x = 0 y = 0 }
+			size = { width = 0 height = 0 }
+			slotsize = { width = 1 height = 1 }
+			max_slots_horizontal = 1
+			format = "UPPER_LEFT"
+		}
+
+		checkBoxType = {
+			name = "select_all_checkbox"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_checkbox_button"
+		}
+
+		buttonType = {
+			name = "change_background_button"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_tiled_window_1b_border"
+		}
 	}
 }

@@ -85,7 +85,12 @@ bsm_stellaris_unlock_tradition = {
       if = {
         limit = { check_variable = { var = bsm_stellaris_tradition_economy value = 5 compare = less_than } }
         add_to_variable = { bsm_stellaris_tradition_economy = 1 }
-        add_ideas = bsm_stellaris_tradition_economy_@var:bsm_stellaris_tradition_economy
+        # FIX(errorlog): 動的idea名連結 _@var: は無効。値(1-5)で実在ideaを選択。
+        if = { limit = { check_variable = { var = bsm_stellaris_tradition_economy value = 1 compare = equals } } add_ideas = bsm_stellaris_tradition_economy_1 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_economy value = 2 compare = equals } } add_ideas = bsm_stellaris_tradition_economy_2 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_economy value = 3 compare = equals } } add_ideas = bsm_stellaris_tradition_economy_3 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_economy value = 4 compare = equals } } add_ideas = bsm_stellaris_tradition_economy_4 }
+        else = { add_ideas = bsm_stellaris_tradition_economy_5 }
       }
     }
     if = {
@@ -93,7 +98,12 @@ bsm_stellaris_unlock_tradition = {
       if = {
         limit = { check_variable = { var = bsm_stellaris_tradition_military value = 5 compare = less_than } }
         add_to_variable = { bsm_stellaris_tradition_military = 1 }
-        add_ideas = bsm_stellaris_tradition_military_@var:bsm_stellaris_tradition_military
+        # FIX(errorlog): 動的idea名連結 _@var: は無効。値(1-5)で実在ideaを選択。
+        if = { limit = { check_variable = { var = bsm_stellaris_tradition_military value = 1 compare = equals } } add_ideas = bsm_stellaris_tradition_military_1 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_military value = 2 compare = equals } } add_ideas = bsm_stellaris_tradition_military_2 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_military value = 3 compare = equals } } add_ideas = bsm_stellaris_tradition_military_3 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_military value = 4 compare = equals } } add_ideas = bsm_stellaris_tradition_military_4 }
+        else = { add_ideas = bsm_stellaris_tradition_military_5 }
       }
     }
     if = {
@@ -101,7 +111,12 @@ bsm_stellaris_unlock_tradition = {
       if = {
         limit = { check_variable = { var = bsm_stellaris_tradition_society value = 5 compare = less_than } }
         add_to_variable = { bsm_stellaris_tradition_society = 1 }
-        add_ideas = bsm_stellaris_tradition_society_@var:bsm_stellaris_tradition_society
+        # FIX(errorlog): 動的idea名連結 _@var: は無効。値(1-5)で実在ideaを選択。
+        if = { limit = { check_variable = { var = bsm_stellaris_tradition_society value = 1 compare = equals } } add_ideas = bsm_stellaris_tradition_society_1 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_society value = 2 compare = equals } } add_ideas = bsm_stellaris_tradition_society_2 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_society value = 3 compare = equals } } add_ideas = bsm_stellaris_tradition_society_3 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_society value = 4 compare = equals } } add_ideas = bsm_stellaris_tradition_society_4 }
+        else = { add_ideas = bsm_stellaris_tradition_society_5 }
       }
     }
     if = {
@@ -109,7 +124,12 @@ bsm_stellaris_unlock_tradition = {
       if = {
         limit = { check_variable = { var = bsm_stellaris_tradition_civilization value = 5 compare = less_than } }
         add_to_variable = { bsm_stellaris_tradition_civilization = 1 }
-        add_ideas = bsm_stellaris_tradition_civilization_@var:bsm_stellaris_tradition_civilization
+        # FIX(errorlog): 動的idea名連結 _@var: は無効。値(1-5)で実在ideaを選択。
+        if = { limit = { check_variable = { var = bsm_stellaris_tradition_civilization value = 1 compare = equals } } add_ideas = bsm_stellaris_tradition_civilization_1 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_civilization value = 2 compare = equals } } add_ideas = bsm_stellaris_tradition_civilization_2 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_civilization value = 3 compare = equals } } add_ideas = bsm_stellaris_tradition_civilization_3 }
+        else_if = { limit = { check_variable = { var = bsm_stellaris_tradition_civilization value = 4 compare = equals } } add_ideas = bsm_stellaris_tradition_civilization_4 }
+        else = { add_ideas = bsm_stellaris_tradition_civilization_5 }
       }
     }
 
@@ -228,7 +248,20 @@ bsm_stellaris_complete_expedition = {
     }
     random = {
       chance = 20
-      add_ideas = bsm_stellaris_trait_available
+      # FIX(errorlog): bare idea "bsm_stellaris_trait_available" は未定義。
+      # 実在する10種の trait_available から1つランダムで付与する。
+      random_list = {
+        10 = { add_ideas = bsm_stellaris_trait_available_technologically_advanced }
+        10 = { add_ideas = bsm_stellaris_trait_available_militarist }
+        10 = { add_ideas = bsm_stellaris_trait_available_eco_friendly }
+        10 = { add_ideas = bsm_stellaris_trait_available_industrial_power }
+        10 = { add_ideas = bsm_stellaris_trait_available_scientific_breakthrough }
+        10 = { add_ideas = bsm_stellaris_trait_available_diplomatic }
+        10 = { add_ideas = bsm_stellaris_trait_available_naval_supremacy }
+        10 = { add_ideas = bsm_stellaris_trait_available_trading_hub }
+        10 = { add_ideas = bsm_stellaris_trait_available_cultural_heritage }
+        10 = { add_ideas = bsm_stellaris_trait_available_war_honored }
+      }
     }
     random = {
       chance = 20
