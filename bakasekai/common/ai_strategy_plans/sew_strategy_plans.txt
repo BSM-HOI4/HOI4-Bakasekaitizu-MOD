@@ -1,0 +1,278 @@
+# 第二次エミュー戦争 AIストラテジープラン
+# 対象国: HRH（ハットリバー公国）/ AST（オーストラリア連邦）
+# WES.txt の構造を参考に作成
+#
+# HRH: 本土抵抗勢力としての生存戦略 → AST支援獲得 → Bokka_Alliance戦争遂行
+# AST: HRH支援 → 参戦判断 → 西オーストラリア奪還の2プラン
+
+######################################
+# HRH（ハットリバー公国）
+# プラン: 抵抗勢力の生存・反攻路線
+######################################
+
+# HRH唯一のプラン: 常時有効（フラグ不要）
+# 抵抗勢力として武装強化→外交→西海岸奪還の一本道
+HRH_sew_resistance_plan = {
+	name = "ハットリバー解放戦争"
+	desc = "本土に孤立した抵抗勢力として、民兵・不正規戦力を整備しながらASTとの連携でエミュー帝国に対抗する。"
+
+	allowed = {
+		original_tag = HRH
+	}
+	enable = {
+		original_tag = HRH
+	}
+	abort = {
+		NOT = { original_tag = HRH }
+	}
+
+	# ─── フォーカス優先順位 ───
+	# 序盤: 武装・兵站整備を最優先
+	# 中盤: 同盟勢力確保・西海岸奪還作戦
+	# 後期: AST連携での戦後体制構築
+	ai_national_focuses = {
+		HRH_focus_1      # 政治力確保・基礎強化（即座に着手）
+		HRH_focus_2      # 民兵組織化（HRH_TECH_1 = 歩兵装備解放）
+		HRH_focus_A2     # 外交網構築開始（並行して進める）
+		HRH_focus_3      # 軍工場増設・装備備蓄
+		HRH_focus_A3     # 先住民同盟（人的資源拡充）
+		HRH_focus_4      # 女性兵士（国家精神で戦力底上げ）
+		HRH_focus_4A     # 対ゲリラ専門家育成（HRH_TECH_3 = ゲリラ戦術）
+		HRH_focus_AB3    # アボリジニ義勇兵師団編成
+		HRH_focus_A4     # 民兵師団「Hutt River Militias」編成
+		HRH_focus_5      # 不正規師団編成（HRH_TECH_2 = militia+irregular解放）
+		HRH_focus_6      # 西海岸奪還作戦開始（HRH_recapture_startedフラグ）
+		HRH_focus_7      # 解放地の安定化
+		HRH_focus_8      # AST支援要請・Bokka_Alliance設立
+	}
+
+	# ─── 研究優先度 ───
+	# 不正規戦特化の小国なので歩兵・支援を最大化
+	# 海軍・戦車は完全除外
+	research = {
+		infantry_weapons  = 50.0   # 主力装備、最優先
+		support_tech      = 30.0   # 工兵・砲兵支援で師団強化
+		land_doctrine     = 25.0   # ゲリラ戦術運用に必要
+		infantry_tech     = 15.0   # irregular/militia強化
+		artillery         = 10.0   # 砲撃支援（支援砲兵）
+		naval_equipment   = -99.0  # 不要
+		armor             = -99.0  # 不要
+		air_equipment     = -30.0  # 最低限の防空のみ
+	}
+
+	# ─── アイデア優先度（将来の大臣選択への誘導） ───
+	ideas = {
+		# 現在のHRH固有アイデアなし（将来の拡張用）
+	}
+
+	traits = {
+		# 将来の将軍特性優先度用（現在は空）
+	}
+
+	# ─── プランの重み ───
+	# 唯一のプランなので weight=1.0 固定
+	weight = {
+		factor = 1.0
+		modifier = {
+			# 884州確保後（西海岸奪還成功）はさらに重みを増す
+			factor = 1.5
+			has_country_flag = HRH_recapture_success
+		}
+	}
+
+	focus_factors = {
+		# HRH_focus_5（不正規師団編成）を最優先タスクの一つに
+		HRH_focus_5 = 2.0
+		# 西海岸奪還ディシジョンに向けた準備フォーカスを加速
+		HRH_focus_6 = 2.0
+		# AST合流フォーカス（外交的最重要）
+		HRH_focus_8 = 3.0
+	}
+}
+
+######################################
+# AST（オーストラリア連邦）
+# プラン1: HRH積極支援路線（介入主義）
+# プラン2: HRH消極支援路線（国防優先）
+######################################
+
+# ─── AST プラン1: 積極介入・西部奪還 ───
+# HRH_recapture_success後にASTがBokka_Allianceに参加した場合に有効化
+AST_sew_intervention_plan = {
+	name = "西部解放作戦"
+	desc = "HRHへの全面支援を宣言し、軍事顧問・物資・参戦を通じてエミュー帝国との決戦に臨む。勝利後は西オーストラリアを奪還する。"
+
+	allowed = {
+		original_tag = AST
+	}
+	enable = {
+		original_tag = AST
+		# Bokka_Alliance参加済み or 積極支援フラグが立っている
+		OR = {
+			is_in_faction_with = HRH
+			has_country_flag = AST_sew_respond_to_hrh_done
+		}
+		HRH = {
+			exists = yes
+			has_country_flag = HRH_recapture_success
+		}
+	}
+	abort = {
+		OR = {
+			NOT = { HRH = { exists = yes } }
+			# AUSとの戦争が終わったら（勝利or講和）中断
+			AND = {
+				NOT = { has_war_with = AUS }
+				has_completed_focus = AST_sew_declare_war
+			}
+		}
+	}
+
+	# ─── フォーカス優先順位 ───
+	# 支援→顧問→動員→参戦→戦後の順で一本道
+	# 左(物資)ブランチと中央(顧問)ブランチを並行進行
+	ai_national_focuses = {
+		AST_sew_respond_to_hrh          # ルート: HRHへ連絡・支援意思表示
+		AST_sew_send_advisors           # 中央: 軍事顧問派遣（HRH強化の核心）
+		AST_sew_supply_hrh              # 左: 物資・装備の直接提供
+		AST_sew_joint_training          # 中央: 合同訓練（HRHのドクトリン研究加速）
+		AST_sew_artillery_support       # 左: 砲兵装備追加支援
+		AST_sew_naval_support           # 左: 海上補給路確保（ASTの海軍力活用）
+		AST_sew_combined_ops_plan       # 中央: 合同作戦計画策定
+		AST_sew_contact_gbr             # 右: 英国への外交アプローチ
+		AST_sew_gbr_military_aid        # 右: 英国軍事援助受領
+		AST_sew_mobilize                # 合流: 全体動員令・参戦最終準備
+		AST_sew_declare_war             # 参戦: 対AUS宣戦布告
+		AST_sew_reclaim_west            # 戦後: 西部再統合（コア追加）
+		AST_sew_post_war_hrh_recognition # 戦後: HRH自治承認
+		AST_sew_gbr_thank_you           # 戦後: 英国への感謝外交
+	}
+
+	# ─── 研究優先度 ───
+	# 海軍上陸作戦が主軸 → 海軍+歩兵+支援をバランスよく
+	research = {
+		naval_equipment   = 45.0   # 海軍国としての最優先事項（上陸作戦に必須）
+		infantry_weapons  = 35.0   # 地上部隊の主力
+		support_tech      = 25.0   # 海兵支援・工兵
+		land_doctrine     = 20.0   # 合同作戦ドクトリン
+		infantry_tech     = 15.0   # 師団強化
+		artillery         = 12.0   # 砲兵支援
+		armor             = -50.0  # 当面不要（タスマニア地形に不向き）
+		air_equipment     = 10.0   # 最低限の制空
+	}
+
+	ideas = {
+		# 将来の大臣選択優先度（現在は空欄）
+	}
+
+	traits = {
+		# 将軍特性優先度（現在は空欄）
+	}
+
+	# ─── プランの重み ───
+	weight = {
+		factor = 1.0
+		modifier = {
+			# Bokka_Alliance参加済みで優先度UP
+			factor = 2.0
+			is_in_faction_with = HRH
+		}
+		modifier = {
+			# 参戦フォーカス完了後はさらにUP（戦後処理を急ぐ）
+			factor = 1.5
+			has_completed_focus = AST_sew_declare_war
+		}
+	}
+
+	focus_factors = {
+		# 軍事顧問を最重要ブランチとして加速
+		AST_sew_send_advisors    = 3.0
+		# 参戦は最大優先度
+		AST_sew_mobilize         = 2.5
+		AST_sew_declare_war      = 3.0
+		# 西部奪還は最終ゴール
+		AST_sew_reclaim_west     = 2.0
+	}
+}
+
+# ─── AST プラン2: 国防優先・消極支援 ───
+# ASTがBokka_Allianceに参加していない / 独立路線を選んだ場合
+# 直接参戦はせず、物資のみ支援するスタンスを維持
+AST_sew_defense_plan = {
+	name = "タスマニア防衛路線"
+	desc = "タスマニアの防衛を最優先とし、HRHへの支援は物資提供に留める。エミュー帝国との直接対決は避けつつ、独立国家としての立場を固める。"
+
+	allowed = {
+		original_tag = AST
+	}
+	enable = {
+		original_tag = AST
+		# Bokka_Alliance未参加 かつ HRHがまだ戦争中
+		NOT = { is_in_faction_with = HRH }
+		HRH = {
+			exists = yes
+			has_country_flag = HRH_recapture_success
+		}
+	}
+	abort = {
+		# Bokka_Alliance参加したら積極介入プランに切り替え
+		is_in_faction_with = HRH
+	}
+
+	# ─── フォーカス優先順位 ───
+	# 物資支援ブランチのみ進み、参戦は回避
+	# 英国独立路線（AST_sew_gbr_independent）を選択
+	ai_national_focuses = {
+		AST_sew_respond_to_hrh      # 最低限の外交的応答
+		AST_sew_supply_hrh          # 物資支援のみ（最小介入）
+		AST_sew_artillery_support   # 砲兵装備支援
+		AST_sew_naval_support       # 海上補給路（タスマニア防衛も兼ねる）
+		AST_sew_contact_gbr         # 英国との関係維持
+		AST_sew_gbr_independent     # 独立路線選択（コモンウェルス依存脱却）
+	}
+
+	# ─── 研究優先度 ───
+	# 防衛中心 → 歩兵・海軍を固める
+	research = {
+		infantry_weapons  = 40.0   # 地上防衛の要
+		naval_equipment   = 40.0   # タスマニア海峡防衛
+		support_tech      = 20.0   # 防衛支援
+		land_doctrine     = 15.0   # 陣地防衛ドクトリン
+		infantry_tech     = 12.0   # 師団強化
+		armor             = -80.0  # 不要
+		air_equipment     = 15.0   # 制空権維持
+	}
+
+	ideas = {
+	}
+
+	traits = {
+	}
+
+	# ─── プランの重み ───
+	# デフォルトでは低め — 積極介入プランが有効な場合は自動的にそちらが優先
+	weight = {
+		factor = 0.5
+		modifier = {
+			# 独立精神国家精神を持つ場合は重みUP
+			factor = 2.0
+			has_idea = AST_sew_independence_spirit
+		}
+		modifier = {
+			# AUSと戦争になったら（どちらかが攻め込まれた）このプランは無効化
+			factor = 0.0
+			has_war_with = AUS
+		}
+	}
+
+	focus_factors = {
+		# 物資支援ブランチを最優先
+		AST_sew_supply_hrh       = 2.0
+		AST_sew_naval_support    = 2.0
+		# 英国独立路線を選ぶよう誘導
+		AST_sew_gbr_independent  = 2.5
+		# 参戦フォーカスには手を出さない
+		AST_sew_mobilize         = 0.0
+		AST_sew_declare_war      = 0.0
+	}
+}
