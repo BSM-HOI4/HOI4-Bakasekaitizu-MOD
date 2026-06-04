@@ -25,7 +25,13 @@ on_actions = {
             if = {
                 limit = { NOT = { has_global_flag = AS_initialized } }
                 set_global_flag = AS_initialized
-                AS_first_setting = yes
+                # FIX(errorlog 2026-06-04): on_startup の effect は scope=None。AS_first_setting は
+                # 冒頭で global.配列操作を行うため None スコープでは "Invalid Scope" になる。
+                # 単一 country スコープで1回だけ実行する(内部の every_country は全国家を走査)。
+                random_country = {
+                    limit = { always = yes }
+                    AS_first_setting = yes
+                }
             }
 
             ### Stellaris Elements System - Initialize ONCE ###
