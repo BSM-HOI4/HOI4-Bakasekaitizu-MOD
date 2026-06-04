@@ -1,8 +1,10 @@
 # CLAUDE.md
 
-Do not modify any `.wav` or `.ogg` files.
+This file provides Claude Code guidance for working in the HOI4-Bakasekaitizu-MOD repository.
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Always read `AGENTS.md` first. That file contains the shared rules for all AI agents, including GitFlow, branch naming, safety, style, and validation.
+
+Do not modify any `.wav` or `.ogg` files.
 
 ## Project Overview
 
@@ -83,6 +85,28 @@ The mod includes hundreds of custom countries with unique 3-letter tags:
 - Debug events and decisions available
 - Performance profiler integration for optimization
 
+## Claude Workflow
+
+Before edits:
+
+- Run `git status --short --branch`.
+- Confirm the work is on a properly named branch, such as `feature/JPN_project` or `fix/crash_TAG_event`.
+- If the task covers unrelated areas, split the work by branch.
+- Inspect nearby files before creating new patterns.
+
+During edits:
+
+- Keep changes scoped to the request.
+- Preserve user changes and unrelated work.
+- Prefer existing bsm_test conventions over patterns from other repositories.
+- Use concise comments only where the script is not self-explanatory.
+
+After edits:
+
+- Review changed files.
+- Run the most relevant lightweight validation available.
+- Report changed files and any validation that could not be run.
+
 ### Variable System
 The mod uses HOI4's variable system extensively for dynamic content. Key commands:
 - `set_variable = { var = name value = X }`
@@ -107,6 +131,20 @@ Extensive character definitions in `common/characters/` organized by country, in
    - Effects: `documents/00_coding_contexts/01_effects/effects.json`
    - Triggers: `documents/00_coding_contexts/04_triggers/triggers.json`
 7. **システムタグ `_` の記述ルール:** TAGとして使用する場合は必ずアポストロフィで囲む。スコープ: `XXX = { ... }`、トリガー: `tag = XXX`、`NOT = { tag = XXX }`。囲まないと変数名として解釈される。
+
+## Branch Policy
+
+Claude must follow the branch policy in `AGENTS.md`:
+
+- No direct push to `main`.
+- Finished branches merge into `develop`.
+- Start work on a branch.
+- Switch branches between unrelated items.
+- Use `type/scope_name` branch names.
+
+## External References
+
+Use `SSW_mod` and `Tsareich2` as reference repositories only for general HOI4 and AI-agent workflow patterns. Do not copy their mod-specific systems, tags, IDs, worldbuilding, or naval rules into this mod unless the user explicitly asks.
 
 ## Asset References
 - For a complete list of goal interface graphics, see [goals_file_list.md](goals_file_list.md).

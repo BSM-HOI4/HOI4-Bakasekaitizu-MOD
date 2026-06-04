@@ -5,6 +5,13 @@
 - HOI4 1.13.* 向けの総変換MOD開発を前提とします。
 - 既存の `CLAUDE.md` と `.github/copilot-instructions.md` を統合・整理しています。
 
+## Required First Steps
+- 変更前に本ファイルを読むこと。
+- `git status --short --branch` で現在のブランチと作業ツリー状態を確認すること。
+- ユーザーの変更を上書き・取り消ししないこと（明示的な指示がある場合を除く）。
+- 編集前に適切な作業ブランチを作成・切り替えすること。
+- `main` へ直接プッシュしないこと。
+
 ## リポジトリ構成
 - `bakasekai/`: 主要コンテンツ（HOI4標準構造）
   - `common/`, `events/`, `history/`, `localisation/japanese/`, `gfx/`, `interface/`, `map/`
@@ -139,9 +146,46 @@
   - セーブ互換性
   - パフォーマンス観測
 
+## GitFlow
+
+`develop` を統合ブランチとして使用する。完了した作業ブランチは `develop` にマージする（`main` には直接マージしない）。
+
+ブランチ名は以下の形式に従う:
+
+```text
+type/scope_name
+```
+
+許可される `type` 値:
+- `feature`: 新コンテンツ、システム、国家、マップ作業、テクノロジー、UI、ドキュメント
+- `fix`: バグ修正、クラッシュ修正、構文修正、ローカライズ修正
+- `archive`: 保存用の履史的バージョンや保全ブランチ
+
+scope の例:
+- `TAG`: 国タグ作業（`GER`, `JAP`, `USA` 等）
+- `_map`: マップ、州、プロビンス、戦略地域
+- `_system`: 共有システム、scripted effects、scripted triggers、GUIシステム
+
+```text
+feature/JPN_project
+feature/_map_africa
+feature/_system_harvest
+fix/crash_JAP_event
+archive/1.0
+```
+
+複数の無関係な項目を作業する場合は、項目ごとにブランチを切り替えること。
+
 ## 外部ツール/ルール
 - Cursor ルール: 未検出（`.cursor/rules/`, `.cursorrules` なし）
 - Copilot ルール: `.github/copilot-instructions.md` を参照
+
+## AI-Specific Notes
+- Claude は `CLAUDE.md` も読むこと。
+- Gemini は `GEMINI.md` を参照（存在する場合）。
+- GitHub Copilot は `.github/copilot-instructions.md` に従うこと。
+- Opencode は `.opencode/AGENTS.md` に従うこと。
+- Codex は本ファイルを主要なリポジトリ指示ファイルとして扱うこと。
 
 ## 参照パス（頻出）
 - `documents/00_coding_contexts/01_effects/effects.json`
