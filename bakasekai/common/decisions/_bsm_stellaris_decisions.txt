@@ -1,110 +1,160 @@
 # ==========================================
-# BSM ステラリス要素 - 伝統システム
+# BSM 地球版ステラリス要素 - 伝統システム
 # prefix: bsm_stellaris_
 # ==========================================
 
 bsm_stellaris_traditions = {
-  # 経済伝統
-  bsm_stellaris_unlock_economy_tradition_decision = {
-    icon = gfx/interface/icons/ideas/economy.dds
+  bsm_stellaris_unlock_exploration_tradition_decision = {
+    icon = gfx/interface/icons/research/anomaly.dds
     allowed = { always = yes }
     available = {
       has_variable = National_Unity_Power
-      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_tradition_economy
-      check_variable = { var = bsm_stellaris_tradition_economy value = 5 compare = less_than }
+      OR = {
+        AND = { bsm_stellaris_has_exploration_tradition_affinity = yes check_variable = { var = National_Unity_Power value = 75 compare = greater_than_or_equals } }
+        AND = { NOT = { bsm_stellaris_has_exploration_tradition_affinity = yes } check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals } }
+      }
+      has_variable = bsm_stellaris_tradition_exploration
+      check_variable = { var = bsm_stellaris_tradition_exploration value = 7 compare = less_than }
     }
     visible = {
-      has_variable = National_Unity_Power
-      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_tradition_economy
-      check_variable = { var = bsm_stellaris_tradition_economy value = 5 compare = less_than }
+      has_variable = bsm_stellaris_tradition_exploration
+      check_variable = { var = bsm_stellaris_tradition_exploration value = 7 compare = less_than }
     }
     cost = 0
     days_re_enable = 0
     fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_tradition_category = 1 }
-      set_variable = { bsm_stellaris_tradition_cost = 100 }
-      bsm_stellaris_unlock_tradition = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_tradition_exploration = yes }
   }
 
-  # 軍事伝統
-  bsm_stellaris_unlock_military_tradition_decision = {
-    icon = gfx/interface/icons/ideas/military.dds
-    allowed = { always = yes }
-    available = {
-      has_variable = National_Unity_Power
-      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_tradition_military
-      check_variable = { var = bsm_stellaris_tradition_military value = 5 compare = less_than }
-    }
-    visible = {
-      has_variable = National_Unity_Power
-      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_tradition_military
-      check_variable = { var = bsm_stellaris_tradition_military value = 5 compare = less_than }
-    }
-    cost = 0
-    days_re_enable = 0
-    fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_tradition_category = 2 }
-      set_variable = { bsm_stellaris_tradition_cost = 100 }
-      bsm_stellaris_unlock_tradition = yes
-    }
-  }
-
-  # 社会伝統
-  bsm_stellaris_unlock_society_tradition_decision = {
+  bsm_stellaris_unlock_expansion_tradition_decision = {
     icon = gfx/interface/icons/ideas/political.dds
     allowed = { always = yes }
     available = {
       has_variable = National_Unity_Power
-      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_tradition_society
-      check_variable = { var = bsm_stellaris_tradition_society value = 5 compare = less_than }
+      OR = {
+        AND = { bsm_stellaris_has_expansion_tradition_affinity = yes check_variable = { var = National_Unity_Power value = 75 compare = greater_than_or_equals } }
+        AND = { NOT = { bsm_stellaris_has_expansion_tradition_affinity = yes } check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals } }
+      }
+      has_variable = bsm_stellaris_tradition_expansion
+      check_variable = { var = bsm_stellaris_tradition_expansion value = 7 compare = less_than }
     }
     visible = {
-      has_variable = National_Unity_Power
-      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_tradition_society
-      check_variable = { var = bsm_stellaris_tradition_society value = 5 compare = less_than }
+      has_variable = bsm_stellaris_tradition_expansion
+      check_variable = { var = bsm_stellaris_tradition_expansion value = 7 compare = less_than }
     }
     cost = 0
     days_re_enable = 0
     fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_tradition_category = 3 }
-      set_variable = { bsm_stellaris_tradition_cost = 100 }
-      bsm_stellaris_unlock_tradition = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_tradition_expansion = yes }
   }
 
-  # 文明伝統
-  bsm_stellaris_unlock_civilization_tradition_decision = {
+  bsm_stellaris_unlock_prosperity_tradition_decision = {
+    icon = gfx/interface/icons/ideas/economy.dds
+    allowed = { always = yes }
+    available = {
+      has_variable = National_Unity_Power
+      OR = {
+        AND = { bsm_stellaris_has_prosperity_tradition_affinity = yes check_variable = { var = National_Unity_Power value = 75 compare = greater_than_or_equals } }
+        AND = { NOT = { bsm_stellaris_has_prosperity_tradition_affinity = yes } check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals } }
+      }
+      has_variable = bsm_stellaris_tradition_prosperity
+      check_variable = { var = bsm_stellaris_tradition_prosperity value = 7 compare = less_than }
+    }
+    visible = {
+      has_variable = bsm_stellaris_tradition_prosperity
+      check_variable = { var = bsm_stellaris_tradition_prosperity value = 7 compare = less_than }
+    }
+    cost = 0
+    days_re_enable = 0
+    fire_only_once = no
+    complete_effect = { bsm_stellaris_unlock_tradition_prosperity = yes }
+  }
+
+  bsm_stellaris_unlock_armaments_tradition_decision = {
+    icon = gfx/interface/icons/ideas/military.dds
+    allowed = { always = yes }
+    available = {
+      has_variable = National_Unity_Power
+      OR = {
+        AND = { bsm_stellaris_has_armaments_tradition_affinity = yes check_variable = { var = National_Unity_Power value = 75 compare = greater_than_or_equals } }
+        AND = { NOT = { bsm_stellaris_has_armaments_tradition_affinity = yes } check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals } }
+      }
+      has_variable = bsm_stellaris_tradition_armaments
+      check_variable = { var = bsm_stellaris_tradition_armaments value = 7 compare = less_than }
+    }
+    visible = {
+      has_variable = bsm_stellaris_tradition_armaments
+      check_variable = { var = bsm_stellaris_tradition_armaments value = 7 compare = less_than }
+    }
+    cost = 0
+    days_re_enable = 0
+    fire_only_once = no
+    complete_effect = { bsm_stellaris_unlock_tradition_armaments = yes }
+  }
+
+  bsm_stellaris_unlock_diplomacy_tradition_decision = {
+    icon = gfx/interface/icons/research/society_research.dds
+    allowed = { always = yes }
+    available = {
+      has_variable = National_Unity_Power
+      OR = {
+        AND = { bsm_stellaris_has_diplomacy_tradition_affinity = yes check_variable = { var = National_Unity_Power value = 75 compare = greater_than_or_equals } }
+        AND = { NOT = { bsm_stellaris_has_diplomacy_tradition_affinity = yes } check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals } }
+      }
+      has_variable = bsm_stellaris_tradition_diplomacy
+      check_variable = { var = bsm_stellaris_tradition_diplomacy value = 7 compare = less_than }
+    }
+    visible = {
+      has_variable = bsm_stellaris_tradition_diplomacy
+      check_variable = { var = bsm_stellaris_tradition_diplomacy value = 7 compare = less_than }
+    }
+    cost = 0
+    days_re_enable = 0
+    fire_only_once = no
+    complete_effect = { bsm_stellaris_unlock_tradition_diplomacy = yes }
+  }
+
+  bsm_stellaris_unlock_governance_tradition_decision = {
+    icon = gfx/interface/icons/research/engineering_research.dds
+    allowed = { always = yes }
+    available = {
+      has_variable = National_Unity_Power
+      OR = {
+        AND = { bsm_stellaris_has_governance_tradition_affinity = yes check_variable = { var = National_Unity_Power value = 75 compare = greater_than_or_equals } }
+        AND = { NOT = { bsm_stellaris_has_governance_tradition_affinity = yes } check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals } }
+      }
+      has_variable = bsm_stellaris_tradition_governance
+      check_variable = { var = bsm_stellaris_tradition_governance value = 7 compare = less_than }
+    }
+    visible = {
+      has_variable = bsm_stellaris_tradition_governance
+      check_variable = { var = bsm_stellaris_tradition_governance value = 7 compare = less_than }
+    }
+    cost = 0
+    days_re_enable = 0
+    fire_only_once = no
+    complete_effect = { bsm_stellaris_unlock_tradition_governance = yes }
+  }
+
+  bsm_stellaris_unlock_harmony_tradition_decision = {
     icon = gfx/interface/icons/research/physics_research.dds
     allowed = { always = yes }
     available = {
       has_variable = National_Unity_Power
-      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_tradition_civilization
-      check_variable = { var = bsm_stellaris_tradition_civilization value = 5 compare = less_than }
+      OR = {
+        AND = { bsm_stellaris_has_harmony_tradition_affinity = yes check_variable = { var = National_Unity_Power value = 75 compare = greater_than_or_equals } }
+        AND = { NOT = { bsm_stellaris_has_harmony_tradition_affinity = yes } check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals } }
+      }
+      has_variable = bsm_stellaris_tradition_harmony
+      check_variable = { var = bsm_stellaris_tradition_harmony value = 7 compare = less_than }
     }
     visible = {
-      has_variable = National_Unity_Power
-      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_tradition_civilization
-      check_variable = { var = bsm_stellaris_tradition_civilization value = 5 compare = less_than }
+      has_variable = bsm_stellaris_tradition_harmony
+      check_variable = { var = bsm_stellaris_tradition_harmony value = 7 compare = less_than }
     }
     cost = 0
     days_re_enable = 0
     fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_tradition_category = 4 }
-      set_variable = { bsm_stellaris_tradition_cost = 100 }
-      bsm_stellaris_unlock_tradition = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_tradition_harmony = yes }
   }
 }

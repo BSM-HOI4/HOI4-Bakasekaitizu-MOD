@@ -1,5 +1,7 @@
 # ステラリス要素システム (Stellaris Elements System)
 
+> 注: このファイルは旧4伝統時代の参考資料を含みます。現行の地球版・思想連動型仕様は [stellaris_earth_ideology_system.md](./stellaris_earth_ideology_system.md) を正としてください。
+
 ## 概要
 
 ステラリス要素システムは、BSMmodにStellaris（ゲーム名）の要素を取り入れたシステムです。伝統（Traditions）、特性（Traits）、アセンションパーク（Ascension Perks）、探検隊（Expeditions）、アノマリー（Anomalies）を管理し、文明度（Cultural_Degree）と国家統合力（National_Unity_Power）と密接に関連しています。
@@ -222,11 +224,9 @@ bsm_stellaris_update_tradition_count = {
 bsm_stellaris_equip_trait = {
   if = {
     limit = {
-      has_variable = bsm_stellaris_trait_token
-      has_variable = bsm_stellaris_traits_equipped
-      has_variable = bsm_stellaris_trait_slots
       check_variable = { var = bsm_stellaris_traits_equipped value = bsm_stellaris_trait_slots compare = less_than }
-      NOT = { has_idea = var:bsm_stellaris_trait_token }
+      check_variable = { var = bsm_stellaris_trait_id value = 1 compare = equals }
+      NOT = { has_idea = bsm_stellaris_trait_aggressive }
     }
     add_ideas = var:bsm_stellaris_trait_token
     add_to_variable = { bsm_stellaris_traits_equipped = 1 }
@@ -236,9 +236,8 @@ bsm_stellaris_equip_trait = {
 bsm_stellaris_unequip_trait = {
   if = {
     limit = {
-      has_variable = bsm_stellaris_trait_token
-      has_variable = bsm_stellaris_traits_equipped
-      has_idea = var:bsm_stellaris_trait_token
+      check_variable = { var = bsm_stellaris_trait_id value = 1 compare = equals }
+      has_idea = bsm_stellaris_trait_aggressive
     }
     remove_ideas = var:bsm_stellaris_trait_token
     subtract_from_variable = { bsm_stellaris_traits_equipped = 1 }

@@ -18,6 +18,8 @@ AN_research_start_id_1 = {
 		set_variable = { AN_research_progress_1 = 0 }
 		set_variable = { AN_research_start_date_1 = current_date }
 		set_variable = { AN_research_expected_days_1 = 150 }
+		set_variable = { AN_research_slot_1_token = token:AS_AN_International_Oxygen_Documents }
+		add_to_array = { AN_researching_list = var:AN_research_slot_1_token }
 		
 		country_event = { id = AN_research.4 }
 	}
@@ -38,6 +40,8 @@ AN_research_start_id_2 = {
 		set_variable = { AN_research_progress_2 = 0 }
 		set_variable = { AN_research_start_date_2 = current_date }
 		set_variable = { AN_research_expected_days_2 = 275 }
+		set_variable = { AN_research_slot_2_token = token:AS_AN_Shiga_Conference_Records }
+		add_to_array = { AN_researching_list = var:AN_research_slot_2_token }
 		
 		country_event = { id = AN_research.4 }
 	}
@@ -50,9 +54,6 @@ AN_research_start_id_2 = {
 # 研究進行（週次）
 # ------------------------------------------
 AN_research_weekly = {
-	if = {
-		limit = { has_variable = AN_researching_list }
-		
 		if = {
 			limit = { has_variable = AN_research_progress_1 }
 			set_temp_variable = { t_progress = AN_research_progress_1 }
@@ -70,12 +71,15 @@ AN_research_weekly = {
 			
 			if = {
 				limit = { check_variable = { var = AN_research_progress_1 value = 100 compare = greater_than_or_equals } }
-					add_ideas = AS_AN_International_Oxygen_Documents
+					add_ideas = var:AN_research_slot_1_token
+					add_to_array = { AN_completed_list = var:AN_research_slot_1_token }
+					remove_from_array = { AN_researching_list = var:AN_research_slot_1_token }
 					bsm_stellaris_anomaly_reward = yes
 					
 					clear_variable = AN_research_progress_1
 					clear_variable = AN_research_start_date_1
 					clear_variable = AN_research_expected_days_1
+					clear_variable = AN_research_slot_1_token
 					
 					country_event = { id = AN_research.1 }
 			}
@@ -98,17 +102,19 @@ AN_research_weekly = {
 			
 			if = {
 				limit = { check_variable = { var = AN_research_progress_2 value = 100 compare = greater_than_or_equals } }
-					add_ideas = AS_AN_Shiga_Conference_Records
+					add_ideas = var:AN_research_slot_2_token
+					add_to_array = { AN_completed_list = var:AN_research_slot_2_token }
+					remove_from_array = { AN_researching_list = var:AN_research_slot_2_token }
 					bsm_stellaris_anomaly_reward = yes
 					
 					clear_variable = AN_research_progress_2
 					clear_variable = AN_research_start_date_2
 					clear_variable = AN_research_expected_days_2
+					clear_variable = AN_research_slot_2_token
 					
 					country_event = { id = AN_research.1 }
 			}
 		}
-	}
 }
 
 # ------------------------------------------
@@ -117,16 +123,20 @@ AN_research_weekly = {
 AN_research_cancel = {
 	if = {
 		limit = { has_variable = AN_research_progress_1 }
+		remove_from_array = { AN_researching_list = var:AN_research_slot_1_token }
 		clear_variable = AN_research_progress_1
 		clear_variable = AN_research_start_date_1
 		clear_variable = AN_research_expected_days_1
+		clear_variable = AN_research_slot_1_token
 	}
 
 	if = {
 		limit = { has_variable = AN_research_progress_2 }
+		remove_from_array = { AN_researching_list = var:AN_research_slot_2_token }
 		clear_variable = AN_research_progress_2
 		clear_variable = AN_research_start_date_2
 		clear_variable = AN_research_expected_days_2
+		clear_variable = AN_research_slot_2_token
 	}
 }
 
@@ -140,6 +150,6 @@ AN_research_complete = {
 			NOT = { has_variable = AN_research_progress_1 }
 			NOT = { has_variable = AN_research_progress_2 }
 		}
-		clear_variable = AN_researching_list
+		clear_array = AN_researching_list
 	}
 }
