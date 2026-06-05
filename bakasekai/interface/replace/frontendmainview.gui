@@ -20,30 +20,31 @@ guiTypes = {
 			alwaystransparent = yes
 		}
 
-	}
+		#BSM: カスタムメインメニュー背景(op.png)。エンジンが必ず生成する frontend_background の
+		#子としてネストすることで確実に描画される(独自名トップレベル窓はエンジンに無視され描画されない)。
+		#親背景(GFX_frontend_bg)の手前・別トップレベル窓のメニューパネル群の奥に出る。
+		#親と同じフルサイズ指定でコンテナの background として描くため解像度非依存のカバー描画になる。
+		containerWindowType = {
+			name = "bsm_frontend_op_background"
+			position = { x=0 y=0 }
+			size = {
+				width = 1920
+				height = 1440
+				min = { width = 100% height = 100% }
+				max = { width = 100% height = 10000 }
+				preserve_aspect_ratio = yes
+			}
+			Orientation = center
+			Origo = center
+			clipping = no
 
-	#BSM: カスタムメインメニュー背景(op.png)。frontend_backgroundと全く同じsize指定でコンテナの
-	#background として描画することで、iconType(ネイティブサイズ固定)と違い解像度非依存で画面いっぱい
-	#(カバー描画)になる。frontend_background(engine背景)の手前・全ボタンの奥に描画される。
-	containerWindowType = {
-		name = "bsm_frontend_op_background"
-		position = { x=0 y=0 }
-		size = {
-			width = 1920
-			height = 1440
-			min = { width = 100% height = 100% }
-			max = { width = 100% height = 10000 }
-			preserve_aspect_ratio = yes
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_bsm_mainmenu_op"
+				alwaystransparent = yes
+			}
 		}
-		Orientation = center
-		Origo = center
-		clipping = no
 
-		background = {
-			name = "Background"
-			quadTextureSprite = "GFX_bsm_mainmenu_op"
-			alwaystransparent = yes
-		}
 	}
 
 	### MAIN MENU PANEL (upperleft)
@@ -728,29 +729,23 @@ guiTypes = {
 	# BSMのfrontend改変で未定義になり "Undefined GUI_TYPE: change_background"
 	# 警告(クラッシュ恐れ)が出ていた。エンジンが参照する名前付き子要素を
 	# 満たす最小スタブを定義して警告を解消する。ロード画面背景選択は未使用。
+	# FIX(errorlog): エンジンが探す名前付き子要素の階層が逆だったため
+	#   "Could not find background_selection_list in window change_background" 等の
+	#   警告が出ていた。エンジン要求の階層へ組み替える:
+	#     change_background
+	#     ├ background_selection_list (gridBox)  ← change_background 直下
+	#     └ background_selection (window)
+	#       ├ available_backgrounds (gridBox)    ← background_selection 直下
+	#       └ select_all_checkbox (checkBox)     ← background_selection 直下
+	#   窓は 0x0 + show_position 画面外 = 不可視のまま維持(ロード画面背景選択は未使用)。
 	containerWindowType = {
 		name = "change_background"
 		position = { x = 0 y = 0 }
 		size = { width = 0 height = 0 }
 		show_position = { x = -10000 y = -10000 }
 
-		containerWindowType = {
-			name = "background_selection"
-			position = { x = 0 y = 0 }
-			size = { width = 0 height = 0 }
-
-			gridBoxType = {
-				name = "background_selection_list"
-				position = { x = 0 y = 0 }
-				size = { width = 0 height = 0 }
-				slotsize = { width = 1 height = 1 }
-				max_slots_horizontal = 1
-				format = "UPPER_LEFT"
-			}
-		}
-
 		gridBoxType = {
-			name = "available_backgrounds"
+			name = "background_selection_list"
 			position = { x = 0 y = 0 }
 			size = { width = 0 height = 0 }
 			slotsize = { width = 1 height = 1 }
@@ -758,10 +753,25 @@ guiTypes = {
 			format = "UPPER_LEFT"
 		}
 
-		checkBoxType = {
-			name = "select_all_checkbox"
+		containerWindowType = {
+			name = "background_selection"
 			position = { x = 0 y = 0 }
-			quadTextureSprite = "GFX_checkbox_button"
+			size = { width = 0 height = 0 }
+
+			gridBoxType = {
+				name = "available_backgrounds"
+				position = { x = 0 y = 0 }
+				size = { width = 0 height = 0 }
+				slotsize = { width = 1 height = 1 }
+				max_slots_horizontal = 1
+				format = "UPPER_LEFT"
+			}
+
+			checkBoxType = {
+				name = "select_all_checkbox"
+				position = { x = 0 y = 0 }
+				quadTextureSprite = "GFX_checkbox_button"
+			}
 		}
 
 		buttonType = {
