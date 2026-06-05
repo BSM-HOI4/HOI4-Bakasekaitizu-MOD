@@ -54,57 +54,42 @@ every_country = {
 
 ステラリス要素システムの伝統（Traditions）を取得するために消費します。
 
-**コスト**: 100統合力 / 伝統
+**コスト**:
+- 思想適性あり: 75統合力 / 段階
+- 思想適性なし: 100統合力 / 段階
 
-**処理場所**: `common/scripted_effects/_bsm_stellaris_effects.txt:73-118`
+**処理場所**: `common/scripted_effects/_bsm_stellaris_effects.txt`
 
 ```hoi4
 bsm_stellaris_unlock_tradition = {
-  if = {
-    limit = {
-      has_variable = bsm_stellaris_tradition_category
-      has_variable = bsm_stellaris_tradition_cost
-      has_variable = National_Unity_Power
-    }
-
-    subtract_from_variable = { National_Unity_Power = 100 }
-
-    if = {
-      limit = { check_variable = { var = bsm_stellaris_tradition_category value = 1 compare = equals } }
-      if = {
-        limit = { check_variable = { var = bsm_stellaris_tradition_economy value = 5 compare = less_than } }
-        add_to_variable = { bsm_stellaris_tradition_economy = 1 }
-        add_ideas = bsm_stellaris_tradition_economy_@var:bsm_stellaris_tradition_economy
-      }
-    }
-    # ... 他の伝統カテゴリ
-  }
+  bsm_stellaris_get_ideology_tradition_affinity = yes
+  # 適性ありなら75、なしなら100を消費
+  # カテゴリ別に採用、5伝統、完成の各ideaを付与
 }
 ```
 
 **伝統カテゴリ**:
-- 経済伝統 (5レベル)
-- 軍事伝統 (5レベル)
-- 社会伝統 (5レベル)
-- 文明伝統 (5レベル)
+- 探索
+- 拡張
+- 繁栄
+- 軍備
+- 外交
+- 統治
+- 調和
+
+詳細は [地球版・思想連動型ステラリス要素システム](./stellaris_earth_ideology_system.md) を参照してください。
 
 **決定場所**: `common/decisions/_bsm_stellaris_decisions.txt`
 
 ```hoi4
-bsm_stellaris_unlock_economy_tradition_decision = {
-    icon = gfx/interface/icons/ideas/economy.dds
-    allowed = { always = yes }
+bsm_stellaris_unlock_exploration_tradition_decision = {
     available = {
-      has_variable = National_Unity_Power
-      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_tradition_economy
-      check_variable = { var = bsm_stellaris_tradition_economy value = 5 compare = less_than }
+        OR = {
+            AND = { bsm_stellaris_has_exploration_tradition_affinity = yes check_variable = { var = National_Unity_Power value = 75 compare = greater_than_or_equals } }
+            AND = { NOT = { bsm_stellaris_has_exploration_tradition_affinity = yes } check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals } }
+        }
     }
-    complete_effect = {
-      set_variable = { bsm_stellaris_tradition_category = 1 }
-      set_variable = { bsm_stellaris_tradition_cost = 100 }
-      bsm_stellaris_unlock_tradition = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_tradition_exploration = yes }
 }
 ```
 

@@ -25,3 +25,264 @@ bsm_stellaris_anomaly_can_research = {
     }
   }
 }
+
+# ------------------------------------------
+# 伝統ツリーへの思想適性
+# 1=探索 2=拡張 3=繁栄 4=軍備 5=外交 6=統治 7=調和
+# ------------------------------------------
+bsm_stellaris_has_current_tradition_affinity = {
+  OR = {
+    AND = {
+      check_variable = { var = bsm_stellaris_tradition_category value = 1 compare = equals }
+      OR = {
+        has_government = intellectualism
+        has_government = mythologicalism
+        has_government = technicalism
+        has_government = stupidism
+        has_government = longitudinalism
+        has_government = horizontalism
+        has_government = neutrality_ideology
+      }
+    }
+    AND = {
+      check_variable = { var = bsm_stellaris_tradition_category value = 2 compare = equals }
+      OR = {
+        has_government = futurism
+        has_government = transformationism
+        has_government = communism_ideology
+        has_government = anarchism
+        has_government = fascism_ideology
+        has_government = rightneutrality
+      }
+    }
+    AND = {
+      check_variable = { var = bsm_stellaris_tradition_category value = 3 compare = equals }
+      OR = {
+        has_government = civilism
+        has_government = intellectualism
+        has_government = transformationism
+        has_government = neutrality_ideology
+      }
+    }
+    AND = {
+      check_variable = { var = bsm_stellaris_tradition_category value = 4 compare = equals }
+      OR = {
+        has_government = futurism
+        has_government = technicalism
+        has_government = ruinism
+        has_government = fascism_ideology
+        has_government = rightneutrality
+      }
+    }
+    AND = {
+      check_variable = { var = bsm_stellaris_tradition_category value = 5 compare = equals }
+      OR = {
+        has_government = philanthropy
+        has_government = democratic_ideology
+        has_government = conservative_democracy
+        has_government = direct_democracy
+        has_government = constitutional_monarchy
+      }
+    }
+    AND = {
+      check_variable = { var = bsm_stellaris_tradition_category value = 6 compare = equals }
+      OR = {
+        has_government = civilism
+        has_government = democratic_ideology
+        has_government = conservative_democracy
+        has_government = direct_democracy
+        has_government = communism_ideology
+        has_government = anarchism
+        has_government = fascism_ideology
+        has_government = rightneutrality
+        has_government = neutrality_ideology
+      }
+    }
+    AND = {
+      check_variable = { var = bsm_stellaris_tradition_category value = 7 compare = equals }
+      OR = {
+        has_government = civilism
+        has_government = mythologicalism
+        has_government = philanthropy
+        has_government = democratic_ideology
+        has_government = conservative_democracy
+        has_government = direct_democracy
+        has_government = communism_ideology
+        has_government = anarchism
+        has_government = hinnulism
+        has_government = kyonulism
+      }
+    }
+  }
+}
+
+bsm_stellaris_has_exploration_tradition_affinity = {
+  OR = {
+    has_government = intellectualism
+    has_government = mythologicalism
+    has_government = technicalism
+    has_government = stupidism
+    has_government = longitudinalism
+    has_government = horizontalism
+    has_government = neutrality_ideology
+  }
+}
+
+bsm_stellaris_has_expansion_tradition_affinity = {
+  OR = {
+    has_government = futurism
+    has_government = transformationism
+    has_government = communism_ideology
+    has_government = anarchism
+    has_government = fascism_ideology
+    has_government = rightneutrality
+  }
+}
+
+bsm_stellaris_has_prosperity_tradition_affinity = {
+  OR = {
+    has_government = civilism
+    has_government = intellectualism
+    has_government = transformationism
+    has_government = neutrality_ideology
+  }
+}
+
+bsm_stellaris_has_armaments_tradition_affinity = {
+  OR = {
+    has_government = futurism
+    has_government = technicalism
+    has_government = ruinism
+    has_government = fascism_ideology
+    has_government = rightneutrality
+  }
+}
+
+bsm_stellaris_has_diplomacy_tradition_affinity = {
+  OR = {
+    has_government = philanthropy
+    has_government = democratic_ideology
+    has_government = conservative_democracy
+    has_government = direct_democracy
+    has_government = constitutional_monarchy
+  }
+}
+
+bsm_stellaris_has_governance_tradition_affinity = {
+  OR = {
+    has_government = civilism
+    has_government = democratic_ideology
+    has_government = conservative_democracy
+    has_government = direct_democracy
+    has_government = communism_ideology
+    has_government = anarchism
+    has_government = fascism_ideology
+    has_government = rightneutrality
+    has_government = neutrality_ideology
+  }
+}
+
+bsm_stellaris_has_harmony_tradition_affinity = {
+  OR = {
+    has_government = civilism
+    has_government = mythologicalism
+    has_government = philanthropy
+    has_government = democratic_ideology
+    has_government = conservative_democracy
+    has_government = direct_democracy
+    has_government = communism_ideology
+    has_government = anarchism
+    has_government = hinnulism
+    has_government = kyonulism
+  }
+}
+
+bsm_stellaris_can_unlock_current_tradition = {
+  has_variable = National_Unity_Power
+  OR = {
+    AND = {
+      bsm_stellaris_has_current_tradition_affinity = yes
+      check_variable = { var = National_Unity_Power value = 75 compare = greater_than_or_equals }
+    }
+    AND = {
+      NOT = { bsm_stellaris_has_current_tradition_affinity = yes }
+      check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
+    }
+  }
+}
+
+bsm_stellaris_ascension_common_available = {
+  has_variable = bsm_stellaris_ascension_adopted
+  has_variable = bsm_stellaris_ascension_slots
+  check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
+}
+
+bsm_stellaris_prefers_technical_ascension = {
+  OR = {
+    has_government = technicalism
+    has_government = intellectualism
+    has_government = futurism
+  }
+}
+
+bsm_stellaris_prefers_administrative_ascension = {
+  OR = {
+    has_government = civilism
+    has_government = democratic_ideology
+    has_government = conservative_democracy
+    has_government = direct_democracy
+    has_government = constitutional_monarchy
+    has_government = neutrality_ideology
+  }
+}
+
+bsm_stellaris_prefers_crisis_ascension = {
+  OR = {
+    has_government = philanthropy
+    has_government = democratic_ideology
+    has_government = civilism
+  }
+}
+
+bsm_stellaris_prefers_catastrophe_ascension = {
+  OR = {
+    has_government = ruinism
+    has_government = futurism
+    has_government = fascism_ideology
+    has_government = rightneutrality
+  }
+}
+
+bsm_stellaris_prefers_terrain_ascension = {
+  OR = {
+    has_government = longitudinalism
+    has_government = horizontalism
+    has_government = transformationism
+  }
+}
+
+bsm_stellaris_prefers_trade_ascension = {
+  OR = {
+    has_government = civilism
+    has_government = philanthropy
+    has_government = democratic_ideology
+    has_government = neutrality_ideology
+  }
+}
+
+bsm_stellaris_prefers_evolution_ascension = {
+  OR = {
+    has_government = transformationism
+    has_government = technicalism
+    has_government = intellectualism
+  }
+}
+
+bsm_stellaris_prefers_spiritual_ascension = {
+  OR = {
+    has_government = mythologicalism
+    has_government = philanthropy
+    has_government = hinnulism
+    has_government = kyonulism
+  }
+}

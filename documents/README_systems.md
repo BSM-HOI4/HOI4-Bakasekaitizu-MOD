@@ -81,26 +81,28 @@
 
 ---
 
-### 4. [ステラリス要素システム](./stellaris_elements_system.md)
+### 4. [地球版・思想連動型ステラリス要素システム](./stellaris_earth_ideology_system.md)
 
 **主な変数**:
-- 伝統: `bsm_stellaris_tradition_economy`, `bsm_stellaris_tradition_military`, `bsm_stellaris_tradition_society`, `bsm_stellaris_tradition_civilization` (0-5)
+- 伝統: `bsm_stellaris_tradition_exploration`, `bsm_stellaris_tradition_expansion`, `bsm_stellaris_tradition_prosperity`, `bsm_stellaris_tradition_armaments`, `bsm_stellaris_tradition_diplomacy`, `bsm_stellaris_tradition_governance`, `bsm_stellaris_tradition_harmony` (0-7)
 - 特性: `bsm_stellaris_trait_slots` (0-6), `bsm_stellaris_traits_equipped` (0-6)
 - 探検隊: `bsm_stellaris_expedition_count`, `bsm_stellaris_expedition_active`
 - アノマリー: `bsm_stellaris_anomaly_research_bonus` (0.01-0.5)
 
-**概要**: Stellarisの要素を取り入れたシステム。伝統、特性、アセンションパーク、探検隊、アノマリーを管理
+**概要**: Stellaris風の伝統・アセンション・探検隊・アノマリーを、地球上の調査と文明発展として扱うシステム
 
 **主な機能**:
-- 伝統取得（統合力消費）
+- 伝統取得（思想適性あり75統合力、適性なし100統合力）
+- 思想に応じたアセンション取得条件
+- 思想に応じた探検隊・アノマリー傾向
 - 特性装備（文明度連動）
 - 探検隊派遣（統合力消費）
 - アノマリー研究（文明度連動）
 
 **システム構成**:
-1. 伝統（Traditions）: 経済・軍事・社会・文明の4カテゴリ、各5レベル
+1. 伝統（Traditions）: 探索・拡張・繁栄・軍備・外交・統治・調和の7カテゴリ、採用+5伝統+完成
 2. 特性（Traits）: 固定特性6種、追加特性10種
-3. アセンションパーク（Ascension Perks）: 8種、伝統10つ取得ごとに1スロット解放
+3. アセンションパーク（Ascension Perks）: 8種、伝統ツリー完成でスロット解放
 4. 探検隊（Expeditions）: 学術・軍事・商業・科学の4タイプ
 5. アノマリー（Anomalies）: 文明度に応じた難易度、研究速度は文明度と伝統に依存
 
