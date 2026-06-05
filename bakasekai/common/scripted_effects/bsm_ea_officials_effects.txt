@@ -1,0 +1,94 @@
+# ==========================================
+# BSM 経済同盟: 役職システム
+# 議長 = 盟主(bsm_ea_is_leader) / 外交担当 = 任命制(bsm_ea_is_diplomat)
+# prefix: bsm_ea_
+# ==========================================
+
+# ------------------------------------------
+# 役職アイデアの同期 (THIS スコープ)
+# bsm_ea_monthly_update の every_country から呼ばれる
+# ------------------------------------------
+bsm_ea_sync_my_roles = {
+	# 議長(盟主)
+	if = {
+		limit = { has_variable = bsm_ea_is_leader }
+		if = {
+			limit = { NOT = { has_idea = bsm_ea_role_chair } }
+			add_ideas = bsm_ea_role_chair
+		}
+	}
+	else = {
+		if = {
+			limit = { has_idea = bsm_ea_role_chair }
+			remove_ideas = bsm_ea_role_chair
+		}
+	}
+
+	# 外交担当
+	if = {
+		limit = { check_variable = { bsm_ea_is_diplomat = 1 } }
+		if = {
+			limit = { NOT = { has_idea = bsm_ea_role_diplomat } }
+			add_ideas = bsm_ea_role_diplomat
+		}
+	}
+	else = {
+		if = {
+			limit = { has_idea = bsm_ea_role_diplomat }
+			remove_ideas = bsm_ea_role_diplomat
+		}
+	}
+}
+
+# ------------------------------------------
+# 外交担当の任命
+# 入力: ROOT = 盟主, bsm_ea_selected_token, event_target:bsm_ea_selected_member
+# ------------------------------------------
+bsm_ea_assign_diplomat = {
+	if = {
+		limit = {
+			check_variable = { bsm_ea_is_selected_leader = 1 }
+			has_variable = bsm_ea_selected_token
+			check_variable = { bsm_ea_has_selected_member = 1 }
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_selected_token^num > 0 }
+		}
+
+		# 旧外交担当を解任
+		if = {
+			limit = { has_variable = global.bsm_ea_diplomat_@var:bsm_ea_selected_token }
+			var:global.bsm_ea_diplomat_@var:bsm_ea_selected_token = {
+				set_variable = { bsm_ea_is_diplomat = 0 }
+				if = {
+					limit = { has_idea = bsm_ea_role_diplomat }
+					remove_ideas = bsm_ea_role_diplomat
+				}
+			}
+		}
+
+		# 新外交担当を任命
+		event_target:bsm_ea_selected_member = {
+			set_variable = { bsm_ea_is_diplomat = 1 }
+			if = {
+				limit = { NOT = { has_idea = bsm_ea_role_diplomat } }
+				add_ideas = bsm_ea_role_diplomat
+			}
+		}
+		set_variable = { global.bsm_ea_diplomat_@var:bsm_ea_selected_token = event_target:bsm_ea_selected_member }
+	}
+}
+
+# ------------------------------------------
+# 役職アイデアのクリーンアップ (離脱時, THIS = 離脱国)
+# 残存陣営が無い場合のみアイデアを除去
+# ------------------------------------------
+bsm_ea_cleanup_my_roles = {
+	if = {
+		limit = { check_variable = { bsm_ea_joined_spheres^num = 0 } }
+		set_variable = { bsm_ea_is_diplomat = 0 }
+		if = { limit = { has_idea = bsm_ea_role_chair } remove_ideas = bsm_ea_role_chair }
+		if = { limit = { has_idea = bsm_ea_role_diplomat } remove_ideas = bsm_ea_role_diplomat }
+		if = { limit = { has_idea = bsm_ea_policy_mutual } remove_ideas = bsm_ea_policy_mutual }
+		if = { limit = { has_idea = bsm_ea_policy_extractive_leader } remove_ideas = bsm_ea_policy_extractive_leader }
+		if = { limit = { has_idea = bsm_ea_policy_extractive_member } remove_ideas = bsm_ea_policy_extractive_member }
+	}
+}

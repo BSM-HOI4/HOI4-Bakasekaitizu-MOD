@@ -1,10 +1,78 @@
-# Economic Alliance Power Share Calculation
-# Called weekly
+# Economic Alliance Power / Influence Calculation
+# 影響力 = IC × (1 + modifier@ea_influence_factor)
+# 影響力が議席配分と UC/PP バフ配分を駆動する（既存 UC システムと結合）
+
+# ------------------------------------------
+# 単一陣営の影響力・議席・表示%を計算（バフは触らない＝GUI/週次共用で安全）
+# 入力: bsm_ea_calc_token (temp)
+# 各メンバーに bsm_ea_influence / bsm_ea_member_seats / bsm_ea_influence_pct を設定
+# 盟主(index 0)に bsm_ea_sphere_total_influence を保存
+# ------------------------------------------
+bsm_ea_calc_sphere_influence = {
+	if = {
+		limit = { check_variable = { global.bsm_ea_member_list_@var:bsm_ea_calc_token^num > 0 } }
+
+		# 1. 各メンバーの影響力を算出し合計を取る
+		set_temp_variable = { t_total_inf = 0 }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_calc_token
+			value = v_mem
+			var:v_mem = {
+				# 基礎国力 = 民需 + 軍需
+				set_temp_variable = { t_my_ic = num_of_civilian_factories }
+				add_to_temp_variable = { t_my_ic = num_of_military_factories }
+				# modifier 補正 (役職・アイデア由来)
+				set_temp_variable = { t_inf_factor = 1 }
+				add_to_temp_variable = { t_inf_factor = modifier@ea_influence_factor }
+				clamp_temp_variable = { var = t_inf_factor min = 0.1 }
+				set_temp_variable = { t_my_inf = t_my_ic }
+				multiply_temp_variable = { t_my_inf = t_inf_factor }
+				set_variable = { bsm_ea_influence = t_my_inf }
+				set_temp_variable = { PREV.t_add_inf = t_my_inf }
+			}
+			add_to_temp_variable = { t_total_inf = t_add_inf }
+		}
+
+		# 盟主に陣営合計影響力を保存（バフ配分用）
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_calc_token^0 }
+		var:t_leader = { set_variable = { bsm_ea_sphere_total_influence = PREV.t_total_inf } }
+
+		# 2. 影響力比 → 議席(合計100) / 表示%
+		if = {
+			limit = { check_variable = { t_total_inf > 0 } }
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:bsm_ea_calc_token
+				value = v_mem2
+				var:v_mem2 = {
+					set_temp_variable = { t_share = bsm_ea_influence }
+					divide_temp_variable = { t_share = PREV.t_total_inf }
+
+					# 議席数 = round(share × 100)
+					set_temp_variable = { t_seats = t_share }
+					multiply_temp_variable = { t_seats = 100 }
+					round_temp_variable = t_seats
+					set_variable = { bsm_ea_member_seats = t_seats }
+
+					# 表示用 %（整数）
+					set_temp_variable = { t_pct = t_share }
+					multiply_temp_variable = { t_pct = 100 }
+					round_temp_variable = t_pct
+					set_variable = { bsm_ea_influence_pct = t_pct }
+				}
+			}
+		}
+	}
+}
+
+# ------------------------------------------
+# 週次: 全陣営の影響力再計算 + UC/PP バフ配分
+# (on_weekly から呼ばれる)
+# ------------------------------------------
 bsm_update_economic_alliance_power_share = {
-	# 0. Update Ranking (New System)
+	# 0. ランキング更新
 	bsm_ea_sort_sphere_list = yes
 
-	# 1. メンバーのみバフリセット（every_country を避ける）
+	# 1. メンバーのバフ値をリセット（every_country を避ける）
 	for_each_loop = {
 		array = global.bsm_ea_sphere_list
 		value = v_token_reset
@@ -17,49 +85,32 @@ bsm_update_economic_alliance_power_share = {
 		}
 	}
 
-	# 2. Iterate Spheres
+	# 2. 各陣営: 影響力・議席を計算 → 影響力比でバフを加算
 	for_each_loop = {
 		array = global.bsm_ea_sphere_list
 		value = v_token
 
-		# メンバーリストが空でないかチェック
+		set_temp_variable = { bsm_ea_calc_token = var:v_token }
+		bsm_ea_calc_sphere_influence = yes
+
 		if = {
 			limit = { check_variable = { global.bsm_ea_member_list_@var:v_token^num > 0 } }
+			set_temp_variable = { t_ldr = global.bsm_ea_member_list_@var:v_token^0 }
+			set_temp_variable = { t_total = 0 }
+			var:t_ldr = { set_temp_variable = { PREV.t_total = bsm_ea_sphere_total_influence } }
 
-			# Calculate Total IC for this sphere
-			set_temp_variable = { t_total_ic = 0 }
-			for_each_loop = {
-				array = global.bsm_ea_member_list_@var:v_token
-				value = v_mem
-				var:v_mem = {
-					# num_of_factories を代替として使用
-					set_temp_variable = { t_my_ic = num_of_civilian_factories }
-					add_to_temp_variable = { t_my_ic = num_of_military_factories }
-					set_temp_variable = { PREV.t_add_ic = t_my_ic }
-				}
-				add_to_temp_variable = { t_total_ic = t_add_ic }
-			}
-
-			# Distribute Shares
 			if = {
-				limit = { check_variable = { t_total_ic > 0 } }
+				limit = { check_variable = { t_total > 0 } }
 				for_each_loop = {
 					array = global.bsm_ea_member_list_@var:v_token
-					value = v_mem2
-					var:v_mem2 = {
-						# Calculate Share: MyIC / TotalIC
-						set_temp_variable = { my_ic = num_of_civilian_factories }
-						add_to_temp_variable = { my_ic = num_of_military_factories }
-						set_temp_variable = { my_share = my_ic }
-						divide_temp_variable = { my_share = PREV.t_total_ic }
+					value = v_mem3
+					var:v_mem3 = {
+						set_temp_variable = { t_share = bsm_ea_influence }
+						divide_temp_variable = { t_share = PREV.t_total }
+						clamp_temp_variable = { var = t_share min = 0 max = 0.05 }
+						add_to_variable = { economic_alliance_pp_buff_value = t_share }
 
-						# Cap at 5% (0.05) per alliance
-						clamp_temp_variable = { var = my_share min = 0 max = 0.05 }
-
-						# Set buff value
-						add_to_variable = { economic_alliance_pp_buff_value = my_share }
-
-						# Apply Modifier (スタック防止のため先に削除してから再付与)
+						# モディファイア再付与（スタック防止）
 						if = {
 							limit = { has_dynamic_modifier = { modifier = bsm_economic_alliance_pp_buff } }
 							remove_dynamic_modifier = { modifier = bsm_economic_alliance_pp_buff }

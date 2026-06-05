@@ -22,6 +22,8 @@ bsm_stellaris_country_init = {
   set_variable = { bsm_stellaris_tradition_military = 0 }
   set_variable = { bsm_stellaris_tradition_society = 0 }
   set_variable = { bsm_stellaris_tradition_civilization = 0 }
+  set_variable = { bsm_stellaris_tradition_adopted_count = 0 }
+  set_variable = { bsm_stellaris_tradition_cost = 100 }
 
   set_variable = { bsm_stellaris_ascension_adopted = 0 }
   set_variable = { bsm_stellaris_ascension_slots = 0 }
@@ -36,6 +38,7 @@ bsm_stellaris_country_init = {
   set_variable = { bsm_stellaris_anomaly_research_bonus = 0 }
   set_variable = { bsm_stellaris_anomaly_research_field = 0 }
   set_variable = { bsm_stellaris_anomaly_difficulty_level = 0 }
+  set_variable = { bsm_stellaris_anomaly_stock_count = 0 }
 
   set_variable = { bsm_stellaris_expedition_count = 0 }
   set_variable = { bsm_stellaris_expedition_active = 0 }
@@ -71,14 +74,17 @@ bsm_stellaris_update_trait_slots = {
 # 伝統取得（統合力消費）
 # ------------------------------------------
 bsm_stellaris_unlock_tradition = {
+  bsm_stellaris_update_tradition_cost = yes
+
   if = {
     limit = {
       has_variable = bsm_stellaris_tradition_category
       has_variable = bsm_stellaris_tradition_cost
       has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = bsm_stellaris_tradition_cost compare = greater_than_or_equals }
     }
 
-    subtract_from_variable = { National_Unity_Power = 100 }
+    subtract_from_variable = { var = National_Unity_Power value = bsm_stellaris_tradition_cost }
 
     if = {
       limit = { check_variable = { var = bsm_stellaris_tradition_category value = 1 compare = equals } }
@@ -134,7 +140,24 @@ bsm_stellaris_unlock_tradition = {
     }
 
     bsm_stellaris_update_tradition_count = yes
+    bsm_stellaris_update_tradition_cost = yes
   }
+}
+
+# ------------------------------------------
+# 次回伝統コスト更新
+# ------------------------------------------
+bsm_stellaris_update_tradition_cost = {
+  if = {
+    limit = { NOT = { has_variable = bsm_stellaris_tradition_adopted_count } }
+    bsm_stellaris_update_tradition_count = yes
+  }
+
+  set_variable = { bsm_stellaris_tradition_cost = 100 }
+  set_temp_variable = { t_tradition_cost_growth = bsm_stellaris_tradition_adopted_count }
+  multiply_temp_variable = { t_tradition_cost_growth = 25 }
+  add_to_variable = { bsm_stellaris_tradition_cost = t_tradition_cost_growth }
+  clamp_variable = { bsm_stellaris_tradition_cost = 100 max = 600 }
 }
 
 # ------------------------------------------
@@ -146,6 +169,7 @@ bsm_stellaris_update_tradition_count = {
   add_to_variable = { t_total = bsm_stellaris_tradition_military }
   add_to_variable = { t_total = bsm_stellaris_tradition_society }
   add_to_variable = { t_total = bsm_stellaris_tradition_civilization }
+  set_variable = { bsm_stellaris_tradition_adopted_count = t_total }
   set_variable = { bsm_stellaris_ascension_adopted = t_total }
 
   set_variable = { t_slots = 0 }
@@ -236,38 +260,119 @@ bsm_stellaris_complete_expedition = {
     limit = { check_variable = { var = bsm_stellaris_expedition_active value = 0 compare = greater_than } }
     subtract_from_variable = { bsm_stellaris_expedition_active = 1 }
 
-    random = {
-      chance = 30
-      add_to_array = { AN_analyzed_list = token:AS_AN_International_Oxygen_Documents }
+    if = {
+      limit = { check_variable = { var = bsm_stellaris_expedition_type value = 1 compare = equals } }
+      random_list = {
+        15 = { bsm_stellaris_expedition_great_success_academic = yes }
+        50 = { bsm_stellaris_expedition_success_academic = yes }
+        20 = { bsm_stellaris_expedition_failure = yes }
+        15 = { bsm_stellaris_expedition_disaster_academic = yes }
+      }
     }
-    random = {
-      chance = 30
+    else_if = {
+      limit = { check_variable = { var = bsm_stellaris_expedition_type value = 2 compare = equals } }
+      random_list = {
+        10 = { bsm_stellaris_expedition_great_success_military = yes }
+        45 = { bsm_stellaris_expedition_success_military = yes }
+        35 = { bsm_stellaris_expedition_failure = yes }
+        10 = { bsm_stellaris_expedition_disaster_military = yes }
+      }
+    }
+    else_if = {
+      limit = { check_variable = { var = bsm_stellaris_expedition_type value = 3 compare = equals } }
+      random_list = {
+        10 = { bsm_stellaris_expedition_great_success_commercial = yes }
+        50 = { bsm_stellaris_expedition_success_commercial = yes }
+        30 = { bsm_stellaris_expedition_failure = yes }
+        10 = { bsm_stellaris_expedition_disaster_commercial = yes }
+      }
+    }
+  }
+}
+
+bsm_stellaris_expedition_add_random_trait_unlock = {
+  random_list = {
+    10 = { add_ideas = bsm_stellaris_trait_available_technologically_advanced }
+    10 = { add_ideas = bsm_stellaris_trait_available_militarist }
+    10 = { add_ideas = bsm_stellaris_trait_available_eco_friendly }
+    10 = { add_ideas = bsm_stellaris_trait_available_industrial_power }
+    10 = { add_ideas = bsm_stellaris_trait_available_scientific_breakthrough }
+    10 = { add_ideas = bsm_stellaris_trait_available_diplomatic }
+    10 = { add_ideas = bsm_stellaris_trait_available_naval_supremacy }
+    10 = { add_ideas = bsm_stellaris_trait_available_trading_hub }
+    10 = { add_ideas = bsm_stellaris_trait_available_cultural_heritage }
+    10 = { add_ideas = bsm_stellaris_trait_available_war_honored }
+  }
+}
+
+bsm_stellaris_expedition_great_success_academic = {
+  add_to_variable = { bsm_stellaris_anomaly_stock_count = 2 }
+  add_to_variable = { National_Unity_Power = 75 }
+  add_to_array = { AN_analyzed_list = token:AS_AN_International_Oxygen_Documents }
+}
+
+bsm_stellaris_expedition_success_academic = {
+  add_to_variable = { bsm_stellaris_anomaly_stock_count = 1 }
+  add_to_variable = { National_Unity_Power = 25 }
+}
+
+bsm_stellaris_expedition_great_success_military = {
+  add_to_variable = { bsm_stellaris_anomaly_stock_count = 1 }
+  add_to_variable = { National_Unity_Power = 50 }
+  add_war_support = 0.02
+  bsm_stellaris_expedition_add_random_trait_unlock = yes
+}
+
+bsm_stellaris_expedition_success_military = {
+  random_list = {
+    60 = { add_to_variable = { bsm_stellaris_anomaly_stock_count = 1 } }
+    40 = {
+      add_to_variable = { National_Unity_Power = 35 }
+      add_war_support = 0.01
+    }
+  }
+}
+
+bsm_stellaris_expedition_great_success_commercial = {
+  add_to_variable = { bsm_stellaris_anomaly_stock_count = 1 }
+  add_to_variable = { bsm_stellaris_essence_energy = 75 }
+  add_to_variable = { bsm_stellaris_essence_minerals = 75 }
+  add_to_variable = { bsm_stellaris_essence_info = 40 }
+  add_to_variable = { National_Unity_Power = 50 }
+}
+
+bsm_stellaris_expedition_success_commercial = {
+  random_list = {
+    35 = { add_to_variable = { bsm_stellaris_anomaly_stock_count = 1 } }
+    65 = {
       add_to_variable = { bsm_stellaris_essence_energy = 50 }
       add_to_variable = { bsm_stellaris_essence_minerals = 50 }
       add_to_variable = { bsm_stellaris_essence_info = 25 }
     }
-    random = {
-      chance = 20
-      # FIX(errorlog): bare idea "bsm_stellaris_trait_available" は未定義。
-      # 実在する10種の trait_available から1つランダムで付与する。
-      random_list = {
-        10 = { add_ideas = bsm_stellaris_trait_available_technologically_advanced }
-        10 = { add_ideas = bsm_stellaris_trait_available_militarist }
-        10 = { add_ideas = bsm_stellaris_trait_available_eco_friendly }
-        10 = { add_ideas = bsm_stellaris_trait_available_industrial_power }
-        10 = { add_ideas = bsm_stellaris_trait_available_scientific_breakthrough }
-        10 = { add_ideas = bsm_stellaris_trait_available_diplomatic }
-        10 = { add_ideas = bsm_stellaris_trait_available_naval_supremacy }
-        10 = { add_ideas = bsm_stellaris_trait_available_trading_hub }
-        10 = { add_ideas = bsm_stellaris_trait_available_cultural_heritage }
-        10 = { add_ideas = bsm_stellaris_trait_available_war_honored }
-      }
-    }
-    random = {
-      chance = 20
-      add_to_variable = { National_Unity_Power = 100 }
-    }
   }
+}
+
+bsm_stellaris_expedition_failure = {
+  add_to_variable = { National_Unity_Power = 10 }
+}
+
+bsm_stellaris_expedition_disaster_academic = {
+  add_stability = -0.03
+  add_war_support = -0.02
+}
+
+bsm_stellaris_expedition_disaster_military = {
+  add_stability = -0.01
+  add_war_support = -0.03
+  add_manpower = -1000
+}
+
+bsm_stellaris_expedition_disaster_commercial = {
+  add_stability = -0.02
+  add_to_variable = { bsm_stellaris_essence_energy = -25 }
+  add_to_variable = { bsm_stellaris_essence_minerals = -25 }
+  clamp_variable = { bsm_stellaris_essence_energy = 0 max = 999999 }
+  clamp_variable = { bsm_stellaris_essence_minerals = 0 max = 999999 }
 }
 
 # ------------------------------------------
@@ -275,25 +380,21 @@ bsm_stellaris_complete_expedition = {
 # ------------------------------------------
 bsm_stellaris_unlock_tradition_economy = {
   set_variable = { bsm_stellaris_tradition_category = 1 }
-  set_variable = { bsm_stellaris_tradition_cost = 100 }
   bsm_stellaris_unlock_tradition = yes
 }
 
 bsm_stellaris_unlock_tradition_military = {
   set_variable = { bsm_stellaris_tradition_category = 2 }
-  set_variable = { bsm_stellaris_tradition_cost = 100 }
   bsm_stellaris_unlock_tradition = yes
 }
 
 bsm_stellaris_unlock_tradition_society = {
   set_variable = { bsm_stellaris_tradition_category = 3 }
-  set_variable = { bsm_stellaris_tradition_cost = 100 }
   bsm_stellaris_unlock_tradition = yes
 }
 
 bsm_stellaris_unlock_tradition_civilization = {
   set_variable = { bsm_stellaris_tradition_category = 4 }
-  set_variable = { bsm_stellaris_tradition_cost = 100 }
   bsm_stellaris_unlock_tradition = yes
 }
 
@@ -408,18 +509,45 @@ bsm_stellaris_unequip_trait_technologically_advanced = {
 }
 
 bsm_stellaris_create_expedition_academic = {
-  set_variable = { bsm_stellaris_expedition_type = 1 }
-  bsm_stellaris_create_expedition = yes
+  if = {
+    limit = {
+      has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = 50 compare = greater_than_or_equals }
+      has_variable = bsm_stellaris_expedition_active
+      check_variable = { var = bsm_stellaris_expedition_active value = 3 compare = less_than }
+    }
+    set_variable = { bsm_stellaris_expedition_type = 1 }
+    bsm_stellaris_create_expedition = yes
+    country_event = { id = bsm_stellaris_expedition_start.1 days = 0 }
+  }
 }
 
 bsm_stellaris_create_expedition_military = {
-  set_variable = { bsm_stellaris_expedition_type = 2 }
-  bsm_stellaris_create_expedition = yes
+  if = {
+    limit = {
+      has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = 50 compare = greater_than_or_equals }
+      has_variable = bsm_stellaris_expedition_active
+      check_variable = { var = bsm_stellaris_expedition_active value = 3 compare = less_than }
+    }
+    set_variable = { bsm_stellaris_expedition_type = 2 }
+    bsm_stellaris_create_expedition = yes
+    country_event = { id = bsm_stellaris_expedition_start.2 days = 0 }
+  }
 }
 
 bsm_stellaris_create_expedition_commercial = {
-  set_variable = { bsm_stellaris_expedition_type = 3 }
-  bsm_stellaris_create_expedition = yes
+  if = {
+    limit = {
+      has_variable = National_Unity_Power
+      check_variable = { var = National_Unity_Power value = 50 compare = greater_than_or_equals }
+      has_variable = bsm_stellaris_expedition_active
+      check_variable = { var = bsm_stellaris_expedition_active value = 3 compare = less_than }
+    }
+    set_variable = { bsm_stellaris_expedition_type = 3 }
+    bsm_stellaris_create_expedition = yes
+    country_event = { id = bsm_stellaris_expedition_start.3 days = 0 }
+  }
 }
 
 bsm_stellaris_create_expedition_scientific = {

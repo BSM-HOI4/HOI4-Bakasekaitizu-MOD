@@ -610,13 +610,32 @@ bsm_ea_refresh_selection_data = {
 	set_variable = { bsm_ea_gui_vote_no = 0 }
 	set_variable = { bsm_ea_gui_vote_abstain = 0 }
 
+	# 全体方針 / 外交担当 の表示用初期化
+	set_variable = { bsm_ea_selected_policy = 0 }
+	set_variable = { bsm_ea_has_diplomat = 0 }
+
 	if = {
 		limit = {
 			has_variable = bsm_ea_selected_token
 			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_selected_token^num > 0 }
 		}
+
+		# 全体方針 (0=互恵, 1=搾取)
+		if = {
+			limit = { has_variable = global.bsm_ea_policy_@var:bsm_ea_selected_token }
+			set_variable = { bsm_ea_selected_policy = global.bsm_ea_policy_@var:bsm_ea_selected_token }
+		}
+		# 外交担当
+		if = {
+			limit = { has_variable = global.bsm_ea_diplomat_@var:bsm_ea_selected_token }
+			set_variable = { bsm_ea_has_diplomat = 1 }
+			var:global.bsm_ea_diplomat_@var:bsm_ea_selected_token = {
+				save_global_event_target_as = bsm_ea_diplomat_country
+			}
+		}
 		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 }
 		var:t_leader = {
+			save_global_event_target_as = bsm_ea_leader_country
 			set_variable = { PREV.bsm_ea_selected_maturity = bsm_ea_maturity }
 			set_variable = { PREV.bsm_ea_selected_governance_mode = bsm_ea_governance_mode }
 			if = {
@@ -665,12 +684,17 @@ bsm_ea_monthly_update = {
 		}
 		bsm_ea_calculate_trust = yes
 		bsm_ea_update_cooldowns = yes
+		# 役職アイデア(議長/外交担当)の同期
+		bsm_ea_sync_my_roles = yes
 	}
 	for_each_loop = {
 		array = global.bsm_ea_sphere_list
 		value = v_token
 		set_temp_variable = { bsm_ea_token = var:v_token }
 		bsm_ea_update_sphere_metrics = yes
+		# 全体方針アイデアの再適用 + 搾取方針の UC 徴収
+		bsm_ea_apply_policy = yes
+		bsm_ea_apply_policy_extraction = yes
 	}
 	# Fix: bsm_ea_mem_count を各盟主が直接グローバル配列から取得
 	every_country = {
@@ -680,6 +704,9 @@ bsm_ea_monthly_update = {
 		}
 		set_variable = { bsm_ea_mem_count = global.bsm_ea_member_list_@var:bsm_ea_sphere^num }
 	}
+
+	# AI 行動の駆動 (盟主の方針/任命/目標/投資)
+	bsm_ea_ai_monthly = yes
 }
 
 # ------------------------------------------

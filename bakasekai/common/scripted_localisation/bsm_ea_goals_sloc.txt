@@ -85,3 +85,88 @@ defined_text = {
 		localization_key = BSM_EA_TOOLTIP_NO_DATA
 	}
 }
+
+# 上部バー UC 表示
+defined_text = {
+	name = GetEAHeaderUCText
+	text = { trigger = { always = yes } localization_key = BSM_EA_HEADER_UC }
+}
+
+# 経済タブ: UC残高
+defined_text = {
+	name = GetEAUCBalanceText
+	text = { trigger = { always = yes } localization_key = BSM_EA_UC_BALANCE }
+}
+
+# 経済タブ: UCバフ内訳
+defined_text = {
+	name = GetEAUCBuffText
+	text = { trigger = { always = yes } localization_key = BSM_EA_UC_BUFF }
+}
+
+# 全体方針 表示名
+defined_text = {
+	name = GetEAPolicyText
+	text = {
+		trigger = { check_variable = { bsm_ea_selected_policy = 1 } }
+		localization_key = BSM_EA_POLICY_EXTRACTIVE
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = BSM_EA_POLICY_MUTUAL
+	}
+}
+
+# 全体方針 説明 (メリデメ)
+defined_text = {
+	name = GetEAPolicyDescText
+	text = {
+		trigger = { check_variable = { bsm_ea_selected_policy = 1 } }
+		localization_key = BSM_EA_POLICY_EXTRACTIVE_DESC
+	}
+	text = {
+		trigger = { always = yes }
+		localization_key = BSM_EA_POLICY_MUTUAL_DESC
+	}
+}
+
+# 役職: 議長
+defined_text = {
+	name = GetEAChairText
+	text = {
+		trigger = {
+			has_event_target = bsm_ea_leader_country
+			check_variable = { bsm_ea_joined_spheres^num > 0 }
+		}
+		localization_key = BSM_EA_CHAIR_LINE
+	}
+	text = { trigger = { always = yes } localization_key = BSM_EA_EMPTY_TEXT }
+}
+
+# 役職: 外交担当
+defined_text = {
+	name = GetEADiplomatText
+	text = {
+		trigger = { check_variable = { bsm_ea_has_diplomat = 1 } }
+		localization_key = BSM_EA_DIPLOMAT_LINE
+	}
+	text = {
+		trigger = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
+		localization_key = BSM_EA_DIPLOMAT_NONE
+	}
+	text = { trigger = { always = yes } localization_key = BSM_EA_EMPTY_TEXT }
+}
+
+# メンバー行 役職バッジ (THIS = メンバー国)
+defined_text = {
+	name = GetEAMemberRoleBadge
+	text = {
+		trigger = { has_variable = bsm_ea_is_leader }
+		localization_key = BSM_EA_BADGE_CHAIR
+	}
+	text = {
+		trigger = { check_variable = { bsm_ea_is_diplomat = 1 } }
+		localization_key = BSM_EA_BADGE_DIPLOMAT
+	}
+	text = { trigger = { always = yes } localization_key = BSM_EA_EMPTY_TEXT }
+}
