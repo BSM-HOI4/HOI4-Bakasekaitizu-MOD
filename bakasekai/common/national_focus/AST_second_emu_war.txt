@@ -1,0 +1,452 @@
+# AST（オーストラリア連邦）フォーカスツリー拡張
+# 第二次エミュー戦争 — HRH支援・対AUS参戦
+# HRH_recapture_success フラグが立った後に解禁される
+
+focus_tree = {
+	id = ast_second_emu_war_focus
+
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = AST
+		}
+	}
+
+	default = no
+
+	# ─────────────────────────────────────────
+	# ルート: 牧歌同盟への応答
+	# 前提: HRHから牧歌同盟への参加要請を受けた後
+	# ─────────────────────────────────────────
+	focus = {
+		id = AST_sew_respond_to_hrh
+		icon = GFX_goal_generic_improve_relations
+		cost = 3
+		x = 7
+		y = 0
+
+		available = {
+			# 牧歌同盟(Bokka_Alliance)が存在 or HRHが参加要請済み
+			OR = {
+				is_in_faction_with = HRH
+				has_country_flag = AST_sew_hrh_contacted
+			}
+			HRH = {
+				exists = yes
+				has_country_flag = HRH_recapture_success
+			}
+		}
+
+		completion_reward = {
+			add_political_power = 50
+			HRH = {
+				country_event = { id = sew_support.1 days = 1 }
+			}
+			set_country_flag = AST_sew_respond_to_hrh_done
+		}
+	}
+
+	# ─────────────────────────────────────────
+	# 左ブランチ: 物資・装備支援ルート
+	# ─────────────────────────────────────────
+	focus = {
+		id = AST_sew_supply_hrh
+		icon = GFX_goal_ammunitions
+		cost = 7
+		x = 4
+		y = 1
+		prerequisite = { focus = AST_sew_respond_to_hrh }
+
+		available = {
+			HRH = {
+				exists = yes
+			}
+		}
+
+		completion_reward = {
+			HRH = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 3000
+					producer = AST
+				}
+				add_equipment_to_stockpile = {
+					type = support_equipment
+					amount = 300
+					producer = AST
+				}
+			}
+			add_political_power = -30
+			add_opinion_modifier = {
+				target = HRH
+				modifier = AST_supported_hrh_logistics
+			}
+		}
+	}
+
+	focus = {
+		id = AST_sew_artillery_support
+		icon = GFX_goal_generic_army_artillery2
+		cost = 7
+		x = 3
+		y = 2
+		prerequisite = { focus = AST_sew_supply_hrh }
+
+		available = {
+			HRH = {
+				exists = yes
+			}
+		}
+
+		completion_reward = {
+			HRH = {
+				add_equipment_to_stockpile = {
+					type = artillery_equipment_1
+					amount = 400
+					producer = AST
+				}
+			}
+			add_tech_bonus = {
+				name = AST_sew_art_supply_bonus
+				bonus = 0.1
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+
+	focus = {
+		id = AST_sew_naval_support
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		cost = 7
+		x = 5
+		y = 2
+		prerequisite = { focus = AST_sew_supply_hrh }
+
+		available = {
+			HRH = {
+				exists = yes
+			}
+		}
+
+		# 西海岸沿いの海上補給路を確保、HRHへの海路輸送
+		completion_reward = {
+			add_ideas = AST_sew_western_coast_supply_route
+			HRH = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 1000
+					producer = AST
+				}
+			}
+			add_political_power = -20
+		}
+	}
+
+	# ─────────────────────────────────────────
+	# 中央ブランチ: 軍事顧問・合同作戦ルート
+	# ─────────────────────────────────────────
+	focus = {
+		id = AST_sew_send_advisors
+		icon = GFX_goal_generic_military_sphere
+		cost = 7
+		x = 7
+		y = 1
+		prerequisite = { focus = AST_sew_respond_to_hrh }
+
+		available = {
+			HRH = {
+				exists = yes
+			}
+		}
+
+		completion_reward = {
+			HRH = {
+				add_ideas = HRH_sew_ast_advisors
+				army_experience = 15
+			}
+			add_political_power = -40
+			set_country_flag = AST_sew_advisors_sent
+		}
+	}
+
+	focus = {
+		id = AST_sew_joint_training
+		icon = GFX_goal_generic_army_doctrines
+		cost = 7
+		x = 6
+		y = 2
+		prerequisite = { focus = AST_sew_send_advisors }
+
+		completion_reward = {
+			HRH = {
+				add_tech_bonus = {
+					name = HRH_sew_joint_doctrine
+					bonus = 0.4
+					uses = 2
+					category = land_doctrine
+				}
+			}
+			army_experience = 10
+		}
+	}
+
+	focus = {
+		id = AST_sew_combined_ops_plan
+		icon = GFX_goal_generic_attack
+		cost = 7
+		x = 8
+		y = 2
+		prerequisite = { focus = AST_sew_send_advisors }
+
+		available = {
+			HRH = {
+				has_war_with = AUS
+			}
+		}
+
+		# HRHの前線を支援する合同作戦計画を策定
+		completion_reward = {
+			HRH = {
+				add_ideas = HRH_sew_combined_ops_bonus
+			}
+			set_country_flag = AST_sew_combined_ops_ready
+		}
+	}
+
+	# ─────────────────────────────────────────
+	# 右ブランチ: 英国への接触
+	# ─────────────────────────────────────────
+	focus = {
+		id = AST_sew_contact_gbr
+		icon = GFX_goal_generic_alliance
+		cost = 7
+		x = 10
+		y = 1
+		prerequisite = { focus = AST_sew_respond_to_hrh }
+
+		available = {
+			GBR = {
+				exists = yes
+				NOT = { has_war_with = AST }
+			}
+		}
+
+		completion_reward = {
+			GBR = {
+				country_event = { id = sew_gbr.1 days = 3 }
+			}
+			add_opinion_modifier = {
+				target = GBR
+				modifier = AST_reached_out_to_gbr
+			}
+			add_political_power = 20
+		}
+	}
+
+	focus = {
+		id = AST_sew_gbr_military_aid
+		icon = GFX_goal_generic_improve_relations
+		cost = 7
+		x = 9
+		y = 2
+		prerequisite = { focus = AST_sew_contact_gbr }
+
+		available = {
+			GBR = {
+				exists = yes
+				has_opinion = {
+					target = AST
+					value > 20
+				}
+			}
+		}
+
+		# GBRから装備支援を受ける
+		completion_reward = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 2000
+				producer = GBR
+			}
+			add_ideas = AST_sew_british_support_active
+		}
+	}
+
+	focus = {
+		id = AST_sew_gbr_independent
+		icon = GFX_goal_generic_political_pressure
+		cost = 5
+		x = 11
+		y = 2
+		prerequisite = { focus = AST_sew_contact_gbr }
+		mutually_exclusive = { focus = AST_sew_gbr_military_aid }
+
+		# GBRとは独立して動く — コモンウェルス関係を見直す
+		completion_reward = {
+			add_ideas = AST_sew_independence_spirit
+			add_stability = 0.05
+			add_political_power = 50
+		}
+	}
+
+	# ─────────────────────────────────────────
+	# 参戦フォーカス（合流点）
+	# 物資 or 顧問ルートのどちらかを経由後
+	# ─────────────────────────────────────────
+	focus = {
+		id = AST_sew_mobilize
+		icon = GFX_goal_generic_national_unity
+		cost = 10
+		x = 7
+		y = 3
+
+		prerequisite = {
+			focus = AST_sew_artillery_support
+			focus = AST_sew_naval_support
+		}
+		prerequisite = {
+			focus = AST_sew_joint_training
+			focus = AST_sew_combined_ops_plan
+		}
+
+		# どちらか片方のブランチが揃えば参戦準備へ
+		available = {
+			HRH = {
+				exists = yes
+				has_war_with = AUS
+			}
+		}
+
+		completion_reward = {
+			add_ideas = AST_sew_war_mobilization
+			set_country_flag = AST_sew_ready_to_intervene
+			country_event = { id = sew_support.5 days = 1 }
+		}
+	}
+
+	focus = {
+		id = AST_sew_declare_war
+		icon = GFX_goal_generic_major_war
+		cost = 5
+		x = 7
+		y = 4
+		prerequisite = { focus = AST_sew_mobilize }
+
+		available = {
+			has_country_flag = AST_sew_ready_to_intervene
+			HRH = {
+				has_war_with = AUS
+			}
+		}
+
+		# 対AUS宣戦布告（HRHに参加）
+		completion_reward = {
+			join_faction_of = HRH
+			declare_war_on = {
+				target = AUS
+				type = annex_everything
+			}
+			add_war_support = 0.15
+			HRH = {
+				country_event = { id = sew_support.7 days = 1 }
+			}
+			AUS = {
+				country_event = { id = sew_aus.1 days = 1 }
+			}
+		}
+	}
+
+	# ─────────────────────────────────────────
+	# 戦後処理ブランチ（AST勝利後）
+	# ─────────────────────────────────────────
+	focus = {
+		id = AST_sew_post_war_hrh_recognition
+		icon = GFX_goal_generic_political_pressure
+		cost = 10
+		x = 5
+		y = 5
+		prerequisite = { focus = AST_sew_declare_war }
+
+		available = {
+			NOT = { has_war_with = AUS }
+			HRH = {
+				exists = yes
+			}
+		}
+
+		# HRHをオーストラリア連邦の自治州として承認
+		completion_reward = {
+			HRH = {
+				add_ideas = HRH_sew_ast_recognition
+				add_political_power = 100
+				add_stability = 0.10
+			}
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = AST_sew_reclaim_west
+		icon = GFX_goal_generic_territory_or_war
+		cost = 10
+		x = 7
+		y = 5
+		prerequisite = { focus = AST_sew_declare_war }
+
+		available = {
+			NOT = { has_war_with = AUS }
+			# 西オーストラリア州群を奪還済み
+			controls_state = 879
+			controls_state = 884
+		}
+
+		# 西部再統合 — コアとしてASTが主張
+		completion_reward = {
+			every_state = {
+				limit = {
+					is_core_of = AUS
+					OR = {
+						state = 879
+						state = 880
+						state = 881
+						state = 882
+						state = 883
+						state = 884
+						state = 885
+					}
+				}
+				add_core_of = AST
+			}
+			add_stability = 0.10
+			add_ideas = AST_sew_west_reclaimed
+		}
+	}
+
+	focus = {
+		id = AST_sew_gbr_thank_you
+		icon = GFX_goal_generic_improve_relations
+		cost = 5
+		x = 9
+		y = 5
+		prerequisite = { focus = AST_sew_declare_war }
+
+		available = {
+			NOT = { has_war_with = AUS }
+			has_idea = AST_sew_british_support_active
+		}
+
+		# イギリスへの感謝外交
+		completion_reward = {
+			GBR = {
+				add_political_power = 30
+				add_opinion_modifier = {
+					target = AST
+					modifier = GBR_ast_post_war_gratitude
+				}
+			}
+			add_political_power = 30
+		}
+	}
+}

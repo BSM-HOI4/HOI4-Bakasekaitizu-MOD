@@ -1,0 +1,620 @@
+# 第二次エミュー戦争 AIストラテジー
+# 対象国: HRH / AST / AUS
+# 状況に応じた役割比率・研究・外交・生産AIを定義
+
+######################################
+# HRH（ハットリバー公国）
+######################################
+
+# 平時: 不正規戦主体の小国編制
+HRH_sew_peacetime_force = {
+	enable = {
+		original_tag = HRH
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+
+	# 歩兵を最大化・戦車ゼロ
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 90
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = -100
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = -100
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 0
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = paratroopers
+		value = 0
+	}
+	# 小国なので守備・制圧も最小
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 5
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = suppression
+		value = 2
+	}
+}
+
+# 戦時: 対AUS戦時の不正規+正規ミックス
+HRH_sew_wartime_force = {
+	enable = {
+		original_tag = HRH
+		has_war_with = AUS
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 85
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 10
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = suppression
+		value = 3
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = -100
+	}
+
+	# 歩兵装備生産を最優先
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 60
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 20
+	}
+}
+
+# HRH研究優先度: 歩兵・支援・ドクトリン
+HRH_sew_research_priority = {
+	enable = {
+		original_tag = HRH
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = research_tech
+		id = infantry_weapons
+		value = 40
+	}
+	ai_strategy = {
+		type = research_tech
+		id = support_tech
+		value = 30
+	}
+	ai_strategy = {
+		type = research_tech
+		id = land_doctrine
+		value = 20
+	}
+	# 海軍・空軍・戦車研究は不要
+	ai_strategy = {
+		type = research_tech
+		id = armor
+		value = -50
+	}
+	ai_strategy = {
+		type = research_tech
+		id = naval_equipment
+		value = -80
+	}
+	ai_strategy = {
+		type = research_tech
+		id = air_equipment
+		value = -30
+	}
+}
+
+# HRH外交: ASTとの関係強化、AUSへの対抗
+HRH_sew_diplomacy_support_ast = {
+	enable = {
+		original_tag = HRH
+		AST = { exists = yes }
+	}
+	abort = {
+		NOT = { AST = { exists = yes } }
+	}
+
+	ai_strategy = {
+		type = befriend
+		id = "AST"
+		value = 200
+	}
+	ai_strategy = {
+		type = alliance
+		id = "AST"
+		value = 100
+	}
+}
+
+HRH_sew_diplomacy_oppose_aus = {
+	enable = {
+		original_tag = HRH
+		AUS = { exists = yes }
+	}
+	abort = {
+		NOT = { AUS = { exists = yes } }
+	}
+
+	ai_strategy = {
+		type = antagonize
+		id = "AUS"
+		value = 100
+	}
+}
+
+# HRH生産: 軍工場建設優先（小国ゆえ手動工場確保）
+HRH_sew_production_priority = {
+	enable = {
+		original_tag = HRH
+	}
+	abort_when_not_enabled = yes
+
+	# 民間工場より軍工場
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 100
+	}
+	ai_strategy = {
+		type = building_target
+		id = industrial_complex
+		value = 10
+	}
+	ai_strategy = {
+		type = building_target
+		id = infrastructure
+		value = 20
+	}
+}
+
+# HRH: AST装備支援を受けたら歩兵装備生産を緩める
+HRH_sew_supplied_by_ast = {
+	enable = {
+		original_tag = HRH
+		has_idea = HRH_sew_ast_equipped
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = -20  # ASTから貰えるので自力生産を減らす
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 10
+	}
+}
+
+######################################
+# AST（オーストラリア連邦）
+######################################
+
+# AST基本兵力比率（タスマニア守備期）
+AST_sew_base_force = {
+	enable = {
+		original_tag = AST
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 75
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 5   # 海からの上陸作戦を想定
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = -50  # 初期は戦車なし
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 10
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = paratroopers
+		value = 0
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = -100
+	}
+}
+
+# AST参戦後: 対エミュー上陸作戦体制
+AST_sew_wartime_force = {
+	enable = {
+		original_tag = AST
+		has_war_with = AUS
+	}
+	abort_when_not_enabled = yes
+
+	# 海兵比率を上げて上陸作戦を強化
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 15
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 70
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 8
+	}
+
+	# 海軍資産を積極活用
+	ai_strategy = {
+		type = unit_ratio
+		id = screen_ship
+		value = 10
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = convoy
+		value = 15
+	}
+
+	# 歩兵・砲兵装備生産強化
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 50
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 30
+	}
+}
+
+# AST研究優先度
+AST_sew_research_priority = {
+	enable = {
+		original_tag = AST
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = research_tech
+		id = infantry_weapons
+		value = 30
+	}
+	ai_strategy = {
+		type = research_tech
+		id = support_tech
+		value = 25
+	}
+	ai_strategy = {
+		type = research_tech
+		id = naval_equipment
+		value = 35  # 海軍国として海軍重視
+	}
+	ai_strategy = {
+		type = research_tech
+		id = land_doctrine
+		value = 15
+	}
+}
+
+# AST外交: HRH支援・GBR協調・AUS対抗
+AST_sew_diplomacy_hrh = {
+	enable = {
+		original_tag = AST
+		HRH = {
+			exists = yes
+			has_country_flag = HRH_recapture_success
+		}
+	}
+	abort = {
+		NOT = { HRH = { exists = yes } }
+	}
+
+	ai_strategy = {
+		type = befriend
+		id = "HRH"
+		value = 200
+	}
+	ai_strategy = {
+		type = support
+		id = "HRH"
+		value = 100
+	}
+}
+
+AST_sew_diplomacy_gbr = {
+	enable = {
+		original_tag = AST
+		GBR = {
+			exists = yes
+			NOT = { has_war_with = AST }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = befriend
+		id = "GBR"
+		value = 50
+	}
+}
+
+AST_sew_diplomacy_oppose_aus = {
+	enable = {
+		original_tag = AST
+		AUS = { exists = yes }
+	}
+	abort = {
+		NOT = { AUS = { exists = yes } }
+	}
+
+	ai_strategy = {
+		type = antagonize
+		id = "AUS"
+		value = 150
+	}
+}
+
+# AST: HRHへの支援AIウィル
+AST_sew_supply_hrh_ai = {
+	enable = {
+		original_tag = AST
+		HRH = {
+			exists = yes
+			has_war_with = AUS
+		}
+		has_war = no
+	}
+	abort = {
+		OR = {
+			NOT = { HRH = { exists = yes } }
+			has_war = yes
+		}
+	}
+
+	# HRHへの物資補給を積極的に行う
+	ai_strategy = {
+		type = support
+		id = "HRH"
+		value = 150
+	}
+}
+
+# AST: 参戦後の上陸拠点優先エリア
+AST_sew_area_priority = {
+	enable = {
+		original_tag = AST
+		has_war_with = AUS
+	}
+	abort_when_not_enabled = yes
+
+	# オセアニア・太平洋が主戦場
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 200
+	}
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = 100
+	}
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = -50
+	}
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = -100
+	}
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = -100
+	}
+
+	# 海軍侵攻を積極的に使う
+	ai_strategy = {
+		type = naval_invasion_focus
+		value = 200
+	}
+}
+
+######################################
+# AUS（エミュー帝国）
+######################################
+
+# AUS基本兵力: 大国・広域維持
+AUS_sew_base_force = {
+	enable = {
+		original_tag = AUS
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 80
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 8
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = suppression
+		value = 5
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 3
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = -80  # エミューに戦車は似合わない
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 0
+	}
+}
+
+# AUS戦時体制: HRH+ASTとの多正面戦争
+AUS_sew_wartime_force = {
+	enable = {
+		original_tag = AUS
+		OR = {
+			has_war_with = HRH
+			has_war_with = AST
+		}
+		has_idea = AUS_sew_war_footing
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 85
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 10
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = suppression
+		value = 5
+	}
+
+	# 歩兵装備を大量生産
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 60
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 15
+	}
+}
+
+# AUS防衛態勢: 西海岸を守る
+AUS_sew_defend_west = {
+	enable = {
+		original_tag = AUS
+		has_war_with = HRH
+		# HRHに884州を奪われた場合
+		NOT = { controls_state = 884 }
+	}
+	abort = {
+		controls_state = 884
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 300
+	}
+	# 884州を奪還する意志
+	ai_strategy = {
+		type = conquer
+		id = "HRH"
+		value = 100
+	}
+}
+
+# AUS研究優先度
+AUS_sew_research_priority = {
+	enable = {
+		original_tag = AUS
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = research_tech
+		id = infantry_weapons
+		value = 40
+	}
+	ai_strategy = {
+		type = research_tech
+		id = land_doctrine
+		value = 25
+	}
+	ai_strategy = {
+		type = research_tech
+		id = support_tech
+		value = 20
+	}
+}
+
+# AUS vs GBR介入: GBRへの対抗
+AUS_sew_oppose_gbr = {
+	enable = {
+		original_tag = AUS
+		GBR = {
+			exists = yes
+			OR = {
+				is_in_faction_with = AST
+				has_idea = GBR_sew_commonwealth_duty
+			}
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = antagonize
+		id = "GBR"
+		value = 100
+	}
+}
