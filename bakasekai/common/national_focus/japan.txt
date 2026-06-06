@@ -15,7 +15,7 @@ focus_tree = {
 	focus = {
 		id = JPN_fate_of_japan
 		icon = GFX_focus_jap_pacific_guardian
-		x = 0
+		x = -10
 		y = 0
 		cost = 5
 		search_filters = {
@@ -56,8 +56,9 @@ focus_tree = {
 		}
 		id = JPN_vote_divine_party
 		icon = GFX_JPN_jinshendangnitoupiao-331134
+		relative_position_id = JPN_election_1936
 		x = 0
-		y = 2
+		y = 1
 		search_filters = {
 			FOCUS_FILTER_POLITICAL
 		}
@@ -99,8 +100,9 @@ focus_tree = {
 	focus = {
 		id = JPN_vote_imperial_way_party
 		icon = GFX_JPN_huangdaodangnitoupiao-331135
+		relative_position_id = JPN_election_1936
 		x = 0
-		y = 2
+		y = 1
 		available = {
 			always = no
 		}
@@ -201,8 +203,9 @@ focus_tree = {
 		}
 		id = JPN_support_vertical_party
 		icon = GFX_JPN_zongchangdangwozhichi-331128
+		relative_position_id = JPN_election_1936
 		x = 0
-		y = 2
+		y = 1
 		cost = 6
 		allow_branch = {
 			has_country_flag = support_vertical_party
@@ -495,78 +498,80 @@ focus_tree = {
 			focus = JPN_launch_three_year_plan
 		}
 		completion_reward = {
-			853 = {
-				add_extra_state_shared_building_slots = 10
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					level = 10
-					instant_build = yes
-					province = {
-						all_provinces = yes
-						limit_to_victory_point > 1
+			JSH = {
+				853 = {
+					add_extra_state_shared_building_slots = 10
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 10
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_victory_point > 1
+						}
 					}
 				}
-			}
-			854 = {
-				add_extra_state_shared_building_slots = 10
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = air_base
-					level = 5
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					level = 10
-					instant_build = yes
-					province = {
-						all_provinces = yes
-						# limit_to_victory_point  = yes
-						limit_to_victory_point > 5
+				854 = {
+					add_extra_state_shared_building_slots = 10
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = air_base
+						level = 5
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 10
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							# limit_to_victory_point  = yes
+							limit_to_victory_point > 5
+						}
 					}
 				}
-			}
-			855 = {
-				add_extra_state_shared_building_slots = 10
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					level = 10
-					instant_build = yes
-					province = {
-						all_provinces = yes
-						# limit_to_victory_point  = yes
-						limit_to_victory_point > 5
+				855 = {
+					add_extra_state_shared_building_slots = 10
+					add_building_construction = {
+						type = arms_factory
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 10
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							# limit_to_victory_point  = yes
+							limit_to_victory_point > 5
+						}
 					}
 				}
-			}
-			856 = {
-				add_extra_state_shared_building_slots = 10
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = bunker
-					level = 10
-					instant_build = yes
-					province = {
-						all_provinces = yes
-						limit_to_victory_point > 1
+				856 = {
+					add_extra_state_shared_building_slots = 10
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 10
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_victory_point > 1
+						}
 					}
 				}
 			}
@@ -1989,9 +1994,7 @@ focus_tree = {
 			add_political_power = 300
 		}
 	}
-	#############################
-	#############JMNF###############
-	#############################
+
 	focus = {
 		id = JMNF_great_disarmament
 		icon = GFX_goal_generic_major_alliance
@@ -1999,1830 +2002,1959 @@ focus_tree = {
 		y = 0
 		cost = 1
 		ai_will_do = {
-			factor = 100
+		factor = 100
 		}
 		available = {
-			always = yes
+		always = yes
 		}
 		bypass = {
-			always = yes
+		always = yes
 		}
 		available_if_capitulated = yes
 		completion_reward = {
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_national_mobilization
+		relative_position_id = JMNF_great_disarmament
 		icon = GFX_goal_generic_army_doctrines
 		prerequisite = { focus = JMNF_great_disarmament }
-		x = 14
+		x = -12
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_national_mobilization
-			army_experience = 10
-			country_event = { id = JMNF.1 days = 1 }
+		add_ideas = JMNF_national_mobilization
+		army_experience = 10
+		country_event = { id = JMNF.1 days = 1 }
 		}
 		search_filters = { FOCUS_FILTER_ARMY }
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_spiritual_supremacy
+		relative_position_id = JMNF_national_mobilization
 		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = JMNF_national_mobilization }
+		x = -3
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_spiritual_supremacy
+		add_war_support = 0.03
+		}
+		}
+
+focus = {
+		id = JMNF_establish_general_staff
 		relative_position_id = JMNF_national_mobilization
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = JMNF_national_mobilization }
+		x = 0
+		y = 1
+		cost = 3
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_general_staff
+		army_experience = 10
+		}
+		}
+
+focus = {
+		id = JMNF_establish_tech_hq
+		relative_position_id = JMNF_national_mobilization
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_national_mobilization }
+		x = 3
+		y = 1
+		cost = 3
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_tech_hq
+		}
+		}
+
+focus = {
+		id = JMNF_fortify_cities
+		relative_position_id = JMNF_national_mobilization
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = JMNF_national_mobilization }
+		x = 6
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_political_power = 25
+		}
+		search_filters = { FOCUS_FILTER_ARMY }
+		}
+
+focus = {
+		id = JMNF_technological_supremacy
+		relative_position_id = JMNF_spiritual_supremacy
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_spiritual_supremacy }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { name = JMNF_tech_bonus bonus = 1 uses = 2 category = electronics }
+		add_tech_bonus = { name = JMNF_industry_bonus bonus = 0.5 uses = 2 category = industry }
+		}
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		}
+
+focus = {
+		id = JMNF_strengthen_general_staff
+		relative_position_id = JMNF_establish_general_staff
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = JMNF_establish_general_staff }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		swap_ideas = { remove_idea = JMNF_general_staff add_idea = JMNF_general_staff_2 }
+		}
+		}
+
+focus = {
+		id = JMNF_strengthen_tech_hq
+		relative_position_id = JMNF_establish_tech_hq
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_establish_tech_hq }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		swap_ideas = { remove_idea = JMNF_tech_hq add_idea = JMNF_tech_hq_2 }
+		}
+		}
+
+focus = {
+		id = JMNF_fortify_harbors
+		relative_position_id = JMNF_fortify_cities
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = JMNF_fortify_cities }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		hidden_effect = {
+		every_owned_state = {
+		limit = { has_building = naval_base }
+		add_building_construction = {
+		type = bunker
+		level = 1
+		province = { all_provinces = yes limit_to_border = yes level < 1 }
+		instant_build = yes
+		}
+		}
+		}
+		}
+		}
+
+focus = {
+		id = JMNF_fortify_strongpoints
+		relative_position_id = JMNF_fortify_harbors
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = JMNF_fortify_harbors }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_stronghold_fortification
+		}
+		}
+
+focus = {
+		id = JMNF_field_gun_dev
+		relative_position_id = JMNF_technological_supremacy
+		icon = GFX_goal_generic_artillery
+		prerequisite = { focus = JMNF_technological_supremacy }
+		x = -3
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { name = JMNF_artillery_bonus bonus = 1 uses = 2 category = artillery }
+		}
+		}
+
+focus = {
+		id = JMNF_small_arms_dev
+		relative_position_id = JMNF_technological_supremacy
+		icon = GFX_goal_generic_infantry_weapon
+		prerequisite = { focus = JMNF_technological_supremacy }
+		x = 1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { name = JMNF_infantry_bonus bonus = 1 uses = 2 category = infantry_weapons }
+		}
+		}
+
+focus = {
+		id = JMNF_portable_weapons_dev
+		relative_position_id = JMNF_technological_supremacy
+		icon = GFX_goal_generic_infantry_weapon
+		prerequisite = { focus = JMNF_technological_supremacy }
+		x = 5
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { name = JMNF_support_bonus bonus = 1 uses = 1 category = support_tech }
+		}
+		}
+
+focus = {
+		id = JMNF_strengthen_small_arms
+		relative_position_id = JMNF_small_arms_dev
+		icon = GFX_goal_generic_infantry_weapon
+		prerequisite = { focus = JMNF_small_arms_dev }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = infantry_weapons }
+		add_tech_bonus = { bonus = 1 uses = 1 category = support_tech }
+		}
+		}
+
+focus = {
+		id = JMNF_enhance_officer_equipment
+		relative_position_id = JMNF_portable_weapons_dev
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = JMNF_portable_weapons_dev }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_officer_equipment
+		}
+		}
+
+focus = {
+		id = JMNF_enhance_officers
+		relative_position_id = JMNF_enhance_officer_equipment
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = JMNF_enhance_officer_equipment }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_officer_training
+		}
+		}
+
+focus = {
+		id = JMNF_army_officer_school
+		relative_position_id = JMNF_enhance_officers
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = JMNF_enhance_officers }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_army_officer_school
+		}
+		}
+
+focus = {
+		id = JMNF_army_academy
+		relative_position_id = JMNF_army_officer_school
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = JMNF_army_officer_school }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		swap_ideas = { remove_idea = JMNF_army_officer_school add_idea = JMNF_army_academy }
+		}
+		}
+
+focus = {
+		id = JMNF_army_renewal
+		relative_position_id = JMNF_field_gun_dev
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = JMNF_field_gun_dev }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_army_renewal
+		army_experience = 15
+		}
+		}
+
+focus = {
+		id = JMNF_enhance_operations
+		relative_position_id = JMNF_army_renewal
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = JMNF_army_renewal }
 		x = -2
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_spiritual_supremacy
-			add_war_support = 0.03
+		add_ideas = JMNF_enhance_operations
 		}
-	}
-	focus = {
-		id = JMNF_establish_general_staff
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = JMNF_national_mobilization }
-		relative_position_id = JMNF_national_mobilization
-		x = -1
-		y = 1
-		cost = 3
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_general_staff
-			army_experience = 10
 		}
-	}
-	focus = {
-		id = JMNF_establish_tech_hq
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_national_mobilization }
-		relative_position_id = JMNF_national_mobilization
-		x = -3
-		y = 1
-		cost = 3
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_tech_hq
-		}
-	}
-	focus = {
-		id = JMNF_fortify_cities
-		icon = GFX_goal_generic_construct_military
-		prerequisite = { focus = JMNF_national_mobilization }
-		relative_position_id = JMNF_national_mobilization
-		x = -4
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_political_power = 25
-		}
-		search_filters = { FOCUS_FILTER_ARMY }
-	}
-	focus = {
-		id = JMNF_technological_supremacy
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_spiritual_supremacy }
-		relative_position_id = JMNF_spiritual_supremacy
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { name = JMNF_tech_bonus bonus = 1 uses = 2 category = electronics }
-			add_tech_bonus = { name = JMNF_industry_bonus bonus = 0.5 uses = 2 category = industry }
-		}
-		search_filters = { FOCUS_FILTER_RESEARCH }
-	}
-	focus = {
-		id = JMNF_strengthen_general_staff
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = JMNF_establish_general_staff }
-		relative_position_id = JMNF_establish_general_staff
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			swap_ideas = { remove_idea = JMNF_general_staff add_idea = JMNF_general_staff_2 }
-		}
-	}
-	focus = {
-		id = JMNF_strengthen_tech_hq
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_establish_tech_hq }
-		relative_position_id = JMNF_establish_tech_hq
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			swap_ideas = { remove_idea = JMNF_tech_hq add_idea = JMNF_tech_hq_2 }
-		}
-	}
-	focus = {
-		id = JMNF_fortify_harbors
-		icon = GFX_goal_generic_construct_military
-		prerequisite = { focus = JMNF_fortify_cities }
-		relative_position_id = JMNF_fortify_cities
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			hidden_effect = {
-				every_owned_state = {
-					limit = { has_building = naval_base }
-					add_building_construction = {
-						type = bunker
-						level = 1
-						province = { all_provinces = yes limit_to_border = yes level < 1 }
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = JMNF_fortify_strongpoints
-		icon = GFX_goal_generic_construct_military
-		prerequisite = { focus = JMNF_fortify_harbors }
-		relative_position_id = JMNF_fortify_harbors
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_stronghold_fortification
-		}
-	}
-	focus = {
-		id = JMNF_field_gun_dev
-		icon = GFX_goal_generic_artillery
-		prerequisite = { focus = JMNF_technological_supremacy }
-		relative_position_id = JMNF_technological_supremacy
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { name = JMNF_artillery_bonus bonus = 1 uses = 2 category = artillery }
-		}
-	}
-	focus = {
-		id = JMNF_small_arms_dev
-		icon = GFX_goal_generic_infantry_weapon
-		prerequisite = { focus = JMNF_technological_supremacy }
-		relative_position_id = JMNF_technological_supremacy
-		x = 1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { name = JMNF_infantry_bonus bonus = 1 uses = 2 category = infantry_weapons }
-		}
-	}
-	focus = {
-		id = JMNF_portable_weapons_dev
-		icon = GFX_goal_generic_infantry_weapon
-		prerequisite = { focus = JMNF_technological_supremacy }
-		relative_position_id = JMNF_technological_supremacy
-		x = -1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { name = JMNF_support_bonus bonus = 1 uses = 1 category = support_tech }
-		}
-	}
-	focus = {
-		id = JMNF_strengthen_small_arms
-		icon = GFX_goal_generic_infantry_weapon
-		prerequisite = { focus = JMNF_small_arms_dev }
-		relative_position_id = JMNF_small_arms_dev
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = infantry_weapons }
-			add_tech_bonus = { bonus = 1 uses = 1 category = support_tech }
-		}
-	}
-	focus = {
-		id = JMNF_enhance_officer_equipment
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = JMNF_portable_weapons_dev }
-		relative_position_id = JMNF_portable_weapons_dev
-		x = -1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_officer_equipment
-		}
-	}
-	focus = {
-		id = JMNF_enhance_officers
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = JMNF_enhance_officer_equipment }
-		relative_position_id = JMNF_enhance_officer_equipment
-		x = -1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_officer_training
-		}
-	}
-	focus = {
-		id = JMNF_army_officer_school
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = JMNF_enhance_officers }
-		relative_position_id = JMNF_enhance_officers
-		x = -1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_army_officer_school
-		}
-	}
-	focus = {
-		id = JMNF_army_academy
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = JMNF_army_officer_school }
-		relative_position_id = JMNF_army_officer_school
-		x = -1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			swap_ideas = { remove_idea = JMNF_army_officer_school add_idea = JMNF_army_academy }
-		}
-	}
-	focus = {
-		id = JMNF_army_renewal
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = JMNF_field_gun_dev }
-		relative_position_id = JMNF_field_gun_dev
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_army_renewal
-			army_experience = 15
-		}
-	}
-	focus = {
-		id = JMNF_enhance_operations
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = JMNF_army_renewal }
-		relative_position_id = JMNF_army_renewal
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_enhance_operations
-		}
-	}
-	focus = {
+
+focus = {
 		id = JMNF_coastal_fortify
+		relative_position_id = JMNF_army_renewal
 		icon = GFX_goal_generic_construct_military
 		prerequisite = { focus = JMNF_army_renewal }
-		relative_position_id = JMNF_army_renewal
-		x = 1
+		x = 3
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_coastal_fortress
+		add_ideas = JMNF_coastal_fortress
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_homeland_fortify
+		relative_position_id = JMNF_army_renewal
 		icon = GFX_goal_generic_construct_military
 		prerequisite = { focus = JMNF_army_renewal }
-		relative_position_id = JMNF_army_renewal
-		x = -1
+		x = 6
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_homeland_fortress
+		add_ideas = JMNF_homeland_fortress
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_coastal_equipment
+		relative_position_id = JMNF_coastal_fortify
 		icon = GFX_goal_generic_infantry_weapon
 		prerequisite = { focus = JMNF_coastal_fortify }
-		relative_position_id = JMNF_coastal_fortify
-		x = 1
+		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_coastal_equipment
+		add_ideas = JMNF_coastal_equipment
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_homeland_equipment
+		relative_position_id = JMNF_homeland_fortify
 		icon = GFX_goal_generic_infantry_weapon
 		prerequisite = { focus = JMNF_homeland_fortify }
-		relative_position_id = JMNF_homeland_fortify
-		x = -1
+		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_homeland_equipment
+		add_ideas = JMNF_homeland_equipment
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_enhance_tanks
+		relative_position_id = JMNF_enhance_operations
 		icon = GFX_goal_generic_ARMY_tanks
 		prerequisite = { focus = JMNF_enhance_operations }
-		relative_position_id = JMNF_enhance_operations
 		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_tech_bonus = { name = JMNF_armor_bonus bonus = 1 uses = 2 category = armor }
+		add_tech_bonus = { name = JMNF_armor_bonus bonus = 1 uses = 2 category = armor }
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_continental_tanks
+		relative_position_id = JMNF_enhance_tanks
 		icon = GFX_goal_generic_ARMY_tanks
 		prerequisite = { focus = JMNF_enhance_tanks }
-		relative_position_id = JMNF_enhance_tanks
-		x = 0
+		x = -2
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			if = {
-				limit = { has_dlc = "No Step Back" }
-				hidden_effect = {
-					create_equipment_variant = {
-						name = "九七式中戦車 チハ改"
-						type = medium_tank_chassis_1
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_high_velocity_cannon
-							turret_type_slot = tank_medium_three_man_tank_turret
-							suspension_type_slot = tank_bogie_suspension
-							armor_type_slot = tank_welded_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = tank_radio_1
-						}
-					}
-				}
-			}
-			else = {
-				add_tech_bonus = { bonus = 1 uses = 1 category = armor }
-			}
+		if = {
+		limit = { has_dlc = "No Step Back" }
+		hidden_effect = {
+		create_equipment_variant = {
+		name = "九七式中戦車 チハ改"
+		type = medium_tank_chassis_1
+		parent_version = 0
+		modules = {
+		main_armament_slot = tank_high_velocity_cannon
+		turret_type_slot = tank_medium_three_man_tank_turret
+		suspension_type_slot = tank_bogie_suspension
+		armor_type_slot = tank_welded_armor
+		engine_type_slot = tank_gasoline_engine
+		special_type_slot_1 = tank_radio_1
 		}
-	}
-	focus = {
+		}
+		}
+		}
+		else = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = armor }
+		}
+		}
+		}
+
+focus = {
 		id = JMNF_coastal_tanks
+		relative_position_id = JMNF_enhance_tanks
 		icon = GFX_goal_generic_ARMY_tanks
 		prerequisite = { focus = JMNF_enhance_tanks }
 		prerequisite = { focus = JMNF_coastal_equipment }
-		relative_position_id = JMNF_enhance_tanks
 		x = 1
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			if = {
-				limit = { has_dlc = "No Step Back" }
-				hidden_effect = {
-					create_equipment_variant = {
-						name = "特二式内火艇"
-						type = amphibious_tank_chassis_1
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_close_support_gun
-							turret_type_slot = tank_small_one_man_turret
-							suspension_type_slot = tank_bogie_suspension
-							armor_type_slot = tank_riveted_armor
-							engine_type_slot = tank_gasoline_engine
-						}
-					}
-				}
-			}
-			else = {
-				add_tech_bonus = { bonus = 1 uses = 1 category = marine_tech }
-			}
-			add_ideas = JMNF_coastal_fortress_2
+		if = {
+		limit = { has_dlc = "No Step Back" }
+		hidden_effect = {
+		create_equipment_variant = {
+		name = "特二式内火艇"
+		type = amphibious_tank_chassis_1
+		parent_version = 0
+		modules = {
+		main_armament_slot = tank_close_support_gun
+		turret_type_slot = tank_small_one_man_turret
+		suspension_type_slot = tank_bogie_suspension
+		armor_type_slot = tank_riveted_armor
+		engine_type_slot = tank_gasoline_engine
 		}
-	}
-	focus = {
+		}
+		}
+		}
+		else = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = marine_tech }
+		}
+		add_ideas = JMNF_coastal_fortress_2
+		}
+		}
+
+focus = {
 		id = JMNF_homeland_tanks
+		relative_position_id = JMNF_enhance_tanks
 		icon = GFX_goal_generic_ARMY_tanks
 		prerequisite = { focus = JMNF_enhance_tanks }
 		prerequisite = { focus = JMNF_homeland_equipment }
-		relative_position_id = JMNF_enhance_tanks
-		x = -1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			if = {
-				limit = { has_dlc = "No Step Back" }
-				hidden_effect = {
-					create_equipment_variant = {
-						name = "三式中戦車 チヌ"
-						type = medium_tank_chassis_2
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_high_velocity_cannon
-							turret_type_slot = tank_medium_three_man_tank_turret
-							suspension_type_slot = tank_torsion_bar_suspension
-							armor_type_slot = tank_welded_armor
-							engine_type_slot = tank_gasoline_engine
-							special_type_slot_1 = tank_radio_1
-						}
-					}
-				}
-			}
-			else = {
-				add_tech_bonus = { bonus = 1 uses = 1 category = armor }
-			}
-		}
-	}
-	focus = {
-		id = JMNF_mechanized_infantry
-		icon = GFX_goal_generic_motorized
-		prerequisite = { focus = JMNF_homeland_equipment }
-		relative_position_id = JMNF_homeland_equipment
-		x = -1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = motorized_equipment }
-			add_tech_bonus = { bonus = 1 uses = 1 category = mechanized_equipment }
-		}
-	}
-	focus = {
-		id = JMNF_mobile_artillery
-		icon = GFX_goal_generic_artillery
-		prerequisite = { focus = JMNF_mechanized_infantry }
-		relative_position_id = JMNF_mechanized_infantry
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			if = {
-				limit = { has_dlc = "No Step Back" }
-				hidden_effect = {
-					create_equipment_variant = {
-						name = "四式自走砲"
-						type = medium_tank_artillery_chassis_2
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_howitzer
-							turret_type_slot = tank_medium_three_man_tank_turret
-							suspension_type_slot = tank_torsion_bar_suspension
-							armor_type_slot = tank_welded_armor
-							engine_type_slot = tank_gasoline_engine
-						}
-					}
-				}
-			}
-			else = {
-				add_tech_bonus = { bonus = 1 uses = 1 category = artillery }
-			}
-		}
-	}
-	focus = {
-		id = JMNF_train_guns
-		icon = GFX_goal_generic_artillery
-		prerequisite = { focus = JMNF_homeland_tanks }
-		relative_position_id = JMNF_homeland_tanks
-		x = -1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_train_artillery
-		}
-	}
-	focus = {
-		id = JMNF_coastal_fortress_enhance
-		icon = GFX_goal_generic_construct_military
-		prerequisite = { focus = JMNF_coastal_tanks }
-		relative_position_id = JMNF_coastal_tanks
-		x = 1
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			hidden_effect = {
-				every_owned_state = {
-					limit = { is_coastal = yes }
-					add_building_construction = {
-						type = coastal_bunker
-						level = 1
-						province = { all_provinces = yes limit_to_border = yes level < 3 }
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-	focus = {
-		id = JMNF_new_tank_dev
-		icon = GFX_goal_generic_ARMY_tanks
-		prerequisite = { focus = JMNF_continental_tanks }
-		prerequisite = { focus = JMNF_coastal_tanks }
-		prerequisite = { focus = JMNF_homeland_tanks }
-		x = 14
-		y = 13
-		cost = 7
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			if = {
-				limit = { has_dlc = "No Step Back" }
-				hidden_effect = {
-					create_equipment_variant = {
-						name = "五式中戦車 チリ"
-						type = medium_tank_chassis_3
-						parent_version = 0
-						modules = {
-							main_armament_slot = tank_high_velocity_cannon_2
-							turret_type_slot = tank_medium_three_man_tank_turret
-							suspension_type_slot = tank_torsion_bar_suspension
-							armor_type_slot = tank_welded_armor
-							engine_type_slot = tank_gasoline_engine_2
-							special_type_slot_1 = tank_radio_2
-						}
-					}
-				}
-			}
-			else = {
-				add_tech_bonus = { bonus = 2 uses = 2 category = armor }
-			}
-			add_ideas = JMNF_new_tank
-		}
-	}
-	focus = {
-		id = JMNF_independent_air_force
-		icon = GFX_goal_generic_air_fighter2
-		prerequisite = { focus = JMNF_great_disarmament }
-		relative_position_id = JMNF_great_disarmament
-		x = 12
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		search_filters = { FOCUS_FILTER_AIR }
-		completion_reward = {
-			add_ideas = JMNF_independent_air_force
-			air_experience = 10
-		}
-	}
-	focus = {
-		id = JMNF_capital_air_defense
-		icon = GFX_goal_generic_air_fighter
-		prerequisite = { focus = JMNF_independent_air_force }
-		relative_position_id = JMNF_independent_air_force
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_capital_air_defense
-		}
-	}
-	focus = {
-		id = JMNF_air_officer_school
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = JMNF_capital_air_defense }
-		relative_position_id = JMNF_capital_air_defense
-		x = -2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_air_officer_school
-		}
-	}
-	focus = {
-		id = JMNF_veteran_training
-		icon = GFX_goal_generic_training
-		prerequisite = { focus = JMNF_air_officer_school }
-		relative_position_id = JMNF_air_officer_school
-		x = 0
-		y = 1
-		cost = 3
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_veteran_training
-		}
-	}
-	focus = {
-		id = JMNF_new_bomb_dev
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_capital_air_defense }
-		relative_position_id = JMNF_capital_air_defense
-		x = 2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = bombs }
-		}
-	}
-	focus = {
-		id = JMNF_new_mg_dev
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_new_bomb_dev }
-		relative_position_id = JMNF_new_bomb_dev
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = infantry_weapons }
-		}
-	}
-	focus = {
-		id = JMNF_legacy_modernization
-		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = JMNF_capital_air_defense }
-		relative_position_id = JMNF_capital_air_defense
-		x = 0
-		y = 2
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_legacy_modernization
-			add_equipment_to_stockpile = { type = plane_equipment_1 amount = 50 }
-		}
-	}
-	focus = {
-		id = JMNF_legacy_modernization_2
-		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = JMNF_legacy_modernization }
-		relative_position_id = JMNF_legacy_modernization
-		x = 0
-		y = 1
-		cost = 3
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			swap_ideas = { remove_idea = JMNF_legacy_modernization add_idea = JMNF_legacy_modernization_2 }
-		}
-	}
-	focus = {
-		id = JMNF_shell_bomb
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_legacy_modernization_2 }
-		relative_position_id = JMNF_legacy_modernization_2
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_converted_shell_bomb
-		}
-	}
-	focus = {
-		id = JMNF_ap_bomb
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_shell_bomb }
-		relative_position_id = JMNF_shell_bomb
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = bombs }
-		}
-	}
-	focus = {
-		id = JMNF_ultimate_bomb
-		icon = GFX_goal_generic_nuke
-		prerequisite = { focus = JMNF_ap_bomb }
-		relative_position_id = JMNF_ap_bomb
-		x = 0
-		y = 1
-		cost = 10
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			country_event = { id = JMNF.5 days = 1 }
-			add_tech_bonus = { bonus = 1 uses = 2 category = nuclear }
-		}
-	}
-	focus = {
-		id = JMNF_first_air_unit
-		icon = GFX_goal_generic_air_fighter2
-		prerequisite = { focus = JMNF_independent_air_force }
-		relative_position_id = JMNF_independent_air_force
-		x = 6
-		y = 3
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_equipment_to_stockpile = { type = plane_equipment_1 amount = 30 }
-		}
-	}
-	focus = {
-		id = JMNF_air_fortress
-		icon = GFX_goal_generic_air_fighter
-		prerequisite = { focus = JMNF_first_air_unit }
-		relative_position_id = JMNF_first_air_unit
-		x = -4
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_air_fortress
-		}
-	}
-	focus = {
-		id = JMNF_air_supremacy
-		icon = GFX_goal_generic_air_fighter2
-		prerequisite = { focus = JMNF_air_fortress }
-		relative_position_id = JMNF_air_fortress
-		x = 0
-		y = 1
-		cost = 7
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_air_supremacy
-		}
-	}
-	focus = {
-		id = JMNF_fleet_air_defense
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_first_air_unit }
-		relative_position_id = JMNF_first_air_unit
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_fleet_air_defense
-		}
-	}
-	focus = {
-		id = JMNF_airbase_expansion
-		icon = GFX_goal_generic_construct_air
-		prerequisite = { focus = JMNF_fleet_air_defense }
-		relative_position_id = JMNF_fleet_air_defense
-		x = -2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_airbase_expansion
-		}
-	}
-	focus = {
-		id = JMNF_civil_military_airfield
-		icon = GFX_goal_generic_construct_air
-		prerequisite = { focus = JMNF_airbase_expansion }
-		relative_position_id = JMNF_airbase_expansion
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			hidden_effect = { random_owned_state = { limit = { free_building_slots > 0 } add_building_construction = { type = air_base level = 2 instant_build = yes } } }
-		}
-	}
-	focus = {
-		id = JMNF_flying_boat
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_fleet_air_defense }
-		relative_position_id = JMNF_fleet_air_defense
-		x = 2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_flying_boat
-			add_tech_bonus = { bonus = 1 uses = 1 category = naval_bomber }
-		}
-	}
-	focus = {
-		id = JMNF_new_transport
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_first_air_unit }
-		relative_position_id = JMNF_first_air_unit
 		x = 4
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = transport_plane }
+		if = {
+		limit = { has_dlc = "No Step Back" }
+		hidden_effect = {
+		create_equipment_variant = {
+		name = "三式中戦車 チヌ"
+		type = medium_tank_chassis_2
+		parent_version = 0
+		modules = {
+		main_armament_slot = tank_high_velocity_cannon
+		turret_type_slot = tank_medium_three_man_tank_turret
+		suspension_type_slot = tank_torsion_bar_suspension
+		armor_type_slot = tank_welded_armor
+		engine_type_slot = tank_gasoline_engine
+		special_type_slot_1 = tank_radio_1
 		}
-	}
-	focus = {
-		id = JMNF_small_bomb_dev
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_new_transport }
-		relative_position_id = JMNF_new_transport
+		}
+		}
+		}
+		else = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = armor }
+		}
+		}
+		}
+
+focus = {
+		id = JMNF_mechanized_infantry
+		relative_position_id = JMNF_homeland_equipment
+		icon = GFX_goal_generic_motorized
+		prerequisite = { focus = JMNF_homeland_equipment }
 		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = bombs }
+		add_tech_bonus = { bonus = 1 uses = 1 category = motorized_equipment }
+		add_tech_bonus = { bonus = 1 uses = 1 category = mechanized_equipment }
 		}
-	}
-	focus = {
-		id = JMNF_convergence_bomb
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_small_bomb_dev }
-		relative_position_id = JMNF_small_bomb_dev
+		}
+
+focus = {
+		id = JMNF_mobile_artillery
+		relative_position_id = JMNF_mechanized_infantry
+		icon = GFX_goal_generic_artillery
+		prerequisite = { focus = JMNF_mechanized_infantry }
 		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_convergence_bomb
+		if = {
+		limit = { has_dlc = "No Step Back" }
+		hidden_effect = {
+		create_equipment_variant = {
+		name = "四式自走砲"
+		type = medium_tank_artillery_chassis_2
+		parent_version = 0
+		modules = {
+		main_armament_slot = tank_howitzer
+		turret_type_slot = tank_medium_three_man_tank_turret
+		suspension_type_slot = tank_torsion_bar_suspension
+		armor_type_slot = tank_welded_armor
+		engine_type_slot = tank_gasoline_engine
 		}
-	}
-	focus = {
-		id = JMNF_unrestricted_warfare
-		icon = GFX_goal_generic_war
-		prerequisite = { focus = JMNF_first_air_unit }
-		relative_position_id = JMNF_first_air_unit
-		x = 10
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_war_support = 0.03
 		}
-	}
-	focus = {
-		id = JMNF_new_interceptor
-		icon = GFX_goal_generic_air_fighter
-		prerequisite = { focus = JMNF_unrestricted_warfare }
-		relative_position_id = JMNF_unrestricted_warfare
-		x = -4
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = interceptor }
 		}
-	}
-	focus = {
-		id = JMNF_new_recon
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_unrestricted_warfare }
-		relative_position_id = JMNF_unrestricted_warfare
-		x = -2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
 		}
-	}
-	focus = {
-		id = JMNF_autogyro_dev
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_unrestricted_warfare }
-		relative_position_id = JMNF_unrestricted_warfare
+		else = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = artillery }
+		}
+		}
+		}
+
+focus = {
+		id = JMNF_train_guns
+		relative_position_id = JMNF_homeland_tanks
+		icon = GFX_goal_generic_artillery
+		prerequisite = { focus = JMNF_homeland_tanks }
 		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_tech_bonus = { bonus = 0.5 uses = 1 category = rotary_wing }
+		add_ideas = JMNF_train_artillery
 		}
-	}
-	focus = {
-		id = JMNF_rocket_dev
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_unrestricted_warfare }
-		relative_position_id = JMNF_unrestricted_warfare
-		x = 2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = rocketry }
 		}
-	}
-	focus = {
-		id = JMNF_air_support_focus
-		icon = GFX_goal_generic_air_fighter2
-		prerequisite = { focus = JMNF_independent_air_force }
-		relative_position_id = JMNF_independent_air_force
-		x = 22
-		y = 4
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		mutually_exclusive = { focus = JMNF_strat_bombing_focus }
-		completion_reward = {
-			add_ideas = JMNF_air_support_focus
-		}
-	}
-	focus = {
-		id = JMNF_battlefield_support
-		icon = GFX_goal_generic_air_bomber
-		prerequisite = { focus = JMNF_air_support_focus }
-		relative_position_id = JMNF_air_support_focus
-		x = -2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_battlefield_support
-		}
-	}
-	focus = {
-		id = JMNF_tactical_strategic
-		icon = GFX_goal_generic_air_bomber
-		prerequisite = { focus = JMNF_battlefield_support }
-		relative_position_id = JMNF_battlefield_support
+
+focus = {
+		id = JMNF_coastal_fortress_enhance
+		relative_position_id = JMNF_coastal_tanks
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = JMNF_coastal_tanks }
 		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_tactical_strategic
+		hidden_effect = {
+		every_owned_state = {
+		limit = { is_coastal = yes }
+		add_building_construction = {
+		type = coastal_bunker
+		level = 1
+		province = { all_provinces = yes limit_to_border = yes level < 3 }
+		instant_build = yes
 		}
-	}
-	focus = {
-		id = JMNF_fighter_bomber_comp
-		icon = GFX_goal_generic_air_fighter
-		prerequisite = { focus = JMNF_air_support_focus }
-		relative_position_id = JMNF_air_support_focus
-		x = 2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = light_fighter }
 		}
-	}
-	focus = {
-		id = JMNF_strat_bombing_focus
-		icon = GFX_goal_generic_air_bomber
-		prerequisite = { focus = JMNF_independent_air_force }
-		relative_position_id = JMNF_independent_air_force
-		x = 28
-		y = 5
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		mutually_exclusive = { focus = JMNF_air_support_focus }
-		completion_reward = {
-			add_ideas = JMNF_strat_bombing_focus
 		}
-	}
-	focus = {
-		id = JMNF_bombing_supremacy
-		icon = GFX_goal_generic_air_bomber
-		prerequisite = { focus = JMNF_strat_bombing_focus }
-		relative_position_id = JMNF_strat_bombing_focus
-		x = -2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_bombing_supremacy
 		}
-	}
-	focus = {
-		id = JMNF_total_destruction
-		icon = GFX_goal_generic_nuke
-		prerequisite = { focus = JMNF_bombing_supremacy }
-		relative_position_id = JMNF_bombing_supremacy
-		x = 0
-		y = 1
-		cost = 10
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_total_destruction
-			country_event = { id = JMNF.2 days = 1 }
 		}
-	}
-	focus = {
-		id = JMNF_tactical_bomber_comp
-		icon = GFX_goal_generic_air_bomber
-		prerequisite = { focus = JMNF_strat_bombing_focus }
-		relative_position_id = JMNF_strat_bombing_focus
-		x = 2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = tactical_bomber }
-		}
-	}
-	focus = {
-		id = JMNF_strat_bomber_comp
-		icon = GFX_goal_generic_air_bomber
-		prerequisite = { focus = JMNF_tactical_bomber_comp }
-		relative_position_id = JMNF_tactical_bomber_comp
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = strategic_bomber }
-		}
-	}
-	focus = {
-		id = JMNF_new_aircraft_dev
-		icon = GFX_goal_generic_air_fighter2
-		prerequisite = { focus = JMNF_strat_bomber_comp }
-		relative_position_id = JMNF_strat_bomber_comp
+
+focus = {
+		id = JMNF_new_tank_dev
+		relative_position_id = JMNF_continental_tanks
+		icon = GFX_goal_generic_ARMY_tanks
+		prerequisite = { focus = JMNF_continental_tanks }
+		prerequisite = { focus = JMNF_coastal_tanks }
+		prerequisite = { focus = JMNF_homeland_tanks }
 		x = 0
 		y = 1
 		cost = 7
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			country_event = { id = JMNF.4 days = 1 }
+		if = {
+		limit = { has_dlc = "No Step Back" }
+		hidden_effect = {
+		create_equipment_variant = {
+		name = "五式中戦車 チリ"
+		type = medium_tank_chassis_3
+		parent_version = 0
+		modules = {
+		main_armament_slot = tank_high_velocity_cannon_2
+		turret_type_slot = tank_medium_three_man_tank_turret
+		suspension_type_slot = tank_torsion_bar_suspension
+		armor_type_slot = tank_welded_armor
+		engine_type_slot = tank_gasoline_engine_2
+		special_type_slot_1 = tank_radio_2
 		}
-	}
-	focus = {
+		}
+		}
+		}
+		else = {
+		add_tech_bonus = { bonus = 2 uses = 2 category = armor }
+		}
+		add_ideas = JMNF_new_tank
+		}
+		}
+
+focus = {
+		id = JMNF_independent_air_force
+		relative_position_id = JMNF_great_disarmament
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = { focus = JMNF_naval_general_staff }
+		x = 3
+		y = 7
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		search_filters = { FOCUS_FILTER_AIR }
+		completion_reward = {
+		add_ideas = JMNF_independent_air_force
+		air_experience = 10
+		}
+		}
+
+focus = {
+		id = JMNF_capital_air_defense
+		relative_position_id = JMNF_independent_air_force
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = JMNF_independent_air_force }
+		x = -8
+		y = 3
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_capital_air_defense
+		}
+		}
+
+focus = {
+		id = JMNF_air_officer_school
+		relative_position_id = JMNF_capital_air_defense
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = JMNF_capital_air_defense }
+		x = -3
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_air_officer_school
+		}
+		}
+
+focus = {
+		id = JMNF_veteran_training
+		relative_position_id = JMNF_air_officer_school
+		icon = GFX_goal_generic_training
+		prerequisite = { focus = JMNF_air_officer_school }
+		x = 0
+		y = 1
+		cost = 3
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_veteran_training
+		}
+		}
+
+focus = {
+		id = JMNF_new_bomb_dev
+		relative_position_id = JMNF_capital_air_defense
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_capital_air_defense }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = bombs }
+		}
+		}
+
+focus = {
+		id = JMNF_new_mg_dev
+		relative_position_id = JMNF_new_bomb_dev
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_new_bomb_dev }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = infantry_weapons }
+		}
+		}
+
+focus = {
+		id = JMNF_legacy_modernization
+		relative_position_id = JMNF_capital_air_defense
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = JMNF_capital_air_defense }
+		x = 0
+		y = 3
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_legacy_modernization
+		add_equipment_to_stockpile = { type = plane_equipment_1 amount = 50 }
+		}
+		}
+
+focus = {
+		id = JMNF_legacy_modernization_2
+		relative_position_id = JMNF_legacy_modernization
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = JMNF_legacy_modernization }
+		x = 0
+		y = 1
+		cost = 3
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		swap_ideas = { remove_idea = JMNF_legacy_modernization add_idea = JMNF_legacy_modernization_2 }
+		}
+		}
+
+focus = {
+		id = JMNF_shell_bomb
+		relative_position_id = JMNF_legacy_modernization_2
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_legacy_modernization_2 }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_converted_shell_bomb
+		}
+		}
+
+focus = {
+		id = JMNF_ap_bomb
+		relative_position_id = JMNF_shell_bomb
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_shell_bomb }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = bombs }
+		}
+		}
+
+focus = {
+		id = JMNF_ultimate_bomb
+		relative_position_id = JMNF_ap_bomb
+		icon = GFX_goal_generic_nuke
+		prerequisite = { focus = JMNF_ap_bomb }
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		country_event = { id = JMNF.5 days = 1 }
+		add_tech_bonus = { bonus = 1 uses = 2 category = nuclear }
+		}
+		}
+
+focus = {
+		id = JMNF_first_air_unit
+		relative_position_id = JMNF_independent_air_force
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = { focus = JMNF_independent_air_force }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_equipment_to_stockpile = { type = plane_equipment_1 amount = 30 }
+		}
+		}
+
+focus = {
+		id = JMNF_air_fortress
+		relative_position_id = JMNF_first_air_unit
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = JMNF_first_air_unit }
+		x = -5
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_air_fortress
+		}
+		}
+
+focus = {
+		id = JMNF_air_supremacy
+		relative_position_id = JMNF_air_fortress
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = { focus = JMNF_air_fortress }
+		x = 0
+		y = 1
+		cost = 7
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_air_supremacy
+		}
+		}
+
+focus = {
+		id = JMNF_fleet_air_defense
+		relative_position_id = JMNF_first_air_unit
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_first_air_unit }
+		x = -2
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_fleet_air_defense
+		}
+		}
+
+focus = {
+		id = JMNF_airbase_expansion
+		relative_position_id = JMNF_fleet_air_defense
+		icon = GFX_goal_generic_construct_air
+		prerequisite = { focus = JMNF_fleet_air_defense }
+		x = -1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_airbase_expansion
+		}
+		}
+
+focus = {
+		id = JMNF_civil_military_airfield
+		relative_position_id = JMNF_airbase_expansion
+		icon = GFX_goal_generic_construct_air
+		prerequisite = { focus = JMNF_airbase_expansion }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		hidden_effect = { random_owned_state = { limit = { free_building_slots > 0 } add_building_construction = { type = air_base level = 2 instant_build = yes } } }
+		}
+		}
+
+focus = {
+		id = JMNF_flying_boat
+		relative_position_id = JMNF_fleet_air_defense
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_fleet_air_defense }
+		x = 1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_flying_boat
+		add_tech_bonus = { bonus = 1 uses = 1 category = naval_bomber }
+		}
+		}
+
+focus = {
+		id = JMNF_new_transport
+		relative_position_id = JMNF_first_air_unit
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_first_air_unit }
+		x = 1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = transport_plane }
+		}
+		}
+
+focus = {
+		id = JMNF_small_bomb_dev
+		relative_position_id = JMNF_new_transport
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_new_transport }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = bombs }
+		}
+		}
+
+focus = {
+		id = JMNF_convergence_bomb
+		relative_position_id = JMNF_small_bomb_dev
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_small_bomb_dev }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_convergence_bomb
+		}
+		}
+
+focus = {
+		id = JMNF_unrestricted_warfare
+		relative_position_id = JMNF_first_air_unit
+		icon = GFX_goal_generic_war
+		prerequisite = { focus = JMNF_first_air_unit }
+		x = 4
+		y = 3
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_war_support = 0.03
+		}
+		}
+
+focus = {
+		id = JMNF_new_interceptor
+		relative_position_id = JMNF_unrestricted_warfare
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = JMNF_unrestricted_warfare }
+		x = -4
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = interceptor }
+		}
+		}
+
+focus = {
+		id = JMNF_new_recon
+		relative_position_id = JMNF_unrestricted_warfare
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_unrestricted_warfare }
+		x = -1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = electronics }
+		}
+		}
+
+focus = {
+		id = JMNF_autogyro_dev
+		relative_position_id = JMNF_unrestricted_warfare
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_unrestricted_warfare }
+		x = 2
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 0.5 uses = 1 category = rotary_wing }
+		}
+		}
+
+focus = {
+		id = JMNF_rocket_dev
+		relative_position_id = JMNF_unrestricted_warfare
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_unrestricted_warfare }
+		x = 6
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = rocketry }
+		}
+		}
+
+focus = {
+		id = JMNF_air_support_focus
+		relative_position_id = JMNF_independent_air_force
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = { focus = JMNF_independent_air_force }
+		x = 8
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		mutually_exclusive = {
+			focus = JMNF_strat_bombing_focus
+		}
+		completion_reward = {
+		add_ideas = JMNF_air_support_focus
+		}
+		}
+
+focus = {
+		id = JMNF_battlefield_support
+		relative_position_id = JMNF_air_support_focus
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = JMNF_air_support_focus }
+		x = -2
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_battlefield_support
+		}
+		}
+
+focus = {
+		id = JMNF_tactical_strategic
+		relative_position_id = JMNF_battlefield_support
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = JMNF_battlefield_support }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_tactical_strategic
+		}
+		}
+
+focus = {
+		id = JMNF_fighter_bomber_comp
+		relative_position_id = JMNF_air_support_focus
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = JMNF_air_support_focus }
+		x = 1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = light_fighter }
+		}
+		}
+
+focus = {
+		id = JMNF_strat_bombing_focus
+		relative_position_id = JMNF_independent_air_force
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = JMNF_independent_air_force }
+		x = 15
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		mutually_exclusive = {
+			focus = JMNF_air_support_focus
+		}
+		completion_reward = {
+		add_ideas = JMNF_strat_bombing_focus
+		}
+		}
+
+focus = {
+		id = JMNF_bombing_supremacy
+		relative_position_id = JMNF_strat_bombing_focus
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = JMNF_strat_bombing_focus }
+		x = -2
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_bombing_supremacy
+		}
+		}
+
+focus = {
+		id = JMNF_total_destruction
+		relative_position_id = JMNF_bombing_supremacy
+		icon = GFX_goal_generic_nuke
+		prerequisite = { focus = JMNF_bombing_supremacy }
+		x = 0
+		y = 1
+		cost = 10
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_total_destruction
+		country_event = { id = JMNF.2 days = 1 }
+		}
+		}
+
+focus = {
+		id = JMNF_tactical_bomber_comp
+		relative_position_id = JMNF_strat_bombing_focus
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = JMNF_strat_bombing_focus }
+		x = 1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = tactical_bomber }
+		}
+		}
+
+focus = {
+		id = JMNF_strat_bomber_comp
+		relative_position_id = JMNF_tactical_bomber_comp
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = JMNF_tactical_bomber_comp }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 1 category = strategic_bomber }
+		}
+		}
+
+focus = {
+		id = JMNF_new_aircraft_dev
+		relative_position_id = JMNF_strat_bomber_comp
+		icon = GFX_goal_generic_air_fighter2
+		prerequisite = { focus = JMNF_strat_bomber_comp }
+		x = 0
+		y = 1
+		cost = 7
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		country_event = { id = JMNF.4 days = 1 }
+		}
+		}
+
+focus = {
 		id = JMNF_naval_treaty_complete
+		relative_position_id = JMNF_great_disarmament
 		icon = GFX_goal_generic_navy
 		prerequisite = { focus = JMNF_great_disarmament }
-		relative_position_id = JMNF_great_disarmament
-		x = 50
+		x = 12
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		search_filters = { FOCUS_FILTER_NAVY }
 		completion_reward = {
-			add_ideas = JMNF_naval_treaty_complete
-			navy_experience = 10
+		add_ideas = JMNF_naval_treaty_complete
+		navy_experience = 10
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_naval_officer_school
+		relative_position_id = JMNF_naval_treaty_complete
 		icon = GFX_goal_generic_army_doctrines
 		prerequisite = { focus = JMNF_naval_treaty_complete }
-		relative_position_id = JMNF_naval_treaty_complete
 		x = -10
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_naval_officer_school
+		add_ideas = JMNF_naval_officer_school
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_naval_general_staff
+		relative_position_id = JMNF_naval_officer_school
 		icon = GFX_goal_generic_army_doctrines
 		prerequisite = { focus = JMNF_naval_officer_school }
-		relative_position_id = JMNF_naval_officer_school
 		x = -4
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_naval_general_staff
+		add_ideas = JMNF_naval_general_staff
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_shell_improvement
+		relative_position_id = JMNF_naval_general_staff
 		icon = GFX_goal_generic_research
 		prerequisite = { focus = JMNF_naval_general_staff }
-		relative_position_id = JMNF_naval_general_staff
-		x = 0
+		x = 2
 		y = 1
 		cost = 3
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_shell_improvement
+		add_ideas = JMNF_shell_improvement
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_design_bureau
+		relative_position_id = JMNF_naval_officer_school
 		icon = GFX_goal_generic_research
 		prerequisite = { focus = JMNF_naval_officer_school }
-		relative_position_id = JMNF_naval_officer_school
 		x = 2
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_design_bureau
+		add_ideas = JMNF_design_bureau
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_naval_weapon_enhance
+		relative_position_id = JMNF_design_bureau
 		icon = GFX_goal_generic_research
 		prerequisite = { focus = JMNF_design_bureau }
-		relative_position_id = JMNF_design_bureau
-		x = -3
+		x = -2
 		y = 1
 		cost = 7
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 2 category = naval_weapon }
+		add_tech_bonus = { bonus = 1 uses = 2 category = naval_weapon }
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_naval_gun_enhance
+		relative_position_id = JMNF_naval_weapon_enhance
 		icon = GFX_goal_generic_research
 		prerequisite = { focus = JMNF_naval_weapon_enhance }
-		relative_position_id = JMNF_naval_weapon_enhance
-		x = -2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = naval_gun }
-		}
-	}
-	focus = {
-		id = JMNF_naval_aa_enhance
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_naval_weapon_enhance }
-		relative_position_id = JMNF_naval_weapon_enhance
-		x = 2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = naval_aa }
-		}
-	}
-	focus = {
-		id = JMNF_naval_hull_enhance
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_design_bureau }
-		relative_position_id = JMNF_design_bureau
-		x = 3
-		y = 1
-		cost = 7
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 2 category = naval_hull }
-		}
-	}
-	focus = {
-		id = JMNF_naval_armor_enhance
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_naval_hull_enhance }
-		relative_position_id = JMNF_naval_hull_enhance
-		x = -2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = naval_armor }
-		}
-	}
-	focus = {
-		id = JMNF_naval_engine_enhance
-		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_naval_hull_enhance }
-		relative_position_id = JMNF_naval_hull_enhance
-		x = 2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = naval_engine }
-		}
-	}
-	focus = {
-		id = JMNF_marine_corps_branch
-		icon = GFX_goal_generic_special_forces
-		prerequisite = { focus = JMNF_naval_treaty_complete }
-		relative_position_id = JMNF_naval_treaty_complete
-		x = 0
-		y = 2
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 1 category = marines }
-		}
-	}
-	focus = {
-		id = JMNF_build_marine_corps
-		icon = GFX_goal_generic_special_forces
-		prerequisite = { focus = JMNF_marine_corps_branch }
-		relative_position_id = JMNF_marine_corps_branch
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_marine_corps
-		}
-	}
-	focus = {
-		id = JMNF_fleet_doctrine_update
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_naval_treaty_complete }
-		relative_position_id = JMNF_naval_treaty_complete
-		x = 4
-		y = 3
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_fleet_doctrine_update
-		}
-	}
-	focus = {
-		id = JMNF_conservative_doctrine
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_fleet_doctrine_update }
-		relative_position_id = JMNF_fleet_doctrine_update
-		x = -2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		mutually_exclusive = { focus = JMNF_versatile_doctrine }
-		completion_reward = {
-			add_ideas = JMNF_conservative_doctrine
-		}
-	}
-	focus = {
-		id = JMNF_battleship_focus
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_conservative_doctrine }
-		relative_position_id = JMNF_conservative_doctrine
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_battleship_focus
-		}
-	}
-	focus = {
-		id = JMNF_versatile_doctrine
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_fleet_doctrine_update }
-		relative_position_id = JMNF_fleet_doctrine_update
-		x = 2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		mutually_exclusive = { focus = JMNF_conservative_doctrine }
-		completion_reward = {
-			add_ideas = JMNF_versatile_doctrine
-		}
-	}
-	focus = {
-		id = JMNF_balance_focus
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_versatile_doctrine }
-		relative_position_id = JMNF_versatile_doctrine
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_balance_focus
-		}
-	}
-	focus = {
-		id = JMNF_submarine_fleet_doctrine
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_fleet_doctrine_update }
-		relative_position_id = JMNF_fleet_doctrine_update
-		x = 0
-		y = 2
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_submarine_fleet_doctrine
-		}
-	}
-	focus = {
-		id = JMNF_submarine_development
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_submarine_fleet_doctrine }
-		relative_position_id = JMNF_submarine_fleet_doctrine
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 2 category = submarine }
-		}
-	}
-	focus = {
-		id = JMNF_sub_stealth
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_submarine_development }
-		relative_position_id = JMNF_submarine_development
-		x = -3
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_sub_stealth
-		}
-	}
-	focus = {
-		id = JMNF_torpedo_power
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_submarine_development }
-		relative_position_id = JMNF_submarine_development
 		x = -1
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_torpedo_power
+		add_tech_bonus = { bonus = 1 uses = 1 category = naval_gun }
 		}
-	}
-	focus = {
-		id = JMNF_sub_hull_enhance
+		}
+
+focus = {
+		id = JMNF_naval_aa_enhance
+		relative_position_id = JMNF_naval_weapon_enhance
 		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_submarine_development }
-		relative_position_id = JMNF_submarine_development
+		prerequisite = { focus = JMNF_naval_weapon_enhance }
 		x = 1
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_sub_hull
+		add_tech_bonus = { bonus = 1 uses = 1 category = naval_aa }
 		}
-	}
-	focus = {
-		id = JMNF_sub_aa_enhance
+		}
+
+focus = {
+		id = JMNF_naval_hull_enhance
+		relative_position_id = JMNF_design_bureau
 		icon = GFX_goal_generic_research
-		prerequisite = { focus = JMNF_sub_hull_enhance }
-		relative_position_id = JMNF_sub_hull_enhance
-		x = 0
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_sub_anti_air
-		}
-	}
-	focus = {
-		id = JMNF_sub_fleet_end
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_submarine_development }
-		relative_position_id = JMNF_submarine_development
-		x = 3
+		prerequisite = { focus = JMNF_design_bureau }
+		x = 2
 		y = 1
 		cost = 7
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_sub_fleet_end
-			country_event = { id = JMNF.8 days = 1 }
+		add_tech_bonus = { bonus = 1 uses = 2 category = naval_hull }
 		}
-	}
-	focus = {
-		id = JMNF_88_fleet_plan
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_naval_treaty_complete }
-		relative_position_id = JMNF_naval_treaty_complete
-		x = 12
-		y = 4
+		}
+
+focus = {
+		id = JMNF_naval_armor_enhance
+		relative_position_id = JMNF_naval_hull_enhance
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_naval_hull_enhance }
+		x = -1
+		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			country_event = { id = JMNF.3 days = 1 }
+		add_tech_bonus = { bonus = 1 uses = 1 category = naval_armor }
 		}
-	}
-	focus = {
-		id = JMNF_capital_ship_modernize
-		icon = GFX_goal_generic_ARMY_tanks
-		prerequisite = { focus = JMNF_88_fleet_plan }
-		relative_position_id = JMNF_88_fleet_plan
-		x = -4
+		}
+
+focus = {
+		id = JMNF_naval_engine_enhance
+		relative_position_id = JMNF_naval_hull_enhance
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_naval_hull_enhance }
+		x = 1
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
-		available = {
-			has_dlc = "Man the Guns"
-		}
+		available = { }
 		completion_reward = {
-			if = { limit = { has_dlc = "Man the Guns" } hidden_effect = { create_equipment_variant = { name = GetLocalisedOr "JPN_BB_KONGOU_KAI" type = battlecruiser parent_version = 0 modules = { main_armament_slot = heavy_cannon_2 secondary_armament_slot = dual_purpose_secondary_battery_1 aa_battery_slot = anti_air_3 fire_control_system_slot = fire_control_1 radar_slot = ship_radar_4 engine_slot = ship_engine_3 armor_slot = ship_armor_3 } } } } else = { add_tech_bonus = { bonus = 1 uses = 1 category = heavy_ship } }
+		add_tech_bonus = { bonus = 1 uses = 1 category = naval_engine }
 		}
-	}
-	focus = {
-		id = JMNF_carrier_modernize
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_88_fleet_plan }
-		relative_position_id = JMNF_88_fleet_plan
-		x = -2
+		}
+
+focus = {
+		id = JMNF_marine_corps_branch
+		relative_position_id = JMNF_naval_treaty_complete
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = JMNF_naval_treaty_complete }
+		x = -6
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
-		available = {
-			has_dlc = "Man the Guns"
-		}
+		available = { }
 		completion_reward = {
-			if = { limit = { has_dlc = "Man the Guns" } hidden_effect = { create_equipment_variant = { name = GetLocalisedOr "JPN_CV_AKAGI_KAI" type = carrier parent_version = 0 modules = { main_armament_slot = carrier_aa_2 secondary_armament_slot = dual_purpose_secondary_battery_1 aa_battery_slot = anti_air_3 fire_control_system_slot = fire_control_1 radar_slot = ship_radar_4 engine_slot = ship_engine_3 armor_slot = ship_armor_2 } } } } else = { add_tech_bonus = { bonus = 1 uses = 1 category = carrier } }
+		add_tech_bonus = { bonus = 1 uses = 1 category = marines }
 		}
-	}
-	focus = {
-		id = JMNF_destroyer_modernize
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_88_fleet_plan }
-		relative_position_id = JMNF_88_fleet_plan
+		}
+
+focus = {
+		id = JMNF_build_marine_corps
+		relative_position_id = JMNF_marine_corps_branch
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = JMNF_marine_corps_branch }
 		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
-		available = {
-			has_dlc = "Man the Guns"
-		}
+		available = { }
 		completion_reward = {
-			if = { limit = { has_dlc = "Man the Guns" } hidden_effect = { create_equipment_variant = { name = GetLocalisedOr "JPN_DD_KAGERO_KAI" type = destroyer_hull parent_version = 0 modules = { main_armament_slot = light_cannon_3 secondary_armament_slot = dual_purpose_secondary_battery_1 aa_battery_slot = anti_air_3 fire_control_system_slot = fire_control_1 radar_slot = ship_radar_3 engine_slot = ship_engine_3 sonar_slot = ship_sonar_3 depth_charge_slot = depth_charge_2 } } } } else = { add_tech_bonus = { bonus = 1 uses = 1 category = light_ship } }
+		add_ideas = JMNF_marine_corps
 		}
-	}
-	focus = {
-		id = JMNF_submarine_modernize
+		}
+
+focus = {
+		id = JMNF_fleet_doctrine_update
+		relative_position_id = JMNF_naval_treaty_complete
 		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_88_fleet_plan }
-		relative_position_id = JMNF_88_fleet_plan
-		x = 2
+		prerequisite = { focus = JMNF_naval_treaty_complete }
+		x = -2
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
-		available = {
-			has_dlc = "Man the Guns"
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_fleet_doctrine_update
+		}
+		}
+
+focus = {
+		id = JMNF_conservative_doctrine
+		relative_position_id = JMNF_fleet_doctrine_update
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_fleet_doctrine_update }
+		x = -2
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		mutually_exclusive = {
+			focus = JMNF_versatile_doctrine
 		}
 		completion_reward = {
-			if = { limit = { has_dlc = "Man the Guns" } hidden_effect = { create_equipment_variant = { name = GetLocalisedOr "JPN_SS_IGOU_KAI" type = submarine parent_version = 0 modules = { main_armament_slot = submarine_torpedo_3 secondary_armament_slot = submarine_single_mount_2 aa_battery_slot = anti_air_2 fire_control_system_slot = fire_control_1 radar_slot = ship_radar_2 engine_slot = ship_engine_3 sonar_slot = ship_sonar_3 } } } } else = { add_tech_bonus = { bonus = 1 uses = 1 category = submarine } }
+		add_ideas = JMNF_conservative_doctrine
 		}
-	}
-	focus = {
-		id = JMNF_escort_modernize
+		}
+
+focus = {
+		id = JMNF_battleship_focus
+		relative_position_id = JMNF_conservative_doctrine
 		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_88_fleet_plan }
-		relative_position_id = JMNF_88_fleet_plan
+		prerequisite = { focus = JMNF_conservative_doctrine }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_battleship_focus
+		}
+		}
+
+focus = {
+		id = JMNF_versatile_doctrine
+		relative_position_id = JMNF_fleet_doctrine_update
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_fleet_doctrine_update }
+		x = 1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		mutually_exclusive = {
+			focus = JMNF_conservative_doctrine
+		}
+		completion_reward = {
+		add_ideas = JMNF_versatile_doctrine
+		}
+		}
+
+focus = {
+		id = JMNF_balance_focus
+		relative_position_id = JMNF_versatile_doctrine
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_versatile_doctrine }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_balance_focus
+		}
+		}
+
+focus = {
+		id = JMNF_submarine_fleet_doctrine
+		relative_position_id = JMNF_fleet_doctrine_update
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_fleet_doctrine_update }
 		x = 4
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_tech_bonus = { bonus = 1 uses = 2 category = light_ship }
+		add_ideas = JMNF_submarine_fleet_doctrine
 		}
-	}
-	focus = {
-		id = JMNF_coastal_defense_navy
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_naval_treaty_complete }
-		relative_position_id = JMNF_naval_treaty_complete
-		x = 20
-		y = 5
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_coastal_defense_navy
 		}
-	}
-	focus = {
-		id = JMNF_coastal_dominion
+
+focus = {
+		id = JMNF_submarine_development
+		relative_position_id = JMNF_submarine_fleet_doctrine
 		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_coastal_defense_navy }
-		relative_position_id = JMNF_coastal_defense_navy
+		prerequisite = { focus = JMNF_submarine_fleet_doctrine }
 		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_coastal_dominion
+		add_tech_bonus = { bonus = 1 uses = 2 category = submarine }
 		}
-	}
-	focus = {
+		}
+
+focus = {
+		id = JMNF_sub_stealth
+		relative_position_id = JMNF_submarine_development
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_submarine_development }
+		x = -4
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_sub_stealth
+		}
+		}
+
+focus = {
+		id = JMNF_torpedo_power
+		relative_position_id = JMNF_submarine_development
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_submarine_development }
+		x = -1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_torpedo_power
+		}
+		}
+
+focus = {
+		id = JMNF_sub_hull_enhance
+		relative_position_id = JMNF_submarine_development
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_submarine_development }
+		x = 2
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_sub_hull
+		}
+		}
+
+focus = {
+		id = JMNF_sub_aa_enhance
+		relative_position_id = JMNF_sub_hull_enhance
+		icon = GFX_goal_generic_research
+		prerequisite = { focus = JMNF_sub_hull_enhance }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_sub_anti_air
+		}
+		}
+
+focus = {
+		id = JMNF_sub_fleet_end
+		relative_position_id = JMNF_submarine_development
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_submarine_development }
+		x = 5
+		y = 1
+		cost = 7
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_sub_fleet_end
+		country_event = { id = JMNF.8 days = 1 }
+		}
+		}
+
+focus = {
+		id = JMNF_88_fleet_plan
+		relative_position_id = JMNF_naval_treaty_complete
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_naval_treaty_complete }
+		x =8
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		country_event = { id = JMNF.3 days = 1 }
+		}
+		}
+
+focus = {
+		id = JMNF_capital_ship_modernize
+		relative_position_id = JMNF_88_fleet_plan
+		icon = GFX_goal_generic_ARMY_tanks
+		prerequisite = { focus = JMNF_88_fleet_plan }
+		x = -4
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = {
+		has_dlc = "Man the Guns"
+		}
+		completion_reward = {
+		if = { limit = { has_dlc = "Man the Guns" } hidden_effect = { create_equipment_variant = { name = GetLocalisedOr "JPN_BB_KONGOU_KAI" type = battlecruiser parent_version = 0 modules = { main_armament_slot = heavy_cannon_2 secondary_armament_slot = dual_purpose_secondary_battery_1 aa_battery_slot = anti_air_3 fire_control_system_slot = fire_control_1 radar_slot = ship_radar_4 engine_slot = ship_engine_3 armor_slot = ship_armor_3 } } } } else = { add_tech_bonus = { bonus = 1 uses = 1 category = heavy_ship } }
+		}
+		}
+
+focus = {
+		id = JMNF_carrier_modernize
+		relative_position_id = JMNF_88_fleet_plan
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_88_fleet_plan }
+		x = -2
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = {
+		has_dlc = "Man the Guns"
+		}
+		completion_reward = {
+		if = { limit = { has_dlc = "Man the Guns" } hidden_effect = { create_equipment_variant = { name = GetLocalisedOr "JPN_CV_AKAGI_KAI" type = carrier parent_version = 0 modules = { main_armament_slot = carrier_aa_2 secondary_armament_slot = dual_purpose_secondary_battery_1 aa_battery_slot = anti_air_3 fire_control_system_slot = fire_control_1 radar_slot = ship_radar_4 engine_slot = ship_engine_3 armor_slot = ship_armor_2 } } } } else = { add_tech_bonus = { bonus = 1 uses = 1 category = carrier } }
+		}
+		}
+
+focus = {
+		id = JMNF_destroyer_modernize
+		relative_position_id = JMNF_88_fleet_plan
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_88_fleet_plan }
+		x = 0
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = {
+		has_dlc = "Man the Guns"
+		}
+		completion_reward = {
+		if = { limit = { has_dlc = "Man the Guns" } hidden_effect = { create_equipment_variant = { name = GetLocalisedOr "JPN_DD_KAGERO_KAI" type = destroyer_hull parent_version = 0 modules = { main_armament_slot = light_cannon_3 secondary_armament_slot = dual_purpose_secondary_battery_1 aa_battery_slot = anti_air_3 fire_control_system_slot = fire_control_1 radar_slot = ship_radar_3 engine_slot = ship_engine_3 sonar_slot = ship_sonar_3 depth_charge_slot = depth_charge_2 } } } } else = { add_tech_bonus = { bonus = 1 uses = 1 category = light_ship } }
+		}
+		}
+
+focus = {
+		id = JMNF_submarine_modernize
+		relative_position_id = JMNF_88_fleet_plan
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_88_fleet_plan }
+		x = 2
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = {
+		has_dlc = "Man the Guns"
+		}
+		completion_reward = {
+		if = { limit = { has_dlc = "Man the Guns" } hidden_effect = { create_equipment_variant = { name = GetLocalisedOr "JPN_SS_IGOU_KAI" type = submarine parent_version = 0 modules = { main_armament_slot = submarine_torpedo_3 secondary_armament_slot = submarine_single_mount_2 aa_battery_slot = anti_air_2 fire_control_system_slot = fire_control_1 radar_slot = ship_radar_2 engine_slot = ship_engine_3 sonar_slot = ship_sonar_3 } } } } else = { add_tech_bonus = { bonus = 1 uses = 1 category = submarine } }
+		}
+		}
+
+focus = {
+		id = JMNF_escort_modernize
+		relative_position_id = JMNF_88_fleet_plan
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_88_fleet_plan }
+		x = 4
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_tech_bonus = { bonus = 1 uses = 2 category = light_ship }
+		}
+		}
+
+focus = {
+		id = JMNF_coastal_defense_navy
+		relative_position_id = JMNF_naval_treaty_complete
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_naval_treaty_complete }
+		x = 10
+		y = 3
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_coastal_defense_navy
+		}
+		}
+
+focus = {
+		id = JMNF_coastal_dominion
+		relative_position_id = JMNF_coastal_defense_navy
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_coastal_defense_navy }
+		x = -3
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_coastal_dominion
+		}
+		}
+
+focus = {
 		id = JMNF_open_sea_dominion
+		relative_position_id = JMNF_coastal_dominion
 		icon = GFX_goal_generic_navy
 		prerequisite = { focus = JMNF_coastal_dominion }
-		relative_position_id = JMNF_coastal_dominion
 		x = 0
 		y = 1
 		cost = 7
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_open_sea_dominion
+		add_ideas = JMNF_open_sea_dominion
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_empire_rules_sea
+		relative_position_id = JMNF_open_sea_dominion
 		icon = GFX_goal_generic_navy
 		prerequisite = { focus = JMNF_open_sea_dominion }
-		relative_position_id = JMNF_open_sea_dominion
 		x = 0
 		y = 1
 		cost = 10
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_empire_rules_the_sea
-			news_event = { id = JMNF.6 days = 1 }
+		add_ideas = JMNF_empire_rules_the_sea
+		news_event = { id = JMNF.6 days = 1 }
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_shipbuilding
+		relative_position_id = JMNF_coastal_defense_navy
 		icon = GFX_goal_generic_construct_mil
 		prerequisite = { focus = JMNF_coastal_defense_navy }
-		relative_position_id = JMNF_coastal_defense_navy
-		x = 4
-		y = 2
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_shipbuilding
-		}
-	}
-	focus = {
-		id = JMNF_standard_merchant_ship
-		icon = GFX_goal_generic_construct_civ
-		prerequisite = { focus = JMNF_shipbuilding }
-		relative_position_id = JMNF_shipbuilding
-		x = -2
-		y = 1
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_standard_merchant
-		}
-	}
-	focus = {
-		id = JMNF_conversion_ship
-		icon = GFX_goal_generic_construct_civ
-		prerequisite = { focus = JMNF_shipbuilding }
-		relative_position_id = JMNF_shipbuilding
 		x = 2
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			hidden_effect = { add_equipment_to_stockpile = { type = convoy amount = 20 } }
+		add_ideas = JMNF_shipbuilding
 		}
-	}
-	focus = {
-		id = JMNF_convoy_escort_dev
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_naval_treaty_complete }
-		relative_position_id = JMNF_naval_treaty_complete
-		x = 26
-		y = 6
-		cost = 5
-		ai_will_do = { factor = 1 }
-		available = { }
-		completion_reward = {
-			add_ideas = JMNF_convoy_escort
 		}
-	}
-	focus = {
-		id = JMNF_escort_hq
-		icon = GFX_goal_generic_navy
-		prerequisite = { focus = JMNF_convoy_escort_dev }
-		relative_position_id = JMNF_convoy_escort_dev
-		x = 0
+
+focus = {
+		id = JMNF_standard_merchant_ship
+		relative_position_id = JMNF_shipbuilding
+		icon = GFX_goal_generic_construct_civ
+		prerequisite = { focus = JMNF_shipbuilding }
+		x = -2
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_escort_command
+		add_ideas = JMNF_standard_merchant
 		}
-	}
-	focus = {
+		}
+
+focus = {
+		id = JMNF_conversion_ship
+		relative_position_id = JMNF_shipbuilding
+		icon = GFX_goal_generic_construct_civ
+		prerequisite = { focus = JMNF_shipbuilding }
+		x = 1
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		hidden_effect = { add_equipment_to_stockpile = { type = convoy amount = 20 } }
+		}
+		}
+
+focus = {
+		id = JMNF_convoy_escort_dev
+		relative_position_id = JMNF_naval_treaty_complete
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_naval_treaty_complete }
+		x = 14
+		y = 1
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_convoy_escort
+		}
+		}
+
+focus = {
+		id = JMNF_escort_hq
+		relative_position_id = JMNF_convoy_escort_dev
+		icon = GFX_goal_generic_navy
+		prerequisite = { focus = JMNF_convoy_escort_dev }
+		x = 0
+		y = 2
+		cost = 5
+		ai_will_do = { factor = 1 }
+		available = { }
+		completion_reward = {
+		add_ideas = JMNF_escort_command
+		}
+		}
+
+focus = {
 		id = JMNF_intel_reorganization
+		relative_position_id = JMNF_great_disarmament
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = JMNF_great_disarmament }
-		relative_position_id = JMNF_great_disarmament
-		x = 76
+		x = -22
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		search_filters = { FOCUS_FILTER_INTELLIGENCE }
 		completion_reward = {
-			swap_ideas = { remove_idea = intel_agency_idea add_idea = JMNF_intel_reorganization }
-			all_experience = 5
+		swap_ideas = { remove_idea = intel_agency_idea add_idea = JMNF_intel_reorganization }
+		all_experience = 5
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_intel_leadership
+		relative_position_id = JMNF_intel_reorganization
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = JMNF_intel_reorganization }
-		relative_position_id = JMNF_intel_reorganization
 		x = -2
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_intel_leadership
+		add_ideas = JMNF_intel_leadership
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_intel_management
+		relative_position_id = JMNF_intel_leadership
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = JMNF_intel_leadership }
-		relative_position_id = JMNF_intel_leadership
 		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_intel_management
+		add_ideas = JMNF_intel_management
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_intel_enhanced
+		relative_position_id = JMNF_intel_reorganization
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = JMNF_intel_reorganization }
-		relative_position_id = JMNF_intel_reorganization
 		x = 2
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_intel_enhanced
+		add_ideas = JMNF_intel_enhanced
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_spy_school
+		relative_position_id = JMNF_intel_enhanced
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = JMNF_intel_enhanced }
-		relative_position_id = JMNF_intel_enhanced
 		x = 0
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_spy_school
+		add_ideas = JMNF_spy_school
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_spy_school_2
+		relative_position_id = JMNF_spy_school
 		icon = GFX_goal_generic_intelligence_exchange
 		prerequisite = { focus = JMNF_spy_school }
-		relative_position_id = JMNF_spy_school
-		x = 0
+		x = -2
 		y = 1
 		cost = 5
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			swap_ideas = { remove_idea = JMNF_spy_school add_idea = JMNF_spy_school_2 }
+		swap_ideas = { remove_idea = JMNF_spy_school add_idea = JMNF_spy_school_2 }
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_tri_service_coordination
+		relative_position_id = JMNF_army_academy
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = JMNF_army_academy }
 		prerequisite = { focus = JMNF_fleet_air_defense }
 		prerequisite = { focus = JMNF_naval_officer_school }
-		x = 40
-		y = 14
+		x = 0
+		y = 5
 		cost = 10
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_tri_service_coordination
-			all_experience = 15
+		add_ideas = JMNF_tri_service_coordination
+		all_experience = 15
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_high_command_enhanced
+		relative_position_id = JMNF_tri_service_coordination
 		icon = GFX_goal_generic_army_doctrines
 		prerequisite = { focus = JMNF_tri_service_coordination }
-		relative_position_id = JMNF_tri_service_coordination
 		x = 0
 		y = 1
 		cost = 7
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_high_command_enhanced
+		add_ideas = JMNF_high_command_enhanced
 		}
-	}
-	focus = {
+		}
+
+focus = {
 		id = JMNF_hq_relocation
+		relative_position_id = JMNF_high_command_enhanced
 		icon = GFX_goal_generic_major_alliance
 		prerequisite = { focus = JMNF_high_command_enhanced }
-		relative_position_id = JMNF_high_command_enhanced
 		x = 0
 		y = 1
 		cost = 10
 		ai_will_do = { factor = 1 }
 		available = { }
 		completion_reward = {
-			add_ideas = JMNF_hq_relocation
-			country_event = { id = JMNF.7 days = 1 }
-			add_stability = 0.05
-			add_war_support = 0.05
+		add_ideas = JMNF_hq_relocation
+		country_event = { id = JMNF.7 days = 1 }
+		add_stability = 0.05
+		add_war_support = 0.05
 		}
-	}
+		}
 }

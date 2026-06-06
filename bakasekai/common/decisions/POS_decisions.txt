@@ -1,0 +1,327 @@
+POS_decisions = {
+
+	POS_fortify_platform = {
+		icon = generic_construction
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 50
+		}
+		visible = {
+			has_completed_focus = POS_fortress_heritage
+		}
+		cost = 50
+		days_remove = 30
+		fire_only_once = no
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		complete_effect = {
+			857 = {
+				add_building_construction = {
+					type = coastal_bunker
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	POS_coast_guard_patrol = {
+		icon = generic_naval_treaty
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 25
+		}
+		visible = {
+			always = yes
+		}
+		cost = 25
+		days_remove = 45
+		fire_only_once = no
+		ai_will_do = {
+			factor = 1
+		}
+		complete_effect = {
+			navy_experience = 5
+		}
+	}
+
+	POS_propaganda_broadcast = {
+		icon = generic_propaganda
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 25
+		}
+		visible = {
+			always = yes
+		}
+		cost = 25
+		days_remove = 30
+		fire_only_once = no
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				has_stability < 0.5
+			}
+		}
+		complete_effect = {
+			add_stability = 0.03
+		}
+	}
+
+	POS_issue_stamps = {
+		icon = generic_trade
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 15
+		}
+		visible = {
+			always = yes
+		}
+		cost = 15
+		days_remove = 20
+		fire_only_once = no
+		ai_will_do = {
+			factor = 2
+		}
+		complete_effect = {
+			add_political_power = 20
+			add_to_variable = { National_Unity_Power = 10 }
+		}
+	}
+
+	POS_issue_coins = {
+		icon = generic_production
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 25
+			has_completed_focus = POS_princely_court
+		}
+		visible = {
+			has_completed_focus = POS_princely_court
+		}
+		cost = 25
+		days_remove = 30
+		fire_only_once = no
+		ai_will_do = {
+			factor = 2
+		}
+		complete_effect = {
+			add_political_power = 30
+			add_to_variable = { National_Unity_Power = 15 }
+		}
+	}
+
+	POS_resist_britain = {
+		icon = generic_intelligence
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 50
+		}
+		visible = {
+			has_country_flag = POS_britain_pressure_received
+		}
+		cost = 50
+		days_remove = 15
+		fire_only_once = no
+		ai_will_do = {
+			factor = 2
+		}
+		complete_effect = {
+			add_stability = 0.05
+			GBR = {
+				add_opinion_modifier = {
+					target = POS
+					modifier = POS_resisted_britain
+				}
+			}
+			add_opinion_modifier = {
+				target = GBR
+				modifier = POS_resisted_britain
+			}
+		}
+	}
+
+	POS_resist_france = {
+		icon = generic_intelligence
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 50
+		}
+		visible = {
+			has_country_flag = POS_france_pressure_received
+		}
+		cost = 50
+		days_remove = 15
+		fire_only_once = no
+		ai_will_do = {
+			factor = 2
+		}
+		complete_effect = {
+			add_stability = 0.05
+			FRA = {
+				add_opinion_modifier = {
+					target = POS
+					modifier = POS_resisted_france
+				}
+			}
+			add_opinion_modifier = {
+				target = FRA
+				modifier = POS_resisted_france
+			}
+		}
+	}
+}
+
+POS_title_sales = {
+
+	POS_sell_barony_dec = {
+		icon = generic_diplomatic_treaty
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 25
+		}
+		visible = {
+			has_completed_focus = POS_sell_barony
+		}
+		cost = 25
+		days_remove = 20
+		fire_only_once = no
+		ai_will_do = {
+			factor = 3
+		}
+		complete_effect = {
+			add_political_power = 25
+			POS_sell_title_effect_barony = yes
+			add_to_variable = { POS_title_revenue = 15 }
+			random_list = {
+				90 = {
+					country_event = { id = POS_titles.1 days = 5 }
+				}
+				10 = {
+					country_event = { id = POS_titles.3 days = 5 }
+				}
+			}
+		}
+	}
+
+	POS_sell_earldom_dec = {
+		icon = generic_diplomatic_treaty
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 50
+		}
+		visible = {
+			has_completed_focus = POS_sell_earldom
+		}
+		cost = 50
+		days_remove = 30
+		fire_only_once = no
+		ai_will_do = {
+			factor = 2
+		}
+		complete_effect = {
+			add_political_power = 50
+			POS_sell_title_effect_earldom = yes
+			add_to_variable = { POS_title_revenue = 25 }
+			random_list = {
+				75 = {
+					country_event = { id = POS_titles.1 days = 5 }
+				}
+				15 = {
+					country_event = { id = POS_titles.2 days = 5 }
+				}
+				10 = {
+					country_event = { id = POS_titles.3 days = 5 }
+				}
+			}
+		}
+	}
+
+	POS_sell_dukedom_dec = {
+		icon = generic_diplomatic_treaty
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 100
+		}
+		visible = {
+			has_completed_focus = POS_sell_dukedom
+		}
+		cost = 100
+		days_remove = 45
+		fire_only_once = no
+		ai_will_do = {
+			factor = 1
+		}
+		complete_effect = {
+			add_political_power = 75
+			POS_sell_title_effect_dukedom = yes
+			add_to_variable = { POS_title_revenue = 40 }
+			add_to_variable = { National_Unity_Power = 30 }
+			random_list = {
+				60 = {
+					country_event = { id = POS_titles.1 days = 5 }
+				}
+				20 = {
+					country_event = { id = POS_titles.2 days = 5 }
+				}
+				20 = {
+					country_event = { id = POS_titles.3 days = 5 }
+				}
+			}
+		}
+	}
+
+	POS_grant_military_title = {
+		icon = generic_army
+		allowed = {
+			original_tag = POS
+		}
+		available = {
+			has_political_power > 75
+		}
+		visible = {
+			has_completed_focus = POS_title_to_generals
+		}
+		cost = 75
+		days_remove = 30
+		fire_only_once = no
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 3
+				has_war = yes
+			}
+		}
+		complete_effect = {
+			army_experience = 15
+			POS_grant_military_title_effect = yes
+			add_to_variable = { POS_title_revenue = 20 }
+		}
+	}
+}

@@ -38,6 +38,7 @@ on_actions = {
             every_country = {
                 limit = { always = yes }
                 bsm_stellaris_init = yes
+                bsm_AS_init = yes # アノマリー探検隊システム初期化
             }
 
             ### Economic Alliance System - Initialize ONCE ###
@@ -369,6 +370,7 @@ on_actions = {
                 bsm_stellaris_update_tradition_cost = yes
                 bsm_stellaris_update_trait_slots = yes
                 bsm_stellaris_calculate_anomaly_bonus = yes
+                bsm_AS_monthly_upkeep = yes # アノマリー探検隊 維持費徴収
             }
 
             # 傭兵の維持費処理
@@ -404,6 +406,8 @@ on_actions = {
                 bsm_stellaris_anomaly_research_speed_calc = yes
                 # アノマリー研究進行
                 AN_research_weekly = yes
+                # アノマリー探検隊 週次処理（探検進行＋新研究進行）
+                bsm_AS_weekly_tick = yes
             }
             if = {
                 limit = {
@@ -417,6 +421,53 @@ on_actions = {
                         }
                         set_country_flag = DIS_super_event_north_america_fired
                         news_event = { id = baka_super_news.8 }
+                    }
+                }
+            }
+        }
+    }
+    on_bi_yearly = {
+        effect = {
+            if = {
+                limit = {
+                    tag = POS
+                    has_completed_focus = POS_sealand_rising
+                    NOT = { has_war = yes }
+                }
+                if = {
+                    limit = {
+                        check_variable = { POS_channel_tension > 15 }
+                    }
+                    random_list = {
+                        40 = {
+                            country_event = { id = POS_channel_pressure.1 days = 5 }
+                            set_country_flag = POS_britain_pressure_received
+                        }
+                        40 = {
+                            country_event = { id = POS_channel_pressure.2 days = 5 }
+                            set_country_flag = POS_france_pressure_received
+                        }
+                        20 = {
+                            country_event = { id = POS_channel_pressure.3 days = 5 }
+                        }
+                    }
+                }
+                if = {
+                    limit = {
+                        check_variable = { POS_title_revenue > 50 }
+                    }
+                    random_list = {
+                        30 = {
+                            country_event = { id = POS_titles.1 days = 5 }
+                        }
+                        30 = {
+                            country_event = { id = POS_titles.2 days = 5 }
+                        }
+                        10 = {
+                            country_event = { id = POS_titles.3 days = 5 }
+                        }
+                        30 = {
+                        }
                     }
                 }
             }

@@ -1,0 +1,170 @@
+# ==========================================
+# BSM アノマリー発見ポップアップ GUI
+# window_name = bsm_AS_event_window
+# レイアウト元: BSM_AS.drawio（イベント画面（素材入り））
+# 画像はカテゴリー別（7種を可視性で切替）
+# ==========================================
+guiTypes = {
+	containerWindowType = {
+		name = "bsm_AS_event_window"
+		position = { x = 400 y = 170 }
+		size = { width = 520 height = 420 }
+		moveable = yes
+
+		show_sound = menu_open_window
+		hide_sound = menu_close_window
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window2_1b_border"
+		}
+
+		iconType = {
+			name = "bsm_AS_event_header_bg"
+			spriteType = "GFX_header_bg"
+			position = { x = 5 y = 7 }
+			Orientation = UPPER_LEFT
+		}
+		instantTextboxType = {
+			name = "bsm_AS_event_title"
+			position = { x = 20 y = 12 }
+			font = "hoi_20b"
+			text = "bsm_AS_event_title"
+			maxWidth = 480 maxHeight = 26
+			format = left
+		}
+
+		# ------- カテゴリー別 4:3 画像（可視性で1枚だけ表示） -------
+		containerWindowType = {
+			name = "bsm_AS_event_img_politics"
+			position = { x = 24 y = 56 } size = { width = 200 height = 150 }
+			background = { name = "bg" quadTextureSprite = "GFX_bsm_AS_cat_politics" }
+		}
+		containerWindowType = {
+			name = "bsm_AS_event_img_army"
+			position = { x = 24 y = 56 } size = { width = 200 height = 150 }
+			background = { name = "bg" quadTextureSprite = "GFX_bsm_AS_cat_army" }
+		}
+		containerWindowType = {
+			name = "bsm_AS_event_img_navy"
+			position = { x = 24 y = 56 } size = { width = 200 height = 150 }
+			background = { name = "bg" quadTextureSprite = "GFX_bsm_AS_cat_navy" }
+		}
+		containerWindowType = {
+			name = "bsm_AS_event_img_air"
+			position = { x = 24 y = 56 } size = { width = 200 height = 150 }
+			background = { name = "bg" quadTextureSprite = "GFX_bsm_AS_cat_air" }
+		}
+		containerWindowType = {
+			name = "bsm_AS_event_img_faith"
+			position = { x = 24 y = 56 } size = { width = 200 height = 150 }
+			background = { name = "bg" quadTextureSprite = "GFX_bsm_AS_cat_faith" }
+		}
+		containerWindowType = {
+			name = "bsm_AS_event_img_civ"
+			position = { x = 24 y = 56 } size = { width = 200 height = 150 }
+			background = { name = "bg" quadTextureSprite = "GFX_bsm_AS_cat_civ" }
+		}
+		containerWindowType = {
+			name = "bsm_AS_event_img_economy"
+			position = { x = 24 y = 56 } size = { width = 200 height = 150 }
+			background = { name = "bg" quadTextureSprite = "GFX_bsm_AS_cat_economy" }
+		}
+
+		# ------- タイトル/説明 -------
+		instantTextboxType = {
+			name = "bsm_AS_event_name"
+			position = { x = 240 y = 56 }
+			font = "hoi_20b"
+			text = "bsm_AS_event_name"
+			maxWidth = 260 maxHeight = 30
+			format = left
+		}
+		instantTextboxType = {
+			name = "bsm_AS_event_desc"
+			position = { x = 240 y = 92 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_event_desc"
+			maxWidth = 260 maxHeight = 110
+			format = left
+		}
+
+		# ------- バッジ（カテゴリ/難易度/日数） -------
+		instantTextboxType = {
+			name = "bsm_AS_event_category"
+			position = { x = 24 y = 224 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_event_category"
+			maxWidth = 200 maxHeight = 20
+			format = left
+		}
+		instantTextboxType = {
+			name = "bsm_AS_event_difficulty"
+			position = { x = 240 y = 224 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_event_difficulty"
+			maxWidth = 130 maxHeight = 20
+			format = left
+		}
+		instantTextboxType = {
+			name = "bsm_AS_event_days"
+			position = { x = 372 y = 224 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_event_days"
+			maxWidth = 130 maxHeight = 20
+			format = left
+		}
+
+		# ------- アクション -------
+		buttonType = {
+			name = "bsm_AS_event_action_a_btn"
+			position = { x = 24 y = 320 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_event_action_a_tt"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_event_action_a_lbl"
+			position = { x = 24 y = 325 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_event_action_a"
+			maxWidth = 150 maxHeight = 20
+			format = center
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "bsm_AS_event_action_b_btn"
+			position = { x = 190 y = 320 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_event_action_b_tt"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_event_action_b_lbl"
+			position = { x = 190 y = 325 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_event_action_b"
+			maxWidth = 150 maxHeight = 20
+			format = center
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "bsm_AS_event_action_c_btn"
+			position = { x = 356 y = 320 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_event_action_c_tt"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_event_action_c_lbl"
+			position = { x = 356 y = 325 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_event_action_c"
+			maxWidth = 150 maxHeight = 20
+			format = center
+			alwaystransparent = yes
+		}
+	}
+}
