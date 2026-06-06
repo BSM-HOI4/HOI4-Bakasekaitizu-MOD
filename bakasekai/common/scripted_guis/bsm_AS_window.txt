@@ -1,0 +1,123 @@
+# ==========================================
+# BSM アノマリーシステム メインウィンドウ Scripted GUI
+# window_name = bsm_AS_window
+# ==========================================
+scripted_gui = {
+	bsm_AS_window = {
+		window_name = "bsm_AS_window"
+		context_type = player_context
+
+		visible = {
+			check_variable = { bsm_AS_window_open = 1 }
+		}
+
+		effects = {
+			close_button_click = {
+				set_variable = { bsm_AS_window_open = 0 }
+				set_variable = { bsm_AS_form_open = 0 }
+			}
+
+			# --- タブ切替 ---
+			bsm_AS_tab_btn_unanalyzed_click = { set_variable = { bsm_AS_active_tab = 1 } }
+			bsm_AS_tab_btn_researching_click = { set_variable = { bsm_AS_active_tab = 2 } }
+			bsm_AS_tab_btn_completed_click = { set_variable = { bsm_AS_active_tab = 3 } }
+			bsm_AS_tab_btn_expedition_click = { set_variable = { bsm_AS_active_tab = 4 } }
+
+			# --- アノマリー一覧 エントリ操作 ---
+			bsm_AS_e_research_btn_click = {
+				set_variable = { bsm_AS_cur_anomaly = as_val }
+				bsm_AS_research_start = yes
+				clear_variable = bsm_AS_cur_anomaly
+			}
+			bsm_AS_e_cancel_btn_click = {
+				set_variable = { bsm_AS_cur_anomaly = as_val }
+				bsm_AS_research_cancel = yes
+				clear_variable = bsm_AS_cur_anomaly
+			}
+
+			# --- 探検隊 編成ダイアログ ---
+			bsm_AS_form_open_btn_click = { set_variable = { bsm_AS_form_open = 1 } }
+			bsm_AS_form_close_btn_click = { set_variable = { bsm_AS_form_open = 0 } }
+			bsm_AS_form_small_btn_click = {
+				set_variable = { bsm_AS_form_size = 1 }
+				bsm_AS_form_team = yes
+			}
+			bsm_AS_form_medium_btn_click = {
+				set_variable = { bsm_AS_form_size = 2 }
+				bsm_AS_form_team = yes
+			}
+			bsm_AS_form_large_btn_click = {
+				set_variable = { bsm_AS_form_size = 3 }
+				bsm_AS_form_team = yes
+			}
+
+			# --- 探検隊 エントリ操作 ---
+			bsm_AS_t_dispatch_btn_click = {
+				set_variable = { bsm_AS_cur = as_team_id }
+				bsm_AS_dispatch_team = yes
+			}
+			bsm_AS_t_recall_btn_click = {
+				set_variable = { bsm_AS_cur = as_team_id }
+				bsm_AS_recall_team = yes
+			}
+			bsm_AS_t_disband_btn_click = {
+				set_variable = { bsm_AS_cur = as_team_id }
+				bsm_AS_disband_team = yes
+			}
+		}
+
+		triggers = {
+			# --- パネル表示（タブ） ---
+			bsm_AS_panel_unanalyzed_visible = { check_variable = { bsm_AS_active_tab = 1 } }
+			bsm_AS_panel_researching_visible = { check_variable = { bsm_AS_active_tab = 2 } }
+			bsm_AS_panel_completed_visible = { check_variable = { bsm_AS_active_tab = 3 } }
+			bsm_AS_panel_expedition_visible = { check_variable = { bsm_AS_active_tab = 4 } }
+
+			# --- 編成ダイアログ ---
+			bsm_AS_form_dialog_visible = { check_variable = { bsm_AS_form_open = 1 } }
+
+			# --- 一覧エントリ：メンバーシップでボタン/ラベル切替 ---
+			bsm_AS_e_research_btn_visible = { is_in_array = { bsm_AS_unanalyzed = as_val } }
+			bsm_AS_e_research_lbl_visible = { is_in_array = { bsm_AS_unanalyzed = as_val } }
+			bsm_AS_e_progress_visible = { is_in_array = { bsm_AS_researching = as_val } }
+			bsm_AS_e_cancel_btn_visible = { is_in_array = { bsm_AS_researching = as_val } }
+			bsm_AS_e_done_visible = { is_in_array = { bsm_AS_completed = as_val } }
+
+			# --- 探検隊エントリ：状態でボタン切替（位置配列） ---
+			bsm_AS_t_dispatch_btn_visible = { check_variable = { bsm_AS_team_status_arr^as_team_idx = 0 } }
+			bsm_AS_t_dispatch_lbl_visible = { check_variable = { bsm_AS_team_status_arr^as_team_idx = 0 } }
+			bsm_AS_t_recall_btn_visible = { check_variable = { bsm_AS_team_status_arr^as_team_idx = 1 } }
+		}
+
+		dynamic_lists = {
+			bsm_AS_grid_unanalyzed = {
+				array = bsm_AS_unanalyzed
+				change_scope = no
+				entry_container = "bsm_AS_anomaly_entry"
+				value = as_val
+				index = as_idx
+			}
+			bsm_AS_grid_researching = {
+				array = bsm_AS_researching
+				change_scope = no
+				entry_container = "bsm_AS_anomaly_entry"
+				value = as_val
+				index = as_idx
+			}
+			bsm_AS_grid_completed = {
+				array = bsm_AS_completed
+				change_scope = no
+				entry_container = "bsm_AS_anomaly_entry"
+				value = as_val
+				index = as_idx
+			}
+			bsm_AS_grid_team = {
+				array = bsm_AS_team_id_arr
+				change_scope = no
+				entry_container = "bsm_AS_team_entry"
+				value = as_team_id
+				index = as_team_idx
+			}
+		}
+	}
+}

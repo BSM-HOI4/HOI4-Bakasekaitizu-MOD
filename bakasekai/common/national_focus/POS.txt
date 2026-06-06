@@ -1,0 +1,933 @@
+focus_tree = {
+	id = sealand_focus
+	country = {
+		factor = 0
+		modifier = {
+			add = 10
+			tag = POS
+		}
+	}
+	default = no
+
+	focus = {
+		id = POS_sealand_rising
+		icon = GFX_goal_generic_national_unity
+		x = 11
+		y = 0
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 50
+			add_stability = 0.03
+		}
+	}
+	# === HRE共有フォーカス統合 ===
+	shared_focus = HRE_plan_four_years
+	shared_focus = HRE_prepare_army
+	shared_focus = HRE_resource_import
+	shared_focus = HRE_resource_mine
+	shared_focus = sf_army_effort
+	shared_focus = sf_aviation_effort
+	shared_focus = sf_naval_effort
+	shared_focus = sf_industrial_effort
+	# ==========================================
+	# Branch A: Historical / Channel Fortress
+	# ==========================================
+
+	focus = {
+		id = POS_royal_house_bates
+		icon = GFX_goal_generic_cavalry
+		prerequisite = { focus = POS_sealand_rising }
+		x = 2
+		y = 1
+		mutually_exclusive = {
+			focus = POS_civil_reform
+			focus = POS_paradise_vision
+			# focus = POS_title_enterprise
+		}
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			recruit_character = POS_roy_bates
+		}
+	}
+
+	focus = {
+		id = POS_fortress_heritage
+		icon = GFX_goal_generic_fortify_city
+		prerequisite = { focus = POS_royal_house_bates }
+		x = 1
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = POS_fortress_state
+			857 = {
+				add_building_construction = {
+					type = bunker
+					level = 2
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = POS_declaration_sovereignty
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = POS_royal_house_bates }
+		x = 3
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 100
+			add_to_variable = { POS_sovereignty = 20 }
+		}
+	}
+
+	focus = {
+		id = POS_channel_residence
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = POS_fortress_heritage }
+		x = 0
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			857 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			add_manpower = 500
+		}
+	}
+
+	focus = {
+		id = POS_battle_of_sealand
+		icon = GFX_goal_generic_defence
+		prerequisite = { focus = POS_fortress_heritage }
+		prerequisite = { focus = POS_declaration_sovereignty }
+		x = 2
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			army_experience = 25
+			add_tech_bonus = {
+				name = POS_infantry_bonus
+				bonus = 0.5
+				uses = 1
+				category = infantry_weapons
+			}
+			recruit_character = POS_michael_bates
+		}
+	}
+
+	focus = {
+		id = POS_princely_court
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = POS_declaration_sovereignty }
+		x = 4
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 75
+			recruit_character = POS_joan_bates
+		}
+	}
+
+	focus = {
+		id = POS_royal_navy_tradition
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = POS_channel_residence }
+		prerequisite = { focus = POS_battle_of_sealand }
+		x = 1
+		y = 4
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = POS_destroyer_bonus
+				bonus = 0.5
+				uses = 1
+				category = destroyer_tech
+			}
+		}
+	}
+
+	focus = {
+		id = POS_crown_jewels
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus = POS_battle_of_sealand }
+		prerequisite = { focus = POS_princely_court }
+		x = 3
+		y = 4
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = POS_royal_prestige
+		}
+	}
+
+	focus = {
+		id = POS_resist_channel_powers
+		icon = GFX_goal_generic_dangerous_deal
+		prerequisite = { focus = POS_royal_navy_tradition }
+		prerequisite = { focus = POS_crown_jewels }
+		x = 2
+		y = 5
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			country_event = { id = POS_channel_pressure.1 days = 5 }
+			add_to_variable = { POS_channel_tension = 20 }
+		}
+	}
+
+	focus = {
+		id = POS_channel_fortress
+		icon = GFX_goal_generic_amphibious_assault
+		prerequisite = { focus = POS_resist_channel_powers }
+		x = 2
+		y = 6
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = POS_channel_fortress_spirit
+			857 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	# ==========================================
+	# Branch B: Civilism
+	# ==========================================
+
+	focus = {
+		id = POS_civil_reform
+		icon = GFX_goal_generic_neutrality_focus
+		prerequisite = { focus = POS_sealand_rising }
+		mutually_exclusive = {
+			focus = POS_royal_house_bates
+			focus = POS_paradise_vision
+			# focus = POS_title_enterprise
+		}
+		x = 7
+		y = 1
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_popularity = {
+				ideology = civilism
+				popularity = 0.15
+			}
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = POS_citizen_assembly
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = POS_civil_reform }
+		x = 6
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 75
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = POS_civic_constitution
+		icon = GFX_focus_generic_treaty
+		prerequisite = { focus = POS_civil_reform }
+		x = 8
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = POS_local_self_governance
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = POS_citizen_assembly }
+		x = 6
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = POS_civil_education
+		icon = GFX_focus_research
+		prerequisite = { focus = POS_civic_constitution }
+		x = 8
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = POS_research_bonus
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+
+	focus = {
+		id = POS_civilism_path
+		icon = GFX_goal_generic_positive_trade_relations
+		prerequisite = { focus = POS_local_self_governance }
+		prerequisite = { focus = POS_civil_education }
+		x = 7
+		y = 4
+		cost = 10
+		available = {
+			has_government = direct_democracy
+		}
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			POS_set_politics_civilism = yes
+			add_ideas = POS_civic_spirit
+		}
+	}
+
+	focus = {
+		id = POS_citizen_rights
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = POS_civilism_path }
+		x = 6
+		y = 5
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.05
+		}
+	}
+
+	focus = {
+		id = POS_cooperative_economy
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = POS_civilism_path }
+		x = 8
+		y = 5
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_offsite_building = { type = industrial_complex level = 2 }
+			add_to_variable = { National_Unity_Power = 50 }
+		}
+	}
+
+	focus = {
+		id = POS_citizen_army
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = POS_citizen_rights }
+		prerequisite = { focus = POS_cooperative_economy }
+		x = 7
+		y = 6
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			division_template = {
+				name = "Citizen Militia"
+				division_names_group = SEALAND_INF_01
+				is_locked = yes
+				division_cap = 6
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+					infantry = { x = 1 y = 0 }
+					infantry = { x = 1 y = 1 }
+				}
+				priority = 0
+			}
+			857 = {
+				create_unit = {
+					division = "division_template = \"Citizen Militia\" start_experience_factor = 0.3 start_equipment_factor = 0.5"
+					owner = POS
+					count = 2
+				}
+			}
+			add_manpower = 1000
+		}
+	}
+
+	focus = {
+		id = POS_civic_republic
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = POS_citizen_army }
+		x = 7
+		y = 7
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = POS_citizen_republic
+			add_manpower = 2000
+		}
+	}
+
+	# ==========================================
+	# Branch C: Paradise / Hedonism
+	# ==========================================
+
+	focus = {
+		id = POS_paradise_vision
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = POS_sealand_rising }
+		mutually_exclusive = {
+			focus = POS_royal_house_bates
+			focus = POS_civil_reform
+			# focus = POS_title_enterprise
+			}
+
+		x = 13
+		y = 1
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_popularity = {
+				ideology = futurism
+				popularity = 0.15
+			}
+			add_political_power = 50
+		}
+	}
+
+	focus = {
+		id = POS_pleasure_gardens
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = POS_paradise_vision }
+		x = 12
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.10
+		}
+	}
+
+	focus = {
+		id = POS_automated_leisure
+		icon = GFX_focus_research
+		prerequisite = { focus = POS_paradise_vision }
+		x = 14
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+		}
+	}
+
+	focus = {
+		id = POS_channel_resort
+		icon = GFX_goal_generic_positive_trade_relations
+		prerequisite = { focus = POS_pleasure_gardens }
+		x = 12
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 75
+			add_to_variable = { National_Unity_Power = 30 }
+		}
+	}
+
+	focus = {
+		id = POS_leisure_technology
+		icon = GFX_goal_generic_scientific_exchange
+		prerequisite = { focus = POS_automated_leisure }
+		x = 14
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = POS_electronics_bonus
+				bonus = 0.5
+				uses = 1
+				category = electronics
+			}
+		}
+	}
+
+	focus = {
+		id = POS_paradise_path
+		icon = GFX_goal_generic_red_freedom
+		prerequisite = { focus = POS_channel_resort }
+		prerequisite = { focus = POS_leisure_technology }
+		x = 13
+		y = 4
+		cost = 10
+		available = {
+			has_government = direct_democracy
+		}
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			POS_set_politics_paradise = yes
+			add_ideas = POS_paradise_spirit
+		}
+	}
+
+	focus = {
+		id = POS_hedonistic_culture
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = POS_paradise_path }
+		x = 12
+		y = 5
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_stability = 0.10
+		}
+	}
+
+	focus = {
+		id = POS_data_haven
+		icon = GFX_goal_generic_intelligence_exchange
+		prerequisite = { focus = POS_paradise_path }
+		x = 14
+		y = 5
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = POS_data_haven_economy
+		}
+	}
+
+	focus = {
+		id = POS_automated_paradise
+		icon = GFX_goal_generic_production
+		prerequisite = { focus = POS_hedonistic_culture }
+		prerequisite = { focus = POS_data_haven }
+		x = 13
+		y = 6
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_offsite_building = { type = industrial_complex level = 3 }
+		}
+	}
+
+	focus = {
+		id = POS_haven_of_hedonism
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = POS_automated_paradise }
+		x = 13
+		y = 7
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = POS_paradise_residence
+		}
+	}
+
+	# ==========================================
+	# Branch D: Titles & Micronation Diplomacy
+	# ==========================================
+
+	focus = {
+		id = POS_title_enterprise
+		icon = GFX_goal_generic_dangerous_deal
+		prerequisite = { focus = POS_sealand_rising }
+		x = 17
+		y = 1
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 50
+			custom_effect_tooltip = POS_title_enterprise_tt
+		}
+	}
+
+	focus = {
+		id = POS_diplomatic_outreach
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = POS_title_enterprise }
+		x = 16
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 50
+			random_other_country = {
+				limit = {
+					NOT = { tag = POS }
+					NOT = { has_war_with = ROOT }
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = POS_channel_cooperation
+				}
+				ROOT = {
+					add_opinion_modifier = {
+						target = PREV
+						modifier = POS_channel_cooperation
+					}
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = POS_sell_barony
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = POS_title_enterprise }
+		x = 18
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 50
+			POS_sell_title_effect_barony = yes
+		}
+	}
+
+	focus = {
+		id = POS_micronation_contact
+		icon = GFX_goal_generic_alliance
+		prerequisite = { focus = POS_diplomatic_outreach }
+		x = 16
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = POS_micronation_diplomacy
+		}
+	}
+
+	focus = {
+		id = POS_sell_earldom
+		icon = GFX_goal_generic_territorial_or_war
+		prerequisite = { focus = POS_sell_barony }
+		x = 18
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 75
+			POS_sell_title_effect_earldom = yes
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 500
+				producer = POS
+			}
+		}
+	}
+
+	focus = {
+		id = POS_micronation_league
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = POS_micronation_contact }
+		prerequisite = { focus = POS_sell_earldom }
+		x = 17
+		y = 4
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			country_event = { id = POS_diplomacy.1 days = 5 }
+			add_to_variable = { POS_sovereignty = 15 }
+		}
+	}
+
+	focus = {
+		id = POS_title_to_generals
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = POS_micronation_league }
+		x = 16
+		y = 5
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			army_experience = 25
+			POS_grant_military_title_effect = yes
+		}
+	}
+
+	focus = {
+		id = POS_sell_dukedom
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = POS_micronation_league }
+		x = 18
+		y = 5
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 100
+			POS_sell_title_effect_dukedom = yes
+			add_to_variable = { National_Unity_Power = 50 }
+		}
+	}
+
+	focus = {
+		id = POS_international_recognition
+		icon = GFX_goal_generic_positive_trade_relations
+		prerequisite = { focus = POS_title_to_generals }
+		prerequisite = { focus = POS_sell_dukedom }
+		x = 17
+		y = 6
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_to_variable = { POS_sovereignty = 30 }
+			every_country = {
+				limit = {
+					NOT = { tag = POS }
+					is_major = no
+					NOT = { has_war_with = ROOT }
+				}
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = POS_sovereignty_recognized
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = POS_small_state_alliance
+		icon = GFX_goal_generic_allies
+		prerequisite = { focus = POS_international_recognition }
+		x = 17
+		y = 7
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			set_rule = { can_create_factions = yes }
+			create_faction = Micronation_Alliance
+			add_to_variable = { POS_sovereignty = 20 }
+		}
+	}
+
+	# ==========================================
+	# Branch E: Industry & Military
+	# ==========================================
+
+	focus = {
+		id = POS_industrial_foundation
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = POS_sealand_rising }
+		x = 21
+		y = 1
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_offsite_building = { type = industrial_complex level = 1 }
+			add_offsite_building = { type = arms_factory level = 1 }
+		}
+	}
+
+	focus = {
+		id = POS_dockyard_expansion
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = POS_industrial_foundation }
+		x = 20
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_offsite_building = { type = dockyard level = 2 }
+			navy_experience = 10
+		}
+	}
+
+	focus = {
+		id = POS_arms_production
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = POS_industrial_foundation }
+		x = 22
+		y = 2
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_offsite_building = { type = arms_factory level = 2 }
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 1000
+				producer = POS
+			}
+		}
+	}
+
+	focus = {
+		id = POS_naval_construction
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = { focus = POS_dockyard_expansion }
+		x = 20
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = POS_naval_bonus
+				bonus = 0.5
+				uses = 1
+				category = destroyer_tech
+			}
+			add_equipment_to_stockpile = {
+				type = destroyer_1
+				amount = 2
+				producer = POS
+			}
+		}
+	}
+
+	focus = {
+		id = POS_fortification_program
+		icon = GFX_focus_generic_coastal_fort
+		prerequisite = { focus = POS_arms_production }
+		x = 22
+		y = 3
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			857 = {
+				add_building_construction = {
+					type = bunker
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = coastal_bunker
+					level = 3
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = anti_air_building
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = POS_channel_trade
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = POS_naval_construction }
+		prerequisite = { focus = POS_fortification_program }
+		x = 21
+		y = 4
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_political_power = 75
+			add_offsite_building = { type = industrial_complex level = 1 }
+			add_to_variable = { National_Unity_Power = 30 }
+		}
+	}
+
+	focus = {
+		id = POS_coast_guard_est
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = POS_channel_trade }
+		x = 20
+		y = 5
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_manpower = 500
+			division_template = {
+				name = "Coast Guard"
+				division_names_group = SEALAND_NAV_01
+				is_locked = yes
+				division_cap = 4
+				regiments = {
+					infantry = { x = 0 y = 0 }
+					infantry = { x = 0 y = 1 }
+				}
+				priority = militia
+			}
+			857 = {
+				create_unit = {
+					division = "division_template = \"Coast Guard\" start_experience_factor = 0.2 start_equipment_factor = 0.3"
+					owner = POS
+				}
+			}
+		}
+	}
+
+	focus = {
+		id = POS_channel_defense_focus
+		icon = GFX_goal_generic_fortify_city
+		prerequisite = { focus = POS_channel_trade }
+		x = 22
+		y = 5
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = POS_channel_defense
+		}
+	}
+
+	focus = {
+		id = POS_marine_forces
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = POS_coast_guard_est }
+		prerequisite = { focus = POS_channel_defense_focus }
+		x = 21
+		y = 6
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_tech_bonus = {
+				name = POS_marine_bonus
+				bonus = 0.5
+				uses = 1
+				category = marines_tech
+			}
+		}
+	}
+
+	focus = {
+		id = POS_maritime_supremacy
+		icon = GFX_goal_generic_build_navy
+		prerequisite = { focus = POS_marine_forces }
+		x = 21
+		y = 7
+		cost = 10
+		ai_will_do = { factor = 10 }
+		completion_reward = {
+			add_ideas = POS_maritime_power
+			navy_experience = 50
+			add_equipment_to_stockpile = {
+				type = destroyer_1
+				amount = 3
+				producer = POS
+			}
+			add_equipment_to_stockpile = {
+				type = light_cruiser_1
+				amount = 1
+				producer = POS
+			}
+		}
+	}
+}

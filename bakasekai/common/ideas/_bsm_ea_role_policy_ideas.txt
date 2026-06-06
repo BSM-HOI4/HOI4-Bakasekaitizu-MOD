@@ -1,0 +1,79 @@
+# ==========================================
+# BSM 経済同盟: 役職 & 全体方針 Spirit
+# prefix: bsm_ea_role_ / bsm_ea_policy_
+# 影響力(ea_influence_factor)と UC(Unified_Currency_gain_factor) を通じて
+# 既存 UC システムと結合する。
+# ==========================================
+ideas = {
+	country = {
+		# ------------------------------------------
+		# 役職: 議長（盟主）
+		# 同盟の議題設定権 + 影響力ボーナス
+		# ------------------------------------------
+		bsm_ea_role_chair = {
+			picture = "GFX_idea_generic_political_pressure"
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				ea_influence_factor = 0.25
+				political_power_gain = 0.10
+			}
+		}
+
+		# ------------------------------------------
+		# 役職: 外交担当
+		# 対外交渉・関係改善の担当。影響力小ボーナス
+		# ------------------------------------------
+		bsm_ea_role_diplomat = {
+			picture = "GFX_idea_generic_foreign_capital"
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				ea_influence_factor = 0.10
+				opinion_gain_monthly_factor = 0.20
+			}
+		}
+
+		# ------------------------------------------
+		# 全体方針: 互恵（既定）
+		# 全加盟国が小さな成長ボーナスを得る
+		# ------------------------------------------
+		bsm_ea_policy_mutual = {
+			picture = "GFX_idea_generic_positive_trade_relations"
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				Unified_Currency_gain_factor = 0.05
+				stability_factor = 0.02
+			}
+		}
+
+		# ------------------------------------------
+		# 全体方針: 搾取（盟主側）
+		# 盟主が UC を集中的に獲得する
+		# ------------------------------------------
+		bsm_ea_policy_extractive_leader = {
+			picture = "GFX_idea_generic_intel_bonus"
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				Unified_Currency_gain_factor = 0.20
+				political_power_gain = 0.10
+			}
+		}
+
+		# ------------------------------------------
+		# 全体方針: 搾取（加盟国側）
+		# 盟主に富を吸い上げられ、安定度と UC が低下する
+		# ------------------------------------------
+		bsm_ea_policy_extractive_member = {
+			picture = "GFX_idea_generic_political_pressure"
+			allowed = { always = no }
+			removal_cost = -1
+			modifier = {
+				Unified_Currency_gain_factor = -0.10
+				stability_factor = -0.05
+			}
+		}
+	}
+}

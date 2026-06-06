@@ -1,0 +1,28 @@
+add_namespace = bsm_ea_news
+
+# ==========================================
+# 汎用ニュース: 経済同盟への新規加盟
+# bsm_ea_fire_join_news から陣営メンバーへ発火
+# event_target:bsm_ea_news_joiner = 加盟国
+# event_target:bsm_ea_news_leader = 盟主
+# ==========================================
+news_event = {
+	id = bsm_ea_news.1
+	title = bsm_ea_news.1.t
+	desc = bsm_ea_news.1.d
+	picture = GFX_news_event_generic_sign_treaty
+
+	major = no
+	is_triggered_only = yes
+
+	# 加盟国本人向け
+	option = {
+		name = bsm_ea_news.1.a
+		trigger = { tag = event_target:bsm_ea_news_joiner }
+	}
+	# 盟主・既存メンバー向け
+	option = {
+		name = bsm_ea_news.1.b
+		trigger = { NOT = { tag = event_target:bsm_ea_news_joiner } }
+	}
+}
