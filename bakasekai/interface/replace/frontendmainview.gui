@@ -725,61 +725,67 @@ guiTypes = {
 		}
 	}
 
-	# FIX(errorlog): エンジンがハードコードで生成する "change_background" 窓が
-	# BSMのfrontend改変で未定義になり "Undefined GUI_TYPE: change_background"
-	# 警告(クラッシュ恐れ)が出ていた。エンジンが参照する名前付き子要素を
-	# 満たす最小スタブを定義して警告を解消する。ロード画面背景選択は未使用。
-	# FIX(errorlog): エンジンが探す名前付き子要素の階層が逆だったため
-	#   "Could not find background_selection_list in window change_background" 等の
-	#   警告が出ていた。エンジン要求の階層へ組み替える:
+	# FIX(crash): エンジンは change_background 窓と5つの名前付き子要素
+	#   (background_selection / background_selection_list / available_backgrounds /
+	#    select_all_checkbox / change_background_button) をハードコードで要求する。
+	#   未定義だと gui.cpp:931 "Undefined GUI_TYPE: change_background - will most likely
+	#   crash" となりメインメニュー表示時にSIGFPEでクラッシュする。
+	#
+	#   一方、機能版(実サイズ・可視・gridbox populate)にすると、エンジンが背景リストを
+	#   描画/populateする過程で SIGFPE クラッシュした。
+	#
+	# 解決: 要求される5要素を「正しい型」で全て定義しつつ、窓は 1x1・画面外・hide で
+	#   不活性化する。これでエンジンの全lookupを充足し、かつ描画/populate経路に入らない
+	#   ため落ちない。ロード画面背景の変更UIは未使用。
 	#     change_background
-	#     ├ background_selection_list (gridBox)  ← change_background 直下
+	#     ├ change_background_button (button, hide)
 	#     └ background_selection (window)
-	#       ├ available_backgrounds (gridBox)    ← background_selection 直下
-	#       └ select_all_checkbox (checkBox)     ← background_selection 直下
-	#   窓は 0x0 + show_position 画面外 = 不可視のまま維持(ロード画面背景選択は未使用)。
+	#       ├ select_all_checkbox (checkBox, hide)
+	#       └ background_selection_list (window)
+	#           └ available_backgrounds (gridBoxType, slotsize 1x1)
 	containerWindowType = {
 		name = "change_background"
-		position = { x = 0 y = 0 }
+		position = { x = -1 y = -1 }
 		size = { width = 1 height = 1 }
-		Orientation = lower_left
+		Orientation = lower_right
+		Origo = lower_right
 		clipping = yes
-
-		gridBoxType = {
-			name = "background_selection_list"
-			position = { x = 0 y = 0 }
-			size = { width = 0 height = 0 }
-			slotsize = { width = 1 height = 1 }
-			max_slots_horizontal = 1
-			format = "UPPER_LEFT"
-		}
-
-		containerWindowType = {
-			name = "background_selection"
-			position = { x = 0 y = 0 }
-			size = { width = 0 height = 0 }
-
-			gridBoxType = {
-				name = "available_backgrounds"
-				position = { x = 0 y = 0 }
-				size = { width = 0 height = 0 }
-				slotsize = { width = 1 height = 1 }
-				max_slots_horizontal = 1
-				format = "UPPER_LEFT"
-			}
-
-			checkBoxType = {
-				name = "select_all_checkbox"
-				position = { x = 0 y = 0 }
-				quadTextureSprite = "GFX_checkbox_button"
-			}
-		}
 
 		buttonType = {
 			name = "change_background_button"
 			position = { x = 0 y = 0 }
 			quadTextureSprite = "GFX_tiled_window_1b_border"
 			scale = 0.01
+			hide = yes
+		}
+
+		containerWindowType = {
+			name = "background_selection"
+			position = { x = 0 y = 0 }
+			size = { width = 1 height = 1 }
+			clipping = yes
+
+			checkBoxType = {
+				name = "select_all_checkbox"
+				position = { x = 0 y = 0 }
+				quadTextureSprite = "GFX_checkbox_button"
+				hide = yes
+			}
+
+			containerWindowType = {
+				name = "background_selection_list"
+				position = { x = 0 y = 0 }
+				size = { width = 1 height = 1 }
+				clipping = yes
+
+				gridBoxType = {
+					name = "available_backgrounds"
+					position = { x = 0 y = 0 }
+					size = { width = 1 height = 1 }
+					slotsize = { width = 1 height = 1 }
+					max_slots_horizontal = 1
+				}
+			}
 		}
 	}
 }

@@ -10,21 +10,19 @@ spriteTypes = {
 
 	#BSM: メインメニューのカスタム背景(op.png)。GFX_frontend_bgを書き換える代わりに通常スプライトとして
 	#frontendmainview.guiのframend_backgroundコンテナでボタンの奥に描画する(background manager非経由なのでsettings.txtを汚染しない)
-	corneredTileSpriteType = {
+	#FIX(crash): フル画像背景を corneredTileSpriteType で定義するとタイリング/9-slice計算が走り、
+	#  宣言sizeと実テクスチャ寸法の不一致時にタイル数除算(draw/centerTile)がゼロ除算→SIGFPEで
+	#  フロントエンド表示直後にクラッシュしていた。フル画像はタイリング不要なので spriteType に変更。
+	spriteType = {
 		name = "GFX_bsm_mainmenu_op"
 		texturefile = "gfx/loadingscreens/main menu/op.png"
-		borderSize = { x=0 y=0 }
-		size = { x=1920 y=1440 }
-		tilingCenter = no
 		effectFile = "gfx/FX/buttonstate.shader"
 	}
-	#GFX_tiled_window_opbg
-	corneredTileSpriteType = {
+	#GFX_tiled_window_opbg : 実体 bg.png は 665x825。corneredTile で size=1920x1440 と宣言していたため
+	#  サイズ不一致でタイリング除算クラッシュの原因になっていた。spriteType に変更して除算を排除。
+	spriteType = {
 		name = "GFX_tiled_window_opbg"
 		texturefile = "gfx/loadingscreens/main menu/bg.png"
-		borderSize = { x=0 y=0 }
-		size = { x=1920 y=1440 }
-		tilingCenter = no
 		effectFile = "gfx/FX/buttonstate.shader"
 	}
 

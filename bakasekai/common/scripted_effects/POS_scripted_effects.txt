@@ -91,13 +91,14 @@ POS_sell_title_effect_dukedom = {
 POS_grant_military_title_effect = {
     random_other_country = {
         limit = {
-            has_army = yes
+            has_army_size = { size > 0 }
+            any_unit_leader = { is_unit_leader = yes }
             NOT = { tag = POS }
             NOT = { has_war_with = POS }
         }
         random_unit_leader = {
             limit = {
-                is_commanding = yes
+                is_unit_leader = yes
             }
             add_unit_leader_trait = desert_fox
         }
