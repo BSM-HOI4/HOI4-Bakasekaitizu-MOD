@@ -76,6 +76,20 @@ scripted_gui = {
 			# --- 編成ダイアログ ---
 			bsm_AS_form_dialog_visible = { check_variable = { bsm_AS_form_open = 1 } }
 
+			# --- 編成サイズ：上限未満 かつ 即時コスト(UC)を賄える時のみ有効 ---
+			bsm_AS_form_small_btn_enabled = {
+				check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
+				check_variable = { var = Unified_Currency value = 100 compare = greater_than_or_equals }
+			}
+			bsm_AS_form_medium_btn_enabled = {
+				check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
+				check_variable = { var = Unified_Currency value = 300 compare = greater_than_or_equals }
+			}
+			bsm_AS_form_large_btn_enabled = {
+				check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
+				check_variable = { var = Unified_Currency value = 600 compare = greater_than_or_equals }
+			}
+
 			# --- 一覧エントリ：メンバーシップでボタン/ラベル切替 ---
 			bsm_AS_e_research_btn_visible = { is_in_array = { bsm_AS_unanalyzed = as_val } }
 			bsm_AS_e_research_lbl_visible = { is_in_array = { bsm_AS_unanalyzed = as_val } }

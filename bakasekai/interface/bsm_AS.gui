@@ -1,7 +1,8 @@
 # ==========================================
-# BSM アノマリーシステム 独立ウィンドウ GUI
+# BSM アノマリーシステム 独立ウィンドウ GUI（アノマリー・探検隊）
 # prefix: bsm_AS_
-# レイアウト元: BSM_AS.drawio（サイドUI / サイドUI_A）
+# window_name = bsm_AS_window（EA並みサイズ）
+#   タブ: 未解析 / 解析中 / 解析済み / 探検隊
 # ==========================================
 guiTypes = {
 
@@ -10,17 +11,18 @@ guiTypes = {
 	# =======================================================
 	containerWindowType = {
 		name = "bsm_AS_window"
-		position = { x = -520 y = 80 }
-		show_position = { x = -520 y = 80 }
-		size = { width = 500 height = 580 }
+		position = { x = -420 y = -310 }
+		orientation = center
+		size = { width = 840 height = 620 }
 		moveable = yes
+		click_to_front = yes
 
 		show_sound = menu_open_window
 		hide_sound = menu_close_window
 
 		background = {
 			name = "Background"
-			quadTextureSprite = "GFX_tiled_window2_1b_border"
+			quadTextureSprite = "GFX_tiled_window_1b_border"
 		}
 
 		iconType = {
@@ -32,17 +34,17 @@ guiTypes = {
 
 		instantTextboxType = {
 			name = "bsm_AS_title"
-			position = { x = 45 y = 0 }
-			font = "hoi_36header"
+			position = { x = 22 y = 12 }
+			font = "hoi_20b"
 			text = "bsm_AS_window_title"
-			maxWidth = 380
+			maxWidth = 600
 			maxHeight = 30
 			format = left
 		}
 
 		buttonType = {
 			name = "close_button"
-			position = { x = -32 y = 9 }
+			position = { x = -38 y = 10 }
 			quadTextureSprite = "GFX_closebutton"
 			buttonFont = "Main_14_black"
 			shortcut = "ESCAPE"
@@ -51,86 +53,51 @@ guiTypes = {
 			pdx_tooltip = "CLOSE"
 		}
 
-		# ------- タブ -------
+		# ------- タブ（EA準拠: GFX_sort_button_202x29 にテキスト描画） -------
 		containerWindowType = {
 			name = "bsm_AS_tab_container"
-			position = { x = 8 y = 34 }
-		size = { width = 484 height = 26 }
+			position = { x = 12 y = 44 }
+			size = { width = 824 height = 30 }
 
 			buttonType = {
 				name = "bsm_AS_tab_btn_unanalyzed"
 				position = { x = 0 y = 0 }
-				quadTextureSprite = "GFX_tiled_plain_bg"
-				size = { x = 116 y = 24 }
-				clicksound = click_close
-			}
-			instantTextboxType = {
-				name = "bsm_AS_tab_lbl_unanalyzed"
-				position = { x = 0 y = 4 }
-				font = "hoi_16mbs"
+				spriteType = "GFX_sort_button_202x29"
+				buttonFont = "hoi_16mbs"
 				text = "bsm_AS_tab_unanalyzed"
-				maxWidth = 116 maxHeight = 20
-				format = center
-				alwaystransparent = yes
+				clicksound = decisions_ui_button
 			}
-
 			buttonType = {
 				name = "bsm_AS_tab_btn_researching"
-				position = { x = 121 y = 0 }
-				quadTextureSprite = "GFX_tiled_plain_bg"
-				size = { x = 116 y = 24 }
-				clicksound = click_close
-			}
-			instantTextboxType = {
-				name = "bsm_AS_tab_lbl_researching"
-				position = { x = 121 y = 4 }
-				font = "hoi_16mbs"
+				position = { x = 204 y = 0 }
+				spriteType = "GFX_sort_button_202x29"
+				buttonFont = "hoi_16mbs"
 				text = "bsm_AS_tab_researching"
-				maxWidth = 116 maxHeight = 20
-				format = center
-				alwaystransparent = yes
+				clicksound = decisions_ui_button
 			}
-
 			buttonType = {
 				name = "bsm_AS_tab_btn_completed"
-				position = { x = 242 y = 0 }
-				quadTextureSprite = "GFX_tiled_plain_bg"
-				size = { x = 116 y = 24 }
-				clicksound = click_close
-			}
-			instantTextboxType = {
-				name = "bsm_AS_tab_lbl_completed"
-				position = { x = 242 y = 4 }
-				font = "hoi_16mbs"
+				position = { x = 408 y = 0 }
+				spriteType = "GFX_sort_button_202x29"
+				buttonFont = "hoi_16mbs"
 				text = "bsm_AS_tab_completed"
-				maxWidth = 116 maxHeight = 20
-				format = center
-				alwaystransparent = yes
+				clicksound = decisions_ui_button
 			}
-
 			buttonType = {
 				name = "bsm_AS_tab_btn_expedition"
-				position = { x = 363 y = 0 }
-				quadTextureSprite = "GFX_tiled_plain_bg"
-				size = { x = 116 y = 24 }
-				clicksound = click_close
-			}
-			instantTextboxType = {
-				name = "bsm_AS_tab_lbl_expedition"
-				position = { x = 363 y = 4 }
-				font = "hoi_16mbs"
+				position = { x = 612 y = 0 }
+				spriteType = "GFX_sort_button_202x29"
+				buttonFont = "hoi_16mbs"
 				text = "bsm_AS_tab_expedition"
-				maxWidth = 116 maxHeight = 20
-				format = center
-				alwaystransparent = yes
+				clicksound = decisions_ui_button
 			}
 		}
 
 		# ------- 一覧パネル：未解析 -------
 		containerWindowType = {
 			name = "bsm_AS_panel_unanalyzed"
-			position = { x = 8 y = 64 }
-			size = { width = 484 height = 504 }
+			position = { x = 8 y = 78 }
+			size = { width = 824 height = 528 }
 			verticalScrollbar = "right_vertical_slider"
 			vertical_scroll_step = 44
 			smooth_scrolling = yes
@@ -140,9 +107,9 @@ guiTypes = {
 			}
 			gridboxType = {
 				name = "bsm_AS_grid_unanalyzed"
-				position = { x = 4 y = 4 }
-				size = { width = 470 height = 496 }
-				slotsize = { width = 466 height = 46 }
+				position = { x = 6 y = 6 }
+				size = { width = 806 height = 516 }
+				slotsize = { width = 802 height = 46 }
 				max_slots_horizontal = 1
 				add_horizontal = no
 				format = "UPPER_LEFT"
@@ -152,8 +119,8 @@ guiTypes = {
 		# ------- 一覧パネル：解析中 -------
 		containerWindowType = {
 			name = "bsm_AS_panel_researching"
-			position = { x = 8 y = 64 }
-			size = { width = 484 height = 504 }
+			position = { x = 8 y = 78 }
+			size = { width = 824 height = 528 }
 			verticalScrollbar = "right_vertical_slider"
 			vertical_scroll_step = 44
 			smooth_scrolling = yes
@@ -163,9 +130,9 @@ guiTypes = {
 			}
 			gridboxType = {
 				name = "bsm_AS_grid_researching"
-				position = { x = 4 y = 4 }
-				size = { width = 470 height = 496 }
-				slotsize = { width = 466 height = 46 }
+				position = { x = 6 y = 6 }
+				size = { width = 806 height = 516 }
+				slotsize = { width = 802 height = 46 }
 				max_slots_horizontal = 1
 				add_horizontal = no
 				format = "UPPER_LEFT"
@@ -175,8 +142,8 @@ guiTypes = {
 		# ------- 一覧パネル：解析済み -------
 		containerWindowType = {
 			name = "bsm_AS_panel_completed"
-			position = { x = 8 y = 64 }
-			size = { width = 484 height = 504 }
+			position = { x = 8 y = 78 }
+			size = { width = 824 height = 528 }
 			verticalScrollbar = "right_vertical_slider"
 			vertical_scroll_step = 44
 			smooth_scrolling = yes
@@ -186,9 +153,9 @@ guiTypes = {
 			}
 			gridboxType = {
 				name = "bsm_AS_grid_completed"
-				position = { x = 4 y = 4 }
-				size = { width = 470 height = 496 }
-				slotsize = { width = 466 height = 46 }
+				position = { x = 6 y = 6 }
+				size = { width = 806 height = 516 }
+				slotsize = { width = 802 height = 46 }
 				max_slots_horizontal = 1
 				add_horizontal = no
 				format = "UPPER_LEFT"
@@ -198,8 +165,8 @@ guiTypes = {
 		# ------- 探検隊パネル -------
 		containerWindowType = {
 			name = "bsm_AS_panel_expedition"
-			position = { x = 8 y = 64 }
-			size = { width = 484 height = 504 }
+			position = { x = 8 y = 78 }
+			size = { width = 824 height = 528 }
 			background = {
 				name = "Background"
 				quadTextureSprite = "GFX_tiled_window_transparent"
@@ -207,59 +174,59 @@ guiTypes = {
 
 			buttonType = {
 				name = "bsm_AS_form_open_btn"
-				position = { x = 8 y = 8 }
+				position = { x = 10 y = 10 }
 				quadTextureSprite = "GFX_decision_generic_decision"
 				clicksound = click_close
 				pdx_tooltip = "bsm_AS_form_team_btn"
 			}
 			instantTextboxType = {
 				name = "bsm_AS_form_open_lbl"
-				position = { x = 8 y = 13 }
+				position = { x = 56 y = 16 }
 				font = "hoi_16mbs"
 				text = "bsm_AS_form_team_btn"
-				maxWidth = 220 maxHeight = 20
-				format = center
+				maxWidth = 260 maxHeight = 22
+				format = left
 				alwaystransparent = yes
 			}
 
 			instantTextboxType = {
 				name = "bsm_AS_capacity_lbl"
-				position = { x = 244 y = 6 }
+				position = { x = 420 y = 8 }
 				font = "hoi_16mbs"
 				text = "bsm_AS_capacity_label"
-				maxWidth = 230 maxHeight = 20
+				maxWidth = 390 maxHeight = 20
 				format = left
 			}
 			instantTextboxType = {
 				name = "bsm_AS_upkeep_lbl"
-				position = { x = 244 y = 26 }
+				position = { x = 420 y = 30 }
 				font = "hoi_16mbs"
 				text = "bsm_AS_upkeep_label"
-				maxWidth = 230 maxHeight = 20
+				maxWidth = 390 maxHeight = 20
 				format = left
 			}
 
 			instantTextboxType = {
 				name = "bsm_AS_team_list_title"
-				position = { x = 8 y = 50 }
+				position = { x = 10 y = 56 }
 				font = "hoi_16mbs"
 				text = "bsm_AS_team_list_title"
-				maxWidth = 460 maxHeight = 20
+				maxWidth = 800 maxHeight = 20
 				format = left
 			}
 
 			containerWindowType = {
 				name = "bsm_AS_team_scroll"
-				position = { x = 0 y = 74 }
-				size = { width = 484 height = 424 }
+				position = { x = 0 y = 86 }
+				size = { width = 824 height = 438 }
 				verticalScrollbar = "right_vertical_slider"
-				vertical_scroll_step = 42
+				vertical_scroll_step = 50
 				smooth_scrolling = yes
 				gridboxType = {
 					name = "bsm_AS_grid_team"
-					position = { x = 4 y = 4 }
-					size = { width = 470 height = 416 }
-					slotsize = { width = 466 height = 42 }
+					position = { x = 6 y = 4 }
+					size = { width = 806 height = 430 }
+					slotsize = { width = 802 height = 50 }
 					max_slots_horizontal = 1
 					add_horizontal = no
 					format = "UPPER_LEFT"
@@ -270,8 +237,8 @@ guiTypes = {
 		# ------- 編成ダイアログ（オーバーレイ） -------
 		containerWindowType = {
 			name = "bsm_AS_form_dialog"
-			position = { x = 110 y = 160 }
-			size = { width = 280 height = 250 }
+			position = { x = 220 y = 170 }
+			size = { width = 460 height = 230 }
 			background = {
 				name = "Background"
 				quadTextureSprite = "GFX_tiled_window2_1b_border"
@@ -281,71 +248,71 @@ guiTypes = {
 				position = { x = 16 y = 10 }
 				font = "hoi_16mbs"
 				text = "bsm_AS_form_title"
-				maxWidth = 240 maxHeight = 24
+				maxWidth = 400 maxHeight = 24
 				format = left
 			}
 			buttonType = {
 				name = "bsm_AS_form_close_btn"
-				position = { x = -28 y = 8 }
+				position = { x = 424 y = 8 }
 				quadTextureSprite = "GFX_closebutton"
-				Orientation = UPPER_RIGHT
+				Orientation = UPPER_LEFT
 				clicksound = click_close
 				pdx_tooltip = "bsm_AS_form_close_tt"
 			}
 			instantTextboxType = {
 				name = "bsm_AS_form_size_label"
-				position = { x = 16 y = 44 }
+				position = { x = 16 y = 40 }
 				font = "hoi_16mbs"
 				text = "bsm_AS_form_size_label"
-				maxWidth = 240 maxHeight = 20
+				maxWidth = 420 maxHeight = 20
 				format = left
 			}
 
 			buttonType = {
 				name = "bsm_AS_form_small_btn"
-				position = { x = 16 y = 70 }
+				position = { x = 16 y = 66 }
 				quadTextureSprite = "GFX_decision_generic_decision"
 				clicksound = click_close
 			}
 			instantTextboxType = {
 				name = "bsm_AS_form_small_lbl"
-				position = { x = 16 y = 75 }
+				position = { x = 58 y = 72 }
 				font = "hoi_16mbs"
 				text = "bsm_AS_form_size_small"
-				maxWidth = 240 maxHeight = 20
-				format = center
+				maxWidth = 390 maxHeight = 20
+				format = left
 				alwaystransparent = yes
 			}
 
 			buttonType = {
 				name = "bsm_AS_form_medium_btn"
-				position = { x = 16 y = 116 }
+				position = { x = 16 y = 110 }
 				quadTextureSprite = "GFX_decision_generic_decision"
 				clicksound = click_close
 			}
 			instantTextboxType = {
 				name = "bsm_AS_form_medium_lbl"
-				position = { x = 16 y = 121 }
+				position = { x = 58 y = 116 }
 				font = "hoi_16mbs"
 				text = "bsm_AS_form_size_medium"
-				maxWidth = 240 maxHeight = 20
-				format = center
+				maxWidth = 390 maxHeight = 20
+				format = left
 				alwaystransparent = yes
 			}
 
 			buttonType = {
 				name = "bsm_AS_form_large_btn"
-				position = { x = 16 y = 162 }
+				position = { x = 16 y = 154 }
 				quadTextureSprite = "GFX_decision_generic_decision"
 				clicksound = click_close
 			}
 			instantTextboxType = {
 				name = "bsm_AS_form_large_lbl"
-				position = { x = 16 y = 167 }
+				position = { x = 58 y = 160 }
 				font = "hoi_16mbs"
 				text = "bsm_AS_form_size_large"
-				maxWidth = 240 maxHeight = 20
-				format = center
+				maxWidth = 390 maxHeight = 20
+				format = left
 				alwaystransparent = yes
 			}
 		}
@@ -358,39 +325,39 @@ guiTypes = {
 	containerWindowType = {
 		name = "bsm_AS_anomaly_entry"
 		position = { x = 0 y = 0 }
-		size = { width = 466 height = 46 }
+		size = { width = 802 height = 46 }
 		background = {
 			name = "Background"
 			quadTextureSprite = "GFX_tiled_plain_bg"
 		}
 		instantTextboxType = {
 			name = "bsm_AS_e_name"
-			position = { x = 10 y = 5 }
+			position = { x = 12 y = 5 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_entry_name"
-			maxWidth = 320 maxHeight = 20
+			maxWidth = 620 maxHeight = 20
 			format = left
 		}
 		instantTextboxType = {
 			name = "bsm_AS_e_meta"
-			position = { x = 10 y = 25 }
+			position = { x = 12 y = 25 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_entry_meta"
-			maxWidth = 320 maxHeight = 18
+			maxWidth = 620 maxHeight = 18
 			format = left
 		}
 
 		# 解析ボタン（未解析時のみ）
 		buttonType = {
 			name = "bsm_AS_e_research_btn"
-			position = { x = 356 y = 11 }
+			position = { x = 692 y = 11 }
 			quadTextureSprite = "GFX_decision_generic_decision"
 			clicksound = click_close
 			pdx_tooltip = "bsm_AS_entry_research_tt"
 		}
 		instantTextboxType = {
 			name = "bsm_AS_e_research_lbl"
-			position = { x = 356 y = 15 }
+			position = { x = 692 y = 15 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_entry_research_btn"
 			maxWidth = 100 maxHeight = 20
@@ -401,7 +368,7 @@ guiTypes = {
 		# 進捗（解析中時のみ）
 		instantTextboxType = {
 			name = "bsm_AS_e_progress"
-			position = { x = 356 y = 15 }
+			position = { x = 692 y = 15 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_entry_progress"
 			maxWidth = 100 maxHeight = 20
@@ -410,7 +377,7 @@ guiTypes = {
 		# 中止ボタン（解析中時のみ）
 		buttonType = {
 			name = "bsm_AS_e_cancel_btn"
-			position = { x = 320 y = 11 }
+			position = { x = 656 y = 11 }
 			quadTextureSprite = "GFX_closebutton"
 			clicksound = click_close
 			pdx_tooltip = "bsm_AS_entry_cancel_tt"
@@ -419,7 +386,7 @@ guiTypes = {
 		# 完了ラベル（解析済み時のみ）
 		instantTextboxType = {
 			name = "bsm_AS_e_done"
-			position = { x = 356 y = 15 }
+			position = { x = 692 y = 15 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_entry_done"
 			maxWidth = 100 maxHeight = 20
@@ -434,70 +401,70 @@ guiTypes = {
 	containerWindowType = {
 		name = "bsm_AS_team_entry"
 		position = { x = 0 y = 0 }
-		size = { width = 466 height = 42 }
+		size = { width = 802 height = 50 }
 		background = {
 			name = "Background"
 			quadTextureSprite = "GFX_tiled_plain_bg"
 		}
 		instantTextboxType = {
 			name = "bsm_AS_t_name"
-			position = { x = 10 y = 4 }
+			position = { x = 12 y = 6 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_team_name"
-			maxWidth = 130 maxHeight = 18
+			maxWidth = 200 maxHeight = 18
 			format = left
 		}
 		instantTextboxType = {
 			name = "bsm_AS_t_size"
-			position = { x = 10 y = 22 }
+			position = { x = 12 y = 26 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_team_size"
-			maxWidth = 70 maxHeight = 18
+			maxWidth = 100 maxHeight = 18
 			format = left
 		}
 		instantTextboxType = {
 			name = "bsm_AS_t_level"
-			position = { x = 90 y = 22 }
+			position = { x = 130 y = 26 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_team_level"
-			maxWidth = 90 maxHeight = 18
+			maxWidth = 120 maxHeight = 18
 			format = left
 		}
 		instantTextboxType = {
 			name = "bsm_AS_t_status"
-			position = { x = 190 y = 12 }
+			position = { x = 280 y = 16 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_team_status"
-			maxWidth = 130 maxHeight = 18
+			maxWidth = 320 maxHeight = 18
 			format = left
 		}
 
 		buttonType = {
 			name = "bsm_AS_t_dispatch_btn"
-			position = { x = 330 y = 8 }
+			position = { x = 632 y = 12 }
 			quadTextureSprite = "GFX_decision_generic_decision"
 			clicksound = click_close
 			pdx_tooltip = "bsm_AS_team_dispatch_tt"
 		}
 		instantTextboxType = {
 			name = "bsm_AS_t_dispatch_lbl"
-			position = { x = 330 y = 12 }
+			position = { x = 632 y = 12 }
 			font = "hoi_16mbs"
 			text = "bsm_AS_team_dispatch_btn"
-			maxWidth = 70 maxHeight = 18
+			maxWidth = 90 maxHeight = 18
 			format = center
 			alwaystransparent = yes
 		}
 		buttonType = {
 			name = "bsm_AS_t_recall_btn"
-			position = { x = 330 y = 8 }
+			position = { x = 632 y = 12 }
 			quadTextureSprite = "GFX_decision_generic_decision"
 			clicksound = click_close
 			pdx_tooltip = "bsm_AS_team_recall_tt"
 		}
 		buttonType = {
 			name = "bsm_AS_t_disband_btn"
-			position = { x = 430 y = 8 }
+			position = { x = 740 y = 12 }
 			quadTextureSprite = "GFX_closebutton"
 			clicksound = click_close
 			pdx_tooltip = "bsm_AS_team_disband_tt"

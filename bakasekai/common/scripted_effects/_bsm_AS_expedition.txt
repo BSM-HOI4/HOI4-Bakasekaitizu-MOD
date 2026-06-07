@@ -68,10 +68,36 @@ bsm_AS_init = {
 # 探検隊を編成（規模は bsm_AS_form_size, アイコンは bsm_AS_form_icon）
 # ------------------------------------------
 bsm_AS_form_team = {
+	# 規模別: 即時コスト(UC=Unified_Currency) と 月額維持費(UC)
+	#   小=即時 UC100/人的2000・維持5   中=300/5000・20   大=600/10000・50
+	if = {
+		limit = { check_variable = { bsm_AS_form_size = 1 } }
+		set_temp_variable = { t_cost_uc = 100 }
+		set_temp_variable = { t_upkeep = 5 }
+	}
+	else_if = {
+		limit = { check_variable = { bsm_AS_form_size = 2 } }
+		set_temp_variable = { t_cost_uc = 300 }
+		set_temp_variable = { t_upkeep = 20 }
+	}
+	else = {
+		set_temp_variable = { t_cost_uc = 600 }
+		set_temp_variable = { t_upkeep = 50 }
+	}
+
 	if = {
 		limit = {
 			check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
+			has_variable = Unified_Currency
+			check_variable = { var = Unified_Currency value = t_cost_uc compare = greater_than_or_equals }
 		}
+		# --- 即時コスト徴収（UC + 人的） ---
+		subtract_from_variable = { Unified_Currency = t_cost_uc }
+		if = { limit = { check_variable = { bsm_AS_form_size = 1 } } add_manpower = -2000 }
+		else_if = { limit = { check_variable = { bsm_AS_form_size = 2 } } add_manpower = -5000 }
+		else = { add_manpower = -10000 }
+
+		# --- 編成 ---
 		set_variable = { bsm_AS_cur = bsm_AS_exp_next_id }
 		add_to_array = { bsm_AS_exp_ids = bsm_AS_cur }
 
@@ -83,25 +109,14 @@ bsm_AS_form_team = {
 		set_variable = { bsm_AS_exp_icon_@var:bsm_AS_cur = bsm_AS_form_icon }
 
 		add_to_variable = { bsm_AS_exp_next_id = 1 }
-
-		# 維持費を規模に応じて加算
-		if = {
-			limit = { check_variable = { bsm_AS_form_size = 1 } }
-			add_to_variable = { bsm_AS_exp_upkeep = 5 }
-		}
-		else_if = {
-			limit = { check_variable = { bsm_AS_form_size = 2 } }
-			add_to_variable = { bsm_AS_exp_upkeep = 20 }
-		}
-		else_if = {
-			limit = { check_variable = { bsm_AS_form_size = 3 } }
-			add_to_variable = { bsm_AS_exp_upkeep = 50 }
-		}
+		add_to_variable = { bsm_AS_exp_upkeep = t_upkeep }
 
 		clear_variable = bsm_AS_cur
-		set_variable = { bsm_AS_form_open = 0 }
 		bsm_AS_rebuild_team_display = yes
 	}
+
+	# 上限到達・統合力不足でも編成ダイアログは必ず閉じる（出続けバグ修正）
+	set_variable = { bsm_AS_form_open = 0 }
 }
 
 # ------------------------------------------
@@ -208,9 +223,9 @@ bsm_AS_monthly_upkeep = {
 		limit = {
 			has_variable = bsm_AS_exp_upkeep
 			check_variable = { bsm_AS_exp_upkeep > 0 }
-			has_variable = National_Unity_Power
+			has_variable = Unified_Currency
 		}
-		subtract_from_variable = { National_Unity_Power = bsm_AS_exp_upkeep }
+		subtract_from_variable = { Unified_Currency = bsm_AS_exp_upkeep }
 	}
 }
 

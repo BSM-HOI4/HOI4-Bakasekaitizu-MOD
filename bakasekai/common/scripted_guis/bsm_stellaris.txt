@@ -1,6 +1,9 @@
 # ==========================================
-# BSM ステラリス要素 Scripted GUI
+# BSM ステラリス要素 Scripted GUI（伝統・アセンション・特性）
 # prefix: bsm_stellaris_
+# window_name = bsm_stellaris_window（タブ無し・1画面表示）
+# 表示制御: 変数 bsm_stellaris_open
+# ※アノマリー/探検隊は別ウィンドウ bsm_AS_window へ分離
 # ==========================================
 
 scripted_gui = {
@@ -8,202 +11,96 @@ scripted_gui = {
     window_name = "bsm_stellaris_window"
     context_type = player_context
     visible = {
-      has_variable = bsm_stellaris_tab
+      has_variable = bsm_stellaris_open
     }
+
     effects = {
-      close_button_click = {
-        clear_variable = bsm_stellaris_tab
+      bsm_stellaris_close_button_click = {
+        clear_variable = bsm_stellaris_open
       }
 
       # ------------------------------------------
-      # タブ切替
+      # 伝統ツリー前進（1段取得）
       # ------------------------------------------
-      bsm_stellaris_tab_research_click = {
-        set_variable = { bsm_stellaris_tab = 1 }
-      }
-
-      bsm_stellaris_tab_traits_click = {
-        set_variable = { bsm_stellaris_tab = 2 }
-      }
-
-      bsm_stellaris_tab_traditions_click = {
-        set_variable = { bsm_stellaris_tab = 3 }
-      }
-
-      bsm_stellaris_tab_ascension_click = {
-        set_variable = { bsm_stellaris_tab = 4 }
-      }
-
-      bsm_stellaris_tab_expedition_click = {
-        set_variable = { bsm_stellaris_tab = 5 }
-      }
-
-      bsm_stellaris_tab_anomaly_click = {
-        # 独立した「アノマリー」ウィンドウを開く（旧tab6から移行）
-        set_variable = { bsm_stellaris_tab = 6 }
-        set_variable = { bsm_AS_window_open = 1 }
-        set_variable = { bsm_AS_active_tab = 1 }
-      }
-
-      # ------------------------------------------
-      # 伝統取得
-      # ------------------------------------------
-      bsm_stellaris_unlock_exploration_tradition_click = {
-        bsm_stellaris_unlock_tradition_exploration = yes
-      }
-
-      bsm_stellaris_unlock_expansion_tradition_click = {
-        bsm_stellaris_unlock_tradition_expansion = yes
-      }
-
-      bsm_stellaris_unlock_prosperity_tradition_click = {
-        bsm_stellaris_unlock_tradition_prosperity = yes
-      }
-
-      bsm_stellaris_unlock_armaments_tradition_click = {
-        bsm_stellaris_unlock_tradition_armaments = yes
-      }
-
-      bsm_stellaris_unlock_diplomacy_tradition_click = {
-        bsm_stellaris_unlock_tradition_diplomacy = yes
-      }
-
-      bsm_stellaris_unlock_governance_tradition_click = {
-        bsm_stellaris_unlock_tradition_governance = yes
-      }
-
-      bsm_stellaris_unlock_harmony_tradition_click = {
-        bsm_stellaris_unlock_tradition_harmony = yes
-      }
-
-      bsm_stellaris_unlock_economy_tradition_click = {
-        bsm_stellaris_unlock_tradition_prosperity = yes
-      }
-
-      bsm_stellaris_unlock_military_tradition_click = {
-        bsm_stellaris_unlock_tradition_armaments = yes
-      }
-
-      bsm_stellaris_unlock_society_tradition_click = {
-        bsm_stellaris_unlock_tradition_harmony = yes
-      }
-
-      bsm_stellaris_unlock_civilization_tradition_click = {
-        bsm_stellaris_unlock_tradition_exploration = yes
-      }
+      bsm_stellaris_adv_exploration_click = { bsm_stellaris_unlock_tradition_exploration = yes }
+      bsm_stellaris_adv_expansion_click   = { bsm_stellaris_unlock_tradition_expansion = yes }
+      bsm_stellaris_adv_prosperity_click  = { bsm_stellaris_unlock_tradition_prosperity = yes }
+      bsm_stellaris_adv_armaments_click   = { bsm_stellaris_unlock_tradition_armaments = yes }
+      bsm_stellaris_adv_diplomacy_click   = { bsm_stellaris_unlock_tradition_diplomacy = yes }
+      bsm_stellaris_adv_governance_click  = { bsm_stellaris_unlock_tradition_governance = yes }
+      bsm_stellaris_adv_harmony_click     = { bsm_stellaris_unlock_tradition_harmony = yes }
 
       # ------------------------------------------
       # アセンションパーク取得
       # ------------------------------------------
-      bsm_stellaris_unlock_ascension_park_1_click = {
-        bsm_stellaris_unlock_ascension_park_1 = yes
-      }
-
-      bsm_stellaris_unlock_ascension_park_2_click = {
-        bsm_stellaris_unlock_ascension_park_2 = yes
-      }
-
-      bsm_stellaris_unlock_ascension_park_3_click = {
-        bsm_stellaris_unlock_ascension_park_3 = yes
-      }
-
-      bsm_stellaris_unlock_ascension_park_4_click = {
-        bsm_stellaris_unlock_ascension_park_4 = yes
-      }
-
-      bsm_stellaris_unlock_ascension_park_5_click = {
-        bsm_stellaris_unlock_ascension_park_5 = yes
-      }
-
-      bsm_stellaris_unlock_ascension_park_6_click = {
-        bsm_stellaris_unlock_ascension_park_6 = yes
-      }
-
-      bsm_stellaris_unlock_ascension_park_7_click = {
-        bsm_stellaris_unlock_ascension_park_7 = yes
-      }
-
-      bsm_stellaris_unlock_ascension_park_8_click = {
-        bsm_stellaris_unlock_ascension_park_8 = yes
-      }
+      bsm_stellaris_asc_1_click = { bsm_stellaris_unlock_ascension_park_1 = yes }
+      bsm_stellaris_asc_2_click = { bsm_stellaris_unlock_ascension_park_2 = yes }
+      bsm_stellaris_asc_3_click = { bsm_stellaris_unlock_ascension_park_3 = yes }
+      bsm_stellaris_asc_4_click = { bsm_stellaris_unlock_ascension_park_4 = yes }
+      bsm_stellaris_asc_5_click = { bsm_stellaris_unlock_ascension_park_5 = yes }
+      bsm_stellaris_asc_6_click = { bsm_stellaris_unlock_ascension_park_6 = yes }
+      bsm_stellaris_asc_7_click = { bsm_stellaris_unlock_ascension_park_7 = yes }
+      bsm_stellaris_asc_8_click = { bsm_stellaris_unlock_ascension_park_8 = yes }
 
       # ------------------------------------------
       # 特性装備・解除
       # ------------------------------------------
-      bsm_stellaris_equip_trait_aggressive_click = {
-        bsm_stellaris_equip_trait_aggressive = yes
-      }
-
-      bsm_stellaris_unequip_trait_aggressive_click = {
-        bsm_stellaris_unequip_trait_aggressive = yes
-      }
-
-      bsm_stellaris_equip_trait_peaceful_click = {
-        bsm_stellaris_equip_trait_peaceful = yes
-      }
-
-      bsm_stellaris_unequip_trait_peaceful_click = {
-        bsm_stellaris_unequip_trait_peaceful = yes
-      }
-
-      bsm_stellaris_equip_trait_expansionist_click = {
-        bsm_stellaris_equip_trait_expansionist = yes
-      }
-
-      bsm_stellaris_unequip_trait_expansionist_click = {
-        bsm_stellaris_unequip_trait_expansionist = yes
-      }
-
-      bsm_stellaris_equip_trait_isolationist_click = {
-        bsm_stellaris_equip_trait_isolationist = yes
-      }
-
-      bsm_stellaris_unequip_trait_isolationist_click = {
-        bsm_stellaris_unequip_trait_isolationist = yes
-      }
-
-      bsm_stellaris_equip_trait_spiritualist_click = {
-        bsm_stellaris_equip_trait_spiritualist = yes
-      }
-
-      bsm_stellaris_unequip_trait_spiritualist_click = {
-        bsm_stellaris_unequip_trait_spiritualist = yes
-      }
-
-      bsm_stellaris_equip_trait_materialist_click = {
-        bsm_stellaris_equip_trait_materialist = yes
-      }
-
-      bsm_stellaris_unequip_trait_materialist_click = {
-        bsm_stellaris_unequip_trait_materialist = yes
-      }
-
-      bsm_stellaris_equip_trait_technologically_advanced_click = {
-        bsm_stellaris_equip_trait_technologically_advanced = yes
-      }
-
-      bsm_stellaris_unequip_trait_technologically_advanced_click = {
-        bsm_stellaris_unequip_trait_technologically_advanced = yes
-      }
-
-      # ------------------------------------------
-      # 探検隊作成
-      # ------------------------------------------
-      bsm_stellaris_create_expedition_academic_click = {
-        bsm_stellaris_create_expedition_academic = yes
-      }
-
-      bsm_stellaris_create_expedition_military_click = {
-        bsm_stellaris_create_expedition_military = yes
-      }
-
-      bsm_stellaris_create_expedition_commercial_click = {
-        bsm_stellaris_create_expedition_commercial = yes
-      }
+      bsm_stellaris_equip_trait_aggressive_click = { bsm_stellaris_equip_trait_aggressive = yes }
+      bsm_stellaris_unequip_trait_aggressive_click = { bsm_stellaris_unequip_trait_aggressive = yes }
+      bsm_stellaris_equip_trait_peaceful_click = { bsm_stellaris_equip_trait_peaceful = yes }
+      bsm_stellaris_unequip_trait_peaceful_click = { bsm_stellaris_unequip_trait_peaceful = yes }
+      bsm_stellaris_equip_trait_expansionist_click = { bsm_stellaris_equip_trait_expansionist = yes }
+      bsm_stellaris_unequip_trait_expansionist_click = { bsm_stellaris_unequip_trait_expansionist = yes }
+      bsm_stellaris_equip_trait_isolationist_click = { bsm_stellaris_equip_trait_isolationist = yes }
+      bsm_stellaris_unequip_trait_isolationist_click = { bsm_stellaris_unequip_trait_isolationist = yes }
+      bsm_stellaris_equip_trait_spiritualist_click = { bsm_stellaris_equip_trait_spiritualist = yes }
+      bsm_stellaris_unequip_trait_spiritualist_click = { bsm_stellaris_unequip_trait_spiritualist = yes }
+      bsm_stellaris_equip_trait_materialist_click = { bsm_stellaris_equip_trait_materialist = yes }
+      bsm_stellaris_unequip_trait_materialist_click = { bsm_stellaris_unequip_trait_materialist = yes }
+      bsm_stellaris_equip_trait_technologically_advanced_click = { bsm_stellaris_equip_trait_technologically_advanced = yes }
+      bsm_stellaris_unequip_trait_technologically_advanced_click = { bsm_stellaris_unequip_trait_technologically_advanced = yes }
     }
 
     triggers = {
-      # アノマリーは独立ウィンドウ bsm_AS_window へ移行済み（旧tab6要素は撤去）
+      # --- 伝統前進ボタン: 統合力>=コスト かつ ツリー未完成 で有効 ---
+      bsm_stellaris_adv_exploration_click_enabled = {
+        check_variable = { var = National_Unity_Power value = bsm_stellaris_tradition_cost compare = greater_than_or_equals }
+        check_variable = { var = bsm_stellaris_tradition_exploration value = 7 compare = less_than }
+      }
+      bsm_stellaris_adv_expansion_click_enabled = {
+        check_variable = { var = National_Unity_Power value = bsm_stellaris_tradition_cost compare = greater_than_or_equals }
+        check_variable = { var = bsm_stellaris_tradition_expansion value = 7 compare = less_than }
+      }
+      bsm_stellaris_adv_prosperity_click_enabled = {
+        check_variable = { var = National_Unity_Power value = bsm_stellaris_tradition_cost compare = greater_than_or_equals }
+        check_variable = { var = bsm_stellaris_tradition_prosperity value = 7 compare = less_than }
+      }
+      bsm_stellaris_adv_armaments_click_enabled = {
+        check_variable = { var = National_Unity_Power value = bsm_stellaris_tradition_cost compare = greater_than_or_equals }
+        check_variable = { var = bsm_stellaris_tradition_armaments value = 7 compare = less_than }
+      }
+      bsm_stellaris_adv_diplomacy_click_enabled = {
+        check_variable = { var = National_Unity_Power value = bsm_stellaris_tradition_cost compare = greater_than_or_equals }
+        check_variable = { var = bsm_stellaris_tradition_diplomacy value = 7 compare = less_than }
+      }
+      bsm_stellaris_adv_governance_click_enabled = {
+        check_variable = { var = National_Unity_Power value = bsm_stellaris_tradition_cost compare = greater_than_or_equals }
+        check_variable = { var = bsm_stellaris_tradition_governance value = 7 compare = less_than }
+      }
+      bsm_stellaris_adv_harmony_click_enabled = {
+        check_variable = { var = National_Unity_Power value = bsm_stellaris_tradition_cost compare = greater_than_or_equals }
+        check_variable = { var = bsm_stellaris_tradition_harmony value = 7 compare = less_than }
+      }
+
+      # --- アセンション: スロット保有時のみ有効（3/4は相互排他） ---
+      bsm_stellaris_asc_1_click_enabled = { check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than } NOT = { has_idea = bsm_stellaris_ascension_park_1 } }
+      bsm_stellaris_asc_2_click_enabled = { check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than } NOT = { has_idea = bsm_stellaris_ascension_park_2 } }
+      bsm_stellaris_asc_3_click_enabled = { check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than } NOT = { has_idea = bsm_stellaris_ascension_park_3 } NOT = { has_idea = bsm_stellaris_ascension_park_4 } }
+      bsm_stellaris_asc_4_click_enabled = { check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than } NOT = { has_idea = bsm_stellaris_ascension_park_4 } NOT = { has_idea = bsm_stellaris_ascension_park_3 } }
+      bsm_stellaris_asc_5_click_enabled = { check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than } NOT = { has_idea = bsm_stellaris_ascension_park_5 } }
+      bsm_stellaris_asc_6_click_enabled = { check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than } NOT = { has_idea = bsm_stellaris_ascension_park_6 } }
+      bsm_stellaris_asc_7_click_enabled = { check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than } NOT = { has_idea = bsm_stellaris_ascension_park_7 } }
+      bsm_stellaris_asc_8_click_enabled = { check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than } NOT = { has_idea = bsm_stellaris_ascension_park_8 } }
     }
   }
 }

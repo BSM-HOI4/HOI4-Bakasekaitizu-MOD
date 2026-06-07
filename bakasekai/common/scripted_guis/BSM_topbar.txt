@@ -2,7 +2,7 @@ scripted_gui = {
 	bsm_topbar = {
 		window_name = "bsm_topbar"
 		context_type = player_context
-		
+
 		effects = {
 			bsm_OE_GUI_open_button_click = {
 				if = {
@@ -13,23 +13,29 @@ scripted_gui = {
 					set_variable = { OE_page = 1 }
 				}
 			}
-			anomaries_button_click = {
-				log = "bsm_anomaly_button_click"
-				if = {
-					limit = { check_variable = { bsm_stellaris_tab = 6 } }
-					clear_variable = bsm_stellaris_tab
-				}
-				else = {
-					set_variable = { bsm_stellaris_tab = 6 }
-				}
-			}
+
+			# --- カスタムボタン1: 伝統・アセンション（研究・発見）画面 ---
 			bsm_stellaris_open_button_click = {
 				if = {
-					limit = { has_variable = bsm_stellaris_tab }
-					clear_variable = bsm_stellaris_tab
+					limit = { has_variable = bsm_stellaris_open }
+					clear_variable = bsm_stellaris_open
 				}
 				else = {
-					set_variable = { bsm_stellaris_tab = 1 }
+					set_variable = { bsm_stellaris_open = 1 }
+				}
+			}
+
+			# --- カスタムボタン2: アノマリー・探検隊 画面 ---
+			bsm_AS_open_button_click = {
+				if = {
+					limit = { check_variable = { bsm_AS_window_open = 1 } }
+					set_variable = { bsm_AS_window_open = 0 }
+					set_variable = { bsm_AS_form_open = 0 }
+				}
+				else = {
+					set_variable = { bsm_AS_window_open = 1 }
+					# 既定タブ＝未解析(1)
+					set_variable = { bsm_AS_active_tab = 1 }
 				}
 			}
 		}
