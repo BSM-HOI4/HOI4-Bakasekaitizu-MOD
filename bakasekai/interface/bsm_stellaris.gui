@@ -2,238 +2,423 @@
 # BSM ステラリス要素 GUI（伝統・アセンション・特性）
 # prefix: bsm_stellaris_
 # window_name = bsm_stellaris_window
-# タブ無し・1画面表示（EA並みサイズ）／Stellaris風レイアウト
-#   左カラム = 伝統7ツリー / 右上 = アセンションパーク8 / 右下 = 特性
+# Stellaris風: カテゴリカード内に採用・5ノード・完成を配置
 # ==========================================
 
 guiTypes = {
-	containerWindowType = {
-		name = "bsm_stellaris_window"
-		position = { x = -460 y = -340 }
-		orientation = center
-		size = { width = 920 height = 680 }
-		moveable = yes
-		click_to_front = yes
+  containerWindowType = {
+    name = "bsm_stellaris_window"
+    position = { x = -600 y = -380 }
+    orientation = center
+    size = { width = 1200 height = 760 }
+    moveable = yes
+    click_to_front = yes
 
-		show_sound = menu_open_window
-		hide_sound = menu_close_window
+    show_sound = menu_open_window
+    hide_sound = menu_close_window
 
-		background = {
-			name = "Background"
-			quadTextureSprite = "GFX_tiled_window_1b_border"
-		}
+    background = {
+      name = "Background"
+      quadTextureSprite = "GFX_tiled_window_1b_border"
+    }
 
-		iconType = {
-			name = "header_bg"
-			spriteType = "GFX_header_bg"
-			position = { x = 5 y = 7 }
-			Orientation = "UPPER_LEFT"
-		}
+    iconType = {
+      name = "header_bg"
+      spriteType = "GFX_header_bg"
+      position = { x = 5 y = 7 }
+      Orientation = "UPPER_LEFT"
+    }
 
-		instantTextboxType = {
-			name = "stellaris_title"
-			position = { x = 22 y = 14 }
-			font = "hoi_20b"
-			text = "伝統・アセンション"
-			maxWidth = 500
-			maxHeight = 28
-			format = left
-		}
+    instantTextboxType = {
+      name = "stellaris_title"
+      position = { x = 22 y = 14 }
+      font = "hoi_20b"
+      text = "伝統・アセンション"
+      maxWidth = 500
+      maxHeight = 28
+      format = left
+    }
 
-		buttonType = {
-			name = "bsm_stellaris_close_button"
-			position = { x = -38 y = 10 }
-			quadTextureSprite = "GFX_closebutton"
-			buttonFont = "Main_14_black"
-			shortcut = "ESCAPE"
-			Orientation = "UPPER_RIGHT"
-			clicksound = click_close
-			pdx_tooltip = "CLOSE"
-		}
+    buttonType = {
+      name = "bsm_stellaris_close_button"
+      position = { x = -38 y = 10 }
+      quadTextureSprite = "GFX_closebutton"
+      buttonFont = "Main_14_black"
+      shortcut = "ESCAPE"
+      Orientation = "UPPER_RIGHT"
+      clicksound = click_close
+      pdx_tooltip = "CLOSE"
+    }
 
-		# --- リソースバー（統合力 / 次回コスト / アセンションスロット）---
-		instantTextboxType = {
-			name = "stellaris_resource_bar"
-			position = { x = 22 y = 46 }
-			font = "hoi_16mbs"
-			text = "bsm_stellaris_resource_bar"
-			maxWidth = 880
-			maxHeight = 22
-			format = left
-		}
+    instantTextboxType = {
+      name = "stellaris_resource_bar"
+      position = { x = 22 y = 46 }
+      font = "hoi_16mbs"
+      text = "bsm_stellaris_resource_bar"
+      maxWidth = 1150
+      maxHeight = 22
+      format = left
+    }
 
-		# ==========================================
-		# 左カラム: 伝統（7ツリー）
-		# ==========================================
-		background = {
-			name = "trad_panel_bg"
-			position = { x = 14 y = 78 }
-			size = { x = 430 y = 584 }
-			quadTextureSprite = "GFX_tiled_window_transparent"
-		}
-		instantTextboxType = {
-			name = "trad_section_title"
-			position = { x = 24 y = 86 }
-			font = "hoi_16mbs"
-			text = "bsm_stellaris_sec_traditions"
-			maxWidth = 410 maxHeight = 22 format = left
-		}
-		instantTextboxType = {
-			name = "trad_hint"
-			position = { x = 24 y = 112 }
-			font = "hoi_16mbs"
-			text = "ツリーを進め完成させるとアセンションスロットを得る。思想適性ありで割引。"
-			maxWidth = 408 maxHeight = 40 format = left
-		}
+    # ==========================================
+    # 左: 伝統ツリー
+    # ==========================================
+    background = {
+      name = "trad_panel_bg"
+      position = { x = 14 y = 78 }
+      size = { x = 830 y = 668 }
+      quadTextureSprite = "GFX_tiled_window_transparent"
+    }
 
-		# 探索
-		iconType = { name = "trad_ico_1" spriteType = "GFX_decision_generic_decision" position = { x = 24 y = 158 } }
-		instantTextboxType = { name = "trad_lbl_1" position = { x = 66 y = 166 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_exploration" maxWidth = 300 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_adv_exploration" position = { x = 372 y = 158 } quadTextureSprite = "GFX_decision_generic_decision" Orientation = UPPER_LEFT clicksound = click_default pdx_tooltip = "bsm_stellaris_unlock_exploration_tradition_desc" }
+    instantTextboxType = {
+      name = "trad_section_title"
+      position = { x = 24 y = 86 }
+      font = "hoi_16mbs"
+      text = "bsm_stellaris_sec_traditions"
+      maxWidth = 410
+      maxHeight = 22
+      format = left
+    }
 
-		# 拡張
-		iconType = { name = "trad_ico_2" spriteType = "GFX_decision_generic_decision" position = { x = 24 y = 210 } }
-		instantTextboxType = { name = "trad_lbl_2" position = { x = 66 y = 218 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_expansion" maxWidth = 300 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_adv_expansion" position = { x = 372 y = 210 } quadTextureSprite = "GFX_decision_generic_decision" Orientation = UPPER_LEFT clicksound = click_default pdx_tooltip = "bsm_stellaris_unlock_expansion_tradition_desc" }
+    instantTextboxType = {
+      name = "trad_hint"
+      position = { x = 24 y = 111 }
+      font = "hoi_16mbs"
+      text = "bsm_stellaris_tradition_tree_hint"
+      maxWidth = 804
+      maxHeight = 20
+      format = left
+    }
 
-		# 繁栄
-		iconType = { name = "trad_ico_3" spriteType = "GFX_decision_generic_decision" position = { x = 24 y = 262 } }
-		instantTextboxType = { name = "trad_lbl_3" position = { x = 66 y = 270 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_prosperity" maxWidth = 300 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_adv_prosperity" position = { x = 372 y = 262 } quadTextureSprite = "GFX_decision_generic_decision" Orientation = UPPER_LEFT clicksound = click_default pdx_tooltip = "bsm_stellaris_unlock_prosperity_tradition_desc" }
+    # 探索
+    containerWindowType = {
+      name = "bsm_stellaris_tree_exploration"
+      position = { x = 24 y = 138 }
+      size = { width = 398 height = 132 }
 
-		# 軍備
-		iconType = { name = "trad_ico_4" spriteType = "GFX_decision_generic_decision" position = { x = 24 y = 314 } }
-		instantTextboxType = { name = "trad_lbl_4" position = { x = 66 y = 322 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_armaments" maxWidth = 300 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_adv_armaments" position = { x = 372 y = 314 } quadTextureSprite = "GFX_decision_generic_decision" Orientation = UPPER_LEFT clicksound = click_default pdx_tooltip = "bsm_stellaris_unlock_armaments_tradition_desc" }
+      background = { name = "bg" quadTextureSprite = "GFX_bsm_stellaris_tradition_card" }
+      iconType = { name = "category_icon" spriteType = "GFX_bsm_stellaris_tradition_icon_exploration" position = { x = 8 y = 4 } }
+      instantTextboxType = { name = "title" position = { x = 42 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_exploration" maxWidth = 206 maxHeight = 20 format = left }
+      instantTextboxType = { name = "affinity" position = { x = 252 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_tradition_next_cost_short" maxWidth = 136 maxHeight = 20 format = right }
 
-		# 外交
-		iconType = { name = "trad_ico_5" spriteType = "GFX_decision_generic_decision" position = { x = 24 y = 366 } }
-		instantTextboxType = { name = "trad_lbl_5" position = { x = 66 y = 374 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_diplomacy" maxWidth = 300 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_adv_diplomacy" position = { x = 372 y = 366 } quadTextureSprite = "GFX_decision_generic_decision" Orientation = UPPER_LEFT clicksound = click_default pdx_tooltip = "bsm_stellaris_unlock_diplomacy_tradition_desc" }
+      background = { name = "line_1" position = { x = 48 y = 61 } size = { x = 272 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      background = { name = "line_2" position = { x = 147 y = 61 } size = { x = 4 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector_v" }
+      background = { name = "line_3" position = { x = 188 y = 105 } size = { x = 132 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      buttonType = { name = "bsm_stellaris_exploration_adopt" position = { x = 16 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_adopt" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_exploration_adopt_desc" }
+      buttonType = { name = "bsm_stellaris_exploration_1" position = { x = 92 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_exploration_1_desc" }
+      buttonType = { name = "bsm_stellaris_exploration_2" position = { x = 168 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_exploration_2_desc" }
+      buttonType = { name = "bsm_stellaris_exploration_3" position = { x = 244 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_exploration_3_desc" }
+      buttonType = { name = "bsm_stellaris_exploration_4" position = { x = 130 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_exploration_4_desc" }
+      buttonType = { name = "bsm_stellaris_exploration_5" position = { x = 206 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_exploration_5_desc" }
+      buttonType = { name = "bsm_stellaris_exploration_finish" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_finish" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_exploration_finish_desc" }
+      buttonType = { name = "bsm_stellaris_exploration_adopt_done" position = { x = 14 y = 46 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_exploration_1_done" position = { x = 90 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_exploration_2_done" position = { x = 166 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_exploration_3_done" position = { x = 242 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_exploration_4_done" position = { x = 128 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_exploration_5_done" position = { x = 204 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_exploration_finish_done" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      instantTextboxType = { name = "steps" position = { x = 19 y = 112 } font = "hoi_16mbs" text = "bsm_stellaris_tree_steps" maxWidth = 352 maxHeight = 18 format = center }
+    }
 
-		# 統治
-		iconType = { name = "trad_ico_6" spriteType = "GFX_decision_generic_decision" position = { x = 24 y = 418 } }
-		instantTextboxType = { name = "trad_lbl_6" position = { x = 66 y = 426 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_governance" maxWidth = 300 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_adv_governance" position = { x = 372 y = 418 } quadTextureSprite = "GFX_decision_generic_decision" Orientation = UPPER_LEFT clicksound = click_default pdx_tooltip = "bsm_stellaris_unlock_governance_tradition_desc" }
+    # 拡張
+    containerWindowType = {
+      name = "bsm_stellaris_tree_expansion"
+      position = { x = 436 y = 138 }
+      size = { width = 398 height = 132 }
 
-		# 調和
-		iconType = { name = "trad_ico_7" spriteType = "GFX_decision_generic_decision" position = { x = 24 y = 470 } }
-		instantTextboxType = { name = "trad_lbl_7" position = { x = 66 y = 478 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_harmony" maxWidth = 300 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_adv_harmony" position = { x = 372 y = 470 } quadTextureSprite = "GFX_decision_generic_decision" Orientation = UPPER_LEFT clicksound = click_default pdx_tooltip = "bsm_stellaris_unlock_harmony_tradition_desc" }
+      background = { name = "bg" quadTextureSprite = "GFX_bsm_stellaris_tradition_card" }
+      iconType = { name = "category_icon" spriteType = "GFX_bsm_stellaris_tradition_icon_expansion" position = { x = 8 y = 4 } }
+      instantTextboxType = { name = "title" position = { x = 42 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_expansion" maxWidth = 206 maxHeight = 20 format = left }
+      instantTextboxType = { name = "affinity" position = { x = 252 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_tradition_next_cost_short" maxWidth = 136 maxHeight = 20 format = right }
 
-		instantTextboxType = {
-			name = "trad_progress"
-			position = { x = 24 y = 540 }
-			font = "hoi_16mbs"
-			text = "取得伝統数 [?bsm_stellaris_tradition_adopted_count|0]   完成ツリー [?bsm_stellaris_ascension_slots_max|0]/7"
-			maxWidth = 408 maxHeight = 36 format = left
-		}
+      background = { name = "line_1" position = { x = 48 y = 61 } size = { x = 272 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      background = { name = "line_2" position = { x = 147 y = 61 } size = { x = 4 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector_v" }
+      background = { name = "line_3" position = { x = 188 y = 105 } size = { x = 132 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      buttonType = { name = "bsm_stellaris_expansion_adopt" position = { x = 16 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_adopt" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_expansion_adopt_desc" }
+      buttonType = { name = "bsm_stellaris_expansion_1" position = { x = 92 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_expansion_1_desc" }
+      buttonType = { name = "bsm_stellaris_expansion_2" position = { x = 168 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_expansion_2_desc" }
+      buttonType = { name = "bsm_stellaris_expansion_3" position = { x = 244 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_expansion_3_desc" }
+      buttonType = { name = "bsm_stellaris_expansion_4" position = { x = 130 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_expansion_4_desc" }
+      buttonType = { name = "bsm_stellaris_expansion_5" position = { x = 206 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_expansion_5_desc" }
+      buttonType = { name = "bsm_stellaris_expansion_finish" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_finish" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_expansion_finish_desc" }
+      buttonType = { name = "bsm_stellaris_expansion_adopt_done" position = { x = 14 y = 46 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_expansion_1_done" position = { x = 90 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_expansion_2_done" position = { x = 166 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_expansion_3_done" position = { x = 242 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_expansion_4_done" position = { x = 128 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_expansion_5_done" position = { x = 204 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_expansion_finish_done" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      instantTextboxType = { name = "steps" position = { x = 19 y = 112 } font = "hoi_16mbs" text = "bsm_stellaris_tree_steps" maxWidth = 352 maxHeight = 18 format = center }
+    }
 
-		# ==========================================
-		# 右上: アセンションパーク（8種・2列）
-		# ==========================================
-		background = {
-			name = "asc_panel_bg"
-			position = { x = 458 y = 78 }
-			size = { x = 448 y = 286 }
-			quadTextureSprite = "GFX_tiled_window_transparent"
-		}
-		instantTextboxType = {
-			name = "asc_section_title"
-			position = { x = 468 y = 86 }
-			font = "hoi_16mbs"
-			text = "bsm_stellaris_sec_ascension"
-			maxWidth = 428 maxHeight = 22 format = left
-		}
-		instantTextboxType = {
-			name = "asc_info"
-			position = { x = 468 y = 112 }
-			font = "hoi_16mbs"
-			text = "利用可能スロット [?bsm_stellaris_ascension_slots|0]/[?bsm_stellaris_ascension_slots_max|0]（ツリー完成で増加）"
-			maxWidth = 428 maxHeight = 20 format = left
-		}
+    # 繁栄
+    containerWindowType = {
+      name = "bsm_stellaris_tree_prosperity"
+      position = { x = 24 y = 286 }
+      size = { width = 398 height = 132 }
 
-		buttonType = { name = "bsm_stellaris_asc_1" position = { x = 468 y = 146 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_1_desc" clicksound = click_default }
-		instantTextboxType = { name = "asc_lbl_1" position = { x = 510 y = 152 } font = "hoi_16mbs" text = "技術的卓越" maxWidth = 180 maxHeight = 18 format = left }
+      background = { name = "bg" quadTextureSprite = "GFX_bsm_stellaris_tradition_card" }
+      iconType = { name = "category_icon" spriteType = "GFX_bsm_stellaris_tradition_icon_prosperity" position = { x = 8 y = 4 } }
+      instantTextboxType = { name = "title" position = { x = 42 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_prosperity" maxWidth = 206 maxHeight = 20 format = left }
+      instantTextboxType = { name = "affinity" position = { x = 252 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_tradition_next_cost_short" maxWidth = 136 maxHeight = 20 format = right }
 
-		buttonType = { name = "bsm_stellaris_asc_2" position = { x = 688 y = 146 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_2_desc" clicksound = click_default }
-		instantTextboxType = { name = "asc_lbl_2" position = { x = 730 y = 152 } font = "hoi_16mbs" text = "世界規模行政" maxWidth = 170 maxHeight = 18 format = left }
+      background = { name = "line_1" position = { x = 48 y = 61 } size = { x = 272 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      background = { name = "line_2" position = { x = 147 y = 61 } size = { x = 4 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector_v" }
+      background = { name = "line_3" position = { x = 188 y = 105 } size = { x = 132 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      buttonType = { name = "bsm_stellaris_prosperity_adopt" position = { x = 16 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_adopt" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_prosperity_adopt_desc" }
+      buttonType = { name = "bsm_stellaris_prosperity_1" position = { x = 92 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_prosperity_1_desc" }
+      buttonType = { name = "bsm_stellaris_prosperity_2" position = { x = 168 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_prosperity_2_desc" }
+      buttonType = { name = "bsm_stellaris_prosperity_3" position = { x = 244 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_prosperity_3_desc" }
+      buttonType = { name = "bsm_stellaris_prosperity_4" position = { x = 130 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_prosperity_4_desc" }
+      buttonType = { name = "bsm_stellaris_prosperity_5" position = { x = 206 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_prosperity_5_desc" }
+      buttonType = { name = "bsm_stellaris_prosperity_finish" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_finish" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_prosperity_finish_desc" }
+      buttonType = { name = "bsm_stellaris_prosperity_adopt_done" position = { x = 14 y = 46 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_prosperity_1_done" position = { x = 90 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_prosperity_2_done" position = { x = 166 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_prosperity_3_done" position = { x = 242 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_prosperity_4_done" position = { x = 128 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_prosperity_5_done" position = { x = 204 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_prosperity_finish_done" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      instantTextboxType = { name = "steps" position = { x = 19 y = 112 } font = "hoi_16mbs" text = "bsm_stellaris_tree_steps" maxWidth = 352 maxHeight = 18 format = center }
+    }
 
-		buttonType = { name = "bsm_stellaris_asc_3" position = { x = 468 y = 198 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_3_desc" clicksound = click_default }
-		instantTextboxType = { name = "asc_lbl_3" position = { x = 510 y = 204 } font = "hoi_16mbs" text = "危機対処機構" maxWidth = 180 maxHeight = 18 format = left }
+    # 軍備
+    containerWindowType = {
+      name = "bsm_stellaris_tree_armaments"
+      position = { x = 436 y = 286 }
+      size = { width = 398 height = 132 }
 
-		buttonType = { name = "bsm_stellaris_asc_4" position = { x = 688 y = 198 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_4_desc" clicksound = click_default }
-		instantTextboxType = { name = "asc_lbl_4" position = { x = 730 y = 204 } font = "hoi_16mbs" text = "破局への道" maxWidth = 170 maxHeight = 18 format = left }
+      background = { name = "bg" quadTextureSprite = "GFX_bsm_stellaris_tradition_card" }
+      iconType = { name = "category_icon" spriteType = "GFX_bsm_stellaris_tradition_icon_armaments" position = { x = 8 y = 4 } }
+      instantTextboxType = { name = "title" position = { x = 42 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_armaments" maxWidth = 206 maxHeight = 20 format = left }
+      instantTextboxType = { name = "affinity" position = { x = 252 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_tradition_next_cost_short" maxWidth = 136 maxHeight = 20 format = right }
 
-		buttonType = { name = "bsm_stellaris_asc_5" position = { x = 468 y = 250 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_5_desc" clicksound = click_default }
-		instantTextboxType = { name = "asc_lbl_5" position = { x = 510 y = 256 } font = "hoi_16mbs" text = "国土改造" maxWidth = 180 maxHeight = 18 format = left }
+      background = { name = "line_1" position = { x = 48 y = 61 } size = { x = 272 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      background = { name = "line_2" position = { x = 147 y = 61 } size = { x = 4 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector_v" }
+      background = { name = "line_3" position = { x = 188 y = 105 } size = { x = 132 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      buttonType = { name = "bsm_stellaris_armaments_adopt" position = { x = 16 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_adopt" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_armaments_adopt_desc" }
+      buttonType = { name = "bsm_stellaris_armaments_1" position = { x = 92 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_armaments_1_desc" }
+      buttonType = { name = "bsm_stellaris_armaments_2" position = { x = 168 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_armaments_2_desc" }
+      buttonType = { name = "bsm_stellaris_armaments_3" position = { x = 244 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_armaments_3_desc" }
+      buttonType = { name = "bsm_stellaris_armaments_4" position = { x = 130 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_armaments_4_desc" }
+      buttonType = { name = "bsm_stellaris_armaments_5" position = { x = 206 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_armaments_5_desc" }
+      buttonType = { name = "bsm_stellaris_armaments_finish" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_finish" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_armaments_finish_desc" }
+      buttonType = { name = "bsm_stellaris_armaments_adopt_done" position = { x = 14 y = 46 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_armaments_1_done" position = { x = 90 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_armaments_2_done" position = { x = 166 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_armaments_3_done" position = { x = 242 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_armaments_4_done" position = { x = 128 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_armaments_5_done" position = { x = 204 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_armaments_finish_done" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      instantTextboxType = { name = "steps" position = { x = 19 y = 112 } font = "hoi_16mbs" text = "bsm_stellaris_tree_steps" maxWidth = 352 maxHeight = 18 format = center }
+    }
 
-		buttonType = { name = "bsm_stellaris_asc_6" position = { x = 688 y = 250 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_6_desc" clicksound = click_default }
-		instantTextboxType = { name = "asc_lbl_6" position = { x = 730 y = 256 } font = "hoi_16mbs" text = "国際交易網" maxWidth = 170 maxHeight = 18 format = left }
+    # 外交
+    containerWindowType = {
+      name = "bsm_stellaris_tree_diplomacy"
+      position = { x = 24 y = 434 }
+      size = { width = 398 height = 132 }
 
-		buttonType = { name = "bsm_stellaris_asc_7" position = { x = 468 y = 302 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_7_desc" clicksound = click_default }
-		instantTextboxType = { name = "asc_lbl_7" position = { x = 510 y = 308 } font = "hoi_16mbs" text = "人工進化計画" maxWidth = 180 maxHeight = 18 format = left }
+      background = { name = "bg" quadTextureSprite = "GFX_bsm_stellaris_tradition_card" }
+      iconType = { name = "category_icon" spriteType = "GFX_bsm_stellaris_tradition_icon_diplomacy" position = { x = 8 y = 4 } }
+      instantTextboxType = { name = "title" position = { x = 42 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_diplomacy" maxWidth = 206 maxHeight = 20 format = left }
+      instantTextboxType = { name = "affinity" position = { x = 252 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_tradition_next_cost_short" maxWidth = 136 maxHeight = 20 format = right }
 
-		buttonType = { name = "bsm_stellaris_asc_8" position = { x = 688 y = 302 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_8_desc" clicksound = click_default }
-		instantTextboxType = { name = "asc_lbl_8" position = { x = 730 y = 308 } font = "hoi_16mbs" text = "精神的覚醒" maxWidth = 170 maxHeight = 18 format = left }
+      background = { name = "line_1" position = { x = 48 y = 61 } size = { x = 272 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      background = { name = "line_2" position = { x = 147 y = 61 } size = { x = 4 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector_v" }
+      background = { name = "line_3" position = { x = 188 y = 105 } size = { x = 132 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      buttonType = { name = "bsm_stellaris_diplomacy_adopt" position = { x = 16 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_adopt" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_diplomacy_adopt_desc" }
+      buttonType = { name = "bsm_stellaris_diplomacy_1" position = { x = 92 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_diplomacy_1_desc" }
+      buttonType = { name = "bsm_stellaris_diplomacy_2" position = { x = 168 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_diplomacy_2_desc" }
+      buttonType = { name = "bsm_stellaris_diplomacy_3" position = { x = 244 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_diplomacy_3_desc" }
+      buttonType = { name = "bsm_stellaris_diplomacy_4" position = { x = 130 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_diplomacy_4_desc" }
+      buttonType = { name = "bsm_stellaris_diplomacy_5" position = { x = 206 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_diplomacy_5_desc" }
+      buttonType = { name = "bsm_stellaris_diplomacy_finish" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_finish" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_diplomacy_finish_desc" }
+      buttonType = { name = "bsm_stellaris_diplomacy_adopt_done" position = { x = 14 y = 46 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_diplomacy_1_done" position = { x = 90 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_diplomacy_2_done" position = { x = 166 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_diplomacy_3_done" position = { x = 242 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_diplomacy_4_done" position = { x = 128 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_diplomacy_5_done" position = { x = 204 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_diplomacy_finish_done" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      instantTextboxType = { name = "steps" position = { x = 19 y = 112 } font = "hoi_16mbs" text = "bsm_stellaris_tree_steps" maxWidth = 352 maxHeight = 18 format = center }
+    }
 
-		# ==========================================
-		# 右下: 特性
-		# ==========================================
-		background = {
-			name = "trait_panel_bg"
-			position = { x = 458 y = 376 }
-			size = { x = 448 y = 286 }
-			quadTextureSprite = "GFX_tiled_window_transparent"
-		}
-		instantTextboxType = {
-			name = "trait_section_title"
-			position = { x = 468 y = 384 }
-			font = "hoi_16mbs"
-			text = "bsm_stellaris_sec_traits"
-			maxWidth = 428 maxHeight = 22 format = left
-		}
-		instantTextboxType = {
-			name = "trait_info"
-			position = { x = 468 y = 410 }
-			font = "hoi_16mbs"
-			text = "装備 [?bsm_stellaris_traits_equipped|0]/[?bsm_stellaris_trait_slots|0]（文明度でスロット解放）"
-			maxWidth = 428 maxHeight = 20 format = left
-		}
+    # 統治
+    containerWindowType = {
+      name = "bsm_stellaris_tree_governance"
+      position = { x = 436 y = 434 }
+      size = { width = 398 height = 132 }
 
-		# 好戦的
-		instantTextboxType = { name = "trait_lbl_aggressive" position = { x = 468 y = 446 } font = "hoi_16mbs" text = "好戦的" maxWidth = 320 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_equip_trait_aggressive" position = { x = 800 y = 442 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_aggressive_desc" clicksound = click_default }
-		buttonType = { name = "bsm_stellaris_unequip_trait_aggressive" position = { x = 856 y = 442 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+      background = { name = "bg" quadTextureSprite = "GFX_bsm_stellaris_tradition_card" }
+      iconType = { name = "category_icon" spriteType = "GFX_bsm_stellaris_tradition_icon_governance" position = { x = 8 y = 4 } }
+      instantTextboxType = { name = "title" position = { x = 42 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_governance" maxWidth = 206 maxHeight = 20 format = left }
+      instantTextboxType = { name = "affinity" position = { x = 252 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_tradition_next_cost_short" maxWidth = 136 maxHeight = 20 format = right }
 
-		# 平和的
-		instantTextboxType = { name = "trait_lbl_peaceful" position = { x = 468 y = 476 } font = "hoi_16mbs" text = "平和的" maxWidth = 320 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_equip_trait_peaceful" position = { x = 800 y = 472 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_peaceful_desc" clicksound = click_default }
-		buttonType = { name = "bsm_stellaris_unequip_trait_peaceful" position = { x = 856 y = 472 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+      background = { name = "line_1" position = { x = 48 y = 61 } size = { x = 272 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      background = { name = "line_2" position = { x = 147 y = 61 } size = { x = 4 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector_v" }
+      background = { name = "line_3" position = { x = 188 y = 105 } size = { x = 132 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      buttonType = { name = "bsm_stellaris_governance_adopt" position = { x = 16 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_adopt" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_governance_adopt_desc" }
+      buttonType = { name = "bsm_stellaris_governance_1" position = { x = 92 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_governance_1_desc" }
+      buttonType = { name = "bsm_stellaris_governance_2" position = { x = 168 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_governance_2_desc" }
+      buttonType = { name = "bsm_stellaris_governance_3" position = { x = 244 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_governance_3_desc" }
+      buttonType = { name = "bsm_stellaris_governance_4" position = { x = 130 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_governance_4_desc" }
+      buttonType = { name = "bsm_stellaris_governance_5" position = { x = 206 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_governance_5_desc" }
+      buttonType = { name = "bsm_stellaris_governance_finish" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_finish" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_governance_finish_desc" }
+      buttonType = { name = "bsm_stellaris_governance_adopt_done" position = { x = 14 y = 46 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_governance_1_done" position = { x = 90 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_governance_2_done" position = { x = 166 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_governance_3_done" position = { x = 242 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_governance_4_done" position = { x = 128 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_governance_5_done" position = { x = 204 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_governance_finish_done" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      instantTextboxType = { name = "steps" position = { x = 19 y = 112 } font = "hoi_16mbs" text = "bsm_stellaris_tree_steps" maxWidth = 352 maxHeight = 18 format = center }
+    }
 
-		# 拡張主義
-		instantTextboxType = { name = "trait_lbl_expansionist" position = { x = 468 y = 506 } font = "hoi_16mbs" text = "拡張主義" maxWidth = 320 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_equip_trait_expansionist" position = { x = 800 y = 502 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_expansionist_desc" clicksound = click_default }
-		buttonType = { name = "bsm_stellaris_unequip_trait_expansionist" position = { x = 856 y = 502 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+    # 調和
+    containerWindowType = {
+      name = "bsm_stellaris_tree_harmony"
+      position = { x = 24 y = 582 }
+      size = { width = 398 height = 132 }
 
-		# 孤立主義
-		instantTextboxType = { name = "trait_lbl_isolationist" position = { x = 468 y = 536 } font = "hoi_16mbs" text = "孤立主義" maxWidth = 320 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_equip_trait_isolationist" position = { x = 800 y = 532 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_isolationist_desc" clicksound = click_default }
-		buttonType = { name = "bsm_stellaris_unequip_trait_isolationist" position = { x = 856 y = 532 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+      background = { name = "bg" quadTextureSprite = "GFX_bsm_stellaris_tradition_card" }
+      iconType = { name = "category_icon" spriteType = "GFX_bsm_stellaris_tradition_icon_harmony" position = { x = 8 y = 4 } }
+      instantTextboxType = { name = "title" position = { x = 42 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_trad_lbl_harmony" maxWidth = 206 maxHeight = 20 format = left }
+      instantTextboxType = { name = "affinity" position = { x = 252 y = 8 } font = "hoi_16mbs" text = "bsm_stellaris_tradition_next_cost_short" maxWidth = 136 maxHeight = 20 format = right }
 
-		# 霊主義的
-		instantTextboxType = { name = "trait_lbl_spiritualist" position = { x = 468 y = 566 } font = "hoi_16mbs" text = "霊主義的" maxWidth = 320 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_equip_trait_spiritualist" position = { x = 800 y = 562 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_spiritualist_desc" clicksound = click_default }
-		buttonType = { name = "bsm_stellaris_unequip_trait_spiritualist" position = { x = 856 y = 562 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+      background = { name = "line_1" position = { x = 48 y = 61 } size = { x = 272 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      background = { name = "line_2" position = { x = 147 y = 61 } size = { x = 4 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector_v" }
+      background = { name = "line_3" position = { x = 188 y = 105 } size = { x = 132 y = 4 } quadTextureSprite = "GFX_bsm_stellaris_tradition_connector" }
+      buttonType = { name = "bsm_stellaris_harmony_adopt" position = { x = 16 y = 48 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_adopt" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_harmony_adopt_desc" }
+      buttonType = { name = "bsm_stellaris_harmony_1" position = { x = 92 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_harmony_1_desc" }
+      buttonType = { name = "bsm_stellaris_harmony_2" position = { x = 168 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_harmony_2_desc" }
+      buttonType = { name = "bsm_stellaris_harmony_3" position = { x = 244 y = 36 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_harmony_3_desc" }
+      buttonType = { name = "bsm_stellaris_harmony_4" position = { x = 130 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_harmony_4_desc" }
+      buttonType = { name = "bsm_stellaris_harmony_5" position = { x = 206 y = 88 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_harmony_5_desc" }
+      buttonType = { name = "bsm_stellaris_harmony_finish" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_finish" clicksound = click_default pdx_tooltip = "bsm_stellaris_tradition_harmony_finish_desc" }
+      buttonType = { name = "bsm_stellaris_harmony_adopt_done" position = { x = 14 y = 46 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_harmony_1_done" position = { x = 90 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_harmony_2_done" position = { x = 166 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_harmony_3_done" position = { x = 242 y = 34 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_harmony_4_done" position = { x = 128 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_harmony_5_done" position = { x = 204 y = 86 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      buttonType = { name = "bsm_stellaris_harmony_finish_done" position = { x = 320 y = 62 } quadTextureSprite = "GFX_bsm_stellaris_tradition_node_done" alwaysTransparent = yes }
+      instantTextboxType = { name = "steps" position = { x = 19 y = 112 } font = "hoi_16mbs" text = "bsm_stellaris_tree_steps" maxWidth = 352 maxHeight = 18 format = center }
+    }
 
-		# 唯物主義的
-		instantTextboxType = { name = "trait_lbl_materialist" position = { x = 468 y = 596 } font = "hoi_16mbs" text = "唯物主義的" maxWidth = 320 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_equip_trait_materialist" position = { x = 800 y = 592 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_materialist_desc" clicksound = click_default }
-		buttonType = { name = "bsm_stellaris_unequip_trait_materialist" position = { x = 856 y = 592 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+    instantTextboxType = {
+      name = "trad_progress"
+      position = { x = 436 y = 596 }
+      font = "hoi_16mbs"
+      text = "bsm_stellaris_tree_progress"
+      maxWidth = 388
+      maxHeight = 54
+      format = left
+    }
 
-		# 技術的に進歩している（解禁制）
-		instantTextboxType = { name = "trait_lbl_techadv" position = { x = 468 y = 626 } font = "hoi_16mbs" text = "技術的に進歩している" maxWidth = 320 maxHeight = 18 format = left }
-		buttonType = { name = "bsm_stellaris_equip_trait_technologically_advanced" position = { x = 800 y = 622 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_technologically_advanced_desc" clicksound = click_default }
-		buttonType = { name = "bsm_stellaris_unequip_trait_technologically_advanced" position = { x = 856 y = 622 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
-	}
+    # ==========================================
+    # 右上: アセンションパーク
+    # ==========================================
+    background = {
+      name = "asc_panel_bg"
+      position = { x = 858 y = 78 }
+      size = { x = 328 y = 328 }
+      quadTextureSprite = "GFX_tiled_window_transparent"
+    }
+    instantTextboxType = {
+      name = "asc_section_title"
+      position = { x = 868 y = 86 }
+      font = "hoi_16mbs"
+      text = "bsm_stellaris_sec_ascension"
+      maxWidth = 308
+      maxHeight = 22
+      format = left
+    }
+    instantTextboxType = {
+      name = "asc_info"
+      position = { x = 868 y = 112 }
+      font = "hoi_16mbs"
+      text = "bsm_stellaris_ascension_slots_info"
+      maxWidth = 308
+      maxHeight = 40
+      format = left
+    }
+
+    buttonType = { name = "bsm_stellaris_asc_1" position = { x = 868 y = 158 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_1_desc" clicksound = click_default }
+    instantTextboxType = { name = "asc_lbl_1" position = { x = 910 y = 164 } font = "hoi_16mbs" text = "bsm_stellaris_ascension_park_1" maxWidth = 110 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_asc_2" position = { x = 1028 y = 158 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_2_desc" clicksound = click_default }
+    instantTextboxType = { name = "asc_lbl_2" position = { x = 1070 y = 164 } font = "hoi_16mbs" text = "bsm_stellaris_ascension_park_2" maxWidth = 110 maxHeight = 18 format = left }
+
+    buttonType = { name = "bsm_stellaris_asc_3" position = { x = 868 y = 210 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_3_desc" clicksound = click_default }
+    instantTextboxType = { name = "asc_lbl_3" position = { x = 910 y = 216 } font = "hoi_16mbs" text = "bsm_stellaris_ascension_park_3" maxWidth = 110 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_asc_4" position = { x = 1028 y = 210 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_4_desc" clicksound = click_default }
+    instantTextboxType = { name = "asc_lbl_4" position = { x = 1070 y = 216 } font = "hoi_16mbs" text = "bsm_stellaris_ascension_park_4" maxWidth = 110 maxHeight = 18 format = left }
+
+    buttonType = { name = "bsm_stellaris_asc_5" position = { x = 868 y = 262 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_5_desc" clicksound = click_default }
+    instantTextboxType = { name = "asc_lbl_5" position = { x = 910 y = 268 } font = "hoi_16mbs" text = "bsm_stellaris_ascension_park_5" maxWidth = 110 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_asc_6" position = { x = 1028 y = 262 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_6_desc" clicksound = click_default }
+    instantTextboxType = { name = "asc_lbl_6" position = { x = 1070 y = 268 } font = "hoi_16mbs" text = "bsm_stellaris_ascension_park_6" maxWidth = 110 maxHeight = 18 format = left }
+
+    buttonType = { name = "bsm_stellaris_asc_7" position = { x = 868 y = 314 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_7_desc" clicksound = click_default }
+    instantTextboxType = { name = "asc_lbl_7" position = { x = 910 y = 320 } font = "hoi_16mbs" text = "bsm_stellaris_ascension_park_7" maxWidth = 110 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_asc_8" position = { x = 1028 y = 314 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_ascension_park_8_desc" clicksound = click_default }
+    instantTextboxType = { name = "asc_lbl_8" position = { x = 1070 y = 320 } font = "hoi_16mbs" text = "bsm_stellaris_ascension_park_8" maxWidth = 110 maxHeight = 18 format = left }
+
+    # ==========================================
+    # 右下: 特性
+    # ==========================================
+    background = {
+      name = "trait_panel_bg"
+      position = { x = 858 y = 420 }
+      size = { x = 328 y = 326 }
+      quadTextureSprite = "GFX_tiled_window_transparent"
+    }
+    instantTextboxType = {
+      name = "trait_section_title"
+      position = { x = 868 y = 428 }
+      font = "hoi_16mbs"
+      text = "bsm_stellaris_sec_traits"
+      maxWidth = 308
+      maxHeight = 22
+      format = left
+    }
+    instantTextboxType = {
+      name = "trait_info"
+      position = { x = 868 y = 454 }
+      font = "hoi_16mbs"
+      text = "bsm_stellaris_trait_slots_info"
+      maxWidth = 308
+      maxHeight = 40
+      format = left
+    }
+
+    instantTextboxType = { name = "trait_lbl_aggressive" position = { x = 868 y = 496 } font = "hoi_16mbs" text = "bsm_stellaris_trait_aggressive" maxWidth = 210 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_equip_trait_aggressive" position = { x = 1090 y = 492 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_aggressive_desc" clicksound = click_default }
+    buttonType = { name = "bsm_stellaris_unequip_trait_aggressive" position = { x = 1146 y = 492 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+
+    instantTextboxType = { name = "trait_lbl_peaceful" position = { x = 868 y = 526 } font = "hoi_16mbs" text = "bsm_stellaris_trait_peaceful" maxWidth = 210 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_equip_trait_peaceful" position = { x = 1090 y = 522 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_peaceful_desc" clicksound = click_default }
+    buttonType = { name = "bsm_stellaris_unequip_trait_peaceful" position = { x = 1146 y = 522 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+
+    instantTextboxType = { name = "trait_lbl_expansionist" position = { x = 868 y = 556 } font = "hoi_16mbs" text = "bsm_stellaris_trait_expansionist" maxWidth = 210 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_equip_trait_expansionist" position = { x = 1090 y = 552 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_expansionist_desc" clicksound = click_default }
+    buttonType = { name = "bsm_stellaris_unequip_trait_expansionist" position = { x = 1146 y = 552 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+
+    instantTextboxType = { name = "trait_lbl_isolationist" position = { x = 868 y = 586 } font = "hoi_16mbs" text = "bsm_stellaris_trait_isolationist" maxWidth = 210 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_equip_trait_isolationist" position = { x = 1090 y = 582 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_isolationist_desc" clicksound = click_default }
+    buttonType = { name = "bsm_stellaris_unequip_trait_isolationist" position = { x = 1146 y = 582 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+
+    instantTextboxType = { name = "trait_lbl_spiritualist" position = { x = 868 y = 616 } font = "hoi_16mbs" text = "bsm_stellaris_trait_spiritualist" maxWidth = 210 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_equip_trait_spiritualist" position = { x = 1090 y = 612 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_spiritualist_desc" clicksound = click_default }
+    buttonType = { name = "bsm_stellaris_unequip_trait_spiritualist" position = { x = 1146 y = 612 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+
+    instantTextboxType = { name = "trait_lbl_materialist" position = { x = 868 y = 646 } font = "hoi_16mbs" text = "bsm_stellaris_trait_materialist" maxWidth = 210 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_equip_trait_materialist" position = { x = 1090 y = 642 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_materialist_desc" clicksound = click_default }
+    buttonType = { name = "bsm_stellaris_unequip_trait_materialist" position = { x = 1146 y = 642 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+
+    instantTextboxType = { name = "trait_lbl_techadv" position = { x = 868 y = 676 } font = "hoi_16mbs" text = "bsm_stellaris_trait_technologically_advanced" maxWidth = 210 maxHeight = 18 format = left }
+    buttonType = { name = "bsm_stellaris_equip_trait_technologically_advanced" position = { x = 1090 y = 672 } quadTextureSprite = "GFX_decision_generic_decision" pdx_tooltip = "bsm_stellaris_trait_technologically_advanced_desc" clicksound = click_default }
+    buttonType = { name = "bsm_stellaris_unequip_trait_technologically_advanced" position = { x = 1146 y = 672 } quadTextureSprite = "GFX_closebutton" pdx_tooltip = "UNEQUIP_TRAIT" clicksound = click_default }
+  }
 }

@@ -82,6 +82,14 @@
 - Scripted localisation は既存の書式に合わせる
 - キー名は機能・国・システム名で一意にする
 
+## 変数フォーマット指定子（ローカライズ内 `[?var|format]`）
+- **順序**: 小数桁数 → フラグ（`%`, `+`, `R`, `G`, `Y`, `H`, `W`）の順で記述する
+- **有効な例**: `|0`, `|0%`, `|0+`, `|0%+`, `|0R`, `|1`, `|1%+`
+- **無効・非標準（使用禁止）**: `|a0+`（`a`は無効）, `|R0`（順序逆）, `|+0`（順序逆）, `|+=%`（順序逆）
+- **ツールチップ内の変数が表示されない場合**: フォーマット指定子の文字・順序を最初に疑うこと
+- **スコープ**: 国変数は `[?ROOT.variable]` で参照。`ROOT` 省略はスコープ依存のため、ツールチップ等では原則 `ROOT.` を付けること
+- **重複定義に注意**: 同じローカライズキーを複数 yml に定義しないこと（後読みファイルが上書きする）
+
 ## スクリプトの書式/構造
 - 条件ブロックは軽い条件から先に記述
 - `limit` や `trigger` のネストは最小限に保つ
@@ -119,11 +127,119 @@
 - オプションの結果はローカライズとセットで確認
 - 検証用の決定やイベントは `_bsm_*_test` に分離
 
-## GUI作業（参考）
+## GUI作業（OE方式タブパターン）
+
+### 基本原則
 - GUI作業は段階的に実装し、都度 `reload interface`
 - 追加するGUIは `_bsm_` 系の命名を徹底
 - Scripted GUIやlocalisation連携は既存実装に合わせる
 - 画像差し替え時は最適化と命名統一を維持
+- タイトルフォントは `hoi_24header` を使用
+
+### タブ付きウィンドウの構造（OE方式）
+このMODのタブ付きウィンドウ（OE/EA/AS）は全て以下の構造に従う：
+
+#### 1. `.gui` ファイル構造
+```
+guiTypes = {
+    # メインウィンドウ（top-level）
+    containerWindowType {
+        name = "<main_window>"
+        position = { x = -420 y = -310 }
+        orientation = center
+        size = { width = 840 height = 620 }
+        moveable = yes
+        click_to_front = yes
+        background { ... }
+        buttonType { name = "close_button" ... }
+        instantTextboxType { name = "title" font = "hoi_24header" ... }
+        # タブボタン群（メインウィンドウ内）
+        buttonType { name = "<tab>_button" ... }
+        # その他のUI要素
+    }
+
+    # タブパネル（top-level、メインウィンドウの外に配置）
+    containerWindowType {
+        name = "<tab_panel_1>"
+        position = { x = 15 y = 110 }   # メインウィンドウからの相対位置
+        size = { width = 810 height = 498 }
+        clipping = yes
+        # パネル内容
+    }
+    containerWindowType {
+        name = "<tab_panel_2>" ...
+    }
+
+    # Entry テンプレート（top-level）
+    containerWindowType {
+        name = "<entry_template>" ...
+    }
+}
+```
+
+**重要**: タブパネルは `guiTypes = { }` の直下（top-level）に配置する。
+メインウィンドウの子としてネストしない。ネストすると scripted GUI が
+`window_name` で該当要素を見つけられず "Undefined GUI_TYPE" エラーになる。
+
+#### 2. Scripted GUI 構造（OE方式）
+```txt
+scripted_gui = {
+    # メインウィンドウ制御
+    <main_window>_sgui = {
+        window_name = "<main_window>"
+        context_type = player_context
+        visible = { check_variable = { <window_open> = 1 } }
+        effects = {
+            # 閉じる、タブ切替、メインウィンドウ内のボタン操作
+            <tab>_button_click = { set_variable = { <active_tab> = N } }
+        }
+        triggers = {
+            # メインウィンドウ内要素の表示/有効化
+        }
+        dynamic_lists = {
+            # メインウィンドウ内のリスト
+        }
+    }
+
+    # タブパネル別の独立 scripted_gui
+    <tab_panel_1>_window = {
+        window_name = "<tab_panel_1>"
+        context_type = player_context
+        parent_window_name = <main_window>    # ★必須: 親ウィンドウを指定
+        visible = {
+            check_variable = { <window_open> = 1 }
+            check_variable = { <active_tab> = 1 }
+        }
+        effects = { }      # パネル固有のボタン操作
+        triggers = { }     # パネル固有の表示制御
+        dynamic_lists = { } # パネル固有のリスト
+    }
+}
+```
+
+#### 3. `parent_window_name` の役割
+- top-level に配置されたタブパネルを、メインウィンドウの子として
+  画面上に配置するために使用
+- これにより scripted GUI システムが該当要素を発見できる
+- 指定しないと "Window not found" エラーになる
+
+#### 4. 既存実装の参照先
+- OE（Opening Event）: `interface/_bsm_opening_event.gui` + `common/scripted_guis/_bsm_opening_event.txt`
+- EA（Economic Alliance）: `interface/bsm_economic_alliance.gui` + `common/scripted_guis/bsm_economic_alliance_sgui.txt`
+- AS（Anomaly System）: `interface/bsm_AS.gui` + `common/scripted_guis/bsm_AS_window.txt`
+
+### GUI固有の構文注意
+- `hidden = yes` はHOI4 `.gui` では無効。表示制御は scripted GUI の `visible` で行う
+- `listboxType` は存在しない。リスト表示には `gridboxType` を使用
+- `gridboxType` には `add_horizontal = no` と `format = "UPPER_LEFT"` を付ける
+- Entry テンプレートは `gridboxType` の外（top-level）に定義
+- `verticalScrollbar` には `"right_vertical_slider"` を指定（`"right"` は不可）
+- `clamp_variable` / `clamp_temp_variable` には `var =` キーが必須:
+  `clamp_variable = { var = <name> min = X max = Y }`
+- `set_country_flag` で期限付きフラグを設定する際は `flag =` キーが必須:
+  `set_country_flag = { flag = <name> days = N }`
+- `scripted_triggers` 内では effect（`set_temp_variable`等）は使用不可。
+  `check_variable` は数値リテラルとの比較のみ対応（変数同士の比較は不可）
 
 ## アセット規約
 - `.wav` / `.ogg` は絶対に変更しない

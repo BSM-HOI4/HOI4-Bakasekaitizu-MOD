@@ -20,10 +20,6 @@ scripted_gui = {
 					# 閉じているなら開く
 					bsm_update_ea_gui_data = yes
 					set_variable = { bsm_ea_active_tab = 1 }
-					set_variable = { bsm_ea_tab_parliament_x = 0 }
-					set_variable = { bsm_ea_tab_economy_x = 900 }
-					set_variable = { bsm_ea_tab_diplomacy_x = 900 }
-					set_variable = { bsm_ea_tab_ranking_x = 900 }
 					set_variable = { bsm_ea_window_open = 1 }
 				}
 			}
@@ -44,31 +40,19 @@ scripted_gui = {
 			# --- タブ切替 ---
 			bsm_ea_tab_parliament_button_click = {
 				set_variable = { bsm_ea_active_tab = 1 }
-				set_variable = { bsm_ea_tab_parliament_x = 0 }
-				set_variable = { bsm_ea_tab_economy_x = 900 }
-				set_variable = { bsm_ea_tab_diplomacy_x = 900 }
-				set_variable = { bsm_ea_tab_ranking_x = 900 }
 			}
 			bsm_ea_tab_economy_button_click = {
 				set_variable = { bsm_ea_active_tab = 2 }
-				set_variable = { bsm_ea_tab_parliament_x = 900 }
-				set_variable = { bsm_ea_tab_economy_x = 0 }
-				set_variable = { bsm_ea_tab_diplomacy_x = 900 }
-				set_variable = { bsm_ea_tab_ranking_x = 900 }
 			}
 			bsm_ea_tab_diplomacy_button_click = {
 				set_variable = { bsm_ea_active_tab = 3 }
-				set_variable = { bsm_ea_tab_parliament_x = 900 }
-				set_variable = { bsm_ea_tab_economy_x = 900 }
-				set_variable = { bsm_ea_tab_diplomacy_x = 0 }
-				set_variable = { bsm_ea_tab_ranking_x = 900 }
 			}
 			bsm_ea_tab_ranking_button_click = {
 				set_variable = { bsm_ea_active_tab = 4 }
-				set_variable = { bsm_ea_tab_parliament_x = 900 }
-				set_variable = { bsm_ea_tab_economy_x = 900 }
-				set_variable = { bsm_ea_tab_diplomacy_x = 900 }
-				set_variable = { bsm_ea_tab_ranking_x = 0 }
+			}
+			bsm_ea_tab_currency_button_click = {
+				set_variable = { bsm_ea_active_tab = 5 }
+				bsm_nc_prepare_rate_list = yes
 			}
 
 			# --- 陣営切替ナビ ---
@@ -193,19 +177,7 @@ scripted_gui = {
 			}
 		}
 		triggers = {
-			# --- タブ表示 ---
-			bsm_ea_tab_parliament_visible = {
-				check_variable = { bsm_ea_active_tab = 1 }
-			}
-			bsm_ea_tab_economy_visible = {
-				check_variable = { bsm_ea_active_tab = 2 }
-			}
-			bsm_ea_tab_diplomacy_visible = {
-				check_variable = { bsm_ea_active_tab = 3 }
-			}
-			bsm_ea_tab_ranking_visible = {
-				check_variable = { bsm_ea_active_tab = 4 }
-			}
+			# タブパネルの表示制御はタブページ別の独立 scripted_gui（ファイル末尾）の visible で行う
 
 			# --- 上部バー ---
 			header_alliance_name_visible = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
@@ -296,20 +268,6 @@ scripted_gui = {
 				check_variable = { bsm_ea_joined_spheres^num > 0 }
 			}
 		}
-		properties = {
-			bsm_ea_tab_parliament = {
-				x = bsm_ea_tab_parliament_x
-			}
-			bsm_ea_tab_economy = {
-				x = bsm_ea_tab_economy_x
-			}
-			bsm_ea_tab_diplomacy = {
-				x = bsm_ea_tab_diplomacy_x
-			}
-			bsm_ea_tab_ranking = {
-				x = bsm_ea_tab_ranking_x
-			}
-		}
 		dynamic_lists = {
 			# 所属同盟リスト
 			economic_alliance_player_list = {
@@ -340,6 +298,83 @@ scripted_gui = {
 				array = global.bsm_ea_sorted_sphere_list
 				change_scope = yes
 				country_scope_entry_container = "economic_alliance_ranking_entry"
+			}
+		}
+	}
+}
+
+# =========================================================
+# タブページ別 独立 scripted_gui（OE方式）
+#   parent_window_name で親ウィンドウを指定し、
+#   window_name 単位の visible で出し分ける。
+# =========================================================
+scripted_gui = {
+	bsm_ea_tab_parliament_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_parliament"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 1 }
+		}
+	}
+	bsm_ea_tab_economy_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_economy"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 2 }
+		}
+	}
+	bsm_ea_tab_diplomacy_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_diplomacy"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 3 }
+		}
+	}
+	bsm_ea_tab_ranking_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_ranking"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 4 }
+		}
+	}
+	bsm_ea_tab_currency_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_currency"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 5 }
+		}
+		effects = {
+			bsm_nc_filter_alliance_button_click = {
+				set_variable = { bsm_nc_filter_mode = 0 }
+				bsm_nc_prepare_rate_list = yes
+			}
+			bsm_nc_filter_world_button_click = {
+				set_variable = { bsm_nc_filter_mode = 1 }
+				bsm_nc_prepare_rate_list = yes
+			}
+		}
+		triggers = {
+			bsm_nc_filter_alliance_button_visible = {
+				check_variable = { bsm_nc_filter_mode = 1 }
+			}
+			bsm_nc_filter_world_button_visible = {
+				check_variable = { bsm_nc_filter_mode = 0 }
+			}
+		}
+		dynamic_lists = {
+			nc_rate_list = {
+				array = global.bsm_nc_rate_display_list
+				country_scope_entry_container = "nc_rate_entry"
 			}
 		}
 	}

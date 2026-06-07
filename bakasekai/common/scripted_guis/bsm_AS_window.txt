@@ -35,21 +35,8 @@ scripted_gui = {
 				clear_variable = bsm_AS_cur_anomaly
 			}
 
-			# --- 探検隊 編成ダイアログ ---
+			# --- 探検隊 編成ダイアログ 起動ボタン（編成ウィンドウ本体は別 scripted_gui） ---
 			bsm_AS_form_open_btn_click = { set_variable = { bsm_AS_form_open = 1 } }
-			bsm_AS_form_close_btn_click = { set_variable = { bsm_AS_form_open = 0 } }
-			bsm_AS_form_small_btn_click = {
-				set_variable = { bsm_AS_form_size = 1 }
-				bsm_AS_form_team = yes
-			}
-			bsm_AS_form_medium_btn_click = {
-				set_variable = { bsm_AS_form_size = 2 }
-				bsm_AS_form_team = yes
-			}
-			bsm_AS_form_large_btn_click = {
-				set_variable = { bsm_AS_form_size = 3 }
-				bsm_AS_form_team = yes
-			}
 
 			# --- 探検隊 エントリ操作 ---
 			bsm_AS_t_dispatch_btn_click = {
@@ -67,29 +54,6 @@ scripted_gui = {
 		}
 
 		triggers = {
-			# --- パネル表示（タブ） ---
-			bsm_AS_panel_unanalyzed_visible = { check_variable = { bsm_AS_active_tab = 1 } }
-			bsm_AS_panel_researching_visible = { check_variable = { bsm_AS_active_tab = 2 } }
-			bsm_AS_panel_completed_visible = { check_variable = { bsm_AS_active_tab = 3 } }
-			bsm_AS_panel_expedition_visible = { check_variable = { bsm_AS_active_tab = 4 } }
-
-			# --- 編成ダイアログ ---
-			bsm_AS_form_dialog_visible = { check_variable = { bsm_AS_form_open = 1 } }
-
-			# --- 編成サイズ：上限未満 かつ 即時コスト(UC)を賄える時のみ有効 ---
-			bsm_AS_form_small_btn_enabled = {
-				check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
-				check_variable = { var = Unified_Currency value = 100 compare = greater_than_or_equals }
-			}
-			bsm_AS_form_medium_btn_enabled = {
-				check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
-				check_variable = { var = Unified_Currency value = 300 compare = greater_than_or_equals }
-			}
-			bsm_AS_form_large_btn_enabled = {
-				check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
-				check_variable = { var = Unified_Currency value = 600 compare = greater_than_or_equals }
-			}
-
 			# --- 一覧エントリ：メンバーシップでボタン/ラベル切替 ---
 			bsm_AS_e_research_btn_visible = { is_in_array = { bsm_AS_unanalyzed = as_val } }
 			bsm_AS_e_research_lbl_visible = { is_in_array = { bsm_AS_unanalyzed = as_val } }
@@ -132,6 +96,97 @@ scripted_gui = {
 				value = as_team_id
 				index = as_team_idx
 			}
+		}
+	}
+}
+
+# ==========================================
+# 探検隊 編成ダイアログ（独立フローティングウィンドウ）
+# window_name = bsm_AS_form_dialog
+# ==========================================
+scripted_gui = {
+	bsm_AS_form_dialog = {
+		window_name = "bsm_AS_form_dialog"
+		context_type = player_context
+
+		visible = {
+			check_variable = { bsm_AS_window_open = 1 }
+			check_variable = { bsm_AS_form_open = 1 }
+		}
+
+		effects = {
+			bsm_AS_form_close_btn_click = { set_variable = { bsm_AS_form_open = 0 } }
+			bsm_AS_form_small_btn_click = {
+				set_variable = { bsm_AS_form_size = 1 }
+				bsm_AS_form_team = yes
+			}
+			bsm_AS_form_medium_btn_click = {
+				set_variable = { bsm_AS_form_size = 2 }
+				bsm_AS_form_team = yes
+			}
+			bsm_AS_form_large_btn_click = {
+				set_variable = { bsm_AS_form_size = 3 }
+				bsm_AS_form_team = yes
+			}
+		}
+
+		triggers = {
+			bsm_AS_form_small_btn_enabled = {
+				check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
+				check_variable = { var = Unified_Currency value = 100 compare = greater_than_or_equals }
+			}
+			bsm_AS_form_medium_btn_enabled = {
+				check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
+				check_variable = { var = Unified_Currency value = 300 compare = greater_than_or_equals }
+			}
+			bsm_AS_form_large_btn_enabled = {
+				check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
+				check_variable = { var = Unified_Currency value = 600 compare = greater_than_or_equals }
+			}
+		}
+	}
+}
+
+# =========================================================
+# タブページ別 独立 scripted_gui（OE方式）
+#   parent_window_name で親ウィンドウを指定し、
+#   window_name 単位の visible で出し分ける。
+# =========================================================
+scripted_gui = {
+	bsm_AS_panel_unanalyzed_window = {
+		context_type = player_context
+		window_name = "bsm_AS_panel_unanalyzed"
+		parent_window_name = bsm_AS_window
+		visible = {
+			check_variable = { bsm_AS_window_open = 1 }
+			check_variable = { bsm_AS_active_tab = 1 }
+		}
+	}
+	bsm_AS_panel_researching_window = {
+		context_type = player_context
+		window_name = "bsm_AS_panel_researching"
+		parent_window_name = bsm_AS_window
+		visible = {
+			check_variable = { bsm_AS_window_open = 1 }
+			check_variable = { bsm_AS_active_tab = 2 }
+		}
+	}
+	bsm_AS_panel_completed_window = {
+		context_type = player_context
+		window_name = "bsm_AS_panel_completed"
+		parent_window_name = bsm_AS_window
+		visible = {
+			check_variable = { bsm_AS_window_open = 1 }
+			check_variable = { bsm_AS_active_tab = 3 }
+		}
+	}
+	bsm_AS_panel_expedition_window = {
+		context_type = player_context
+		window_name = "bsm_AS_panel_expedition"
+		parent_window_name = bsm_AS_window
+		visible = {
+			check_variable = { bsm_AS_window_open = 1 }
+			check_variable = { bsm_AS_active_tab = 4 }
 		}
 	}
 }

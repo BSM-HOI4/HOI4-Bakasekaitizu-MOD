@@ -278,6 +278,13 @@ bsm_ea_add_goal_to_sphere = {
 			# 全メンバーにアイデアを付与 + Tech Sharing ならグループ追加
 			set_temp_variable = { t_goal_for_tech = var:bsm_ea_goal_token }
 			set_temp_variable = { t_token_for_tech = var:bsm_ea_token }
+			# 通貨同盟: 盟主の通貨ID・レートを取得
+			set_temp_variable = { t_nc_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+			var:t_nc_leader = {
+				set_temp_variable = { t_nc_union_id = bsm_nc_id }
+				set_temp_variable = { t_nc_union_rate = bsm_nc_rate }
+				set_temp_variable = { t_nc_union_base = bsm_nc_base_rate }
+			}
 			for_each_loop = {
 				array = global.bsm_ea_member_list_@var:bsm_ea_token
 				value = v_member
@@ -288,9 +295,17 @@ bsm_ea_add_goal_to_sphere = {
 						limit = {
 							check_variable = { t_goal_for_tech = token:bsm_ea_goal_06_tech_sharing }
 						}
-						# t_token_for_tech は temp 変数のためスコープ横断でアクセス可能
 						set_temp_variable = { bsm_ea_token = t_token_for_tech }
 						bsm_ea_join_tech_group = yes
+					}
+					# 通貨同盟 Goal03: メンバーの通貨を盟主に統一
+					if = {
+						limit = {
+							check_variable = { t_goal_for_tech = token:bsm_ea_goal_03_currency }
+						}
+						set_variable = { bsm_nc_id = PREV.t_nc_union_id }
+						set_variable = { bsm_nc_rate = PREV.t_nc_union_rate }
+						set_variable = { bsm_nc_base_rate = PREV.t_nc_union_base }
 					}
 				}
 			}
@@ -318,6 +333,15 @@ bsm_ea_remove_goal_from_sphere = {
 					}
 					set_temp_variable = { bsm_ea_token = t_token_for_tech }
 					bsm_ea_leave_tech_group = yes
+				}
+				# 通貨同盟 Goal03 解除: 元の通貨に復帰
+				if = {
+					limit = {
+						check_variable = { t_goal_for_tech = token:bsm_ea_goal_03_currency }
+						has_variable = bsm_nc_original_id
+					}
+					set_variable = { bsm_nc_id = bsm_nc_original_id }
+					bsm_nc_assign_currency = yes
 				}
 			}
 		}
