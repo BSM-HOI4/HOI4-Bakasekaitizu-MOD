@@ -5,59 +5,6 @@
 
 add_namespace = nc
 
-# --- 通貨危機イベント ---
-country_event = {
-	id = nc.1
-	title = nc.1.t
-	desc = nc.1.d
-	picture = GFX_report_event_generic_rally
-
-	is_triggered_only = yes
-
-	option = {
-		name = nc.1.a
-		add_to_variable = { bsm_nc_rate = 50 }
-		subtract_from_variable = { bsm_nc_stability = 30 }
-		clamp_variable = { var = bsm_nc_stability min = 0 max = 100 }
-	}
-}
-
-# --- デフォルト（債務不履行）イベント ---
-country_event = {
-	id = nc.2
-	title = nc.2.t
-	desc = nc.2.d
-	picture = GFX_report_event_generic_rally
-
-	is_triggered_only = yes
-
-	option = {
-		name = nc.2.a
-		multiply_variable = { bsm_nc_rate = 1.5 }
-		clamp_variable = { var = bsm_nc_rate min = 0 }
-		subtract_from_variable = { bsm_nc_stability = 40 }
-		clamp_variable = { var = bsm_nc_stability min = 0 max = 100 }
-	}
-}
-
-# --- 通貨評価引き上げイベント ---
-country_event = {
-	id = nc.3
-	title = nc.3.t
-	desc = nc.3.d
-	picture = GFX_report_event_generic_trade
-
-	is_triggered_only = yes
-
-	option = {
-		name = nc.3.a
-		multiply_variable = { bsm_nc_rate = 0.95 }
-		clamp_variable = { var = bsm_nc_rate min = 0.1 }
-		add_to_variable = { bsm_nc_stability = 10 }
-		clamp_variable = { var = bsm_nc_stability min = 0 max = 100 }
-	}
-}
-
 # --- 通貨統合ニュース ---
 news_event = {
 	id = nc.4

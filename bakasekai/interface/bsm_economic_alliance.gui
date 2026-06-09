@@ -212,67 +212,74 @@ guiTypes = {
 			clicksound = decisions_ui_button
 		}
 
-		# メンバー(議席)リスト
-		instantTextboxType = {
-			name = "members_header"
-			position = { x = 6 y = 36 }
-			font = "hoi_16mbs"
-			text = "BSM_EA_SEATS_HEADER"
-			maxWidth = 500
-			format = left
-		}
-		# 列ヘッダー
-		instantTextboxType = {
-			name = "seats_col_name"
-			position = { x = 16 y = 56 }
-			font = "hoi_16mbs"
-			text = "BSM_EA_NAME_LABEL"
-			maxWidth = 300
-			format = left
-		}
-		instantTextboxType = {
-			name = "seats_col_seats"
-			position = { x = 336 y = 56 }
-			font = "hoi_16mbs"
-			text = "BSM_EA_SEATS_COL"
-			maxWidth = 90
-			format = left
-		}
-		instantTextboxType = {
-			name = "seats_col_inf"
-			position = { x = 446 y = 56 }
-			font = "hoi_16mbs"
-			text = "BSM_EA_INFLUENCE_COL"
-			maxWidth = 90
-			format = left
-		}
-		instantTextboxType = {
-			name = "seats_col_role"
-			position = { x = 656 y = 56 }
-			font = "hoi_16mbs"
-			text = "BSM_EA_ROLE_COL"
-			maxWidth = 120
-			format = left
-		}
-		containerWindowType = {
-			name = "member_list_container"
-			position = { x = 6 y = 78 }
-			size = { width = 800 height = 150 }
-			verticalScrollbar = "right_vertical_slider"
+			# メンバー(議席)グラフ
+			instantTextboxType = {
+				name = "members_header"
+				position = { x = 6 y = 36 }
+				font = "hoi_16mbs"
+				text = "BSM_EA_SEATS_HEADER"
+				maxWidth = 500
+				format = left
+			}
+			containerWindowType = {
+				name = "seat_diagram_container"
+				position = { x = 6 y = 58 }
+				size = { width = 380 height = 170 }
 
-			background = {
-				name = "Background"
-				quadTextureSprite = "GFX_tiled_window_transparent"
+				background = {
+					name = "Background"
+					quadTextureSprite = "GFX_tiled_window_transparent"
+				}
+
+				instantTextboxType = {
+					name = "seat_diagram_label"
+					position = { x = 8 y = 4 }
+					font = "hoi_16mbs"
+					text = "BSM_EA_SEAT_DIAGRAM_LABEL"
+					maxWidth = 180
+					format = left
+				}
+					gridboxType = {
+						name = "economic_alliance_seat_diagram"
+						position = { x = 8 y = 14 }
+						size = { width = 360 height = 150 }
+						slotsize = { width = 7 height = 7 }
+						max_slots_horizontal = 50
+						add_horizontal = yes
+						format = "UPPER_LEFT"
+					}
 			}
-			gridBoxType = {
-				name = "economic_alliance_member_list"
-				position = { x = 0 y = 0 }
-				size = { width = 780 height = 150 }
-				slotsize = { width = 780 height = 30 }
-				format = "UPPER_LEFT"
-				max_slots_horizontal = 1
+			containerWindowType = {
+				name = "member_legend_container"
+				position = { x = 394 y = 58 }
+				size = { width = 412 height = 170 }
+				verticalScrollbar = "right_vertical_slider"
+				vertical_scroll_step = 26
+				smooth_scrolling = yes
+
+				background = {
+					name = "Background"
+					quadTextureSprite = "GFX_tiled_window_transparent"
+				}
+
+				instantTextboxType = {
+					name = "member_legend_label"
+					position = { x = 8 y = 4 }
+					font = "hoi_16mbs"
+					text = "BSM_EA_SEAT_LEGEND_LABEL"
+					maxWidth = 180
+					format = left
+				}
+				gridboxType = {
+					name = "economic_alliance_member_legend_list"
+					position = { x = 8 y = 24 }
+					size = { width = 392 height = 138 }
+					slotsize = { width = 392 height = 26 }
+					add_horizontal = no
+					format = "UPPER_LEFT"
+					max_slots_horizontal = 1
+				}
 			}
-		}
 
 		# 議題(同盟目標)
 		instantTextboxType = {
@@ -561,6 +568,8 @@ guiTypes = {
 			position = { x = 6 y = 196 }
 			size = { width = 800 height = 64 }
 			verticalScrollbar = "right_vertical_slider"
+			vertical_scroll_step = 30
+			smooth_scrolling = yes
 
 			background = {
 				name = "Background"
@@ -571,6 +580,7 @@ guiTypes = {
 				position = { x = 0 y = 0 }
 				size = { width = 780 height = 60 }
 				slotsize = { width = 256 height = 30 }
+				add_horizontal = no
 				format = "UPPER_LEFT"
 				max_slots_horizontal = 3
 			}
@@ -660,6 +670,8 @@ guiTypes = {
 			position = { x = 6 y = 28 }
 			size = { width = 800 height = 90 }
 			verticalScrollbar = "right_vertical_slider"
+			vertical_scroll_step = 30
+			smooth_scrolling = yes
 
 			background = {
 				name = "Background"
@@ -670,6 +682,7 @@ guiTypes = {
 				position = { x = 0 y = 0 }
 				size = { width = 780 height = 90 }
 				slotsize = { width = 780 height = 30 }
+				add_horizontal = no
 				format = "UPPER_LEFT"
 				max_slots_horizontal = 1
 			}
@@ -715,6 +728,8 @@ guiTypes = {
 			position = { x = 6 y = 220 }
 			size = { width = 800 height = 64 }
 			verticalScrollbar = "right_vertical_slider"
+			vertical_scroll_step = 30
+			smooth_scrolling = yes
 
 			background = {
 				name = "Background"
@@ -725,6 +740,7 @@ guiTypes = {
 				position = { x = 0 y = 0 }
 				size = { width = 780 height = 60 }
 				slotsize = { width = 256 height = 30 }
+				add_horizontal = no
 				format = "UPPER_LEFT"
 				max_slots_horizontal = 3
 			}
@@ -809,16 +825,19 @@ guiTypes = {
 			position = { x = 6 y = 52 }
 			size = { width = 800 height = 440 }
 			verticalScrollbar = "right_vertical_slider"
+			vertical_scroll_step = 30
+			smooth_scrolling = yes
 
 			background = {
 				name = "Background"
 				quadTextureSprite = "GFX_tiled_window_transparent"
 			}
-			gridBoxType = {
+			gridboxType = {
 				name = "economic_alliance_ranking_list"
 				position = { x = 0 y = 0 }
 				size = { width = 780 height = 440 }
 				slotsize = { width = 780 height = 30 }
+				add_horizontal = no
 				format = "UPPER_LEFT"
 				max_slots_horizontal = 1
 			}
@@ -829,11 +848,73 @@ guiTypes = {
 	# Entry Templates (dynamic_list用)
 	# =====================================================
 
+		# Entry: 議席図の1議席ドット
+		containerWindowType = {
+			name = "economic_alliance_seat_dot_entry"
+			position = { x = 0 y = 0 }
+			size = { width = 7 height = 7 }
+
+		iconType = {
+			name = "bsm_ea_seat_dot"
+			position = { x = 0 y = 0 }
+			spriteType = "GFX_bsm_ea_seat_dots"
+			alwaystransparent = yes
+			pdx_tooltip = "BSM_EA_SEAT_DOT_TOOLTIP"
+		}
+	}
+
+		# Entry: 議席図の凡例行
+	containerWindowType = {
+		name = "economic_alliance_member_legend_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 392 height = 26 }
+		clipping = yes
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_plain_bg"
+		}
+		iconType = {
+			name = "bsm_ea_legend_color"
+			position = { x = 8 y = 8 }
+			spriteType = "GFX_bsm_ea_seat_dots"
+			alwaystransparent = yes
+		}
+		instantTextboxType = {
+			name = "legend_member_name"
+			position = { x = 24 y = 5 }
+			font = "hoi_16mbs"
+			text = "[THIS.GetFlag] [THIS.GetName]"
+			maxWidth = 220
+			format = left
+			alwaystransparent = yes
+		}
+		instantTextboxType = {
+			name = "legend_member_seats"
+			position = { x = 254 y = 5 }
+			font = "hoi_16mbs"
+			text = "[?bsm_ea_member_seats|Y0]"
+			maxWidth = 54
+			format = right
+			alwaystransparent = yes
+		}
+		instantTextboxType = {
+			name = "legend_member_influence"
+			position = { x = 318 y = 5 }
+			font = "hoi_16mbs"
+			text = "[?bsm_ea_influence_pct|Y0]%"
+			maxWidth = 58
+			format = right
+			alwaystransparent = yes
+		}
+	}
+
 	# Entry: 所属同盟行 (width=780)
 	containerWindowType = {
 		name = "economic_alliance_player_entry"
 		position = { x = 0 y = 0 }
 		size = { width = 780 height = 30 }
+		clipping = yes
 
 		buttonType = {
 			name = "bsm_ea_player_entry_button"
@@ -876,6 +957,7 @@ guiTypes = {
 		name = "economic_alliance_member_entry"
 		position = { x = 0 y = 0 }
 		size = { width = 780 height = 30 }
+		clipping = yes
 
 		buttonType = {
 			name = "member_entry_bg"
@@ -936,6 +1018,7 @@ guiTypes = {
 		name = "economic_alliance_target_entry"
 		position = { x = 0 y = 0 }
 		size = { width = 254 height = 30 }
+		clipping = yes
 
 		buttonType = {
 			name = "bsm_ea_target_entry_button"
@@ -960,13 +1043,11 @@ guiTypes = {
 		name = "economic_alliance_ranking_entry"
 		position = { x = 0 y = 0 }
 		size = { width = 780 height = 30 }
+		clipping = yes
 
-		buttonType = {
-			name = "ranking_entry_bg"
-			position = { x = 0 y = 0 }
+		background = {
+			name = "Background"
 			quadTextureSprite = "GFX_tiled_plain_bg"
-			size = { x = 780 y = 30 }
-			pdx_tooltip = "BSM_EA_RANKING_TOOLTIP"
 		}
 		instantTextboxType = {
 			name = "rank"
@@ -1021,7 +1102,7 @@ guiTypes = {
 			instantTextboxType = {
 				name = "nc_hdr_flag"
 				position = { x = 0 y = 0 }
-				font = "hoi_14mbs"
+				font = "hoi_16mbs"
 				text = ""
 				maxWidth = 30
 				alwaystransparent = yes
@@ -1029,7 +1110,7 @@ guiTypes = {
 			instantTextboxType = {
 				name = "nc_hdr_currency"
 				position = { x = 38 y = 0 }
-				font = "hoi_14mbs"
+				font = "hoi_16mbs"
 				text = ""
 				maxWidth = 80
 				alwaystransparent = yes
@@ -1037,51 +1118,66 @@ guiTypes = {
 			instantTextboxType = {
 				name = "nc_hdr_name"
 				position = { x = 120 y = 0 }
-				font = "hoi_14mbs"
+				font = "hoi_16mbs"
 				text = "NC_COL_COUNTRY"
-				maxWidth = 300
+				maxWidth = 255
 				alwaystransparent = yes
 			}
 			instantTextboxType = {
 				name = "nc_hdr_rate"
-				position = { x = 440 y = 0 }
-				font = "hoi_14mbs"
+				position = { x = 380 y = 0 }
+				font = "hoi_16mbs"
 				text = "NC_COL_RATE"
-				maxWidth = 100
+				maxWidth = 90
+				format = right
+				alwaystransparent = yes
+			}
+			instantTextboxType = {
+				name = "nc_hdr_rel"
+				position = { x = 475 y = 0 }
+				font = "hoi_16mbs"
+				text = "NC_COL_REL"
+				maxWidth = 110
 				format = right
 				alwaystransparent = yes
 			}
 			instantTextboxType = {
 				name = "nc_hdr_delta"
-				position = { x = 555 y = 0 }
-				font = "hoi_14mbs"
+				position = { x = 590 y = 0 }
+				font = "hoi_16mbs"
 				text = "NC_COL_DELTA"
-				maxWidth = 100
+				maxWidth = 80
 				format = center
 				alwaystransparent = yes
 			}
 			instantTextboxType = {
 				name = "nc_hdr_stability"
-				position = { x = 670 y = 0 }
-				font = "hoi_14mbs"
+				position = { x = 675 y = 0 }
+				font = "hoi_16mbs"
 				text = "NC_COL_STABILITY"
-				maxWidth = 100
+				maxWidth = 95
 				format = right
 				alwaystransparent = yes
 			}
 		}
 
-		# レートリスト
+		# レートリスト (スクロール可能: bsm_AS.gui の実績パターンに準拠)
 		containerWindowType = {
 			name = "nc_rate_list_container"
 			position = { x = 6 y = 32 }
 			size = { width = 800 height = 410 }
 			verticalScrollbar = "right_vertical_slider"
+			vertical_scroll_step = 40
+			smooth_scrolling = yes
 
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
 			gridboxType = {
 				name = "nc_rate_list"
-				position = { x = 0 y = 0 }
-				size = { width = 780 height = 410 }
+				position = { x = 6 y = 6 }
+				size = { width = 782 height = 398 }
 				slotsize = { width = 780 height = 40 }
 				max_slots_horizontal = 1
 				add_horizontal = no
@@ -1089,21 +1185,77 @@ guiTypes = {
 			}
 		}
 
-		# フィルタボタン
+		# フィルタボタン (同盟 / 世界 / 大陸別)
 		buttonType = {
 			name = "bsm_nc_filter_alliance_button"
 			position = { x = 6 y = 450 }
-			spriteType = "GFX_sort_button_140x29"
+			spriteType = "GFX_sort_button_83x29"
 			buttonFont = "hoi_16mbs"
 			text = "NC_TAB_FILTER_ALLIANCE"
 			clicksound = decisions_ui_button
 		}
 		buttonType = {
 			name = "bsm_nc_filter_world_button"
-			position = { x = 152 y = 450 }
-			spriteType = "GFX_sort_button_140x29"
+			position = { x = 94 y = 450 }
+			spriteType = "GFX_sort_button_83x29"
 			buttonFont = "hoi_16mbs"
 			text = "NC_TAB_FILTER_WORLD"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_nc_filter_asia_button"
+			position = { x = 182 y = 450 }
+			spriteType = "GFX_sort_button_83x29"
+			buttonFont = "hoi_16mbs"
+			text = "NC_TAB_FILTER_ASIA"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_nc_filter_europe_button"
+			position = { x = 270 y = 450 }
+			spriteType = "GFX_sort_button_83x29"
+			buttonFont = "hoi_16mbs"
+			text = "NC_TAB_FILTER_EUROPE"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_nc_filter_namerica_button"
+			position = { x = 358 y = 450 }
+			spriteType = "GFX_sort_button_83x29"
+			buttonFont = "hoi_16mbs"
+			text = "NC_TAB_FILTER_NAMERICA"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_nc_filter_samerica_button"
+			position = { x = 446 y = 450 }
+			spriteType = "GFX_sort_button_83x29"
+			buttonFont = "hoi_16mbs"
+			text = "NC_TAB_FILTER_SAMERICA"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_nc_filter_africa_button"
+			position = { x = 534 y = 450 }
+			spriteType = "GFX_sort_button_83x29"
+			buttonFont = "hoi_16mbs"
+			text = "NC_TAB_FILTER_AFRICA"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_nc_filter_meast_button"
+			position = { x = 622 y = 450 }
+			spriteType = "GFX_sort_button_83x29"
+			buttonFont = "hoi_16mbs"
+			text = "NC_TAB_FILTER_MEAST"
+			clicksound = decisions_ui_button
+		}
+		buttonType = {
+			name = "bsm_nc_filter_oceania_button"
+			position = { x = 710 y = 450 }
+			spriteType = "GFX_sort_button_83x29"
+			buttonFont = "hoi_16mbs"
+			text = "NC_TAB_FILTER_OCEANIA"
 			clicksound = decisions_ui_button
 		}
 	}
@@ -1116,13 +1268,6 @@ guiTypes = {
 		position = { x = 0 y = 0 }
 		size = { width = 780 height = 40 }
 
-		buttonType = {
-			name = "nc_entry_bg"
-			position = { x = 0 y = 0 }
-			spriteType = "GFX_tiled_plain_bg"
-			alwaystransparent = yes
-		}
-
 		iconType = {
 			name = "nc_entry_flag"
 			position = { x = 4 y = 8 }
@@ -1134,7 +1279,7 @@ guiTypes = {
 		instantTextboxType = {
 			name = "nc_entry_icon"
 			position = { x = 38 y = 6 }
-			font = "hoi_20mbs"
+			font = "hoi_20b"
 			text = "[THIS.GetNCSymbol]"
 			maxWidth = 75
 			maxHeight = 40
@@ -1144,7 +1289,7 @@ guiTypes = {
 		instantTextboxType = {
 			name = "nc_entry_tier"
 			position = { x = 38 y = 24 }
-			font = "hoi_14mbs"
+			font = "hoi_16mbs"
 			text = "[THIS.GetNCTier]"
 			maxWidth = 75
 			alwaystransparent = yes
@@ -1155,36 +1300,47 @@ guiTypes = {
 			position = { x = 120 y = 10 }
 			font = "hoi_16mbs"
 			text = "[THIS.GetFlag] [THIS.GetName]"
-			maxWidth = 310
+			maxWidth = 255
 			alwaystransparent = yes
 		}
 
 		instantTextboxType = {
 			name = "nc_entry_rate"
-			position = { x = 440 y = 10 }
+			position = { x = 380 y = 10 }
 			font = "hoi_16mbs"
 			text = "[?bsm_nc_rate|2]"
-			maxWidth = 100
+			maxWidth = 90
 			format = right
 			alwaystransparent = yes
 		}
 
+		# 相対レート (1 自国通貨 = X 相手国通貨) + ツールチップ(時刻/相手国)
+		instantTextboxType = {
+			name = "nc_entry_rel"
+			position = { x = 475 y = 10 }
+			font = "hoi_16mbs"
+			text = "[?bsm_nc_rel_rate|3]"
+			maxWidth = 110
+			format = right
+			pdx_tooltip = "nc_relrate_tooltip"
+		}
+
 		instantTextboxType = {
 			name = "nc_entry_delta"
-			position = { x = 555 y = 10 }
+			position = { x = 590 y = 10 }
 			font = "hoi_16mbs"
 			text = "[?bsm_nc_rate_delta|2+]"
-			maxWidth = 100
+			maxWidth = 80
 			format = center
 			alwaystransparent = yes
 		}
 
 		instantTextboxType = {
 			name = "nc_entry_stability"
-			position = { x = 670 y = 10 }
+			position = { x = 675 y = 10 }
 			font = "hoi_16mbs"
 			text = "[?bsm_nc_stability|0]%"
-			maxWidth = 100
+			maxWidth = 95
 			format = right
 			alwaystransparent = yes
 		}

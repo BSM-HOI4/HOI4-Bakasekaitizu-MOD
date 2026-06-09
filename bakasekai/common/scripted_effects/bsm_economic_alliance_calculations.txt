@@ -37,9 +37,12 @@ bsm_ea_calc_sphere_influence = {
 		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_calc_token^0 }
 		var:t_leader = { set_variable = { bsm_ea_sphere_total_influence = PREV.t_total_inf } }
 
-		# 2. 影響力比 → 議席(合計100) / 表示%
+		# 2. 影響力比 → 議席(加盟国数×10) / 表示%
 		if = {
 			limit = { check_variable = { t_total_inf > 0 } }
+			set_temp_variable = { t_total_seats = global.bsm_ea_member_list_@var:bsm_ea_calc_token^num }
+			multiply_temp_variable = { t_total_seats = 10 }
+			clamp_temp_variable = { var = t_total_seats min = 10 }
 			for_each_loop = {
 				array = global.bsm_ea_member_list_@var:bsm_ea_calc_token
 				value = v_mem2
@@ -47,9 +50,9 @@ bsm_ea_calc_sphere_influence = {
 					set_temp_variable = { t_share = bsm_ea_influence }
 					divide_temp_variable = { t_share = PREV.t_total_inf }
 
-					# 議席数 = round(share × 100)
+					# 議席数 = round(share × (加盟国数×10))
 					set_temp_variable = { t_seats = t_share }
-					multiply_temp_variable = { t_seats = 100 }
+					multiply_temp_variable = { t_seats = PREV.t_total_seats }
 					round_temp_variable = t_seats
 					set_variable = { bsm_ea_member_seats = t_seats }
 

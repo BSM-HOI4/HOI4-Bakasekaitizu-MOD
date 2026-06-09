@@ -202,7 +202,7 @@ EA画面に5番目のタブ「通貨レート」を追加。
 - EUR（通常/強/弱）
 
 ### 未作成
-UC, GBP, JPY, CNY, RUB, KRW, INR, TRY, BRL, MXN, ARS, SAR, EGP, CHF, SEK, AUD, IDR, THB, NGN, ZAR, KES, COP, ILS, TWD, PHP, MYR, MAN, GENERIC（各3枚=計84枚）
+UC, BRL, MXN, ARS, SAR, EGP, CHF, SEK, AUD, IDR, THB, NGN, ZAR, KES, COP, ILS, TWD, PHP, MYR, MAN, GENERIC（各3枚=計84枚）
 
 ## 拡張方法
 

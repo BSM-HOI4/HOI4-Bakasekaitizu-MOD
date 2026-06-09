@@ -308,6 +308,14 @@ on_actions = {
                     bsm_nc_filter_mode = 0
                 }
             }
+            # 開始時傀儡国は宗主国と同じ通貨を継承 (全国初期化後に実行)
+            every_country = {
+                bsm_nc_inherit_overlord_currency = yes
+            }
+            # 開始時の経済同盟: generic通貨国へ最強通貨を流通
+            every_country = {
+                bsm_nc_leader_apply_strongest = yes
+            }
             #### 国家統合力 ####
             #仮削除
             #### 文明化率 ####
@@ -373,6 +381,10 @@ on_actions = {
             add_to_variable = { global.month = 1 }
 
             ucs_on_monthly = yes #通貨 月毎処理
+            # 経済同盟内の generic通貨国へ最強通貨を流通 (レート計算前)
+            every_country = {
+                bsm_nc_leader_apply_strongest = yes
+            }
             every_country = {
                 bsm_nc_monthly_update = yes
             }

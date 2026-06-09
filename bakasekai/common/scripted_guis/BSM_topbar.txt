@@ -3,7 +3,27 @@ scripted_gui = {
 		window_name = "bsm_topbar"
 		context_type = player_context
 
+		# --- UC / 国家通貨レート 切替表示の可視制御 ---
+		# bsm_topbar_show_nc 未設定 = UC表示（既定）, 設定 = 国家通貨レート表示
+		triggers = {
+			bsm_topbar_currency_uc_button_visible = { NOT = { has_variable = bsm_topbar_show_nc } }
+			ec_visible = { NOT = { has_variable = bsm_topbar_show_nc } }
+			COUNTRY_ec_visible = { NOT = { has_variable = bsm_topbar_show_nc } }
+
+			bsm_topbar_currency_nc_button_visible = { has_variable = bsm_topbar_show_nc }
+			nc_icon_text_visible = { has_variable = bsm_topbar_show_nc }
+		}
+
 		effects = {
+			# UC表示中にクリック → 国家通貨レート表示へ切替
+			bsm_topbar_currency_uc_button_click = {
+				set_variable = { bsm_topbar_show_nc = 1 }
+			}
+			# 国家通貨レート表示中にクリック → UC表示へ切替
+			bsm_topbar_currency_nc_button_click = {
+				clear_variable = bsm_topbar_show_nc
+			}
+
 			bsm_OE_GUI_open_button_click = {
 				if = {
 					limit = { has_variable = OE_page }

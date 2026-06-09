@@ -35,6 +35,91 @@ bsm_nc_init_currency = {
 }
 
 # ==========================================
+# 開始時傀儡国の通貨継承
+# 宗主国と同じ通貨を使用させる
+# on_startup の通貨初期化(全国)後に every_country 内で呼び出すこと
+# ==========================================
+bsm_nc_inherit_overlord_currency = {
+	if = {
+		limit = {
+			is_subject = yes
+			exists = yes
+		}
+		set_temp_variable = { t_ov_id = 0 }
+		set_temp_variable = { t_ov_base = 1.0 }
+		overlord = {
+			set_temp_variable = { PREV.t_ov_id = bsm_nc_id }
+			set_temp_variable = { PREV.t_ov_base = bsm_nc_base_rate }
+		}
+		set_variable = { bsm_nc_id = t_ov_id }
+		set_variable = { bsm_nc_base_rate = t_ov_base }
+		set_variable = { bsm_nc_original_id = t_ov_id }
+		set_variable = { bsm_nc_rate = t_ov_base }
+		set_variable = { bsm_nc_rate_prev = t_ov_base }
+	}
+}
+
+# ==========================================
+# 経済同盟内: generic通貨国へ最強通貨を流通させる
+# 入力: t_token (temp) = 陣営トークン
+# このスコープ(通常は盟主)の temp 変数を使うため単一国スコープで実行する
+# ==========================================
+bsm_nc_apply_strongest_for_sphere = {
+	# var: のスコープ内では PREV.temp の読み取りが効かないため global 変数で集計する
+	# 1. メンバー内で最強(=base_rate最小)の通貨を探す (generic/UC直結は除外)
+	set_variable = { global.bsm_nc_best_rate = 20000 }
+	set_variable = { global.bsm_nc_best_id = 29 }
+	set_variable = { global.bsm_nc_has_strong = 0 }
+	for_each_loop = {
+		array = global.bsm_ea_member_list_@var:t_token
+		value = v_nc_smem
+		var:v_nc_smem = {
+			if = {
+				limit = {
+					NOT = { check_variable = { bsm_nc_id = 0 } }
+					NOT = { check_variable = { bsm_nc_id = 29 } }
+					check_variable = { bsm_nc_base_rate < global.bsm_nc_best_rate }
+				}
+				set_variable = { global.bsm_nc_best_rate = bsm_nc_base_rate }
+				set_variable = { global.bsm_nc_best_id = bsm_nc_id }
+				set_variable = { global.bsm_nc_has_strong = 1 }
+			}
+		}
+	}
+	# 2. generic通貨のメンバーへ最強通貨を適用
+	if = {
+		limit = { check_variable = { global.bsm_nc_has_strong = 1 } }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_token
+			value = v_nc_gmem
+			var:v_nc_gmem = {
+				if = {
+					limit = { check_variable = { bsm_nc_id = 29 } }
+					set_variable = { bsm_nc_id = global.bsm_nc_best_id }
+					set_variable = { bsm_nc_base_rate = global.bsm_nc_best_rate }
+					set_variable = { bsm_nc_rate = global.bsm_nc_best_rate }
+					set_variable = { bsm_nc_rate_prev = global.bsm_nc_best_rate }
+				}
+			}
+		}
+	}
+}
+
+# ==========================================
+# 盟主が自陣営に最強通貨を流通させる (every_country 内で呼び出し)
+# ==========================================
+bsm_nc_leader_apply_strongest = {
+	if = {
+		limit = {
+			has_variable = bsm_ea_is_leader
+			has_variable = bsm_ea_leader_of
+		}
+		set_temp_variable = { t_token = bsm_ea_leader_of }
+		bsm_nc_apply_strongest_for_sphere = yes
+	}
+}
+
+# ==========================================
 # 通貨割り当て (タグベース)
 # ==========================================
 bsm_nc_assign_currency = {
@@ -568,6 +653,14 @@ bsm_nc_monthly_update = {
 			multiply_temp_variable = { t_nc_factor = 0.96 }
 		}
 
+		# --- 6b. ランダムノイズ (為替流動性) ---
+		random_list = {
+			25 = { add_to_temp_variable = { t_nc_factor = -0.02 } }
+			25 = { add_to_temp_variable = { t_nc_factor = -0.01 } }
+			25 = { add_to_temp_variable = { t_nc_factor = 0.01 } }
+			25 = { add_to_temp_variable = { t_nc_factor = 0.02 } }
+		}
+
 		# --- 7. 新レート計算 ---
 		# factor > 1.0 → 通貨強 → レート低下 (UCに対して強い)
 		# factor < 1.0 → 通貨弱 → レート上昇 (UCに対して弱い)
@@ -641,7 +734,7 @@ bsm_nc_monthly_update = {
 			set_variable = { bsm_nc_strength_cat = 2 }
 		}
 
-		# --- 12. UC獲得補正 (dynamic_modifier) ---
+		# --- 12. UC獲得補正 & 通貨弱体化 modifier ---
 		if = {
 			limit = { check_variable = { bsm_nc_stability < 30 } }
 			if = {
@@ -655,44 +748,67 @@ bsm_nc_monthly_update = {
 				remove_dynamic_modifier = { modifier = bsm_nc_crisis_modifier }
 			}
 		}
+		# --- 12b. 通貨弱体化 modifier (rate > base * 1.5) ---
+		set_temp_variable = { t_nc_vw_threshold = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_vw_threshold = 1.5 }
+		if = {
+			limit = { check_variable = { bsm_nc_rate > t_nc_vw_threshold } }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier } } }
+				add_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier }
+			}
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_weak_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_weak_modifier }
+			}
+		}
+		else = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier }
+			}
+		}
+		# --- 12c. 通貨弱化 modifier (rate > base * 1.1) ---
+		set_temp_variable = { t_nc_w_threshold = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_w_threshold = 1.1 }
+		if = {
+			limit = {
+				check_variable = { bsm_nc_rate > t_nc_w_threshold }
+				NOT = { has_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier } }
+			}
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = bsm_nc_weak_modifier } } }
+				add_dynamic_modifier = { modifier = bsm_nc_weak_modifier }
+			}
+		}
+		else = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_weak_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_weak_modifier }
+			}
+		}
 
-		# --- 13. イベント発火判定 ---
-		# 通貨危機
-		if = {
-			limit = {
-				check_variable = { bsm_nc_inflation > 20 }
-				NOT = { has_country_flag = nc_crisis_cooldown }
-			}
-			random_list = {
-				20 = { country_event = { id = nc.1 days = 1 } }
-				80 = { }
-			}
-			set_country_flag = { flag = nc_crisis_cooldown days = 180 }
+	}
+}
+
+# ==========================================
+# 通貨暴落効果 (バトル内戦等から呼び出し)
+# 対象国の bsm_nc_rate を大幅上昇(=価値下落)させる
+# ==========================================
+bsm_nc_devalue_currency = {
+	if = {
+		limit = {
+			has_variable = bsm_nc_id
+			NOT = { check_variable = { bsm_nc_id = 0 } }
 		}
-		# デフォルト
-		if = {
-			limit = {
-				check_variable = { Unified_Currency < 0 }
-				NOT = { has_country_flag = nc_default_cooldown }
-			}
-			random_list = {
-				30 = { country_event = { id = nc.2 days = 1 } }
-				70 = { }
-			}
-			set_country_flag = { flag = nc_default_cooldown days = 360 }
-		}
-		# 評価引き上げ
-		if = {
-			limit = {
-				check_variable = { bsm_nc_stability > 90 }
-				NOT = { has_country_flag = nc_upgrade_cooldown }
-			}
-			random_list = {
-				15 = { country_event = { id = nc.3 days = 1 } }
-				85 = { }
-			}
-			set_country_flag = { flag = nc_upgrade_cooldown days = 365 }
-		}
+		multiply_variable = { bsm_nc_rate = 1.3 }
+		set_temp_variable = { t_nc_min = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_min = 0.3 }
+		set_temp_variable = { t_nc_max = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_max = 3.0 }
+		clamp_variable = { var = bsm_nc_rate min = t_nc_min max = t_nc_max }
+		subtract_from_variable = { bsm_nc_stability = 25 }
+		clamp_variable = { var = bsm_nc_stability min = 0 max = 100 }
 	}
 }
 
@@ -718,39 +834,121 @@ bsm_nc_calc_uc_modifier = {
 
 # ==========================================
 # GUI用: レートリスト データ準備
-# bsm_nc_filter_mode: 0=同盟内, 1=世界
+# bsm_nc_filter_mode:
+#   0=同盟内, 1=世界
+#   2=アジア 3=欧州 4=北米 5=南米 6=アフリカ 7=中東 8=大洋州
 # ==========================================
 bsm_nc_prepare_rate_list = {
 	clear_array = global.bsm_nc_rate_display_list
 
 	if = {
+		# --- 0: 同盟内 ---
 		limit = { check_variable = { bsm_nc_filter_mode = 0 } }
 
+		# 自国を先頭に
+		add_to_array = { global.bsm_nc_rate_display_list = ROOT }
 		if = {
 			limit = { has_variable = bsm_ea_sphere }
 			set_temp_variable = { t_nc_token = bsm_ea_sphere }
 			for_each_loop = {
 				array = global.bsm_ea_member_list_@var:t_nc_token
 				value = v_nc_mem
-				var:v_nc_mem = {
-					PREV = {
-						add_to_array = { global.bsm_nc_rate_display_list = PREV.PREV }
-					}
+				# 自国の重複登録を避ける
+				if = {
+					limit = { NOT = { var:v_nc_mem = { tag = ROOT } } }
+					add_to_array = { global.bsm_nc_rate_display_list = var:v_nc_mem }
 				}
 			}
 		}
-		add_to_array = { global.bsm_nc_rate_display_list = ROOT }
+	}
+	else_if = {
+		# --- 1: 世界 (全通貨使用国) ---
+		limit = { check_variable = { bsm_nc_filter_mode = 1 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 2: アジア ---
+		limit = { check_variable = { bsm_nc_filter_mode = 2 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = asia } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 3: 欧州 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 3 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = europe } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 4: 北米 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 4 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = north_america } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 5: 南米 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 5 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = south_america } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 6: アフリカ ---
+		limit = { check_variable = { bsm_nc_filter_mode = 6 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = africa } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 7: 中東 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 7 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = middle_east } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
 	}
 	else = {
+		# --- 8: 大洋州 ---
 		every_country = {
-			limit = {
-				has_variable = bsm_nc_id
-				NOT = { check_variable = { bsm_nc_id = 0 } }
-			}
-			add_to_array = { global.bsm_nc_rate_display_list = PREV }
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = australia } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
 		}
 	}
 
 	# ソート用: レート順 (安定度降順)
 	# HOI4には配列ソートがないため、表示時に変数を参照
+
+	# --- 相対レート計算 (閲覧国=ROOT の通貨基準) ---
+	# bsm_nc_rel_rate     : 1 自国通貨 = X 相手国通貨
+	# bsm_nc_rel_rate_inv : 1 相手国通貨 = Y 自国通貨
+	# NOTE: var: のスコープ内では PREV.temp の「読み取り」が0になるため
+	#       スコープを跨いで参照する基準レートは global 変数で渡す
+	set_variable = { global.bsm_nc_calc_root_rate = bsm_nc_rate }
+	if = {
+		limit = { check_variable = { global.bsm_nc_calc_root_rate < 0.0001 } }
+		set_variable = { global.bsm_nc_calc_root_rate = 1 }
+	}
+	for_each_loop = {
+		array = global.bsm_nc_rate_display_list
+		value = v_nc_rel
+		var:v_nc_rel = {
+			set_variable = { bsm_nc_rel_rate = bsm_nc_rate }
+			divide_variable = { bsm_nc_rel_rate = global.bsm_nc_calc_root_rate }
+			set_variable = { bsm_nc_rel_rate_inv = global.bsm_nc_calc_root_rate }
+			if = {
+				limit = { check_variable = { bsm_nc_rate > 0.0001 } }
+				divide_variable = { bsm_nc_rel_rate_inv = bsm_nc_rate }
+			}
+		}
+	}
 }

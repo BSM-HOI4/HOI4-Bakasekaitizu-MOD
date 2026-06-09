@@ -540,6 +540,45 @@ bsm_ea_sort_sphere_list = {
 	}
 }
 
+# GUI用: 議席グリッドの色フレームを構築する
+# 入力: bsm_ea_selected_token
+bsm_ea_build_seat_diagram_arrays = {
+	clear_array = bsm_ea_seat_frame
+
+	set_temp_variable = { t_target_seat_total = global.bsm_ea_member_list_@var:bsm_ea_selected_token^num }
+	multiply_temp_variable = { t_target_seat_total = 10 }
+	clamp_temp_variable = { var = t_target_seat_total min = 10 max = 640 }
+
+	set_temp_variable = { t_total_seats_added = 0 }
+	for_each_loop = {
+		array = global.bsm_ea_member_list_@var:bsm_ea_selected_token
+		value = v_mem
+		index = v_idx
+		set_temp_variable = { t_member_frame = v_idx }
+		add_to_temp_variable = { t_member_frame = 1 }
+		clamp_temp_variable = { var = t_member_frame min = 1 max = 64 }
+		var:v_mem = {
+			set_variable = { bsm_ea_legend_frame = PREV.t_member_frame }
+			set_temp_variable = { PREV.t_member_seats = bsm_ea_member_seats }
+		}
+		clamp_temp_variable = { var = t_member_seats min = 0 max = 640 }
+		while_loop_effect = {
+			limit = {
+				check_variable = { t_member_seats > 0 }
+				check_variable = { t_total_seats_added < t_target_seat_total }
+			}
+			add_to_array = { bsm_ea_seat_frame = t_member_frame }
+			add_to_temp_variable = { t_member_seats = -1 }
+			add_to_temp_variable = { t_total_seats_added = 1 }
+		}
+	}
+	while_loop_effect = {
+		limit = { check_variable = { t_total_seats_added < t_target_seat_total } }
+		add_to_array = { bsm_ea_seat_frame = 64 }
+		add_to_temp_variable = { t_total_seats_added = 1 }
+	}
+}
+
 # GUI表示/計算用に経済陣営を選択
 # 入力: bsm_ea_selected_token
 # スコープ: プレイヤー/ROOT
@@ -576,11 +615,13 @@ bsm_ea_select_sphere_for_gui = {
 				global.bsm_ea_gui_display_list = var:v_mem
 			}
 		}
+		bsm_ea_build_seat_diagram_arrays = yes
 	}
 	else = {
 		# Invalid Token or empty
-		set_variable = { bsm_ea_total_power = 0 }
-		clear_variable = bsm_ea_selected_leader
-		clear_array = global.bsm_ea_gui_display_list
+			set_variable = { bsm_ea_total_power = 0 }
+			clear_variable = bsm_ea_selected_leader
+			clear_array = global.bsm_ea_gui_display_list
+			clear_array = bsm_ea_seat_frame
+		}
 	}
-}
