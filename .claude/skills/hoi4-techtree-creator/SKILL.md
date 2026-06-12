@@ -1,20 +1,20 @@
 ---
 name: hoi4-techtree-creator
-description: Create or revise Tsareich2 Hearts of Iron IV technology trees, technology definitions, folder layout, countrytechtreeview GUI entries, technology GFX sprites, icons, categories, unlocks, and Japanese localisation.
+description: Create or revise Hearts of Iron IV technology trees in the current mod repository - technology definitions, folder layout, countrytechtreeview GUI entries, technology GFX sprites, icons, categories, unlocks, and Japanese localisation. Use when adding technologies, creating a new tech folder/tab, or wiring tech tree GUI.
 ---
 
 # HOI4 Techtree Creator
 
-Use this skill when adding or changing Tsareich2 technology folders, technologies, or technology tree GUI wiring.
+Use this skill when adding or changing technology folders, technologies, or technology tree GUI wiring in the current mod repository.
 
 ## Required Context
 
-- Read `AGENTS.md` before changing files.
-- Follow `docs/gitflow.md`; work on a proper branch and do not edit on `main`.
-- Preserve Tsareich2 style: 2 spaces, no tabs, one statement per line, nearby naming patterns.
-- Prefer existing technology folders, GUI container patterns, GFX sprites, categories, and localisation keys.
+- Read `AGENTS.md` before changing files; follow its branch policy (work on a proper branch, never edit on `main`).
+- Mod root: this repo's mod content lives under `bakasekai/` (e.g. `bakasekai/common/technologies/`). All paths below are relative to the mod root.
+- Preserve repository style: 2 spaces, no tabs, one statement per line, nearby naming patterns. BSM system files use `_bsm_`/`bsm_` prefixes.
+- Prefer existing technology folders, GUI container patterns, GFX sprites, categories, and localisation keys. Locate them token-efficiently with the `hoi4-searcher` skill (`--type tech`, `--type gfx`).
 - Add or update visible text in `localisation/japanese/`.
-- Do not reuse external mod-specific IDs, tags, lore, or examples.
+- Do not port other repositories' (Tsareich2, SSW_mod) mod-specific IDs, tags, lore, or systems unless the user explicitly asks; they are reference repos only (see CLAUDE.md).
 
 ## Workflow
 
@@ -26,7 +26,7 @@ rg -n 'containerWindowType|techtree_.*folder|countrytechtreeview' interface
 rg -n -i 'GFX_.*tech|spriteType|technolog' interface gfx localisation/japanese
 ```
 
-2. Choose a reference folder from Tsareich2 itself:
+2. Choose a reference folder from the current mod itself:
 
 - Use the closest existing folder for canvas size, orientation, year spacing, category spacing, item sizes, and tab patterns.
 - Do not use template numbers blindly; measure from `interface/countrytechtreeview.gui` and nearby `.gfx` files.

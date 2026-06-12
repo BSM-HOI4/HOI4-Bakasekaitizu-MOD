@@ -1,20 +1,22 @@
 ---
 name: hoi4-unit-design-creator
-description: Create or revise Tsareich2 Hearts of Iron IV ship, aircraft, and tank equipment variants, create_equipment_variant effects, OOB unit design setup, module selections, upgrades, and Japanese localisation.
+description: Create or revise Hearts of Iron IV ship, aircraft, and tank equipment variants in the current mod repository - create_equipment_variant effects, OOB unit design setup, module selections, upgrades, and Japanese localisation. For BSM naval variants using the hidden_slot (NVRW) system, prefer the hoi4-naval-oob-editor skill.
 ---
 
 # HOI4 Unit Design Creator
 
-Use this skill when adding or changing Tsareich2 equipment variants or starting designs for ships, aircraft, or tanks.
+Use this skill when adding or changing equipment variants or starting designs for ships, aircraft, or tanks in the current mod repository.
 
 ## Required Context
 
-- Read `AGENTS.md` before changing files.
-- Follow `docs/gitflow.md`; work on a proper branch and do not edit on `main`.
-- Preserve Tsareich2 style: 2 spaces, no tabs, one statement per line, nearby naming patterns.
-- Prefer existing hulls, chassis, airframes, modules, scripted effects, OOB patterns, and localisation keys.
+- Read `AGENTS.md` before changing files; follow its branch policy (work on a proper branch, never edit on `main`).
+- Mod root: this repo's mod content lives under `bakasekai/` (e.g. `bakasekai/common/scripted_effects/`, `bakasekai/history/units/`). All paths below are relative to the mod root.
+- **BSM naval variants**: this mod uses the SSW-derived hidden_slot (NVRW) system for ships. For ship variants and naval OOB, use the `hoi4-naval-oob-editor` skill instead; use this skill for tanks, aircraft, and plain vanilla-style setups.
+- **AI-designed equipment**: if the goal is to let the AI design equipment itself, that is `common/ai_equipment/` - use the `hoi4-ai-modding` skill.
+- Preserve repository style: 2 spaces, no tabs, one statement per line, nearby naming patterns.
+- Prefer existing hulls, chassis, airframes, modules, scripted effects, OOB patterns, and localisation keys. Locate them token-efficiently with the `hoi4-searcher` skill.
 - Add or update visible names in `localisation/japanese/` when needed.
-- Do not reuse external mod-specific IDs, tags, lore, or examples.
+- Do not port other repositories' (Tsareich2, SSW_mod) mod-specific IDs, tags, lore, or systems unless the user explicitly asks; they are reference repos only (see CLAUDE.md).
 
 ## Workflow
 
@@ -40,7 +42,7 @@ rg -n -i 'ship_hull|tank_chassis|airframe|_equipment' common/units common/techno
 4. Place definitions:
 
 - Scripted effects: closest country or system file under `common/scripted_effects/`.
-- Starting units or production: closest matching file under `history/units/` or country history, following existing Tsareich2 patterns.
+- Starting units or production: closest matching file under `history/units/` or country history, following the current mod's existing patterns.
 - Localisation: `localisation/japanese/` when a player-visible variant name needs a key.
 
 5. Keep IDs and names clear:

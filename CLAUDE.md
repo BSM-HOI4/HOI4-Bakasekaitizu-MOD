@@ -104,8 +104,33 @@ During edits:
 After edits:
 
 - Review changed files.
-- Run the most relevant lightweight validation available.
+- Run the most relevant lightweight validation available (see table below).
 - Report changed files and any validation that could not be run.
+
+## Skill Routing & Token Economy
+
+**調査(トークン節約・必須)**: 既存定義の場所特定・抽出は `hoi4-searcher` スキルの
+`python3 .claude/skills/hoi4-searcher/scripts/search_defs.py` を使う。modファイルをReadで全読みしない。
+一覧(`--type X --name Y`、1件1行)→ 中身が必要な定義だけ `--def NAME` でブロック抽出、の順。
+
+**実装**: タスクに対応するスキルを必ず起点にする(一覧はスキルのdescription参照)。主な対応:
+イベント実装=`hoi4-event-helper` / シナリオ設計=`hoi4-event` / NF=`hoi4-nf-creator` / decision=`hoi4-decisions-helper` /
+国民精神=`hoi4-idea-creator` / modifier=`hoi4-modifier-maker` / scripted effect・trigger・loc=`hoi4-scripted-*` /
+変数=`hoi4-variable-helper` / on_actions=`hoi4-on-actions-helper` / GUI=`hoi4-gui` / AI挙動=`hoi4-ai-modding` /
+画像=`hoi4-image-asset-creator` / 艦船OOB=`hoi4-naval-oob-editor` / 技術=`hoi4-techtree-creator` / 装備=`hoi4-unit-design-creator` /
+国家追加・初期状態=`hoi4-country-setup` / 陸空OOB=`hoi4-land-air-oob` / マップ編集=`hoi4-map-editing`(**map/配下を触ったら必ず**キャッシュ削除+2回起動検証)
+
+**検証(変更種別→ツール)**: まず `search_defs.py --check <changed files>`(brace/BOM/loc形式の即時チェック)。その後:
+
+| 変更したもの | 追加で実行 |
+|---|---|
+| common/, events/ の script | `mcp__hoi4__hoi4_cwtools_check`(変更ファイルのみ) |
+| localisation .yml | `mcp__hoi4__hoi4_find_missing_keys` |
+| .gfx / GFX_ 参照追加 | `mcp__hoi4__hoi4_check_missing_gfx` |
+| 画像アセット | `mcp__hoi4__hoi4_convert_images`(TGA/DDS変換) |
+
+vanillaの効果・トリガー・modifier仕様の確認は `documents/00_coding_contexts/` の辞書か
+`mcp__hoi4-modding__get_vanilla_modifiers` / `get_clausewitz_ref` を使い、推測で書かない。
 
 ### Variable System
 The mod uses HOI4's variable system extensively for dynamic content. Key commands:

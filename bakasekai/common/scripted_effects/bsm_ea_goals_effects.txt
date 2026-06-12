@@ -281,9 +281,9 @@ bsm_ea_add_goal_to_sphere = {
 			# 通貨同盟: 盟主の通貨ID・レートを取得
 			set_temp_variable = { t_nc_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
 			var:t_nc_leader = {
-				set_temp_variable = { t_nc_union_id = bsm_nc_id }
-				set_temp_variable = { t_nc_union_rate = bsm_nc_rate }
-				set_temp_variable = { t_nc_union_base = bsm_nc_base_rate }
+				set_temp_variable = { PREV.t_nc_union_id = bsm_nc_id }
+				set_temp_variable = { PREV.t_nc_union_rate = bsm_nc_rate }
+				set_temp_variable = { PREV.t_nc_union_base = bsm_nc_base_rate }
 			}
 			for_each_loop = {
 				array = global.bsm_ea_member_list_@var:bsm_ea_token
@@ -303,11 +303,18 @@ bsm_ea_add_goal_to_sphere = {
 						limit = {
 							check_variable = { t_goal_for_tech = token:bsm_ea_goal_03_currency }
 						}
-						set_variable = { bsm_nc_id = PREV.t_nc_union_id }
-						set_variable = { bsm_nc_rate = PREV.t_nc_union_rate }
-						set_variable = { bsm_nc_base_rate = PREV.t_nc_union_base }
+						set_temp_variable = { t_nc_union_id = PREV.t_nc_union_id }
+						set_temp_variable = { t_nc_union_rate = PREV.t_nc_union_rate }
+						set_temp_variable = { t_nc_union_base = PREV.t_nc_union_base }
+						bsm_nc_currency_union_start = yes
 					}
 				}
+			}
+			if = {
+				limit = {
+					check_variable = { t_goal_for_tech = token:bsm_ea_goal_03_currency }
+				}
+				news_event = { id = nc.4 days = 1 }
 			}
 		}
 	}
@@ -340,8 +347,7 @@ bsm_ea_remove_goal_from_sphere = {
 						check_variable = { t_goal_for_tech = token:bsm_ea_goal_03_currency }
 						has_variable = bsm_nc_original_id
 					}
-					set_variable = { bsm_nc_id = bsm_nc_original_id }
-					bsm_nc_assign_currency = yes
+					bsm_nc_currency_union_end = yes
 				}
 			}
 		}
