@@ -89,7 +89,7 @@ bsm_stellaris_set_effective_tradition_cost = {
   set_temp_variable = { t_cost = bsm_stellaris_tradition_adopted_count }
   multiply_temp_variable = { t_cost = 25 }
   add_to_temp_variable = { t_cost = 100 }
-  clamp_temp_variable = { t_cost = 100 max = 600 }
+  clamp_temp_variable = { var = t_cost min = 100 max = 600 }
   set_variable = { bsm_stellaris_tradition_cost = t_cost }
   if = {
     limit = { bsm_stellaris_has_current_tradition_affinity = yes }
@@ -240,7 +240,7 @@ bsm_stellaris_update_tradition_cost = {
   set_temp_variable = { t_tradition_cost_growth = bsm_stellaris_tradition_adopted_count }
   multiply_temp_variable = { t_tradition_cost_growth = 25 }
   add_to_variable = { bsm_stellaris_tradition_cost = t_tradition_cost_growth }
-  clamp_variable = { bsm_stellaris_tradition_cost = 100 max = 600 }
+  clamp_variable = { var = bsm_stellaris_tradition_cost min = 100 max = 600 }
 }
 
 # ------------------------------------------
@@ -272,7 +272,7 @@ bsm_stellaris_update_tradition_count = {
   # 利用可能スロット = 上限 - 取得済みパーク
   set_temp_variable = { t_slots = t_finished }
   subtract_from_temp_variable = { t_slots = bsm_stellaris_ascension_perks_taken }
-  clamp_temp_variable = { t_slots = 0 max = 8 }
+  clamp_temp_variable = { var = t_slots min = 0 max = 8 }
   set_variable = { bsm_stellaris_ascension_slots = t_slots }
 }
 
@@ -460,8 +460,8 @@ bsm_stellaris_expedition_disaster_commercial = {
   add_stability = -0.02
   add_to_variable = { bsm_stellaris_essence_energy = -25 }
   add_to_variable = { bsm_stellaris_essence_minerals = -25 }
-  clamp_variable = { bsm_stellaris_essence_energy = 0 max = 999999 }
-  clamp_variable = { bsm_stellaris_essence_minerals = 0 max = 999999 }
+  clamp_variable = { var = bsm_stellaris_essence_energy min = 0 max = 999999 }
+  clamp_variable = { var = bsm_stellaris_essence_minerals min = 0 max = 999999 }
 }
 
 # ------------------------------------------
