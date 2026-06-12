@@ -28,6 +28,7 @@ bsm_nc_init_currency = {
 	set_variable = { bsm_nc_stability = 100 }
 	set_variable = { bsm_nc_inflation = 0 }
 	set_variable = { bsm_nc_rate_delta = 0 }
+	set_variable = { bsm_nc_strength_cat = 1 }
 	bsm_nc_assign_currency = yes
 	set_variable = { bsm_nc_original_id = bsm_nc_id }
 	set_variable = { bsm_nc_rate = bsm_nc_base_rate }
@@ -117,6 +118,239 @@ bsm_nc_leader_apply_strongest = {
 		set_temp_variable = { t_token = bsm_ea_leader_of }
 		bsm_nc_apply_strongest_for_sphere = yes
 	}
+}
+
+# ==========================================
+# 通貨同盟: 初期化/解除/収斂管理
+# 入力(temp): t_nc_union_id, t_nc_union_rate, t_nc_union_base
+# ==========================================
+bsm_nc_currency_union_start = {
+	if = {
+		limit = { NOT = { has_variable = bsm_nc_original_id } }
+		set_variable = { bsm_nc_original_id = bsm_nc_id }
+	}
+	clr_country_flag = bsm_nc_currency_union_optout
+	set_variable = { bsm_nc_union_active = 1 }
+	set_variable = { bsm_nc_union_anchor_id = t_nc_union_id }
+	set_variable = { bsm_nc_union_anchor_base = t_nc_union_base }
+	set_variable = { bsm_nc_union_anchor_rate = t_nc_union_rate }
+	set_variable = { bsm_nc_id = t_nc_union_id }
+	set_variable = { bsm_nc_base_rate = t_nc_union_base }
+	set_variable = { bsm_nc_rate = t_nc_union_rate }
+	set_variable = { bsm_nc_rate_prev = t_nc_union_rate }
+	if = {
+		limit = { NOT = { has_variable = bsm_nc_union_convergence } }
+		set_variable = { bsm_nc_union_convergence = 50 }
+	}
+	if = {
+		limit = { NOT = { has_variable = bsm_nc_union_exit_pressure } }
+		set_variable = { bsm_nc_union_exit_pressure = 0 }
+	}
+}
+
+bsm_nc_currency_union_end = {
+	if = {
+		limit = { has_variable = bsm_nc_original_id }
+		set_variable = { bsm_nc_id = bsm_nc_original_id }
+		bsm_nc_assign_currency = yes
+		set_variable = { bsm_nc_rate = bsm_nc_base_rate }
+		set_variable = { bsm_nc_rate_prev = bsm_nc_base_rate }
+		set_variable = { bsm_nc_rate_delta = 0 }
+	}
+	clear_variable = bsm_nc_union_active
+	clear_variable = bsm_nc_union_anchor_id
+	clear_variable = bsm_nc_union_anchor_base
+	clear_variable = bsm_nc_union_anchor_rate
+	clear_variable = bsm_nc_union_convergence
+	clear_variable = bsm_nc_union_exit_pressure
+	clear_variable = bsm_nc_union_crisis_token
+	if = {
+		limit = { has_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier } }
+		remove_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier }
+	}
+	if = {
+		limit = { has_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier } }
+		remove_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier }
+	}
+}
+
+bsm_nc_currency_union_sync_to_leader = {
+	if = {
+		limit = {
+			has_variable = bsm_ea_sphere
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_sphere^num > 0 }
+		}
+		set_temp_variable = { t_nc_union_token = bsm_ea_sphere }
+		set_variable = { bsm_nc_union_crisis_token = t_nc_union_token }
+		set_temp_variable = { t_nc_union_leader = global.bsm_ea_member_list_@var:t_nc_union_token^0 }
+		var:t_nc_union_leader = {
+			set_temp_variable = { PREV.t_nc_union_id = bsm_nc_id }
+			set_temp_variable = { PREV.t_nc_union_base = bsm_nc_base_rate }
+			set_temp_variable = { PREV.t_nc_union_rate = bsm_nc_rate }
+		}
+		if = {
+			limit = {
+				NOT = { check_variable = { t_nc_union_id = 0 } }
+			}
+			set_variable = { bsm_nc_union_anchor_id = t_nc_union_id }
+			set_variable = { bsm_nc_union_anchor_base = t_nc_union_base }
+			set_variable = { bsm_nc_union_anchor_rate = t_nc_union_rate }
+			set_variable = { bsm_nc_id = t_nc_union_id }
+			set_variable = { bsm_nc_base_rate = t_nc_union_base }
+			if = {
+				limit = { check_variable = { bsm_nc_union_convergence > 59 } }
+				set_variable = { bsm_nc_rate_prev = bsm_nc_rate }
+				set_variable = { bsm_nc_rate = t_nc_union_rate }
+				set_temp_variable = { t_nc_union_delta = bsm_nc_rate }
+				subtract_from_temp_variable = { t_nc_union_delta = bsm_nc_rate_prev }
+				set_variable = { bsm_nc_rate_delta = t_nc_union_delta }
+			}
+		}
+	}
+}
+
+bsm_nc_currency_union_monthly = {
+	if = {
+		limit = { has_idea = bsm_ea_goal_03_currency }
+		if = {
+			limit = { NOT = { has_variable = bsm_nc_union_convergence } }
+			set_variable = { bsm_nc_union_convergence = 50 }
+		}
+		if = {
+			limit = { NOT = { has_variable = bsm_nc_union_exit_pressure } }
+			set_variable = { bsm_nc_union_exit_pressure = 0 }
+		}
+		set_variable = { bsm_nc_union_active = 1 }
+		bsm_nc_currency_union_sync_to_leader = yes
+
+		if = {
+			limit = { check_variable = { bsm_nc_stability > 79 } }
+			add_to_variable = { bsm_nc_union_convergence = 8 }
+		}
+		else_if = {
+			limit = { check_variable = { bsm_nc_stability > 59 } }
+			add_to_variable = { bsm_nc_union_convergence = 4 }
+		}
+		else = {
+			subtract_from_variable = { bsm_nc_union_convergence = 8 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_inflation > 10 } }
+			subtract_from_variable = { bsm_nc_union_convergence = 10 }
+		}
+		else_if = {
+			limit = { check_variable = { bsm_nc_inflation < 3 } }
+			add_to_variable = { bsm_nc_union_convergence = 4 }
+		}
+		if = {
+			limit = { check_variable = { Unified_Currency < 0 } }
+			subtract_from_variable = { bsm_nc_union_convergence = 8 }
+		}
+		if = {
+			limit = { has_war = yes }
+			subtract_from_variable = { bsm_nc_union_convergence = 4 }
+		}
+		clamp_variable = { var = bsm_nc_union_convergence min = 0 max = 100 }
+
+		if = {
+			limit = { check_variable = { bsm_nc_union_convergence < 30 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 18 }
+		}
+		else_if = {
+			limit = { check_variable = { bsm_nc_union_convergence < 50 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 8 }
+		}
+		else = {
+			subtract_from_variable = { bsm_nc_union_exit_pressure = 6 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_stability < 40 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 10 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_inflation > 15 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 12 }
+		}
+		if = {
+			limit = { check_variable = { Unified_Currency < 0 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 8 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_union_convergence > 79 } }
+			subtract_from_variable = { bsm_nc_union_exit_pressure = 10 }
+		}
+		clamp_variable = { var = bsm_nc_union_exit_pressure min = 0 max = 100 }
+
+		if = {
+			limit = { check_variable = { bsm_nc_union_convergence > 79 } }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier } } }
+				add_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier }
+			}
+		}
+		else = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier }
+			}
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_union_exit_pressure > 49 } }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier } } }
+				add_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier }
+			}
+		}
+		else = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier }
+			}
+		}
+		if = {
+			limit = {
+				check_variable = { bsm_nc_union_exit_pressure > 79 }
+				NOT = { has_country_flag = bsm_nc_union_crisis_recent }
+			}
+			set_country_flag = { flag = bsm_nc_union_crisis_recent days = 180 }
+			country_event = { id = nc.5 days = 1 }
+		}
+	}
+	else_if = {
+		limit = { has_variable = bsm_nc_union_active }
+		bsm_nc_currency_union_end = yes
+	}
+}
+
+bsm_nc_currency_union_stabilize = {
+	add_political_power = -25
+	add_stability = -0.02
+	add_to_variable = { Unified_Currency = -25 }
+	add_to_variable = { bsm_nc_union_convergence = 20 }
+	subtract_from_variable = { bsm_nc_union_exit_pressure = 35 }
+	subtract_from_variable = { bsm_nc_inflation = 5 }
+	clamp_variable = { var = bsm_nc_union_convergence min = 0 max = 100 }
+	clamp_variable = { var = bsm_nc_union_exit_pressure min = 0 max = 100 }
+	clamp_variable = { var = bsm_nc_inflation min = -10 max = 100 }
+}
+
+bsm_nc_currency_union_capital_controls = {
+	add_political_power = -50
+	add_stability = -0.04
+	add_to_variable = { bsm_nc_union_convergence = 8 }
+	subtract_from_variable = { bsm_nc_union_exit_pressure = 45 }
+	subtract_from_variable = { bsm_nc_inflation = 10 }
+	clamp_variable = { var = bsm_nc_union_convergence min = 0 max = 100 }
+	clamp_variable = { var = bsm_nc_union_exit_pressure min = 0 max = 100 }
+	clamp_variable = { var = bsm_nc_inflation min = -10 max = 100 }
+}
+
+bsm_nc_currency_union_opt_out = {
+	remove_ideas = bsm_ea_goal_03_currency
+	bsm_nc_currency_union_end = yes
+	set_country_flag = bsm_nc_currency_union_optout
+	add_political_power = -75
+	add_stability = -0.05
 }
 
 # ==========================================

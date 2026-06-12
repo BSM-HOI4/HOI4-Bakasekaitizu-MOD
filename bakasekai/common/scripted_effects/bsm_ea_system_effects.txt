@@ -135,6 +135,19 @@ bsm_ea_join_sphere = {
 				set_temp_variable = { bsm_ea_token = t_join_token }
 				bsm_ea_join_tech_group = yes
 			}
+			if = {
+				limit = {
+					check_variable = { v_goal = token:bsm_ea_goal_03_currency }
+					check_variable = { global.bsm_ea_member_list_@var:t_join_token^num > 0 }
+				}
+				set_temp_variable = { t_nc_join_leader = global.bsm_ea_member_list_@var:t_join_token^0 }
+				var:t_nc_join_leader = {
+					set_temp_variable = { PREV.t_nc_union_id = bsm_nc_id }
+					set_temp_variable = { PREV.t_nc_union_rate = bsm_nc_rate }
+					set_temp_variable = { PREV.t_nc_union_base = bsm_nc_base_rate }
+				}
+				bsm_nc_currency_union_start = yes
+			}
 		}
 		# 新規加盟クールダウン
 		bsm_ea_init_member_cooldowns = yes
@@ -159,6 +172,11 @@ bsm_ea_leave_sphere = {
 	if = {
 		limit = {
 			is_in_array = { bsm_ea_joined_spheres = var:bsm_ea_token }
+		}
+		if = {
+			limit = { has_idea = bsm_ea_goal_03_currency }
+			remove_ideas = bsm_ea_goal_03_currency
+			bsm_nc_currency_union_end = yes
 		}
 		# Tech Sharing グループが有効なら離脱
 		if = {

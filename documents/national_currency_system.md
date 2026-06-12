@@ -100,10 +100,21 @@ Goal03発動時:
 - 全メンバーの`bsm_nc_id`を盟主の通貨に統一
 - `bsm_nc_rate` / `bsm_nc_base_rate`も盟主に同期
 - 月次計算で×1.05ボーナス
+- `bsm_nc_union_convergence`（収斂度）と`bsm_nc_union_exit_pressure`（離脱圧力）を初期化
+
+Goal03月次処理:
+- 加盟国は盟主通貨ID/base_rateを継続的に同期
+- 収斂度60以上で盟主通貨レートを直接流通
+- 通貨安定度・低インフレ・UC黒字で収斂度が上昇
+- 低安定度・高インフレ・UC赤字・戦争で収斂度が低下し、離脱圧力が上昇
+- 収斂度80以上で`bsm_nc_union_converged_modifier`
+- 離脱圧力50以上で`bsm_nc_union_strain_modifier`
+- 離脱圧力80以上で`nc.5`（通貨同盟の離脱危機）を発火
 
 Goal03解除時:
 - `bsm_nc_original_id`から元の通貨に復帰
 - `bsm_nc_assign_currency`でbase_rateを再設定
+- 通貨同盟関連変数・動的補正をクリア
 
 ## 通貨危機イベント
 
@@ -113,11 +124,17 @@ Goal03解除時:
 | `nc.2` | UC<0 | レート×1.5、安定度-40 | 360日 |
 | `nc.3` | 安定度>90% | レート×0.95、安定度+10 | 365日 |
 | `nc.4` | Goal03達成 | ニュースイベント | — |
+| `nc.5` | Goal03中かつ離脱圧力>80 | 安定化/資本規制/通貨同盟離脱を選択 | 180日 |
+| `nc.6` | `nc.5`で通貨同盟離脱 | ニュースイベント | — |
 
 ## Dynamic Modifier
 
 - `bsm_nc_crisis_modifier`: 安定度<30%時
   - 安定度 -5%、戦争支持率 -3%、政治力 -10%
+- `bsm_nc_union_converged_modifier`: Goal03中かつ収斂度80以上
+  - UC獲得 +5%、貿易評価 +5%、政治力 +5%
+- `bsm_nc_union_strain_modifier`: Goal03中かつ離脱圧力50以上
+  - 安定度 -3%、戦争支持率 -2%、政治力 -5%
 
 ## ファイル構成
 
@@ -175,7 +192,7 @@ EA画面に5番目のタブ「通貨レート」を追加。
 | `GetNCName` | 通貨フルネーム（例: "米ドル ($)"） |
 | `GetNCSymbol` | 通貨記号のみ（例: "$"） |
 | `GetNCTier` | 段階テキスト（強/普通/弱） |
-| `GetNCIcon` | テキストアイコン（記号+段階色） |
+| `GetNCIcon` | 状態アイコン（`£nc_*`）。画像未作成の通貨は記号+段階色にフォールバック |
 | `GetNCExchangeRate` | 為替レート表示 |
 | `GetNCInflation` | インフレ状況表示 |
 | `GetNCStability` | 通貨安定度表示 |
@@ -198,11 +215,10 @@ EA画面に5番目のタブ「通貨レート」を追加。
 - 通貨コード大文字（例: `USD.png`, `EUR.png`, `JPY.png`）
 
 ### 作成済み
-- USD（通常/強/弱）
-- EUR（通常/強/弱）
+- USD, EUR, GBP, JPY, CNY, RUB, KRW, INR, TRY（通常/強/弱）
 
 ### 未作成
-UC, BRL, MXN, ARS, SAR, EGP, CHF, SEK, AUD, IDR, THB, NGN, ZAR, KES, COP, ILS, TWD, PHP, MYR, MAN, GENERIC（各3枚=計84枚）
+UC, BRL, MXN, ARS, SAR, EGP, CHF, SEK, AUD, IDR, THB, NGN, ZAR, KES, COP, ILS, TWD, PHP, MYR, MAN, GENERIC（各3枚）
 
 ## 拡張方法
 
