@@ -19,6 +19,31 @@ bsm_ea_init_system = {
 }
 
 # ------------------------------------------
+# 加盟ニュース発火
+# 入力: bsm_ea_token (temp) = 加盟先トークン, THIS = 加盟国
+# 起動時の一括生成中 (bsm_ea_news_suppressed) は発火しない
+# ------------------------------------------
+bsm_ea_fire_join_news = {
+	if = {
+		limit = {
+			NOT = { has_global_flag = bsm_ea_news_suppressed }
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		save_global_event_target_as = bsm_ea_news_joiner
+		set_temp_variable = { t_news_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		var:t_news_leader = { save_global_event_target_as = bsm_ea_news_leader }
+		# 陣営メンバー全員へニュースを送る
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_news_member
+			var:v_news_member = {
+				news_event = bsm_ea_news.1
+			}
+		}
+	}
+}
+
+# ------------------------------------------
 # 経済陣営管理
 # ------------------------------------------
 # 新しい経済陣営を作成
@@ -56,6 +81,13 @@ bsm_ea_create_sphere = {
 		# 運営モード初期値
 		set_variable = { bsm_ea_governance_mode = 1 }
 		set_variable = { bsm_ea_maturity = 1 }
+		# 全体方針 初期値: 互恵(0)
+		set_variable = { global.bsm_ea_policy_@var:bsm_ea_token = 0 }
+		# 議長(盟主)役職アイデアを付与
+		if = {
+			limit = { NOT = { has_idea = bsm_ea_role_chair } }
+			add_ideas = bsm_ea_role_chair
+		}
 		# 盟主のクールダウン初期化
 		bsm_ea_init_member_cooldowns = yes
 		log = "[BSM EA] Sphere [?bsm_ea_token] created successfully. Global list size: [?global.bsm_ea_sphere_list^num]"
@@ -103,9 +135,28 @@ bsm_ea_join_sphere = {
 				set_temp_variable = { bsm_ea_token = t_join_token }
 				bsm_ea_join_tech_group = yes
 			}
+			if = {
+				limit = {
+					check_variable = { v_goal = token:bsm_ea_goal_03_currency }
+					check_variable = { global.bsm_ea_member_list_@var:t_join_token^num > 0 }
+				}
+				set_temp_variable = { t_nc_join_leader = global.bsm_ea_member_list_@var:t_join_token^0 }
+				var:t_nc_join_leader = {
+					set_temp_variable = { PREV.t_nc_union_id = bsm_nc_id }
+					set_temp_variable = { PREV.t_nc_union_rate = bsm_nc_rate }
+					set_temp_variable = { PREV.t_nc_union_base = bsm_nc_base_rate }
+				}
+				bsm_nc_currency_union_start = yes
+			}
 		}
 		# 新規加盟クールダウン
 		bsm_ea_init_member_cooldowns = yes
+		# 現行の全体方針アイデアを陣営全体へ再適用（新規加盟国にも付与）
+		set_temp_variable = { bsm_ea_token = t_join_token }
+		bsm_ea_apply_policy = yes
+		# 加盟ニュースを発火（起動時の一括生成中は抑制）
+		set_temp_variable = { bsm_ea_token = t_join_token }
+		bsm_ea_fire_join_news = yes
 		log = "[BSM EA] [THIS.GetName] added to sphere [?bsm_ea_token]"
 	}
 	else = {
@@ -121,6 +172,11 @@ bsm_ea_leave_sphere = {
 	if = {
 		limit = {
 			is_in_array = { bsm_ea_joined_spheres = var:bsm_ea_token }
+		}
+		if = {
+			limit = { has_idea = bsm_ea_goal_03_currency }
+			remove_ideas = bsm_ea_goal_03_currency
+			bsm_nc_currency_union_end = yes
 		}
 		# Tech Sharing グループが有効なら離脱
 		if = {
@@ -160,6 +216,11 @@ bsm_ea_leave_sphere = {
 					if = {
 						limit = { NOT = { has_variable = bsm_ea_governance_mode } }
 						set_variable = { bsm_ea_governance_mode = 1 }
+					}
+					# 議長(盟主)役職アイデアを継承
+					if = {
+						limit = { NOT = { has_idea = bsm_ea_role_chair } }
+						add_ideas = bsm_ea_role_chair
 					}
 					log = "[BSM EA] New leader: [THIS.GetName] for sphere [?PREV.bsm_ea_token]"
 				}
@@ -234,6 +295,9 @@ bsm_ea_leave_sphere_action = {
 
 		# コア離脱処理
 		bsm_ea_leave_sphere = yes
+
+		# 役職・方針アイデアのクリーンアップ
+		bsm_ea_cleanup_my_roles = yes
 
 		# フラグ・クールダウン
 		clr_country_flag = is_economic_alliance_member
@@ -494,6 +558,45 @@ bsm_ea_sort_sphere_list = {
 	}
 }
 
+# GUI用: 議席グリッドの色フレームを構築する
+# 入力: bsm_ea_selected_token
+bsm_ea_build_seat_diagram_arrays = {
+	clear_array = bsm_ea_seat_frame
+
+	set_temp_variable = { t_target_seat_total = global.bsm_ea_member_list_@var:bsm_ea_selected_token^num }
+	multiply_temp_variable = { t_target_seat_total = 10 }
+	clamp_temp_variable = { var = t_target_seat_total min = 10 max = 640 }
+
+	set_temp_variable = { t_total_seats_added = 0 }
+	for_each_loop = {
+		array = global.bsm_ea_member_list_@var:bsm_ea_selected_token
+		value = v_mem
+		index = v_idx
+		set_temp_variable = { t_member_frame = v_idx }
+		add_to_temp_variable = { t_member_frame = 1 }
+		clamp_temp_variable = { var = t_member_frame min = 1 max = 64 }
+		var:v_mem = {
+			set_variable = { bsm_ea_legend_frame = PREV.t_member_frame }
+			set_temp_variable = { PREV.t_member_seats = bsm_ea_member_seats }
+		}
+		clamp_temp_variable = { var = t_member_seats min = 0 max = 640 }
+		while_loop_effect = {
+			limit = {
+				check_variable = { t_member_seats > 0 }
+				check_variable = { t_total_seats_added < t_target_seat_total }
+			}
+			add_to_array = { bsm_ea_seat_frame = t_member_frame }
+			add_to_temp_variable = { t_member_seats = -1 }
+			add_to_temp_variable = { t_total_seats_added = 1 }
+		}
+	}
+	while_loop_effect = {
+		limit = { check_variable = { t_total_seats_added < t_target_seat_total } }
+		add_to_array = { bsm_ea_seat_frame = 64 }
+		add_to_temp_variable = { t_total_seats_added = 1 }
+	}
+}
+
 # GUI表示/計算用に経済陣営を選択
 # 入力: bsm_ea_selected_token
 # スコープ: プレイヤー/ROOT
@@ -507,6 +610,9 @@ bsm_ea_select_sphere_for_gui = {
 		# Calculate Power
 		set_temp_variable = { bsm_ea_calc_token = var:bsm_ea_selected_token }
 		bsm_ea_calc_sphere_power = yes
+		# Calculate Influence / Seats (display)
+		set_temp_variable = { bsm_ea_calc_token = var:bsm_ea_selected_token }
+		bsm_ea_calc_sphere_influence = yes
 
 		# Retrieve calculated power
 		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 }
@@ -527,11 +633,13 @@ bsm_ea_select_sphere_for_gui = {
 				global.bsm_ea_gui_display_list = var:v_mem
 			}
 		}
+		bsm_ea_build_seat_diagram_arrays = yes
 	}
 	else = {
 		# Invalid Token or empty
-		set_variable = { bsm_ea_total_power = 0 }
-		clear_variable = bsm_ea_selected_leader
-		clear_array = global.bsm_ea_gui_display_list
+			set_variable = { bsm_ea_total_power = 0 }
+			clear_variable = bsm_ea_selected_leader
+			clear_array = global.bsm_ea_gui_display_list
+			clear_array = bsm_ea_seat_frame
+		}
 	}
-}

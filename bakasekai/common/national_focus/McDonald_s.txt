@@ -1135,8 +1135,8 @@ focus_tree = {
 			FOCUS_FILTER_POLITICAL
 		}
 		available = {
-			custom_trigger_tooltip = win_coca
-			hidden_trigger = {
+			custom_trigger_tooltip = { 
+				tooltip = MAC_win_pepsi
 				has_country_flag = MAC_elect_pepsi
 			}
 		}
@@ -1175,48 +1175,12 @@ focus_tree = {
 		}
 		completion_reward = {
 			custom_effect_tooltip = MAC_DONT_MOVE_tt
-			# ジェット機とモジュール技術を全解禁
-			#set_technology = {
-			#	jet_fighter2 = 1
-			#	aircraft_construction = 1
-			#	electronic_engineering = 1
-			#	rocket_interceptor_tech_1 = 1 # ロケット技術
-			#}
-			
-			# ハリアーの設計図作成 (マルチロール機: 対空+対地)
-			create_equipment_variant = {
-				name = "AV-8B Pepsi Harrier"
-				type = cv_small_plane_airframe # 最新ジェット機フレーム
-				default_variant = yes # これを主力にする
-				modules = {
-					# エンジン: ジェットエンジンx2 (推力マシマシ)
-					engine_type_slot = jet_engine_2_2x 
-					# 武装: 20mm機関砲x2 (対空)
-					fixed_wing_weapon_slot_1 = aircraft_cannon_2_2x
-					# 補助: ロケット弾 (対地攻撃・ハリアーらしさ)
-					fixed_wing_support_slot_1 = rocket_rails
-					# 補助: 落下増槽 (航続距離)
-					fixed_wing_support_slot_2 = drop_tanks
-					# 補助: 空対空レーダー
-					fixed_wing_support_slot_3 = air_air_radar_2
-					# 特別: ダイブブレーキ (急降下爆撃/CAS用)
-					special_type_slot_1 = dive_brakes
-				}
-				icon = "GFX_USA_jet_fighter2_medium" # 米軍ジェットのアイコン
-			}
-
-			# 在庫に100機追加
-			add_equipment_to_stockpile = {
-				type = jet_fighter_equipment_2
-				version_name = "AV-8B Pepsi Harrier"
-				amount = 100
-				producer = ROOT
-			}
 
 			if = {
 				limit = { has_country_flag = MAC_pepsi_lose_legal_battle }
 				add_political_power = -200
-				effect_tooltip = { text = MAC_paid_7_million_points_tt }
+				custom_effect_tooltip = MAC_paid_7_million_points_tt
+				country_event = { id = MCD.27 }
 			}
 			else = {
 				add_political_power = 150
@@ -1237,84 +1201,7 @@ focus_tree = {
 		cost = 10
 		completion_reward = {
 			custom_effect_tooltip = MAC_DONT_MOVE_tt
-		# 1944年型艦船技術とモジュール全解禁
-			#set_technology = {
-			#	carrier_4 = 1
-			#	submarine_4 = 1
-			#	destroyer_4 = 1
-			#	cruiser_4 = 1
-			#	ship_torpedo_4 = 1
-			#	ship_sonar_2 = 1
-			#	radar_4 = 1
-			#	fire_control_system_4 = 1
-			#	ship_engine_4 = 1
-			#	ship_armor_cruiser_3 = 1
-			#	depth_charge_4 = 1
-			#	battery_medium_4 = 1
-			#	battery_light_4 = 1
-			#}
 
-			# 1. 潜水艦 (ウィスキー級: シュノーケル付き)
-			create_equipment_variant = {
-				name = "Whiskey Class"
-				type = ship_hull_submarine_4
-				modules = {
-					fixed_ship_torpedo_slot = ship_torpedo_4
-					fixed_ship_engine_slot = ship_engine_4
-					rear_1_custom_slot = ship_torpedo_4
-					rear_2_custom_slot = ship_mine_layer_4 # 魚雷や機雷
-					fixed_ship_radar_slot = ship_snorkel_2 # シュノーケル
-				}
-			}
-
-			# 2. 駆逐艦 (スコルイ級: 汎用護衛艦)
-			create_equipment_variant = {
-				name = "Skoryy Class"
-				type = ship_hull_destroyer_4
-				modules = {
-					fixed_ship_battery_slot = battery_light_4
-					fixed_ship_anti_air_slot = ship_anti_air_4
-					fixed_ship_fire_control_system_slot = fire_control_system_4
-					fixed_ship_radar_slot = radar_4
-					fixed_ship_engine_slot = ship_engine_4
-					fixed_ship_torpedo_slot = ship_torpedo_4
-					mid_1_custom_slot = ship_torpedo_4
-					rear_1_custom_slot = ship_depth_charge_4
-					rear_2_custom_slot = ship_sonar_2
-				}
-			}
-
-			# 3. 巡洋艦 (スヴェルドロフ級: ミサイル巡洋艦的な強武装)
-			create_equipment_variant = {
-				name = "Sverdlov Class"
-				type = ship_hull_cruiser_4
-				modules = {
-					fixed_ship_battery_slot = battery_medium_4
-					fixed_ship_anti_air_slot = ship_anti_air_4
-					fixed_ship_fire_control_system_slot = fire_control_system_4
-					fixed_ship_radar_slot = radar_4
-					fixed_ship_engine_slot = ship_engine_4
-					fixed_ship_armor_slot = ship_armor_cruiser_3
-					mid_1_custom_slot = battery_medium_4
-					mid_2_custom_slot = ship_torpedo_4
-					rear_1_custom_slot = ship_airplane_launcher_2 # 水上機
-					fixed_ship_secondaries_slot = battery_light_4
-				}
-			}
-
-			# 艦隊生成 (作成したバリアントを指定)
-			create_navy = {
-				name = "Pepsi Fleet"
-				ship = { name = "PFS Pepsi" definition = cruiser type = ship_hull_cruiser_4 version_name = "Sverdlov Class" }
-				ship = { name = "PFS Diet Pepsi" definition = destroyer type = ship_hull_destroyer_4 version_name = "Skoryy Class" }
-				ship = { name = "PFS Mountain Dew" definition = destroyer type = ship_hull_destroyer_4 version_name = "Skoryy Class" }
-				ship = { name = "Sub-01" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
-				ship = { name = "Sub-02" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
-				ship = { name = "Sub-03" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
-				ship = { name = "Sub-04" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
-				ship = { name = "Sub-05" definition = submarine type = ship_hull_submarine_4 version_name = "Whiskey Class" }
-				# 潜水艦17隻ならここに行を増やす
-			}
 		}	
 	}
 
@@ -1339,8 +1226,6 @@ focus_tree = {
 			set_technology = {
 				pepsiman_tech = 1
 			}
-			# 独自装備「ペプシマン・ボディ」の生産を解禁
-			enable_equipment_production = pepsiman_body
 			
 
 			# 在庫に追加（即戦力）
@@ -1377,13 +1262,13 @@ focus_tree = {
 			
 			create_corps_commander = {
 				name = "Pepsiman"
-				portrait_path = "gfx/leaders/MAC/pepsiman.png"
-				traits = { infantry_leader trickster }
-				skill = 5
-				attack_skill = 5
-				defense_skill = 1
-				planning_skill = 2
-				logistics_skill = 5
+				portrait_path = "gfx/leaders/MAC/pepsiman.dds"
+				traits = { infantry_leader trickster urban_assault_specialist logistics_wizard}
+				skill = 8
+				attack_skill = 8
+				defense_skill = 2
+				planning_skill = 4
+				logistics_skill = 10
 			}
 			
 			
@@ -1412,9 +1297,12 @@ focus_tree = {
 				limit = {
 					SAM = { exists = yes }
 				}
-				create_wargoal = {
-					type = puppet_wargoal
-					target = SAM
+				MAC= {
+					create_wargoal = {
+						target = SAM
+						type = puppet_wargoal_focus
+					}
+					
 				}
 			}
 			

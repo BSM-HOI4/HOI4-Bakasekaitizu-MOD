@@ -1,0 +1,59 @@
+# ==========================================
+# BSM 経済同盟: AI 方針づけ用トリガ
+# ==========================================
+# AI の経済同盟に対する行動は以下のフラグで方針づけできる。
+# 国フラグ(country flag)はグローバルフラグより優先される。
+#
+# 【グローバルフラグ】 (全AI共通の傾向)
+#   ea_ai_global_disabled    : 全AIの経済同盟AIを停止
+#   ea_ai_global_expansion   : 全AIが結成/加盟に積極的になる
+#   ea_ai_global_exploit     : 全AI盟主が「搾取」方針を好む
+#   ea_ai_global_benevolent  : 全AI盟主が「互恵」方針を好み投資する
+#
+# 【国フラグ】 (個別上書き / グローバルより優先)
+#   ea_ai_disabled       : この国のAIは経済同盟に関与しない
+#   ea_ai_expansionist   : 結成/加盟に積極的
+#   ea_ai_isolationist   : 結成/加盟しない
+#   ea_ai_exploit        : 盟主時に「搾取」方針を選ぶ
+#   ea_ai_benevolent     : 盟主時に「互恵」方針を選び加盟国へ投資する
+# ==========================================
+
+# AI の経済同盟行動が有効か (THIS = 国)
+bsm_ea_ai_enabled = {
+	is_ai = yes
+	NOT = { has_country_flag = ea_ai_disabled }
+	NOT = { has_global_flag = ea_ai_global_disabled }
+}
+
+# 結成/加盟をしない方針か
+bsm_ea_ai_isolationist = {
+	OR = {
+		has_country_flag = ea_ai_isolationist
+		has_country_flag = ea_ai_disabled
+		has_global_flag = ea_ai_global_disabled
+	}
+}
+
+# 搾取方針を好むか (国フラグが優先)
+bsm_ea_ai_prefers_exploit = {
+	OR = {
+		has_country_flag = ea_ai_exploit
+		AND = {
+			NOT = { has_country_flag = ea_ai_benevolent }
+			NOT = { has_country_flag = ea_ai_exploit }
+			has_global_flag = ea_ai_global_exploit
+		}
+	}
+}
+
+# 互恵・投資を好むか (国フラグが優先)
+bsm_ea_ai_benevolent = {
+	OR = {
+		has_country_flag = ea_ai_benevolent
+		AND = {
+			NOT = { has_country_flag = ea_ai_exploit }
+			NOT = { has_country_flag = ea_ai_benevolent }
+			has_global_flag = ea_ai_global_benevolent
+		}
+	}
+}

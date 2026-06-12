@@ -40,6 +40,213 @@ focus_tree = {
 	}
 
 	# ========================================
+	# POLITICAL DIRECTION PREPARATION NFs
+	# ========================================
+	focus = {
+		id = generic_democratic_preparation
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = generic_political_awakening }
+		relative_position_id = generic_political_awakening
+		mutually_exclusive = { focus = generic_revolutionary_preparation }
+		mutually_exclusive = { focus = generic_authoritarian_preparation }
+		mutually_exclusive = { focus = generic_traditional_preparation }
+		mutually_exclusive = { focus = generic_technocratic_preparation }
+		mutually_exclusive = { focus = generic_eccentric_preparation }
+		x = 0
+		y = 1
+		cost = 10
+		allow_branch = {
+			NOT = {
+				OR = {
+					has_government = democratic_ideology
+					has_government = civilism
+					has_government = conservative_democracy
+					has_government = direct_democracy
+					has_government = philanthropy
+				}
+			}
+		}
+		ai_will_do = { factor = 0 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = democratic_ideology popularity = 0.05 }
+			add_popularity = { ideology = civilism popularity = 0.03 }
+			add_popularity = { ideology = conservative_democracy popularity = 0.02 }
+			add_political_power = 50
+			country_event = { id = generic_pol.1 }
+		}
+	}
+
+	focus = {
+		id = generic_revolutionary_preparation
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_political_awakening }
+		relative_position_id = generic_political_awakening
+		mutually_exclusive = { focus = generic_democratic_preparation }
+		mutually_exclusive = { focus = generic_authoritarian_preparation }
+		mutually_exclusive = { focus = generic_traditional_preparation }
+		mutually_exclusive = { focus = generic_technocratic_preparation }
+		mutually_exclusive = { focus = generic_eccentric_preparation }
+		x = -6
+		y = 1
+		cost = 10
+		allow_branch = {
+			NOT = {
+				OR = {
+					has_government = communism_ideology
+					has_government = anarchism
+					has_government = transformationism
+					has_government = ruinism
+				}
+			}
+		}
+		ai_will_do = { factor = 0 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = communism_ideology popularity = 0.05 }
+			add_popularity = { ideology = anarchism popularity = 0.03 }
+			add_political_power = 50
+			country_event = { id = generic_pol.2 }
+		}
+	}
+
+	focus = {
+		id = generic_authoritarian_preparation
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = generic_political_awakening }
+		relative_position_id = generic_political_awakening
+		mutually_exclusive = { focus = generic_democratic_preparation }
+		mutually_exclusive = { focus = generic_revolutionary_preparation }
+		mutually_exclusive = { focus = generic_traditional_preparation }
+		mutually_exclusive = { focus = generic_technocratic_preparation }
+		mutually_exclusive = { focus = generic_eccentric_preparation }
+		x = -12
+		y = 1
+		cost = 10
+		allow_branch = {
+			NOT = {
+				OR = {
+					has_government = fascism_ideology
+					has_government = rightneutrality
+					has_government = futurism
+				}
+			}
+		}
+		ai_will_do = { factor = 0 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = fascism_ideology popularity = 0.05 }
+			add_popularity = { ideology = rightneutrality popularity = 0.03 }
+			add_political_power = 50
+			country_event = { id = generic_pol.3 }
+		}
+	}
+
+	focus = {
+		id = generic_traditional_preparation
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_political_awakening }
+		relative_position_id = generic_political_awakening
+		mutually_exclusive = { focus = generic_democratic_preparation }
+		mutually_exclusive = { focus = generic_revolutionary_preparation }
+		mutually_exclusive = { focus = generic_authoritarian_preparation }
+		mutually_exclusive = { focus = generic_technocratic_preparation }
+		mutually_exclusive = { focus = generic_eccentric_preparation }
+		x = -18
+		y = 1
+		cost = 10
+		allow_branch = {
+			NOT = {
+				OR = {
+					has_government = neutrality_ideology
+					has_government = constitutional_monarchy
+					has_government = mythologicalism
+				}
+			}
+		}
+		ai_will_do = { factor = 0 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = neutrality_ideology popularity = 0.05 }
+			add_popularity = { ideology = constitutional_monarchy popularity = 0.03 }
+			add_political_power = 50
+			country_event = { id = generic_pol.4 }
+		}
+	}
+
+	focus = {
+		id = generic_technocratic_preparation
+		icon = GFX_goal_generic_technology
+		prerequisite = { focus = generic_political_awakening }
+		relative_position_id = generic_political_awakening
+		mutually_exclusive = { focus = generic_democratic_preparation }
+		mutually_exclusive = { focus = generic_revolutionary_preparation }
+		mutually_exclusive = { focus = generic_authoritarian_preparation }
+		mutually_exclusive = { focus = generic_traditional_preparation }
+		mutually_exclusive = { focus = generic_eccentric_preparation }
+		x = 0
+		y = 1
+		cost = 10
+		allow_branch = {
+			NOT = {
+				OR = {
+					has_government = intellectualism
+					has_government = technicalism
+				}
+			}
+		}
+		ai_will_do = { factor = 0 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = intellectualism popularity = 0.05 }
+			add_popularity = { ideology = technicalism popularity = 0.03 }
+			add_political_power = 50
+			country_event = { id = generic_pol.5 }
+		}
+	}
+
+	focus = {
+		id = generic_eccentric_preparation
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = generic_political_awakening }
+		relative_position_id = generic_political_awakening
+		mutually_exclusive = { focus = generic_democratic_preparation }
+		mutually_exclusive = { focus = generic_revolutionary_preparation }
+		mutually_exclusive = { focus = generic_authoritarian_preparation }
+		mutually_exclusive = { focus = generic_traditional_preparation }
+		mutually_exclusive = { focus = generic_technocratic_preparation }
+		x = 0
+		y = 1
+		cost = 10
+		allow_branch = {
+			NOT = {
+				OR = {
+					has_government = stupidism
+					has_government = longitudinalism
+					has_government = horizontalism
+					has_government = hinnulism
+					has_government = kyonulism
+				}
+			}
+		}
+		ai_will_do = { factor = 0 }
+		search_filters = { FOCUS_FILTER_POLITICAL }
+		available_if_capitulated = yes
+		completion_reward = {
+			add_popularity = { ideology = stupidism popularity = 0.03 }
+			add_popularity = { ideology = longitudinalism popularity = 0.02 }
+			add_popularity = { ideology = horizontalism popularity = 0.02 }
+			add_political_power = 50
+			country_event = { id = generic_pol.6 }
+		}
+	}
+
+	# ========================================
 	# DEMOCRATIC_IDEOLOGY BRANCH
 	# ========================================
 	focus = {

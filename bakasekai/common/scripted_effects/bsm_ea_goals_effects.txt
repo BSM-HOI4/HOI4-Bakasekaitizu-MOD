@@ -278,6 +278,13 @@ bsm_ea_add_goal_to_sphere = {
 			# 全メンバーにアイデアを付与 + Tech Sharing ならグループ追加
 			set_temp_variable = { t_goal_for_tech = var:bsm_ea_goal_token }
 			set_temp_variable = { t_token_for_tech = var:bsm_ea_token }
+			# 通貨同盟: 盟主の通貨ID・レートを取得
+			set_temp_variable = { t_nc_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+			var:t_nc_leader = {
+				set_temp_variable = { PREV.t_nc_union_id = bsm_nc_id }
+				set_temp_variable = { PREV.t_nc_union_rate = bsm_nc_rate }
+				set_temp_variable = { PREV.t_nc_union_base = bsm_nc_base_rate }
+			}
 			for_each_loop = {
 				array = global.bsm_ea_member_list_@var:bsm_ea_token
 				value = v_member
@@ -288,11 +295,26 @@ bsm_ea_add_goal_to_sphere = {
 						limit = {
 							check_variable = { t_goal_for_tech = token:bsm_ea_goal_06_tech_sharing }
 						}
-						# t_token_for_tech は temp 変数のためスコープ横断でアクセス可能
 						set_temp_variable = { bsm_ea_token = t_token_for_tech }
 						bsm_ea_join_tech_group = yes
 					}
+					# 通貨同盟 Goal03: メンバーの通貨を盟主に統一
+					if = {
+						limit = {
+							check_variable = { t_goal_for_tech = token:bsm_ea_goal_03_currency }
+						}
+						set_temp_variable = { t_nc_union_id = PREV.t_nc_union_id }
+						set_temp_variable = { t_nc_union_rate = PREV.t_nc_union_rate }
+						set_temp_variable = { t_nc_union_base = PREV.t_nc_union_base }
+						bsm_nc_currency_union_start = yes
+					}
 				}
+			}
+			if = {
+				limit = {
+					check_variable = { t_goal_for_tech = token:bsm_ea_goal_03_currency }
+				}
+				news_event = { id = nc.4 days = 1 }
 			}
 		}
 	}
@@ -318,6 +340,14 @@ bsm_ea_remove_goal_from_sphere = {
 					}
 					set_temp_variable = { bsm_ea_token = t_token_for_tech }
 					bsm_ea_leave_tech_group = yes
+				}
+				# 通貨同盟 Goal03 解除: 元の通貨に復帰
+				if = {
+					limit = {
+						check_variable = { t_goal_for_tech = token:bsm_ea_goal_03_currency }
+						has_variable = bsm_nc_original_id
+					}
+					bsm_nc_currency_union_end = yes
 				}
 			}
 		}
@@ -610,13 +640,32 @@ bsm_ea_refresh_selection_data = {
 	set_variable = { bsm_ea_gui_vote_no = 0 }
 	set_variable = { bsm_ea_gui_vote_abstain = 0 }
 
+	# 全体方針 / 外交担当 の表示用初期化
+	set_variable = { bsm_ea_selected_policy = 0 }
+	set_variable = { bsm_ea_has_diplomat = 0 }
+
 	if = {
 		limit = {
 			has_variable = bsm_ea_selected_token
 			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_selected_token^num > 0 }
 		}
+
+		# 全体方針 (0=互恵, 1=搾取)
+		if = {
+			limit = { has_variable = global.bsm_ea_policy_@var:bsm_ea_selected_token }
+			set_variable = { bsm_ea_selected_policy = global.bsm_ea_policy_@var:bsm_ea_selected_token }
+		}
+		# 外交担当
+		if = {
+			limit = { has_variable = global.bsm_ea_diplomat_@var:bsm_ea_selected_token }
+			set_variable = { bsm_ea_has_diplomat = 1 }
+			var:global.bsm_ea_diplomat_@var:bsm_ea_selected_token = {
+				save_global_event_target_as = bsm_ea_diplomat_country
+			}
+		}
 		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_selected_token^0 }
 		var:t_leader = {
+			save_global_event_target_as = bsm_ea_leader_country
 			set_variable = { PREV.bsm_ea_selected_maturity = bsm_ea_maturity }
 			set_variable = { PREV.bsm_ea_selected_governance_mode = bsm_ea_governance_mode }
 			if = {
@@ -665,12 +714,17 @@ bsm_ea_monthly_update = {
 		}
 		bsm_ea_calculate_trust = yes
 		bsm_ea_update_cooldowns = yes
+		# 役職アイデア(議長/外交担当)の同期
+		bsm_ea_sync_my_roles = yes
 	}
 	for_each_loop = {
 		array = global.bsm_ea_sphere_list
 		value = v_token
 		set_temp_variable = { bsm_ea_token = var:v_token }
 		bsm_ea_update_sphere_metrics = yes
+		# 全体方針アイデアの再適用 + 搾取方針の UC 徴収
+		bsm_ea_apply_policy = yes
+		bsm_ea_apply_policy_extraction = yes
 	}
 	# Fix: bsm_ea_mem_count を各盟主が直接グローバル配列から取得
 	every_country = {
@@ -680,6 +734,9 @@ bsm_ea_monthly_update = {
 		}
 		set_variable = { bsm_ea_mem_count = global.bsm_ea_member_list_@var:bsm_ea_sphere^num }
 	}
+
+	# AI 行動の駆動 (盟主の方針/任命/目標/投資)
+	bsm_ea_ai_monthly = yes
 }
 
 # ------------------------------------------

@@ -305,6 +305,12 @@ ucs_add_Unified_Currency_month = {
 
 		add_to_temp_variable = { temp_factor = temp_subject_bonus_total }
 		clamp_temp_variable = { var = temp_factor min = 0.1 } #最低10%保証（長期戦争・多重ペナルティ対策）
+
+		# 国家通貨 為替レート補正
+		bsm_nc_calc_uc_modifier = yes
+		add_to_temp_variable = { temp_factor = t_nc_uc_mod }
+		clamp_temp_variable = { var = temp_factor min = 0.05 }
+
 		multiply_temp_variable = { temp_add_amount = temp_factor } #[ SUM{ 人口(m) × (インフラ×1.25 + 飛行場×1.1) } × 民需出力 × (安定度+文明) × 補正 ] - (徴兵×ステート数)
 		set_variable = { temp_last_month = temp_add_amount } #先月の獲得量の登録
 		subtract_from_temp_variable = { temp_add_amount = Unified_Currency_additional_gain }
@@ -358,12 +364,18 @@ ucs_on_monthly = {
 			set_country_flag = ucs_low_currency_penalty
 			set_variable = { ucs_ec_deficit = ucs_required_ec }
 			subtract_from_variable = { ucs_ec_deficit = Unified_Currency }
-			add_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier } } }
+				add_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+			}
 		}
 		else = {
 			clr_country_flag = ucs_low_currency_penalty
 			set_variable = { var = ucs_ec_deficit value = 0 }
-			remove_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+			if = {
+				limit = { has_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier } }
+				remove_dynamic_modifier = { modifier = ucs_low_currency_penalty_modifier }
+			}
 		}
 
 		# ステート拡大限界 (EC量基準)
@@ -380,12 +392,18 @@ ucs_on_monthly = {
 			set_country_flag = ucs_over_state_limit_penalty
 			set_variable = { ucs_state_overage = num_owned_states }
 			subtract_from_variable = { ucs_state_overage = ucs_state_limit }
-			add_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier } } }
+				add_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+			}
 		}
 		else = {
 			clr_country_flag = ucs_over_state_limit_penalty
 			set_variable = { var = ucs_state_overage value = 0 }
-			remove_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+			if = {
+				limit = { has_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier } }
+				remove_dynamic_modifier = { modifier = ucs_over_state_limit_penalty_modifier }
+			}
 		}
 
 		# 経済同盟の統合経済力計算
@@ -402,10 +420,16 @@ ucs_on_monthly = {
 		# ボーナス適用
 		if = {
 			limit = { check_variable = { unified_economic_power_bonus > 0 } }
-			add_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier } } }
+				add_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+			}
 		}
 		else = {
-			remove_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+			if = {
+				limit = { has_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier } }
+				remove_dynamic_modifier = { modifier = ucs_economic_power_bonus_modifier }
+			}
 		}
 
 

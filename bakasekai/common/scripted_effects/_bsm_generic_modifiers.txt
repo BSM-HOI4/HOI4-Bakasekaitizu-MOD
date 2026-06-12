@@ -1,0 +1,125 @@
+bsm_generic_modifiers_first_setting = {
+	set_variable = { var = bsm_scaled_consumer_goods_factories value = 0 }
+	set_variable = { var = bsm_scaled_political_power_gain value = 0 }
+	set_variable = { var = bsm_scaled_command_power_gain value = 0 }
+	set_variable = { var = bsm_scaled_political_power_cost value = 0 }
+	set_variable = { var = bsm_scaled_monthly_population value = 0 }
+	set_variable = { var = bsm_gm_population_millions value = 0 }
+
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = bsm_generic_scaled_modifier } } }
+		add_dynamic_modifier = { modifier = bsm_generic_scaled_modifier }
+	}
+	bsm_generic_modifiers_update_population = yes
+	bsm_generic_modifiers_update = yes
+}
+
+bsm_generic_modifiers_update_population = {
+	set_variable = { var = bsm_gm_population_millions value = 0 }
+	every_owned_state = {
+		set_temp_variable = { bsm_gm_state_population = state_population_k }
+		divide_temp_variable = { bsm_gm_state_population = 1000 }
+		add_to_variable = { PREV.bsm_gm_population_millions = bsm_gm_state_population }
+	}
+}
+
+bsm_generic_modifiers_update = {
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = bsm_generic_scaled_modifier } } }
+		add_dynamic_modifier = { modifier = bsm_generic_scaled_modifier }
+	}
+
+	set_temp_variable = { bsm_gm_temp = bsm_gm_population_millions }
+	multiply_temp_variable = { bsm_gm_temp = modifier@bsm_consumer_goods_factories_per_million_population }
+	set_variable = { bsm_scaled_consumer_goods_factories = bsm_gm_temp }
+
+	set_temp_variable = { bsm_gm_temp = num_battalions }
+	divide_temp_variable = { bsm_gm_temp = 100 }
+	multiply_temp_variable = { bsm_gm_temp = modifier@bsm_consumer_goods_factories_per_100_army_battalions }
+	add_to_variable = { bsm_scaled_consumer_goods_factories = bsm_gm_temp }
+
+	set_temp_variable = { bsm_gm_temp = stability }
+	multiply_temp_variable = { bsm_gm_temp = 100 }
+	multiply_temp_variable = { bsm_gm_temp = modifier@bsm_political_power_gain_per_stability }
+	set_variable = { bsm_scaled_political_power_gain = bsm_gm_temp }
+
+	set_temp_variable = { bsm_gm_temp = war_support }
+	multiply_temp_variable = { bsm_gm_temp = 100 }
+	multiply_temp_variable = { bsm_gm_temp = modifier@bsm_command_power_gain_per_war_support }
+	set_variable = { bsm_scaled_command_power_gain = bsm_gm_temp }
+
+	set_temp_variable = { bsm_gm_temp = num_owned_states }
+	multiply_temp_variable = { bsm_gm_temp = modifier@bsm_political_power_cost_per_owned_state }
+	set_variable = { bsm_scaled_political_power_cost = bsm_gm_temp }
+
+	set_variable = { var = bsm_scaled_monthly_population value = 0 }
+	if = {
+		limit = { has_variable = bsm_living_standard }
+		set_temp_variable = { bsm_gm_temp = bsm_living_standard }
+		multiply_temp_variable = { bsm_gm_temp = modifier@bsm_population_growth_factor_per_living_standard }
+		set_variable = { bsm_scaled_monthly_population = bsm_gm_temp }
+	}
+
+	force_update_dynamic_modifier = yes
+}
+
+bsm_generic_modifiers_monthly_events = {
+	bsm_generic_modifiers_update_population = yes
+	bsm_generic_modifiers_update = yes
+
+	set_temp_variable = { bsm_gm_chance = modifier@bsm_domestic_strike_chance }
+	multiply_temp_variable = { bsm_gm_chance = 100 }
+	clamp_temp_variable = { var = bsm_gm_chance min = 0 max = 100 }
+	if = {
+		limit = { check_variable = { bsm_gm_chance > 0 } }
+		set_temp_variable_to_random = {
+			var = bsm_gm_roll
+			min = 0
+			max = 100
+		}
+		if = {
+			limit = {
+				check_variable = { bsm_gm_roll < bsm_gm_chance }
+				NOT = { has_country_flag = crisis_in_progress }
+				NOT = { has_idea = strikes_1 }
+				NOT = { has_idea = strikes_2 }
+				NOT = { has_idea = strikes_3 }
+			}
+			add_ideas = strikes_1
+			set_country_flag = crisis_in_progress
+			country_event = { id = stability.22 }
+		}
+	}
+
+	set_temp_variable = { bsm_gm_chance = modifier@bsm_domestic_riot_chance }
+	multiply_temp_variable = { bsm_gm_chance = 100 }
+	clamp_temp_variable = { var = bsm_gm_chance min = 0 max = 100 }
+	if = {
+		limit = { check_variable = { bsm_gm_chance > 0 } }
+		set_temp_variable_to_random = {
+			var = bsm_gm_roll
+			min = 0
+			max = 100
+		}
+		if = {
+			limit = { check_variable = { bsm_gm_roll < bsm_gm_chance } }
+			country_event = { id = bsm_generic_modifier.1 }
+		}
+	}
+
+	set_temp_variable = { bsm_gm_chance = modifier@bsm_monthly_worker_death_chance }
+	multiply_temp_variable = { bsm_gm_chance = 100 }
+	clamp_temp_variable = { var = bsm_gm_chance min = 0 max = 100 }
+	if = {
+		limit = { check_variable = { bsm_gm_chance > 0 } }
+		set_temp_variable_to_random = {
+			var = bsm_gm_roll
+			min = 0
+			max = 100
+		}
+		if = {
+			limit = { check_variable = { bsm_gm_roll < bsm_gm_chance } }
+			country_event = { id = bsm_generic_modifier.2 }
+		}
+	}
+}

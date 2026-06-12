@@ -1,0 +1,1188 @@
+
+# ==========================================
+# BSM 国家通貨システム (National Currency)
+# prefix: bsm_nc_
+# ==========================================
+#
+# 通貨ID一覧:
+#  0 = UC直結 (統一通貨)
+#  1 = USD (米ドル)         2 = EUR (ユーロ)          3 = GBP (ポンド)
+#  4 = JPY (円)             5 = CNY (人民元)          6 = RUB (ルーブル)
+#  7 = KRW (ウォン)         8 = INR (ルピー)          9 = TRY (リラ)
+# 10 = BRL (レアル)        11 = MXN (メキシコペソ)   12 = ARS (アルゼンチンペソ)
+# 13 = SAR (サウジリアル)  14 = EGP (エジプスポンド)  15 = CHF (スイスフラン)
+# 16 = SEK (クローナ)      17 = AUD (豪ドル)         18 = IDR (ルピア)
+# 19 = THB (バーツ)        20 = NGN (ナイラ)         21 = ZAR (ランド)
+# 22 = KES (東アフリカシリング) 23 = COP (コロンビアペソ) 24 = ILS (シェケル)
+# 25 = TWD (台湾ドル)      26 = PHP (フィリピンペソ) 27 = MYR (リンギット)
+# 28 = MAN (満州国円)      29 = Generic (汎用通貨)
+
+# ==========================================
+# 初期化: on_startup から every_country 内で呼び出し
+# ==========================================
+bsm_nc_init_currency = {
+	set_variable = { bsm_nc_id = 0 }
+	set_variable = { bsm_nc_base_rate = 1.0 }
+	set_variable = { bsm_nc_rate = 1.0 }
+	set_variable = { bsm_nc_rate_prev = 1.0 }
+	set_variable = { bsm_nc_stability = 100 }
+	set_variable = { bsm_nc_inflation = 0 }
+	set_variable = { bsm_nc_rate_delta = 0 }
+	set_variable = { bsm_nc_strength_cat = 1 }
+	bsm_nc_assign_currency = yes
+	set_variable = { bsm_nc_original_id = bsm_nc_id }
+	set_variable = { bsm_nc_rate = bsm_nc_base_rate }
+	set_variable = { bsm_nc_rate_prev = bsm_nc_base_rate }
+}
+
+# ==========================================
+# 開始時傀儡国の通貨継承
+# 宗主国と同じ通貨を使用させる
+# on_startup の通貨初期化(全国)後に every_country 内で呼び出すこと
+# ==========================================
+bsm_nc_inherit_overlord_currency = {
+	if = {
+		limit = {
+			is_subject = yes
+			exists = yes
+		}
+		set_temp_variable = { t_ov_id = 0 }
+		set_temp_variable = { t_ov_base = 1.0 }
+		overlord = {
+			set_temp_variable = { PREV.t_ov_id = bsm_nc_id }
+			set_temp_variable = { PREV.t_ov_base = bsm_nc_base_rate }
+		}
+		set_variable = { bsm_nc_id = t_ov_id }
+		set_variable = { bsm_nc_base_rate = t_ov_base }
+		set_variable = { bsm_nc_original_id = t_ov_id }
+		set_variable = { bsm_nc_rate = t_ov_base }
+		set_variable = { bsm_nc_rate_prev = t_ov_base }
+	}
+}
+
+# ==========================================
+# 経済同盟内: generic通貨国へ最強通貨を流通させる
+# 入力: t_token (temp) = 陣営トークン
+# このスコープ(通常は盟主)の temp 変数を使うため単一国スコープで実行する
+# ==========================================
+bsm_nc_apply_strongest_for_sphere = {
+	# var: のスコープ内では PREV.temp の読み取りが効かないため global 変数で集計する
+	# 1. メンバー内で最強(=base_rate最小)の通貨を探す (generic/UC直結は除外)
+	set_variable = { global.bsm_nc_best_rate = 20000 }
+	set_variable = { global.bsm_nc_best_id = 29 }
+	set_variable = { global.bsm_nc_has_strong = 0 }
+	for_each_loop = {
+		array = global.bsm_ea_member_list_@var:t_token
+		value = v_nc_smem
+		var:v_nc_smem = {
+			if = {
+				limit = {
+					NOT = { check_variable = { bsm_nc_id = 0 } }
+					NOT = { check_variable = { bsm_nc_id = 29 } }
+					check_variable = { bsm_nc_base_rate < global.bsm_nc_best_rate }
+				}
+				set_variable = { global.bsm_nc_best_rate = bsm_nc_base_rate }
+				set_variable = { global.bsm_nc_best_id = bsm_nc_id }
+				set_variable = { global.bsm_nc_has_strong = 1 }
+			}
+		}
+	}
+	# 2. generic通貨のメンバーへ最強通貨を適用
+	if = {
+		limit = { check_variable = { global.bsm_nc_has_strong = 1 } }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_token
+			value = v_nc_gmem
+			var:v_nc_gmem = {
+				if = {
+					limit = { check_variable = { bsm_nc_id = 29 } }
+					set_variable = { bsm_nc_id = global.bsm_nc_best_id }
+					set_variable = { bsm_nc_base_rate = global.bsm_nc_best_rate }
+					set_variable = { bsm_nc_rate = global.bsm_nc_best_rate }
+					set_variable = { bsm_nc_rate_prev = global.bsm_nc_best_rate }
+				}
+			}
+		}
+	}
+}
+
+# ==========================================
+# 盟主が自陣営に最強通貨を流通させる (every_country 内で呼び出し)
+# ==========================================
+bsm_nc_leader_apply_strongest = {
+	if = {
+		limit = {
+			has_variable = bsm_ea_is_leader
+			has_variable = bsm_ea_leader_of
+		}
+		set_temp_variable = { t_token = bsm_ea_leader_of }
+		bsm_nc_apply_strongest_for_sphere = yes
+	}
+}
+
+# ==========================================
+# 通貨同盟: 初期化/解除/収斂管理
+# 入力(temp): t_nc_union_id, t_nc_union_rate, t_nc_union_base
+# ==========================================
+bsm_nc_currency_union_start = {
+	if = {
+		limit = { NOT = { has_variable = bsm_nc_original_id } }
+		set_variable = { bsm_nc_original_id = bsm_nc_id }
+	}
+	clr_country_flag = bsm_nc_currency_union_optout
+	set_variable = { bsm_nc_union_active = 1 }
+	set_variable = { bsm_nc_union_anchor_id = t_nc_union_id }
+	set_variable = { bsm_nc_union_anchor_base = t_nc_union_base }
+	set_variable = { bsm_nc_union_anchor_rate = t_nc_union_rate }
+	set_variable = { bsm_nc_id = t_nc_union_id }
+	set_variable = { bsm_nc_base_rate = t_nc_union_base }
+	set_variable = { bsm_nc_rate = t_nc_union_rate }
+	set_variable = { bsm_nc_rate_prev = t_nc_union_rate }
+	if = {
+		limit = { NOT = { has_variable = bsm_nc_union_convergence } }
+		set_variable = { bsm_nc_union_convergence = 50 }
+	}
+	if = {
+		limit = { NOT = { has_variable = bsm_nc_union_exit_pressure } }
+		set_variable = { bsm_nc_union_exit_pressure = 0 }
+	}
+}
+
+bsm_nc_currency_union_end = {
+	if = {
+		limit = { has_variable = bsm_nc_original_id }
+		set_variable = { bsm_nc_id = bsm_nc_original_id }
+		bsm_nc_assign_currency = yes
+		set_variable = { bsm_nc_rate = bsm_nc_base_rate }
+		set_variable = { bsm_nc_rate_prev = bsm_nc_base_rate }
+		set_variable = { bsm_nc_rate_delta = 0 }
+	}
+	clear_variable = bsm_nc_union_active
+	clear_variable = bsm_nc_union_anchor_id
+	clear_variable = bsm_nc_union_anchor_base
+	clear_variable = bsm_nc_union_anchor_rate
+	clear_variable = bsm_nc_union_convergence
+	clear_variable = bsm_nc_union_exit_pressure
+	clear_variable = bsm_nc_union_crisis_token
+	if = {
+		limit = { has_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier } }
+		remove_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier }
+	}
+	if = {
+		limit = { has_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier } }
+		remove_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier }
+	}
+}
+
+bsm_nc_currency_union_sync_to_leader = {
+	if = {
+		limit = {
+			has_variable = bsm_ea_sphere
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_sphere^num > 0 }
+		}
+		set_temp_variable = { t_nc_union_token = bsm_ea_sphere }
+		set_variable = { bsm_nc_union_crisis_token = t_nc_union_token }
+		set_temp_variable = { t_nc_union_leader = global.bsm_ea_member_list_@var:t_nc_union_token^0 }
+		var:t_nc_union_leader = {
+			set_temp_variable = { PREV.t_nc_union_id = bsm_nc_id }
+			set_temp_variable = { PREV.t_nc_union_base = bsm_nc_base_rate }
+			set_temp_variable = { PREV.t_nc_union_rate = bsm_nc_rate }
+		}
+		if = {
+			limit = {
+				NOT = { check_variable = { t_nc_union_id = 0 } }
+			}
+			set_variable = { bsm_nc_union_anchor_id = t_nc_union_id }
+			set_variable = { bsm_nc_union_anchor_base = t_nc_union_base }
+			set_variable = { bsm_nc_union_anchor_rate = t_nc_union_rate }
+			set_variable = { bsm_nc_id = t_nc_union_id }
+			set_variable = { bsm_nc_base_rate = t_nc_union_base }
+			if = {
+				limit = { check_variable = { bsm_nc_union_convergence > 59 } }
+				set_variable = { bsm_nc_rate_prev = bsm_nc_rate }
+				set_variable = { bsm_nc_rate = t_nc_union_rate }
+				set_temp_variable = { t_nc_union_delta = bsm_nc_rate }
+				subtract_from_temp_variable = { t_nc_union_delta = bsm_nc_rate_prev }
+				set_variable = { bsm_nc_rate_delta = t_nc_union_delta }
+			}
+		}
+	}
+}
+
+bsm_nc_currency_union_monthly = {
+	if = {
+		limit = { has_idea = bsm_ea_goal_03_currency }
+		if = {
+			limit = { NOT = { has_variable = bsm_nc_union_convergence } }
+			set_variable = { bsm_nc_union_convergence = 50 }
+		}
+		if = {
+			limit = { NOT = { has_variable = bsm_nc_union_exit_pressure } }
+			set_variable = { bsm_nc_union_exit_pressure = 0 }
+		}
+		set_variable = { bsm_nc_union_active = 1 }
+		bsm_nc_currency_union_sync_to_leader = yes
+
+		if = {
+			limit = { check_variable = { bsm_nc_stability > 79 } }
+			add_to_variable = { bsm_nc_union_convergence = 8 }
+		}
+		else_if = {
+			limit = { check_variable = { bsm_nc_stability > 59 } }
+			add_to_variable = { bsm_nc_union_convergence = 4 }
+		}
+		else = {
+			subtract_from_variable = { bsm_nc_union_convergence = 8 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_inflation > 10 } }
+			subtract_from_variable = { bsm_nc_union_convergence = 10 }
+		}
+		else_if = {
+			limit = { check_variable = { bsm_nc_inflation < 3 } }
+			add_to_variable = { bsm_nc_union_convergence = 4 }
+		}
+		if = {
+			limit = { check_variable = { Unified_Currency < 0 } }
+			subtract_from_variable = { bsm_nc_union_convergence = 8 }
+		}
+		if = {
+			limit = { has_war = yes }
+			subtract_from_variable = { bsm_nc_union_convergence = 4 }
+		}
+		clamp_variable = { var = bsm_nc_union_convergence min = 0 max = 100 }
+
+		if = {
+			limit = { check_variable = { bsm_nc_union_convergence < 30 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 18 }
+		}
+		else_if = {
+			limit = { check_variable = { bsm_nc_union_convergence < 50 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 8 }
+		}
+		else = {
+			subtract_from_variable = { bsm_nc_union_exit_pressure = 6 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_stability < 40 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 10 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_inflation > 15 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 12 }
+		}
+		if = {
+			limit = { check_variable = { Unified_Currency < 0 } }
+			add_to_variable = { bsm_nc_union_exit_pressure = 8 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_union_convergence > 79 } }
+			subtract_from_variable = { bsm_nc_union_exit_pressure = 10 }
+		}
+		clamp_variable = { var = bsm_nc_union_exit_pressure min = 0 max = 100 }
+
+		if = {
+			limit = { check_variable = { bsm_nc_union_convergence > 79 } }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier } } }
+				add_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier }
+			}
+		}
+		else = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_union_converged_modifier }
+			}
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_union_exit_pressure > 49 } }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier } } }
+				add_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier }
+			}
+		}
+		else = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_union_strain_modifier }
+			}
+		}
+		if = {
+			limit = {
+				check_variable = { bsm_nc_union_exit_pressure > 79 }
+				NOT = { has_country_flag = bsm_nc_union_crisis_recent }
+			}
+			set_country_flag = { flag = bsm_nc_union_crisis_recent days = 180 }
+			country_event = { id = nc.5 days = 1 }
+		}
+	}
+	else_if = {
+		limit = { has_variable = bsm_nc_union_active }
+		bsm_nc_currency_union_end = yes
+	}
+}
+
+bsm_nc_currency_union_stabilize = {
+	add_political_power = -25
+	add_stability = -0.02
+	add_to_variable = { Unified_Currency = -25 }
+	add_to_variable = { bsm_nc_union_convergence = 20 }
+	subtract_from_variable = { bsm_nc_union_exit_pressure = 35 }
+	subtract_from_variable = { bsm_nc_inflation = 5 }
+	clamp_variable = { var = bsm_nc_union_convergence min = 0 max = 100 }
+	clamp_variable = { var = bsm_nc_union_exit_pressure min = 0 max = 100 }
+	clamp_variable = { var = bsm_nc_inflation min = -10 max = 100 }
+}
+
+bsm_nc_currency_union_capital_controls = {
+	add_political_power = -50
+	add_stability = -0.04
+	add_to_variable = { bsm_nc_union_convergence = 8 }
+	subtract_from_variable = { bsm_nc_union_exit_pressure = 45 }
+	subtract_from_variable = { bsm_nc_inflation = 10 }
+	clamp_variable = { var = bsm_nc_union_convergence min = 0 max = 100 }
+	clamp_variable = { var = bsm_nc_union_exit_pressure min = 0 max = 100 }
+	clamp_variable = { var = bsm_nc_inflation min = -10 max = 100 }
+}
+
+bsm_nc_currency_union_opt_out = {
+	remove_ideas = bsm_ea_goal_03_currency
+	bsm_nc_currency_union_end = yes
+	set_country_flag = bsm_nc_currency_union_optout
+	add_political_power = -75
+	add_stability = -0.05
+}
+
+# ==========================================
+# 通貨割り当て (タグベース)
+# ==========================================
+bsm_nc_assign_currency = {
+	# --- 1: USD (米ドル) rate=1.0 ---
+	if = {
+		limit = {
+			OR = {
+				tag = USA
+				tag = CAN
+				tag = COS
+				tag = PAN
+				tag = BLZ
+				tag = GUA
+				tag = ELS
+				tag = HON
+				tag = NIC
+				tag = CUB
+				tag = HAI
+				tag = DOM
+				tag = JAM
+				tag = TRI
+				tag = BAH
+				tag = LVE
+				tag = NEV
+				tag = NMX
+				tag = TEX
+				tag = CSA
+				tag = CLF
+				tag = SAM
+				tag = LIB
+				tag = PRI
+				tag = PUE
+				tag = VIR
+			}
+		}
+		set_variable = { bsm_nc_id = 1 }
+		set_variable = { bsm_nc_base_rate = 1.0 }
+	}
+	# --- 2: EUR (ユーロ) rate=0.92 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = EUR
+				tag = OZY
+				tag = DEU
+				tag = FRA
+				tag = ITA
+				tag = SAN
+				tag = BEL
+				tag = HOL
+				tag = LUX
+				tag = BLX
+				tag = IRE
+				tag = AUT
+				tag = CZE
+				tag = SLO
+				tag = HUN
+				tag = GRC
+				tag = GOC
+				tag = CYP
+				tag = MLT
+				tag = EST
+				tag = LAT
+				tag = LIT
+				tag = PRT
+				tag = FIN
+				tag = POL
+				tag = CRO
+				tag = SLV
+				tag = BUL
+				tag = ROM
+				tag = SER
+				tag = MNT
+				tag = CAT
+				tag = GLC
+				tag = BAS
+				tag = NAV
+				tag = ADR
+				tag = VAT
+				tag = MON
+				tag = MCO
+			}
+		}
+		set_variable = { bsm_nc_id = 2 }
+		set_variable = { bsm_nc_base_rate = 0.92 }
+	}
+	# --- 3: GBP (ポンド) rate=0.79 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = GBR
+				tag = LON
+				tag = GGY
+				tag = HRH
+				tag = JEY
+				tag = GIB
+				tag = SCO
+				tag = WLS
+				tag = ENG
+			}
+		}
+		set_variable = { bsm_nc_id = 3 }
+		set_variable = { bsm_nc_base_rate = 0.79 }
+	}
+	# --- 4: JPY (円) rate=149 ---
+	else_if = {
+		limit = { tag = JPN }
+		set_variable = { bsm_nc_id = 4 }
+		set_variable = { bsm_nc_base_rate = 149.0 }
+	}
+	# --- 5: CNY (人民元) rate=7.2 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = CHI
+				tag = CHN
+				tag = SHX
+				tag = SHL
+				tag = SHT
+				tag = XIC
+				tag = GXC
+				tag = SIL
+				tag = JSH
+				tag = PSE
+				tag = XSM
+			}
+		}
+		set_variable = { bsm_nc_id = 5 }
+		set_variable = { bsm_nc_base_rate = 7.2 }
+	}
+	# --- 6: RUB (ルーブル) rate=92 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = SOV
+				tag = RUS
+				tag = UKR
+				tag = BLR
+				tag = KAZ
+				tag = UZB
+				tag = TMS
+				tag = TAJ
+				tag = KYR
+				tag = ARM
+				tag = AZR
+				tag = GEO
+				tag = CRI
+				tag = DON
+				tag = KAR
+				tag = TAT
+				tag = CHU
+				tag = ALT
+				tag = YAM
+				tag = OVO
+				tag = NOA
+				tag = DAG
+				tag = UDM
+				tag = KUB
+				tag = YAK
+				tag = MOS
+				tag = SBR
+				tag = VLA
+				tag = KAL
+				tag = ROR
+				tag = CHK
+				tag = NMR
+				tag = YUG
+				tag = KOS
+			}
+		}
+		set_variable = { bsm_nc_id = 6 }
+		set_variable = { bsm_nc_base_rate = 92.0 }
+	}
+	# --- 7: KRW (ウォン) rate=1320 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = KOR
+				tag = PRK
+				tag = DPK
+			}
+		}
+		set_variable = { bsm_nc_id = 7 }
+		set_variable = { bsm_nc_base_rate = 1320.0 }
+	}
+	# --- 8: INR (ルピー) rate=83 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = IND
+				tag = PAK
+				tag = BAN
+				tag = SIK
+				tag = SRL
+				tag = NEP
+				tag = NPL
+				tag = MAL
+				tag = MDV
+			}
+		}
+		set_variable = { bsm_nc_id = 8 }
+		set_variable = { bsm_nc_base_rate = 83.0 }
+	}
+	# --- 9: TRY (リラ) rate=27 ---
+	else_if = {
+		limit = { tag = TUR }
+		set_variable = { bsm_nc_id = 9 }
+		set_variable = { bsm_nc_base_rate = 27.0 }
+	}
+	# --- 10: BRL (レアル) rate=5.0 ---
+	else_if = {
+		limit = { tag = BRA }
+		set_variable = { bsm_nc_id = 10 }
+		set_variable = { bsm_nc_base_rate = 5.0 }
+	}
+	# --- 11: MXN (メキシコペソ) rate=17 ---
+	else_if = {
+		limit = { tag = MEX }
+		set_variable = { bsm_nc_id = 11 }
+		set_variable = { bsm_nc_base_rate = 17.0 }
+	}
+	# --- 12: ARS (アルゼンチンペソ) rate=350 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = ARG
+				tag = URG
+				tag = PAR
+			}
+		}
+		set_variable = { bsm_nc_id = 12 }
+		set_variable = { bsm_nc_base_rate = 350.0 }
+	}
+	# --- 13: SAR (サウジリアル) rate=3.75 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = SAU
+				tag = UAE
+				tag = QAT
+				tag = KUW
+				tag = BAH
+				tag = OMA
+				tag = YEM
+			}
+		}
+		set_variable = { bsm_nc_id = 13 }
+		set_variable = { bsm_nc_base_rate = 3.75 }
+	}
+	# --- 14: EGP (エジプスポンド) rate=31 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = EGY
+				tag = LBA
+				tag = TUN
+				tag = ALG
+				tag = MAR
+				tag = SUD
+				tag = MRT
+			}
+		}
+		set_variable = { bsm_nc_id = 14 }
+		set_variable = { bsm_nc_base_rate = 31.0 }
+	}
+	# --- 15: CHF (スイスフラン) rate=0.88 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = SWI
+				tag = LIH
+			}
+		}
+		set_variable = { bsm_nc_id = 15 }
+		set_variable = { bsm_nc_base_rate = 0.88 }
+	}
+	# --- 16: SEK (クローナ) rate=10.5 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = SWE
+				tag = DEN
+				tag = NOR
+				tag = ISL
+				tag = FIN
+			}
+		}
+		set_variable = { bsm_nc_id = 16 }
+		set_variable = { bsm_nc_base_rate = 10.5 }
+	}
+	# --- 17: AUD (豪ドル) rate=1.55 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = AST
+				tag = NZL
+				tag = FIJ
+				tag = PNG
+			}
+		}
+		set_variable = { bsm_nc_id = 17 }
+		set_variable = { bsm_nc_base_rate = 1.55 }
+	}
+	# --- 18: IDR (ルピア) rate=15500 ---
+	else_if = {
+		limit = { tag = IDN }
+		set_variable = { bsm_nc_id = 18 }
+		set_variable = { bsm_nc_base_rate = 15500.0 }
+	}
+	# --- 19: THB (バーツ) rate=35 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = SIA
+				tag = LAO
+				tag = KHM
+				tag = VNM
+				tag = BRM
+			}
+		}
+		set_variable = { bsm_nc_id = 19 }
+		set_variable = { bsm_nc_base_rate = 35.0 }
+	}
+	# --- 20: NGN (ナイラ) rate=800 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = NGA
+				tag = GHA
+				tag = IVO
+				tag = SEN
+				tag = MLI
+				tag = GNA
+				tag = SIE
+				tag = GAM
+				tag = VOL
+				tag = NGR
+				tag = CMR
+				tag = DAH
+				tag = GAB
+				tag = COG
+				tag = TOG
+			}
+		}
+		set_variable = { bsm_nc_id = 20 }
+		set_variable = { bsm_nc_base_rate = 800.0 }
+	}
+	# --- 21: ZAR (ランド) rate=19 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = ZAF
+				tag = NMB
+				tag = BOT
+				tag = ZIM
+				tag = ZAM
+				tag = MLW
+				tag = UGA
+				tag = ANG
+				tag = MZB
+			}
+		}
+		set_variable = { bsm_nc_id = 21 }
+		set_variable = { bsm_nc_base_rate = 19.0 }
+	}
+	# --- 22: KES (東アフリカシリング) rate=150 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = KEN
+				tag = UGA
+				tag = TZA
+				tag = TZN
+				tag = ERI
+				tag = ETH
+				tag = DJI
+				tag = SOM
+				tag = RWA
+				tag = BRD
+				tag = RCG
+				tag = MAD
+			}
+		}
+		set_variable = { bsm_nc_id = 22 }
+		set_variable = { bsm_nc_base_rate = 150.0 }
+	}
+	# --- 23: COP (コロンビアペソ) rate=4000 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = COL
+				tag = VEN
+				tag = ECU
+				tag = PRU
+				tag = BOL
+				tag = CHL
+				tag = PER
+			}
+		}
+		set_variable = { bsm_nc_id = 23 }
+		set_variable = { bsm_nc_base_rate = 4000.0 }
+	}
+	# --- 24: ILS (シェケル) rate=3.7 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = ISR
+				tag = PAL
+				tag = PSE
+			}
+		}
+		set_variable = { bsm_nc_id = 24 }
+		set_variable = { bsm_nc_base_rate = 3.7 }
+	}
+	# --- 25: TWD (台湾ドル) rate=31 ---
+	else_if = {
+		limit = { tag = TWN }
+		set_variable = { bsm_nc_id = 25 }
+		set_variable = { bsm_nc_base_rate = 31.0 }
+	}
+	# --- 26: PHP (フィリピンペソ) rate=56 ---
+	else_if = {
+		limit = { tag = PHI }
+		set_variable = { bsm_nc_id = 26 }
+		set_variable = { bsm_nc_base_rate = 56.0 }
+	}
+	# --- 27: MYR (リンギット) rate=4.7 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = MAL
+				tag = MYS
+				tag = BRN
+				tag = IDN
+			}
+		}
+		set_variable = { bsm_nc_id = 27 }
+		set_variable = { bsm_nc_base_rate = 4.7 }
+	}
+	# --- 28: MAN (満州国円) rate=120 ---
+	else_if = {
+		limit = {
+			OR = {
+				tag = MAN
+				tag = MEN
+				tag = MME
+			}
+		}
+		set_variable = { bsm_nc_id = 28 }
+		set_variable = { bsm_nc_base_rate = 120.0 }
+	}
+	# --- 29: Generic (汎用通貨) rate=100 ---
+	# 上記に含まれない全国家
+	else = {
+		set_variable = { bsm_nc_id = 29 }
+		set_variable = { bsm_nc_base_rate = 100.0 }
+	}
+}
+
+# ==========================================
+# 月次為替レート計算
+# ucs_on_monthly と同じタイミングで呼び出し
+# ==========================================
+bsm_nc_monthly_update = {
+	# UC直結国はスキップ
+	if = {
+		limit = { check_variable = { bsm_nc_id = 0 } }
+	}
+	else = {
+		# --- 1. 基本ファクター ---
+		set_temp_variable = { t_nc_factor = 1.0 }
+
+		# 安定度 (0.0-1.0) → 通貨強度寄与
+		set_temp_variable = { t_nc_stab_mod = stability }
+		subtract_from_temp_variable = { t_nc_stab_mod = 0.5 }
+		multiply_temp_variable = { t_nc_stab_mod = 0.1 }
+		add_to_temp_variable = { t_nc_factor = t_nc_stab_mod }
+
+		# --- 2. 戦争ペナルティ ---
+		if = {
+			limit = { has_war = yes }
+			multiply_temp_variable = { t_nc_factor = 0.95 }
+			if = {
+				limit = { check_variable = { ucs_war_month_counter > 6 } }
+				multiply_temp_variable = { t_nc_factor = 0.92 }
+			}
+			if = {
+				limit = { check_variable = { ucs_war_month_counter > 12 } }
+				multiply_temp_variable = { t_nc_factor = 0.95 }
+			}
+		}
+
+		# --- 3. UC残高ボーナス ---
+		if = {
+			limit = {
+				has_variable = ucs_required_ec
+				check_variable = { Unified_Currency > ucs_required_ec }
+			}
+			multiply_temp_variable = { t_nc_factor = 1.02 }
+		}
+		if = {
+			limit = { check_variable = { Unified_Currency < 0 } }
+			multiply_temp_variable = { t_nc_factor = 0.93 }
+		}
+
+		# --- 4. EA Goal03 通貨同盟ボーナス ---
+		if = {
+			limit = { has_idea = bsm_ea_goal_03_currency }
+			multiply_temp_variable = { t_nc_factor = 1.05 }
+		}
+
+		# --- 5. 文明度ボーナス ---
+		if = {
+			limit = {
+				has_variable = Cultural_Degree
+				check_variable = { Cultural_Degree > 0.5 }
+			}
+			multiply_temp_variable = { t_nc_factor = 1.01 }
+		}
+		if = {
+			limit = {
+				has_variable = Cultural_Degree
+				check_variable = { Cultural_Degree > 0.8 }
+			}
+			multiply_temp_variable = { t_nc_factor = 1.01 }
+		}
+
+		# --- 6. 従属国ペナルティ ---
+		if = {
+			limit = { is_subject = yes }
+			multiply_temp_variable = { t_nc_factor = 0.96 }
+		}
+
+		# --- 6b. ランダムノイズ (為替流動性) ---
+		random_list = {
+			25 = { add_to_temp_variable = { t_nc_factor = -0.02 } }
+			25 = { add_to_temp_variable = { t_nc_factor = -0.01 } }
+			25 = { add_to_temp_variable = { t_nc_factor = 0.01 } }
+			25 = { add_to_temp_variable = { t_nc_factor = 0.02 } }
+		}
+
+		# --- 7. 新レート計算 ---
+		# factor > 1.0 → 通貨強 → レート低下 (UCに対して強い)
+		# factor < 1.0 → 通貨弱 → レート上昇 (UCに対して弱い)
+		set_variable = { bsm_nc_rate_prev = bsm_nc_rate }
+		set_variable = { bsm_nc_rate = bsm_nc_base_rate }
+		divide_variable = { bsm_nc_rate = t_nc_factor }
+
+		# --- 8. クランプ (基準の0.3倍〜3.0倍) ---
+		set_temp_variable = { t_nc_min = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_min = 0.3 }
+		set_temp_variable = { t_nc_max = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_max = 3.0 }
+		clamp_variable = { var = bsm_nc_rate min = t_nc_min max = t_nc_max }
+
+		# --- 9. 前月比デルタ ---
+		set_temp_variable = { t_nc_delta = bsm_nc_rate }
+		subtract_from_temp_variable = { t_nc_delta = bsm_nc_rate_prev }
+		set_variable = { bsm_nc_rate_delta = t_nc_delta }
+
+		# --- 10. インフレ計算 ---
+		set_temp_variable = { t_nc_infl = bsm_nc_rate }
+		divide_temp_variable = { t_nc_infl = bsm_nc_rate_prev }
+		subtract_from_temp_variable = { t_nc_infl = 1.0 }
+		multiply_temp_variable = { t_nc_infl = 100.0 }
+		set_variable = { bsm_nc_inflation = t_nc_infl }
+
+		# --- 11. 通貨安定度 (0-100) ---
+		set_temp_variable = { t_nc_stability = 100 }
+
+		if = {
+			limit = { check_variable = { bsm_nc_inflation > 5 } }
+			subtract_from_temp_variable = { t_nc_stability = 15 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_inflation > 15 } }
+			subtract_from_temp_variable = { t_nc_stability = 25 }
+		}
+		if = {
+			limit = { check_variable = { bsm_nc_inflation > 30 } }
+			subtract_from_temp_variable = { t_nc_stability = 30 }
+		}
+		if = {
+			limit = { has_war = yes }
+			subtract_from_temp_variable = { t_nc_stability = 20 }
+		}
+		if = {
+			limit = { check_variable = { Unified_Currency < 0 } }
+			subtract_from_temp_variable = { t_nc_stability = 20 }
+		}
+		if = {
+			limit = { is_subject = yes }
+			subtract_from_temp_variable = { t_nc_stability = 10 }
+		}
+		clamp_temp_variable = { var = t_nc_stability min = 0 max = 100 }
+		set_variable = { bsm_nc_stability = t_nc_stability }
+
+		# --- 11b. 通貨強度カテゴリ (0=強い 1=普通 2=弱い) ---
+		set_variable = { bsm_nc_strength_cat = 1 }
+		set_variable = { bsm_nc_diff_strong = bsm_nc_base_rate }
+		multiply_variable = { bsm_nc_diff_strong = 0.9 }
+		subtract_from_variable = { bsm_nc_diff_strong = bsm_nc_rate }
+		if = {
+			limit = { check_variable = { bsm_nc_diff_strong > 0 } }
+			set_variable = { bsm_nc_strength_cat = 0 }
+		}
+		set_variable = { bsm_nc_diff_weak = bsm_nc_base_rate }
+		multiply_variable = { bsm_nc_diff_weak = 1.1 }
+		subtract_from_variable = { bsm_nc_diff_weak = bsm_nc_rate }
+		if = {
+			limit = { check_variable = { bsm_nc_diff_weak < 0 } }
+			set_variable = { bsm_nc_strength_cat = 2 }
+		}
+
+		# --- 12. UC獲得補正 & 通貨弱体化 modifier ---
+		if = {
+			limit = { check_variable = { bsm_nc_stability < 30 } }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = bsm_nc_crisis_modifier } } }
+				add_dynamic_modifier = { modifier = bsm_nc_crisis_modifier }
+			}
+		}
+		else = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_crisis_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_crisis_modifier }
+			}
+		}
+		# --- 12b. 通貨弱体化 modifier (rate > base * 1.5) ---
+		set_temp_variable = { t_nc_vw_threshold = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_vw_threshold = 1.5 }
+		if = {
+			limit = { check_variable = { bsm_nc_rate > t_nc_vw_threshold } }
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier } } }
+				add_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier }
+			}
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_weak_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_weak_modifier }
+			}
+		}
+		else = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier }
+			}
+		}
+		# --- 12c. 通貨弱化 modifier (rate > base * 1.1) ---
+		set_temp_variable = { t_nc_w_threshold = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_w_threshold = 1.1 }
+		if = {
+			limit = {
+				check_variable = { bsm_nc_rate > t_nc_w_threshold }
+				NOT = { has_dynamic_modifier = { modifier = bsm_nc_very_weak_modifier } }
+			}
+			if = {
+				limit = { NOT = { has_dynamic_modifier = { modifier = bsm_nc_weak_modifier } } }
+				add_dynamic_modifier = { modifier = bsm_nc_weak_modifier }
+			}
+		}
+		else = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_nc_weak_modifier } }
+				remove_dynamic_modifier = { modifier = bsm_nc_weak_modifier }
+			}
+		}
+
+	}
+}
+
+# ==========================================
+# 通貨暴落効果 (バトル内戦等から呼び出し)
+# 対象国の bsm_nc_rate を大幅上昇(=価値下落)させる
+# ==========================================
+bsm_nc_devalue_currency = {
+	if = {
+		limit = {
+			has_variable = bsm_nc_id
+			NOT = { check_variable = { bsm_nc_id = 0 } }
+		}
+		multiply_variable = { bsm_nc_rate = 1.3 }
+		set_temp_variable = { t_nc_min = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_min = 0.3 }
+		set_temp_variable = { t_nc_max = bsm_nc_base_rate }
+		multiply_temp_variable = { t_nc_max = 3.0 }
+		clamp_variable = { var = bsm_nc_rate min = t_nc_min max = t_nc_max }
+		subtract_from_variable = { bsm_nc_stability = 25 }
+		clamp_variable = { var = bsm_nc_stability min = 0 max = 100 }
+	}
+}
+
+# ==========================================
+# UC獲得補正値を返す (temp変数 t_nc_uc_mod)
+# _bsm_Unified_Currency.txt の temp_factor に加算して使用
+# ==========================================
+bsm_nc_calc_uc_modifier = {
+	set_temp_variable = { t_nc_uc_mod = 0 }
+
+	if = {
+		limit = {
+			has_variable = bsm_nc_id
+			NOT = { check_variable = { bsm_nc_id = 0 } }
+		}
+		# (base_rate / current_rate - 1.0) * 0.3
+		set_temp_variable = { t_nc_uc_mod = bsm_nc_base_rate }
+		divide_temp_variable = { t_nc_uc_mod = bsm_nc_rate }
+		subtract_from_temp_variable = { t_nc_uc_mod = 1.0 }
+		multiply_temp_variable = { t_nc_uc_mod = 0.3 }
+	}
+}
+
+# ==========================================
+# GUI用: レートリスト データ準備
+# bsm_nc_filter_mode:
+#   0=同盟内, 1=世界
+#   2=アジア 3=欧州 4=北米 5=南米 6=アフリカ 7=中東 8=大洋州
+# ==========================================
+bsm_nc_prepare_rate_list = {
+	clear_array = global.bsm_nc_rate_display_list
+
+	if = {
+		# --- 0: 同盟内 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 0 } }
+
+		# 自国を先頭に
+		add_to_array = { global.bsm_nc_rate_display_list = ROOT }
+		if = {
+			limit = { has_variable = bsm_ea_sphere }
+			set_temp_variable = { t_nc_token = bsm_ea_sphere }
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:t_nc_token
+				value = v_nc_mem
+				# 自国の重複登録を避ける
+				if = {
+					limit = { NOT = { var:v_nc_mem = { tag = ROOT } } }
+					add_to_array = { global.bsm_nc_rate_display_list = var:v_nc_mem }
+				}
+			}
+		}
+	}
+	else_if = {
+		# --- 1: 世界 (全通貨使用国) ---
+		limit = { check_variable = { bsm_nc_filter_mode = 1 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 2: アジア ---
+		limit = { check_variable = { bsm_nc_filter_mode = 2 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = asia } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 3: 欧州 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 3 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = europe } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 4: 北米 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 4 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = north_america } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 5: 南米 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 5 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = south_america } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 6: アフリカ ---
+		limit = { check_variable = { bsm_nc_filter_mode = 6 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = africa } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 7: 中東 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 7 } }
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = middle_east } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else = {
+		# --- 8: 大洋州 ---
+		every_country = {
+			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = australia } }
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+
+	# ソート用: レート順 (安定度降順)
+	# HOI4には配列ソートがないため、表示時に変数を参照
+
+	# --- 相対レート計算 (閲覧国=ROOT の通貨基準) ---
+	# bsm_nc_rel_rate     : 1 自国通貨 = X 相手国通貨
+	# bsm_nc_rel_rate_inv : 1 相手国通貨 = Y 自国通貨
+	# NOTE: var: のスコープ内では PREV.temp の「読み取り」が0になるため
+	#       スコープを跨いで参照する基準レートは global 変数で渡す
+	set_variable = { global.bsm_nc_calc_root_rate = bsm_nc_rate }
+	if = {
+		limit = { check_variable = { global.bsm_nc_calc_root_rate < 0.0001 } }
+		set_variable = { global.bsm_nc_calc_root_rate = 1 }
+	}
+	for_each_loop = {
+		array = global.bsm_nc_rate_display_list
+		value = v_nc_rel
+		var:v_nc_rel = {
+			set_variable = { bsm_nc_rel_rate = bsm_nc_rate }
+			divide_variable = { bsm_nc_rel_rate = global.bsm_nc_calc_root_rate }
+			set_variable = { bsm_nc_rel_rate_inv = global.bsm_nc_calc_root_rate }
+			if = {
+				limit = { check_variable = { bsm_nc_rate > 0.0001 } }
+				divide_variable = { bsm_nc_rel_rate_inv = bsm_nc_rate }
+			}
+		}
+	}
+}

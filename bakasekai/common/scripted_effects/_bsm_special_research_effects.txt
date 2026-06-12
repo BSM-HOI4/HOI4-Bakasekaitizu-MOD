@@ -1,0 +1,1031 @@
+bsm_special_research_init = {
+  if = {
+    limit = { NOT = { has_variable = bsm_special_research_initialized } }
+    set_variable = { bsm_special_research_initialized = 1 }
+  }
+  if = {
+    limit = { has_idea = bsm_special_research_bureau }
+    bsm_sr_refresh_all_cards = yes
+  }
+}
+
+bsm_special_research_establish_bureau_effect = {
+  add_ideas = bsm_special_research_bureau
+  set_country_flag = bsm_special_research_unlocked
+  bsm_sr_refresh_all_cards = yes
+}
+
+bsm_sr_clear_physics_cards = {
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_computing_labs
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_signal_lattice
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_applied_atomics
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_radar_harmonics
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_rocketry_test_range
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_cryptologic_engines
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_isotope_catalogues
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_high_energy_storage
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_predictive_ballistics
+  clr_country_flag = bsm_sr_offer_bsm_sr_physics_field_manipulation
+}
+
+bsm_sr_refresh_physics_cards = {
+  bsm_sr_clear_physics_cards = yes
+  if = {
+    limit = {
+      has_idea = bsm_special_research_bureau
+      NOT = { has_country_flag = bsm_sr_physics_research_active }
+    }
+    set_temp_variable = { t_bsm_sr_offer_count = 0 }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_field_manipulation_completed }
+          has_country_flag = bsm_sr_physics_high_energy_storage_completed
+          has_country_flag = bsm_sr_physics_predictive_ballistics_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_field_manipulation
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_high_energy_storage_completed }
+          has_country_flag = bsm_sr_physics_radar_harmonics_completed
+          has_country_flag = bsm_sr_physics_rocketry_test_range_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_high_energy_storage
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_predictive_ballistics_completed }
+          has_country_flag = bsm_sr_physics_cryptologic_engines_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_predictive_ballistics
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_isotope_catalogues_completed }
+          has_country_flag = bsm_sr_physics_applied_atomics_completed
+          has_country_flag = bsm_sr_physics_researcher_recruited
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_isotope_catalogues
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_cryptologic_engines_completed }
+          has_country_flag = bsm_sr_physics_computing_labs_completed
+          has_country_flag = bsm_sr_physics_researcher_recruited
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_cryptologic_engines
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_rocketry_test_range_completed }
+          has_country_flag = bsm_sr_physics_applied_atomics_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_rocketry_test_range
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_radar_harmonics_completed }
+          has_country_flag = bsm_sr_physics_signal_lattice_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_radar_harmonics
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_applied_atomics_completed }
+          has_country_flag = bsm_sr_physics_computing_labs_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_applied_atomics
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_signal_lattice_completed }
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_signal_lattice
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_physics_computing_labs_completed }
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_physics_computing_labs
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+  }
+}
+
+bsm_sr_clear_society_cards = {
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_administrative_algorithms
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_mass_education
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_staff_simulation
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_census_harmonization
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_public_morale_studies
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_logistics_sociology
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_doctrinal_synthesis
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_civil_defense_model
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_diplomatic_codes
+  clr_country_flag = bsm_sr_offer_bsm_sr_society_strategic_culture
+}
+
+bsm_sr_refresh_society_cards = {
+  bsm_sr_clear_society_cards = yes
+  if = {
+    limit = {
+      has_idea = bsm_special_research_bureau
+      NOT = { has_country_flag = bsm_sr_society_research_active }
+    }
+    set_temp_variable = { t_bsm_sr_offer_count = 0 }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_strategic_culture_completed }
+          has_country_flag = bsm_sr_society_doctrinal_synthesis_completed
+          has_country_flag = bsm_sr_society_diplomatic_codes_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_strategic_culture
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_doctrinal_synthesis_completed }
+          has_country_flag = bsm_sr_society_staff_simulation_completed
+          has_country_flag = bsm_sr_society_researcher_recruited
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_doctrinal_synthesis
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_logistics_sociology_completed }
+          has_country_flag = bsm_sr_society_census_harmonization_completed
+          has_country_flag = bsm_sr_society_researcher_recruited
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_logistics_sociology
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_diplomatic_codes_completed }
+          has_country_flag = bsm_sr_society_census_harmonization_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_diplomatic_codes
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_civil_defense_model_completed }
+          has_country_flag = bsm_sr_society_public_morale_studies_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_civil_defense_model
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_public_morale_studies_completed }
+          has_country_flag = bsm_sr_society_mass_education_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_public_morale_studies
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_census_harmonization_completed }
+          has_country_flag = bsm_sr_society_administrative_algorithms_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_census_harmonization
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_staff_simulation_completed }
+          has_country_flag = bsm_sr_society_administrative_algorithms_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_staff_simulation
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_mass_education_completed }
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_mass_education
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_society_administrative_algorithms_completed }
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_society_administrative_algorithms
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+  }
+}
+
+bsm_sr_clear_engineering_cards = {
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_industrial_automation
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_materials_program
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_mobile_platforms
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_construction_prefabs
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_resource_extraction_methods
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_production_line_memory
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_distributed_foundries
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_naval_architecture_cells
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_aeronautic_tooling
+  clr_country_flag = bsm_sr_offer_bsm_sr_engineering_railway_systems
+}
+
+bsm_sr_refresh_engineering_cards = {
+  bsm_sr_clear_engineering_cards = yes
+  if = {
+    limit = {
+      has_idea = bsm_special_research_bureau
+      NOT = { has_country_flag = bsm_sr_engineering_research_active }
+    }
+    set_temp_variable = { t_bsm_sr_offer_count = 0 }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_railway_systems_completed }
+          has_country_flag = bsm_sr_engineering_distributed_foundries_completed
+          has_country_flag = bsm_sr_engineering_resource_extraction_methods_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_railway_systems
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_distributed_foundries_completed }
+          has_country_flag = bsm_sr_engineering_construction_prefabs_completed
+          has_country_flag = bsm_sr_engineering_production_line_memory_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_distributed_foundries
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_naval_architecture_cells_completed }
+          has_country_flag = bsm_sr_engineering_mobile_platforms_completed
+          has_country_flag = bsm_sr_engineering_researcher_recruited
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_naval_architecture_cells
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_aeronautic_tooling_completed }
+          has_country_flag = bsm_sr_engineering_mobile_platforms_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_aeronautic_tooling
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_production_line_memory_completed }
+          has_country_flag = bsm_sr_engineering_industrial_automation_completed
+          has_country_flag = bsm_sr_engineering_researcher_recruited
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_production_line_memory
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_resource_extraction_methods_completed }
+          has_country_flag = bsm_sr_engineering_materials_program_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_resource_extraction_methods
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_construction_prefabs_completed }
+          has_country_flag = bsm_sr_engineering_materials_program_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_construction_prefabs
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_mobile_platforms_completed }
+          has_country_flag = bsm_sr_engineering_industrial_automation_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_mobile_platforms
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_materials_program_completed }
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_materials_program
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 3 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_engineering_industrial_automation_completed }
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_engineering_industrial_automation
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+  }
+}
+
+bsm_sr_clear_rare_cards = {
+  clr_country_flag = bsm_sr_offer_bsm_sr_rare_autonomous_laboratories
+  clr_country_flag = bsm_sr_offer_bsm_sr_rare_logistics_grid
+  clr_country_flag = bsm_sr_offer_bsm_sr_rare_integrated_warfare
+}
+
+bsm_sr_clear_capstone_cards = {
+  clr_country_flag = bsm_sr_offer_bsm_sr_capstone_integrated_research_institute
+}
+
+bsm_sr_refresh_rare_cards = {
+  bsm_sr_clear_rare_cards = yes
+  if = {
+    limit = {
+      has_idea = bsm_special_research_bureau
+      NOT = { has_country_flag = bsm_sr_rare_research_active }
+    }
+    set_temp_variable = { t_bsm_sr_offer_count = 0 }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 2 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_rare_autonomous_laboratories_completed }
+          check_variable = { var = Cultural_Degree value = 50 compare = greater_than_or_equals }
+          has_country_flag = bsm_sr_physics_computing_labs_completed
+          has_country_flag = bsm_sr_society_mass_education_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_rare_autonomous_laboratories
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 2 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_rare_logistics_grid_completed }
+          check_variable = { var = Cultural_Degree value = 50 compare = greater_than_or_equals }
+          has_country_flag = bsm_sr_society_administrative_algorithms_completed
+          has_country_flag = bsm_sr_engineering_materials_program_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_rare_logistics_grid
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+      if = {
+        limit = {
+          check_variable = { var = t_bsm_sr_offer_count value = 2 compare = less_than }
+          NOT = { has_country_flag = bsm_sr_rare_integrated_warfare_completed }
+          check_variable = { var = Cultural_Degree value = 50 compare = greater_than_or_equals }
+          has_country_flag = bsm_sr_society_staff_simulation_completed
+          has_country_flag = bsm_sr_engineering_mobile_platforms_completed
+        }
+        set_country_flag = bsm_sr_offer_bsm_sr_rare_integrated_warfare
+        add_to_temp_variable = { t_bsm_sr_offer_count = 1 }
+      }
+  }
+  bsm_sr_refresh_capstone_cards = yes
+}
+
+bsm_sr_refresh_capstone_cards = {
+  bsm_sr_clear_capstone_cards = yes
+  if = {
+    limit = {
+      has_idea = bsm_special_research_bureau
+      NOT = { has_country_flag = bsm_sr_capstone_research_active }
+      NOT = { has_country_flag = bsm_sr_capstone_integrated_research_institute_completed }
+      check_variable = { var = Cultural_Degree value = 70 compare = greater_than_or_equals }
+      has_country_flag = bsm_sr_physics_field_manipulation_completed
+      has_country_flag = bsm_sr_society_strategic_culture_completed
+      has_country_flag = bsm_sr_engineering_railway_systems_completed
+      has_country_flag = bsm_sr_rare_autonomous_laboratories_completed
+      has_country_flag = bsm_sr_rare_logistics_grid_completed
+      has_country_flag = bsm_sr_rare_integrated_warfare_completed
+    }
+    set_country_flag = bsm_sr_offer_bsm_sr_capstone_integrated_research_institute
+  }
+}
+
+bsm_sr_refresh_all_cards = {
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+  bsm_sr_refresh_capstone_cards = yes
+}
+
+bsm_sr_start_physics_research = {
+  set_country_flag = bsm_sr_physics_research_active
+  bsm_sr_clear_physics_cards = yes
+}
+
+bsm_sr_start_society_research = {
+  set_country_flag = bsm_sr_society_research_active
+  bsm_sr_clear_society_cards = yes
+}
+
+bsm_sr_start_engineering_research = {
+  set_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_clear_engineering_cards = yes
+}
+
+bsm_sr_start_rare_research = {
+  set_country_flag = bsm_sr_rare_research_active
+  bsm_sr_clear_rare_cards = yes
+}
+
+bsm_sr_start_capstone_research = {
+  set_country_flag = bsm_sr_capstone_research_active
+  bsm_sr_clear_capstone_cards = yes
+}
+
+bsm_sr_cancel_physics_research = {
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+}
+
+bsm_sr_cancel_society_research = {
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+}
+
+bsm_sr_cancel_engineering_research = {
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+}
+
+bsm_sr_cancel_rare_research = {
+  clr_country_flag = bsm_sr_rare_research_active
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_cancel_capstone_research = {
+  clr_country_flag = bsm_sr_capstone_research_active
+  bsm_sr_refresh_capstone_cards = yes
+}
+
+
+
+bsm_sr_assign_random_researcher_trait = {
+  random_list = {
+    20 = { add_ideas = bsm_sr_researcher_trait_brilliant_synthesist }
+    20 = { add_ideas = bsm_sr_researcher_trait_meticulous_archivist }
+    20 = { add_ideas = bsm_sr_researcher_trait_field_experimentalist }
+    20 = { add_ideas = bsm_sr_researcher_trait_military_liaison }
+    20 = { add_ideas = bsm_sr_researcher_trait_rare_insight }
+  }
+}
+
+bsm_sr_recruit_physics_researcher_effect = {
+  set_country_flag = bsm_sr_physics_researcher_recruited
+  add_ideas = bsm_sr_generic_physics_researcher
+  add_ideas = bsm_sr_researcher_trait_physics_specialist
+  bsm_sr_assign_random_researcher_trait = yes
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_recruit_society_researcher_effect = {
+  set_country_flag = bsm_sr_society_researcher_recruited
+  add_ideas = bsm_sr_generic_society_researcher
+  add_ideas = bsm_sr_researcher_trait_society_specialist
+  bsm_sr_assign_random_researcher_trait = yes
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_recruit_engineering_researcher_effect = {
+  set_country_flag = bsm_sr_engineering_researcher_recruited
+  add_ideas = bsm_sr_generic_engineering_researcher
+  add_ideas = bsm_sr_researcher_trait_engineering_specialist
+  bsm_sr_assign_random_researcher_trait = yes
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_computing_labs = {
+  set_country_flag = bsm_sr_physics_computing_labs_completed
+  add_ideas = bsm_sr_physics_computing_labs_result
+  add_tech_bonus = {
+    name = bsm_sr_physics_computing_labs_bonus
+    category = electronics
+    bonus = 0.5
+    uses = 2
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_signal_lattice = {
+  set_country_flag = bsm_sr_physics_signal_lattice_completed
+  add_ideas = bsm_sr_physics_signal_lattice_result
+  add_tech_bonus = {
+    name = bsm_sr_physics_signal_lattice_bonus
+    category = electronics
+    bonus = 0.3
+    uses = 1
+  }
+  add_tech_bonus = {
+    name = bsm_sr_physics_signal_lattice_bonus
+    category = rocketry
+    bonus = 0.3
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_applied_atomics = {
+  set_country_flag = bsm_sr_physics_applied_atomics_completed
+  add_ideas = bsm_sr_physics_applied_atomics_result
+  add_tech_bonus = {
+    name = bsm_sr_physics_applied_atomics_bonus
+    category = nuclear
+    bonus = 0.75
+    uses = 2
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_radar_harmonics = {
+  set_country_flag = bsm_sr_physics_radar_harmonics_completed
+  add_ideas = bsm_sr_physics_radar_harmonics_result
+  add_tech_bonus = {
+    name = bsm_sr_physics_radar_harmonics_bonus
+    category = electronics
+    bonus = 0.4
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_rocketry_test_range = {
+  set_country_flag = bsm_sr_physics_rocketry_test_range_completed
+  add_ideas = bsm_sr_physics_rocketry_test_range_result
+  add_tech_bonus = {
+    name = bsm_sr_physics_rocketry_test_range_bonus
+    category = rocketry
+    bonus = 0.6
+    uses = 2
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_cryptologic_engines = {
+  set_country_flag = bsm_sr_physics_cryptologic_engines_completed
+  add_ideas = bsm_sr_physics_cryptologic_engines_result
+  add_tech_bonus = {
+    name = bsm_sr_physics_cryptologic_engines_bonus
+    category = electronics
+    bonus = 0.6
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_isotope_catalogues = {
+  set_country_flag = bsm_sr_physics_isotope_catalogues_completed
+  add_ideas = bsm_sr_physics_isotope_catalogues_result
+  add_tech_bonus = {
+    name = bsm_sr_physics_isotope_catalogues_bonus
+    category = nuclear
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_high_energy_storage = {
+  set_country_flag = bsm_sr_physics_high_energy_storage_completed
+  add_ideas = bsm_sr_physics_high_energy_storage_result
+  add_tech_bonus = {
+    name = bsm_sr_physics_high_energy_storage_bonus
+    category = industry
+    bonus = 0.4
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_predictive_ballistics = {
+  set_country_flag = bsm_sr_physics_predictive_ballistics_completed
+  add_ideas = bsm_sr_physics_predictive_ballistics_result
+  army_experience = 15
+  add_tech_bonus = {
+    name = bsm_sr_physics_predictive_ballistics_bonus
+    category = artillery
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_physics_field_manipulation = {
+  set_country_flag = bsm_sr_physics_field_manipulation_completed
+  add_ideas = bsm_sr_physics_field_manipulation_result
+  add_tech_bonus = {
+    name = bsm_sr_physics_field_manipulation_bonus
+    category = electronics
+    bonus = 1
+    uses = 1
+  }
+  add_tech_bonus = {
+    name = bsm_sr_physics_field_manipulation_bonus
+    category = nuclear
+    bonus = 0.75
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_physics_research_active
+  bsm_sr_refresh_physics_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_administrative_algorithms = {
+  set_country_flag = bsm_sr_society_administrative_algorithms_completed
+  add_ideas = bsm_sr_society_administrative_algorithms_result
+  add_political_power = 50
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_mass_education = {
+  set_country_flag = bsm_sr_society_mass_education_completed
+  add_ideas = bsm_sr_society_mass_education_result
+  add_to_variable = { National_Unity_Power = 75 }
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_staff_simulation = {
+  set_country_flag = bsm_sr_society_staff_simulation_completed
+  add_ideas = bsm_sr_society_staff_simulation_result
+  army_experience = 25
+  navy_experience = 15
+  air_experience = 15
+  add_tech_bonus = {
+    name = bsm_sr_society_staff_simulation_bonus
+    category = land_doctrine
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_census_harmonization = {
+  set_country_flag = bsm_sr_society_census_harmonization_completed
+  add_ideas = bsm_sr_society_census_harmonization_result
+  add_political_power = 40
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_public_morale_studies = {
+  set_country_flag = bsm_sr_society_public_morale_studies_completed
+  add_ideas = bsm_sr_society_public_morale_studies_result
+  add_stability = 0.02
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_logistics_sociology = {
+  set_country_flag = bsm_sr_society_logistics_sociology_completed
+  add_ideas = bsm_sr_society_logistics_sociology_result
+  add_tech_bonus = {
+    name = bsm_sr_society_logistics_sociology_bonus
+    category = industry
+    bonus = 0.4
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_doctrinal_synthesis = {
+  set_country_flag = bsm_sr_society_doctrinal_synthesis_completed
+  add_ideas = bsm_sr_society_doctrinal_synthesis_result
+  army_experience = 20
+  add_tech_bonus = {
+    name = bsm_sr_society_doctrinal_synthesis_bonus
+    category = land_doctrine
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_civil_defense_model = {
+  set_country_flag = bsm_sr_society_civil_defense_model_completed
+  add_ideas = bsm_sr_society_civil_defense_model_result
+  add_war_support = 0.02
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_diplomatic_codes = {
+  set_country_flag = bsm_sr_society_diplomatic_codes_completed
+  add_ideas = bsm_sr_society_diplomatic_codes_result
+  add_political_power = 50
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_society_strategic_culture = {
+  set_country_flag = bsm_sr_society_strategic_culture_completed
+  add_ideas = bsm_sr_society_strategic_culture_result
+  army_experience = 25
+  navy_experience = 15
+  air_experience = 15
+  add_tech_bonus = {
+    name = bsm_sr_society_strategic_culture_bonus
+    category = land_doctrine
+    bonus = 0.75
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_society_research_active
+  bsm_sr_refresh_society_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_industrial_automation = {
+  set_country_flag = bsm_sr_engineering_industrial_automation_completed
+  add_ideas = bsm_sr_engineering_industrial_automation_result
+  add_tech_bonus = {
+    name = bsm_sr_engineering_industrial_automation_bonus
+    category = industry
+    bonus = 0.5
+    uses = 2
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_materials_program = {
+  set_country_flag = bsm_sr_engineering_materials_program_completed
+  add_ideas = bsm_sr_engineering_materials_program_result
+  add_tech_bonus = {
+    name = bsm_sr_engineering_materials_program_bonus
+    category = industry
+    bonus = 0.3
+    uses = 2
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_mobile_platforms = {
+  set_country_flag = bsm_sr_engineering_mobile_platforms_completed
+  add_ideas = bsm_sr_engineering_mobile_platforms_result
+  add_tech_bonus = {
+    name = bsm_sr_engineering_mobile_platforms_bonus
+    category = armor
+    bonus = 0.5
+    uses = 1
+  }
+  add_tech_bonus = {
+    name = bsm_sr_engineering_mobile_platforms_bonus
+    category = air_equipment
+    bonus = 0.3
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_construction_prefabs = {
+  set_country_flag = bsm_sr_engineering_construction_prefabs_completed
+  add_ideas = bsm_sr_engineering_construction_prefabs_result
+  add_tech_bonus = {
+    name = bsm_sr_engineering_construction_prefabs_bonus
+    category = construction_tech
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_resource_extraction_methods = {
+  set_country_flag = bsm_sr_engineering_resource_extraction_methods_completed
+  add_ideas = bsm_sr_engineering_resource_extraction_methods_result
+  add_tech_bonus = {
+    name = bsm_sr_engineering_resource_extraction_methods_bonus
+    category = industry
+    bonus = 0.4
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_production_line_memory = {
+  set_country_flag = bsm_sr_engineering_production_line_memory_completed
+  add_ideas = bsm_sr_engineering_production_line_memory_result
+  add_tech_bonus = {
+    name = bsm_sr_engineering_production_line_memory_bonus
+    category = industry
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_distributed_foundries = {
+  set_country_flag = bsm_sr_engineering_distributed_foundries_completed
+  add_ideas = bsm_sr_engineering_distributed_foundries_result
+  add_tech_bonus = {
+    name = bsm_sr_engineering_distributed_foundries_bonus
+    category = industry
+    bonus = 0.6
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_naval_architecture_cells = {
+  set_country_flag = bsm_sr_engineering_naval_architecture_cells_completed
+  add_ideas = bsm_sr_engineering_naval_architecture_cells_result
+  navy_experience = 20
+  add_tech_bonus = {
+    name = bsm_sr_engineering_naval_architecture_cells_bonus
+    category = naval_equipment
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_aeronautic_tooling = {
+  set_country_flag = bsm_sr_engineering_aeronautic_tooling_completed
+  add_ideas = bsm_sr_engineering_aeronautic_tooling_result
+  air_experience = 20
+  add_tech_bonus = {
+    name = bsm_sr_engineering_aeronautic_tooling_bonus
+    category = air_equipment
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_engineering_railway_systems = {
+  set_country_flag = bsm_sr_engineering_railway_systems_completed
+  add_ideas = bsm_sr_engineering_railway_systems_result
+  add_tech_bonus = {
+    name = bsm_sr_engineering_railway_systems_bonus
+    category = construction_tech
+    bonus = 0.75
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_engineering_research_active
+  bsm_sr_refresh_engineering_cards = yes
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_rare_autonomous_laboratories = {
+  set_country_flag = bsm_sr_rare_autonomous_laboratories_completed
+  add_ideas = bsm_sr_rare_autonomous_laboratories_result
+  add_tech_bonus = {
+    name = bsm_sr_rare_autonomous_laboratories_bonus
+    category = electronics
+    bonus = 0.75
+    uses = 1
+  }
+  add_tech_bonus = {
+    name = bsm_sr_rare_autonomous_laboratories_bonus
+    category = industry
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_rare_research_active
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_rare_logistics_grid = {
+  set_country_flag = bsm_sr_rare_logistics_grid_completed
+  add_ideas = bsm_sr_rare_logistics_grid_result
+  add_tech_bonus = {
+    name = bsm_sr_rare_logistics_grid_bonus
+    category = industry
+    bonus = 0.75
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_rare_research_active
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_rare_integrated_warfare = {
+  set_country_flag = bsm_sr_rare_integrated_warfare_completed
+  add_ideas = bsm_sr_rare_integrated_warfare_result
+  army_experience = 35
+  navy_experience = 25
+  air_experience = 25
+  add_tech_bonus = {
+    name = bsm_sr_rare_integrated_warfare_bonus
+    category = land_doctrine
+    bonus = 0.5
+    uses = 1
+  }
+  add_tech_bonus = {
+    name = bsm_sr_rare_integrated_warfare_bonus
+    category = naval_doctrine
+    bonus = 0.5
+    uses = 1
+  }
+  add_tech_bonus = {
+    name = bsm_sr_rare_integrated_warfare_bonus
+    category = air_doctrine
+    bonus = 0.5
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_rare_research_active
+  bsm_sr_refresh_rare_cards = yes
+}
+
+bsm_sr_complete_capstone_integrated_research_institute = {
+  set_country_flag = bsm_sr_capstone_integrated_research_institute_completed
+  add_ideas = bsm_sr_capstone_integrated_research_institute_result
+  add_research_slot = 1
+  add_tech_bonus = {
+    name = bsm_sr_capstone_integrated_research_institute_bonus
+    category = electronics
+    bonus = 1
+    uses = 1
+  }
+  add_tech_bonus = {
+    name = bsm_sr_capstone_integrated_research_institute_bonus
+    category = industry
+    bonus = 1
+    uses = 1
+  }
+  clr_country_flag = bsm_sr_capstone_research_active
+}

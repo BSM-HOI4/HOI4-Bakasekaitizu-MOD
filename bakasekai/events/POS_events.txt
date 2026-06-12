@@ -1,0 +1,441 @@
+add_namespace = POS_channel_pressure
+
+country_event = {
+	id = POS_channel_pressure.1
+	title = POS_channel_pressure.1.t
+	desc = POS_channel_pressure.1.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = POS_channel_pressure.1.a
+		ai_chance = { factor = 30 }
+		GBR = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_accepted_britain
+			}
+		}
+		add_opinion_modifier = {
+			target = GBR
+			modifier = POS_accepted_britain
+		}
+		add_stability = -0.05
+		add_political_power = 25
+	}
+
+	option = {
+		name = POS_channel_pressure.1.b
+		ai_chance = { factor = 50 }
+		GBR = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_resisted_britain
+			}
+		}
+		add_opinion_modifier = {
+			target = GBR
+			modifier = POS_resisted_britain
+		}
+		add_stability = 0.05
+		add_political_power = 50
+		add_to_variable = { POS_channel_tension = 10 }
+	}
+
+	option = {
+		name = POS_channel_pressure.1.c
+		ai_chance = { factor = 20 }
+		add_political_power = 75
+		add_to_variable = { POS_channel_tension = 15 }
+		GBR = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_resisted_britain
+			}
+		}
+		FRA = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_resisted_france
+			}
+		}
+	}
+}
+
+country_event = {
+	id = POS_channel_pressure.2
+	title = POS_channel_pressure.2.t
+	desc = POS_channel_pressure.2.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = POS_channel_pressure.2.a
+		ai_chance = { factor = 30 }
+		FRA = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_accepted_france
+			}
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = POS_accepted_france
+		}
+		add_stability = -0.05
+		add_political_power = 25
+	}
+
+	option = {
+		name = POS_channel_pressure.2.b
+		ai_chance = { factor = 50 }
+		FRA = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_resisted_france
+			}
+		}
+		add_opinion_modifier = {
+			target = FRA
+			modifier = POS_resisted_france
+		}
+		add_stability = 0.05
+		add_political_power = 50
+		add_to_variable = { POS_channel_tension = 10 }
+	}
+
+	option = {
+		name = POS_channel_pressure.2.c
+		ai_chance = { factor = 20 }
+		add_political_power = 75
+		add_to_variable = { POS_channel_tension = 15 }
+		GBR = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_resisted_britain
+			}
+		}
+		FRA = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_resisted_france
+			}
+		}
+	}
+}
+
+country_event = {
+	id = POS_channel_pressure.3
+	title = POS_channel_pressure.3.t
+	desc = POS_channel_pressure.3.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = POS_channel_pressure.3.a
+		ai_chance = { factor = 40 }
+		add_political_power = 25
+		add_stability = 0.03
+	}
+
+	option = {
+		name = POS_channel_pressure.3.b
+		ai_chance = { factor = 30 }
+		add_political_power = -25
+		country_event = { id = POS_sovereignty_crisis.1 days = 15 }
+	}
+
+	option = {
+		name = POS_channel_pressure.3.c
+		ai_chance = { factor = 30 }
+		add_political_power = 50
+		add_to_variable = { POS_sovereignty = 10 }
+		GBR = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_resisted_britain
+			}
+		}
+		FRA = {
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_resisted_france
+			}
+		}
+	}
+}
+
+country_event = {
+	id = POS_channel_pressure.4
+	title = POS_channel_pressure.4.t
+	desc = POS_channel_pressure.4.d
+	picture = GFX_report_event_generic_rally3
+	is_triggered_only = yes
+
+	option = {
+		name = POS_channel_pressure.4.a
+		add_stability = 0.05
+		add_political_power = 50
+		add_to_variable = { POS_sovereignty = 15 }
+	}
+}
+
+add_namespace = POS_sovereignty_crisis
+
+country_event = {
+	id = POS_sovereignty_crisis.1
+	title = POS_sovereignty_crisis.1.t
+	desc = POS_sovereignty_crisis.1.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = POS_sovereignty_crisis.1.a
+		ai_chance = { factor = 40 }
+		add_political_power = -50
+		country_event = { id = POS_sovereignty_crisis.2 days = 10 }
+	}
+
+	option = {
+		name = POS_sovereignty_crisis.1.b
+		ai_chance = { factor = 40 }
+		add_political_power = -25
+		add_stability = -0.05
+		country_event = { id = POS_sovereignty_crisis.2 days = 10 }
+	}
+
+	option = {
+		name = POS_sovereignty_crisis.1.c
+		ai_chance = { factor = 20 }
+		add_stability = -0.10
+		army_experience = 15
+		country_event = { id = POS_sovereignty_crisis.2 days = 10 }
+	}
+}
+
+country_event = {
+	id = POS_sovereignty_crisis.2
+	title = POS_sovereignty_crisis.2.t
+	desc = POS_sovereignty_crisis.2.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = POS_sovereignty_crisis.2.a
+		add_to_variable = { POS_sovereignty = 10 }
+		add_stability = 0.05
+	}
+
+	option = {
+		name = POS_sovereignty_crisis.2.b
+		add_to_variable = { POS_sovereignty = -10 }
+		add_political_power = 25
+	}
+}
+
+add_namespace = POS_titles
+
+country_event = {
+	id = POS_titles.1
+	title = POS_titles.1.t
+	desc = POS_titles.1.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = POS_titles.1.a
+		add_political_power = 50
+		add_to_variable = { POS_title_revenue = 25 }
+	}
+
+	option = {
+		name = POS_titles.1.b
+		add_political_power = 25
+		add_stability = 0.03
+		add_to_variable = { POS_title_revenue = 15 }
+	}
+}
+
+country_event = {
+	id = POS_titles.2
+	title = POS_titles.2.t
+	desc = POS_titles.2.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = POS_titles.2.a
+		army_experience = 15
+		add_political_power = 25
+		add_to_variable = { POS_title_revenue = 20 }
+	}
+
+	option = {
+		name = POS_titles.2.b
+		navy_experience = 15
+		add_political_power = 25
+		add_to_variable = { POS_title_revenue = 20 }
+	}
+}
+
+country_event = {
+	id = POS_titles.3
+	title = POS_titles.3.t
+	desc = POS_titles.3.d
+	picture = GFX_report_event_generic_rally3
+	is_triggered_only = yes
+
+	option = {
+		name = POS_titles.3.a
+		add_stability = -0.10
+		add_political_power = -50
+		random_other_country = {
+			limit = {
+				NOT = { tag = POS }
+			}
+			add_opinion_modifier = {
+				target = POS
+				modifier = POS_title_fraud_scandal
+			}
+			POS = {
+				add_opinion_modifier = {
+					target = PREV
+					modifier = POS_title_fraud_scandal
+				}
+			}
+		}
+	}
+}
+
+add_namespace = POS_diplomacy
+
+country_event = {
+	id = POS_diplomacy.1
+	title = POS_diplomacy.1.t
+	desc = POS_diplomacy.1.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = POS_diplomacy.1.a
+		ai_chance = { factor = 50 }
+		add_political_power = 75
+		add_to_variable = { POS_sovereignty = 10 }
+		country_event = { id = POS_diplomacy.2 days = 10 }
+	}
+
+	option = {
+		name = POS_diplomacy.1.b
+		ai_chance = { factor = 30 }
+		add_political_power = 100
+		add_to_variable = { POS_sovereignty = 15 }
+		country_event = { id = POS_diplomacy.2 days = 10 }
+	}
+
+	option = {
+		name = POS_diplomacy.1.c
+		ai_chance = { factor = 20 }
+		add_political_power = 25
+	}
+}
+
+country_event = {
+	id = POS_diplomacy.2
+	title = POS_diplomacy.2.t
+	desc = POS_diplomacy.2.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = POS_diplomacy.2.a
+		add_political_power = 50
+		add_to_variable = { POS_sovereignty = 10 }
+		country_event = { id = POS_diplomacy.3 days = 10 }
+	}
+
+	option = {
+		name = POS_diplomacy.2.b
+		add_political_power = 25
+		add_stability = 0.05
+	}
+}
+
+country_event = {
+	id = POS_diplomacy.3
+	title = POS_diplomacy.3.t
+	desc = POS_diplomacy.3.d
+	picture = GFX_report_event_generic_rally3
+	is_triggered_only = yes
+
+	option = {
+		name = POS_diplomacy.3.a
+		add_to_variable = { POS_sovereignty = 15 }
+		add_political_power = 100
+		add_stability = 0.05
+	}
+}
+
+add_namespace = POS_battle
+
+country_event = {
+	id = POS_battle.1
+	title = POS_battle.1.t
+	desc = POS_battle.1.d
+	picture = GFX_report_event_generic_rally
+	is_triggered_only = yes
+
+	option = {
+		name = POS_battle.1.a
+		ai_chance = { factor = 50 }
+		army_experience = 25
+		add_stability = -0.05
+		country_event = { id = POS_battle.2 days = 5 }
+	}
+
+	option = {
+		name = POS_battle.1.b
+		ai_chance = { factor = 30 }
+		add_political_power = -50
+		country_event = { id = POS_battle.3 days = 5 }
+	}
+
+	option = {
+		name = POS_battle.1.c
+		ai_chance = { factor = 20 }
+		add_political_power = -25
+		GBR = {
+			country_event = { id = POS_battle.3 days = 7 }
+		}
+	}
+}
+
+country_event = {
+	id = POS_battle.2
+	title = POS_battle.2.t
+	desc = POS_battle.2.d
+	picture = GFX_report_event_generic_rally2
+	is_triggered_only = yes
+
+	option = {
+		name = POS_battle.2.a
+		add_stability = 0.10
+		add_political_power = 75
+		army_experience = 25
+		add_to_variable = { POS_sovereignty = 15 }
+	}
+}
+
+country_event = {
+	id = POS_battle.3
+	title = POS_battle.3.t
+	desc = POS_battle.3.d
+	picture = GFX_report_event_generic_rally3
+	is_triggered_only = yes
+
+	option = {
+		name = POS_battle.3.a
+		add_stability = 0.05
+		add_political_power = 25
+		add_to_variable = { POS_sovereignty = 5 }
+	}
+}

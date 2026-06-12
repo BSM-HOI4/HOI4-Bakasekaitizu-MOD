@@ -19,6 +19,7 @@ scripted_gui = {
 				else = {
 					# 閉じているなら開く
 					bsm_update_ea_gui_data = yes
+					set_variable = { bsm_ea_active_tab = 1 }
 					set_variable = { bsm_ea_window_open = 1 }
 				}
 			}
@@ -35,6 +36,26 @@ scripted_gui = {
 			bsm_close_ea_window_button_click = {
 				set_variable = { bsm_ea_window_open = 0 }
 			}
+
+			# --- タブ切替 ---
+			bsm_ea_tab_parliament_button_click = {
+				set_variable = { bsm_ea_active_tab = 1 }
+			}
+			bsm_ea_tab_economy_button_click = {
+				set_variable = { bsm_ea_active_tab = 2 }
+			}
+			bsm_ea_tab_diplomacy_button_click = {
+				set_variable = { bsm_ea_active_tab = 3 }
+			}
+			bsm_ea_tab_ranking_button_click = {
+				set_variable = { bsm_ea_active_tab = 4 }
+			}
+			bsm_ea_tab_currency_button_click = {
+				set_variable = { bsm_ea_active_tab = 5 }
+				bsm_nc_prepare_rate_list = yes
+			}
+
+			# --- 陣営切替ナビ ---
 			bsm_ea_next_button_click = {
 				bsm_ea_switch_view_next = yes
 				bsm_ea_refresh_selection_data = yes
@@ -43,16 +64,19 @@ scripted_gui = {
 				bsm_ea_switch_view_prev = yes
 				bsm_ea_refresh_selection_data = yes
 			}
+			# 所属同盟の選択
 			bsm_ea_player_entry_button_click = {
-				# dynamic_list で change_scope = yes の場合、FROM = リストエントリ国
 				set_variable = { bsm_ea_selected_token = FROM.bsm_ea_sphere }
 				bsm_ea_select_sphere_for_gui = yes
 				bsm_ea_refresh_selection_data = yes
 			}
+			# ターゲット/任命対象の選択
 			bsm_ea_target_entry_button_click = {
 				set_variable = { bsm_ea_has_selected_member = 1 }
 				FROM = { save_global_event_target_as = bsm_ea_selected_member }
 			}
+
+			# --- 運営モード ---
 			bsm_ea_governance_leader_button_click = {
 				bsm_ea_set_governance_leader = yes
 				bsm_ea_refresh_selection_data = yes
@@ -61,7 +85,8 @@ scripted_gui = {
 				bsm_ea_set_governance_democratic = yes
 				bsm_ea_refresh_selection_data = yes
 			}
-			# 目標ボタン
+
+			# --- 議題(目標)ボタン ---
 			bsm_ea_goal_01_button_click = {
 				set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_01_cooperation }
 				bsm_ea_set_goal_or_vote = yes
@@ -92,7 +117,8 @@ scripted_gui = {
 				bsm_ea_set_goal_or_vote = yes
 				bsm_ea_refresh_selection_data = yes
 			}
-			# 投票ボタン
+
+			# --- 投票ボタン ---
 			bsm_ea_vote_yes_button_click = {
 				bsm_ea_vote_yes = yes
 				bsm_ea_refresh_selection_data = yes
@@ -105,7 +131,20 @@ scripted_gui = {
 				bsm_ea_vote_abstain = yes
 				bsm_ea_refresh_selection_data = yes
 			}
-			# アクションボタン
+
+			# --- 全体方針トグル ---
+			bsm_ea_policy_toggle_button_click = {
+				bsm_ea_toggle_policy = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+
+			# --- 外交担当の任命 ---
+			bsm_ea_assign_diplomat_button_click = {
+				bsm_ea_assign_diplomat = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+
+			# --- アクションボタン ---
 			bsm_ea_action_oda_button_click = {
 				bsm_ea_action_oda = yes
 				bsm_ea_refresh_selection_data = yes
@@ -130,22 +169,22 @@ scripted_gui = {
 				bsm_ea_action_tech_support = yes
 				bsm_ea_refresh_selection_data = yes
 			}
-			# 離脱ボタン
+
+			# --- 離脱ボタン ---
 			bsm_ea_leave_button_click = {
 				bsm_ea_leave_sphere_action = yes
 				bsm_update_ea_gui_data = yes
 			}
 		}
 		triggers = {
-			# Nav: 複数陣営所属時のみ表示
-			bsm_ea_nav_container_visible = {
-				check_variable = { bsm_ea_joined_spheres^num > 1 }
-			}
-			# 非加盟テキスト: 未加盟時のみ表示
-			no_alliance_text_visible = {
-				NOT = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
-			}
-			# ガバナンスボタン: 選択陣営の盟主のみ表示
+			# タブパネルの表示制御はタブページ別の独立 scripted_gui（ファイル末尾）の visible で行う
+
+			# --- 上部バー ---
+			header_alliance_name_visible = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
+			header_no_alliance_visible = { NOT = { check_variable = { bsm_ea_joined_spheres^num > 0 } } }
+			bsm_ea_nav_container_visible = { check_variable = { bsm_ea_joined_spheres^num > 1 } }
+
+			# --- 運営モード: 盟主のみ ---
 			bsm_ea_governance_leader_button_visible = {
 				check_variable = { bsm_ea_is_selected_leader = 1 }
 				check_variable = { bsm_ea_joined_spheres^num > 0 }
@@ -154,55 +193,36 @@ scripted_gui = {
 				check_variable = { bsm_ea_is_selected_leader = 1 }
 				check_variable = { bsm_ea_joined_spheres^num > 0 }
 			}
-			# 投票セクション: 投票中のみ表示
+
+			# --- 投票セクション: 投票中のみ ---
 			vote_container_visible = {
 				check_variable = { bsm_ea_gui_vote_active = 1 }
 				check_variable = { bsm_ea_joined_spheres^num > 0 }
 			}
-			# 目標ボタン: 成熟度条件を満たし未設定 & 盟主のみ
-			bsm_ea_goal_01_button_visible = {
-				check_variable = { bsm_ea_goal_01_available = 1 }
+
+			# --- 目標ボタン: 成熟度条件 & 盟主 ---
+			bsm_ea_goal_01_button_visible = { check_variable = { bsm_ea_goal_01_available = 1 } check_variable = { bsm_ea_is_selected_leader = 1 } }
+			bsm_ea_goal_02_button_visible = { check_variable = { bsm_ea_goal_02_available = 1 } check_variable = { bsm_ea_is_selected_leader = 1 } }
+			bsm_ea_goal_03_button_visible = { check_variable = { bsm_ea_goal_03_available = 1 } check_variable = { bsm_ea_is_selected_leader = 1 } }
+			bsm_ea_goal_04_button_visible = { check_variable = { bsm_ea_goal_04_available = 1 } check_variable = { bsm_ea_is_selected_leader = 1 } }
+			bsm_ea_goal_05_button_visible = { check_variable = { bsm_ea_goal_05_available = 1 } check_variable = { bsm_ea_is_selected_leader = 1 } }
+			bsm_ea_goal_06_button_visible = { check_variable = { bsm_ea_goal_06_available = 1 } check_variable = { bsm_ea_is_selected_leader = 1 } }
+
+			# 設定済み目標表示
+			goal_01_active_visible = { check_variable = { bsm_ea_goal_01_active = 1 } }
+			goal_02_active_visible = { check_variable = { bsm_ea_goal_02_active = 1 } }
+			goal_03_active_visible = { check_variable = { bsm_ea_goal_03_active = 1 } }
+			goal_04_active_visible = { check_variable = { bsm_ea_goal_04_active = 1 } }
+			goal_05_active_visible = { check_variable = { bsm_ea_goal_05_active = 1 } }
+			goal_06_active_visible = { check_variable = { bsm_ea_goal_06_active = 1 } }
+
+			# --- 全体方針トグル: 盟主のみ ---
+			bsm_ea_policy_toggle_button_visible = {
 				check_variable = { bsm_ea_is_selected_leader = 1 }
-			}
-			bsm_ea_goal_02_button_visible = {
-				check_variable = { bsm_ea_goal_02_available = 1 }
-				check_variable = { bsm_ea_is_selected_leader = 1 }
-			}
-			bsm_ea_goal_03_button_visible = {
-				check_variable = { bsm_ea_goal_03_available = 1 }
-				check_variable = { bsm_ea_is_selected_leader = 1 }
-			}
-			bsm_ea_goal_04_button_visible = {
-				check_variable = { bsm_ea_goal_04_available = 1 }
-				check_variable = { bsm_ea_is_selected_leader = 1 }
-			}
-			bsm_ea_goal_05_button_visible = {
-				check_variable = { bsm_ea_goal_05_available = 1 }
-				check_variable = { bsm_ea_is_selected_leader = 1 }
-			}
-			bsm_ea_goal_06_button_visible = {
-				check_variable = { bsm_ea_goal_06_available = 1 }
-				check_variable = { bsm_ea_is_selected_leader = 1 }
-			}
-			# goal_06 アクティブ表示 (技術共有グループ稼働中)
-			goal_06_active_visible = {
-				check_variable = { bsm_ea_goal_06_active = 1 }
 				check_variable = { bsm_ea_joined_spheres^num > 0 }
 			}
-			# アクションセクション: 加盟中のみ表示
-			actions_header_visible = {
-				check_variable = { bsm_ea_joined_spheres^num > 0 }
-			}
-			action_target_label_visible = {
-				check_variable = { bsm_ea_joined_spheres^num > 0 }
-			}
-			action_target_value_visible = {
-				check_variable = { bsm_ea_joined_spheres^num > 0 }
-			}
-			target_list_container_visible = {
-				check_variable = { bsm_ea_joined_spheres^num > 0 }
-			}
-			# アクションボタン有効化条件
+
+			# --- アクションボタン有効化条件 ---
 			bsm_ea_action_oda_button_enabled = {
 				check_variable = { bsm_ea_has_selected_member = 1 }
 				check_variable = { Unified_Currency > 49 }
@@ -233,38 +253,177 @@ scripted_gui = {
 				check_variable = { Unified_Currency > 249 }
 				check_variable = { bsm_ea_cd_tech = 0 }
 			}
-			# 離脱ボタン: 加盟中のみ表示
+
+			# --- 任命ボタン: 盟主 & 対象選択済み ---
+			bsm_ea_assign_diplomat_button_visible = {
+				check_variable = { bsm_ea_is_selected_leader = 1 }
+				check_variable = { bsm_ea_joined_spheres^num > 0 }
+			}
+			bsm_ea_assign_diplomat_button_enabled = {
+				check_variable = { bsm_ea_has_selected_member = 1 }
+			}
+
+			# --- 離脱ボタン: 加盟中のみ ---
 			bsm_ea_leave_button_visible = {
 				check_variable = { bsm_ea_joined_spheres^num > 0 }
 			}
 		}
-		dynamic_lists = {
-			# List of Player's Alliances (alliances the player is a member of)
-			economic_alliance_player_list = {
-				array = global.bsm_ea_player_alliance_list
-				change_scope = yes
-				country_scope_entry_container = "economic_alliance_player_entry"
-			}
+	}
 
-			# List of Members in the *Selected* Sphere
-			economic_alliance_member_list = {
+}
+
+# =========================================================
+# タブページ別 独立 scripted_gui（OE方式）
+#   parent_window_name で親ウィンドウを指定し、
+#   window_name 単位の visible で出し分ける。
+# =========================================================
+scripted_gui = {
+	bsm_ea_tab_parliament_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_parliament"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 1 }
+		}
+		properties = {
+			bsm_ea_seat_dot = {
+				frame = bsm_ea_seat_frame^bsm_ea_seat_idx
+			}
+			bsm_ea_legend_color = {
+				frame = bsm_ea_legend_frame
+			}
+		}
+		dynamic_lists = {
+			economic_alliance_seat_diagram = {
+				array = bsm_ea_seat_frame
+				change_scope = no
+				entry_container = "economic_alliance_seat_dot_entry"
+				index = bsm_ea_seat_idx
+			}
+			economic_alliance_member_legend_list = {
 				array = global.bsm_ea_gui_display_list
 				change_scope = yes
-				country_scope_entry_container = "economic_alliance_member_entry"
+				country_scope_entry_container = "economic_alliance_member_legend_entry"
 			}
-
-			# Target selection list for actions
+		}
+	}
+	bsm_ea_tab_economy_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_economy"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 2 }
+		}
+		dynamic_lists = {
 			economic_alliance_target_list = {
 				array = global.bsm_ea_gui_display_list
 				change_scope = yes
 				country_scope_entry_container = "economic_alliance_target_entry"
 			}
-
-			# List of All Spheres (Ranking)
+		}
+	}
+	bsm_ea_tab_diplomacy_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_diplomacy"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 3 }
+		}
+		dynamic_lists = {
+			economic_alliance_player_list = {
+				array = global.bsm_ea_player_alliance_list
+				change_scope = yes
+				country_scope_entry_container = "economic_alliance_player_entry"
+			}
+			economic_alliance_appoint_list = {
+				array = global.bsm_ea_gui_display_list
+				change_scope = yes
+				country_scope_entry_container = "economic_alliance_target_entry"
+			}
+		}
+	}
+	bsm_ea_tab_ranking_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_ranking"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 4 }
+		}
+		dynamic_lists = {
 			economic_alliance_ranking_list = {
 				array = global.bsm_ea_sorted_sphere_list
 				change_scope = yes
 				country_scope_entry_container = "economic_alliance_ranking_entry"
+			}
+		}
+	}
+	bsm_ea_tab_currency_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_currency"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 5 }
+		}
+		effects = {
+			bsm_nc_filter_alliance_button_click = {
+				set_variable = { bsm_nc_filter_mode = 0 }
+				bsm_nc_prepare_rate_list = yes
+			}
+			bsm_nc_filter_world_button_click = {
+				set_variable = { bsm_nc_filter_mode = 1 }
+				bsm_nc_prepare_rate_list = yes
+			}
+			bsm_nc_filter_asia_button_click = {
+				set_variable = { bsm_nc_filter_mode = 2 }
+				bsm_nc_prepare_rate_list = yes
+			}
+			bsm_nc_filter_europe_button_click = {
+				set_variable = { bsm_nc_filter_mode = 3 }
+				bsm_nc_prepare_rate_list = yes
+			}
+			bsm_nc_filter_namerica_button_click = {
+				set_variable = { bsm_nc_filter_mode = 4 }
+				bsm_nc_prepare_rate_list = yes
+			}
+			bsm_nc_filter_samerica_button_click = {
+				set_variable = { bsm_nc_filter_mode = 5 }
+				bsm_nc_prepare_rate_list = yes
+			}
+			bsm_nc_filter_africa_button_click = {
+				set_variable = { bsm_nc_filter_mode = 6 }
+				bsm_nc_prepare_rate_list = yes
+			}
+			bsm_nc_filter_meast_button_click = {
+				set_variable = { bsm_nc_filter_mode = 7 }
+				bsm_nc_prepare_rate_list = yes
+			}
+			bsm_nc_filter_oceania_button_click = {
+				set_variable = { bsm_nc_filter_mode = 8 }
+				bsm_nc_prepare_rate_list = yes
+			}
+		}
+		triggers = {
+			# アクティブなフィルタのボタンは無効化(グレーアウト)して選択中を示す
+			bsm_nc_filter_alliance_button_enabled = { NOT = { check_variable = { bsm_nc_filter_mode = 0 } } }
+			bsm_nc_filter_world_button_enabled = { NOT = { check_variable = { bsm_nc_filter_mode = 1 } } }
+			bsm_nc_filter_asia_button_enabled = { NOT = { check_variable = { bsm_nc_filter_mode = 2 } } }
+			bsm_nc_filter_europe_button_enabled = { NOT = { check_variable = { bsm_nc_filter_mode = 3 } } }
+			bsm_nc_filter_namerica_button_enabled = { NOT = { check_variable = { bsm_nc_filter_mode = 4 } } }
+			bsm_nc_filter_samerica_button_enabled = { NOT = { check_variable = { bsm_nc_filter_mode = 5 } } }
+			bsm_nc_filter_africa_button_enabled = { NOT = { check_variable = { bsm_nc_filter_mode = 6 } } }
+			bsm_nc_filter_meast_button_enabled = { NOT = { check_variable = { bsm_nc_filter_mode = 7 } } }
+			bsm_nc_filter_oceania_button_enabled = { NOT = { check_variable = { bsm_nc_filter_mode = 8 } } }
+		}
+		dynamic_lists = {
+			nc_rate_list = {
+				array = global.bsm_nc_rate_display_list
+				change_scope = yes
+				country_scope_entry_container = "nc_rate_entry"
 			}
 		}
 	}

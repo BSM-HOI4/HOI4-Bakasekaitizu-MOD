@@ -1,0 +1,16 @@
+# FIX(errorlog): scripted_guis/VAT_punish_gui.txt が window_name = "VAT_punish_gui" を
+# 参照するが、対応する containerWindowType がどの interface/*.gui にも未定義だったため、
+# scripted window manager が窓を登録できず "Undefined GUI_TYPE: VAT_punish_gui"
+# (クラッシュ恐れ) を周期的に出していた。visible = { always = no } では登録自体は走るので
+# 抑止できない。最小の有効な窓定義を与えて登録を成立させ、警告を解消する。
+# 機能(懲罰UI)は未実装のため不可視スタブとする。実装時にこの窓へ要素を追加し、
+# scripted_gui 側の visible を always=no から tag=VAT へ戻すこと。
+guiTypes = {
+
+	containerWindowType = {
+		name = "VAT_punish_gui"
+		position = { x = 0 y = 0 }
+		size = { width = 0 height = 0 }
+		show_position = { x = -10000 y = -10000 }
+	}
+}

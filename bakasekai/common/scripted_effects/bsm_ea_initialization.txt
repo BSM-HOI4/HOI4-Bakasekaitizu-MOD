@@ -25,6 +25,8 @@ bsm_ea_init_initial_factions = {
 	}
 	else = {
 		set_global_flag = bsm_ea_initial_factions_created
+		# 初期一括生成中は加盟ニュースを抑制
+		set_global_flag = bsm_ea_news_suppressed
 		log = "[BSM EA] === Creating initial economic alliances ==="
 
 		# --------------------------------------
@@ -137,6 +139,8 @@ bsm_ea_init_initial_factions = {
 			}
 		}
 
+		# 抑制解除（以降の加盟はニュースを発火する）
+		clr_global_flag = bsm_ea_news_suppressed
 		log = "[BSM EA] === Initial economic alliances created ==="
 	}
 }

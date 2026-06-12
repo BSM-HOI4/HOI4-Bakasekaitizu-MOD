@@ -1,0 +1,199 @@
+# Dynamic List Pattern Template
+# Creates a scrollable list populated from an array
+# Placeholders:
+# - SYSTEM_NAME: Your system name
+# - LIST_NAME: Name of the list (e.g., members, countries, items)
+# - ARRAY_NAME: Variable array name
+
+### SCRIPTED GUI FILE (common/scripted_guis/bsm_SYSTEM_NAME_sgui.txt) ###
+
+scripted_gui = {
+	bsm_SYSTEM_NAME_list = {
+		context_type = player_context  # Or decision_category
+		window_name = "bsm_SYSTEM_NAME_list"
+
+		visible = {
+			has_country_flag = SYSTEM_NAME_enabled
+		}
+
+		effects = {
+			# Button in each list entry
+			item_button_click = {
+				# Access item via 'v' (value) and 'i' (index) variables
+				set_variable = { selected_index = i }
+				set_temp_variable = { selected_value = v }
+
+				# Your action here
+				custom_effect = yes
+			}
+		}
+
+		triggers = {
+			item_button_click_enabled = {
+				# Condition for item to be clickable
+				always = yes
+			}
+
+			# Highlight selected item
+			item_highlight_visible = {
+				check_variable = { selected_index = i }
+			}
+		}
+
+		properties = {
+			# Dynamic icon based on array value
+			item_icon = {
+				image = "[?v.GetTokenKey]"  # If array contains scope references
+				# Or
+				# frame = v  # If array contains frame numbers
+			}
+		}
+
+		dynamic_lists = {
+			LIST_NAME_grid = {
+				array = ROOT.ARRAY_NAME
+				change_scope = no  # Set to yes if array contains countries/states
+				entry_container = "LIST_NAME_entry"
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+}
+
+### GUI FILE (interface/bsm_SYSTEM_NAME.gui) ###
+
+guiTypes = {
+	containerWindowType = {
+		name = "bsm_SYSTEM_NAME_list"
+		position = { x = 0 y = 0 }
+		size = { width = 100%% height = 100%% }
+
+		containerWindowType = {
+			name = "list_container"
+			position = { x = 100 y = 100 }
+			size = { width = 400 height = 600 }
+
+			background = {
+				name = "list_bg"
+				quadTextureSprite = "GFX_tiled_window_transparent"
+			}
+
+			# Scrollable grid
+			gridBoxType = {
+				name = "LIST_NAME_grid"
+				position = { x = 10 y = 10 }
+				size = { width = 360 height = 560 }
+				slotsize = { width = 360 height = 60 }
+				max_slots_horizontal = 1
+				format = "UPPER_LEFT"
+
+				# Scrollbar
+				add_horizontal = no
+				vertical_scrollbar = "list_scrollbar"
+			}
+
+			scrollbarType = {
+				name = "list_scrollbar"
+				position = { x = 370 y = 10 }
+				size = { width = 16 height = 560 }
+				orientation = "UPPER_LEFT"
+
+				slider = {
+					name = "slider"
+					quadTextureSprite = "GFX_scrollbar_vertical_bg"
+					position = { x = 0 y = 18 }
+					alwaystransparent = yes
+				}
+
+				track = {
+					name = "track"
+					quadTextureSprite = "GFX_scroll_track"
+					position = { x = 0 y = 18 }
+					alwaystransparent = yes
+				}
+
+				increaseButton = {
+					name = "increase"
+					quadTextureSprite = "GFX_scrollbar_down"
+					position = { x = 0 y = -16 }
+					orientation = "LOWER_LEFT"
+				}
+
+				decreaseButton = {
+					name = "decrease"
+					quadTextureSprite = "GFX_scrollbar_up"
+					position = { x = 0 y = 0 }
+				}
+			}
+		}
+	}
+
+	# List entry template (instantiated for each array item)
+	containerWindowType = {
+		name = "LIST_NAME_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 350 height = 55 }
+
+		background = {
+			name = "entry_bg"
+			quadTextureSprite = "GFX_entry_bg"
+		}
+
+		# Selection highlight
+		iconType = {
+			name = "item_highlight"
+			spriteType = "GFX_highlight_overlay"
+			position = { x = 0 y = 0 }
+		}
+
+		# Item icon
+		iconType = {
+			name = "item_icon"
+			spriteType = "GFX_item_icons"
+			position = { x = 5 y = 5 }
+			frame = 1
+		}
+
+		# Item text
+		instantTextBoxType = {
+			name = "item_text"
+			position = { x = 60 y = 15 }
+			font = "hoi_18mbs"
+			text = "item_text_key"
+			format = left
+			maxWidth = 200
+		}
+
+		# Clickable button
+		buttonType = {
+			name = "item_button"
+			position = { x = 0 y = 0 }
+			size = { width = 350 height = 55 }
+			quadTextureSprite = "GFX_invisible_button"
+
+			clicksound = click_default
+			oversound = ui_menu_over
+		}
+	}
+}
+
+### SCRIPTED EFFECT (common/scripted_effects/bsm_SYSTEM_NAME_effects.txt) ###
+
+# Initialize array (called in on_action or event)
+bsm_SYSTEM_NAME_initialize_array = {
+	clear_array = ARRAY_NAME
+
+	# Example: Add items to array
+	add_to_array = { ARRAY_NAME = 1 }
+	add_to_array = { ARRAY_NAME = 2 }
+	add_to_array = { ARRAY_NAME = 3 }
+
+	# Or add country scopes
+	# every_country = {
+	# 	limit = { is_alliance_member = yes }
+	# 	ROOT = { add_to_array = { ARRAY_NAME = PREV } }
+	# }
+}

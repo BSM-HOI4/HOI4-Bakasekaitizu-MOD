@@ -1,0 +1,37 @@
+# ==========================================
+# BSM 経済同盟: 加盟意欲バイアス (誘致 / 妨害)
+# ------------------------------------------
+# 変数: bsm_ea_join_bias@{盟主TAG}  (対象国スコープ, -100..100)
+#   対象国が「その盟主の経済同盟」へ加盟する AI 意欲を増減する。
+#   join ディシジョンの ai_will_do に反映される (ROOT=加盟希望国, FROM=盟主)。
+#
+# 【modder API】 ROOT = 誘致する盟主国
+#   1. 対象国を  save_event_target_as = bsm_ea_recruit_target  で保存
+#   2. bsm_ea_recruit_promote / bsm_ea_recruit_discourage を呼ぶ
+#      (任意増減は temp t_delta をセットして bsm_ea_apply_join_bias)
+# prefix: bsm_ea_
+# ==========================================
+
+# 任意増減 (ROOT=盟主, event_target:bsm_ea_recruit_target=対象, temp t_delta)
+bsm_ea_apply_join_bias = {
+	if = {
+		limit = { has_event_target = bsm_ea_recruit_target }
+		event_target:bsm_ea_recruit_target = {
+			# PREV = ROOT (誘致する盟主)
+			add_to_variable = { var = bsm_ea_join_bias@PREV value = PREV.t_delta }
+			clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
+		}
+	}
+}
+
+# 誘致 (+30)
+bsm_ea_recruit_promote = {
+	set_temp_variable = { t_delta = 30 }
+	bsm_ea_apply_join_bias = yes
+}
+
+# 妨害 (-30)
+bsm_ea_recruit_discourage = {
+	set_temp_variable = { t_delta = -30 }
+	bsm_ea_apply_join_bias = yes
+}

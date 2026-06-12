@@ -1,0 +1,481 @@
+# ==========================================
+# BSM アノマリーシステム 独立ウィンドウ GUI（アノマリー・探検隊）
+# prefix: bsm_AS_
+# window_name = bsm_AS_window（EA並みサイズ）
+#   タブ: 未解析 / 解析中 / 解析済み / 探検隊
+# ==========================================
+guiTypes = {
+
+	# =======================================================
+	# メインウィンドウ
+	# =======================================================
+	containerWindowType = {
+		name = "bsm_AS_window"
+		position = { x = -420 y = -310 }
+		orientation = center
+		size = { width = 840 height = 620 }
+		moveable = yes
+		click_to_front = yes
+
+		show_sound = menu_open_window
+		hide_sound = menu_close_window
+
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window_1b_border"
+		}
+
+		iconType = {
+			name = "bsm_AS_header_bg"
+			spriteType = "GFX_header_bg"
+			position = { x = 5 y = 7 }
+			Orientation = UPPER_LEFT
+		}
+
+		instantTextboxType = {
+			name = "bsm_AS_title"
+			position = { x = 22 y = 12 }
+			font = "hoi_24header"
+			text = "bsm_AS_window_title"
+			maxWidth = 600
+			maxHeight = 30
+			format = left
+		}
+
+		buttonType = {
+			name = "close_button"
+			position = { x = -38 y = 10 }
+			quadTextureSprite = "GFX_closebutton"
+			buttonFont = "Main_14_black"
+			shortcut = "ESCAPE"
+			Orientation = UPPER_RIGHT
+			clicksound = click_close
+			pdx_tooltip = "CLOSE"
+		}
+
+		# ------- タブ（EA準拠: GFX_sort_button_202x29 にテキスト描画） -------
+		containerWindowType = {
+			name = "bsm_AS_tab_container"
+			position = { x = 12 y = 44 }
+			size = { width = 824 height = 30 }
+
+			buttonType = {
+				name = "bsm_AS_tab_btn_unanalyzed"
+				position = { x = 0 y = 0 }
+				spriteType = "GFX_sort_button_202x29"
+				buttonFont = "hoi_16mbs"
+				text = "bsm_AS_tab_unanalyzed"
+				clicksound = decisions_ui_button
+			}
+			buttonType = {
+				name = "bsm_AS_tab_btn_researching"
+				position = { x = 204 y = 0 }
+				spriteType = "GFX_sort_button_202x29"
+				buttonFont = "hoi_16mbs"
+				text = "bsm_AS_tab_researching"
+				clicksound = decisions_ui_button
+			}
+			buttonType = {
+				name = "bsm_AS_tab_btn_completed"
+				position = { x = 408 y = 0 }
+				spriteType = "GFX_sort_button_202x29"
+				buttonFont = "hoi_16mbs"
+				text = "bsm_AS_tab_completed"
+				clicksound = decisions_ui_button
+			}
+			buttonType = {
+				name = "bsm_AS_tab_btn_expedition"
+				position = { x = 612 y = 0 }
+				spriteType = "GFX_sort_button_202x29"
+				buttonFont = "hoi_16mbs"
+				text = "bsm_AS_tab_expedition"
+				clicksound = decisions_ui_button
+			}
+		}
+
+	}
+
+	# ------- 一覧パネル：未解析 -------
+	containerWindowType = {
+		name = "bsm_AS_panel_unanalyzed"
+		position = { x = 8 y = 78 }
+		size = { width = 824 height = 528 }
+		verticalScrollbar = "right_vertical_slider"
+		vertical_scroll_step = 44
+		smooth_scrolling = yes
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window_transparent"
+		}
+		gridboxType = {
+			name = "bsm_AS_grid_unanalyzed"
+			position = { x = 6 y = 6 }
+			size = { width = 806 height = 516 }
+			slotsize = { width = 802 height = 46 }
+			max_slots_horizontal = 1
+			add_horizontal = no
+			format = "UPPER_LEFT"
+		}
+	}
+
+	# ------- 一覧パネル：解析中 -------
+	containerWindowType = {
+		name = "bsm_AS_panel_researching"
+		position = { x = 8 y = 78 }
+		size = { width = 824 height = 528 }
+		verticalScrollbar = "right_vertical_slider"
+		vertical_scroll_step = 44
+		smooth_scrolling = yes
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window_transparent"
+		}
+		gridboxType = {
+			name = "bsm_AS_grid_researching"
+			position = { x = 6 y = 6 }
+			size = { width = 806 height = 516 }
+			slotsize = { width = 802 height = 46 }
+			max_slots_horizontal = 1
+			add_horizontal = no
+			format = "UPPER_LEFT"
+		}
+	}
+
+	# ------- 一覧パネル：解析済み -------
+	containerWindowType = {
+		name = "bsm_AS_panel_completed"
+		position = { x = 8 y = 78 }
+		size = { width = 824 height = 528 }
+		verticalScrollbar = "right_vertical_slider"
+		vertical_scroll_step = 44
+		smooth_scrolling = yes
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window_transparent"
+		}
+		gridboxType = {
+			name = "bsm_AS_grid_completed"
+			position = { x = 6 y = 6 }
+			size = { width = 806 height = 516 }
+			slotsize = { width = 802 height = 46 }
+			max_slots_horizontal = 1
+			add_horizontal = no
+			format = "UPPER_LEFT"
+		}
+	}
+
+	# ------- 探検隊パネル -------
+	containerWindowType = {
+		name = "bsm_AS_panel_expedition"
+		position = { x = 8 y = 78 }
+		size = { width = 824 height = 528 }
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window_transparent"
+		}
+
+		buttonType = {
+			name = "bsm_AS_form_open_btn"
+			position = { x = 10 y = 10 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_form_team_btn"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_form_open_lbl"
+			position = { x = 56 y = 16 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_form_team_btn"
+			maxWidth = 260 maxHeight = 22
+			format = left
+			alwaystransparent = yes
+		}
+
+		instantTextboxType = {
+			name = "bsm_AS_capacity_lbl"
+			position = { x = 420 y = 8 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_capacity_label"
+			maxWidth = 390 maxHeight = 20
+			format = left
+		}
+		instantTextboxType = {
+			name = "bsm_AS_upkeep_lbl"
+			position = { x = 420 y = 30 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_upkeep_label"
+			maxWidth = 390 maxHeight = 20
+			format = left
+		}
+
+		instantTextboxType = {
+			name = "bsm_AS_team_list_title"
+			position = { x = 10 y = 56 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_team_list_title"
+			maxWidth = 800 maxHeight = 20
+			format = left
+		}
+
+		containerWindowType = {
+			name = "bsm_AS_team_scroll"
+			position = { x = 0 y = 86 }
+			size = { width = 824 height = 438 }
+			verticalScrollbar = "right_vertical_slider"
+			vertical_scroll_step = 58
+			smooth_scrolling = yes
+			gridboxType = {
+				name = "bsm_AS_grid_team"
+				position = { x = 6 y = 4 }
+				size = { width = 806 height = 430 }
+				slotsize = { width = 802 height = 58 }
+				max_slots_horizontal = 1
+				add_horizontal = no
+				format = "UPPER_LEFT"
+			}
+		}
+	}
+
+
+	# =======================================================
+	# 編成ダイアログ（独立フローティングウィンドウ）
+	#   window_name = bsm_AS_form_dialog（scripted_gui で表示制御）
+	# =======================================================
+	containerWindowType = {
+		name = "bsm_AS_form_dialog"
+		position = { x = -230 y = -115 }
+		orientation = center
+		size = { width = 460 height = 230 }
+		moveable = yes
+		click_to_front = yes
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_window2_1b_border"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_form_title"
+			position = { x = 16 y = 10 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_form_title"
+			maxWidth = 400 maxHeight = 24
+			format = left
+		}
+		buttonType = {
+			name = "bsm_AS_form_close_btn"
+			position = { x = 424 y = 8 }
+			quadTextureSprite = "GFX_closebutton"
+			Orientation = UPPER_LEFT
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_form_close_tt"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_form_size_label"
+			position = { x = 16 y = 40 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_form_size_label"
+			maxWidth = 420 maxHeight = 20
+			format = left
+		}
+
+		buttonType = {
+			name = "bsm_AS_form_small_btn"
+			position = { x = 16 y = 66 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+		}
+		instantTextboxType = {
+			name = "bsm_AS_form_small_lbl"
+			position = { x = 58 y = 72 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_form_size_small"
+			maxWidth = 390 maxHeight = 20
+			format = left
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "bsm_AS_form_medium_btn"
+			position = { x = 16 y = 110 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+		}
+		instantTextboxType = {
+			name = "bsm_AS_form_medium_lbl"
+			position = { x = 58 y = 116 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_form_size_medium"
+			maxWidth = 390 maxHeight = 20
+			format = left
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name = "bsm_AS_form_large_btn"
+			position = { x = 16 y = 154 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+		}
+		instantTextboxType = {
+			name = "bsm_AS_form_large_lbl"
+			position = { x = 58 y = 160 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_form_size_large"
+			maxWidth = 390 maxHeight = 20
+			format = left
+			alwaystransparent = yes
+		}
+	}
+
+	# =======================================================
+	# アノマリー一覧エントリ（未解析/解析中/解析済みで共用）
+	#  dynamic_list: value=as_val(=N), index=as_idx
+	# =======================================================
+	containerWindowType = {
+		name = "bsm_AS_anomaly_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 802 height = 46 }
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_plain_bg"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_e_name"
+			position = { x = 12 y = 5 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_entry_name"
+			maxWidth = 620 maxHeight = 20
+			format = left
+		}
+		instantTextboxType = {
+			name = "bsm_AS_e_meta"
+			position = { x = 12 y = 25 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_entry_meta"
+			maxWidth = 620 maxHeight = 18
+			format = left
+		}
+
+		# 解析ボタン（未解析時のみ）
+		buttonType = {
+			name = "bsm_AS_e_research_btn"
+			position = { x = 692 y = 11 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_entry_research_tt"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_e_research_lbl"
+			position = { x = 692 y = 15 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_entry_research_btn"
+			maxWidth = 100 maxHeight = 20
+			format = center
+			alwaystransparent = yes
+		}
+
+		# 進捗（解析中時のみ）
+		instantTextboxType = {
+			name = "bsm_AS_e_progress"
+			position = { x = 692 y = 15 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_entry_progress"
+			maxWidth = 100 maxHeight = 20
+			format = center
+		}
+		# 中止ボタン（解析中時のみ）
+		buttonType = {
+			name = "bsm_AS_e_cancel_btn"
+			position = { x = 656 y = 11 }
+			quadTextureSprite = "GFX_closebutton"
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_entry_cancel_tt"
+		}
+
+		# 完了ラベル（解析済み時のみ）
+		instantTextboxType = {
+			name = "bsm_AS_e_done"
+			position = { x = 692 y = 15 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_entry_done"
+			maxWidth = 100 maxHeight = 20
+			format = center
+		}
+	}
+
+	# =======================================================
+	# 探検隊エントリ
+	#  dynamic_list: value=as_team_id, index=as_team_idx
+	# =======================================================
+	containerWindowType = {
+		name = "bsm_AS_team_entry"
+		position = { x = 0 y = 0 }
+		size = { width = 802 height = 58 }
+		background = {
+			name = "Background"
+			quadTextureSprite = "GFX_tiled_plain_bg"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_t_name"
+			position = { x = 12 y = 8 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_team_name"
+			maxWidth = 200 maxHeight = 20
+			format = left
+		}
+		instantTextboxType = {
+			name = "bsm_AS_t_size"
+			position = { x = 12 y = 32 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_team_size"
+			maxWidth = 100 maxHeight = 20
+			format = left
+		}
+		instantTextboxType = {
+			name = "bsm_AS_t_level"
+			position = { x = 130 y = 32 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_team_level"
+			maxWidth = 120 maxHeight = 20
+			format = left
+		}
+		instantTextboxType = {
+			name = "bsm_AS_t_status"
+			position = { x = 280 y = 22 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_team_status"
+			maxWidth = 320 maxHeight = 20
+			format = left
+		}
+
+		buttonType = {
+			name = "bsm_AS_t_dispatch_btn"
+			position = { x = 632 y = 16 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_team_dispatch_tt"
+		}
+		instantTextboxType = {
+			name = "bsm_AS_t_dispatch_lbl"
+			position = { x = 632 y = 16 }
+			font = "hoi_16mbs"
+			text = "bsm_AS_team_dispatch_btn"
+			maxWidth = 90 maxHeight = 20
+			format = center
+			alwaystransparent = yes
+		}
+		buttonType = {
+			name = "bsm_AS_t_recall_btn"
+			position = { x = 632 y = 16 }
+			quadTextureSprite = "GFX_decision_generic_decision"
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_team_recall_tt"
+		}
+		buttonType = {
+			name = "bsm_AS_t_disband_btn"
+			position = { x = 740 y = 16 }
+			quadTextureSprite = "GFX_closebutton"
+			clicksound = click_close
+			pdx_tooltip = "bsm_AS_team_disband_tt"
+		}
+	}
+}

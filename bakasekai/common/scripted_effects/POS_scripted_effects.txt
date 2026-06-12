@@ -1,0 +1,116 @@
+POS_set_politics_civilism = {
+    set_politics = {
+        ruling_party = civilism
+        last_election = "1936.1.1"
+        election_frequency = 48
+        elections_allowed = yes
+    }
+    set_popularities = {
+        democratic_ideology = 10
+        direct_democracy = 15
+        civilism = 60
+        futurism = 5
+        neutrality_ideology = 10
+    }
+}
+
+POS_set_politics_paradise = {
+    set_politics = {
+        ruling_party = futurism
+        last_election = "1936.1.1"
+        election_frequency = 48
+        elections_allowed = no
+    }
+    set_popularities = {
+        democratic_ideology = 5
+        direct_democracy = 10
+        civilism = 10
+        futurism = 65
+        neutrality_ideology = 10
+    }
+}
+
+POS_sell_title_effect_barony = {
+    random_other_country = {
+        limit = {
+            is_major = no
+            NOT = { tag = POS }
+            NOT = { has_war_with = POS }
+        }
+        POS = {
+            add_opinion_modifier = {
+                target = PREV
+                modifier = POS_title_sold_barony
+            }
+        }
+        add_opinion_modifier = {
+            target = POS
+            modifier = POS_title_sold_barony
+        }
+    }
+}
+
+POS_sell_title_effect_earldom = {
+    random_other_country = {
+        limit = {
+            NOT = { tag = POS }
+            NOT = { has_war_with = POS }
+        }
+        POS = {
+            add_opinion_modifier = {
+                target = PREV
+                modifier = POS_title_sold_earldom
+            }
+        }
+        add_opinion_modifier = {
+            target = POS
+            modifier = POS_title_sold_earldom
+        }
+    }
+}
+
+POS_sell_title_effect_dukedom = {
+    random_other_country = {
+        limit = {
+            is_major = yes
+            NOT = { has_war_with = POS }
+        }
+        POS = {
+            add_opinion_modifier = {
+                target = PREV
+                modifier = POS_title_sold_dukedom
+            }
+        }
+        add_opinion_modifier = {
+            target = POS
+            modifier = POS_title_sold_dukedom
+        }
+    }
+}
+
+POS_grant_military_title_effect = {
+    random_other_country = {
+        limit = {
+            has_army_size = { size > 0 }
+            any_unit_leader = { is_unit_leader = yes }
+            NOT = { tag = POS }
+            NOT = { has_war_with = POS }
+        }
+        random_unit_leader = {
+            limit = {
+                is_unit_leader = yes
+            }
+            add_unit_leader_trait = desert_fox
+        }
+        add_opinion_modifier = {
+            target = POS
+            modifier = POS_title_military_grant
+        }
+        POS = {
+            add_opinion_modifier = {
+                target = PREV
+                modifier = POS_title_military_grant
+            }
+        }
+    }
+}

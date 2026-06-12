@@ -1,222 +1,102 @@
 # ==========================================
-# BSM ステラリス要素 - アセンションパーク
+# BSM 地球版ステラリス要素 - アセンションパーク
 # prefix: bsm_stellaris_
 # ==========================================
 
 bsm_stellaris_ascension_parks = {
-  # 科学の頂点
+  # 技術的卓越
   bsm_stellaris_ascension_park_1_decision = {
     icon = gfx/interface/icons/research/physics_research.dds
     allowed = { always = yes }
-    available = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_1 }
-    }
-    visible = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_1 }
-    }
+    available = { bsm_stellaris_ascension_common_available = yes bsm_stellaris_prefers_technical_ascension = yes NOT = { has_idea = bsm_stellaris_ascension_park_1 } }
+    visible = { bsm_stellaris_ascension_common_available = yes NOT = { has_idea = bsm_stellaris_ascension_park_1 } }
     cost = 0
     days_re_enable = 0
     fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_ascension_park_token = token:bsm_stellaris_ascension_park_1 }
-      bsm_stellaris_unlock_ascension_park = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_ascension_park_1 = yes }
   }
 
-  # 軍事機甲
+  # 世界規模行政
   bsm_stellaris_ascension_park_2_decision = {
-    icon = gfx/interface/icons/ideas/military.dds
-    allowed = { always = yes }
-    available = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_2 }
-    }
-    visible = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_2 }
-    }
-    cost = 0
-    days_re_enable = 0
-    fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_ascension_park_token = token:bsm_stellaris_ascension_park_2 }
-      bsm_stellaris_unlock_ascension_park = yes
-    }
-  }
-
-  # 経済巨人
-  bsm_stellaris_ascension_park_3_decision = {
-    icon = gfx/interface/icons/ideas/economy.dds
-    allowed = { always = yes }
-    available = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_3 }
-    }
-    visible = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_3 }
-    }
-    cost = 0
-    days_re_enable = 0
-    fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_ascension_park_token = token:bsm_stellaris_ascension_park_3 }
-      bsm_stellaris_unlock_ascension_park = yes
-    }
-  }
-
-  # 理想社会
-  bsm_stellaris_ascension_park_4_decision = {
     icon = gfx/interface/icons/ideas/political.dds
     allowed = { always = yes }
-    available = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_4 }
-    }
-    visible = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_4 }
-    }
+    available = { bsm_stellaris_ascension_common_available = yes bsm_stellaris_prefers_administrative_ascension = yes NOT = { has_idea = bsm_stellaris_ascension_park_2 } }
+    visible = { bsm_stellaris_ascension_common_available = yes NOT = { has_idea = bsm_stellaris_ascension_park_2 } }
     cost = 0
     days_re_enable = 0
     fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_ascension_park_token = token:bsm_stellaris_ascension_park_4 }
-      bsm_stellaris_unlock_ascension_park = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_ascension_park_2 = yes }
   }
 
-  # 精神的開花
-  bsm_stellaris_ascension_park_5_decision = {
+  # 危機対処機構
+  bsm_stellaris_ascension_park_3_decision = {
     icon = gfx/interface/icons/research/society_research.dds
     allowed = { always = yes }
-    available = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_5 }
-    }
-    visible = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_5 }
-    }
+    available = { bsm_stellaris_ascension_common_available = yes bsm_stellaris_prefers_crisis_ascension = yes NOT = { has_idea = bsm_stellaris_ascension_park_3 } NOT = { has_idea = bsm_stellaris_ascension_park_4 } }
+    visible = { bsm_stellaris_ascension_common_available = yes NOT = { has_idea = bsm_stellaris_ascension_park_3 } NOT = { has_idea = bsm_stellaris_ascension_park_4 } }
     cost = 0
     days_re_enable = 0
     fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_ascension_park_token = token:bsm_stellaris_ascension_park_5 }
-      bsm_stellaris_unlock_ascension_park = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_ascension_park_3 = yes }
   }
 
-  # 外交の達人
-  bsm_stellaris_ascension_park_6_decision = {
+  # 破局への道
+  bsm_stellaris_ascension_park_4_decision = {
+    icon = gfx/interface/icons/ideas/military.dds
+    allowed = { always = yes }
+    available = { bsm_stellaris_ascension_common_available = yes bsm_stellaris_prefers_catastrophe_ascension = yes NOT = { has_idea = bsm_stellaris_ascension_park_4 } NOT = { has_idea = bsm_stellaris_ascension_park_3 } }
+    visible = { bsm_stellaris_ascension_common_available = yes NOT = { has_idea = bsm_stellaris_ascension_park_4 } NOT = { has_idea = bsm_stellaris_ascension_park_3 } }
+    cost = 0
+    days_re_enable = 0
+    fire_only_once = no
+    complete_effect = { bsm_stellaris_unlock_ascension_park_4 = yes }
+  }
+
+  # 国土改造
+  bsm_stellaris_ascension_park_5_decision = {
     icon = gfx/interface/icons/research/engineering_research.dds
     allowed = { always = yes }
-    available = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_6 }
-    }
-    visible = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_6 }
-    }
+    available = { bsm_stellaris_ascension_common_available = yes bsm_stellaris_prefers_terrain_ascension = yes NOT = { has_idea = bsm_stellaris_ascension_park_5 } }
+    visible = { bsm_stellaris_ascension_common_available = yes NOT = { has_idea = bsm_stellaris_ascension_park_5 } }
     cost = 0
     days_re_enable = 0
     fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_ascension_park_token = token:bsm_stellaris_ascension_park_6 }
-      bsm_stellaris_unlock_ascension_park = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_ascension_park_5 = yes }
   }
 
-  # アノマリーの探求者
+  # 国際交易網
+  bsm_stellaris_ascension_park_6_decision = {
+    icon = gfx/interface/icons/ideas/economy.dds
+    allowed = { always = yes }
+    available = { bsm_stellaris_ascension_common_available = yes bsm_stellaris_prefers_trade_ascension = yes NOT = { has_idea = bsm_stellaris_ascension_park_6 } }
+    visible = { bsm_stellaris_ascension_common_available = yes NOT = { has_idea = bsm_stellaris_ascension_park_6 } }
+    cost = 0
+    days_re_enable = 0
+    fire_only_once = no
+    complete_effect = { bsm_stellaris_unlock_ascension_park_6 = yes }
+  }
+
+  # 人工進化計画
   bsm_stellaris_ascension_park_7_decision = {
     icon = gfx/interface/icons/research/anomaly.dds
     allowed = { always = yes }
-    available = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_7 }
-    }
-    visible = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_7 }
-    }
+    available = { bsm_stellaris_ascension_common_available = yes bsm_stellaris_prefers_evolution_ascension = yes NOT = { has_idea = bsm_stellaris_ascension_park_7 } }
+    visible = { bsm_stellaris_ascension_common_available = yes NOT = { has_idea = bsm_stellaris_ascension_park_7 } }
     cost = 0
     days_re_enable = 0
     fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_ascension_park_token = token:bsm_stellaris_ascension_park_7 }
-      bsm_stellaris_unlock_ascension_park = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_ascension_park_7 = yes }
   }
 
-  # 世界の覇者
+  # 精神的覚醒
   bsm_stellaris_ascension_park_8_decision = {
-    icon = gfx/interface/icons/research/physics_research.dds
+    icon = gfx/interface/icons/research/society_research.dds
     allowed = { always = yes }
-    available = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_8 }
-    }
-    visible = {
-      has_variable = bsm_stellaris_ascension_adopted
-      check_variable = { var = bsm_stellaris_ascension_adopted value = 10 compare = greater_than_or_equals }
-      has_variable = bsm_stellaris_ascension_slots
-      check_variable = { var = bsm_stellaris_ascension_slots value = 0 compare = greater_than }
-      NOT = { has_idea = bsm_stellaris_ascension_park_8 }
-    }
+    available = { bsm_stellaris_ascension_common_available = yes bsm_stellaris_prefers_spiritual_ascension = yes NOT = { has_idea = bsm_stellaris_ascension_park_8 } }
+    visible = { bsm_stellaris_ascension_common_available = yes NOT = { has_idea = bsm_stellaris_ascension_park_8 } }
     cost = 0
     days_re_enable = 0
     fire_only_once = no
-    complete_effect = {
-      set_variable = { bsm_stellaris_ascension_park_token = token:bsm_stellaris_ascension_park_8 }
-      bsm_stellaris_unlock_ascension_park = yes
-    }
+    complete_effect = { bsm_stellaris_unlock_ascension_park_8 = yes }
   }
 }

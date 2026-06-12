@@ -1,8 +1,10 @@
 # CLAUDE.md
 
-Do not modify any `.wav` or `.ogg` files.
+This file provides Claude Code guidance for working in the HOI4-Bakasekaitizu-MOD repository.
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Always read `AGENTS.md` first. That file contains the shared rules for all AI agents, including GitFlow, branch naming, safety, style, and validation.
+
+Do not modify any `.wav` or `.ogg` files.
 
 ## Project Overview
 
@@ -83,6 +85,53 @@ The mod includes hundreds of custom countries with unique 3-letter tags:
 - Debug events and decisions available
 - Performance profiler integration for optimization
 
+## Claude Workflow
+
+Before edits:
+
+- Run `git status --short --branch`.
+- Confirm the work is on a properly named branch, such as `feature/JPN_project` or `fix/crash_TAG_event`.
+- If the task covers unrelated areas, split the work by branch.
+- Inspect nearby files before creating new patterns.
+
+During edits:
+
+- Keep changes scoped to the request.
+- Preserve user changes and unrelated work.
+- Prefer existing bsm_test conventions over patterns from other repositories.
+- Use concise comments only where the script is not self-explanatory.
+
+After edits:
+
+- Review changed files.
+- Run the most relevant lightweight validation available (see table below).
+- Report changed files and any validation that could not be run.
+
+## Skill Routing & Token Economy
+
+**調査(トークン節約・必須)**: 既存定義の場所特定・抽出は `hoi4-searcher` スキルの
+`python3 .claude/skills/hoi4-searcher/scripts/search_defs.py` を使う。modファイルをReadで全読みしない。
+一覧(`--type X --name Y`、1件1行)→ 中身が必要な定義だけ `--def NAME` でブロック抽出、の順。
+
+**実装**: タスクに対応するスキルを必ず起点にする(一覧はスキルのdescription参照)。主な対応:
+イベント実装=`hoi4-event-helper` / シナリオ設計=`hoi4-event` / NF=`hoi4-nf-creator` / decision=`hoi4-decisions-helper` /
+国民精神=`hoi4-idea-creator` / modifier=`hoi4-modifier-maker` / scripted effect・trigger・loc=`hoi4-scripted-*` /
+変数=`hoi4-variable-helper` / on_actions=`hoi4-on-actions-helper` / GUI=`hoi4-gui` / AI挙動=`hoi4-ai-modding` /
+画像=`hoi4-image-asset-creator` / 艦船OOB=`hoi4-naval-oob-editor` / 技術=`hoi4-techtree-creator` / 装備=`hoi4-unit-design-creator` /
+国家追加・初期状態=`hoi4-country-setup` / 陸空OOB=`hoi4-land-air-oob` / マップ編集=`hoi4-map-editing`(**map/配下を触ったら必ず**キャッシュ削除+2回起動検証)
+
+**検証(変更種別→ツール)**: まず `search_defs.py --check <changed files>`(brace/BOM/loc形式の即時チェック)。その後:
+
+| 変更したもの | 追加で実行 |
+|---|---|
+| common/, events/ の script | `mcp__hoi4__hoi4_cwtools_check`(変更ファイルのみ) |
+| localisation .yml | `mcp__hoi4__hoi4_find_missing_keys` |
+| .gfx / GFX_ 参照追加 | `mcp__hoi4__hoi4_check_missing_gfx` |
+| 画像アセット | `mcp__hoi4__hoi4_convert_images`(TGA/DDS変換) |
+
+vanillaの効果・トリガー・modifier仕様の確認は `documents/00_coding_contexts/` の辞書か
+`mcp__hoi4-modding__get_vanilla_modifiers` / `get_clausewitz_ref` を使い、推測で書かない。
+
 ### Variable System
 The mod uses HOI4's variable system extensively for dynamic content. Key commands:
 - `set_variable = { var = name value = X }`
@@ -107,6 +156,20 @@ Extensive character definitions in `common/characters/` organized by country, in
    - Effects: `documents/00_coding_contexts/01_effects/effects.json`
    - Triggers: `documents/00_coding_contexts/04_triggers/triggers.json`
 7. **システムタグ `_` の記述ルール:** TAGとして使用する場合は必ずアポストロフィで囲む。スコープ: `XXX = { ... }`、トリガー: `tag = XXX`、`NOT = { tag = XXX }`。囲まないと変数名として解釈される。
+
+## Branch Policy
+
+Claude must follow the branch policy in `AGENTS.md`:
+
+- No direct push to `main`.
+- Finished branches merge into `develop`.
+- Start work on a branch.
+- Switch branches between unrelated items.
+- Use `type/scope_name` branch names.
+
+## External References
+
+Use `SSW_mod` and `Tsareich2` as reference repositories only for general HOI4 and AI-agent workflow patterns. Do not copy their mod-specific systems, tags, IDs, worldbuilding, or naval rules into this mod unless the user explicitly asks.
 
 ## Asset References
 - For a complete list of goal interface graphics, see [goals_file_list.md](goals_file_list.md).

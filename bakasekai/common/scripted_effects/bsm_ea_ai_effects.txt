@@ -1,0 +1,215 @@
+# ==========================================
+# BSM 経済同盟: AI 行動駆動
+# scripted_gui のボタンは AI が押せないため、
+# AI は本ファイルの effect 経由で同盟運営を行う。
+# bsm_ea_monthly_update から月1回呼ばれる。
+# 方針は bsm_ea_ai_triggers.txt のフラグで制御。
+# prefix: bsm_ea_ai_
+# ==========================================
+
+# ------------------------------------------
+# 月次 AI 駆動 (グローバルスコープから1回)
+# ------------------------------------------
+bsm_ea_ai_monthly = {
+	if = {
+		limit = { NOT = { has_global_flag = ea_ai_global_disabled } }
+
+		for_each_loop = {
+			array = global.bsm_ea_sphere_list
+			value = v_token
+			if = {
+				limit = { check_variable = { global.bsm_ea_member_list_@var:v_token^num > 0 } }
+
+				set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:v_token^0 }
+				set_temp_variable = { t_is_ai = 0 }
+				set_temp_variable = { t_exploit = 0 }
+				set_temp_variable = { t_benev = 0 }
+				var:t_leader = {
+					if = { limit = { bsm_ea_ai_enabled = yes } set_temp_variable = { PREV.t_is_ai = 1 } }
+					if = { limit = { bsm_ea_ai_prefers_exploit = yes } set_temp_variable = { PREV.t_exploit = 1 } }
+					if = { limit = { bsm_ea_ai_benevolent = yes } set_temp_variable = { PREV.t_benev = 1 } }
+				}
+
+				if = {
+					limit = { check_variable = { t_is_ai = 1 } }
+
+					# --- 全体方針の決定 ---
+					set_temp_variable = { t_cur_policy = 0 }
+					if = {
+						limit = { has_variable = global.bsm_ea_policy_@var:v_token }
+						set_temp_variable = { t_cur_policy = global.bsm_ea_policy_@var:v_token }
+					}
+					if = {
+						limit = { check_variable = { t_exploit = 1 } check_variable = { t_cur_policy = 0 } }
+						set_variable = { global.bsm_ea_policy_@var:v_token = 1 }
+						set_temp_variable = { bsm_ea_token = v_token }
+						bsm_ea_apply_policy = yes
+					}
+					else_if = {
+						limit = { check_variable = { t_exploit = 0 } check_variable = { t_cur_policy = 1 } }
+						set_variable = { global.bsm_ea_policy_@var:v_token = 0 }
+						set_temp_variable = { bsm_ea_token = v_token }
+						bsm_ea_apply_policy = yes
+					}
+
+					# --- 外交担当の任命 (未任命かつ2国以上) ---
+					if = {
+						limit = {
+							NOT = { has_variable = global.bsm_ea_diplomat_@var:v_token }
+							check_variable = { global.bsm_ea_member_list_@var:v_token^num > 1 }
+						}
+						set_temp_variable = { t_dip = global.bsm_ea_member_list_@var:v_token^1 }
+						var:t_dip = {
+							set_variable = { bsm_ea_is_diplomat = 1 }
+							if = {
+								limit = { NOT = { has_idea = bsm_ea_role_diplomat } }
+								add_ideas = bsm_ea_role_diplomat
+							}
+						}
+						set_variable = { global.bsm_ea_diplomat_@var:v_token = t_dip }
+					}
+
+					# --- 議題(目標)の段階的設定 ---
+					set_temp_variable = { bsm_ea_token = v_token }
+					bsm_ea_ai_pick_goal = yes
+
+					# --- 互恵方針: 最貧加盟国へ投資 ---
+					if = {
+						limit = { check_variable = { t_benev = 1 } }
+						set_temp_variable = { bsm_ea_token = v_token }
+						bsm_ea_ai_invest = yes
+					}
+				}
+			}
+		}
+	}
+}
+
+# ------------------------------------------
+# AI: 議題(目標)を1つ段階的に追加 (盟主主導モードのみ)
+# 入力: bsm_ea_token (temp)
+# ------------------------------------------
+bsm_ea_ai_pick_goal = {
+	set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+	set_temp_variable = { t_gov = 1 }
+	set_temp_variable = { t_mat = 0 }
+	var:t_leader = {
+		if = { limit = { has_variable = bsm_ea_governance_mode } set_temp_variable = { PREV.t_gov = bsm_ea_governance_mode } }
+		if = { limit = { has_variable = bsm_ea_maturity } set_temp_variable = { PREV.t_mat = bsm_ea_maturity } }
+	}
+
+	if = {
+		limit = { check_variable = { t_gov = 1 } }
+		if = {
+			limit = {
+				check_variable = { t_mat > 0 }
+				NOT = { is_in_array = { global.bsm_ea_goal_list_@var:bsm_ea_token = token:bsm_ea_goal_01_cooperation } }
+			}
+			set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_01_cooperation }
+			bsm_ea_add_goal_to_sphere = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { t_mat > 1 }
+				NOT = { is_in_array = { global.bsm_ea_goal_list_@var:bsm_ea_token = token:bsm_ea_goal_02_tariff } }
+			}
+			set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_02_tariff }
+			bsm_ea_add_goal_to_sphere = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { t_mat > 2 }
+				NOT = { is_in_array = { global.bsm_ea_goal_list_@var:bsm_ea_token = token:bsm_ea_goal_03_currency } }
+			}
+			set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_03_currency }
+			bsm_ea_add_goal_to_sphere = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { t_mat > 2 }
+				NOT = { is_in_array = { global.bsm_ea_goal_list_@var:bsm_ea_token = token:bsm_ea_goal_06_tech_sharing } }
+			}
+			set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_06_tech_sharing }
+			bsm_ea_add_goal_to_sphere = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { t_mat > 3 }
+				NOT = { is_in_array = { global.bsm_ea_goal_list_@var:bsm_ea_token = token:bsm_ea_goal_04_market } }
+			}
+			set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_04_market }
+			bsm_ea_add_goal_to_sphere = yes
+		}
+		else_if = {
+			limit = {
+				check_variable = { t_mat > 4 }
+				NOT = { is_in_array = { global.bsm_ea_goal_list_@var:bsm_ea_token = token:bsm_ea_goal_05_union } }
+			}
+			set_temp_variable = { bsm_ea_goal_token = token:bsm_ea_goal_05_union }
+			bsm_ea_add_goal_to_sphere = yes
+		}
+	}
+}
+
+# ------------------------------------------
+# AI: 最貧加盟国へ ODA 投資 (盟主が donor)
+# 入力: bsm_ea_token (temp)
+# ------------------------------------------
+bsm_ea_ai_invest = {
+	if = {
+		limit = { check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 1 } }
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+
+		# 最貧メンバー (index>0) を探す
+		set_temp_variable = { t_poor = -1 }
+		set_temp_variable = { t_poor_uc = 999999 }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_m
+			index = v_i
+			if = {
+				limit = { check_variable = { v_i > 0 } }
+				set_temp_variable = { t_uc = 0 }
+				var:v_m = {
+					if = { limit = { has_variable = Unified_Currency } set_temp_variable = { PREV.t_uc = Unified_Currency } }
+				}
+				if = {
+					limit = { check_variable = { t_uc < t_poor_uc } }
+					set_temp_variable = { t_poor_uc = t_uc }
+					set_temp_variable = { t_poor = v_i }
+				}
+			}
+		}
+
+		if = {
+			limit = { check_variable = { t_poor > 0 } }
+			set_temp_variable = { t_recip = global.bsm_ea_member_list_@var:bsm_ea_token^t_poor }
+			var:t_recip = { save_event_target_as = bsm_ea_ai_target }
+			var:t_leader = { bsm_ea_ai_do_oda = yes }
+		}
+	}
+}
+
+# ------------------------------------------
+# AI 専用 ODA (GUIの選択ターゲットを汚さない)
+# THIS = donor, event_target:bsm_ea_ai_target = recipient
+# ------------------------------------------
+bsm_ea_ai_do_oda = {
+	if = {
+		limit = {
+			check_variable = { Unified_Currency > 149 }
+			check_variable = { bsm_ea_cd_oda = 0 }
+			has_event_target = bsm_ea_ai_target
+		}
+		add_to_variable = { Unified_Currency = -50 }
+		set_variable = { bsm_ea_cd_oda = 90 }
+		event_target:bsm_ea_ai_target = {
+			add_to_variable = { Unified_Currency = 50 }
+			add_stability = 0.01
+		}
+		add_opinion_modifier = {
+			target = event_target:bsm_ea_ai_target
+			modifier = bsm_economic_alliance_relation_boost
+		}
+	}
+}

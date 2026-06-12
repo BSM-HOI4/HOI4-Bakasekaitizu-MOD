@@ -1,0 +1,146 @@
+JMNF_fortification = {
+  JMNF_build_urban_fort = {
+    name = JMNF_build_urban_fort
+    icon = generic_army_doctrine
+    allowed = { tag = JPN }
+    visible = { has_completed_focus = JMNF_fortify_cities }
+    available = { has_political_power > 50 }
+    days_remove = 60
+    cost = 25
+    remove_effect = {
+      random_owned_state = {
+        limit = { is_coastal = no }
+        add_building_construction = {
+          type = bunker
+          level = 2
+          instant_build = yes
+          province = { all_provinces = yes }
+        }
+      }
+    }
+    ai_will_do = { factor = 1 }
+  }
+  JMNF_build_harbor_fort = {
+    name = JMNF_build_harbor_fort
+    icon = generic_navy_doctrine
+    allowed = { tag = JPN }
+    visible = { has_completed_focus = JMNF_fortify_harbors }
+    available = { has_political_power > 50 }
+    days_remove = 60
+    cost = 25
+    remove_effect = {
+      random_owned_state = {
+        limit = { naval_base > 0 }
+        add_building_construction = {
+          type = coastal_bunker
+          level = 2
+          instant_build = yes
+          province = { all_provinces = yes limit_to_coastal = yes }
+        }
+      }
+    }
+    ai_will_do = { factor = 1 }
+  }
+}
+JMNF_naval_ops = {
+  JMNF_escort_operation = {
+    name = JMNF_escort_operation
+    icon = generic_navy_doctrine
+    allowed = { tag = JPN }
+    visible = { has_completed_focus = JMNF_escort_hq }
+    available = { has_political_power > 25 }
+    days_remove = 90
+    cost = 25
+    fire_only_once = yes
+    remove_effect = {
+      add_ideas = JMNF_escort_command
+      add_political_power = -25
+    }
+    ai_will_do = { factor = 1 }
+  }
+  JMNF_submarine_deployment = {
+    name = JMNF_submarine_deployment
+    icon = generic_navy_doctrine
+    allowed = { tag = JPN }
+    visible = { has_completed_focus = JMNF_sub_fleet_end }
+    available = { has_political_power > 25 }
+    days_remove = 90
+    cost = 25
+    fire_only_once = yes
+    remove_effect = {
+      navy_experience = 20
+      add_political_power = -25
+    }
+    ai_will_do = { factor = 1 }
+  }
+}
+JMNF_air_ops = {
+  JMNF_civil_airfield = {
+    name = JMNF_civil_airfield
+    icon = generic_air_doctrine
+    allowed = { tag = JPN }
+    visible = { has_completed_focus = JMNF_civil_military_airfield }
+    available = { has_political_power > 25 }
+    days_remove = 90
+    cost = 25
+    fire_only_once = yes
+    remove_effect = {
+      random_owned_state = {
+        limit = { free_building_slots = { building = air_base size > 0 } }
+        add_building_construction = { type = air_base level = 3 instant_build = yes }
+      }
+      add_political_power = -25
+    }
+    ai_will_do = { factor = 1 }
+  }
+}
+JMNF_army_ops = {
+  JMNF_mobilize_reserves = {
+    name = JMNF_mobilize_reserves
+    icon = generic_army_doctrine
+    allowed = { tag = JPN }
+    visible = { has_completed_focus = JMNF_national_mobilization }
+    available = { has_political_power > 50 has_war = yes }
+    days_remove = 120
+    cost = 50
+    fire_only_once = yes
+    remove_effect = {
+      add_manpower = 5000
+      add_political_power = -50
+    }
+    ai_will_do = { factor = 2 }
+  }
+}
+JMNF_intel_ops = {
+  JMNF_intel_sweep = {
+    name = JMNF_intel_sweep
+    icon = generic_intelligence
+    allowed = { tag = JPN }
+    visible = { has_completed_focus = JMNF_spy_school }
+    available = { has_political_power > 25 }
+    days_remove = 60
+    cost = 25
+    fire_only_once = yes
+    remove_effect = {
+      add_political_power = -25
+      army_experience = 10
+      navy_experience = 10
+    }
+    ai_will_do = { factor = 1 }
+  }
+  JMNF_counter_intel = {
+    name = JMNF_counter_intel
+    icon = generic_intelligence
+    allowed = { tag = JPN }
+    visible = { has_completed_focus = JMNF_spy_school_2 }
+    available = { has_political_power > 25 }
+    days_remove = 60
+    cost = 25
+    fire_only_once = yes
+    remove_effect = {
+      add_political_power = -25
+      add_war_support = 0.03
+    }
+    ai_will_do = { factor = 1 }
+  }
+}

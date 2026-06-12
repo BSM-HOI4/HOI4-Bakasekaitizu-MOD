@@ -11,13 +11,18 @@ AN_research_start_id_1 = {
 		limit = {
 			has_variable = National_Unity_Power
 			check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
+			has_variable = bsm_stellaris_anomaly_stock_count
+			check_variable = { var = bsm_stellaris_anomaly_stock_count value = 0 compare = greater_than }
 			NOT = { has_idea = AS_AN_International_Oxygen_Documents }
 		}
 		subtract_from_variable = { var = National_Unity_Power value = 100 }
+		subtract_from_variable = { var = bsm_stellaris_anomaly_stock_count value = 1 }
 
+		set_variable = { AN_researching_list = 1 }
 		set_variable = { AN_research_progress_1 = 0 }
 		set_variable = { AN_research_start_date_1 = current_date }
 		set_variable = { AN_research_expected_days_1 = 150 }
+		set_variable = { bsm_stellaris_anomaly_difficulty_level = 3 }
 		
 		country_event = { id = AN_research.4 }
 	}
@@ -31,13 +36,18 @@ AN_research_start_id_2 = {
 		limit = {
 			has_variable = National_Unity_Power
 			check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
+			has_variable = bsm_stellaris_anomaly_stock_count
+			check_variable = { var = bsm_stellaris_anomaly_stock_count value = 0 compare = greater_than }
 			NOT = { has_idea = AS_AN_Shiga_Conference_Records }
 		}
 		subtract_from_variable = { var = National_Unity_Power value = 100 }
+		subtract_from_variable = { var = bsm_stellaris_anomaly_stock_count value = 1 }
 
+		set_variable = { AN_researching_list = 1 }
 		set_variable = { AN_research_progress_2 = 0 }
 		set_variable = { AN_research_start_date_2 = current_date }
 		set_variable = { AN_research_expected_days_2 = 275 }
+		set_variable = { bsm_stellaris_anomaly_difficulty_level = 3 }
 		
 		country_event = { id = AN_research.4 }
 	}
@@ -51,7 +61,13 @@ AN_research_start_id_2 = {
 # ------------------------------------------
 AN_research_weekly = {
 	if = {
-		limit = { has_variable = AN_researching_list }
+		limit = {
+			OR = {
+				has_variable = AN_researching_list
+				has_variable = AN_research_progress_1
+				has_variable = AN_research_progress_2
+			}
+		}
 		
 		if = {
 			limit = { has_variable = AN_research_progress_1 }
@@ -72,6 +88,7 @@ AN_research_weekly = {
 				limit = { check_variable = { var = AN_research_progress_1 value = 100 compare = greater_than_or_equals } }
 					add_ideas = AS_AN_International_Oxygen_Documents
 					bsm_stellaris_anomaly_reward = yes
+					add_to_variable = { AN_completed_list = 1 }
 					
 					clear_variable = AN_research_progress_1
 					clear_variable = AN_research_start_date_1
@@ -100,6 +117,7 @@ AN_research_weekly = {
 				limit = { check_variable = { var = AN_research_progress_2 value = 100 compare = greater_than_or_equals } }
 					add_ideas = AS_AN_Shiga_Conference_Records
 					bsm_stellaris_anomaly_reward = yes
+					add_to_variable = { AN_completed_list = 1 }
 					
 					clear_variable = AN_research_progress_2
 					clear_variable = AN_research_start_date_2
@@ -128,6 +146,8 @@ AN_research_cancel = {
 		clear_variable = AN_research_start_date_2
 		clear_variable = AN_research_expected_days_2
 	}
+
+	clear_variable = AN_researching_list
 }
 
 # ------------------------------------------

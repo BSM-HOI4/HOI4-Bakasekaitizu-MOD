@@ -1,0 +1,44 @@
+# ==========================================
+# BSM アノマリー発見ポップアップ Scripted GUI
+# window_name = bsm_AS_event_window
+# ==========================================
+scripted_gui = {
+	bsm_AS_event_window = {
+		window_name = "bsm_AS_event_window"
+		context_type = player_context
+
+		visible = {
+			check_variable = { bsm_AS_event_open = 1 }
+		}
+
+		effects = {
+			# 閉じる（×ボタン / ESC）：未解析に残して閉じる
+			bsm_AS_event_close_btn_click = {
+				set_variable = { bsm_AS_event_open = 0 }
+			}
+			# 放棄しよう（破棄）
+			bsm_AS_event_action_a_btn_click = {
+				bsm_AS_event_discard = yes
+			}
+			# 放っておけ（未解析に残して閉じる）
+			bsm_AS_event_action_b_btn_click = {
+				set_variable = { bsm_AS_event_open = 0 }
+			}
+			# 解析しろ（研究開始）
+			bsm_AS_event_action_c_btn_click = {
+				bsm_AS_event_analyze = yes
+			}
+		}
+
+		triggers = {
+			# カテゴリー別画像（global.AS_AN_cat_by_id^N で1枚だけ表示）
+			bsm_AS_event_img_politics_visible = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 1 } }
+			bsm_AS_event_img_army_visible = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 2 } }
+			bsm_AS_event_img_navy_visible = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 3 } }
+			bsm_AS_event_img_air_visible = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 4 } }
+			bsm_AS_event_img_faith_visible = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 5 } }
+			bsm_AS_event_img_civ_visible = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 6 } }
+			bsm_AS_event_img_economy_visible = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 7 } }
+		}
+	}
+}

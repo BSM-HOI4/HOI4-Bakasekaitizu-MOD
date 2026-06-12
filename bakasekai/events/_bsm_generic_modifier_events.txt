@@ -1,0 +1,34 @@
+add_namespace = bsm_generic_modifier
+
+country_event = {
+	id = bsm_generic_modifier.1
+	title = bsm_generic_modifier.1.t
+	desc = bsm_generic_modifier.1.desc
+	picture = GFX_report_event_generic_riot
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_generic_modifier.1.a
+		add_stability = -0.03
+		add_war_support = -0.02
+		add_political_power = -25
+	}
+}
+
+country_event = {
+	id = bsm_generic_modifier.2
+	title = bsm_generic_modifier.2.t
+	desc = bsm_generic_modifier.2.desc
+	picture = GFX_report_event_worker_protests
+
+	is_triggered_only = yes
+
+	option = {
+		name = bsm_generic_modifier.2.a
+		set_temp_variable = { bsm_gm_worker_deaths = bsm_gm_population_millions }
+		multiply_temp_variable = { bsm_gm_worker_deaths = -100 }
+		add_manpower = bsm_gm_worker_deaths
+		add_stability = -0.01
+	}
+}

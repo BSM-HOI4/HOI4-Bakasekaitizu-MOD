@@ -1,0 +1,69 @@
+
+# ==========================================
+# BSM 国家通貨 イベント
+# ==========================================
+
+add_namespace = nc
+
+# --- 通貨統合ニュース ---
+news_event = {
+	id = nc.4
+	title = nc.4.t
+	desc = nc.4.d
+	picture = GFX_news_event_generic_diplomacy
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = nc.4.a
+	}
+}
+
+# --- 通貨同盟 離脱危機 ---
+country_event = {
+	id = nc.5
+	title = nc.5.t
+	desc = nc.5.d
+	picture = GFX_news_event_generic_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = nc.5.a
+		ai_chance = { factor = 55 }
+		bsm_nc_currency_union_stabilize = yes
+	}
+	option = {
+		name = nc.5.b
+		ai_chance = { factor = 35 }
+		bsm_nc_currency_union_capital_controls = yes
+	}
+	option = {
+		name = nc.5.c
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				check_variable = { bsm_nc_union_exit_pressure > 90 }
+			}
+		}
+		bsm_nc_currency_union_opt_out = yes
+		news_event = { id = nc.6 days = 1 }
+	}
+}
+
+# --- 通貨同盟からの離脱ニュース ---
+news_event = {
+	id = nc.6
+	title = nc.6.t
+	desc = nc.6.d
+	picture = GFX_news_event_generic_diplomacy
+
+	is_triggered_only = yes
+	major = no
+
+	option = {
+		name = nc.6.a
+	}
+}

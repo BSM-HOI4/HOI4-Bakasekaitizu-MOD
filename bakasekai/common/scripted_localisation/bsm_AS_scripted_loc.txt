@@ -1,0 +1,73 @@
+# ==========================================
+# BSM アノマリーシステム scripted_localisation（手書き分）
+#  一覧エントリ : value=as_val(=アノマリーN), index=as_idx
+#  探検隊エントリ: value=as_team_id, index=as_team_idx
+#                  → 表示は位置配列 bsm_AS_team_*_arr^as_team_idx を参照
+#  発見ポップアップ: bsm_AS_event_anomaly(=N)
+# ==========================================
+
+# --- アノマリーカテゴリ（一覧用 as_val）---
+defined_text = {
+	name = GetASAnomalyCategory
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^as_val = 1 } } localization_key = AS_cat_politics }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^as_val = 2 } } localization_key = AS_cat_army }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^as_val = 3 } } localization_key = AS_cat_navy }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^as_val = 4 } } localization_key = AS_cat_air }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^as_val = 5 } } localization_key = AS_cat_faith }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^as_val = 6 } } localization_key = AS_cat_civ }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^as_val = 7 } } localization_key = AS_cat_economy }
+	text = { localization_key = AS_cat_unknown }
+}
+
+# --- アノマリー難易度（一覧用 as_val）---
+defined_text = {
+	name = GetASAnomalyDifficulty
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^as_val = 85 } } localization_key = AS_diff_trivial }
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^as_val = 80 } } localization_key = AS_diff_easy }
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^as_val = 60 } } localization_key = AS_diff_normal }
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^as_val = 40 } } localization_key = AS_diff_hard }
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^as_val = 25 } } localization_key = AS_diff_hell }
+	text = { localization_key = AS_diff_unknown }
+}
+
+# --- カテゴリ（発見ポップアップ用 bsm_AS_event_anomaly）---
+defined_text = {
+	name = GetASEventCategory
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 1 } } localization_key = AS_cat_politics }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 2 } } localization_key = AS_cat_army }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 3 } } localization_key = AS_cat_navy }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 4 } } localization_key = AS_cat_air }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 5 } } localization_key = AS_cat_faith }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 6 } } localization_key = AS_cat_civ }
+	text = { trigger = { check_variable = { global.AS_AN_cat_by_id^bsm_AS_event_anomaly = 7 } } localization_key = AS_cat_economy }
+	text = { localization_key = AS_cat_unknown }
+}
+
+# --- 難易度（発見ポップアップ用）---
+defined_text = {
+	name = GetASEventDifficulty
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^bsm_AS_event_anomaly = 85 } } localization_key = AS_diff_trivial }
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^bsm_AS_event_anomaly = 80 } } localization_key = AS_diff_easy }
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^bsm_AS_event_anomaly = 60 } } localization_key = AS_diff_normal }
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^bsm_AS_event_anomaly = 40 } } localization_key = AS_diff_hard }
+	text = { trigger = { check_variable = { global.AS_AN_diff_by_id^bsm_AS_event_anomaly = 25 } } localization_key = AS_diff_hell }
+	text = { localization_key = AS_diff_unknown }
+}
+
+# --- 探検隊 規模（位置配列 ^as_team_idx）---
+defined_text = {
+	name = GetASTeamSize
+	text = { trigger = { check_variable = { bsm_AS_team_size_arr^as_team_idx = 1 } } localization_key = AS_size_small }
+	text = { trigger = { check_variable = { bsm_AS_team_size_arr^as_team_idx = 2 } } localization_key = AS_size_medium }
+	text = { trigger = { check_variable = { bsm_AS_team_size_arr^as_team_idx = 3 } } localization_key = AS_size_large }
+	text = { localization_key = AS_size_unknown }
+}
+
+# --- 探検隊 状態（位置配列 ^as_team_idx）---
+defined_text = {
+	name = GetASTeamStatus
+	text = { trigger = { check_variable = { bsm_AS_team_status_arr^as_team_idx = 0 } } localization_key = AS_status_idle }
+	text = { trigger = { check_variable = { bsm_AS_team_status_arr^as_team_idx = 1 } } localization_key = AS_status_exploring }
+	text = { trigger = { check_variable = { bsm_AS_team_status_arr^as_team_idx = 2 } } localization_key = AS_status_supporting }
+	text = { localization_key = AS_status_unknown }
+}

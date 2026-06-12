@@ -1,0 +1,62 @@
+
+# ==========================================
+# BSM 国家通貨トリガー
+# ==========================================
+
+# UC直結国かどうか
+bsm_nc_is_uc_direct = {
+	check_variable = { bsm_nc_id = 0 }
+}
+
+# 特定通貨を使用しているか
+bsm_nc_uses_usd = {
+	check_variable = { bsm_nc_id = 1 }
+}
+bsm_nc_uses_eur = {
+	check_variable = { bsm_nc_id = 2 }
+}
+bsm_nc_uses_gbp = {
+	check_variable = { bsm_nc_id = 3 }
+}
+bsm_nc_uses_jpy = {
+	check_variable = { bsm_nc_id = 4 }
+}
+bsm_nc_uses_cny = {
+	check_variable = { bsm_nc_id = 5 }
+}
+bsm_nc_uses_rub = {
+	check_variable = { bsm_nc_id = 6 }
+}
+
+# 通貨強度カテゴリ (効果側で bsm_nc_strength_cat に設定)
+#  0=強い  1=普通  2=弱い
+bsm_nc_is_strong = {
+	check_variable = { bsm_nc_strength_cat = 0 }
+}
+
+bsm_nc_is_normal = {
+	check_variable = { bsm_nc_strength_cat = 1 }
+}
+
+bsm_nc_is_weak = {
+	check_variable = { bsm_nc_strength_cat = 2 }
+}
+
+# 通貨危機 (インフレ>20% or 安定度<30)
+bsm_nc_in_crisis = {
+	OR = {
+		check_variable = { bsm_nc_inflation > 20 }
+		check_variable = { bsm_nc_stability < 30 }
+	}
+}
+
+# 通貨同盟参加中
+bsm_nc_in_currency_union = {
+	has_idea = bsm_ea_goal_03_currency
+}
+
+# レートリストに表示する国か (通貨割当済み かつ UC直結でない)
+bsm_nc_show_in_list = {
+	has_variable = bsm_nc_id
+	NOT = { check_variable = { bsm_nc_id = 0 } }
+}

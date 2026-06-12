@@ -7,7 +7,7 @@ guiTypes = {
 			width = 1920 
 			height = 1440 
 			min = { width = 100% height = 100% }
-			max = { width = 100% height = 100% }
+			max = { width = 100% height = 10000 }
 			preserve_aspect_ratio = yes
 		}
 		Orientation = center
@@ -15,11 +15,36 @@ guiTypes = {
 		clipping = no 
 		
 		background = {
-			name = "Background"		
+			name = "Background"
 			quadTextureSprite ="GFX_frontend_bg"
 			alwaystransparent = yes
 		}
-		
+
+		#BSM: カスタムメインメニュー背景(op.png)。エンジンが必ず生成する frontend_background の
+		#子としてネストすることで確実に描画される(独自名トップレベル窓はエンジンに無視され描画されない)。
+		#親背景(GFX_frontend_bg)の手前・別トップレベル窓のメニューパネル群の奥に出る。
+		#親と同じフルサイズ指定でコンテナの background として描くため解像度非依存のカバー描画になる。
+		containerWindowType = {
+			name = "bsm_frontend_op_background"
+			position = { x=0 y=0 }
+			size = {
+				width = 1920
+				height = 1440
+				min = { width = 100% height = 100% }
+				max = { width = 100% height = 10000 }
+				preserve_aspect_ratio = yes
+			}
+			Orientation = center
+			Origo = center
+			clipping = no
+
+			background = {
+				name = "Background"
+				quadTextureSprite = "GFX_bsm_mainmenu_op"
+				alwaystransparent = yes
+			}
+		}
+
 	}
 
 	### MAIN MENU PANEL (upperleft)
@@ -39,11 +64,7 @@ guiTypes = {
 	}
 	containerWindowType = {
 		name = "owned_dlc_item"
-		size = { width = 0 height = 0 }
-		position = {
-			x = 5000000000000
-			y = 550000000000000
-		}
+		size = { width = 50 height = 50 }
 		buttonType =
 		{
 			position = { x = -230 y = 0 }
@@ -81,11 +102,7 @@ guiTypes = {
 	
 	containerWindowType = {
 		name = "unowned_dlc_item"
-		size = { width = 0 height = 0 }
-		position = {
-			x = 5000000000000
-			y = 5000000000000
-		}
+		size = { width = 50 height = 50 }
 		buttonType =
 		{
 			position = { x = -230 y = 0 }
@@ -112,6 +129,25 @@ guiTypes = {
 		}
 		
 	}
+
+	### MAIN MENU PANEL (DLC Ownership)
+	containerWindowType = {
+		name = "mainmenu_dlc_ownership"
+		position = { x = 9999 y = 0 } #BSM: DLC一覧を画面外へ移動して非表示
+		size = { width = 370 height = 583 }
+		Orientation = lower_left
+		origo = lower_left
+
+		gridBoxType = {
+			name = "potential_dlc_list"
+			position = { x = 0 y = 0 }
+			size = { width = 50 height = 300 }
+			slotsize = { width = 50 height = 51 }
+			max_slots_vertical = 1
+			format = "RIGHT"
+		}
+	}
+
 	containerWindowType = {
 		name  ="frontend_alpha_stamp"
 		position = { x=100 y =-100  }
@@ -148,6 +184,7 @@ guiTypes = {
 		ButtonType = {
 			name = "HMKS_button"
 			position = { x=0 y=50 }
+			scale = 0.5 #BSM: バナーを半分サイズに縮小
 			quadTextureSprite ="GFX_st_1"
 			clicksound = click_default
 			pdx_tooltip = "MENU_HMKS"
@@ -155,7 +192,8 @@ guiTypes = {
 		}
 		ButtonType = {
 			name = "BSR_button"
-			position = { x=0 y=310 }
+			position = { x=0 y=185 }
+			scale = 0.5 #BSM: バナーを半分サイズに縮小
 			quadTextureSprite ="GFX_st_2"
 			clicksound = click_default
 			pdx_tooltip = "MENU_BSR"
@@ -163,7 +201,8 @@ guiTypes = {
 		}
 		ButtonType = {
 			name = "ART_button"
-			position = { x=0 y=570 }
+			position = { x=0 y=320 }
+			scale = 0.5 #BSM: バナーを半分サイズに縮小
 			quadTextureSprite ="GFX_st_3"
 			clicksound = click_default
 			pdx_tooltip = "MENU_ART"
@@ -172,7 +211,8 @@ guiTypes = {
 
 		ButtonType = {
 			name = "VSE_button"
-			position = { x=0 y=830 }
+			position = { x=0 y=455 }
+			scale = 0.5 #BSM: バナーを半分サイズに縮小
 			quadTextureSprite ="GFX_st_4"
 			clicksound = click_default
 			pdx_tooltip = "MENU_VSE"
@@ -258,15 +298,15 @@ guiTypes = {
 			oversound = ui_menu_over
 		}
 		
-		# ButtonType = {
-		# 	name = "sp_tutorial_button"
-		# 	position = { x = 16 y = 138}
-		# 	quadTextureSprite ="GFX_main_lobby_button"	
-		# 	buttonText = "FE_TUTORIAL"
-		# 	buttonFont = "hoi_24header"
-		# 	clicksound = click_default
-		# 	oversound = ui_menu_over
-		# }
+			ButtonType = {
+				name = "sp_tutorial_button"
+				position = { x = 16 y = 11538 }
+				quadTextureSprite ="GFX_sp_load"	
+				buttonText = "FE_TUTORIAL"
+				buttonFont = "hoi_30"
+				clicksound = click_default
+				oversound = ui_menu_over
+			}
 		
 		ButtonType = {
 			name = "sp_back_button"
@@ -455,6 +495,23 @@ guiTypes = {
 				buttonText = "SUBSCRIPTION_WIDGET"
 				buttonFont = "hoi_24header"
 				multiline = yes
+			}
+		}
+
+		containerWindowType = {
+			name = "subscription_widget_simp_chinese"
+			position = { x = 10 y = 352 }
+			size = { width = 288 height = 108 }
+			hide = yes
+
+			ButtonType = {
+				name = "show_subscription"
+				position = { x = 0 y = 0 }
+				quadTextureSprite ="GFX_subscription_widget_chinese"
+				buttonText = "SUBSCRIPTION_WIDGET_SIMP_CHINESE"
+				buttonFont = "hoi_24header"
+				multiline = yes
+				web_link = "https://cn.heartsofiron.com/add-ons"
 			}
 		}
 
@@ -665,6 +722,70 @@ guiTypes = {
 			position = { x = 0 y = 0 }
 			quadTextureSprite ="achievements"
 			pdx_tooltip = "MENU_ACHIEVEMENTS"
-		}		
+		}
+	}
+
+	# FIX(crash): エンジンは change_background 窓と5つの名前付き子要素
+	#   (background_selection / background_selection_list / available_backgrounds /
+	#    select_all_checkbox / change_background_button) をハードコードで要求する。
+	#   未定義だと gui.cpp:931 "Undefined GUI_TYPE: change_background - will most likely
+	#   crash" となりメインメニュー表示時にSIGFPEでクラッシュする。
+	#
+	#   一方、機能版(実サイズ・可視・gridbox populate)にすると、エンジンが背景リストを
+	#   描画/populateする過程で SIGFPE クラッシュした。
+	#
+	# 解決: 要求される5要素を「正しい型」で全て定義しつつ、窓は 1x1・画面外・hide で
+	#   不活性化する。これでエンジンの全lookupを充足し、かつ描画/populate経路に入らない
+	#   ため落ちない。ロード画面背景の変更UIは未使用。
+	#     change_background
+	#     ├ change_background_button (button, hide)
+	#     └ background_selection (window)
+	#       ├ select_all_checkbox (checkBox, hide)
+	#       └ background_selection_list (window)
+	#           └ available_backgrounds (gridBoxType, slotsize 1x1)
+	containerWindowType = {
+		name = "change_background"
+		position = { x = -1 y = -1 }
+		size = { width = 1 height = 1 }
+		Orientation = lower_right
+		Origo = lower_right
+		clipping = yes
+
+		buttonType = {
+			name = "change_background_button"
+			position = { x = 0 y = 0 }
+			quadTextureSprite = "GFX_tiled_window_1b_border"
+			scale = 0.01
+			hide = yes
+		}
+
+		containerWindowType = {
+			name = "background_selection"
+			position = { x = 0 y = 0 }
+			size = { width = 1 height = 1 }
+			clipping = yes
+
+			checkBoxType = {
+				name = "select_all_checkbox"
+				position = { x = 0 y = 0 }
+				quadTextureSprite = "GFX_checkbox_button"
+				hide = yes
+			}
+
+			containerWindowType = {
+				name = "background_selection_list"
+				position = { x = 0 y = 0 }
+				size = { width = 1 height = 1 }
+				clipping = yes
+
+				gridBoxType = {
+					name = "available_backgrounds"
+					position = { x = 0 y = 0 }
+					size = { width = 1 height = 1 }
+					slotsize = { width = 1 height = 1 }
+					max_slots_horizontal = 1
+				}
+			}
+		}
 	}
 }

@@ -6,6 +6,7 @@ Faction rulesファイル内のイデオロギー名を修正するスクリプ�
 
 import os
 import re
+from pathlib import Path
 
 # 置換マッピング
 IDEOLOGY_REPLACEMENTS = {
@@ -40,7 +41,8 @@ def fix_ideology_names(file_path):
 
 def main():
     """メイン処理"""
-    base_dir = "/Users/eightman/Desktop/HOI4_modding/bsm_test/bakasekai/common/factions/rules"
+    repo_root = Path(__file__).resolve().parents[1]
+    base_dir = repo_root / "bakasekai" / "common" / "factions" / "rules"
     
     if not os.path.exists(base_dir):
         print(f"Error: Directory not found: {base_dir}")

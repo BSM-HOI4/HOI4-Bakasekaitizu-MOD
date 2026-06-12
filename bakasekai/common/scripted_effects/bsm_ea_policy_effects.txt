@@ -1,0 +1,132 @@
+# ==========================================
+# BSM 経済同盟: 全体方針システム (互恵 / 搾取)
+# global.bsm_ea_policy_@{token}: 0 = 互恵(既定), 1 = 搾取
+# 既存 UC システム(Unified_Currency)と結合する
+# prefix: bsm_ea_
+# ==========================================
+
+# ------------------------------------------
+# 方針アイデアを陣営全体へ適用
+# 入力: bsm_ea_token (temp)
+# ------------------------------------------
+bsm_ea_apply_policy = {
+	if = {
+		limit = { check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 } }
+
+		# 現方針の取得 (未設定=互恵)
+		set_temp_variable = { t_policy = 0 }
+		if = {
+			limit = { has_variable = global.bsm_ea_policy_@var:bsm_ea_token }
+			set_temp_variable = { t_policy = global.bsm_ea_policy_@var:bsm_ea_token }
+		}
+
+		# 全メンバーから既存の方針アイデアを除去
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_clr
+			var:v_clr = {
+				if = { limit = { has_idea = bsm_ea_policy_mutual } remove_ideas = bsm_ea_policy_mutual }
+				if = { limit = { has_idea = bsm_ea_policy_extractive_leader } remove_ideas = bsm_ea_policy_extractive_leader }
+				if = { limit = { has_idea = bsm_ea_policy_extractive_member } remove_ideas = bsm_ea_policy_extractive_member }
+			}
+		}
+
+		# 新方針を付与
+		if = {
+			limit = { check_variable = { t_policy = 1 } }
+			# 搾取: 盟主(index 0)とそれ以外で別アイデア
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:bsm_ea_token
+				value = v_mem
+				index = v_idx
+				var:v_mem = {
+					if = {
+						limit = { check_variable = { PREV.v_idx = 0 } }
+						add_ideas = bsm_ea_policy_extractive_leader
+					}
+					else = {
+						add_ideas = bsm_ea_policy_extractive_member
+					}
+				}
+			}
+		}
+		else = {
+			# 互恵: 全員同一アイデア
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:bsm_ea_token
+				value = v_mem
+				var:v_mem = {
+					add_ideas = bsm_ea_policy_mutual
+				}
+			}
+		}
+	}
+}
+
+# ------------------------------------------
+# 方針トグル (盟主のみ)
+# 入力: ROOT = 盟主, bsm_ea_selected_token
+# ------------------------------------------
+bsm_ea_toggle_policy = {
+	if = {
+		limit = {
+			check_variable = { bsm_ea_is_selected_leader = 1 }
+			has_variable = bsm_ea_selected_token
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_selected_token^num > 0 }
+		}
+		# 反転
+		set_temp_variable = { t_new = 1 }
+		if = {
+			limit = {
+				has_variable = global.bsm_ea_policy_@var:bsm_ea_selected_token
+				check_variable = { global.bsm_ea_policy_@var:bsm_ea_selected_token = 1 }
+			}
+			set_temp_variable = { t_new = 0 }
+		}
+		set_variable = { global.bsm_ea_policy_@var:bsm_ea_selected_token = t_new }
+
+		set_temp_variable = { bsm_ea_token = var:bsm_ea_selected_token }
+		bsm_ea_apply_policy = yes
+	}
+}
+
+# ------------------------------------------
+# 搾取方針の UC 徴収 (月次)
+# 入力: bsm_ea_token (temp)
+# 各加盟国 UC の 5% を盟主へ移転
+# ------------------------------------------
+bsm_ea_apply_policy_extraction = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 1 }
+			has_variable = global.bsm_ea_policy_@var:bsm_ea_token
+			check_variable = { global.bsm_ea_policy_@var:bsm_ea_token = 1 }
+		}
+		set_temp_variable = { t_total_collect = 0 }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_mem
+			index = v_idx
+			# index 0 = 盟主はスキップ
+			if = {
+				limit = { check_variable = { v_idx > 0 } }
+				var:v_mem = {
+					set_temp_variable = { t_amt = 0 }
+					if = {
+						limit = { check_variable = { Unified_Currency > 0 } }
+						set_temp_variable = { t_amt = Unified_Currency }
+						multiply_temp_variable = { t_amt = 0.05 }
+						subtract_from_variable = { Unified_Currency = t_amt }
+					}
+					set_temp_variable = { PREV.t_collect_one = t_amt }
+				}
+				add_to_temp_variable = { t_total_collect = t_collect_one }
+			}
+		}
+		# 盟主へ加算
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		var:t_leader = {
+			add_to_variable = { Unified_Currency = PREV.t_total_collect }
+		}
+	}
+}

@@ -1,0 +1,416 @@
+# ==========================================
+# BSM アノマリーシステム - 探検隊メカニクス（新独立システム）
+# prefix: bsm_AS_
+#
+# ■ アノマリー在庫（per-country, 値 = アノマリーDBの通し番号 N = token整数値）
+#   bsm_AS_unanalyzed  : 未解析（探検隊が発見済み・未研究）
+#   bsm_AS_researching : 解析中
+#   bsm_AS_completed   : 解析済み
+#   AN_prog_@N         : 解析進捗 0-100
+#   AN_days_@N         : 必要日数（DBから複製）
+#
+# ■ 探検隊（per-country, indexed-variable方式）
+#   bsm_AS_exp_ids        : 現役探検隊IDの配列（primary, dynamic_list駆動）
+#   bsm_AS_exp_next_id    : 次に発行するID
+#   bsm_AS_exp_max        : 稼働可能上限 N
+#   bsm_AS_exp_upkeep     : 月額維持費合計(UC) ※増減を逐次反映
+#   bsm_AS_exp_size_@ID   : 規模 1=小/2=中/3=大
+#   bsm_AS_exp_level_@ID  : 練度
+#   bsm_AS_exp_status_@ID : 0=待機/1=探検中/2=解析支援中
+#   bsm_AS_exp_target_@ID : 対象(0=なし)
+#   bsm_AS_exp_icon_@ID   : アイコンID
+#   bsm_AS_exp_prog_@ID   : 進捗 0-100
+#
+#   維持費: 小=5 / 中=20 / 大=50 UC/月
+#   bsm_AS_cur : ループ内で動的変数名サフィックスに使う作業変数
+# ==========================================
+
+# ------------------------------------------
+# 初期化（on_startup で every_country から1回）
+# ------------------------------------------
+bsm_AS_init = {
+	# グローバル: アノマリー総数（DB件数）＋フラット参照配列。1回だけ構築。
+	if = {
+		limit = { NOT = { has_global_flag = bsm_AS_lookups_built } }
+		set_global_flag = bsm_AS_lookups_built
+		set_variable = { global.AS_AN_total = 327 }
+		bsm_AS_build_lookups = yes
+	}
+
+	clear_array = bsm_AS_unanalyzed
+	clear_array = bsm_AS_researching
+	clear_array = bsm_AS_completed
+	clear_array = bsm_AS_exp_ids
+
+	set_variable = { bsm_AS_exp_next_id = 1 }
+	set_variable = { bsm_AS_exp_max = 3 }
+	set_variable = { bsm_AS_exp_upkeep = 0 }
+	set_variable = { bsm_AS_discover_cursor = 0 }
+
+	set_variable = { bsm_AS_window_open = 0 }
+	set_variable = { bsm_AS_event_open = 0 }
+	set_variable = { bsm_AS_active_tab = 1 }     # 1=未解析/2=解析中/3=解析済み/4=探検隊
+	set_variable = { bsm_AS_form_open = 0 }      # 編成ダイアログ表示フラグ
+	set_variable = { bsm_AS_form_size = 1 }
+	set_variable = { bsm_AS_form_icon = 1 }
+	set_variable = { bsm_AS_event_anomaly = 0 }
+
+	# 研究速度ボーナス変数の保険（bsm_stellaris 側が無効でも参照できるよう）
+	if = {
+		limit = { NOT = { has_variable = bsm_stellaris_anomaly_research_bonus } }
+		set_variable = { bsm_stellaris_anomaly_research_bonus = 0 }
+	}
+
+	bsm_AS_rebuild_team_display = yes
+}
+
+# ------------------------------------------
+# 探検隊を編成（規模は bsm_AS_form_size, アイコンは bsm_AS_form_icon）
+# ------------------------------------------
+bsm_AS_form_team = {
+	# 規模別: 即時コスト(UC=Unified_Currency) と 月額維持費(UC)
+	#   小=即時 UC100/人的2000・維持5   中=300/5000・20   大=600/10000・50
+	if = {
+		limit = { check_variable = { bsm_AS_form_size = 1 } }
+		set_temp_variable = { t_cost_uc = 100 }
+		set_temp_variable = { t_upkeep = 5 }
+	}
+	else_if = {
+		limit = { check_variable = { bsm_AS_form_size = 2 } }
+		set_temp_variable = { t_cost_uc = 300 }
+		set_temp_variable = { t_upkeep = 20 }
+	}
+	else = {
+		set_temp_variable = { t_cost_uc = 600 }
+		set_temp_variable = { t_upkeep = 50 }
+	}
+
+	if = {
+		limit = {
+			check_variable = { bsm_AS_exp_ids^num < bsm_AS_exp_max }
+			has_variable = Unified_Currency
+			check_variable = { var = Unified_Currency value = t_cost_uc compare = greater_than_or_equals }
+		}
+		# --- 即時コスト徴収（UC + 人的） ---
+		subtract_from_variable = { Unified_Currency = t_cost_uc }
+		if = { limit = { check_variable = { bsm_AS_form_size = 1 } } add_manpower = -2000 }
+		else_if = { limit = { check_variable = { bsm_AS_form_size = 2 } } add_manpower = -5000 }
+		else = { add_manpower = -10000 }
+
+		# --- 編成 ---
+		set_variable = { bsm_AS_cur = bsm_AS_exp_next_id }
+		add_to_array = { bsm_AS_exp_ids = bsm_AS_cur }
+
+		set_variable = { bsm_AS_exp_size_@var:bsm_AS_cur = bsm_AS_form_size }
+		set_variable = { bsm_AS_exp_level_@var:bsm_AS_cur = 1 }
+		set_variable = { bsm_AS_exp_status_@var:bsm_AS_cur = 0 }
+		set_variable = { bsm_AS_exp_target_@var:bsm_AS_cur = 0 }
+		set_variable = { bsm_AS_exp_prog_@var:bsm_AS_cur = 0 }
+		set_variable = { bsm_AS_exp_icon_@var:bsm_AS_cur = bsm_AS_form_icon }
+
+		add_to_variable = { bsm_AS_exp_next_id = 1 }
+		add_to_variable = { bsm_AS_exp_upkeep = t_upkeep }
+
+		clear_variable = bsm_AS_cur
+		bsm_AS_rebuild_team_display = yes
+	}
+
+	# 上限到達・統合力不足でも編成ダイアログは必ず閉じる（出続けバグ修正）
+	set_variable = { bsm_AS_form_open = 0 }
+}
+
+# ------------------------------------------
+# 探検隊表示用の位置インデックス配列を再構築
+#  dynamic_list (value=as_team_id, index=as_team_idx) から
+#  loc が固定名配列を ^as_team_idx で参照できるようにする。
+# ------------------------------------------
+bsm_AS_rebuild_team_display = {
+	clear_array = bsm_AS_team_id_arr
+	clear_array = bsm_AS_team_size_arr
+	clear_array = bsm_AS_team_lv_arr
+	clear_array = bsm_AS_team_status_arr
+	clear_array = bsm_AS_team_prog_arr
+	clear_array = bsm_AS_team_icon_arr
+	if = {
+		limit = { check_variable = { bsm_AS_exp_ids^num > 0 } }
+		set_temp_variable = { t_i = 0 }
+		while_loop_effect = {
+			limit = { check_variable = { t_i < bsm_AS_exp_ids^num } }
+			set_variable = { bsm_AS_cur = bsm_AS_exp_ids^t_i }
+			add_to_array = { bsm_AS_team_id_arr = bsm_AS_cur }
+			add_to_array = { bsm_AS_team_size_arr = bsm_AS_exp_size_@var:bsm_AS_cur }
+			add_to_array = { bsm_AS_team_lv_arr = bsm_AS_exp_level_@var:bsm_AS_cur }
+			add_to_array = { bsm_AS_team_status_arr = bsm_AS_exp_status_@var:bsm_AS_cur }
+			add_to_array = { bsm_AS_team_prog_arr = bsm_AS_exp_prog_@var:bsm_AS_cur }
+			add_to_array = { bsm_AS_team_icon_arr = bsm_AS_exp_icon_@var:bsm_AS_cur }
+			add_to_temp_variable = { t_i = 1 }
+		}
+		clear_variable = bsm_AS_cur
+	}
+	# 稼働中数（GUI表示用）
+	set_variable = { bsm_AS_exp_count = bsm_AS_exp_ids^num }
+}
+
+# ------------------------------------------
+# 探検隊を解体（bsm_AS_cur に対象IDをセットしてから呼ぶ）
+# ------------------------------------------
+bsm_AS_disband_team = {
+	if = {
+		limit = { is_in_array = { bsm_AS_exp_ids = bsm_AS_cur } }
+
+		# 維持費を減算
+		set_temp_variable = { t_size = bsm_AS_exp_size_@var:bsm_AS_cur }
+		if = {
+			limit = { check_variable = { t_size = 1 } }
+			subtract_from_variable = { bsm_AS_exp_upkeep = 5 }
+		}
+		else_if = {
+			limit = { check_variable = { t_size = 2 } }
+			subtract_from_variable = { bsm_AS_exp_upkeep = 20 }
+		}
+		else_if = {
+			limit = { check_variable = { t_size = 3 } }
+			subtract_from_variable = { bsm_AS_exp_upkeep = 50 }
+		}
+		if = {
+			limit = { check_variable = { bsm_AS_exp_upkeep < 0 } }
+			set_variable = { bsm_AS_exp_upkeep = 0 }
+		}
+
+		remove_from_array = { bsm_AS_exp_ids = bsm_AS_cur }
+		clear_variable = bsm_AS_exp_size_@var:bsm_AS_cur
+		clear_variable = bsm_AS_exp_level_@var:bsm_AS_cur
+		clear_variable = bsm_AS_exp_status_@var:bsm_AS_cur
+		clear_variable = bsm_AS_exp_target_@var:bsm_AS_cur
+		clear_variable = bsm_AS_exp_prog_@var:bsm_AS_cur
+		clear_variable = bsm_AS_exp_icon_@var:bsm_AS_cur
+		bsm_AS_rebuild_team_display = yes
+	}
+}
+
+# ------------------------------------------
+# 探検隊を派遣（探検へ）（bsm_AS_cur に対象ID）
+# ------------------------------------------
+bsm_AS_dispatch_team = {
+	if = {
+		limit = {
+			is_in_array = { bsm_AS_exp_ids = bsm_AS_cur }
+			check_variable = { bsm_AS_exp_status_@var:bsm_AS_cur = 0 }
+		}
+		set_variable = { bsm_AS_exp_status_@var:bsm_AS_cur = 1 }
+		set_variable = { bsm_AS_exp_prog_@var:bsm_AS_cur = 0 }
+		bsm_AS_rebuild_team_display = yes
+	}
+}
+
+# ------------------------------------------
+# 探検隊を呼び戻す（待機へ）（bsm_AS_cur に対象ID）
+# ------------------------------------------
+bsm_AS_recall_team = {
+	if = {
+		limit = { is_in_array = { bsm_AS_exp_ids = bsm_AS_cur } }
+		set_variable = { bsm_AS_exp_status_@var:bsm_AS_cur = 0 }
+		set_variable = { bsm_AS_exp_prog_@var:bsm_AS_cur = 0 }
+		bsm_AS_rebuild_team_display = yes
+	}
+}
+
+# ------------------------------------------
+# 月次: 維持費の徴収（on_monthly）
+# ------------------------------------------
+bsm_AS_monthly_upkeep = {
+	if = {
+		limit = {
+			has_variable = bsm_AS_exp_upkeep
+			check_variable = { bsm_AS_exp_upkeep > 0 }
+			has_variable = Unified_Currency
+		}
+		subtract_from_variable = { Unified_Currency = bsm_AS_exp_upkeep }
+	}
+}
+
+# ------------------------------------------
+# 週次: 探検進行 + 研究進行（on_weekly）
+# ------------------------------------------
+bsm_AS_weekly_tick = {
+	bsm_AS_expedition_tick = yes
+	bsm_AS_research_weekly = yes
+}
+
+bsm_AS_expedition_tick = {
+	if = {
+		limit = { check_variable = { bsm_AS_exp_ids^num > 0 } }
+		set_temp_variable = { t_i = 0 }
+		while_loop_effect = {
+			limit = { check_variable = { t_i < bsm_AS_exp_ids^num } }
+			set_variable = { bsm_AS_cur = bsm_AS_exp_ids^t_i }
+			if = {
+				limit = { check_variable = { bsm_AS_exp_status_@var:bsm_AS_cur = 1 } }
+				# 進行速度: 基礎12 + 練度*2
+				set_temp_variable = { t_speed = bsm_AS_exp_level_@var:bsm_AS_cur }
+				multiply_temp_variable = { t_speed = 2 }
+				add_to_temp_variable = { t_speed = 12 }
+				add_to_variable = { bsm_AS_exp_prog_@var:bsm_AS_cur = t_speed }
+				if = {
+					limit = { check_variable = { var = bsm_AS_exp_prog_@var:bsm_AS_cur value = 100 compare = greater_than_or_equals } }
+					set_variable = { bsm_AS_exp_status_@var:bsm_AS_cur = 0 }
+					set_variable = { bsm_AS_exp_prog_@var:bsm_AS_cur = 0 }
+					add_to_variable = { bsm_AS_exp_level_@var:bsm_AS_cur = 1 }
+					bsm_AS_discover_anomaly = yes
+				}
+			}
+			add_to_temp_variable = { t_i = 1 }
+		}
+		clear_variable = bsm_AS_cur
+		bsm_AS_rebuild_team_display = yes
+	}
+}
+
+# ------------------------------------------
+# アノマリー発見（未解析へ追加＋発見ポップアップ）
+#  発見対象は cursor を進めながら未所持のものを探す
+# ------------------------------------------
+bsm_AS_discover_anomaly = {
+	set_temp_variable = { t_n = bsm_AS_discover_cursor }
+	set_temp_variable = { t_try = 0 }
+	set_temp_variable = { t_done = 0 }
+	while_loop_effect = {
+		limit = {
+			check_variable = { t_done = 0 }
+			check_variable = { t_try < global.AS_AN_total }
+		}
+		add_to_temp_variable = { t_n = 1 }
+		if = {
+			limit = { check_variable = { t_n > global.AS_AN_total } }
+			set_temp_variable = { t_n = 1 }
+		}
+		if = {
+			limit = {
+				NOT = { is_in_array = { bsm_AS_unanalyzed = t_n } }
+				NOT = { is_in_array = { bsm_AS_researching = t_n } }
+				NOT = { is_in_array = { bsm_AS_completed = t_n } }
+			}
+			add_to_array = { bsm_AS_unanalyzed = t_n }
+			set_variable = { bsm_AS_discover_cursor = t_n }
+			set_variable = { bsm_AS_event_anomaly = t_n }
+			set_variable = { bsm_AS_event_open = 1 }
+			set_temp_variable = { t_done = 1 }
+		}
+		add_to_temp_variable = { t_try = 1 }
+	}
+}
+
+# ------------------------------------------
+# 解析進捗用フラット配列の遅延初期化（N=0..total を0で確保）
+#  loc で [?bsm_AS_prog_by_n^as_val] と参照できるよう、N番目=進捗%。
+#  研究を行う国でのみ1回構築（起動時の全国一括は避ける）。
+# ------------------------------------------
+bsm_AS_ensure_prog_array = {
+	if = {
+		limit = { NOT = { has_variable = bsm_AS_prog_inited } }
+		set_variable = { bsm_AS_prog_inited = 1 }
+		clear_array = bsm_AS_prog_by_n
+		set_temp_variable = { t_k = 0 }
+		while_loop_effect = {
+			limit = { check_variable = { var = t_k value = global.AS_AN_total compare = less_than_or_equals } }
+			add_to_array = { bsm_AS_prog_by_n = 0 }
+			add_to_temp_variable = { t_k = 1 }
+		}
+	}
+}
+
+# ------------------------------------------
+# 発見ポップアップ「放棄」: 対象を未解析から破棄
+# ------------------------------------------
+bsm_AS_event_discard = {
+	if = {
+		limit = { is_in_array = { bsm_AS_unanalyzed = bsm_AS_event_anomaly } }
+		remove_from_array = { bsm_AS_unanalyzed = bsm_AS_event_anomaly }
+	}
+	set_variable = { bsm_AS_event_open = 0 }
+}
+
+# ------------------------------------------
+# 発見ポップアップ「解析」: 対象の研究を開始
+# ------------------------------------------
+bsm_AS_event_analyze = {
+	set_variable = { bsm_AS_cur_anomaly = bsm_AS_event_anomaly }
+	bsm_AS_research_start = yes
+	clear_variable = bsm_AS_cur_anomaly
+	set_variable = { bsm_AS_event_open = 0 }
+}
+
+# ------------------------------------------
+# 研究開始（bsm_AS_cur_anomaly に対象N）: 未解析→解析中
+# ------------------------------------------
+bsm_AS_research_start = {
+	if = {
+		limit = {
+			is_in_array = { bsm_AS_unanalyzed = bsm_AS_cur_anomaly }
+			has_variable = National_Unity_Power
+			check_variable = { var = National_Unity_Power value = 100 compare = greater_than_or_equals }
+		}
+		bsm_AS_ensure_prog_array = yes
+		subtract_from_variable = { National_Unity_Power = 100 }
+		remove_from_array = { bsm_AS_unanalyzed = bsm_AS_cur_anomaly }
+		add_to_array = { bsm_AS_researching = bsm_AS_cur_anomaly }
+		set_variable = { bsm_AS_prog_by_n^bsm_AS_cur_anomaly = 0 }
+	}
+}
+
+# ------------------------------------------
+# 研究中止（bsm_AS_cur_anomaly に対象N）: 解析中→未解析
+# ------------------------------------------
+bsm_AS_research_cancel = {
+	if = {
+		limit = { is_in_array = { bsm_AS_researching = bsm_AS_cur_anomaly } }
+		remove_from_array = { bsm_AS_researching = bsm_AS_cur_anomaly }
+		add_to_array = { bsm_AS_unanalyzed = bsm_AS_cur_anomaly }
+		if = {
+			limit = { has_variable = bsm_AS_prog_inited }
+			set_variable = { bsm_AS_prog_by_n^bsm_AS_cur_anomaly = 0 }
+		}
+	}
+}
+
+# ------------------------------------------
+# 週次研究進行: 解析中の各アノマリーを進め、完了で報酬付与
+# ------------------------------------------
+bsm_AS_research_weekly = {
+	if = {
+		limit = { check_variable = { bsm_AS_researching^num > 0 } }
+		set_temp_variable = { t_i = 0 }
+		while_loop_effect = {
+			limit = { check_variable = { t_i < bsm_AS_researching^num } }
+			set_variable = { bsm_AS_cur_anomaly = bsm_AS_researching^t_i }
+
+			# 必要日数は静的グローバル参照（index4相当）
+			set_temp_variable = { t_days = global.AS_AN_days_by_id^bsm_AS_cur_anomaly }
+			if = {
+				limit = { check_variable = { t_days < 1 } }
+				set_temp_variable = { t_days = 1 }
+			}
+			set_temp_variable = { t_step = 100 }
+			divide_temp_variable = { t_step = t_days }
+			multiply_temp_variable = { t_step = 7 }
+			# 研究速度ボーナス(1 + bonus)
+			set_temp_variable = { t_bonus = bsm_stellaris_anomaly_research_bonus }
+			add_to_temp_variable = { t_bonus = 1 }
+			multiply_temp_variable = { t_step = t_bonus }
+
+			add_to_variable = { bsm_AS_prog_by_n^bsm_AS_cur_anomaly = t_step }
+
+			if = {
+				limit = { check_variable = { var = bsm_AS_prog_by_n^bsm_AS_cur_anomaly value = 100 compare = greater_than_or_equals } }
+				bsm_AS_grant_reward = yes   # 生成ファイル: Nに応じてアイデア付与
+				remove_from_array = { bsm_AS_researching = bsm_AS_cur_anomaly }
+				add_to_array = { bsm_AS_completed = bsm_AS_cur_anomaly }
+				set_variable = { bsm_AS_prog_by_n^bsm_AS_cur_anomaly = 0 }
+				# 配列が縮んだのでindexを戻す
+				subtract_from_temp_variable = { t_i = 1 }
+			}
+			add_to_temp_variable = { t_i = 1 }
+		}
+		clear_variable = bsm_AS_cur_anomaly
+	}
+}
