@@ -19,16 +19,20 @@ bsm_ea_calc_sphere_influence = {
 			value = v_mem
 			var:v_mem = {
 				# 基礎国力 = 民需 + 軍需
-				set_temp_variable = { t_my_ic = num_of_civilian_factories }
-				add_to_temp_variable = { t_my_ic = num_of_military_factories }
-				# modifier 補正 (役職・アイデア由来)
-				set_temp_variable = { t_inf_factor = 1 }
-				add_to_temp_variable = { t_inf_factor = modifier@ea_influence_factor }
-				clamp_temp_variable = { var = t_inf_factor min = 0.1 }
-				set_temp_variable = { t_my_inf = t_my_ic }
-				multiply_temp_variable = { t_my_inf = t_inf_factor }
-				set_variable = { bsm_ea_influence = t_my_inf }
-				set_temp_variable = { PREV.t_add_inf = t_my_inf }
+				# 影響力 = (民需 + 軍需) * clamp(1 + modifier@ea_influence_factor, 0.1+)
+				set_variable = {
+					var = bsm_ea_influence
+					value = {
+						value = num_of_civilian_factories
+						add = num_of_military_factories
+						multiply = {
+							value = 1
+							add = modifier@ea_influence_factor
+							max = 0.1
+						}
+					}
+				}
+				set_temp_variable = { PREV.t_add_inf = bsm_ea_influence }
 			}
 			add_to_temp_variable = { t_total_inf = t_add_inf }
 		}
@@ -40,27 +44,39 @@ bsm_ea_calc_sphere_influence = {
 		# 2. 影響力比 → 議席(加盟国数×10) / 表示%
 		if = {
 			limit = { check_variable = { t_total_inf > 0 } }
-			set_temp_variable = { t_total_seats = global.bsm_ea_member_list_@var:bsm_ea_calc_token^num }
-			multiply_temp_variable = { t_total_seats = 10 }
-			clamp_temp_variable = { var = t_total_seats min = 10 }
+			set_temp_variable = {
+				var = t_total_seats
+				value = {
+					value = global.bsm_ea_member_list_@var:bsm_ea_calc_token^num
+					multiply = 10
+					max = 10
+				}
+			}
 			for_each_loop = {
 				array = global.bsm_ea_member_list_@var:bsm_ea_calc_token
 				value = v_mem2
 				var:v_mem2 = {
-					set_temp_variable = { t_share = bsm_ea_influence }
-					divide_temp_variable = { t_share = PREV.t_total_inf }
-
 					# 議席数 = round(share × (加盟国数×10))
-					set_temp_variable = { t_seats = t_share }
-					multiply_temp_variable = { t_seats = PREV.t_total_seats }
-					round_temp_variable = t_seats
-					set_variable = { bsm_ea_member_seats = t_seats }
+					set_variable = {
+						var = bsm_ea_member_seats
+						value = {
+							value = bsm_ea_influence
+							divide = PREV.t_total_inf
+							multiply = PREV.t_total_seats
+							round = yes
+						}
+					}
 
 					# 表示用 %（整数）
-					set_temp_variable = { t_pct = t_share }
-					multiply_temp_variable = { t_pct = 100 }
-					round_temp_variable = t_pct
-					set_variable = { bsm_ea_influence_pct = t_pct }
+					set_variable = {
+						var = bsm_ea_influence_pct
+						value = {
+							value = bsm_ea_influence
+							divide = PREV.t_total_inf
+							multiply = 100
+							round = yes
+						}
+					}
 				}
 			}
 		}
@@ -108,10 +124,14 @@ bsm_update_economic_alliance_power_share = {
 					array = global.bsm_ea_member_list_@var:v_token
 					value = v_mem3
 					var:v_mem3 = {
-						set_temp_variable = { t_share = bsm_ea_influence }
-						divide_temp_variable = { t_share = PREV.t_total }
-						clamp_temp_variable = { var = t_share min = 0 max = 0.05 }
-						add_to_variable = { economic_alliance_pp_buff_value = t_share }
+						add_to_variable = {
+							var = economic_alliance_pp_buff_value
+							value = {
+								value = bsm_ea_influence
+								divide = PREV.t_total
+								clamp = { min = 0 max = 0.05 }
+							}
+						}
 
 						# モディファイア再付与（スタック防止）
 						if = {

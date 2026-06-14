@@ -824,13 +824,18 @@ bsm_nc_monthly_update = {
 	}
 	else = {
 		# --- 1. 基本ファクター ---
-		set_temp_variable = { t_nc_factor = 1.0 }
-
-		# 安定度 (0.0-1.0) → 通貨強度寄与
-		set_temp_variable = { t_nc_stab_mod = stability }
-		subtract_from_temp_variable = { t_nc_stab_mod = 0.5 }
-		multiply_temp_variable = { t_nc_stab_mod = 0.1 }
-		add_to_temp_variable = { t_nc_factor = t_nc_stab_mod }
+		# 安定度 (0.0-1.0) → 通貨強度寄与: 1 + ((stability - 0.5) * 0.1)
+		set_temp_variable = {
+			var = t_nc_factor
+			value = {
+				value = 1.0
+				add = {
+					value = stability
+					subtract = 0.5
+					multiply = 0.1
+				}
+			}
+		}
 
 		# --- 2. 戦争ペナルティ ---
 		if = {
@@ -899,42 +904,47 @@ bsm_nc_monthly_update = {
 		# factor > 1.0 → 通貨強 → レート低下 (UCに対して強い)
 		# factor < 1.0 → 通貨弱 → レート上昇 (UCに対して弱い)
 		set_variable = { bsm_nc_rate_prev = bsm_nc_rate }
-		set_variable = { bsm_nc_rate = bsm_nc_base_rate }
-		divide_variable = { bsm_nc_rate = t_nc_factor }
-
-		# --- 8. クランプ (基準の0.3倍〜3.0倍) ---
-		set_temp_variable = { t_nc_min = bsm_nc_base_rate }
-		multiply_temp_variable = { t_nc_min = 0.3 }
-		set_temp_variable = { t_nc_max = bsm_nc_base_rate }
-		multiply_temp_variable = { t_nc_max = 3.0 }
-		clamp_variable = { var = bsm_nc_rate min = t_nc_min max = t_nc_max }
+		set_variable = {
+			var = bsm_nc_rate
+			value = {
+				value = bsm_nc_base_rate
+				divide = t_nc_factor
+				clamp = {
+					min = { value = bsm_nc_base_rate  multiply = 0.3 }
+					max = { value = bsm_nc_base_rate  multiply = 3.0 }
+				}
+			}
+		}
 
 		# --- 9. 前月比デルタ ---
-		set_temp_variable = { t_nc_delta = bsm_nc_rate }
-		subtract_from_temp_variable = { t_nc_delta = bsm_nc_rate_prev }
-		set_variable = { bsm_nc_rate_delta = t_nc_delta }
+		set_variable = {
+			var = bsm_nc_rate_delta
+			value = {
+				value = bsm_nc_rate
+				subtract = bsm_nc_rate_prev
+			}
+		}
 
 		# --- 10. インフレ計算 ---
-		set_temp_variable = { t_nc_infl = bsm_nc_rate }
-		divide_temp_variable = { t_nc_infl = bsm_nc_rate_prev }
-		subtract_from_temp_variable = { t_nc_infl = 1.0 }
-		multiply_temp_variable = { t_nc_infl = 100.0 }
-		set_variable = { bsm_nc_inflation = t_nc_infl }
+		set_variable = {
+			var = bsm_nc_inflation
+			value = {
+				value = bsm_nc_rate
+				divide = bsm_nc_rate_prev
+				subtract = 1.0
+				multiply = 100.0
+			}
+		}
 
 		# --- 11. 通貨安定度 (0-100) ---
-		set_temp_variable = { t_nc_stability = 100 }
-
-		if = {
-			limit = { check_variable = { bsm_nc_inflation > 5 } }
-			subtract_from_temp_variable = { t_nc_stability = 15 }
-		}
-		if = {
-			limit = { check_variable = { bsm_nc_inflation > 15 } }
-			subtract_from_temp_variable = { t_nc_stability = 25 }
-		}
-		if = {
-			limit = { check_variable = { bsm_nc_inflation > 30 } }
-			subtract_from_temp_variable = { t_nc_stability = 30 }
+		set_temp_variable = {
+			var = t_nc_stability
+			value = {
+				value = 100
+				subtract = { value = bsm_nc_inflation  greater_than = 5  multiply = 15 }
+				subtract = { value = bsm_nc_inflation  greater_than = 15  multiply = 25 }
+				subtract = { value = bsm_nc_inflation  greater_than = 30  multiply = 30 }
+			}
 		}
 		if = {
 			limit = { has_war = yes }
@@ -953,16 +963,26 @@ bsm_nc_monthly_update = {
 
 		# --- 11b. 通貨強度カテゴリ (0=強い 1=普通 2=弱い) ---
 		set_variable = { bsm_nc_strength_cat = 1 }
-		set_variable = { bsm_nc_diff_strong = bsm_nc_base_rate }
-		multiply_variable = { bsm_nc_diff_strong = 0.9 }
-		subtract_from_variable = { bsm_nc_diff_strong = bsm_nc_rate }
+		set_variable = {
+			var = bsm_nc_diff_strong
+			value = {
+				value = bsm_nc_base_rate
+				multiply = 0.9
+				subtract = bsm_nc_rate
+			}
+		}
 		if = {
 			limit = { check_variable = { bsm_nc_diff_strong > 0 } }
 			set_variable = { bsm_nc_strength_cat = 0 }
 		}
-		set_variable = { bsm_nc_diff_weak = bsm_nc_base_rate }
-		multiply_variable = { bsm_nc_diff_weak = 1.1 }
-		subtract_from_variable = { bsm_nc_diff_weak = bsm_nc_rate }
+		set_variable = {
+			var = bsm_nc_diff_weak
+			value = {
+				value = bsm_nc_base_rate
+				multiply = 1.1
+				subtract = bsm_nc_rate
+			}
+		}
 		if = {
 			limit = { check_variable = { bsm_nc_diff_weak < 0 } }
 			set_variable = { bsm_nc_strength_cat = 2 }
@@ -1035,14 +1055,25 @@ bsm_nc_devalue_currency = {
 			has_variable = bsm_nc_id
 			NOT = { check_variable = { bsm_nc_id = 0 } }
 		}
-		multiply_variable = { bsm_nc_rate = 1.3 }
-		set_temp_variable = { t_nc_min = bsm_nc_base_rate }
-		multiply_temp_variable = { t_nc_min = 0.3 }
-		set_temp_variable = { t_nc_max = bsm_nc_base_rate }
-		multiply_temp_variable = { t_nc_max = 3.0 }
-		clamp_variable = { var = bsm_nc_rate min = t_nc_min max = t_nc_max }
-		subtract_from_variable = { bsm_nc_stability = 25 }
-		clamp_variable = { var = bsm_nc_stability min = 0 max = 100 }
+		set_variable = {
+			var = bsm_nc_rate
+			value = {
+				value = bsm_nc_rate
+				multiply = 1.3
+				clamp = {
+					min = { value = bsm_nc_base_rate  multiply = 0.3 }
+					max = { value = bsm_nc_base_rate  multiply = 3.0 }
+				}
+			}
+		}
+		set_variable = {
+			var = bsm_nc_stability
+			value = {
+				value = bsm_nc_stability
+				subtract = 25
+				clamp = { min = 0 max = 100 }
+			}
+		}
 	}
 }
 
@@ -1059,10 +1090,15 @@ bsm_nc_calc_uc_modifier = {
 			NOT = { check_variable = { bsm_nc_id = 0 } }
 		}
 		# (base_rate / current_rate - 1.0) * 0.3
-		set_temp_variable = { t_nc_uc_mod = bsm_nc_base_rate }
-		divide_temp_variable = { t_nc_uc_mod = bsm_nc_rate }
-		subtract_from_temp_variable = { t_nc_uc_mod = 1.0 }
-		multiply_temp_variable = { t_nc_uc_mod = 0.3 }
+		set_temp_variable = {
+			var = t_nc_uc_mod
+			value = {
+				value = bsm_nc_base_rate
+				divide = bsm_nc_rate
+				subtract = 1.0
+				multiply = 0.3
+			}
+		}
 	}
 }
 

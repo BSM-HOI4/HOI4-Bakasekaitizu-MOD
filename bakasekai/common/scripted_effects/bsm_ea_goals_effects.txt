@@ -115,36 +115,22 @@ bsm_ea_leave_tech_group = {
 
 # ------------------------------------------
 # 信頼度計算
+#   trust = clamp( 文明度*50 + 統合力*0.05 + UC貯蓄/100, 0, 100 )
+#   数式(Math Expression)版。旧: temp変数12op → 1op。
+#   未定義変数は数式内で 0 として読まれるため、旧 has_variable ガードと等価
+#   （未定義項は ×係数しても 0 寄与）。Cultural_Degree は他所でも無ガード参照済み。
 # ------------------------------------------
 bsm_ea_calculate_trust = {
-	set_temp_variable = { t_trust = 0 }
-
-	# 文明度 (0~1) × 50
-	if = {
-		limit = { has_variable = Cultural_Degree }
-		set_temp_variable = { t_cd = Cultural_Degree }
-		multiply_temp_variable = { t_cd = 50 }
-		add_to_temp_variable = { t_trust = t_cd }
+	set_variable = {
+		var = bsm_ea_trust
+		value = {
+			value = Cultural_Degree
+			multiply = 50
+			add = { value = National_Unity_Power  multiply = 0.05 }
+			add = { value = Unified_Currency  divide = 100 }
+			clamp = { min = 0 max = 100 }
+		}
 	}
-
-	# 統合力 (0~1000+) × 0.05
-	if = {
-		limit = { has_variable = National_Unity_Power }
-		set_temp_variable = { t_po = National_Unity_Power }
-		multiply_temp_variable = { t_po = 0.05 }
-		add_to_temp_variable = { t_trust = t_po }
-	}
-
-	# UC貯蓄 ÷ 100
-	if = {
-		limit = { has_variable = Unified_Currency }
-		set_temp_variable = { t_uc = Unified_Currency }
-		divide_temp_variable = { t_uc = 100 }
-		add_to_temp_variable = { t_trust = t_uc }
-	}
-
-	clamp_temp_variable = { var = t_trust min = 0 max = 100 }
-	set_variable = { bsm_ea_trust = t_trust }
 }
 
 # ------------------------------------------

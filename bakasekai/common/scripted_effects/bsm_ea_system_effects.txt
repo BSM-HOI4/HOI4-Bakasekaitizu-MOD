@@ -447,15 +447,23 @@ bsm_ea_calc_sphere_power = {
 						has_variable = Unified_Currency_Last_Month_gain
 						check_variable = { Unified_Currency_Last_Month_gain > 0 }
 					}
-					set_temp_variable = { t_p = Unified_Currency_Last_Month_gain }
-					divide_temp_variable = { t_p = 10 }
+					set_temp_variable = {
+						var = t_p
+						value = {
+							value = Unified_Currency_Last_Month_gain
+							divide = 10
+						}
+					}
 				}
 				else = {
 					# Fallback: Use factory count as power measure
-					set_temp_variable = { t_civ = num_of_civilian_factories }
-					set_temp_variable = { t_mil = num_of_military_factories }
-					set_temp_variable = { t_p = t_civ }
-					add_to_temp_variable = { t_p = t_mil }
+					set_temp_variable = {
+						var = t_p
+						value = {
+							value = num_of_civilian_factories
+							add = num_of_military_factories
+						}
+					}
 				}
 
 				# Store individual power for GUI
@@ -563,18 +571,28 @@ bsm_ea_sort_sphere_list = {
 bsm_ea_build_seat_diagram_arrays = {
 	clear_array = bsm_ea_seat_frame
 
-	set_temp_variable = { t_target_seat_total = global.bsm_ea_member_list_@var:bsm_ea_selected_token^num }
-	multiply_temp_variable = { t_target_seat_total = 10 }
-	clamp_temp_variable = { var = t_target_seat_total min = 10 max = 640 }
+	set_temp_variable = {
+		var = t_target_seat_total
+		value = {
+			value = global.bsm_ea_member_list_@var:bsm_ea_selected_token^num
+			multiply = 10
+			clamp = { min = 10 max = 640 }
+		}
+	}
 
 	set_temp_variable = { t_total_seats_added = 0 }
 	for_each_loop = {
 		array = global.bsm_ea_member_list_@var:bsm_ea_selected_token
 		value = v_mem
 		index = v_idx
-		set_temp_variable = { t_member_frame = v_idx }
-		add_to_temp_variable = { t_member_frame = 1 }
-		clamp_temp_variable = { var = t_member_frame min = 1 max = 64 }
+		set_temp_variable = {
+			var = t_member_frame
+			value = {
+				value = v_idx
+				add = 1
+				clamp = { min = 1 max = 64 }
+			}
+		}
 		var:v_mem = {
 			set_variable = { bsm_ea_legend_frame = PREV.t_member_frame }
 			set_temp_variable = { PREV.t_member_seats = bsm_ea_member_seats }
