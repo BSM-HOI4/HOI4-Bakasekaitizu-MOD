@@ -330,20 +330,29 @@ on_actions = {
                 bsm_generic_modifiers_first_setting = yes
             }
             #### 傭兵 ####
+            # 中小国救済: 主要国を除く全ての現存国家へ傭兵・金経済システムを開放する
+            every_country = {
+                limit = {
+                    exists = yes
+                    is_major = no
+                }
+                mercenary_minor_relief_setup = yes
+            }
+            # 固有設定（中小国救済の既定値を上書き）
             SWI = {
-                set_country_flag = Mercenary_System_Allowed
+                mercenary_minor_relief_setup = yes
                 set_variable = {
                     MS_max = 10
                 }
             }
             VAT = {
-                set_country_flag = Mercenary_System_Allowed
+                mercenary_minor_relief_setup = yes
                 set_variable = {
                     MS_max = 2
                 }
             }
             FRA = {
-                set_country_flag = Mercenary_System_Allowed
+                mercenary_minor_relief_setup = yes
                 set_variable = {
                     MS_max = 20
                 }
@@ -403,6 +412,15 @@ on_actions = {
                 bsm_AS_monthly_upkeep = yes # アノマリー探検隊 維持費徴収
             }
 
+            # 中小国救済: ゲーム中に独立・成立した中小国へも傭兵・金経済システムを開放する
+            every_country = {
+                limit = {
+                    exists = yes
+                    is_major = no
+                    NOT = { has_country_flag = Mercenary_System_Allowed }
+                }
+                mercenary_minor_relief_setup = yes
+            }
             # 傭兵の維持費処理
             every_country = {
                 limit = { has_country_flag = Mercenary_System_Allowed }
