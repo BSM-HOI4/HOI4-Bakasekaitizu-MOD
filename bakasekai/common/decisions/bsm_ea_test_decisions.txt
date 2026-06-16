@@ -182,4 +182,204 @@ bsm_ea_test_category = {
 			factor = 0
 		}
 	}
+
+	# === Phase 1-6 テスト用ディシジョン ===
+
+	# EA指標を強制更新 (プレイヤーが盟主の陣営)
+	bsm_ea_test_update_metrics = {
+		icon = GFX_decision_generic_political_discourse
+
+		available = {
+			has_variable = bsm_ea_sphere
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			log = "[BSM EA TEST] Force updating metrics for token [?bsm_ea_sphere]"
+			set_temp_variable = { bsm_ea_token = bsm_ea_sphere }
+			bsm_ea_update_metrics = yes
+			bsm_ea_update_resource_security_score = yes
+			bsm_nc_update_basket_rate = yes
+			log = "[BSM EA TEST] Metrics updated. Integration: [?bsm_ea_integration_score] Crisis: [?bsm_ea_crisis_pressure]"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	# 危機圧力を強制的に +25 する (盟主の陣営)
+	bsm_ea_test_add_crisis_pressure = {
+		icon = GFX_decision_generic_prepare_civil_war
+
+		available = {
+			has_variable = bsm_ea_sphere
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			add_to_variable = { bsm_ea_crisis_pressure = 25 }
+			clamp_variable = { var = bsm_ea_crisis_pressure min = 0 max = 100 }
+			log = "[BSM EA TEST] Crisis pressure +25 → [?bsm_ea_crisis_pressure]"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	# 危機圧力を 0 にリセット
+	bsm_ea_test_reset_crisis_pressure = {
+		icon = GFX_decision_generic_ignite_civil_war
+
+		available = {
+			has_variable = bsm_ea_sphere
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			set_variable = { bsm_ea_crisis_pressure = 0 }
+			log = "[BSM EA TEST] Crisis pressure reset to 0"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	# 同盟準備金を +100 する
+	bsm_ea_test_add_reserve = {
+		icon = GFX_decision_generic_form_nation
+
+		available = {
+			has_variable = bsm_ea_sphere
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			if = {
+				limit = { NOT = { has_variable = bsm_ea_reserve_uc } }
+				set_variable = { bsm_ea_reserve_uc = 0 }
+			}
+			add_to_variable = { bsm_ea_reserve_uc = 100 }
+			log = "[BSM EA TEST] Reserve UC +100 → [?bsm_ea_reserve_uc]"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	# 同盟準備金を 0 にリセット
+	bsm_ea_test_reset_reserve = {
+		icon = GFX_decision_generic_ignite_civil_war
+
+		available = {
+			has_variable = bsm_ea_sphere
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			set_variable = { bsm_ea_reserve_uc = 0 }
+			log = "[BSM EA TEST] Reserve UC reset to 0"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	# 選択中の加盟国を弱通貨化 (テスト用)
+	bsm_ea_test_weaken_selected_currency = {
+		icon = GFX_decision_generic_prepare_civil_war
+
+		available = {
+			check_variable = { bsm_ea_has_selected_member = 1 }
+			has_event_target = bsm_ea_selected_member
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			event_target:bsm_ea_selected_member = {
+				if = {
+					limit = { has_variable = bsm_nc_rate }
+					set_variable = {
+						var = bsm_nc_rate
+						value = { value = bsm_nc_base_rate  multiply = 2.0 }
+					}
+					set_variable = { bsm_nc_stability = 20 }
+					set_variable = { bsm_nc_strength_cat = 2 }
+					set_variable = { bsm_nc_inflation = 25 }
+					log = "[BSM EA TEST] Weakened currency for [THIS.GetName]"
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	# 通貨バスケットを再計算して収斂適用
+	bsm_ea_test_recalc_basket = {
+		icon = GFX_decision_generic_political_discourse
+
+		available = {
+			has_variable = bsm_ea_sphere
+		}
+
+		visible = {
+			always = yes
+		}
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			set_temp_variable = { bsm_ea_token = bsm_ea_sphere }
+			bsm_nc_update_basket_rate = yes
+			bsm_nc_apply_basket_convergence = yes
+			log = "[BSM EA TEST] Basket recalculated and convergence applied"
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
 }

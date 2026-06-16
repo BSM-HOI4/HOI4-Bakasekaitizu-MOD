@@ -991,3 +991,148 @@ puppet_controlled_border_states = {
 		}
 	}
 }
+
+########################################
+## BSM 経済同盟 / 国民通貨システム用
+########################################
+
+# 全通貨国 (通貨割当済み かつ UC直結でない)
+bsm_nc_world_currency_users = {
+	input = game:all_countries
+	name = COLLECTION_BSM_NC_WORLD_CURRENCY_USERS
+	operators = {
+		limit = {
+			bsm_nc_show_in_list = yes
+		}
+	}
+}
+
+# 弱い通貨国 (bsm_nc_strength_cat = 2)
+bsm_nc_weak_currency_countries = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_WEAK_CURRENCY_COUNTRIES
+	operators = {
+		limit = {
+			check_variable = { bsm_nc_strength_cat = 2 }
+		}
+	}
+}
+
+# 強い通貨国 (bsm_nc_strength_cat = 0)
+bsm_nc_strong_currency_countries = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_STRONG_CURRENCY_COUNTRIES
+	operators = {
+		limit = {
+			check_variable = { bsm_nc_strength_cat = 0 }
+		}
+	}
+}
+
+# 通貨危機国 (通貨安定度 < 30)
+bsm_nc_crisis_currency_countries = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CRISIS_CURRENCY_COUNTRIES
+	operators = {
+		limit = {
+			check_variable = { bsm_nc_stability < 30 }
+		}
+	}
+}
+
+# 高インフレ国 (インフレ > 15)
+bsm_nc_high_inflation_countries = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_HIGH_INFLATION_COUNTRIES
+	operators = {
+		limit = {
+			check_variable = { bsm_nc_inflation > 15 }
+		}
+	}
+}
+
+# UC赤字国 (Unified_Currency < 0)
+bsm_nc_uc_deficit_countries = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_UC_DEFICIT_COUNTRIES
+	operators = {
+		limit = {
+			check_variable = { Unified_Currency < 0 }
+		}
+	}
+}
+
+# 通貨同盟参加国
+bsm_nc_currency_union_members = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CURRENCY_UNION_MEMBERS
+	operators = {
+		limit = {
+			bsm_nc_in_currency_union = yes
+		}
+	}
+}
+
+# 地域別通貨国
+bsm_nc_currency_users_asia = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CURRENCY_USERS_ASIA
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = asia }
+		}
+	}
+}
+
+bsm_nc_currency_users_europe = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CURRENCY_USERS_EUROPE
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = europe }
+		}
+	}
+}
+
+bsm_nc_currency_users_americas = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CURRENCY_USERS_AMERICAS
+	operators = {
+		limit = {
+			OR = {
+				capital_scope = { is_on_continent = north_america }
+				capital_scope = { is_on_continent = south_america }
+			}
+		}
+	}
+}
+
+bsm_nc_currency_users_africa = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CURRENCY_USERS_AFRICA
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = africa }
+		}
+	}
+}
+
+bsm_nc_currency_users_middle_east = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CURRENCY_USERS_MIDDLE_EAST
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = middle_east }
+		}
+	}
+}
+
+bsm_nc_currency_users_oceania = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CURRENCY_USERS_OCEANIA
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = australia }
+		}
+	}
+}

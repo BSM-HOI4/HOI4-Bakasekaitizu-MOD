@@ -67,3 +67,82 @@ news_event = {
 		name = nc.6.a
 	}
 }
+
+# ==========================================
+# EA 通貨危機伝播イベント (Phase 2)
+# ==========================================
+
+# --- EA通貨危機の警告 (bsm_ea_crisis_pressure >= 75) ---
+country_event = {
+	id = nc.10
+	title = nc.10.t
+	desc = nc.10.d
+	picture = GFX_news_event_generic_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = nc.10.a
+		ai_chance = { factor = 60 }
+		# 共同対応: 準備金を投入して危機を緩和
+		set_temp_variable = { bsm_ea_token = bsm_ea_sphere }
+		bsm_ea_spend_reserve_for_crisis = yes
+	}
+	option = {
+		name = nc.10.b
+		ai_chance = { factor = 30 }
+		# 資本規制のみ (軽減策なし)
+		custom_effect_tooltip = nc.10_b_tt
+	}
+	option = {
+		name = nc.10.c
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				check_variable = { bsm_ea_crisis_pressure > 89 }
+			}
+		}
+		# 放置: 離脱圧力上昇
+		add_to_variable = { bsm_nc_union_exit_pressure = 10 }
+		clamp_variable = { var = bsm_nc_union_exit_pressure min = 0 max = 100 }
+	}
+}
+
+# --- EA通貨危機への共同対応 (準備金不足時の派生) ---
+country_event = {
+	id = nc.11
+	title = nc.11.t
+	desc = nc.11.d
+	picture = GFX_news_event_generic_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = nc.11.a
+		ai_chance = { factor = 50 }
+		# 盟主が独自資金で支援
+		add_to_variable = { Unified_Currency = -100 }
+		custom_effect_tooltip = nc.11_a_tt
+	}
+	option = {
+		name = nc.11.b
+		ai_chance = { factor = 50 }
+		# 支援せず
+	}
+}
+
+# --- 危機対応失敗による離脱圧力上昇 (bsm_ea_crisis_pressure >= 90) ---
+country_event = {
+	id = nc.12
+	title = nc.12.t
+	desc = nc.12.d
+	picture = GFX_news_event_generic_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = nc.12.a
+		# 加盟国全体の離脱圧力上昇は月次処理で継続適用済み
+	}
+}
