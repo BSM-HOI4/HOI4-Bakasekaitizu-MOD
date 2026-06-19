@@ -20,9 +20,33 @@ step. Use --strict to turn it into a gate once coverage is high enough.
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
+
+
+def write_step_summary(jp: int, en: int, translated: int, untranslated: int,
+                       orphaned: int, coverage: float) -> None:
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not path:
+        return
+    lines = [
+        "## Localisation coverage (JA → EN)",
+        "",
+        f"**{coverage:.1%}** translated",
+        "",
+        "| Metric | Count |",
+        "|---|---|",
+        f"| Japanese keys | {jp} |",
+        f"| English keys | {en} |",
+        f"| Translated | {translated} |",
+        f"| Untranslated | {untranslated} |",
+        f"| Orphaned (EN-only) | {orphaned} |",
+        "",
+    ]
+    with open(path, "a", encoding="utf-8") as fh:
+        fh.write("\n".join(lines) + "\n")
 
 _KEY_RE = re.compile(r'^\s*([A-Za-z0-9_.\-]+):\d*\s+"')
 
@@ -86,6 +110,9 @@ def main(argv: list[str]) -> int:
             for k in orphaned:
                 print(f"  {k}  ({en[k]})")
             print("::endgroup::")
+
+    write_step_summary(len(jp), len(en), translated, len(untranslated),
+                       len(orphaned), coverage)
 
     if strict is not None and coverage < strict:
         print(f"\nFAILED: coverage {coverage:.1%} below threshold {strict:.1%}")

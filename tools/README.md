@@ -48,6 +48,13 @@ python3 tools/loc_coverage.py --strict 0.95   # exit 1 if coverage < 95%
 It is informational by default (exit 0) so it can run as a non-blocking CI
 step; switch to `--strict` once coverage is high enough to gate on.
 
+## CI integration
+
+Both scripts append a markdown table to the GitHub Actions **job summary**
+when the `GITHUB_STEP_SUMMARY` environment variable is set (it always is in
+Actions), so error/warning counts and translation coverage are visible on the
+run page without scrolling the log. No flags needed — just run them in a step.
+
 ## Roadmap
 
 These checks are deliberately high-confidence / low-false-positive. Natural

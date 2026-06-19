@@ -22,11 +22,51 @@ MOD_ROOT defaults to "bakasekai".
 
 from __future__ import annotations
 
+import os
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 
 MOD_ROOT = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("bakasekai")
+
+
+_CAT_RE = re.compile(r"\[([a-z-]+)\]")
+
+
+def _categorize(items: list[str]) -> Counter:
+    c: Counter = Counter()
+    for it in items:
+        m = _CAT_RE.search(it)
+        c[m.group(1) if m else "other"] += 1
+    return c
+
+
+def write_step_summary() -> None:
+    """Append a markdown summary to GitHub's job summary, when running in CI."""
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not path:
+        return
+    status = "❌ FAILED" if errors else "✅ passed"
+    lines = [
+        "## Mod validation",
+        "",
+        f"**{status}** — {len(errors)} error(s), {len(warnings)} warning(s)",
+        "",
+    ]
+    if errors:
+        lines += ["| Error category | Count |", "|---|---|"]
+        for cat, n in sorted(_categorize(errors).items()):
+            lines.append(f"| {cat} | {n} |")
+        lines.append("")
+    if warnings:
+        lines += ["| Warning category | Count |", "|---|---|"]
+        for cat, n in sorted(_categorize(warnings).items()):
+            lines.append(f"| {cat} | {n} |")
+        lines.append("")
+    with open(path, "a", encoding="utf-8") as fh:
+        fh.write("\n".join(lines) + "\n")
+
 
 # Directories that contain Paradox script (where brace balance matters).
 SCRIPT_DIRS = ["common", "events", "history", "map"]
@@ -297,8 +337,10 @@ def main() -> int:
         for e in errors:
             print(f"ERROR {e}")
         print(f"\nValidation FAILED: {len(errors)} error(s), {len(warnings)} warning(s).")
+        write_step_summary()
         return 1
     print(f"\nValidation PASSED: 0 errors, {len(warnings)} warning(s).")
+    write_step_summary()
     return 0
 
 
