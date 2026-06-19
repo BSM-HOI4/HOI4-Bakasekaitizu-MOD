@@ -30,12 +30,19 @@ bsm_econ_update_gdp = {
 		}
 	}
 
-	# 出力 output = (民需工場 + 1) × (安定度 + 文明度)  ※UC式の output と同一
+	# 出力 output = (民需工場 + 1) × (0.4 + 0.6×安定度 + 文明度)
+	# UC式は (安定度 + 文明度) だが、GDPは capacity 寄りにするため安定度に下限0.4を設ける
+	# (不安定国の過度な沈下を防ぐ=GDPは産出フローより経済規模に近づける)。ここだけUC式と意図的に乖離。
 	set_variable = {
 		bsm_gdp_output = {
 			value = num_of_civilian_factories
 			add = 1
-			multiply = { value = stability  add = Cultural_Degree }
+			multiply = {
+				value = stability
+				multiply = 0.6
+				add = 0.4
+				add = Cultural_Degree
+			}
 		}
 	}
 

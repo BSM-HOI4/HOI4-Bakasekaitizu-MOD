@@ -46,28 +46,24 @@
 
 **狙い**: GDPを1回キャッシュすれば、債務/GDP・赤字/GDP・1人当たり・成長率・順位、そして既存計画の統合度(F1)・投資必要度(F5)がすべて**比率で安定**する（0–100 / 0–1 に収まりオーバーフロー回避）。
 
-### 3.1 実質GDP（スケール済み）
+### 3.1 実質GDP — 実装(2026-06-19, V1): 既存UC生産ベースを再利用
 
-読める変数のみで構成（country スコープ）。
+当初の「工場+max_manpower」案は人口proxyが破綻した（人員が巨大で人口がGDPの90%を支配）ため、既存UC月次式 `ucs_add_Unified_Currency_month` の**生産ベースを再利用**する形に変更（`bakasekai/common/scripted_effects/_bsm_econ_gdp.txt` の `bsm_econ_update_gdp`）。
 
 ```txt
-set_variable = {
-    var = bsm_gdp_real
-    value = {
-        value = num_of_civilian_factories  multiply = 3
-        add = { value = num_of_military_factories  multiply = 2 }
-        add = { value = num_of_naval_factories     multiply = 2 }
-        add = bsm_resource_value                         # §4 のスポット価格×自国産出
-        add = { value = max_manpower_k  multiply = 0.02 }    # 人口=サービス業の代理
-        multiply = bsm_productivity_factor               # 技術/インフラ補正（modifier@等で算出, 下限0.5）
-        clamp = { min = 0 max = 1000000 }                # オーバーフロー保険
-    }
-}
+output    = (num_of_civilian_factories + 1) × (0.4 + 0.6×stability + Cultural_Degree)
+state_sum = Σ[owned_controlled_states] (state_population_k/1000)
+            × max(1.0, infrastructure_level×1.25 + building_level@air_base×1.1 + building_level@naval_base×0.8)
+bsm_gdp_real = output × state_sum / 10      # 除数10でGDPを3-4桁に。clamp[0,1e8]でoverflow保険
 ```
 
-- **名目GDP**（NCS現地通貨建て）＝ `bsm_gdp_real × 物価水準`、**UC建て** ＝ 名目GDP ÷ `bsm_nc_rate`。→ NCSと自然接続。
-- **成長率** ＝ 前月値を `bsm_gdp_last` に退避して差分（時系列の常法）。
-- **人口項**: 国スコープ直読の人口変数は無い。`max_manpower_k`（総人員プール）を代理に。厳密化するなら `owned_states` を集約して `state_population_k` 合計。
+= 資本(工場) × 生産性(安定度+文明度) × 発展度付き労働(人口×インフラ)。集約は `for_each_scope_loop`(owned_controlled_states) + `PREV` temp 蓄積（UCコードと同パターン）。
+
+- **資源**: `bsm_resource_value`(6資源×固定単価)は別計上で保持するが、固定単価がGDPを歪める（露81%/仏42%）ため**コアから除外**。System B(§4)のスポット価格実装後に実勢で再加算する。
+- **安定度**: UC式は素の `stability` だが、GDPは capacity 寄りにするため下限0.4(`0.4+0.6×stability`)。不安定国の過度な沈下を防ぐ（GDPとUCはここだけ意図的に乖離）。
+- **文明度** `Cultural_Degree` は実測 ~0.05 の事実上スタブ（将来の拡張フック）。
+- **成長率** `bsm_gdp_growth_pct` = 前月値 `bsm_gdp_last` との差分。名目/UC建ては NCS の物価・`bsm_nc_rate` で換算予定。
+- 実測GDP(1936, 安定度下限適用後): 日本4806 / 仏2109 / 英1336 / 露714 / ヨーロッパ王国137。
 
 ### 3.2 派生指標（すべて比率＝安定）
 
