@@ -74,6 +74,8 @@ HOI4 の新機能である Math Expressions と Collections を活用し、既�
 
 統合度・投資必要度・準備金拠出を絶対値（UC額・工場数）でなく **GDP比** で表し、極端な国でも 0–100 / 0–1 に収めてオーバーフローとクランプ調整を減らす。
 
+> 補足(2026-06-19): `every_collection` 数式集約は実機検証済み（`00_coding_contexts/bsm_economic_systems_design.md` §11、反復版と完全一致）。GDP集約・地域/世界合計・`bsm_resource_value` は `for_each_loop` でなく **1式の数式集約**で書けるため、本計画の Collections（F7）と相性が良い。
+
 ### 実装する変数 / effect
 
 | 変数 | スコープ | 用途 |

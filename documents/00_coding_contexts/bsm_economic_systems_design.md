@@ -2,7 +2,7 @@
 
 - **対象 mod**: HOI4-Bakasekaitizu-MOD（バカ世界地図MOD）
 - **作成日**: 2026-06-19
-- **ステータス**: 設計提案（未実装）。`every_collection` 数式集約の実機検証が前提（§9・§11）。
+- **ステータス**: 設計提案（未実装）。`every_collection` 数式集約は **実機検証済み（2026-06-19, §11）＝ 動作確認**。
 - **根拠**: `Hearts of Iron IV/documentation/` の `script_math_functions.md` / `dynamic_variables_documentation.md` / `script_collection_input.md` / `script_collection_operator.md` を精読。演算子の正本は `script_math_functions.md`（`sqrt`/`exp` は無く `root=2`/`pow` で代用）。
 
 ---
@@ -27,7 +27,7 @@
 
 1. **`every_collection`（`value={}` 内の集約）** — コレクションを走査しアキュムレータに足し込む。
    全国 `resource_consumed@steel` 合計・同盟内GDP合計・Σ他国 `opinion@ROOT` を **1式** で。
-   → **重要**: 本modは `every_collection`（数式版）を未使用。実証済なのは `every_collection_element`（**エフェクト反復**版）のみ。数式集約の可否は §9・§11 で要検証。
+   → **検証済✅（§11, 2026-06-19）**: `every_collection`（数式版）は動作（COUNT=98／SUM world_fac=2009 が反復版と一致、`@ROOT`解決も確認）。`every_collection_element` は effect 側で反復したい時のみ。
 2. **比較演算子が 1.0/0.0 を返す** — `if/limit` ブロックを乗算に置換。
    例: 危機ペナルティ ＝ `max(0, 0.3 - stability) * 40`。
 
@@ -35,7 +35,7 @@
 
 | 経路 | 構文 | 状態 | 用途 |
 |---|---|---|---|
-| 数式集約 | `value = { value=0  every_collection = { named_collection=X  add=… } }` | **要検証** | 1式でSUM/AVG/COUNT。最軽量 |
+| 数式集約 | `value = { value=0  every_collection = { named_collection=X  add=… } }` | **検証済✅** | 1式でSUM/AVG/COUNT。最軽量。**第一候補** |
 | エフェクト反復（フォールバック） | `every_collection_element = { input={…}  add_to_temp_variable=… }` | 実証済 | 数式集約が不可/制限時。確実 |
 
 設計は数式集約を第一候補に書くが、各式に「不可ならエフェクト反復」の退避を併記する。
@@ -217,8 +217,8 @@ AS・Tradition が既にあるため、**重複しない**追加候補のみ。
 2. **パーサーのカスケード破損** — 未知演算子が1個あると同ファイルの**それ以降の全 `value={}` が黙って0化**。新規数式ファイルは必ず `search_defs.py --check` → cwtools 検証。
 3. **固定小数オーバーフロー** — GDP/価格はスケール必須（`_k` 変数を使う・単位を大きく取る・`clamp` で蓋）。`pow` は特に危険。
 4. **`global_resource_extracted@` は累積値** → フロー化は前月との差分。
-5. **`every_collection`(数式) は本modで未検証** — §11 で実機確認。不可なら全式を `every_collection_element`+temp に置換（フォールバックは§2.1）。
-6. **`@ROOT` の集約内スコープ解決** — 威信の Σopinion が依存。要実機確認。
+5. **`every_collection`(数式) は検証済✅(2026-06-19)** — COUNT=98 / SUM `world_fac`=2009 が反復版と一致し、per-element 変数の直読も可。`every_collection_element`+temp フォールバックは不要（effect 側で反復したい時のみ）。
+6. **`@ROOT` の集約内スコープ解決も検証済✅** — `sum_opinion@ROOT=-490`(非0)。威信の Σopinion が成立。なお `element_value` は scope コレクションでは 0（値コレクション用と思われる→使わない）。
 7. **on_monthly/on_weekly は全体で1回発火**（EA文書§11）→ 先物満期決済など非冪等処理は1回で正しく動く。
 
 ---
@@ -234,7 +234,7 @@ AS・Tradition が既にあるため、**重複しない**追加候補のみ。
 
 ---
 
-## 11. 検証計画（数式テスター連携）
+## 11. 検証（実施済み ✅ 2026-06-19）
 
 `bsm_test`（別repo）に**集約検証ディシジョン** `bsm_mt_agg_probe_run`（Decisions → 数式テスター → 「集約検証ログを出力」）を追加済み。GUIのACC目視ではなく、結果を **`game.log`** に出力して正確な数値を取得する（`scripted_effects/_bsm_mathtest_agg_probe.txt`）。プローブは専用ファイルに隔離し、最も怪しい `element_value` を最後に置く（カスケード破損の封じ込め）。
 
@@ -245,8 +245,17 @@ AS・Tradition が既にあるため、**重複しない**追加候補のみ。
 | `@ROOT` の内側解決 | `… add=opinion@ROOT` | `math sum_opinion@ROOT` が非0ならプレステージ式が成立 |
 | `element_value` の正体 | `… add=element_value` | 何が足されるか観察（最後・最も怪しい） |
 
-- 判定: **math系が全て0で FB(`every_collection_element` 反復)>0** なら数式集約は本modで非対応 → 全式を `every_collection_element`+global蓄積のフォールバックに切替（設計の式はすべて退避経路を併記済）。
-- `[BSM_MT_AGG_FB]` 行は実証済の反復経路なので、これが正しい合計の「正解値」になる。
+### 検証結果（大日本帝国・1936）✅ 数式集約は動作する
+
+| 項目 | FB(反復) | math(`every_collection`) | 判定 |
+|---|---:|---:|---|
+| count | 98 | 98 | ✅ 一致 |
+| world_fac | 2009 | 2009 | ✅ 一致＝**per-element 変数の直読が可能** |
+| sum_opinion@ROOT | — | -490 | ✅ 非0＝**@ROOT が集約内で解決**（威信式が成立） |
+| element_value | — | 0.00 | scope コレクションでは 0（値コレクション用→不要） |
+
+- **結論**: `every_collection` 数式集約は本ビルドで動作。GDP・資源需要合計・威信の Σopinion はすべて **1式** で書ける。`every_collection_element`+蓄積のフォールバックは**不要**（effect 側で反復したい場合のみ使用）。
+- これにより §10 の A/B/C と §6 の少サイズ化は全面 GO。`[BSM_MT_AGG_FB]`（反復）行は「正解値」の照合用として残してよい。
 
 ### ゲーム内テスト（実装後）
 
