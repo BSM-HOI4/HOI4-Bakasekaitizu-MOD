@@ -350,7 +350,9 @@ on_actions = {
             }
 
             #### 経済(GDP/威信/7段階ランク)起動時初期化 + 全国家テストlog ####
-            bsm_econ_startup = yes
+            # on_startup root は None スコープ。scripted_effect は Country 等のスコープを要求するため
+            # random_country で1回だけ Country スコープを与える(内部の every_country が全国家を走査するので結果に影響なし)。
+            random_country = { bsm_econ_startup = yes }
 
             #### その他汎用システム #####
             # every_country = {
