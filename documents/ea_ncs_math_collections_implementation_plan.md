@@ -85,7 +85,7 @@ HOI4 の新機能である Math Expressions と Collections を活用し、既�
 | `bsm_resource_value` | 加盟国/全国 | 自国資源産出額（スポット価格×産出, 価格未実装時は固定単価） |
 
 - effect `bsm_econ_update_gdp`（country）: 上記設計 §3.1 の数式で `bsm_gdp_real` を更新し、末尾で `bsm_gdp_last` を退避。
-- 接続: `bsm_ea_monthly_update` のスフィアループ内、`bsm_ea_update_sphere_metrics` の**前**に各加盟国で呼ぶ（統合度・投資スコアが当月GDPを読めるようにする）。
+- 接続(実装済 2026-06-19): グローバル `on_monthly`(`_bsm_system.txt`)で `every_country = { bsm_econ_update_gdp = yes }`。`ucs_on_monthly` は per-country ループでない(UCに every_country 無し)ため共有ループ相乗り不可、かつ全国GDPが要るので独立 every_country にした。EA統合度/投資(F1/F5)は前月の `bsm_gdp_real` を読む。
 
 ### F1/F5 への供給
 
