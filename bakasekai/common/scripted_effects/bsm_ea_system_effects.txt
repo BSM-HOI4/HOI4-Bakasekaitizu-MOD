@@ -169,58 +169,72 @@ bsm_ea_join_sphere = {
 # これらのアイデアは GetEAName で陣営名を表示するための表示用マーカーで、
 # どこでも remove されない想定だが、外れている場合に現メンバーへ再付与する。
 # on_weekly / on_monthly から XXX スコープで呼ぶ。
-# 現在その陣営に所属している国にしか付与しないため誤付与しない。
+#
+# 重要: 陣営の識別は初期化時に保存した「安定トークン」(global.bsm_ea_token_*)
+# で行う。盟主タグ(JPN等)の bsm_ea_sphere は離脱/盟主交代で書き換わるため、
+# それを辿ると (1) 盟主交代後の陣営を healing できず、(2) 盟主が別の陣営へ
+# 移った場合に無関係なメンバーへ marker を誤付与してしまう。トークンは sphere_list
+# /member_list のキーとして盟主交代後も不変なので、これを使う。
+# 陣営が解散済み(token が sphere_list に無い)場合は何もしない。
 # ------------------------------------------
 bsm_ea_reassert_membership_ideas = {
 	# 欧州連合 (EUR)
 	if = {
-		limit = { EUR = { exists = yes has_variable = bsm_ea_sphere } }
-		set_temp_variable = { t_reassert_token = 0 }
-		EUR = { set_temp_variable = { PREV.t_reassert_token = bsm_ea_sphere } }
-		for_each_loop = {
-			array = global.bsm_ea_member_list_@var:t_reassert_token
-			value = v_reassert_mem
-			var:v_reassert_mem = {
-				if = { limit = { NOT = { has_idea = bsm_ea_idea_european_union } } add_ideas = bsm_ea_idea_european_union }
+		limit = { has_variable = global.bsm_ea_token_european_union }
+		set_temp_variable = { t_reassert_token = global.bsm_ea_token_european_union }
+		if = {
+			limit = { is_in_array = { global.bsm_ea_sphere_list = var:t_reassert_token } }
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:t_reassert_token
+				value = v_reassert_mem
+				var:v_reassert_mem = {
+					if = { limit = { NOT = { has_idea = bsm_ea_idea_european_union } } add_ideas = bsm_ea_idea_european_union }
+				}
 			}
 		}
 	}
 	# コモンウェルス (GBR)
 	if = {
-		limit = { GBR = { exists = yes has_variable = bsm_ea_sphere } }
-		set_temp_variable = { t_reassert_token = 0 }
-		GBR = { set_temp_variable = { PREV.t_reassert_token = bsm_ea_sphere } }
-		for_each_loop = {
-			array = global.bsm_ea_member_list_@var:t_reassert_token
-			value = v_reassert_mem
-			var:v_reassert_mem = {
-				if = { limit = { NOT = { has_idea = bsm_ea_idea_commonwealth } } add_ideas = bsm_ea_idea_commonwealth }
+		limit = { has_variable = global.bsm_ea_token_commonwealth }
+		set_temp_variable = { t_reassert_token = global.bsm_ea_token_commonwealth }
+		if = {
+			limit = { is_in_array = { global.bsm_ea_sphere_list = var:t_reassert_token } }
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:t_reassert_token
+				value = v_reassert_mem
+				var:v_reassert_mem = {
+					if = { limit = { NOT = { has_idea = bsm_ea_idea_commonwealth } } add_ideas = bsm_ea_idea_commonwealth }
+				}
 			}
 		}
 	}
 	# 東亜連盟 (JPN)
 	if = {
-		limit = { JPN = { exists = yes has_variable = bsm_ea_sphere } }
-		set_temp_variable = { t_reassert_token = 0 }
-		JPN = { set_temp_variable = { PREV.t_reassert_token = bsm_ea_sphere } }
-		for_each_loop = {
-			array = global.bsm_ea_member_list_@var:t_reassert_token
-			value = v_reassert_mem
-			var:v_reassert_mem = {
-				if = { limit = { NOT = { has_idea = bsm_ea_idea_east_asia_league } } add_ideas = bsm_ea_idea_east_asia_league }
+		limit = { has_variable = global.bsm_ea_token_east_asia_league }
+		set_temp_variable = { t_reassert_token = global.bsm_ea_token_east_asia_league }
+		if = {
+			limit = { is_in_array = { global.bsm_ea_sphere_list = var:t_reassert_token } }
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:t_reassert_token
+				value = v_reassert_mem
+				var:v_reassert_mem = {
+					if = { limit = { NOT = { has_idea = bsm_ea_idea_east_asia_league } } add_ideas = bsm_ea_idea_east_asia_league }
+				}
 			}
 		}
 	}
 	# イベリア経済連合 (ESP)
 	if = {
-		limit = { ESP = { exists = yes has_variable = bsm_ea_sphere } }
-		set_temp_variable = { t_reassert_token = 0 }
-		ESP = { set_temp_variable = { PREV.t_reassert_token = bsm_ea_sphere } }
-		for_each_loop = {
-			array = global.bsm_ea_member_list_@var:t_reassert_token
-			value = v_reassert_mem
-			var:v_reassert_mem = {
-				if = { limit = { NOT = { has_idea = bsm_ea_idea_iberian_union } } add_ideas = bsm_ea_idea_iberian_union }
+		limit = { has_variable = global.bsm_ea_token_iberian_union }
+		set_temp_variable = { t_reassert_token = global.bsm_ea_token_iberian_union }
+		if = {
+			limit = { is_in_array = { global.bsm_ea_sphere_list = var:t_reassert_token } }
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:t_reassert_token
+				value = v_reassert_mem
+				var:v_reassert_mem = {
+					if = { limit = { NOT = { has_idea = bsm_ea_idea_iberian_union } } add_ideas = bsm_ea_idea_iberian_union }
+				}
 			}
 		}
 	}
