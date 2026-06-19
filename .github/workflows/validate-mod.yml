@@ -1,0 +1,39 @@
+name: Validate Mod
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "bakasekai/**"
+      - "tools/**"
+      - ".github/workflows/validate-mod.yml"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "bakasekai/**"
+      - "tools/**"
+      - ".github/workflows/validate-mod.yml"
+  workflow_dispatch:
+
+# Cancel superseded runs on the same ref to save runner minutes.
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run mod validator
+        run: python3 tools/validate_mod.py bakasekai
+      # Non-blocking: reports translation coverage to the job summary even if
+      # validation above failed. Add `--strict 0.40` here to gate on coverage.
+      - name: Localisation coverage
+        if: always()
+        run: python3 tools/loc_coverage.py bakasekai
