@@ -175,6 +175,105 @@ def check_localisation() -> None:
                 keys[key] = n
 
 
+_TAG_REF_RE = re.compile(r'^\s*([A-Z0-9]{3})\s*=\s*"([^"]+)"')
+
+
+def check_country_tag_files() -> None:
+    """Every tag in country_tags must point to an existing country file.
+
+    A tag whose file is missing makes the country fail to load. CWTools also
+    covers this, but it is cheap and unambiguous, so we keep it as a fast gate.
+    Paths in country_tags are relative to `common/`.
+    """
+    base = MOD_ROOT / "common" / "country_tags"
+    if not base.exists():
+        return
+    common = MOD_ROOT / "common"
+    dynamic_re = re.compile(r"^\s*dynamic_tags\s*=\s*yes")
+    for path in base.glob("*.txt"):
+        rel = str(path.relative_to(MOD_ROOT.parent))
+        lines = path.read_text(encoding="utf-8-sig", errors="replace").splitlines()
+        # Dynamic-tag files reference runtime-generated placeholder countries
+        # (civil wars etc.) whose files need not exist on disk.
+        if any(dynamic_re.match(ln) for ln in lines):
+            continue
+        for n, line in enumerate(lines, 1):
+            if line.lstrip().startswith("#"):
+                continue
+            m = _TAG_REF_RE.match(line)
+            if not m:
+                continue
+            tag, ref = m.group(1), m.group(2)
+            if tag == "dynamic_tags":  # `dynamic_tags = yes`, not a path
+                continue
+            if not (common / ref).is_file():
+                err(f"[country-tag] {tag} -> missing file 'common/{ref}' ({rel}:{n})")
+
+
+_FOCUS_OPEN_RE = re.compile(r"^\s*(?:shared_)?focus\s*=\s*\{")
+_PLAIN_ID_RE = re.compile(r"^\s*id\s*=\s*([A-Za-z0-9_.\-]+)")
+
+
+def check_duplicate_focus_ids() -> None:
+    """Focus ids must be globally unique; duplicates make the engine pick one
+    and silently drop the other. We capture the first `id =` inside each
+    `focus = {` / `shared_focus = {` block (the focus_tree's own id and any
+    `relative_position_id` / `prerequisite { focus = X }` are not matched)."""
+    base = MOD_ROOT / "common" / "national_focus"
+    if not base.exists():
+        return
+    seen: dict[str, str] = {}
+    for path in base.rglob("*.txt"):
+        rel = str(path.relative_to(MOD_ROOT.parent))
+        depth = 0
+        focus_depth = None  # brace depth at which the current focus block opened
+        captured = False
+        for line in path.read_text(encoding="utf-8-sig", errors="replace").splitlines():
+            clean = strip_noise(line)
+            if focus_depth is None and _FOCUS_OPEN_RE.match(clean):
+                focus_depth = depth
+                captured = False
+            elif focus_depth is not None and not captured:
+                m = _PLAIN_ID_RE.match(clean)
+                if m:
+                    fid = m.group(1)
+                    captured = True
+                    if fid in seen:
+                        err(f"[focus-id] duplicate focus id '{fid}' in {rel} (first in {seen[fid]})")
+                    else:
+                        seen[fid] = rel
+            depth += clean.count("{") - clean.count("}")
+            if focus_depth is not None and depth <= focus_depth:
+                focus_depth = None
+
+
+_DEF_NAME_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_.]*)\s*=\s*\{")
+
+
+def check_duplicate_definitions(subdir: str, label: str) -> None:
+    """Flag top-level definitions (depth 0 `name = {`) declared more than once
+    within a directory. Applies to scripted_effects / scripted_triggers, where
+    a redefinition silently overrides the earlier one."""
+    base = MOD_ROOT / "common" / subdir
+    if not base.exists():
+        return
+    seen: dict[str, str] = {}
+    for path in sorted(base.rglob("*.txt")):
+        rel = str(path.relative_to(MOD_ROOT.parent))
+        depth = 0
+        for line in path.read_text(encoding="utf-8-sig", errors="replace").splitlines():
+            clean = strip_noise(line)
+            if depth == 0:
+                m = _DEF_NAME_RE.match(clean)
+                if m:
+                    name = m.group(1)
+                    if name in seen:
+                        warn(f"[{label}] duplicate definition '{name}' in {rel} (first in {seen[name]})")
+                    else:
+                        seen[name] = rel
+            depth += clean.count("{") - clean.count("}")
+
+
 def main() -> int:
     if not MOD_ROOT.exists():
         print(f"mod root not found: {MOD_ROOT}", file=sys.stderr)
@@ -183,6 +282,10 @@ def main() -> int:
     check_brace_balance()
     check_event_ids()
     check_localisation()
+    check_country_tag_files()
+    check_duplicate_focus_ids()
+    check_duplicate_definitions("scripted_effects", "scripted-effect")
+    check_duplicate_definitions("scripted_triggers", "scripted-trigger")
 
     if warnings:
         print(f"::group::Warnings ({len(warnings)})")
