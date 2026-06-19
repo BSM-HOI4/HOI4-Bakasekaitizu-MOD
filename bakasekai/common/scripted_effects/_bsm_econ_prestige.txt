@@ -1,39 +1,54 @@
 # =====================================================================
-# 威信 (System C) — ソフトパワー横断スコア
+# 威信 (System C) — Victoria 3 型 prestige
 # 設計: documents/00_coding_contexts/bsm_economic_systems_design.md §5
 #
-# V1(直接型): 威信 = 技術 + GDP + 従属国 + 世界からの敬意 − 降伏ペナルティ。
-#   世界からの敬意 = Σ[bsm_world_countries] opinion@ROOT (検証済の every_collection 数式集約)。
-#   ※設計の減衰(×0.98)型は saturation 較正が要るため V1 では省き、まず重みを probe で確定する。
-# 前提: bsm_gdp_real が当月更新済み(prestige は GDP を読む。probe/monthly では GDP→prestige の順で呼ぶ)。
-# パフォーマンス: 敬意の集約は 1国あたり 全存在国数の opinion 読み。月次全国実行は O(N^2) なので
-#   monthly 接続時は majors 限定 or 隔月などの間引きを検討(まず probe で値を確認)。
+# Vic3に倣い、威信は「経済+軍事+外交(tier/従属)のパワー合算」。評判(opinion)は使わない。
+# ランクは絶対値でなく【世界平均との相対倍率】で決まる(列強≥5× / 大国≥2.5× / 非主要≥0.6× / 小国)。
+#
+# 月次3フェーズ: (1)全国 bsm_prestige_compute → (2)bsm_prestige_update_world(世界平均) →
+#   (3)全国 bsm_prestige_assign_rank。compute は GDP の後(bsm_gdp_real を読む)。
+# 注意: world平均は every_collection で「保存変数 bsm_prestige」を集約する。組み込み変数(num_of_factories)
+#   での集約は実機検証済みだが、script変数の集約可否は probe の world_avg で要確認(0や異常なら
+#   every_collection_element+global蓄積へフォールバック)。
 # =====================================================================
 
-bsm_prestige_update = {
-	# 世界からの敬意 = Σ[全存在国] その国の自国(ROOT)への opinion
-	set_variable = {
-		bsm_prestige_respect = {
-			value = 0
-			every_collection = { named_collection = bsm_world_countries  add = opinion@ROOT }
-		}
-	}
-
-	# 威信(直接型 V1)
+# (1) 自国の威信 = パワー合算(Vic3型)。GDPの後に呼ぶこと。
+bsm_prestige_compute = {
 	set_variable = {
 		bsm_prestige = {
-			value = num_researched_technologies  multiply = 0.5
-			add = { value = bsm_gdp_real      divide = 50 }
-			add = { value = num_subjects      multiply = 3 }
-			add = { value = bsm_prestige_respect  divide = 20 }   # Σopinion(±)を縮小して反映
+			value = bsm_gdp_real                     multiply = 0.2    # 経済(Vic3: GDP主軸。属国GDP加算は将来)
+			add = { value = num_battalions           multiply = 0.5 }  # 陸軍 power projection
+			add = { value = num_ships                multiply = 3 }    # 海軍 power projection(Vic3: 海軍は効率高)
+			add = { value = num_subjects             multiply = 20 }   # 従属(覇権)
+			add = { value = num_researched_technologies multiply = 0.5 } # 技術
 		}
 	}
+	if = { limit = { is_major = yes }  add_to_variable = { bsm_prestige = 50 } }  # 国家tier base
+	clamp_variable = { var = bsm_prestige  min = 0  max = 1000000 }
+}
 
-	# 直近降伏ペナルティ
-	if = {
-		limit = { has_capitulated = yes }
-		subtract_from_variable = { bsm_prestige = 50 }
+# (2) 世界平均威信(global)。Vic3のランク基準。全国 compute 後に1回。
+bsm_prestige_update_world = {
+	set_variable = { global.bsm_prestige_sum = { value = 0  every_collection = { named_collection = bsm_world_countries  add = bsm_prestige } } }
+	set_variable = { global.bsm_prestige_cnt = { value = 0  every_collection = { named_collection = bsm_world_countries  add = 1 } } }
+	set_variable = {
+		global.bsm_prestige_world_avg = {
+			value = global.bsm_prestige_sum
+			divide = { value = global.bsm_prestige_cnt  max = 1 }
+		}
 	}
+}
 
-	clamp_variable = { var = bsm_prestige  min = 0  max = 2000 }
+# (3) ランク判定: 世界平均の倍率で 4=列強(≥5×) / 3=大国(≥2.5×) / 2=非主要国(≥0.6×) / 1=小国
+bsm_prestige_assign_rank = {
+	set_variable = {
+		bsm_prestige_ratio = {
+			value = bsm_prestige
+			divide = { value = global.bsm_prestige_world_avg  max = 0.01 }
+		}
+	}
+	if =      { limit = { check_variable = { var = bsm_prestige_ratio  value > 4.999 } }  set_variable = { bsm_prestige_rank = 4 } }
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 2.499 } }  set_variable = { bsm_prestige_rank = 3 } }
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.599 } }  set_variable = { bsm_prestige_rank = 2 } }
+	else =    { set_variable = { bsm_prestige_rank = 1 } }
 }

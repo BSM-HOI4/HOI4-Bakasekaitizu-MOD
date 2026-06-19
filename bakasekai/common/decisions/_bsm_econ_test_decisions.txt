@@ -31,9 +31,14 @@ bsm_ea_test_category = {
 		fire_only_once = no
 
 		complete_effect = {
-			bsm_econ_update_gdp = yes
-			bsm_prestige_update = yes
-			log = "[BSM_PRESTIGE] ([ROOT.GetName]) prestige=[?bsm_prestige|1] | tech=[?num_researched_technologies|0] gdp=[?bsm_gdp_real|0] subjects=[?num_subjects|0] respect(sum opinion)=[?bsm_prestige_respect|0]"
+			# Vic3型3フェーズ: 全国の GDP+威信(パワー合算) → 世界平均 → ランク判定 → 自国をログ
+			every_country = {
+				bsm_econ_update_gdp = yes
+				bsm_prestige_compute = yes
+			}
+			bsm_prestige_update_world = yes
+			every_country = { bsm_prestige_assign_rank = yes }
+			log = "[BSM_PRESTIGE] ([ROOT.GetName]) prestige=[?bsm_prestige|0] rank=[?bsm_prestige_rank|0] (4=列強/3=大国/2=非主要/1=小国) ratio=[?bsm_prestige_ratio|2] world_avg=[?global.bsm_prestige_world_avg|1] | gdp=[?bsm_gdp_real|0] bat=[?num_battalions|0] ships=[?num_ships|0] subj=[?num_subjects|0]"
 		}
 
 		ai_will_do = { factor = 0 }
