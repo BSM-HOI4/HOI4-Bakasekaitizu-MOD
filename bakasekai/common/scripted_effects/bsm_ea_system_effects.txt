@@ -164,6 +164,68 @@ bsm_ea_join_sphere = {
 	}
 }
 
+# ------------------------------------------
+# 初期4陣営の固有「陣営精神」マーカーを再付与 (self-heal)
+# これらのアイデアは GetEAName で陣営名を表示するための表示用マーカーで、
+# どこでも remove されない想定だが、外れている場合に現メンバーへ再付与する。
+# on_weekly / on_monthly から XXX スコープで呼ぶ。
+# 現在その陣営に所属している国にしか付与しないため誤付与しない。
+# ------------------------------------------
+bsm_ea_reassert_membership_ideas = {
+	# 欧州連合 (EUR)
+	if = {
+		limit = { EUR = { exists = yes has_variable = bsm_ea_sphere } }
+		set_temp_variable = { t_reassert_token = 0 }
+		EUR = { set_temp_variable = { PREV.t_reassert_token = bsm_ea_sphere } }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_reassert_token
+			value = v_reassert_mem
+			var:v_reassert_mem = {
+				if = { limit = { NOT = { has_idea = bsm_ea_idea_european_union } } add_ideas = bsm_ea_idea_european_union }
+			}
+		}
+	}
+	# コモンウェルス (GBR)
+	if = {
+		limit = { GBR = { exists = yes has_variable = bsm_ea_sphere } }
+		set_temp_variable = { t_reassert_token = 0 }
+		GBR = { set_temp_variable = { PREV.t_reassert_token = bsm_ea_sphere } }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_reassert_token
+			value = v_reassert_mem
+			var:v_reassert_mem = {
+				if = { limit = { NOT = { has_idea = bsm_ea_idea_commonwealth } } add_ideas = bsm_ea_idea_commonwealth }
+			}
+		}
+	}
+	# 東亜連盟 (JPN)
+	if = {
+		limit = { JPN = { exists = yes has_variable = bsm_ea_sphere } }
+		set_temp_variable = { t_reassert_token = 0 }
+		JPN = { set_temp_variable = { PREV.t_reassert_token = bsm_ea_sphere } }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_reassert_token
+			value = v_reassert_mem
+			var:v_reassert_mem = {
+				if = { limit = { NOT = { has_idea = bsm_ea_idea_east_asia_league } } add_ideas = bsm_ea_idea_east_asia_league }
+			}
+		}
+	}
+	# イベリア経済連合 (ESP)
+	if = {
+		limit = { ESP = { exists = yes has_variable = bsm_ea_sphere } }
+		set_temp_variable = { t_reassert_token = 0 }
+		ESP = { set_temp_variable = { PREV.t_reassert_token = bsm_ea_sphere } }
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_reassert_token
+			value = v_reassert_mem
+			var:v_reassert_mem = {
+				if = { limit = { NOT = { has_idea = bsm_ea_idea_iberian_union } } add_ideas = bsm_ea_idea_iberian_union }
+			}
+		}
+	}
+}
+
 # 現在の経済陣営から離脱
 # 入力:
 #   bsm_ea_token (一時変数) - 必須
