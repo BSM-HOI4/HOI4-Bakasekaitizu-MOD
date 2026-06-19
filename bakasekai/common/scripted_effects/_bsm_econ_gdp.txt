@@ -3,9 +3,14 @@
 # 設計: documents/00_coding_contexts/bsm_economic_systems_design.md §3
 # 計画: documents/ea_ncs_math_collections_implementation_plan.md Phase 0.5 (F8)
 #
-# 全て country スコープの自国読みのみ(every_collection 不要・固定小数オーバーフロー対策で clamp 済)。
-# V1: 資源は固定単価、生産性は技術数ベース。スポット価格(System B)実装後に bsm_resource_value を置換する。
-# パフォーマンス: 現状は decision 起動(プレイヤーのみ)。on_monthly へ接続する際は早期 return を足すこと。
+# 既存UC月次式(ucs_add_Unified_Currency_month)の「生産ベース」を再利用する:
+#   GDP = output × state_sum / 10 (+ 資源額)
+#   output    = (民需工場 + 1) × (安定度 + Cultural_Degree)
+#   state_sum = Σ[owned_controlled_states] (人口k/1000) × max(1.0, インフラ×1.25 + 飛行場×1.1 + 港湾×0.8)
+# = 資本(工場) × 生産性(安定+文明) × 発展度付き労働(人口×インフラ)。UC はこの GDP から skim するフロー。
+#
+# パフォーマンス: for_each_scope_loop は UC 月次と同等コスト。現状は decision 起動(プレイヤーのみ)。
+#   on_monthly 接続時は早期 return を足し、UC ループと統合して state の二重走査を避けること。
 # =====================================================================
 
 bsm_econ_update_gdp = {
@@ -25,29 +30,46 @@ bsm_econ_update_gdp = {
 		}
 	}
 
-	# 生産性係数(V1: 技術数ベース。下限0.5 / 上限2.0)
+	# 出力 output = (民需工場 + 1) × (安定度 + 文明度)  ※UC式の output と同一
 	set_variable = {
-		bsm_productivity_factor = {
-			value = num_researched_technologies
-			multiply = 0.01
-			add = 0.7
-			clamp = { min = 0.5 max = 2.0 }
+		bsm_gdp_output = {
+			value = num_of_civilian_factories
+			add = 1
+			multiply = { value = stability  add = Cultural_Degree }
 		}
 	}
 
-	# 実質GDP(スケール済み): 工場(主軸) + 資源額 + 人口(サービス代理・小係数) を生産性で補正
-	# 重み較正(2026-06-19): 旧 civ3/mil2/nav2/mp0.02 では mp_k(本modは人員が巨大・日本239M)が
-	# GDPの90%を占め産業信号が消えたため、産業を上げ人口係数を 0.02→0.0005 に下げた。
-	# 人口の寄与度を上げたい場合は mp_k 係数(0.0005)が主ノブ。逓減を効かせたいなら root=2 も候補。
+	# state_sum = Σ[owned_controlled_states] (人口k/1000) × max(1.0, インフラ×1.25 + 飛行場×1.1 + 港湾×0.8)
+	# 既存UCコードと同じ for_each_scope_loop + PREV temp 蓄積パターン。
+	set_temp_variable = { temp_gdp_state_sum = 0 }
+	for_each_scope_loop = {
+		array = owned_controlled_states
+		set_temp_variable = {
+			var = temp_gdp_state
+			value = {
+				value = state_population_k
+				divide = 1000
+				multiply = {
+					value = infrastructure_level
+					multiply = 1.25
+					add = { value = building_level@air_base   multiply = 1.1 }
+					add = { value = building_level@naval_base multiply = 0.8 }
+					max = 1.0
+				}
+			}
+		}
+		add_to_temp_variable = { PREV.temp_gdp_state_sum = temp_gdp_state }
+	}
+	set_variable = { bsm_gdp_state_sum = temp_gdp_state_sum }
+
+	# 実質GDP = output × state_sum / 10 + 資源額。除数10は probe 結果で調整。clamp で overflow 保険。
 	set_variable = {
 		bsm_gdp_real = {
-			value = num_of_civilian_factories  multiply = 5
-			add = { value = num_of_military_factories multiply = 3 }
-			add = { value = num_of_naval_factories    multiply = 3 }
+			value = bsm_gdp_output
+			multiply = bsm_gdp_state_sum
+			divide = 10
 			add = bsm_resource_value
-			add = { value = max_manpower_k multiply = 0.0005 }
-			multiply = bsm_productivity_factor
-			clamp = { min = 0 max = 1000000 }
+			clamp = { min = 0 max = 100000000 }
 		}
 	}
 
