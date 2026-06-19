@@ -19,4 +19,23 @@ bsm_ea_test_category = {
 
 		ai_will_do = { factor = 0 }
 	}
+
+	# 威信(System C) 検証用: GDP更新→威信計算→[BSM_PRESTIGE] を game.log に出力
+	bsm_econ_test_prestige_probe = {
+		icon = GFX_decision_generic_political_discourse
+
+		available = { always = yes }
+		visible = { always = yes }
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			bsm_econ_update_gdp = yes
+			bsm_prestige_update = yes
+			log = "[BSM_PRESTIGE] ([ROOT.GetName]) prestige=[?bsm_prestige|1] | tech=[?num_researched_technologies|0] gdp=[?bsm_gdp_real|0] subjects=[?num_subjects|0] respect(sum opinion)=[?bsm_prestige_respect|0]"
+		}
+
+		ai_will_do = { factor = 0 }
+	}
 }

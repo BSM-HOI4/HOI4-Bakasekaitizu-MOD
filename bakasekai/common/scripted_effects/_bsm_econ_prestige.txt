@@ -1,0 +1,39 @@
+# =====================================================================
+# 威信 (System C) — ソフトパワー横断スコア
+# 設計: documents/00_coding_contexts/bsm_economic_systems_design.md §5
+#
+# V1(直接型): 威信 = 技術 + GDP + 従属国 + 世界からの敬意 − 降伏ペナルティ。
+#   世界からの敬意 = Σ[bsm_world_countries] opinion@ROOT (検証済の every_collection 数式集約)。
+#   ※設計の減衰(×0.98)型は saturation 較正が要るため V1 では省き、まず重みを probe で確定する。
+# 前提: bsm_gdp_real が当月更新済み(prestige は GDP を読む。probe/monthly では GDP→prestige の順で呼ぶ)。
+# パフォーマンス: 敬意の集約は 1国あたり 全存在国数の opinion 読み。月次全国実行は O(N^2) なので
+#   monthly 接続時は majors 限定 or 隔月などの間引きを検討(まず probe で値を確認)。
+# =====================================================================
+
+bsm_prestige_update = {
+	# 世界からの敬意 = Σ[全存在国] その国の自国(ROOT)への opinion
+	set_variable = {
+		bsm_prestige_respect = {
+			value = 0
+			every_collection = { named_collection = bsm_world_countries  add = opinion@ROOT }
+		}
+	}
+
+	# 威信(直接型 V1)
+	set_variable = {
+		bsm_prestige = {
+			value = num_researched_technologies  multiply = 0.5
+			add = { value = bsm_gdp_real      divide = 50 }
+			add = { value = num_subjects      multiply = 3 }
+			add = { value = bsm_prestige_respect  divide = 20 }   # Σopinion(±)を縮小して反映
+		}
+	}
+
+	# 直近降伏ペナルティ
+	if = {
+		limit = { has_capitulated = yes }
+		subtract_from_variable = { bsm_prestige = 50 }
+	}
+
+	clamp_variable = { var = bsm_prestige  min = 0  max = 2000 }
+}
