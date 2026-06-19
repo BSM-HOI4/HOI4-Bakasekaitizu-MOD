@@ -44,4 +44,29 @@ bsm_ea_test_category = {
 
 		ai_will_do = { factor = 0 }
 	}
+
+	# 威信 +/- modifier(bsm_prestige_flat/factor)の動作確認: テスト源を自国に付与/解除
+	bsm_econ_test_prestige_mod_toggle = {
+		icon = GFX_decision_generic_political_discourse
+
+		available = { always = yes }
+		visible = { always = yes }
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			if = {
+				limit = { has_dynamic_modifier = { modifier = bsm_prestige_test_boost } }
+				remove_dynamic_modifier = { modifier = bsm_prestige_test_boost }
+				log = "[BSM_PRESTIGE] test boost 解除。威信probeで戻りを確認"
+			}
+			else = {
+				add_dynamic_modifier = { modifier = bsm_prestige_test_boost }
+				log = "[BSM_PRESTIGE] test boost 付与(flat+500 / +20%)。威信probeで上昇を確認"
+			}
+		}
+
+		ai_will_do = { factor = 0 }
+	}
 }

@@ -12,18 +12,28 @@
 #   → (3)全国 bsm_prestige_assign_rank(rank判定+分布カウント)。compute は GDP の後。
 # =====================================================================
 
-# (1) 自国の威信 = パワー合算(Vic3型)。GDPの後に呼ぶこと。
+@bsm_prestige_base = 10   # 威信の基礎値(全国共通の下駄。tune可)
+
+# (1) 自国の威信 = 基礎値 + tier + パワー合算 + modifier。GDPの後に呼ぶこと。
+#   威信 = ( 基礎 + tier + GDP/陸/海/従属/技術 + modifier@bsm_prestige_flat ) × (1 + modifier@bsm_prestige_factor)
+#   bsm_prestige_flat/factor は idea・focus・event が付与する(Vic3の tier基礎値 / tech +%)。
 bsm_prestige_compute = {
+	# 国家tier base(将来は政体で段階化)
+	set_temp_variable = { temp_prestige_tier = 0 }
+	if = { limit = { is_major = yes }  set_temp_variable = { temp_prestige_tier = 50 } }
 	set_variable = {
 		bsm_prestige = {
-			value = bsm_gdp_real                     multiply = 0.2    # 経済(Vic3: GDP主軸。属国GDP加算は将来)
-			add = { value = num_battalions           multiply = 0.5 }  # 陸軍 power projection
-			add = { value = num_ships                multiply = 3 }    # 海軍 power projection(Vic3: 海軍は効率高)
-			add = { value = num_subjects             multiply = 20 }   # 従属(覇権)
-			add = { value = num_researched_technologies multiply = 0.5 } # 技術
+			value = @bsm_prestige_base                                       # 基礎値
+			add = temp_prestige_tier                                         # 国家tier
+			add = { value = bsm_gdp_real             multiply = 0.2 }        # 経済(Vic3: GDP主軸)
+			add = { value = num_battalions           multiply = 0.5 }        # 陸軍 power projection
+			add = { value = num_ships                multiply = 3 }          # 海軍 power projection
+			add = { value = num_subjects             multiply = 20 }         # 従属(覇権)
+			add = { value = num_researched_technologies multiply = 0.5 }     # 技術
+			add = modifier@bsm_prestige_flat                                 # idea/event の固定 +/-
+			multiply = { value = 1  add = modifier@bsm_prestige_factor }     # idea/event の % +/-
 		}
 	}
-	if = { limit = { is_major = yes }  add_to_variable = { bsm_prestige = 50 } }  # 国家tier base
 	clamp_variable = { var = bsm_prestige  min = 0  max = 1000000 }
 }
 
