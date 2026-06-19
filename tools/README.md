@@ -62,7 +62,22 @@ next steps to grow coverage (see the test-coverage analysis):
 
 - focus-tree reachability (no unreachable or cyclic `prerequisite` focuses);
 - per-entity localisation coverage (every focus/idea/event/decision id resolves
-  to a key), building on `loc_coverage.py`;
-- native in-engine [Scripted Event Test Bundles](../bakasekai/tests/_documentation.info)
-  for AI / focus-tree regression testing (currently all empty) — these assert
-  alt-history gameplay outcomes and need mod-specific design before authoring.
+  to a key), building on `loc_coverage.py`.
+
+## Native in-engine tests (`bakasekai/tests/`)
+
+[Scripted Event Test Bundles](../bakasekai/tests/_documentation.info) that the
+HOI4 engine runs in automated test mode (results go to
+`logs/tests/tests_<timestamp>.log`). These complement the static checks by
+asserting *runtime* outcomes:
+
+- one **opening-phase survival** bundle per major nation slot (`germany.txt`,
+  `france.txt`, … → the re-assigned GER/FRA/… tags): fails only if the nation
+  capitulates in the first ~5 months, catching broken history/AI/state setups;
+- `bsm_featured_majors.txt`: every country highlighted in the 1936 bookmark
+  must spawn (`exists`) and survive the opening months;
+- `test_AI.txt`: a harness self-check confirming the scenario boots.
+
+Assertions are deliberately conservative so they never false-fail under normal
+play. Add tighter, scenario-specific assertions (e.g. expected wars/formables)
+as the alt-history design solidifies.

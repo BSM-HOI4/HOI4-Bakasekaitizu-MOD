@@ -1,0 +1,27 @@
+# China slot (CHI) — opening-phase smoke test.
+# Native HOI4 scripted test bundle. Run with automated test mode; results go to
+# logs/tests/tests_<timestamp>.log. Syntax reference: _documentation.info.
+#
+# NOTE: this is an alt-history mod, so the CHI tag is a re-assigned nation, not
+# the historical country the file name suggests. The assertion below is
+# deliberately conservative (no capitulation in the first ~5 months) so it never
+# false-fails under normal play, while still catching a nation that collapses
+# instantly due to a broken history/AI/state setup.
+
+last_date = "1936.7.1"
+
+tests = {
+	CHI_survives_opening = {
+		acceptable_fail_rate = 0
+
+		success = {
+			date > "1936.6.1"
+		}
+
+		fail = {
+			CHI = { has_capitulated = yes }
+		}
+
+		run_count = 1
+	}
+}

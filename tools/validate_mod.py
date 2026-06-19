@@ -69,7 +69,7 @@ def write_step_summary() -> None:
 
 
 # Directories that contain Paradox script (where brace balance matters).
-SCRIPT_DIRS = ["common", "events", "history", "map"]
+SCRIPT_DIRS = ["common", "events", "history", "map", "tests"]
 
 errors: list[str] = []
 warnings: list[str] = []
