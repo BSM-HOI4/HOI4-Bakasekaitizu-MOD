@@ -62,4 +62,12 @@ bsm_prestige_assign_rank = {
 	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.499 } }  set_variable = { bsm_prestige_rank = 3 }  add_to_variable = { global.bsm_rank_cnt_3 = 1 } }  # 中堅国
 	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.199 } }  set_variable = { bsm_prestige_rank = 2 }  add_to_variable = { global.bsm_rank_cnt_2 = 1 } }  # 小国
 	else =    { set_variable = { bsm_prestige_rank = 1 }  add_to_variable = { global.bsm_rank_cnt_1 = 1 } }                                                                            # 弱小国
+
+	# rank連動 modifier 値(中堅rank3を基準に、高ランク+/低ランク−)。var: を bsm_prestige_modifier が読む。
+	set_variable = { bsm_prestige_pp_factor   = { value = bsm_prestige_rank  subtract = 3  multiply = 0.05 } }   # 7超大国+0.20 … 3中堅0 … 1弱小-0.10
+	set_variable = { bsm_prestige_stab_factor = { value = bsm_prestige_rank  subtract = 3  multiply = 0.02 } }   # 7超大国+0.08 … 3中堅0 … 1弱小-0.04
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = bsm_prestige_modifier } } }
+		add_dynamic_modifier = { modifier = bsm_prestige_modifier }
+	}
 }

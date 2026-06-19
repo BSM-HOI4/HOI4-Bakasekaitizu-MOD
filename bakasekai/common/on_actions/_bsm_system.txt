@@ -395,10 +395,16 @@ on_actions = {
             every_country = {
                 bsm_nc_monthly_update = yes
                 bsm_econ_update_gdp = yes  # GDP(System A): NCS月次の per-country パスに相乗り(全国ループ重複を回避)
+                bsm_prestige_compute = yes # 威信(System C): 同パスでパワー合算も計算(GDPの後)
             }
             every_country = {
                 bsm_nc_currency_union_monthly = yes
             }
+
+            # 威信(System C) 月次: 世界平均 → 全国ランク判定 + rank連動modifier更新
+            bsm_prestige_update_world = yes
+            every_country = { bsm_prestige_assign_rank = yes }
+
             mine_on_monthly = yes #鉱山 月毎処理
 
             # Stellaris Elements - Monthly Update
