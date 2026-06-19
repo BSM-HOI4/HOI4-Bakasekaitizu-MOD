@@ -1,15 +1,15 @@
 # =====================================================================
-# 威信 (System C) — Victoria 3 型 prestige
+# 威信 (System C) — Victoria 3 型 prestige + 7段階 国家ランク
 # 設計: documents/00_coding_contexts/bsm_economic_systems_design.md §5
 #
-# Vic3に倣い、威信は「経済+軍事+外交(tier/従属)のパワー合算」。評判(opinion)は使わない。
-# ランクは絶対値でなく【世界平均との相対倍率】で決まる(列強≥5× / 大国≥2.5× / 非主要≥0.6× / 小国)。
+# 威信 = パワー合算(経済+軍事+tier+従属)。評判(opinion)は使わない(Vic3は別軸)。
+# ランクは絶対値でなく【世界平均との相対倍率】で7段階に分類:
+#   7 超大国(≥8×) / 6 列強(≥5×) / 5 大国(≥2.5×) / 4 地域大国(≥1.0×)
+#   3 中堅国(≥0.5×) / 2 小国(≥0.2×) / 1 弱小国(<0.2×)
+#   ※閾値は probe の world_avg/分布で要較正。表示名は GetBsmPrestigeRankName(scripted_loc)。
 #
-# 月次3フェーズ: (1)全国 bsm_prestige_compute → (2)bsm_prestige_update_world(世界平均) →
-#   (3)全国 bsm_prestige_assign_rank。compute は GDP の後(bsm_gdp_real を読む)。
-# 注意: world平均は every_collection で「保存変数 bsm_prestige」を集約する。組み込み変数(num_of_factories)
-#   での集約は実機検証済みだが、script変数の集約可否は probe の world_avg で要確認(0や異常なら
-#   every_collection_element+global蓄積へフォールバック)。
+# 月次3フェーズ: (1)全国 bsm_prestige_compute → (2)bsm_prestige_update_world(平均+分布リセット)
+#   → (3)全国 bsm_prestige_assign_rank(rank判定+分布カウント)。compute は GDP の後。
 # =====================================================================
 
 # (1) 自国の威信 = パワー合算(Vic3型)。GDPの後に呼ぶこと。
@@ -27,7 +27,7 @@ bsm_prestige_compute = {
 	clamp_variable = { var = bsm_prestige  min = 0  max = 1000000 }
 }
 
-# (2) 世界平均威信(global)。Vic3のランク基準。全国 compute 後に1回。
+# (2) 世界平均威信 + ランク分布カウンタのリセット(global)。全国 compute 後に1回。
 bsm_prestige_update_world = {
 	set_variable = { global.bsm_prestige_sum = { value = 0  every_collection = { named_collection = bsm_world_countries  add = bsm_prestige } } }
 	set_variable = { global.bsm_prestige_cnt = { value = 0  every_collection = { named_collection = bsm_world_countries  add = 1 } } }
@@ -37,9 +37,17 @@ bsm_prestige_update_world = {
 			divide = { value = global.bsm_prestige_cnt  max = 1 }
 		}
 	}
+	# ランク分布カウンタ(assign_rank で積み上げる)をリセット
+	set_variable = { global.bsm_rank_cnt_1 = 0 }
+	set_variable = { global.bsm_rank_cnt_2 = 0 }
+	set_variable = { global.bsm_rank_cnt_3 = 0 }
+	set_variable = { global.bsm_rank_cnt_4 = 0 }
+	set_variable = { global.bsm_rank_cnt_5 = 0 }
+	set_variable = { global.bsm_rank_cnt_6 = 0 }
+	set_variable = { global.bsm_rank_cnt_7 = 0 }
 }
 
-# (3) ランク判定: 世界平均の倍率で 4=列強(≥5×) / 3=大国(≥2.5×) / 2=非主要国(≥0.6×) / 1=小国
+# (3) ランク判定(7段階) + 分布カウント。世界平均比で分類。
 bsm_prestige_assign_rank = {
 	set_variable = {
 		bsm_prestige_ratio = {
@@ -47,8 +55,11 @@ bsm_prestige_assign_rank = {
 			divide = { value = global.bsm_prestige_world_avg  max = 0.01 }
 		}
 	}
-	if =      { limit = { check_variable = { var = bsm_prestige_ratio  value > 4.999 } }  set_variable = { bsm_prestige_rank = 4 } }
-	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 2.499 } }  set_variable = { bsm_prestige_rank = 3 } }
-	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.599 } }  set_variable = { bsm_prestige_rank = 2 } }
-	else =    { set_variable = { bsm_prestige_rank = 1 } }
+	if =      { limit = { check_variable = { var = bsm_prestige_ratio  value > 7.999 } }  set_variable = { bsm_prestige_rank = 7 }  add_to_variable = { global.bsm_rank_cnt_7 = 1 } }  # 超大国
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 4.999 } }  set_variable = { bsm_prestige_rank = 6 }  add_to_variable = { global.bsm_rank_cnt_6 = 1 } }  # 列強
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 2.499 } }  set_variable = { bsm_prestige_rank = 5 }  add_to_variable = { global.bsm_rank_cnt_5 = 1 } }  # 大国
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.999 } }  set_variable = { bsm_prestige_rank = 4 }  add_to_variable = { global.bsm_rank_cnt_4 = 1 } }  # 地域大国
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.499 } }  set_variable = { bsm_prestige_rank = 3 }  add_to_variable = { global.bsm_rank_cnt_3 = 1 } }  # 中堅国
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.199 } }  set_variable = { bsm_prestige_rank = 2 }  add_to_variable = { global.bsm_rank_cnt_2 = 1 } }  # 小国
+	else =    { set_variable = { bsm_prestige_rank = 1 }  add_to_variable = { global.bsm_rank_cnt_1 = 1 } }                                                                            # 弱小国
 }
