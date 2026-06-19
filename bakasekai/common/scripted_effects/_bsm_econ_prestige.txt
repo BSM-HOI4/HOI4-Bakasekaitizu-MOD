@@ -80,4 +80,16 @@ bsm_prestige_assign_rank = {
 		limit = { NOT = { has_dynamic_modifier = { modifier = bsm_prestige_modifier } } }
 		add_dynamic_modifier = { modifier = bsm_prestige_modifier }
 	}
+
+	# 世界ランキング順位(1=最高威信)= 自分より威信が高い国の数 + 1。GUIの丸バッジに表示。
+	set_variable = { global.bsm_pos_threshold = bsm_prestige }
+	set_variable = {
+		bsm_prestige_position = {
+			value = 1
+			every_collection = {
+				named_collection = bsm_world_countries
+				if = { limit = { value = bsm_prestige  greater_than = global.bsm_pos_threshold }  add = 1 }
+			}
+		}
+	}
 }
