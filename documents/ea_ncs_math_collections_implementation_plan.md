@@ -34,6 +34,7 @@ HOI4 の新機能である Math Expressions と Collections を活用し、既�
 | F5 | EA投資AIのスコア制 | 高 | Phase 4 |
 | F6 | 通貨バスケット制度 | 中 | Phase 6 |
 | F7 | EA/NCSダッシュボード用 Collections | 高 | Phase 1-2 |
+| F8 | GDP基盤（全指標の分母） | 高 | Phase 0.5 |
 
 ## Phase 0: 事前整理
 
@@ -64,6 +65,37 @@ HOI4 の新機能である Math Expressions と Collections を活用し、既�
 - ローカライズ内の国変数は原則 `[?ROOT.variable]` とする
 - `scripted_triggers` 内では `set_temp_variable` などの effect を使わない
 - Collections は `collections:` / `collection:` プレフィックスを厳密に使い分ける
+
+## Phase 0.5: GDP基盤（F8）
+
+詳細設計は `documents/00_coding_contexts/bsm_economic_systems_design.md` §3。本計画では「F1統合度・F5投資の**分母**」として GDP を先に用意することだけ確定する。
+
+### 目的
+
+統合度・投資必要度・準備金拠出を絶対値（UC額・工場数）でなく **GDP比** で表し、極端な国でも 0–100 / 0–1 に収めてオーバーフローとクランプ調整を減らす。
+
+### 実装する変数 / effect
+
+| 変数 | スコープ | 用途 |
+|---|---|---|
+| `bsm_gdp_real` | 加盟国/全国 | 実質GDP（スケール済み） |
+| `bsm_gdp_last` | 加盟国/全国 | 前月値（成長率算出用） |
+| `bsm_resource_value` | 加盟国/全国 | 自国資源産出額（スポット価格×産出, 価格未実装時は固定単価） |
+
+- effect `bsm_econ_update_gdp`（country）: 上記設計 §3.1 の数式で `bsm_gdp_real` を更新し、末尾で `bsm_gdp_last` を退避。
+- 接続: `bsm_ea_monthly_update` のスフィアループ内、`bsm_ea_update_sphere_metrics` の**前**に各加盟国で呼ぶ（統合度・投資スコアが当月GDPを読めるようにする）。
+
+### F1/F5 への供給
+
+- F1 統合度: `member_count * 6` の規模項を `Σ member GDP` ベースに置換可能（任意）。
+- F5 投資必要度: `max(100 - Unified_Currency, 0)` を `max(基準GDP比 - 自国GDP比, 0)` に拡張可能（任意）。
+- まずは GDP を**保存・表示するだけ**でも可。式の置換は段階的に。
+
+### 検証
+
+- 加盟国0/1/複数で `bsm_gdp_real` がエラーなく 0–1000000 に収まること
+- `bsm_gdp_last` 退避で成長率が NaN/極端値にならないこと（0除算は `+1` 保険）
+- 価格未実装の段階では `bsm_resource_value` を固定単価でフォールバックできること
 
 ## Phase 1: EA/NCS Collections 基盤とEA統合度スコア
 
@@ -448,7 +480,7 @@ new_rate =
 
 ## 実装順序
 
-1. `collections.txt` にNCS/EA用collectionを追加
+1. `collections.txt` にNCS/EA用collectionを追加 ／ **GDP基盤 `bsm_gdp_real`（F8, Phase 0.5）を実装し F1統合度・F5投資の分母に供給**
 2. `bsm_ea_metrics_effects.txt` を新規作成し、統合度・危機カウント・平均値を実装
 3. `bsm_ea_monthly_update` に指標更新を接続
 4. NCS通貨危機伝播とEA危機圧力を接続
