@@ -189,22 +189,28 @@ guiTypes = {
 		# bsm_topbar の player_context 上にあるので [?ROOT.var] / [ROOT.GetX] が昇格する。位置は微調整可。
 		containerWindowType = {
 			name = "bsm_prestige_badge_window"
-			position = { x = 60 y = 38 }
-			size = { width = 38 height = 38 }
+			position = { x = 74 y = 46 }
+			size = { width = 20 height = 20 }
 			Orientation = UPPER_LEFT
 
-			background = {
-				name = "bsm_prestige_badge_bg"
-				quadTextureSprite = "GFX_generic_circle_background"
+			# 丸 + tooltip。UC topbar に倣い buttonType に pdx_tooltip を付ける([?ROOT.var] が昇格する)。
+			buttonType = {
+				name = "bsm_prestige_badge_button"
+				position = { x = 0 y = 0 }
+				quadTextureSprite = "GFX_bsm_prestige_circle"
+				Orientation = "UPPER_LEFT"
+				scale = 0.62
 				pdx_tooltip = "bsm_prestige_badge_tt"
 			}
+			# 順位番号。instantTextBox は size={} 不可 → maxWidth/maxHeight(L204 エラー回避)。
 			instantTextBoxType = {
 				name = "bsm_prestige_badge_num"
-				position = { x = 0 y = 9 }
-				size = { width = 38 height = 22 }
+				position = { x = 0 y = 1 }
 				font = "vanilla_hoi_18mbs"
 				text = "[?bsm_prestige_position|0]"
 				format = centre
+				maxWidth = 20
+				maxHeight = 18
 				alwaystransparent = yes
 			}
 		}
