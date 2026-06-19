@@ -381,6 +381,14 @@ on_actions = {
             add_to_variable = { global.month = 1 }
 
             ucs_on_monthly = yes #通貨 月毎処理
+
+            # GDP(System A) 月次更新。ucs_on_monthly は per-country ループではない(UCに every_country 無し)ため、
+            # 共有ループに相乗りできない。NCS月次と同じく独立の every_country で全国計算する。
+            # GDPの州集約(for_each_scope_loop)は1国1回/月。monthly は hot path でないので許容(要profiler確認)。
+            every_country = {
+                bsm_econ_update_gdp = yes
+            }
+
             # 経済同盟内の generic通貨国へ最強通貨を流通 (レート計算前)
             every_country = {
                 bsm_nc_leader_apply_strongest = yes
