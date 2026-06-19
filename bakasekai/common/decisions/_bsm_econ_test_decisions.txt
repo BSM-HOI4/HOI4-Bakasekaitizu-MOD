@@ -1,0 +1,22 @@
+# GDP基盤(System A) 検証用ディシジョン
+# 既存の bsm_ea_test_category を再利用。bsm_econ_update_gdp を実行し [BSM_GDP] を game.log に出力する。
+
+bsm_ea_test_category = {
+
+	bsm_econ_test_gdp_probe = {
+		icon = GFX_decision_generic_political_discourse
+
+		available = { always = yes }
+		visible = { always = yes }
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			bsm_econ_update_gdp = yes
+			log = "[BSM_GDP] ([ROOT.GetName]) gdp_real=[?bsm_gdp_real|1] resource_value=[?bsm_resource_value|1] prod_factor=[?bsm_productivity_factor|3] growth%=[?bsm_gdp_growth_pct|2] | civ=[?num_of_civilian_factories|0] mil=[?num_of_military_factories|0] nav=[?num_of_naval_factories|0] mp_k=[?max_manpower_k|0] tech=[?num_researched_technologies|0]"
+		}
+
+		ai_will_do = { factor = 0 }
+	}
+}

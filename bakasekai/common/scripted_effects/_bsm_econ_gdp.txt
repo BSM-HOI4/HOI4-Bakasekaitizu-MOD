@@ -1,0 +1,66 @@
+# =====================================================================
+# GDP基盤 (System A) — 経済指標の分母
+# 設計: documents/00_coding_contexts/bsm_economic_systems_design.md §3
+# 計画: documents/ea_ncs_math_collections_implementation_plan.md Phase 0.5 (F8)
+#
+# 全て country スコープの自国読みのみ(every_collection 不要・固定小数オーバーフロー対策で clamp 済)。
+# V1: 資源は固定単価、生産性は技術数ベース。スポット価格(System B)実装後に bsm_resource_value を置換する。
+# パフォーマンス: 現状は decision 起動(プレイヤーのみ)。on_monthly へ接続する際は早期 return を足すこと。
+# =====================================================================
+
+bsm_econ_update_gdp = {
+	# 前月値を退避(成長率算出用)。初回は未定義=0。
+	set_variable = { bsm_gdp_last = bsm_gdp_real }
+
+	# 資源産出額(V1: 固定単価。System B のスポット価格で置換予定)
+	set_variable = {
+		bsm_resource_value = {
+			value = 0
+			add = { value = resource_produced@steel     multiply = 1 }
+			add = { value = resource_produced@aluminium multiply = 1.5 }
+			add = { value = resource_produced@chromium  multiply = 2 }
+			add = { value = resource_produced@tungsten  multiply = 3 }
+			add = { value = resource_produced@oil       multiply = 2 }
+			add = { value = resource_produced@rubber    multiply = 3 }
+		}
+	}
+
+	# 生産性係数(V1: 技術数ベース。下限0.5 / 上限2.0)
+	set_variable = {
+		bsm_productivity_factor = {
+			value = num_researched_technologies
+			multiply = 0.01
+			add = 0.7
+			clamp = { min = 0.5 max = 2.0 }
+		}
+	}
+
+	# 実質GDP(スケール済み): 工場 + 資源額 + 人口(サービス代理) を生産性で補正
+	set_variable = {
+		bsm_gdp_real = {
+			value = num_of_civilian_factories  multiply = 3
+			add = { value = num_of_military_factories multiply = 2 }
+			add = { value = num_of_naval_factories    multiply = 2 }
+			add = bsm_resource_value
+			add = { value = max_manpower_k multiply = 0.02 }
+			multiply = bsm_productivity_factor
+			clamp = { min = 0 max = 1000000 }
+		}
+	}
+
+	# 成長率%(前月0=初月は0扱い。0除算は +1 で保険)
+	if = {
+		limit = { check_variable = { var = bsm_gdp_last value > 0.999 } }
+		set_variable = {
+			bsm_gdp_growth_pct = {
+				value = bsm_gdp_real
+				subtract = bsm_gdp_last
+				divide = { value = bsm_gdp_last add = 1 }
+				multiply = 100
+			}
+		}
+	}
+	else = {
+		set_variable = { bsm_gdp_growth_pct = 0 }
+	}
+}
