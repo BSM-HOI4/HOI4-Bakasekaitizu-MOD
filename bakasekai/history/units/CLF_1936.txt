@@ -1,0 +1,98 @@
+division_template = {
+  name = "Infantry Division"
+  regiments = {
+    infantry = { x = 0 y = 0 }
+    infantry = { x = 0 y = 1 }
+    infantry = { x = 0 y = 2 }
+    infantry = { x = 1 y = 0 }
+    infantry = { x = 1 y = 1 }
+    infantry = { x = 1 y = 2 }
+    infantry = { x = 2 y = 0 }
+    infantry = { x = 2 y = 1 }
+    infantry = { x = 2 y = 2 }
+  }
+  support = {
+    engineer = { x = 0 y = 0 }
+    recon = { x = 0 y = 1 }
+  }
+}
+
+units = {
+  division = {
+    name = "1st Infantry Division"
+    location = 4860
+    division_template = "Infantry Division"
+    start_experience_factor = 0.1
+    start_equipment_factor = 0.6
+  }
+  division = {
+    name = "2nd Infantry Division"
+    location = 4860
+    division_template = "Infantry Division"
+    start_experience_factor = 0.1
+    start_equipment_factor = 0.6
+  }
+  division = {
+    name = "3rd Infantry Division"
+    location = 7315
+    division_template = "Infantry Division"
+    start_experience_factor = 0.1
+    start_equipment_factor = 0.6
+  }
+  division = {
+    name = "4th Infantry Division"
+    location = 1690
+    division_template = "Infantry Division"
+    start_experience_factor = 0.1
+    start_equipment_factor = 0.6
+  }
+}
+
+division_template = {
+  name = "Golden Bear Armored Group"
+  regiments = {
+    light_armor = { x = 0 y = 0 }
+    motorized = { x = 1 y = 0 }
+    motorized = { x = 1 y = 1 }
+    motorized = { x = 2 y = 0 }
+  }
+  support = {
+    engineer = { x = 0 y = 0 }
+    recon = { x = 0 y = 1 }
+  }
+}
+
+units = {
+  division = {
+    name = "1st Golden Bear Armored Group"
+    location = 4860
+    division_template = "Golden Bear Armored Group"
+    start_experience_factor = 0.25
+    start_equipment_factor = 0.65
+  }
+}
+
+instant_effect = {
+  if = {
+    limit = { has_dlc = "No Step Back" }
+    add_equipment_production = {
+      equipment = {
+        type = light_tank_chassis_0
+        creator = "CLF"
+        version_name = "Scout Tankette"
+      }
+      requested_factories = 1
+      progress = 0.2
+      efficiency = 50
+    }
+  }
+  add_equipment_production = {
+    equipment = {
+      type = motorized_equipment_1
+      creator = "CLF"
+    }
+    requested_factories = 1
+    progress = 0.2
+    efficiency = 50
+  }
+}
