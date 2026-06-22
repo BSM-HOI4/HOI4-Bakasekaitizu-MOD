@@ -46,3 +46,22 @@ mercenary_system_init = {
 	set_variable = { MS_sum_num = 0 }
 	set_variable = { mercenary_maintenance = 0 }
 }
+
+# 中小国救済: 傭兵・金経済システムを中小国へ開放する初期設定
+# Mercenary_System_Allowed フラグで金変換・傭兵雇用・金装備購入ディシジョンが解禁される
+mercenary_minor_relief_setup = {
+	set_country_flag = Mercenary_System_Allowed
+	set_variable = { MS_sum_num = 0 }
+	set_variable = { mercenary_maintenance = 0 }
+	# 国家規模に応じた傭兵雇用上限（中小国ほど手厚く救済する）
+	set_variable = { MS_max = 6 }
+	if = {
+		# 極小国（首都州しか持たないような国）はより多くの傭兵を雇用可能
+		limit = { num_of_controlled_states < 3 }
+		set_variable = { MS_max = 10 }
+	}
+	else_if = {
+		limit = { num_of_controlled_states < 8 }
+		set_variable = { MS_max = 8 }
+	}
+}
