@@ -1,0 +1,95 @@
+# =====================================================================
+# 威信 (System C) — Victoria 3 型 prestige + 7段階 国家ランク
+# 設計: documents/00_coding_contexts/bsm_economic_systems_design.md §5
+#
+# 威信 = パワー合算(経済+軍事+tier+従属)。評判(opinion)は使わない(Vic3は別軸)。
+# ランクは絶対値でなく【世界平均との相対倍率】で7段階に分類:
+#   7 超大国(≥8×) / 6 列強(≥5×) / 5 大国(≥2.5×) / 4 地域大国(≥1.0×)
+#   3 中堅国(≥0.5×) / 2 小国(≥0.2×) / 1 弱小国(<0.2×)
+#   ※閾値は probe の world_avg/分布で要較正。表示名は GetBsmPrestigeRankName(scripted_loc)。
+#
+# 月次3フェーズ: (1)全国 bsm_prestige_compute → (2)bsm_prestige_update_world(平均+分布リセット)
+#   → (3)全国 bsm_prestige_assign_rank(rank判定+分布カウント)。compute は GDP の後。
+# =====================================================================
+
+@bsm_prestige_base = 10   # 威信の基礎値(全国共通の下駄。tune可)
+
+# (1) 自国の威信 = 基礎値 + tier + パワー合算 + modifier。GDPの後に呼ぶこと。
+#   威信 = ( 基礎 + tier + GDP/陸/海/従属/技術 + modifier@bsm_prestige_flat ) × (1 + modifier@bsm_prestige_factor)
+#   bsm_prestige_flat/factor は idea・focus・event が付与する(Vic3の tier基礎値 / tech +%)。
+bsm_prestige_compute = {
+	# 国家tier base(将来は政体で段階化)
+	set_temp_variable = { temp_prestige_tier = 0 }
+	if = { limit = { is_major = yes }  set_temp_variable = { temp_prestige_tier = 50 } }
+	set_variable = {
+		bsm_prestige = {
+			value = @bsm_prestige_base                                       # 基礎値
+			add = temp_prestige_tier                                         # 国家tier
+			add = { value = bsm_gdp_real             multiply = 0.2 }        # 経済(Vic3: GDP主軸)
+			add = { value = num_battalions           multiply = 0.5 }        # 陸軍 power projection
+			add = { value = num_ships                multiply = 3 }          # 海軍 power projection
+			add = { value = num_subjects             multiply = 20 }         # 従属(覇権)
+			add = { value = num_researched_technologies multiply = 0.5 }     # 技術
+			add = modifier@bsm_prestige_flat                                 # idea/event の固定 +/-
+			multiply = { value = 1  add = modifier@bsm_prestige_factor }     # idea/event の % +/-
+		}
+	}
+	clamp_variable = { var = bsm_prestige  min = 0  max = 1000000 }
+}
+
+# (2) 世界平均威信 + ランク分布カウンタのリセット(global)。全国 compute 後に1回。
+bsm_prestige_update_world = {
+	set_variable = { global.bsm_prestige_sum = { value = 0  every_collection = { named_collection = bsm_world_countries  add = bsm_prestige } } }
+	set_variable = { global.bsm_prestige_cnt = { value = 0  every_collection = { named_collection = bsm_world_countries  add = 1 } } }
+	set_variable = {
+		global.bsm_prestige_world_avg = {
+			value = global.bsm_prestige_sum
+			divide = { value = global.bsm_prestige_cnt  max = 1 }
+		}
+	}
+	# ランク分布カウンタ(assign_rank で積み上げる)をリセット
+	set_variable = { global.bsm_rank_cnt_1 = 0 }
+	set_variable = { global.bsm_rank_cnt_2 = 0 }
+	set_variable = { global.bsm_rank_cnt_3 = 0 }
+	set_variable = { global.bsm_rank_cnt_4 = 0 }
+	set_variable = { global.bsm_rank_cnt_5 = 0 }
+	set_variable = { global.bsm_rank_cnt_6 = 0 }
+	set_variable = { global.bsm_rank_cnt_7 = 0 }
+}
+
+# (3) ランク判定(7段階) + 分布カウント。世界平均比で分類。
+bsm_prestige_assign_rank = {
+	set_variable = {
+		bsm_prestige_ratio = {
+			value = bsm_prestige
+			divide = { value = global.bsm_prestige_world_avg  max = 0.01 }
+		}
+	}
+	if =      { limit = { check_variable = { var = bsm_prestige_ratio  value > 7.999 } }  set_variable = { bsm_prestige_rank = 7 }  add_to_variable = { global.bsm_rank_cnt_7 = 1 } }  # 超大国
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 4.999 } }  set_variable = { bsm_prestige_rank = 6 }  add_to_variable = { global.bsm_rank_cnt_6 = 1 } }  # 列強
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 2.499 } }  set_variable = { bsm_prestige_rank = 5 }  add_to_variable = { global.bsm_rank_cnt_5 = 1 } }  # 大国
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.999 } }  set_variable = { bsm_prestige_rank = 4 }  add_to_variable = { global.bsm_rank_cnt_4 = 1 } }  # 地域大国
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.499 } }  set_variable = { bsm_prestige_rank = 3 }  add_to_variable = { global.bsm_rank_cnt_3 = 1 } }  # 中堅国
+	else_if = { limit = { check_variable = { var = bsm_prestige_ratio  value > 0.199 } }  set_variable = { bsm_prestige_rank = 2 }  add_to_variable = { global.bsm_rank_cnt_2 = 1 } }  # 小国
+	else =    { set_variable = { bsm_prestige_rank = 1 }  add_to_variable = { global.bsm_rank_cnt_1 = 1 } }                                                                            # 弱小国
+
+	# rank連動 modifier 値(中堅rank3を基準に、高ランク+/低ランク−)。var: を bsm_prestige_modifier が読む。
+	set_variable = { bsm_prestige_pp_factor   = { value = bsm_prestige_rank  subtract = 3  multiply = 0.05 } }   # 7超大国+0.20 … 3中堅0 … 1弱小-0.10
+	set_variable = { bsm_prestige_stab_factor = { value = bsm_prestige_rank  subtract = 3  multiply = 0.02 } }   # 7超大国+0.08 … 3中堅0 … 1弱小-0.04
+	if = {
+		limit = { NOT = { has_dynamic_modifier = { modifier = bsm_prestige_modifier } } }
+		add_dynamic_modifier = { modifier = bsm_prestige_modifier }
+	}
+
+	# 世界ランキング順位(1=最高威信)= 自分より威信が高い国の数 + 1。GUIの丸バッジに表示。
+	set_variable = { global.bsm_pos_threshold = bsm_prestige }
+	set_variable = {
+		bsm_prestige_position = {
+			value = 1
+			every_collection = {
+				named_collection = bsm_world_countries
+				if = { limit = { value = bsm_prestige  greater_than = global.bsm_pos_threshold }  add = 1 }
+			}
+		}
+	}
+}

@@ -612,6 +612,9 @@ bsm_ea_refresh_selection_data = {
 	set_variable = { bsm_ea_goal_04_active = 0 }
 	set_variable = { bsm_ea_goal_05_active = 0 }
 	set_variable = { bsm_ea_goal_06_active = 0 }
+	set_variable = { bsm_ea_goal_07_active = 0 }
+	set_variable = { bsm_ea_goal_08_active = 0 }
+	set_variable = { bsm_ea_goal_09_active = 0 }
 
 	set_variable = { bsm_ea_goal_01_available = 0 }
 	set_variable = { bsm_ea_goal_02_available = 0 }
@@ -619,6 +622,9 @@ bsm_ea_refresh_selection_data = {
 	set_variable = { bsm_ea_goal_04_available = 0 }
 	set_variable = { bsm_ea_goal_05_available = 0 }
 	set_variable = { bsm_ea_goal_06_available = 0 }
+	set_variable = { bsm_ea_goal_07_available = 0 }
+	set_variable = { bsm_ea_goal_08_available = 0 }
+	set_variable = { bsm_ea_goal_09_available = 0 }
 
 	set_variable = { bsm_ea_gui_vote_active = 0 }
 	set_variable = { bsm_ea_gui_vote_days = 0 }
@@ -666,6 +672,9 @@ bsm_ea_refresh_selection_data = {
 			if = { limit = { has_idea = bsm_ea_goal_04_market } set_variable = { PREV.bsm_ea_goal_04_active = 1 } }
 			if = { limit = { has_idea = bsm_ea_goal_05_union } set_variable = { PREV.bsm_ea_goal_05_active = 1 } }
 			if = { limit = { has_idea = bsm_ea_goal_06_tech_sharing } set_variable = { PREV.bsm_ea_goal_06_active = 1 } }
+			if = { limit = { has_idea = bsm_ea_goal_07_resource_security } set_variable = { PREV.bsm_ea_goal_07_active = 1 } }
+			if = { limit = { has_idea = bsm_ea_goal_08_strategic_stockpile } set_variable = { PREV.bsm_ea_goal_08_active = 1 } }
+			if = { limit = { has_idea = bsm_ea_goal_09_energy_settlement } set_variable = { PREV.bsm_ea_goal_09_active = 1 } }
 
 			# 投票状態の転送
 			if = {
@@ -685,6 +694,9 @@ bsm_ea_refresh_selection_data = {
 		if = { limit = { check_variable = { bsm_ea_selected_maturity > 2 } check_variable = { bsm_ea_goal_06_active = 0 } } set_variable = { bsm_ea_goal_06_available = 1 } }
 		if = { limit = { check_variable = { bsm_ea_selected_maturity > 3 } check_variable = { bsm_ea_goal_04_active = 0 } } set_variable = { bsm_ea_goal_04_available = 1 } }
 		if = { limit = { check_variable = { bsm_ea_selected_maturity > 4 } check_variable = { bsm_ea_goal_05_active = 0 } } set_variable = { bsm_ea_goal_05_available = 1 } }
+		if = { limit = { check_variable = { bsm_ea_selected_maturity > 1 } check_variable = { bsm_ea_goal_07_active = 0 } } set_variable = { bsm_ea_goal_07_available = 1 } }
+		if = { limit = { check_variable = { bsm_ea_selected_maturity > 2 } check_variable = { bsm_ea_goal_08_active = 0 } } set_variable = { bsm_ea_goal_08_available = 1 } }
+		if = { limit = { check_variable = { bsm_ea_selected_maturity > 3 } check_variable = { bsm_ea_goal_09_active = 0 } } set_variable = { bsm_ea_goal_09_available = 1 } }
 	}
 }
 
@@ -708,6 +720,20 @@ bsm_ea_monthly_update = {
 		value = v_token
 		set_temp_variable = { bsm_ea_token = var:v_token }
 		bsm_ea_update_sphere_metrics = yes
+		# 指標更新 (統合度・危機圧力・平均値) Math Expressions 活用
+		bsm_ea_update_metrics = yes
+		# 危機伝播効果の適用 (加盟国ペナルティ + 警告イベント)
+		bsm_ea_apply_crisis_effects = yes
+		# 同盟準備金の月次拠出 (UC黒字国から)
+		bsm_ea_collect_reserve_uc = yes
+		# 同盟準備金による危機自動対応
+		bsm_ea_spend_reserve_for_crisis = yes
+		# 資源安全保障スコア更新
+		bsm_ea_update_resource_security_score = yes
+		# 通貨バスケット重み・レート更新 (Goal03通貨同盟時)
+		bsm_nc_update_basket_rate = yes
+		# バスケットレートへの収斂適用 (統合度70以上または準備金300以上)
+		bsm_nc_apply_basket_convergence = yes
 		# 全体方針アイデアの再適用 + 搾取方針の UC 徴収
 		bsm_ea_apply_policy = yes
 		bsm_ea_apply_policy_extraction = yes

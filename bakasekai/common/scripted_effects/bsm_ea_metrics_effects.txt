@@ -1,0 +1,837 @@
+# ==========================================
+# BSM 経済同盟: 指標計算 (Math Expressions / Collections 活用)
+# 入力: bsm_ea_token (temp)
+# bsm_ea_monthly_update の陣営ループから呼ばれる。
+# 盟主(^0)に統合度・平均値・危機圧力・準備金を保存する。
+# prefix: bsm_ea_update_*
+# ==========================================
+
+# ------------------------------------------
+# 加盟国平均値の更新
+#   bsm_ea_avg_trust, bsm_ea_avg_nc_stability
+#   bsm_ea_member_count
+# ------------------------------------------
+bsm_ea_update_alliance_averages = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_member_count = global.bsm_ea_member_list_@var:bsm_ea_token^num }
+		set_temp_variable = { t_trust_sum = 0 }
+		set_temp_variable = { t_nc_sum = 0 }
+		set_temp_variable = { t_nc_count = 0 }
+
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_member
+			var:v_member = {
+				if = {
+					limit = {
+						has_variable = bsm_ea_trust
+					}
+					add_to_temp_variable = { PREV.t_trust_sum = bsm_ea_trust }
+				}
+				if = {
+					limit = {
+						has_variable = bsm_nc_stability
+					}
+					add_to_temp_variable = { PREV.t_nc_sum = bsm_nc_stability }
+					add_to_temp_variable = { PREV.t_nc_count = 1 }
+				}
+			}
+		}
+
+		# 平均信頼度
+		if = {
+			limit = { check_variable = { t_member_count > 0 } }
+			set_temp_variable = {
+				var = t_avg_trust
+				value = { value = t_trust_sum  divide = t_member_count }
+			}
+		}
+		else = {
+			set_temp_variable = { t_avg_trust = 0 }
+		}
+
+		# 平均通貨安定度 (NC保有国のみ)
+		if = {
+			limit = { check_variable = { t_nc_count > 0 } }
+			set_temp_variable = {
+				var = t_avg_nc
+				value = { value = t_nc_sum  divide = t_nc_count }
+			}
+		}
+		else = {
+			set_temp_variable = { t_avg_nc = 0 }
+		}
+
+		# 盟主に保存
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		var:t_leader = {
+			set_variable = { bsm_ea_avg_trust = PREV.t_avg_trust }
+			set_variable = { bsm_ea_avg_nc_stability = PREV.t_avg_nc }
+			set_variable = { bsm_ea_member_count = PREV.t_member_count }
+		}
+	}
+}
+
+# ------------------------------------------
+# 危機カウントの更新
+#   bsm_ea_weak_currency_count
+#   bsm_ea_high_inflation_count
+#   bsm_ea_uc_deficit_count
+# ------------------------------------------
+bsm_ea_update_crisis_counts = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_weak = 0 }
+		set_temp_variable = { t_infl = 0 }
+		set_temp_variable = { t_deficit = 0 }
+
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_member
+			var:v_member = {
+				if = {
+					limit = {
+						has_variable = bsm_nc_strength_cat
+						check_variable = { bsm_nc_strength_cat = 2 }
+					}
+					add_to_temp_variable = { PREV.t_weak = 1 }
+				}
+				if = {
+					limit = {
+						has_variable = bsm_nc_inflation
+						check_variable = { bsm_nc_inflation > 15 }
+					}
+					add_to_temp_variable = { PREV.t_infl = 1 }
+				}
+				if = {
+					limit = {
+						has_variable = Unified_Currency
+						check_variable = { Unified_Currency < 0 }
+					}
+					add_to_temp_variable = { PREV.t_deficit = 1 }
+				}
+			}
+		}
+
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		var:t_leader = {
+			set_variable = { bsm_ea_weak_currency_count = PREV.t_weak }
+			set_variable = { bsm_ea_high_inflation_count = PREV.t_infl }
+			set_variable = { bsm_ea_uc_deficit_count = PREV.t_deficit }
+		}
+	}
+}
+
+# ------------------------------------------
+# 危機伝播圧力の更新
+#   pressure =
+#     weak_currency_count * 8
+#     + high_inflation_count * 12
+#     + uc_deficit_count * 10
+#     - integration_score(prev) * 0.15
+#     - reserve_uc / 100
+#   bsm_ea_monthly_update の sphere ループ内で
+#   bsm_ea_update_integration_score の前に呼ぶこと。
+# ------------------------------------------
+bsm_ea_update_crisis_pressure = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		set_temp_variable = { t_weak = 0 }
+		set_temp_variable = { t_infl = 0 }
+		set_temp_variable = { t_deficit = 0 }
+		set_temp_variable = { t_integ = 0 }
+		set_temp_variable = { t_reserve = 0 }
+		var:t_leader = {
+			if = { limit = { has_variable = bsm_ea_weak_currency_count } set_temp_variable = { PREV.t_weak = bsm_ea_weak_currency_count } }
+			if = { limit = { has_variable = bsm_ea_high_inflation_count } set_temp_variable = { PREV.t_infl = bsm_ea_high_inflation_count } }
+			if = { limit = { has_variable = bsm_ea_uc_deficit_count } set_temp_variable = { PREV.t_deficit = bsm_ea_uc_deficit_count } }
+			if = { limit = { has_variable = bsm_ea_integration_score } set_temp_variable = { PREV.t_integ = bsm_ea_integration_score } }
+			if = { limit = { has_variable = bsm_ea_reserve_uc } set_temp_variable = { PREV.t_reserve = bsm_ea_reserve_uc } }
+		}
+
+		set_temp_variable = {
+			var = t_pressure
+			value = {
+				value = 0
+				add = { value = t_weak  multiply = 8 }
+				add = { value = t_infl  multiply = 12 }
+				add = { value = t_deficit  multiply = 10 }
+				subtract = { value = t_integ  multiply = 0.15 }
+				subtract = { value = t_reserve  divide = 100 }
+				clamp = { min = 0 max = 100 }
+			}
+		}
+
+		var:t_leader = {
+			set_variable = { bsm_ea_crisis_pressure = PREV.t_pressure }
+		}
+	}
+}
+
+# ------------------------------------------
+# EA統合度スコアの更新
+#   integration =
+#     avg_trust * 0.35
+#     + avg_nc_stability * 0.25
+#     + min(member_count * 6, 30)
+#     + goal_count * 5
+#     - crisis_pressure * 0.30
+#     clamp 0-100
+# ------------------------------------------
+bsm_ea_update_integration_score = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		set_temp_variable = { t_avg_trust = 0 }
+		set_temp_variable = { t_avg_nc = 0 }
+		set_temp_variable = { t_mem = 0 }
+		set_temp_variable = { t_goal = 0 }
+		set_temp_variable = { t_pressure = 0 }
+		var:t_leader = {
+			if = { limit = { has_variable = bsm_ea_avg_trust } set_temp_variable = { PREV.t_avg_trust = bsm_ea_avg_trust } }
+			if = { limit = { has_variable = bsm_ea_avg_nc_stability } set_temp_variable = { PREV.t_avg_nc = bsm_ea_avg_nc_stability } }
+			if = { limit = { has_variable = bsm_ea_member_count } set_temp_variable = { PREV.t_mem = bsm_ea_member_count } }
+			if = { limit = { has_variable = bsm_ea_crisis_pressure } set_temp_variable = { PREV.t_pressure = bsm_ea_crisis_pressure } }
+		}
+		set_temp_variable = { t_goal = global.bsm_ea_goal_list_@var:bsm_ea_token^num }
+
+		set_temp_variable = {
+			var = t_score
+			value = {
+				value = 0
+				add = { value = t_avg_trust  multiply = 0.35 }
+				add = { value = t_avg_nc  multiply = 0.25 }
+				add = { value = t_mem  multiply = 6  max = 30 }
+				add = { value = t_goal  multiply = 5 }
+				subtract = { value = t_pressure  multiply = 0.30 }
+				clamp = { min = 0 max = 100 }
+			}
+		}
+
+		var:t_leader = {
+			set_variable = { bsm_ea_integration_score = PREV.t_score }
+		}
+	}
+}
+
+# ------------------------------------------
+# 指標一括更新 (sphere ループから呼ぶ)
+# 呼び出し順: averages -> crisis_counts -> crisis_pressure -> integration
+# ------------------------------------------
+bsm_ea_update_metrics = {
+	bsm_ea_update_alliance_averages = yes
+	bsm_ea_update_crisis_counts = yes
+	bsm_ea_update_crisis_pressure = yes
+	bsm_ea_update_integration_score = yes
+}
+
+# ------------------------------------------
+# 危機伝播効果の適用
+#   pressure >= 50  → 加盟国に bsm_ea_crisis_strain_member
+#   pressure >= 75  → 重度modifier + 盟主へ nc.10 警告イベント (180日クールダウン)
+#   pressure >= 90  → 加盟国の通貨同盟離脱圧力加速 + nc.12 (要継続条件)
+# 入力: bsm_ea_token (temp)
+# ------------------------------------------
+bsm_ea_apply_crisis_effects = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		set_temp_variable = { t_pressure = 0 }
+		set_temp_variable = { t_severe = 0 }
+		var:t_leader = {
+			if = { limit = { has_variable = bsm_ea_crisis_pressure } set_temp_variable = { PREV.t_pressure = bsm_ea_crisis_pressure } }
+		}
+		if = {
+			limit = { check_variable = { t_pressure > 74 } }
+			set_temp_variable = { t_severe = 1 }
+		}
+
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_member
+			var:v_member = {
+				# pressure >= 50: 軽度ペナルティ
+				if = {
+					limit = { check_variable = { PREV.t_pressure > 49 } }
+					if = {
+						limit = { NOT = { has_dynamic_modifier = { modifier = bsm_ea_crisis_strain_member } } }
+						add_dynamic_modifier = { modifier = bsm_ea_crisis_strain_member }
+					}
+				}
+				else = {
+					if = {
+						limit = { has_dynamic_modifier = { modifier = bsm_ea_crisis_strain_member } }
+						remove_dynamic_modifier = { modifier = bsm_ea_crisis_strain_member }
+					}
+				}
+				# pressure >= 75: 重度ペナルティ
+				if = {
+					limit = { check_variable = { PREV.t_severe = 1 } }
+					if = {
+						limit = { NOT = { has_dynamic_modifier = { modifier = bsm_ea_crisis_severe_member } } }
+						add_dynamic_modifier = { modifier = bsm_ea_crisis_severe_member }
+					}
+				}
+				else = {
+					if = {
+						limit = { has_dynamic_modifier = { modifier = bsm_ea_crisis_severe_member } }
+						remove_dynamic_modifier = { modifier = bsm_ea_crisis_severe_member }
+					}
+				}
+				# pressure >= 90: 通貨同盟離脱圧力加速
+				if = {
+					limit = {
+						check_variable = { PREV.t_pressure > 89 }
+						has_variable = bsm_nc_union_exit_pressure
+					}
+					add_to_variable = { bsm_nc_union_exit_pressure = 6 }
+					clamp_variable = { var = bsm_nc_union_exit_pressure min = 0 max = 100 }
+				}
+			}
+		}
+
+		# 盟主へ危機イベント (180日クールダウン)
+		if = {
+			limit = {
+				check_variable = { t_pressure > 74 }
+				NOT = { has_global_flag = bsm_ea_crisis_warning_cooldown_@var:bsm_ea_token }
+			}
+			set_global_flag = { flag = bsm_ea_crisis_warning_cooldown_@var:bsm_ea_token days = 180 }
+			var:t_leader = {
+				country_event = { id = nc.10 days = 1 }
+			}
+		}
+	}
+}
+
+# ==========================================
+# Phase 3: 同盟準備金 (UC決済基金)
+# ==========================================
+
+# ------------------------------------------
+# 月次拠出: UC黒字国から同盟準備金を積み立て
+#   contribution = max(Unified_Currency - 100, 0) * 0.03 * policy_factor * trust_factor
+#   policy: 互恵=1.0 搾取=0.3
+#   trust_factor = clamp(trust/100, 0.25, 1.25)
+# 入力: bsm_ea_token (temp)
+# ------------------------------------------
+bsm_ea_collect_reserve_uc = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_policy = 0 }
+		if = {
+			limit = { has_variable = global.bsm_ea_policy_@var:bsm_ea_token }
+			set_temp_variable = { t_policy = global.bsm_ea_policy_@var:bsm_ea_token }
+		}
+		# 係数: 搾取方針(1)なら0.3、それ以外は1.0
+		set_temp_variable = {
+			var = t_policy_factor
+			value = {
+				value = 1.0
+				if = {
+					limit = { value = t_policy  equals = 1 }
+					subtract = 0.7
+				}
+			}
+		}
+		set_temp_variable = { t_total_contrib = 0 }
+
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_member
+			var:v_member = {
+				if = {
+					limit = {
+						has_variable = Unified_Currency
+						check_variable = { Unified_Currency > 100 }
+					}
+					# 黑字分 (Unified_Currency - 100)
+					set_temp_variable = { t_surplus = Unified_Currency }
+					subtract_from_temp_variable = { t_surplus = 100 }
+					# 方針係数をmemberスコープへコピー
+					set_temp_variable = { t_pf = PREV.t_policy_factor }
+					# 信頼度
+					set_temp_variable = { t_member_trust = 0 }
+					if = {
+						limit = { has_variable = bsm_ea_trust }
+						set_temp_variable = { t_member_trust = bsm_ea_trust }
+					}
+					# trust_factor = clamp(trust/100, 0.25, 1.25)
+					set_temp_variable = {
+						var = t_trust_factor
+						value = { value = t_member_trust  divide = 100  clamp = { min = 0.25 max = 1.25 } }
+					}
+					# contribution = surplus * 0.03 * policy_factor * trust_factor
+					set_temp_variable = {
+						var = t_contrib
+						value = {
+							value = t_surplus
+							multiply = 0.03
+							multiply = t_pf
+							multiply = t_trust_factor
+							clamp = { min = 0 max = 50 }
+						}
+					}
+					if = {
+						limit = { check_variable = { t_contrib > 0 } }
+						subtract_from_variable = { Unified_Currency = t_contrib }
+						add_to_temp_variable = { PREV.t_total_contrib = t_contrib }
+					}
+				}
+			}
+		}
+
+		# 盟主の準備金に加算
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		var:t_leader = {
+			if = {
+				limit = { NOT = { has_variable = bsm_ea_reserve_uc } }
+				set_variable = { bsm_ea_reserve_uc = 0 }
+			}
+			add_to_variable = { bsm_ea_reserve_uc = PREV.t_total_contrib }
+			set_variable = { bsm_ea_reserve_last_income = PREV.t_total_contrib }
+		}
+	}
+}
+
+# ------------------------------------------
+# 準備金による危機対応支出 (盟主から自動実行)
+# 入力: bsm_ea_token (temp)
+# 条件ごとに準備金を消費して加盟国を支援
+# ------------------------------------------
+bsm_ea_spend_reserve_for_crisis = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		set_temp_variable = { t_reserve = 0 }
+		var:t_leader = {
+			if = { limit = { has_variable = bsm_ea_reserve_uc } set_temp_variable = { PREV.t_reserve = bsm_ea_reserve_uc } }
+		}
+
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_member
+			var:v_member = {
+				# 通貨安定度 < 30: 準備金25消費、安定度+10
+				if = {
+					limit = {
+						has_variable = bsm_nc_stability
+						check_variable = { bsm_nc_stability < 30 }
+						check_variable = { PREV.t_reserve >= 25 }
+					}
+					subtract_from_temp_variable = { PREV.t_reserve = 25 }
+					add_to_variable = { bsm_nc_stability = 10 }
+					clamp_variable = { var = bsm_nc_stability min = 0 max = 100 }
+				}
+				# UC赤字: 準備金50消費、UC+50
+				if = {
+					limit = {
+						has_variable = Unified_Currency
+						check_variable = { Unified_Currency < 0 }
+						check_variable = { PREV.t_reserve >= 50 }
+					}
+					subtract_from_temp_variable = { PREV.t_reserve = 50 }
+					add_to_variable = { Unified_Currency = 50 }
+				}
+				# 高インフレ: 準備金40消費、インフレ-5
+				if = {
+					limit = {
+						has_variable = bsm_nc_inflation
+						check_variable = { bsm_nc_inflation > 20 }
+						check_variable = { PREV.t_reserve >= 40 }
+					}
+					subtract_from_temp_variable = { PREV.t_reserve = 40 }
+					subtract_from_variable = { bsm_nc_inflation = 5 }
+				}
+			}
+		}
+
+		# 危機圧力 > 75: 準備金100消費、危機圧力-20 (盟主全体対応)
+		set_temp_variable = { t_pressure = 0 }
+		var:t_leader = {
+			if = { limit = { has_variable = bsm_ea_crisis_pressure } set_temp_variable = { PREV.t_pressure = bsm_ea_crisis_pressure } }
+		}
+		if = {
+			limit = {
+				check_variable = { t_pressure > 75 }
+				check_variable = { t_reserve >= 100 }
+			}
+			subtract_from_temp_variable = { t_reserve = 100 }
+			var:t_leader = {
+				subtract_from_variable = { bsm_ea_crisis_pressure = 20 }
+				clamp_variable = { var = bsm_ea_crisis_pressure min = 0 max = 100 }
+			}
+		}
+
+		# 残額を盟主に保存 (マイナス防止)
+		clamp_temp_variable = { var = t_reserve min = 0 max = 100000 }
+		var:t_leader = {
+			set_variable = { bsm_ea_reserve_uc = PREV.t_reserve }
+		}
+	}
+}
+
+# ------------------------------------------
+# 投資支援支出 (Phase4 から呼ばれる)
+# 入力: bsm_ea_token (temp), bsm_ea_invest_amount (temp), bsm_ea_invest_target (event_target)
+# ------------------------------------------
+bsm_ea_spend_reserve_for_investment = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+			check_variable = { bsm_ea_invest_amount > 0 }
+		}
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		set_temp_variable = { t_reserve = 0 }
+		var:t_leader = {
+			if = { limit = { has_variable = bsm_ea_reserve_uc } set_temp_variable = { PREV.t_reserve = bsm_ea_reserve_uc } }
+		}
+		if = {
+			limit = {
+				check_variable = { t_reserve >= bsm_ea_invest_amount }
+			}
+			subtract_from_temp_variable = { t_reserve = bsm_ea_invest_amount }
+			event_target:bsm_ea_ai_target = {
+				add_to_variable = { Unified_Currency = bsm_ea_invest_amount }
+			}
+			var:t_leader = {
+				set_variable = { bsm_ea_reserve_uc = PREV.t_reserve }
+			}
+		}
+	}
+}
+
+# ==========================================
+# Phase 4: 投資必要度スコア
+# ==========================================
+
+# ------------------------------------------
+# 加盟国の投資必要度を更新
+#   need =
+#     max(100 - Unified_Currency, 0) * 0.20
+#     + max(60 - bsm_nc_stability, 0) * 0.80
+#     + max(10 - civ_factories, 0) * 4
+#     + max(10 - mil_factories, 0) * 2
+#     + inflation_penalty(>10 の場合 +10)
+#     + trust_bonus(>60 の場合 +5)
+# 入力: bsm_ea_token (temp)
+# ------------------------------------------
+bsm_ea_update_investment_need_scores = {
+	for_each_loop = {
+		array = global.bsm_ea_member_list_@var:bsm_ea_token
+		value = v_member
+		index = v_i
+		var:v_member = {
+			# index 0 (盟主) は対象外
+			if = {
+				limit = { check_variable = { v_i > 0 } }
+				set_temp_variable = { t_uc = 0 }
+				set_temp_variable = { t_ncs = 0 }
+				if = { limit = { has_variable = Unified_Currency } set_temp_variable = { t_uc = Unified_Currency } }
+				if = { limit = { has_variable = bsm_nc_stability } set_temp_variable = { t_ncs = bsm_nc_stability } }
+
+				set_variable = {
+					var = bsm_ea_investment_need_score
+					value = {
+						value = 0
+						add = { value = 100  subtract = t_uc  min = 0  multiply = 0.20 }
+						add = { value = 60  subtract = t_ncs  min = 0  multiply = 0.80 }
+						add = { value = 10  subtract = num_of_civilian_factories  min = 0  multiply = 4 }
+						add = { value = 10  subtract = num_of_military_factories  min = 0  multiply = 2 }
+						clamp = { min = 0 max = 200 }
+					}
+				}
+
+				# インフレペナルティ
+				if = {
+					limit = {
+						has_variable = bsm_nc_inflation
+						check_variable = { bsm_nc_inflation > 10 }
+					}
+					add_to_variable = { bsm_ea_investment_need_score = 10 }
+				}
+				# 信頼度ボーナス
+				if = {
+					limit = {
+						has_variable = bsm_ea_trust
+						check_variable = { bsm_ea_trust > 60 }
+					}
+					add_to_variable = { bsm_ea_investment_need_score = 5 }
+				}
+
+				# 推奨アクション判定
+				# 1=ODA/短融資, 2=通貨安定化, 3=インフラ, 4=技術支援
+				set_variable = { bsm_ea_preferred_action = 1 }
+				if = {
+					limit = {
+						has_variable = bsm_nc_stability
+						check_variable = { bsm_nc_stability < 40 }
+					}
+					set_variable = { bsm_ea_preferred_action = 2 }
+				}
+				if = {
+					limit = { check_variable = { num_of_civilian_factories < 5 } }
+					set_variable = { bsm_ea_preferred_action = 3 }
+				}
+				if = {
+					limit = {
+						has_variable = bsm_ea_trust
+						check_variable = { bsm_ea_trust > 70 }
+						check_variable = { amount_research_slots < 3 }
+					}
+					set_variable = { bsm_ea_preferred_action = 4 }
+				}
+
+				clamp_variable = { var = bsm_ea_investment_need_score min = 0 max = 200 }
+			}
+		}
+	}
+}
+
+# ==========================================
+# Phase 5: 資源安全保障スコア
+# ==========================================
+
+# ------------------------------------------
+# EA全体の資源不足スコアを更新 (盟主に保存)
+#   resource_security_score =
+#     oil不足 * 15 + steel不足 * 10 + aluminum不足 * 8 + tungsten不足 * 6
+#     - reserve_uc / 200
+# 入力: bsm_ea_token (temp)
+# ------------------------------------------
+bsm_ea_update_resource_security_score = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_oil = 0 }
+		set_temp_variable = { t_steel = 0 }
+		set_temp_variable = { t_alu = 0 }
+		set_temp_variable = { t_tung = 0 }
+		set_temp_variable = { t_reserve = 0 }
+
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_member
+			var:v_member = {
+				if = {
+					limit = { check_variable = { resource@oil < 0 } }
+					add_to_temp_variable = { PREV.t_oil = 1 }
+				}
+				if = {
+					limit = { check_variable = { resource@steel < 0 } }
+					add_to_temp_variable = { PREV.t_steel = 1 }
+				}
+				if = {
+					limit = { check_variable = { resource@aluminium < 0 } }
+					add_to_temp_variable = { PREV.t_alu = 1 }
+				}
+				if = {
+					limit = { check_variable = { resource@tungsten < 0 } }
+					add_to_temp_variable = { PREV.t_tung = 1 }
+				}
+			}
+		}
+
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		var:t_leader = {
+			if = { limit = { has_variable = bsm_ea_reserve_uc } set_temp_variable = { PREV.t_reserve = bsm_ea_reserve_uc } }
+		}
+
+		set_temp_variable = {
+			var = t_res_score
+			value = {
+				value = 0
+				add = { value = t_oil  multiply = 15 }
+				add = { value = t_steel  multiply = 10 }
+				add = { value = t_alu  multiply = 8 }
+				add = { value = t_tung  multiply = 6 }
+				subtract = { value = t_reserve  divide = 200 }
+				clamp = { min = 0 max = 100 }
+			}
+		}
+
+		var:t_leader = {
+			set_variable = { bsm_ea_resource_security_score = PREV.t_res_score }
+		}
+	}
+}
+
+# ==========================================
+# Phase 6: 通貨バスケット制度
+# 適用条件: Goal03通貨同盟 有効 または 統合度70以上 または 準備金300以上
+# ==========================================
+
+# ------------------------------------------
+# 盟主側でバスケットレートを計算 (重みも同時算出)
+#   weight = trust * 0.50 + nc_stability * 0.30 + clamp(UC/1000, 0, 20)
+#   basket_rate = SUM(member_rate * weight) / SUM(weight)
+# 入力: bsm_ea_token (temp)
+# 結果: 盟主に bsm_nc_basket_rate, bsm_nc_basket_total_weight を保存
+# ------------------------------------------
+bsm_nc_update_basket_rate = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_weighted_sum = 0 }
+		set_temp_variable = { t_total_weight = 0 }
+
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:bsm_ea_token
+			value = v_member
+			var:v_member = {
+				if = {
+					limit = { has_variable = bsm_nc_rate }
+					# 重み計算
+					set_temp_variable = { t_m_trust = 0 }
+					set_temp_variable = { t_m_ncs = 0 }
+					set_temp_variable = { t_m_uc = 0 }
+					if = { limit = { has_variable = bsm_ea_trust } set_temp_variable = { t_m_trust = bsm_ea_trust } }
+					if = { limit = { has_variable = bsm_nc_stability } set_temp_variable = { t_m_ncs = bsm_nc_stability } }
+					if = { limit = { has_variable = Unified_Currency } set_temp_variable = { t_m_uc = Unified_Currency } }
+
+					set_temp_variable = {
+						var = t_m_weight
+						value = {
+							value = 0
+							add = { value = t_m_trust  multiply = 0.50 }
+							add = { value = t_m_ncs  multiply = 0.30 }
+							add = { value = t_m_uc  divide = 1000  clamp = { min = 0 max = 20 } }
+							clamp = { min = 0 max = 100 }
+						}
+					}
+					# 加盟国にも重みを保存 (表示用)
+					set_variable = { bsm_nc_basket_weight = t_m_weight }
+
+					if = {
+						limit = { check_variable = { t_m_weight > 0 } }
+						# rate * weight を累積
+						set_temp_variable = { PREV.t_wr = bsm_nc_rate }
+						multiply_temp_variable = { PREV.t_wr = t_m_weight }
+						add_to_temp_variable = { PREV.t_weighted_sum = t_wr }
+						add_to_temp_variable = { PREV.t_total_weight = t_m_weight }
+					}
+				}
+			}
+		}
+
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		if = {
+			limit = { check_variable = { t_total_weight > 0 } }
+			set_temp_variable = {
+				var = t_basket_rate
+				value = { value = t_weighted_sum  divide = t_total_weight }
+			}
+			var:t_leader = {
+				set_variable = { bsm_nc_basket_rate = PREV.t_basket_rate }
+				set_variable = { bsm_nc_basket_total_weight = PREV.t_total_weight }
+			}
+		}
+		else = {
+			# メンバー不足なら盟主自身のレートを採用
+			var:t_leader = {
+				if = { limit = { has_variable = bsm_nc_rate } set_variable = { bsm_nc_basket_rate = bsm_nc_rate } }
+				set_variable = { bsm_nc_basket_total_weight = 0 }
+			}
+		}
+	}
+}
+
+# ------------------------------------------
+# バスケットレートへの収斂を適用 (通貨同盟加盟国のみ)
+#   new_rate = current_rate * (1 - conv_ratio) + basket_rate * conv_ratio
+#   conv_ratio = clamp(bsm_nc_union_convergence / 100, 0.1, 0.8)
+# 適用条件: Goal03通貨同盟 + 統合度70以上 + 準備金300以上
+# 入力: bsm_ea_token (temp)
+# ------------------------------------------
+bsm_nc_apply_basket_convergence = {
+	if = {
+		limit = {
+			check_variable = { global.bsm_ea_member_list_@var:bsm_ea_token^num > 0 }
+		}
+		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_token^0 }
+		set_temp_variable = { t_basket_rate = 0 }
+		set_temp_variable = { t_integ = 0 }
+		set_temp_variable = { t_reserve = 0 }
+		set_temp_variable = { t_basket_active = 0 }
+		var:t_leader = {
+			if = { limit = { has_variable = bsm_nc_basket_rate } set_temp_variable = { PREV.t_basket_rate = bsm_nc_basket_rate } }
+			if = { limit = { has_variable = bsm_ea_integration_score } set_temp_variable = { PREV.t_integ = bsm_ea_integration_score } }
+			if = { limit = { has_variable = bsm_ea_reserve_uc } set_temp_variable = { PREV.t_reserve = bsm_ea_reserve_uc } }
+		}
+		# バスケット制度の活性判定
+		if = {
+			limit = {
+				OR = {
+					check_variable = { t_integ > 69 }
+					check_variable = { t_reserve > 299 }
+				}
+				check_variable = { t_basket_rate > 0 }
+			}
+			set_temp_variable = { t_basket_active = 1 }
+		}
+
+		if = {
+			limit = { check_variable = { t_basket_active = 1 } }
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:bsm_ea_token
+				value = v_member
+				var:v_member = {
+					if = {
+						limit = {
+							has_variable = bsm_nc_rate
+							has_variable = bsm_nc_union_convergence
+							has_idea = bsm_ea_goal_03_currency
+						}
+						# 外部スコープからローカルへコピー
+						set_temp_variable = { t_basket = PREV.t_basket_rate }
+						# 収斂比率
+						set_temp_variable = {
+							var = t_conv_ratio
+							value = {
+								value = bsm_nc_union_convergence
+								divide = 100
+								clamp = { min = 0.1 max = 0.8 }
+							}
+						}
+						# (1 - ratio)
+						set_temp_variable = { var = t_inv_ratio  value = { value = 1  subtract = t_conv_ratio } }
+						# new_rate = rate * (1 - ratio) + basket * ratio
+						set_temp_variable = { t_old_rate = bsm_nc_rate }
+						set_temp_variable = { var = t_new_rate  value = { value = t_old_rate  multiply = t_inv_ratio } }
+						set_temp_variable = { var = t_basket_pull  value = { value = t_basket  multiply = t_conv_ratio } }
+						add_to_temp_variable = { t_new_rate = t_basket_pull }
+						set_variable = { bsm_nc_rate = t_new_rate }
+						# base_rate も段階的にバスケットへ近づける (半分の速度)
+						if = {
+							limit = { has_variable = bsm_nc_base_rate }
+							set_temp_variable = { var = t_half_ratio  value = { value = t_conv_ratio  multiply = 0.5 } }
+							set_temp_variable = { var = t_half_inv  value = { value = 1  subtract = t_half_ratio } }
+							set_temp_variable = { var = t_new_base  value = { value = bsm_nc_base_rate  multiply = t_half_inv } }
+							set_temp_variable = { var = t_base_pull  value = { value = t_basket  multiply = t_half_ratio } }
+							add_to_temp_variable = { t_new_base = t_base_pull }
+							set_variable = { bsm_nc_base_rate = t_new_base }
+						}
+					}
+				}
+			}
+		}
+	}
+}

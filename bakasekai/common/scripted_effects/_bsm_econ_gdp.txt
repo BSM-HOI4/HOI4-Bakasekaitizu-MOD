@@ -1,0 +1,99 @@
+# =====================================================================
+# GDP基盤 (System A) — 経済指標の分母
+# 設計: documents/00_coding_contexts/bsm_economic_systems_design.md §3
+# 計画: documents/ea_ncs_math_collections_implementation_plan.md Phase 0.5 (F8)
+#
+# 既存UC月次式(ucs_add_Unified_Currency_month)の「生産ベース」を再利用する:
+#   GDP = output × state_sum / 10 (+ 資源額)
+#   output    = (民需工場 + 1) × (安定度 + Cultural_Degree)
+#   state_sum = Σ[owned_controlled_states] (人口k/1000) × max(1.0, インフラ×1.25 + 飛行場×1.1 + 港湾×0.8)
+# = 資本(工場) × 生産性(安定+文明) × 発展度付き労働(人口×インフラ)。UC はこの GDP から skim するフロー。
+#
+# パフォーマンス: for_each_scope_loop は UC 月次と同等コスト。現状は decision 起動(プレイヤーのみ)。
+#   on_monthly 接続時は早期 return を足し、UC ループと統合して state の二重走査を避けること。
+# =====================================================================
+
+bsm_econ_update_gdp = {
+	# 前月値を退避(成長率算出用)。初回は未定義=0。
+	set_variable = { bsm_gdp_last = bsm_gdp_real }
+
+	# 資源産出額(V1: 固定単価。System B のスポット価格で置換予定)
+	set_variable = {
+		bsm_resource_value = {
+			value = 0
+			add = { value = resource_produced@steel     multiply = 1 }
+			add = { value = resource_produced@aluminium multiply = 1.5 }
+			add = { value = resource_produced@chromium  multiply = 2 }
+			add = { value = resource_produced@tungsten  multiply = 3 }
+			add = { value = resource_produced@oil       multiply = 2 }
+			add = { value = resource_produced@rubber    multiply = 3 }
+		}
+	}
+
+	# 出力 output = (民需工場 + 1) × (0.4 + 0.6×安定度 + 文明度)
+	# UC式は (安定度 + 文明度) だが、GDPは capacity 寄りにするため安定度に下限0.4を設ける
+	# (不安定国の過度な沈下を防ぐ=GDPは産出フローより経済規模に近づける)。ここだけUC式と意図的に乖離。
+	set_variable = {
+		bsm_gdp_output = {
+			value = num_of_civilian_factories
+			add = 1
+			multiply = {
+				value = stability
+				multiply = 0.6
+				add = 0.4
+				add = Cultural_Degree
+			}
+		}
+	}
+
+	# state_sum = Σ[owned_controlled_states] (人口k/1000) × max(1.0, インフラ×1.25 + 飛行場×1.1 + 港湾×0.8)
+	# 既存UCコードと同じ for_each_scope_loop + PREV temp 蓄積パターン。
+	set_temp_variable = { temp_gdp_state_sum = 0 }
+	for_each_scope_loop = {
+		array = owned_controlled_states
+		set_temp_variable = {
+			var = temp_gdp_state
+			value = {
+				value = state_population_k
+				divide = 1000
+				multiply = {
+					value = infrastructure_level
+					multiply = 1.25
+					add = { value = building_level@air_base   multiply = 1.1 }
+					add = { value = building_level@naval_base multiply = 0.8 }
+					max = 1.0
+				}
+			}
+		}
+		add_to_temp_variable = { PREV.temp_gdp_state_sum = temp_gdp_state }
+	}
+	set_variable = { bsm_gdp_state_sum = temp_gdp_state_sum }
+
+	# 実質GDP = output × state_sum / 10。除数10は probe 結果で確定(GDPを3-4桁に収める)。clamp で overflow 保険。
+	# 資源額(bsm_resource_value)は固定単価だと歪む(露81%/仏42%)ため当面コアから除外し、別計上で保持。
+	# System B のスポット価格実装後に実勢で再加算する。
+	set_variable = {
+		bsm_gdp_real = {
+			value = bsm_gdp_output
+			multiply = bsm_gdp_state_sum
+			divide = 10
+			clamp = { min = 0 max = 100000000 }
+		}
+	}
+
+	# 成長率%(前月0=初月は0扱い。0除算は +1 で保険)
+	if = {
+		limit = { check_variable = { var = bsm_gdp_last value > 0.999 } }
+		set_variable = {
+			bsm_gdp_growth_pct = {
+				value = bsm_gdp_real
+				subtract = bsm_gdp_last
+				divide = { value = bsm_gdp_last add = 1 }
+				multiply = 100
+			}
+		}
+	}
+	else = {
+		set_variable = { bsm_gdp_growth_pct = 0 }
+	}
+}

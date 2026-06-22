@@ -201,9 +201,14 @@ bsm_nc_currency_union_sync_to_leader = {
 				limit = { check_variable = { bsm_nc_union_convergence > 59 } }
 				set_variable = { bsm_nc_rate_prev = bsm_nc_rate }
 				set_variable = { bsm_nc_rate = t_nc_union_rate }
-				set_temp_variable = { t_nc_union_delta = bsm_nc_rate }
-				subtract_from_temp_variable = { t_nc_union_delta = bsm_nc_rate_prev }
-				set_variable = { bsm_nc_rate_delta = t_nc_union_delta }
+				# 前月比デルタ = 新レート − 旧レート  数式版（3op→1op、temp廃止）
+				set_variable = {
+					var = bsm_nc_rate_delta
+					value = {
+						value = bsm_nc_rate
+						subtract = bsm_nc_rate_prev
+					}
+				}
 			}
 		}
 	}
@@ -1003,8 +1008,10 @@ bsm_nc_monthly_update = {
 			}
 		}
 		# --- 12b. 通貨弱体化 modifier (rate > base * 1.5) ---
-		set_temp_variable = { t_nc_vw_threshold = bsm_nc_base_rate }
-		multiply_temp_variable = { t_nc_vw_threshold = 1.5 }
+		set_temp_variable = {
+			var = t_nc_vw_threshold
+			value = { value = bsm_nc_base_rate  multiply = 1.5 }
+		}
 		if = {
 			limit = { check_variable = { bsm_nc_rate > t_nc_vw_threshold } }
 			if = {
@@ -1023,8 +1030,10 @@ bsm_nc_monthly_update = {
 			}
 		}
 		# --- 12c. 通貨弱化 modifier (rate > base * 1.1) ---
-		set_temp_variable = { t_nc_w_threshold = bsm_nc_base_rate }
-		multiply_temp_variable = { t_nc_w_threshold = 1.1 }
+		set_temp_variable = {
+			var = t_nc_w_threshold
+			value = { value = bsm_nc_base_rate  multiply = 1.1 }
+		}
 		if = {
 			limit = {
 				check_variable = { bsm_nc_rate > t_nc_w_threshold }

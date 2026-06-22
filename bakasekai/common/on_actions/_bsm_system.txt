@@ -348,6 +348,12 @@ on_actions = {
                     MS_max = 20
                 }
             }
+
+            #### 経済(GDP/威信/7段階ランク)起動時初期化 + 全国家テストlog ####
+            # on_startup root は None スコープ。scripted_effect は Country 等のスコープを要求するため
+            # random_country で1回だけ Country スコープを与える(内部の every_country が全国家を走査するので結果に影響なし)。
+            random_country = { bsm_econ_startup = yes }
+
             #### その他汎用システム #####
             # every_country = {
             #     #北国汎用アイデア
@@ -381,16 +387,24 @@ on_actions = {
             add_to_variable = { global.month = 1 }
 
             ucs_on_monthly = yes #通貨 月毎処理
+
             # 経済同盟内の generic通貨国へ最強通貨を流通 (レート計算前)
             every_country = {
                 bsm_nc_leader_apply_strongest = yes
             }
             every_country = {
                 bsm_nc_monthly_update = yes
+                bsm_econ_update_gdp = yes  # GDP(System A): NCS月次の per-country パスに相乗り(全国ループ重複を回避)
+                bsm_prestige_compute = yes # 威信(System C): 同パスでパワー合算も計算(GDPの後)
             }
             every_country = {
                 bsm_nc_currency_union_monthly = yes
             }
+
+            # 威信(System C) 月次: 世界平均 → 全国ランク判定 + rank連動modifier更新
+            bsm_prestige_update_world = yes
+            every_country = { bsm_prestige_assign_rank = yes }
+
             mine_on_monthly = yes #鉱山 月毎処理
 
             # Stellaris Elements - Monthly Update

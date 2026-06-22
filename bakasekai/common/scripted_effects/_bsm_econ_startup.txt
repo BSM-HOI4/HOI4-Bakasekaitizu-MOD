@@ -1,0 +1,29 @@
+# =====================================================================
+# 経済系(System A/C) 起動時初期化 + 全国家テストログ
+# on_startup から1回呼ぶ。全国家の GDP・威信・ランクを計算しておき、ランクを1日目から有効にする。
+# bsm_econ_startup_log_all は全国家を1行ずつ game.log に出すデバッグ用(マージ前にコメントアウト可)。
+# =====================================================================
+
+bsm_econ_startup = {
+	# (1) 全国家: GDP → 威信(パワー合算)
+	every_country = {
+		bsm_econ_update_gdp = yes
+		bsm_prestige_compute = yes
+	}
+	# (2) 世界平均 + 分布カウンタreset
+	bsm_prestige_update_world = yes
+	# (3) 全国家: ランク判定 + 分布カウント
+	every_country = { bsm_prestige_assign_rank = yes }
+
+	log = "[BSM_ECON_INIT] 起動時 経済初期化完了 world_avg=[?global.bsm_prestige_world_avg|1] (全[?global.bsm_prestige_cnt|0]国)"
+	log = "[BSM_PRESTIGE] 分布: 超大国[?global.bsm_rank_cnt_7|0] 列強[?global.bsm_rank_cnt_6|0] 大国[?global.bsm_rank_cnt_5|0] 地域大国[?global.bsm_rank_cnt_4|0] 中堅[?global.bsm_rank_cnt_3|0] 小国[?global.bsm_rank_cnt_2|0] 弱小[?global.bsm_rank_cnt_1|0]"
+
+	bsm_econ_startup_log_all = yes   # ★デバッグ: 全国家を1行ずつ。較正後/マージ前にコメントアウト可
+}
+
+# 全国家のランク/威信/GDPを1行ずつ出力(テスト用)
+bsm_econ_startup_log_all = {
+	every_country = {
+		log = "[BSM_PRESTIGE_ALL] [THIS.GetName] [THIS.GetBsmPrestigeRankName](r[?THIS.bsm_prestige_rank|0]) prestige=[?THIS.bsm_prestige|0] ratio=[?THIS.bsm_prestige_ratio|2] gdp=[?THIS.bsm_gdp_real|0]"
+	}
+}
