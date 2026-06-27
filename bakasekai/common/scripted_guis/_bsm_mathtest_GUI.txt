@@ -1,0 +1,84 @@
+# =====================================================================
+# 数式テスター (Math Function Tester) - scripted GUI
+# ACC = アキュムレータ(関数の演算対象 / 結果),  B = bsm_mathtest_operand
+# 二項演算ボタン: ACC = ACC <op> B
+# 単項演算ボタン: ACC = f(ACC)
+# sqrt / exp 演算子は存在しない(実測確認済 2026-06-18: "Unknown math statement")。
+# √は root=2、e^x は pow で代用。未知演算子はその行以降の式解析を破壊するので絶対に残さない。
+# =====================================================================
+
+scripted_gui = {
+	bsm_mathtest_GUI = {
+		context_type = player_context
+		window_name = "bsm_mathtest_window"
+
+		visible = {
+			has_variable = bsm_mathtest_window_open
+		}
+
+		effects = {
+			close_button_click = {
+				clear_variable = bsm_mathtest_window_open
+			}
+
+			# ---------- 四則演算 (ACC = ACC <op> B) ----------
+			op_add_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  add = bsm_mathtest_operand } } }
+			op_sub_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  subtract = bsm_mathtest_operand } } }
+			op_mul_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  multiply = bsm_mathtest_operand } } }
+			op_div_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  divide = bsm_mathtest_operand } } }
+
+			# ---------- 冪 / 対数 ----------
+			op_pow_click  = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  pow = bsm_mathtest_operand } } }   # ACC ^ B
+			op_root_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  root = bsm_mathtest_operand } } }  # B乗根(B=2で平方根)
+			op_log_click  = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  log = bsm_mathtest_operand } } }   # 底B の対数
+			op_sqrt_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  root = 2 } } }                     # 平方根 = root 2。sqrt演算子は存在しない(実測確認済)
+			op_exp_click  = { set_variable = { bsm_mathtest_acc = { value = 2.71828  pow = bsm_mathtest_acc } } }                # e^ACC。exp演算子は存在しないのでpowで代用
+
+			# ---------- 三角関数 (ラジアン) ----------
+			op_sin_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  sin = yes } } }
+			op_cos_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  cos = yes } } }
+			op_tan_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  tan = yes } } }
+
+			# ---------- その他 ----------
+			op_mod_click   = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  mod = bsm_mathtest_operand } } }  # 剰余
+			op_min_click   = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  min = bsm_mathtest_operand } } }
+			op_max_click   = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  max = bsm_mathtest_operand } } }
+			op_clamp_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  clamp = { min = 0 max = 100 } } } }
+			op_round_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  round = yes } } }
+
+			# ---------- 比較 (真:1 / 偽:0 を返す) ----------
+			op_gt_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  greater_than = bsm_mathtest_operand } } }
+			op_lt_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  less_than = bsm_mathtest_operand } } }
+			op_eq_click = { set_variable = { bsm_mathtest_acc = { value = bsm_mathtest_acc  equals = bsm_mathtest_operand } } }
+
+			# ---------- オペランド B の設定 ----------
+			set_op_half_click = { set_variable = { bsm_mathtest_operand = 0.5 } }
+			set_op_2_click    = { set_variable = { bsm_mathtest_operand = 2 } }
+			set_op_3_click    = { set_variable = { bsm_mathtest_operand = 3 } }
+			set_op_10_click   = { set_variable = { bsm_mathtest_operand = 10 } }
+			set_op_pi_click   = { set_variable = { bsm_mathtest_operand = 3.14159 } }
+			set_op_e_click    = { set_variable = { bsm_mathtest_operand = 2.71828 } }
+
+			# ---------- オペランド B の調整 ----------
+			op_b_inc_click = { set_variable = { bsm_mathtest_operand = { value = bsm_mathtest_operand  add = 1 } } }
+			op_b_dec_click = { set_variable = { bsm_mathtest_operand = { value = bsm_mathtest_operand  subtract = 1 } } }
+			op_b_x10_click = { set_variable = { bsm_mathtest_operand = { value = bsm_mathtest_operand  multiply = 10 } } }
+			op_b_d10_click = { set_variable = { bsm_mathtest_operand = { value = bsm_mathtest_operand  divide = 10 } } }
+
+			# ---------- アキュムレータ ACC の設定 ----------
+			set_acc_0_click       = { set_variable = { bsm_mathtest_acc = 0 } }
+			set_acc_1_click       = { set_variable = { bsm_mathtest_acc = 1 } }
+			set_acc_16_click      = { set_variable = { bsm_mathtest_acc = 16 } }
+			set_acc_100_click     = { set_variable = { bsm_mathtest_acc = 100 } }
+			set_acc_pi_click      = { set_variable = { bsm_mathtest_acc = 3.14159 } }
+			set_acc_from_op_click = { set_variable = { bsm_mathtest_acc = bsm_mathtest_operand } }
+		}
+
+		triggers = {
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+}

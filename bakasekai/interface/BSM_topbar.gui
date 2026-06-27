@@ -185,5 +185,35 @@ guiTypes = {
 		# 	oversound = ui_menu_over
 		# }
 
+		# 威信ランキング バッジ(国旗 GFX_shield_medium 82x52 @12,14 の右下隅≈94,66)
+		# bsm_topbar の player_context 上にあるので [?ROOT.var] / [ROOT.GetX] が昇格する。位置は微調整可。
+		containerWindowType = {
+			name = "bsm_prestige_badge_window"
+			position = { x = 74 y = 46 }
+			size = { width = 20 height = 20 }
+			Orientation = UPPER_LEFT
+
+			# 丸 + tooltip。UC topbar に倣い buttonType に pdx_tooltip を付ける([?ROOT.var] が昇格する)。
+			buttonType = {
+				name = "bsm_prestige_badge_button"
+				position = { x = 0 y = 0 }
+				quadTextureSprite = "GFX_bsm_prestige_rank_badge"
+				Orientation = "UPPER_LEFT"
+				scale = 0.31
+				pdx_tooltip = "bsm_prestige_badge_tt"
+			}
+			# 順位番号。instantTextBox は size={} 不可 → maxWidth/maxHeight(L204 エラー回避)。
+			instantTextBoxType = {
+				name = "bsm_prestige_badge_num"
+				position = { x = 0 y = 1 }
+				font = "vanilla_hoi_18mbs"
+				text = "[?bsm_prestige_position|0]"
+				format = centre
+				maxWidth = 20
+				maxHeight = 18
+				alwaystransparent = yes
+			}
+		}
+
 	}
 }

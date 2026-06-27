@@ -312,10 +312,7 @@ on_actions = {
             every_country = {
                 bsm_nc_inherit_overlord_currency = yes
             }
-            # 開始時の経済同盟: generic通貨国へ最強通貨を流通
-            every_country = {
-                bsm_nc_leader_apply_strongest = yes
-            }
+            # [退役 2026-06-20] 旧「開始時 generic国へ最強通貨流通」パスは固有通貨化で削除
             #### 国家統合力 ####
             #仮削除
             #### 文明化率 ####
@@ -348,6 +345,12 @@ on_actions = {
                     MS_max = 20
                 }
             }
+
+            #### 経済(GDP/威信/7段階ランク)起動時初期化 + 全国家テストlog ####
+            # on_startup root は None スコープ。scripted_effect は Country 等のスコープを要求するため
+            # random_country で1回だけ Country スコープを与える(内部の every_country が全国家を走査するので結果に影響なし)。
+            random_country = { bsm_econ_startup = yes }
+
             #### その他汎用システム #####
             # every_country = {
             #     #北国汎用アイデア
@@ -381,38 +384,49 @@ on_actions = {
             add_to_variable = { global.month = 1 }
 
             ucs_on_monthly = yes #通貨 月毎処理
-            # 経済同盟内の generic通貨国へ最強通貨を流通 (レート計算前)
-            every_country = {
-                bsm_nc_leader_apply_strongest = yes
-            }
-            every_country = {
-                bsm_nc_monthly_update = yes
-            }
-            every_country = {
-                bsm_nc_currency_union_monthly = yes
-            }
-            mine_on_monthly = yes #鉱山 月毎処理
 
-            # Stellaris Elements - Monthly Update
+            # パフォーマンス: 月次の per-country 処理を最小本数の every_country パスに統合する。
+            #   every_country は非存在の動的/形成可能タグも走査するため、各パスに limit = { exists = yes }
+            #   を付けて空タグを除外する(約347タグ → 存在国のみ)。
+            #   パス分割の理由はパス間の依存(順序)のみ:
+            #     (2) per-country 月次更新 → (3) 全メンバー更新後に通貨同盟を集計 → world平均 → (4) ランク判定
+            #   ※旧(1) leader_apply_strongest パスは固有通貨化(2026-06-20)で退役・削除
+
+            # (2) メイン per-country パス: 順序非依存の月次処理を1回の全国走査に集約
             every_country = {
+                limit = { exists = yes }
+                bsm_nc_monthly_update = yes
+                bsm_econ_update_gdp = yes  # GDP(System A)
+                bsm_prestige_compute = yes # 威信(System C) パワー合算(GDPの後)
+                # Stellaris Elements monthly
                 bsm_stellaris_monthly_essence = yes
                 bsm_stellaris_update_tradition_count = yes
                 bsm_stellaris_update_tradition_cost = yes
                 bsm_stellaris_update_trait_slots = yes
                 bsm_stellaris_calculate_anomaly_bonus = yes
                 bsm_AS_monthly_upkeep = yes # アノマリー探検隊 維持費徴収
-            }
-
-            # 傭兵の維持費処理
-            every_country = {
-                limit = { has_country_flag = Mercenary_System_Allowed }
-                mercenary_monthly_maintenance = yes
-            }
-
-            # 汎用modifierの月次イベント処理
-            every_country = {
+                # 傭兵の維持費処理(フラグ国のみ)
+                if = {
+                    limit = { has_country_flag = Mercenary_System_Allowed }
+                    mercenary_monthly_maintenance = yes
+                }
+                # 汎用modifierの月次イベント処理
                 bsm_generic_modifiers_monthly_events = yes
             }
+            # (3) 通貨同盟の集計は全メンバーの月次更新後に実行する必要があるため別パス
+            every_country = {
+                limit = { exists = yes }
+                bsm_nc_currency_union_monthly = yes
+            }
+
+            # (4) 威信(System C) 月次: 世界平均 → 全国ランク判定 + rank連動modifier更新
+            bsm_prestige_update_world = yes
+            every_country = {
+                limit = { exists = yes }
+                bsm_prestige_assign_rank = yes
+            }
+
+            mine_on_monthly = yes #鉱山 月毎処理
         }
     }
     on_daily = {

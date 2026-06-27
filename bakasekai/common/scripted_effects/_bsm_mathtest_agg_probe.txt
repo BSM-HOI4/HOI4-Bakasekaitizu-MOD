@@ -1,0 +1,52 @@
+# =====================================================================
+# 集約検証プローブ (every_collection 数式集約が本modで動くかを game.log で実測)
+# 起動: Decisions → 数式テスター → 「集約検証ログを出力」
+# 出力: game.log の [BSM_MT_AGG]（数式集約・要検証） / [BSM_MT_AGG_FB]（every_collection_element・実証済）
+# 判定: math系が全て0で FB>0 → 数式集約は非対応 → every_collection_element で代替する。
+#
+# 隔離の理由: 未知の数式statementは「同ファイルのそれ以降の value={} を全て0化」する(前は無事)。
+# よって数式集約は専用ファイルに隔離し、最も怪しい element_value を最後に置く。
+# 素の変数読み(set_variable=var)と every_collection_element(effect) は value={} ではないので影響を受けない。
+# =====================================================================
+
+bsm_mt_agg_probe = {
+	log = "[BSM_MT_AGG] ===== probe start ([ROOT.GetName]) ====="
+
+	# --- 基準値(集約でない素の読み): ログ機構と変数読みの健全性確認 ---
+	set_variable = { bsm_mt_ref_fac = num_of_factories }
+	log = "[BSM_MT_AGG] ref ROOT_own_fac=[?bsm_mt_ref_fac|0] (これは集約でない自国の工場数。ログ機構の生存確認)"
+
+	# --- フォールバック(実証済): every_collection_element + global蓄積 ---
+	#     scopeが要素国に変わるため、蓄積先は固定の global 変数にする。
+	set_variable = { global.bsm_mt_fb_count = 0 }
+	set_variable = { global.bsm_mt_fb_fac = 0 }
+	every_collection_element = {
+		input = {
+			input = game:all_countries
+			operators = { limit = { exists = yes } }
+			name = BSM_MT_FB
+		}
+		add_to_variable = { global.bsm_mt_fb_count = 1 }
+		add_to_variable = { global.bsm_mt_fb_fac = num_of_factories }
+	}
+	log = "[BSM_MT_AGG_FB] (実証済反復) count=[?global.bsm_mt_fb_count|0] world_fac=[?global.bsm_mt_fb_fac|0]"
+
+	# --- 本命(要検証): every_collection を value={} で使う数式集約 ---
+	set_variable = { bsm_mt_m_count = { value = 0  every_collection = { named_collection = bsm_mt_all_countries  add = 1 } } }
+	log = "[BSM_MT_AGG] math count=[?bsm_mt_m_count|0] (FBのcountと一致すれば数式集約が動く)"
+
+	set_variable = { bsm_mt_m_fac = { value = 0  every_collection = { named_collection = bsm_mt_all_countries  add = num_of_factories } } }
+	log = "[BSM_MT_AGG] math world_fac=[?bsm_mt_m_fac|0] (FBのworld_facと一致で要素スコープ変数の直読OK)"
+
+	set_variable = { bsm_mt_m_opin = { value = 0  every_collection = { named_collection = bsm_mt_all_countries  add = opinion@ROOT } } }
+	log = "[BSM_MT_AGG] math sum_opinion@ROOT=[?bsm_mt_m_opin|0] (非0なら@ROOTが集約の内側で解決=威信式が成立)"
+
+	# element_value: 未知トークン候補の筆頭 → 必ず最後(後続に value={} を置かない)
+	set_variable = { bsm_mt_m_elem = { value = 0  every_collection = { named_collection = bsm_mt_all_countries  add = element_value } } }
+	log = "[BSM_MT_AGG] math element_value=[?bsm_mt_m_elem|2] (element_value の正体)"
+
+	log = "[BSM_MT_AGG] ===== probe end (math系が全0でFBのcount/facが正なら every_collection 数式集約は非対応) ====="
+
+	clear_variable = global.bsm_mt_fb_count
+	clear_variable = global.bsm_mt_fb_fac
+}

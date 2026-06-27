@@ -73,5 +73,28 @@ bsm_ea_can_join_sphere_allowed = {
 	NOT = { has_government = anarchism }
 	NOT = { has_idea = isolation }
 	has_stability > 0
-	NOT = { has_idea = recently_left_economic_alliance }
+	# 脱退クールダウンは「直前に離脱した同じ陣営」への再加入のみ拒否する
+	NOT = {
+		AND = {
+			has_idea = recently_left_economic_alliance
+			check_variable = { bsm_ea_recently_left_token = FROM.bsm_ea_sphere }
+		}
+	}
+}
+
+# ------------------------------------------
+# 経済同盟への参加可否を「傀儡レベル(freedom_level)」で判定
+#   独立国(freedom_level=1.0相当) または 自治度の高い従属国のみ参加可能。
+#   BSMの自治ティア(min_freedom_level): 連邦王国/帝国保護国=0.8, 自治領/帝国提携国/外様大名=0.6-0.7,
+#     藩=0.5, 連邦管理地域/帝国構成国/譜代=0.3, 令制国=0.25, 外地/天領=0.1, 都道府県系=0.02-0.08
+#   閾値 0.5: 自治領/提携国(0.6)以上を許可。値を変えれば許容ラインを調整可能。
+# ------------------------------------------
+bsm_ea_autonomy_allows = {
+	custom_trigger_tooltip = {
+		tooltip = BSM_EA_AUTONOMY_REQ_TT
+		OR = {
+			is_subject = no
+			freedom_level > 0.5
+		}
+	}
 }

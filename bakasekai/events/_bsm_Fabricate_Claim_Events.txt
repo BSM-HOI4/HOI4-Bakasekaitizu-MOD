@@ -3,96 +3,82 @@
 
 add_namespace = bsm_fabricate_claim_events
 
+# 請求権の捏造イベント
+# 外交アクション bsm_fabricate_claim_action の complete_effect から発火する。
+# 発火元 (complete_effect) で対象国を event_target:bsm_fabricate_claim_target として保存しているため、
+# このイベントでは ROOT = 自国(実行国)、event_target:bsm_fabricate_claim_target = 対象国 となる。
+# （無印 country_event で発火するため FROM は自国になってしまう点に注意。対象国は必ず event_target で参照する）
 country_event = {
     id = bsm_fabricate_claim_events.1
-    title = "BSM_FABRICATE_CLAIM_EVENT_1_TITLE" # "[FROM.GetName]に対する請求権の捏造"
+    title = "BSM_FABRICATE_CLAIM_EVENT_1_TITLE" # "[対象国]に対する請求権の捏造"
     desc = "BSM_FABRICATE_CLAIM_EVENT_1_DESC"  # どの州に捏造するかは、このdescで動的に表示
     picture = GFX_report_event_generic_contract_sign # 仮のイベント画像
 
     is_triggered_only = yes
 
-    # 外交アクションの対象国は FROM スコープで参照可能
-    # ROOT はこのイベントを受け取った国 (自国)
-
-    # 即時効果で、対象となるランダムな州を決定し、イベントターゲットに保存
+    # 即時効果: 対象となるランダムな州を決定し、捏造コストを算出する
     immediate = {
-        FROM = { # 外交アクションの対象国スコープ
-            # 「自国(ROOT)と隣接している OR 沿岸州である」かつ「自国が未請求・未中核・未所有」の州をランダムに1つ選ぶ
+        event_target:bsm_fabricate_claim_target = { # 外交アクションの対象国
+            # 「自国(ROOT)と隣接している」 OR 「沿岸州である」かつ「自国が未請求・未中核・未所有」の州をランダムに1つ選ぶ
             random_owned_state = {
                 limit = {
-                    # この州(THIS)は自国(PREV.ROOT)の所有ではない (random_owned_stateなので自明)
-                    # この州(THIS)は自国(PREV.ROOT)の中核州ではない
-                    NOT = { is_core_of = PREV.ROOT }
-                    # この州(THIS)は自国(PREV.ROOT)が既に請求権を持っていない
-                    NOT = { is_claimed_by = PREV.ROOT }
-                    # そして、「自国(PREV.ROOT)と隣接している州」 OR 「沿岸州である」
+                    # この州は自国の中核州ではない
+                    NOT = { is_core_of = ROOT }
+                    # この州は自国が既に請求権を持っていない
+                    NOT = { is_claimed_by = ROOT }
+                    # そして、「自国と隣接している州」 OR 「沿岸州である」
                     OR = {
-                        any_neighbor_state = {
-                            owner = { tag = PREV.PREV.ROOT }
-                        }
+                        any_neighbor_state = { is_owned_by = ROOT }
                         is_coastal = yes
                     }
                 }
-                # 選ばれた州(THIS)をイベントターゲットに保存
+                # 選ばれた州をイベントターゲットに保存
                 save_event_target_as = bsm_target_state_for_claim_fabrication
                 # デバッグ用ログ
-                log = "LOG: [PREV.ROOT.GetNameDefCap] will attempt to fabricate claim on [THIS.GetName] (owned by [FROM.GetNameDefCap])"
+                log = "LOG: [ROOT.GetNameDefCap] will attempt to fabricate claim on [THIS.GetName] (owned by [event_target:bsm_fabricate_claim_target.GetNameDefCap])"
             }
         }
-        # もし対象の州が見つからなかった場合（ありえないはずだが念のため）
+
         if = {
-            limit = { NOT = { has_event_target = bsm_target_state_for_claim_fabrication } }
-            log = "ERROR: No valid state found for claim fabrication for [ROOT.GetNameDefCap] against [FROM.GetNameDefCap]"
-			log = "えらー: [ROOT.GetNameDefCap]が請求権を捏造するための有効な州が見つかりませんでした。[FROM.GetNameDefCap]に対して"
-			# ここで何かしらの対処を行うことが望ましい
-            # ここでイベントを終了させるか、エラーメッセージを出すなど
-            # 今回はそのまま進むが、実際には対処が必要
+            limit = { has_event_target = bsm_target_state_for_claim_fabrication }
+            # 捏造コストを算出（人口千人あたり1UC + 基本100UC）。descで表示するため immediate で計算する
+            event_target:bsm_target_state_for_claim_fabrication = {
+                set_temp_variable = { temp_pop_for_cost = state_population_k } # 千人単位の人口
+                multiply_temp_variable = { temp_pop_for_cost = 1 }            # 千人あたり1UC
+                ROOT = { set_variable = { bsm_fabrication_actual_cost = PREV.temp_pop_for_cost } }
+            }
+            add_to_variable = { bsm_fabrication_actual_cost = 100 } # 基本コスト加算
+        }
+        else = {
+            # 有効な州が見つからなかった場合（外交アクションのトリガーで弾かれるはずだが念のため）
+            log = "ERROR: No valid state found for claim fabrication for [ROOT.GetNameDefCap] against [event_target:bsm_fabricate_claim_target.GetNameDefCap]"
+            set_variable = { bsm_fabrication_actual_cost = 0 }
         }
     }
 
     option = {
-        name = "BSM_FABRICATE_CLAIM_EVENT_1_OPT_A" # "[event_target:bsm_target_state_for_claim_fabrication.GetName]に請求権を捏造する ([コスト] UC)"
+        name = "BSM_FABRICATE_CLAIM_EVENT_1_OPT_A" # "実行せよ！"
         trigger = {
             # 決定された対象州が存在すること
             has_event_target = bsm_target_state_for_claim_fabrication
-            # UCコスト (仮に変動コストで平均500 UC、最低200 UCとする) が支払えるか
-            # ここでのコストは概算。実際の消費は下記effectで行う。
-            check_variable = { ROOT.Unified_Currency > 200 } # 最低コストチェック
         }
         ai_chance = { factor = 100 }
 
-        # --- 実際の効果 ---
-        # UCコストの消費 (仮に州の人口に応じて変動させる例)
-        # ここではイベントターゲット bsm_target_state_for_claim_fabrication を使う
-        set_temp_variable = { bsm_fabrication_actual_cost = 0 } # 一時変数初期化
-        event_target:bsm_target_state_for_claim_fabrication = { # 対象州スコープ
-            # 例: 人口ベースのコスト (人口1万人あたり10UC) + 基本コスト100UC
-            set_temp_variable = { temp_pop_for_cost = state_population }
-            divide_temp_variable = { temp_pop_for_cost = 1000 } # 人口を千人単位に
-            # round_temp_variable = temp_pop_for_cost # 必要なら丸める
-            multiply_temp_variable = { temp_pop_for_cost = 1 } # 仮: 千人あたり1UC
-            ROOT = { set_variable = { bsm_fabrication_actual_cost = PREV.temp_pop_for_cost } } # 自国の変数に格納
-        }
-        add_to_variable = { bsm_fabrication_actual_cost = 100 } # 基本コスト加算 (最低コストにもなる)
-        # clamp_variable = { var = bsm_fabrication_actual_cost min = 200 max = 2000 } # 最小・最大コスト設定
-
-        # UCが実際に足りるか最終確認
         if = {
+            # UCが足りない場合は実行せず、UC不足を通知する
             limit = { check_variable = { Unified_Currency < bsm_fabrication_actual_cost } }
-            # 足りない場合は実行せず、プレイヤーに通知（別途イベントなど）
             custom_effect_tooltip = BSM_FABRICATE_CLAIM_NOT_ENOUGH_UC_TT
-            hidden_effect = { country_event = { id = bsm_fabricate_claim_events.uc_shortage days = 1 } } # UC不足イベント
+            hidden_effect = { country_event = { id = bsm_fabricate_claim_events.uc_shortage days = 1 } }
         }
         else = {
-            # UC消費
-            set_temp_variable = { temp_uc_to_spend = bsm_fabrication_actual_cost }
-            multiply_temp_variable = { temp_uc_to_spend = -1 } # 負の値にする
-            set_temp_variable = { add_value = temp_uc_to_spend } # add_value で指定
+            # UC消費 (add_value にコストの負値を入れて ucs_add_Unified_Currency を呼ぶ)
+            set_temp_variable = { add_value = bsm_fabrication_actual_cost }
+            multiply_temp_variable = { add_value = -1 }
             ucs_add_Unified_Currency = yes
 
-            # 対象州に請求権を付与
+            # 対象州に自国の請求権を付与
             event_target:bsm_target_state_for_claim_fabrication = {
-                add_state_claim = ROOT
+                add_claim_by = ROOT
             }
 
             # 国際緊張度の上昇
@@ -101,8 +87,8 @@ country_event = {
                 name = "LOC_BSM_FABRICATE_CLAIM_THREAT_JP"
             }
 
-            # 外交アクションの対象国 (FROM) との関係悪化
-            FROM = {
+            # 対象国との関係悪化
+            event_target:bsm_fabricate_claim_target = {
                 add_opinion_modifier = {
                     target = ROOT
                     modifier = fabricated_claim_bsm_negative_opinion

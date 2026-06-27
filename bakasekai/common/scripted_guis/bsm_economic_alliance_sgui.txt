@@ -25,7 +25,9 @@ scripted_gui = {
 			}
 		}
 	}
-	# ウィンドウ本体の設定（政治タブとは独立してフローティング表示）
+	# ウィンドウ本体（フレーム部分のみ: 閉じる / タブ切替 / 陣営ナビ）
+	# ※ タブ中身のボタンは各タブ別 scripted_gui（ファイル末尾）の effects/triggers で処理する。
+	#   親 scripted_gui は子タブウィンドウ内のボタンを処理できないため。
 	bsm_economic_alliance_window_sgui = {
 		context_type = player_context
 		window_name = "bsm_economic_alliance_window"
@@ -64,18 +66,40 @@ scripted_gui = {
 				bsm_ea_switch_view_prev = yes
 				bsm_ea_refresh_selection_data = yes
 			}
-			# 所属同盟の選択
-			bsm_ea_player_entry_button_click = {
-				set_variable = { bsm_ea_selected_token = FROM.bsm_ea_sphere }
-				bsm_ea_select_sphere_for_gui = yes
-				bsm_ea_refresh_selection_data = yes
-			}
-			# ターゲット/任命対象の選択
-			bsm_ea_target_entry_button_click = {
-				set_variable = { bsm_ea_has_selected_member = 1 }
-				FROM = { save_global_event_target_as = bsm_ea_selected_member }
-			}
+		}
+		triggers = {
+			# --- アクティブタブを無効化(=選択フレーム表示)。現在地のタブはクリック不可 ---
+			bsm_ea_tab_parliament_button_enabled = { NOT = { check_variable = { bsm_ea_active_tab = 1 } } }
+			bsm_ea_tab_economy_button_enabled    = { NOT = { check_variable = { bsm_ea_active_tab = 2 } } }
+			bsm_ea_tab_diplomacy_button_enabled  = { NOT = { check_variable = { bsm_ea_active_tab = 3 } } }
+			bsm_ea_tab_ranking_button_enabled    = { NOT = { check_variable = { bsm_ea_active_tab = 4 } } }
+			bsm_ea_tab_currency_button_enabled   = { NOT = { check_variable = { bsm_ea_active_tab = 5 } } }
 
+			# --- 上部バー ---
+			header_alliance_name_visible = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
+			header_no_alliance_visible = { NOT = { check_variable = { bsm_ea_joined_spheres^num > 0 } } }
+			bsm_ea_nav_container_visible = { check_variable = { bsm_ea_joined_spheres^num > 1 } }
+		}
+	}
+
+}
+
+# =========================================================
+# タブページ別 独立 scripted_gui（OE方式）
+#   parent_window_name で親ウィンドウを指定し、window_name 単位の visible で出し分ける。
+#   タブ中身のボタン effects/triggers と dynamic_list は必ずこの各タブ window 側に置く
+#   （子タブウィンドウのボタン/動的リストFROMは親 scripted_gui からは解決できないため）。
+# =========================================================
+scripted_gui = {
+	bsm_ea_tab_parliament_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_parliament"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 1 }
+		}
+		effects = {
 			# --- 運営モード ---
 			bsm_ea_governance_leader_button_click = {
 				bsm_ea_set_governance_leader = yes
@@ -131,59 +155,8 @@ scripted_gui = {
 				bsm_ea_vote_abstain = yes
 				bsm_ea_refresh_selection_data = yes
 			}
-
-			# --- 全体方針トグル ---
-			bsm_ea_policy_toggle_button_click = {
-				bsm_ea_toggle_policy = yes
-				bsm_ea_refresh_selection_data = yes
-			}
-
-			# --- 外交担当の任命 ---
-			bsm_ea_assign_diplomat_button_click = {
-				bsm_ea_assign_diplomat = yes
-				bsm_ea_refresh_selection_data = yes
-			}
-
-			# --- アクションボタン ---
-			bsm_ea_action_oda_button_click = {
-				bsm_ea_action_oda = yes
-				bsm_ea_refresh_selection_data = yes
-			}
-			bsm_ea_action_loan_long_button_click = {
-				bsm_ea_action_loan_long = yes
-				bsm_ea_refresh_selection_data = yes
-			}
-			bsm_ea_action_loan_short_button_click = {
-				bsm_ea_action_loan_short = yes
-				bsm_ea_refresh_selection_data = yes
-			}
-			bsm_ea_action_debt_relief_button_click = {
-				bsm_ea_action_debt_relief = yes
-				bsm_ea_refresh_selection_data = yes
-			}
-			bsm_ea_action_infra_button_click = {
-				bsm_ea_action_infra_invest = yes
-				bsm_ea_refresh_selection_data = yes
-			}
-			bsm_ea_action_tech_button_click = {
-				bsm_ea_action_tech_support = yes
-				bsm_ea_refresh_selection_data = yes
-			}
-
-			# --- 離脱ボタン ---
-			bsm_ea_leave_button_click = {
-				bsm_ea_leave_sphere_action = yes
-				bsm_update_ea_gui_data = yes
-			}
 		}
 		triggers = {
-			# タブパネルの表示制御はタブページ別の独立 scripted_gui（ファイル末尾）の visible で行う
-
-			# --- 上部バー ---
-			header_alliance_name_visible = { check_variable = { bsm_ea_joined_spheres^num > 0 } }
-			header_no_alliance_visible = { NOT = { check_variable = { bsm_ea_joined_spheres^num > 0 } } }
-			bsm_ea_nav_container_visible = { check_variable = { bsm_ea_joined_spheres^num > 1 } }
-
 			# --- 運営モード: 盟主のみ ---
 			bsm_ea_governance_leader_button_visible = {
 				check_variable = { bsm_ea_is_selected_leader = 1 }
@@ -215,7 +188,81 @@ scripted_gui = {
 			goal_04_active_visible = { check_variable = { bsm_ea_goal_04_active = 1 } }
 			goal_05_active_visible = { check_variable = { bsm_ea_goal_05_active = 1 } }
 			goal_06_active_visible = { check_variable = { bsm_ea_goal_06_active = 1 } }
+		}
+		properties = {
+			bsm_ea_seat_dot = {
+				frame = bsm_ea_seat_frame^bsm_ea_seat_idx
+			}
+			bsm_ea_legend_color = {
+				frame = bsm_ea_legend_frame
+			}
+			bsm_ea_legend_bar = {
+				frame = bsm_ea_influence_seg
+			}
+		}
+		dynamic_lists = {
+			economic_alliance_seat_diagram = {
+				array = bsm_ea_seat_frame
+				change_scope = no
+				entry_container = "economic_alliance_seat_dot_entry"
+				index = bsm_ea_seat_idx
+			}
+			economic_alliance_member_legend_list = {
+				array = global.bsm_ea_gui_display_list
+				change_scope = yes
+				country_scope_entry_container = "economic_alliance_member_legend_entry"
+			}
+		}
+	}
+	bsm_ea_tab_economy_window = {
+		context_type = player_context
+		window_name = "bsm_ea_tab_economy"
+		parent_window_name = bsm_economic_alliance_window
+		visible = {
+			check_variable = { bsm_ea_window_open = 1 }
+			check_variable = { bsm_ea_active_tab = 2 }
+		}
+		effects = {
+			# ターゲット選択（target_list, change_scope=yes → THIS=クリックした加盟国）
+			bsm_ea_target_entry_button_click = {
+				# 動的リスト change_scope=yes: THIS=クリックした加盟国 / FROM=プレイヤー
+				save_global_event_target_as = bsm_ea_selected_member
+				FROM = { set_variable = { bsm_ea_has_selected_member = 1 } }
+			}
 
+			# --- 全体方針トグル ---
+			bsm_ea_policy_toggle_button_click = {
+				bsm_ea_toggle_policy = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+
+			# --- アクションボタン ---
+			bsm_ea_action_oda_button_click = {
+				bsm_ea_action_oda = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_action_loan_long_button_click = {
+				bsm_ea_action_loan_long = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_action_loan_short_button_click = {
+				bsm_ea_action_loan_short = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_action_debt_relief_button_click = {
+				bsm_ea_action_debt_relief = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_action_infra_button_click = {
+				bsm_ea_action_infra_invest = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+			bsm_ea_action_tech_button_click = {
+				bsm_ea_action_tech_support = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+		}
+		triggers = {
 			# --- 全体方針トグル: 盟主のみ ---
 			bsm_ea_policy_toggle_button_visible = {
 				check_variable = { bsm_ea_is_selected_leader = 1 }
@@ -253,68 +300,6 @@ scripted_gui = {
 				check_variable = { Unified_Currency > 249 }
 				check_variable = { bsm_ea_cd_tech = 0 }
 			}
-
-			# --- 任命ボタン: 盟主 & 対象選択済み ---
-			bsm_ea_assign_diplomat_button_visible = {
-				check_variable = { bsm_ea_is_selected_leader = 1 }
-				check_variable = { bsm_ea_joined_spheres^num > 0 }
-			}
-			bsm_ea_assign_diplomat_button_enabled = {
-				check_variable = { bsm_ea_has_selected_member = 1 }
-			}
-
-			# --- 離脱ボタン: 加盟中のみ ---
-			bsm_ea_leave_button_visible = {
-				check_variable = { bsm_ea_joined_spheres^num > 0 }
-			}
-		}
-	}
-
-}
-
-# =========================================================
-# タブページ別 独立 scripted_gui（OE方式）
-#   parent_window_name で親ウィンドウを指定し、
-#   window_name 単位の visible で出し分ける。
-# =========================================================
-scripted_gui = {
-	bsm_ea_tab_parliament_window = {
-		context_type = player_context
-		window_name = "bsm_ea_tab_parliament"
-		parent_window_name = bsm_economic_alliance_window
-		visible = {
-			check_variable = { bsm_ea_window_open = 1 }
-			check_variable = { bsm_ea_active_tab = 1 }
-		}
-		properties = {
-			bsm_ea_seat_dot = {
-				frame = bsm_ea_seat_frame^bsm_ea_seat_idx
-			}
-			bsm_ea_legend_color = {
-				frame = bsm_ea_legend_frame
-			}
-		}
-		dynamic_lists = {
-			economic_alliance_seat_diagram = {
-				array = bsm_ea_seat_frame
-				change_scope = no
-				entry_container = "economic_alliance_seat_dot_entry"
-				index = bsm_ea_seat_idx
-			}
-			economic_alliance_member_legend_list = {
-				array = global.bsm_ea_gui_display_list
-				change_scope = yes
-				country_scope_entry_container = "economic_alliance_member_legend_entry"
-			}
-		}
-	}
-	bsm_ea_tab_economy_window = {
-		context_type = player_context
-		window_name = "bsm_ea_tab_economy"
-		parent_window_name = bsm_economic_alliance_window
-		visible = {
-			check_variable = { bsm_ea_window_open = 1 }
-			check_variable = { bsm_ea_active_tab = 2 }
 		}
 		dynamic_lists = {
 			economic_alliance_target_list = {
@@ -331,6 +316,51 @@ scripted_gui = {
 		visible = {
 			check_variable = { bsm_ea_window_open = 1 }
 			check_variable = { bsm_ea_active_tab = 3 }
+		}
+		effects = {
+			# 所属同盟の選択（player_list）
+			bsm_ea_player_entry_button_click = {
+				# THIS=クリックした盟主 / FROM=プレイヤー
+				save_global_event_target_as = bsm_ea_clicked_leader
+				FROM = {
+					set_variable = { bsm_ea_selected_token = event_target:bsm_ea_clicked_leader.bsm_ea_sphere }
+					bsm_ea_select_sphere_for_gui = yes
+					bsm_ea_refresh_selection_data = yes
+				}
+			}
+			# 任命対象の選択（appoint_list, 同じ economic_alliance_target_entry を使用）
+			bsm_ea_target_entry_button_click = {
+				# 動的リスト change_scope=yes: THIS=クリックした加盟国 / FROM=プレイヤー
+				save_global_event_target_as = bsm_ea_selected_member
+				FROM = { set_variable = { bsm_ea_has_selected_member = 1 } }
+			}
+
+			# --- 外交担当の任命 ---
+			bsm_ea_assign_diplomat_button_click = {
+				bsm_ea_assign_diplomat = yes
+				bsm_ea_refresh_selection_data = yes
+			}
+
+			# --- 離脱ボタン ---
+			bsm_ea_leave_button_click = {
+				bsm_ea_leave_sphere_action = yes
+				bsm_update_ea_gui_data = yes
+			}
+		}
+		triggers = {
+			# --- 任命ボタン: 盟主 & 対象選択済み ---
+			bsm_ea_assign_diplomat_button_visible = {
+				check_variable = { bsm_ea_is_selected_leader = 1 }
+				check_variable = { bsm_ea_joined_spheres^num > 0 }
+			}
+			bsm_ea_assign_diplomat_button_enabled = {
+				check_variable = { bsm_ea_has_selected_member = 1 }
+			}
+
+			# --- 離脱ボタン: 加盟中のみ ---
+			bsm_ea_leave_button_visible = {
+				check_variable = { bsm_ea_joined_spheres^num > 0 }
+			}
 		}
 		dynamic_lists = {
 			economic_alliance_player_list = {
@@ -352,6 +382,11 @@ scripted_gui = {
 		visible = {
 			check_variable = { bsm_ea_window_open = 1 }
 			check_variable = { bsm_ea_active_tab = 4 }
+		}
+		properties = {
+			rank_medal = {
+				frame = bsm_ea_rank_medal_frame
+			}
 		}
 		dynamic_lists = {
 			economic_alliance_ranking_list = {

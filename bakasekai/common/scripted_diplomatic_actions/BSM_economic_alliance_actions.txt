@@ -23,7 +23,13 @@ scripted_diplomatic_actions = {
 		allowed = {
 			ROOT = {
 				has_war = no
-				NOT = { has_idea = recently_left_economic_alliance }
+				# 脱退クールダウンは直前に離脱した同じ陣営への再加入のみ拒否
+				NOT = {
+					AND = {
+						has_idea = recently_left_economic_alliance
+						check_variable = { bsm_ea_recently_left_token = FROM.bsm_ea_sphere }
+					}
+				}
 			}
 		}
 		selectable = { always = yes }
