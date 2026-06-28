@@ -22,13 +22,14 @@ idea_categories = {
 		ledger = hidden
 	}
 
+	# 旧「思想と宗教」欄 → 政治顧問欄に再編。
+	# 政治団体(ideology_party)/市民団体(civilian_party)はその他欄へ、国教(religion_party)は法と政府欄へ移動。
+	# 宗教家(religion_advisor)・活動家(civilian_advisor)枠は廃止。思想家(ideology_advisor)は維持。
 	ideology_and_other = {
 		character_slot = ideology_advisor
-		slot = ideology_party
-		character_slot = religion_advisor
-		slot = religion_party
-		character_slot = civilian_advisor
-		slot = civilian_party
+		character_slot = political_advisor
+		character_slot = political_advisor
+		character_slot = political_advisor
 		ledger = civilian
 		cost = 120
 		removal_cost = 30
@@ -38,9 +39,9 @@ idea_categories = {
 		slot = mobilization_laws
 		slot = trade_laws
 		slot = economy
-		character_slot = political_advisor
-		character_slot = political_advisor
-		character_slot = political_advisor
+		slot = religion_party		# 国教(旧 思想と宗教欄から移動)
+		slot = bsm_finance_law		# 金融法(新規)
+		slot = bsm_labor_law		# 労働法(新規)
 
 		ledger = civilian
 
@@ -189,9 +190,9 @@ idea_categories = {
 		slot = Extra
 		slot = Extra
 		slot = Extra
-		character_slot = Extra_advisor
-		character_slot = Extra_advisor
-		character_slot = Extra_advisor
+		slot = ideology_party		# 政治団体(旧 思想と宗教欄から移動)
+		slot = civilian_party		# 市民団体(旧 思想と宗教欄から移動)
+		# 有名人(Extra_advisor)枠は廃止
 		ledger = civilian
 		cost = 120
 		removal_cost = 30
@@ -218,4 +219,6 @@ slot_ledgers = {
 	# civilian_party = invalid # must be overridden
 	anomalies = invalid
 	mobilization_laws = civilian
+	bsm_finance_law = civilian
+	bsm_labor_law = civilian
 }

@@ -1,0 +1,46 @@
+# 数式テスター(Math Function Tester) - 起動用ディシジョン
+# ウィンドウのトグル開閉。開く時にアキュムレータ(ACC)とオペランド(B)を初期化する。
+
+bsm_mathtest_category = {
+
+	bsm_mathtest_toggle = {
+		icon = GFX_decision_generic_political_discourse
+
+		available = { always = yes }
+		visible = { always = yes }
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			if = {
+				limit = { has_variable = bsm_mathtest_window_open }
+				clear_variable = bsm_mathtest_window_open
+			}
+			else = {
+				set_variable = { bsm_mathtest_window_open = 1 }
+				set_variable = { bsm_mathtest_acc = 0 }
+				set_variable = { bsm_mathtest_operand = 2 }
+			}
+		}
+
+		ai_will_do = { factor = 0 }
+	}
+
+	# 集約検証(every_collection 数式集約)を game.log に出力するプローブ
+	bsm_mt_agg_probe_run = {
+		icon = GFX_decision_generic_political_discourse
+
+		available = { always = yes }
+		visible = { always = yes }
+
+		cost = 0
+		fire_only_once = no
+
+		complete_effect = {
+			bsm_mt_agg_probe = yes
+		}
+
+		ai_will_do = { factor = 0 }
+	}
+}

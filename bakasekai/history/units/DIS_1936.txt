@@ -1,0 +1,153 @@
+division_template = {
+  name = "Infantry Division"
+  regiments = {
+    infantry = { x = 0 y = 0 }
+    infantry = { x = 0 y = 1 }
+    infantry = { x = 0 y = 2 }
+    infantry = { x = 1 y = 0 }
+    infantry = { x = 1 y = 1 }
+    infantry = { x = 1 y = 2 }
+    infantry = { x = 2 y = 0 }
+    infantry = { x = 2 y = 1 }
+    infantry = { x = 2 y = 2 }
+  }
+  support = {
+    engineer = { x = 0 y = 0 }
+    recon = { x = 0 y = 1 }
+  }
+}
+
+division_template = {
+  name = "Cavalry Brigade"
+  regiments = {
+    cavalry = { x = 0 y = 0 }
+    cavalry = { x = 0 y = 1 }
+    cavalry = { x = 1 y = 0 }
+    cavalry = { x = 1 y = 1 }
+  }
+  support = {
+    recon = { x = 0 y = 0 }
+  }
+}
+
+units = {
+  division = {
+    name = "1st Infantry Division"
+    location = 7480
+    division_template = "Infantry Division"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+  division = {
+    name = "2nd Infantry Division"
+    location = 7480
+    division_template = "Infantry Division"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+  division = {
+    name = "3rd Infantry Division"
+    location = 12735
+    division_template = "Infantry Division"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+  division = {
+    name = "4th Infantry Division"
+    location = 7138
+    division_template = "Infantry Division"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+  division = {
+    name = "5th Infantry Division"
+    location = 12501
+    division_template = "Infantry Division"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+  division = {
+    name = "6th Infantry Division"
+    location = 12384
+    division_template = "Infantry Division"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+  division = {
+    name = "7th Infantry Division"
+    location = 1843
+    division_template = "Infantry Division"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+  division = {
+    name = "8th Infantry Division"
+    location = 7202
+    division_template = "Infantry Division"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+  division = {
+    name = "1st Cavalry Brigade"
+    location = 7552
+    division_template = "Cavalry Brigade"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+  division = {
+    name = "2nd Cavalry Brigade"
+    location = 12489
+    division_template = "Cavalry Brigade"
+    start_experience_factor = 0.2
+    start_equipment_factor = 0.8
+  }
+}
+
+division_template = {
+  name = "Castle Guard Motor Brigade"
+  regiments = {
+    motorized = { x = 0 y = 0 }
+    motorized = { x = 0 y = 1 }
+    motorized = { x = 1 y = 0 }
+    light_armor = { x = 1 y = 1 }
+  }
+  support = {
+    engineer = { x = 0 y = 0 }
+    recon = { x = 0 y = 1 }
+  }
+}
+
+units = {
+  division = {
+    name = "1st Castle Guard Motor Brigade"
+    location = 7480
+    division_template = "Castle Guard Motor Brigade"
+    start_experience_factor = 0.25
+    start_equipment_factor = 0.65
+  }
+}
+
+instant_effect = {
+  if = {
+    limit = { has_dlc = "No Step Back" }
+    add_equipment_production = {
+      equipment = {
+        type = light_tank_chassis_0
+        creator = "DIS"
+        version_name = "Scout Tankette"
+      }
+      requested_factories = 1
+      progress = 0.2
+      efficiency = 50
+    }
+  }
+  add_equipment_production = {
+    equipment = {
+      type = motorized_equipment_1
+      creator = "DIS"
+    }
+    requested_factories = 1
+    progress = 0.2
+    efficiency = 50
+  }
+}

@@ -69,7 +69,8 @@ bsm_econ_update_gdp = {
 	}
 	set_variable = { bsm_gdp_state_sum = temp_gdp_state_sum }
 
-	# 実質GDP = output × state_sum / 10。除数10は probe 結果で確定(GDPを3-4桁に収める)。clamp で overflow 保険。
+	# 実質GDP = output × state_sum / 10 × (1 + 法律補正)。除数10は probe 結果で確定(GDPを3-4桁に収める)。clamp で overflow 保険。
+	# bsm_gdp_factor は金融法/労働法・idea・event が付与するカスタム modifier(modifier_definitions/_bsm_econ_modifiers.txt)。
 	# 資源額(bsm_resource_value)は固定単価だと歪む(露81%/仏42%)ため当面コアから除外し、別計上で保持。
 	# System B のスポット価格実装後に実勢で再加算する。
 	set_variable = {
@@ -77,6 +78,7 @@ bsm_econ_update_gdp = {
 			value = bsm_gdp_output
 			multiply = bsm_gdp_state_sum
 			divide = 10
+			multiply = { value = 1 add = modifier@bsm_gdp_factor }	# 金融法/労働法等によるGDP補正
 			clamp = { min = 0 max = 100000000 }
 		}
 	}

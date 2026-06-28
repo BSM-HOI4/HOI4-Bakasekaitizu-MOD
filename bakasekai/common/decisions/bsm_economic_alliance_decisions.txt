@@ -4,12 +4,10 @@ bsm_economic_alliance_decisions = {
 		icon = generic_trade
 		allowed = { always = yes }
 		available = {
-			is_subject = no
 			any_subject_country = { always = yes }
 			is_in_bsm_ea_sphere = yes
 		}
 		visible = {
-			is_subject = no
 			any_subject_country = { always = yes }
 			is_in_bsm_ea_sphere = yes
 		}
@@ -39,21 +37,28 @@ bsm_economic_alliance_decisions = {
 	bsm_form_economic_alliance = {
 		icon = generic_research
 		allowed = { always = yes }
-		target_array = neighbors
+		# target_array を指定せず target_trigger のみで全独立国を対象にする
+		target_root_trigger = {
+			bsm_ea_autonomy_allows = yes
+			NOT = { has_variable = bsm_ea_is_leader }
+		}
 		target_trigger = {
 			FROM = {
 				exists = yes
 				NOT = { tag = XXX }
 				NOT = { has_war_with = ROOT }
+				# 既に盟主の相手とは結成でなく統合(merge)を使う
+				NOT = { has_variable = bsm_ea_is_leader }
 			}
 		}
 		visible = {
-			is_subject = no
+			NOT = { has_variable = bsm_ea_is_leader }
 			has_political_power > 100
 			NOT = { has_war_with = FROM }
 			FROM = {
 				exists = yes
 				NOT = { tag = XXX }
+				NOT = { has_variable = bsm_ea_is_leader }
 			}
 		}
 		available = {
@@ -92,7 +97,10 @@ bsm_economic_alliance_decisions = {
 	bsm_join_economic_alliance = {
 		icon = generic_diplomacy
 		allowed = { always = yes }
-		target_array = neighbors
+		# target_array を指定せず target_trigger のみで全独立国(盟主)を対象にする
+		target_root_trigger = {
+			bsm_ea_autonomy_allows = yes
+			}
 		target_trigger = {
 			FROM = {
 				exists = yes
@@ -102,7 +110,6 @@ bsm_economic_alliance_decisions = {
 			}
 		}
 		visible = {
-			is_subject = no
 			FROM = {
 				exists = yes
 				has_variable = bsm_ea_is_leader
@@ -120,7 +127,13 @@ bsm_economic_alliance_decisions = {
 			NOT = { has_government = ruinism }
 			NOT = { has_government = anarchism }
 			has_stability > 0
-			NOT = { has_idea = recently_left_economic_alliance }
+			# 脱退クールダウンは直前に離脱した同じ陣営への再加入のみ拒否
+			NOT = {
+				AND = {
+					has_idea = recently_left_economic_alliance
+					check_variable = { bsm_ea_recently_left_token = FROM.bsm_ea_sphere }
+				}
+			}
 			has_opinion = {
 				target = FROM
 				value > 25
@@ -144,105 +157,789 @@ bsm_economic_alliance_decisions = {
 				factor = 0.3
 				FROM = { check_variable = { global.bsm_ea_policy_@var:bsm_ea_sphere = 1 } }
 			}
-			# ROOT→対象の加盟意欲バイアス (誘致/妨害)
+			# 誘致された相手 (盟主FROM向けの加盟バイアス) は加盟しやすい
 			modifier = { factor = 1.5  check_variable = { bsm_ea_join_bias@FROM > 0 } }
 			modifier = { factor = 2    check_variable = { bsm_ea_join_bias@FROM > 49 } }
-			modifier = { factor = 0.5  check_variable = { bsm_ea_join_bias@FROM < 0 } }
-			modifier = { factor = 0    check_variable = { bsm_ea_join_bias@FROM < -49 } }
+			# 妨害された相手 (汎用malus) は加盟しにくい
+			modifier = { factor = 0.5  check_variable = { bsm_ea_join_malus > 24 } }
+			modifier = { factor = 0.2  check_variable = { bsm_ea_join_malus > 49 } }
 			# 戦争中は控える
 			modifier = { factor = 0  has_war = yes }
 		}
 	}
 
 	# ----------------------------------------------------------------------
-	# 加盟誘致 (盟主が対象国の加盟意欲を上げる)
+	# 加盟誘致 (盟主が対象国の加盟意欲を上げる) - 地域(大陸)別
 	# ROOT = 盟主, FROM = 対象国
 	# ----------------------------------------------------------------------
-	bsm_ea_recruit_country = {
-		icon = generic_political_discord
+		bsm_ea_recruit_country_europe = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が europe 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = europe }
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# ROOT = 盟主, FROM = 対象国
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_bias@PREV value = 25 }
+					clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 既に好感度が高い相手を優先
+				modifier = {
+					factor = 2
+					FROM = { has_opinion = { target = ROOT value > 40 } }
+				}
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_recruit_country_north_america = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が north_america 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = north_america }
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# ROOT = 盟主, FROM = 対象国
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_bias@PREV value = 25 }
+					clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 既に好感度が高い相手を優先
+				modifier = {
+					factor = 2
+					FROM = { has_opinion = { target = ROOT value > 40 } }
+				}
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_recruit_country_south_america = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が south_america 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = south_america }
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# ROOT = 盟主, FROM = 対象国
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_bias@PREV value = 25 }
+					clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 既に好感度が高い相手を優先
+				modifier = {
+					factor = 2
+					FROM = { has_opinion = { target = ROOT value > 40 } }
+				}
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_recruit_country_africa = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が africa 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = africa }
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# ROOT = 盟主, FROM = 対象国
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_bias@PREV value = 25 }
+					clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 既に好感度が高い相手を優先
+				modifier = {
+					factor = 2
+					FROM = { has_opinion = { target = ROOT value > 40 } }
+				}
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_recruit_country_asia = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が asia 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = asia }
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# ROOT = 盟主, FROM = 対象国
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_bias@PREV value = 25 }
+					clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 既に好感度が高い相手を優先
+				modifier = {
+					factor = 2
+					FROM = { has_opinion = { target = ROOT value > 40 } }
+				}
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_recruit_country_australia = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が australia 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = australia }
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# ROOT = 盟主, FROM = 対象国
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_bias@PREV value = 25 }
+					clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 既に好感度が高い相手を優先
+				modifier = {
+					factor = 2
+					FROM = { has_opinion = { target = ROOT value > 40 } }
+				}
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_recruit_country_middle_east = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が middle_east 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = middle_east }
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# ROOT = 盟主, FROM = 対象国
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_bias@PREV value = 25 }
+					clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 既に好感度が高い相手を優先
+				modifier = {
+					factor = 2
+					FROM = { has_opinion = { target = ROOT value > 40 } }
+				}
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+
+	# ----------------------------------------------------------------------
+	# 加盟妨害 (対象国の加盟意欲を全般的に下げる汎用malus) - 地域(大陸)別
+	# ROOT = 妨害する盟主, FROM = 対象国
+	# ----------------------------------------------------------------------
+		bsm_ea_discourage_country_europe = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が europe 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = europe }
+					# 既に自陣営所属の相手を妨害しても無意味なので除外
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# 対象国に汎用的な加盟意欲低下(malus)を付与 → どの陣営にも入りにくくなる
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_malus value = 25 }
+					clamp_variable = { var = bsm_ea_join_malus min = 0 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 自分が取り込める見込みの相手(高好感)は妨害しない
+				modifier = { factor = 0  FROM = { has_opinion = { target = ROOT value > 25 } } }
+				# 自分では取り込めない見込み(低好感)の相手 = ライバルへ行く前に妨害
+				modifier = { factor = 2  FROM = { has_opinion = { target = ROOT value < 0 } } }
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_discourage_country_north_america = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が north_america 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = north_america }
+					# 既に自陣営所属の相手を妨害しても無意味なので除外
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# 対象国に汎用的な加盟意欲低下(malus)を付与 → どの陣営にも入りにくくなる
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_malus value = 25 }
+					clamp_variable = { var = bsm_ea_join_malus min = 0 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 自分が取り込める見込みの相手(高好感)は妨害しない
+				modifier = { factor = 0  FROM = { has_opinion = { target = ROOT value > 25 } } }
+				# 自分では取り込めない見込み(低好感)の相手 = ライバルへ行く前に妨害
+				modifier = { factor = 2  FROM = { has_opinion = { target = ROOT value < 0 } } }
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_discourage_country_south_america = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が south_america 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = south_america }
+					# 既に自陣営所属の相手を妨害しても無意味なので除外
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# 対象国に汎用的な加盟意欲低下(malus)を付与 → どの陣営にも入りにくくなる
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_malus value = 25 }
+					clamp_variable = { var = bsm_ea_join_malus min = 0 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 自分が取り込める見込みの相手(高好感)は妨害しない
+				modifier = { factor = 0  FROM = { has_opinion = { target = ROOT value > 25 } } }
+				# 自分では取り込めない見込み(低好感)の相手 = ライバルへ行く前に妨害
+				modifier = { factor = 2  FROM = { has_opinion = { target = ROOT value < 0 } } }
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_discourage_country_africa = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が africa 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = africa }
+					# 既に自陣営所属の相手を妨害しても無意味なので除外
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# 対象国に汎用的な加盟意欲低下(malus)を付与 → どの陣営にも入りにくくなる
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_malus value = 25 }
+					clamp_variable = { var = bsm_ea_join_malus min = 0 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 自分が取り込める見込みの相手(高好感)は妨害しない
+				modifier = { factor = 0  FROM = { has_opinion = { target = ROOT value > 25 } } }
+				# 自分では取り込めない見込み(低好感)の相手 = ライバルへ行く前に妨害
+				modifier = { factor = 2  FROM = { has_opinion = { target = ROOT value < 0 } } }
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_discourage_country_asia = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が asia 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = asia }
+					# 既に自陣営所属の相手を妨害しても無意味なので除外
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# 対象国に汎用的な加盟意欲低下(malus)を付与 → どの陣営にも入りにくくなる
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_malus value = 25 }
+					clamp_variable = { var = bsm_ea_join_malus min = 0 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 自分が取り込める見込みの相手(高好感)は妨害しない
+				modifier = { factor = 0  FROM = { has_opinion = { target = ROOT value > 25 } } }
+				# 自分では取り込めない見込み(低好感)の相手 = ライバルへ行く前に妨害
+				modifier = { factor = 2  FROM = { has_opinion = { target = ROOT value < 0 } } }
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_discourage_country_australia = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が australia 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = australia }
+					# 既に自陣営所属の相手を妨害しても無意味なので除外
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# 対象国に汎用的な加盟意欲低下(malus)を付与 → どの陣営にも入りにくくなる
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_malus value = 25 }
+					clamp_variable = { var = bsm_ea_join_malus min = 0 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 自分が取り込める見込みの相手(高好感)は妨害しない
+				modifier = { factor = 0  FROM = { has_opinion = { target = ROOT value > 25 } } }
+				# 自分では取り込めない見込み(低好感)の相手 = ライバルへ行く前に妨害
+				modifier = { factor = 2  FROM = { has_opinion = { target = ROOT value < 0 } } }
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+		bsm_ea_discourage_country_middle_east = {
+			icon = generic_political_discord
+			allowed = { always = yes }
+			# 盟主のみ実行可能。対象は首都が middle_east 大陸にある独立国
+			target_root_trigger = {
+				bsm_ea_autonomy_allows = yes
+				has_variable = bsm_ea_is_leader
+			}
+			target_trigger = {
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+					capital_scope = { is_on_continent = middle_east }
+					# 既に自陣営所属の相手を妨害しても無意味なので除外
+					NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				}
+			}
+			visible = {
+				has_variable = bsm_ea_is_leader
+				FROM = {
+					exists = yes
+					NOT = { tag = XXX }
+				}
+			}
+			available = {
+				has_political_power > 30
+				NOT = { has_war_with = FROM }
+			}
+			cost = 30
+			fire_only_once = no
+			days_re_enable = 30
+			complete_effect = {
+				# 対象国に汎用的な加盟意欲低下(malus)を付与 → どの陣営にも入りにくくなる
+				FROM = {
+					add_to_variable = { var = bsm_ea_join_malus value = 25 }
+					clamp_variable = { var = bsm_ea_join_malus min = 0 max = 100 }
+				}
+			}
+			ai_will_do = {
+				factor = 1
+				modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
+				modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+				modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
+				# 自分が取り込める見込みの相手(高好感)は妨害しない
+				modifier = { factor = 0  FROM = { has_opinion = { target = ROOT value > 25 } } }
+				# 自分では取り込めない見込み(低好感)の相手 = ライバルへ行く前に妨害
+				modifier = { factor = 2  FROM = { has_opinion = { target = ROOT value < 0 } } }
+				modifier = { factor = 0  has_war = yes }
+			}
+		}
+
+	# ----------------------------------------------------------------------
+	# 経済同盟の統合 (merge)
+	# ROOT = 存続側盟主, FROM = 被統合側盟主
+	# FROM の陣営を解散し、その全メンバーを ROOT の陣営へ統合する
+	# ----------------------------------------------------------------------
+	bsm_merge_economic_alliance = {
+		icon = generic_research
 		allowed = { always = yes }
-		target_array = neighbors
+		# 盟主のみ実行可能。target_array を指定せず全盟主を対象にする
+		target_root_trigger = {
+			bsm_ea_autonomy_allows = yes
+			has_variable = bsm_ea_is_leader
+		}
 		target_trigger = {
 			FROM = {
 				exists = yes
 				NOT = { tag = XXX }
-				is_subject = no
-				NOT = { is_in_array = { bsm_ea_joined_spheres = ROOT.bsm_ea_sphere } }
+				has_variable = bsm_ea_is_leader
+				NOT = { has_war_with = ROOT }
 			}
 		}
 		visible = {
 			has_variable = bsm_ea_is_leader
-			is_subject = no
+			NOT = { has_war_with = FROM }
 			FROM = {
 				exists = yes
 				NOT = { tag = XXX }
+				has_variable = bsm_ea_is_leader
 			}
 		}
 		available = {
-			has_political_power > 30
+			has_variable = bsm_ea_is_leader
+			has_political_power > 200
+			check_variable = { Unified_Currency > 200 }
+			has_civil_war = no
 			NOT = { has_war_with = FROM }
+			NOT = { has_government = ruinism }
+			NOT = { has_government = anarchism }
+			has_stability > 0
+			has_opinion = {
+				target = FROM
+				value > 50
+			}
 		}
-		cost = 30
 		fire_only_once = no
 		days_re_enable = 30
+		cost = 0
 		complete_effect = {
-			# ROOT = 盟主, FROM = 対象国
-			FROM = {
-				add_to_variable = { var = bsm_ea_join_bias@PREV value = 25 }
-				clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
-			}
+			bsm_ea_merge_sphere_action = yes
 		}
 		ai_will_do = {
 			factor = 1
+			# 統合しない方針なら不実行
 			modifier = { factor = 0  bsm_ea_ai_isolationist = yes }
-			modifier = { factor = 3  has_country_flag = ea_ai_expansionist }
+			# 拡張志向で積極化
+			modifier = { factor = 2  has_country_flag = ea_ai_expansionist }
 			modifier = { factor = 2  has_global_flag = ea_ai_global_expansion }
-			# 既に好感度が高い相手を優先
-			modifier = {
-				factor = 2
-				FROM = { has_opinion = { target = ROOT value > 40 } }
-			}
+			# 高好感の相手とのみ統合
+			modifier = { factor = 0  FROM = { has_opinion = { target = ROOT value < 75 } } }
+			# 戦争中は控える
 			modifier = { factor = 0  has_war = yes }
 		}
-	}
-
-	# ----------------------------------------------------------------------
-	# 加盟妨害 (対象国の自陣営への加盟意欲を下げる / ライバル盟主が使用)
-	# ROOT = 妨害する盟主, FROM = 対象国
-	# ----------------------------------------------------------------------
-	bsm_ea_discourage_country = {
-		icon = generic_political_discord
-		allowed = { always = yes }
-		target_array = neighbors
-		target_trigger = {
-			FROM = {
-				exists = yes
-				NOT = { tag = XXX }
-				is_subject = no
-			}
-		}
-		visible = {
-			has_variable = bsm_ea_is_leader
-			is_subject = no
-			FROM = {
-				exists = yes
-				NOT = { tag = XXX }
-			}
-		}
-		available = {
-			has_political_power > 30
-			NOT = { has_war_with = FROM }
-		}
-		cost = 30
-		fire_only_once = no
-		days_re_enable = 30
-		complete_effect = {
-			FROM = {
-				add_to_variable = { var = bsm_ea_join_bias@PREV value = -25 }
-				clamp_variable = { var = bsm_ea_join_bias@PREV min = -100 max = 100 }
-			}
-		}
-		ai_will_do = { factor = 0 }
 	}
 
 	# ----------------------------------------------------------------------

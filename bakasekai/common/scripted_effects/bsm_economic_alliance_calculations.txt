@@ -32,14 +32,21 @@ bsm_ea_calc_sphere_influence = {
 						}
 					}
 				}
+				# 表示用の既定値（合計0/未計算時のゴミ表示を防ぐ）
+				set_variable = { bsm_ea_member_seats = 0 }
+				set_variable = { bsm_ea_influence_pct = 0 }
 				set_temp_variable = { PREV.t_add_inf = bsm_ea_influence }
 			}
 			add_to_temp_variable = { t_total_inf = t_add_inf }
 		}
 
+		# scope変更先(var:v_mem2)から確実に読めるよう合計をグローバルへ退避
+		# (temp変数 PREV.t_total_inf はscope変更後に0と解決されゼロ除算→オーバーフローになる)
+		set_variable = { global.bsm_ea_g_total_inf = t_total_inf }
+
 		# 盟主に陣営合計影響力を保存（バフ配分用）
 		set_temp_variable = { t_leader = global.bsm_ea_member_list_@var:bsm_ea_calc_token^0 }
-		var:t_leader = { set_variable = { bsm_ea_sphere_total_influence = PREV.t_total_inf } }
+		var:t_leader = { set_variable = { bsm_ea_sphere_total_influence = global.bsm_ea_g_total_inf } }
 
 		# 2. 影響力比 → 議席(加盟国数×10) / 表示%
 		if = {
@@ -52,29 +59,32 @@ bsm_ea_calc_sphere_influence = {
 					max = 10
 				}
 			}
+			set_variable = { global.bsm_ea_g_total_seats = t_total_seats }
 			for_each_loop = {
 				array = global.bsm_ea_member_list_@var:bsm_ea_calc_token
 				value = v_mem2
 				var:v_mem2 = {
-					# 議席数 = round(share × (加盟国数×10))
+					# 議席数 = round(share × (加盟国数×10))  ※合計はグローバル経由で読む
 					set_variable = {
 						var = bsm_ea_member_seats
 						value = {
 							value = bsm_ea_influence
-							divide = PREV.t_total_inf
-							multiply = PREV.t_total_seats
+							divide = global.bsm_ea_g_total_inf
+							multiply = global.bsm_ea_g_total_seats
 							round = yes
+							clamp = { min = 0 max = 640 }
 						}
 					}
 
-					# 表示用 %（整数）
+					# 表示用 %（整数, 0..100）
 					set_variable = {
 						var = bsm_ea_influence_pct
 						value = {
 							value = bsm_ea_influence
-							divide = PREV.t_total_inf
+							divide = global.bsm_ea_g_total_inf
 							multiply = 100
 							round = yes
+							clamp = { min = 0 max = 100 }
 						}
 					}
 				}
@@ -128,7 +138,7 @@ bsm_update_economic_alliance_power_share = {
 							var = economic_alliance_pp_buff_value
 							value = {
 								value = bsm_ea_influence
-								divide = PREV.t_total
+								divide = global.bsm_ea_g_total_inf
 								clamp = { min = 0 max = 0.05 }
 							}
 						}

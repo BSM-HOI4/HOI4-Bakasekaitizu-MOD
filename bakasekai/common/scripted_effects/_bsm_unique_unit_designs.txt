@@ -1,0 +1,328 @@
+bsm_unique_unit_design_1936_tech = {
+  set_technology = {
+    infantry_weapons = 1
+    infantry_weapons1 = 1
+    gw_artillery = 1
+    interwar_antitank = 1
+    gwtank = 1
+    basic_light_tank = 1
+    early_fighter = 1
+  }
+
+  if = {
+    limit = { has_dlc = "By Blood Alone" }
+    set_technology = {
+      iw_small_airframe = 1
+      basic_small_airframe = 1
+      iw_medium_airframe = 1
+      engines_1 = 1
+      engines_2 = 1
+      early_bombs = 1
+      aa_lmg = 1
+    }
+  }
+
+  if = {
+    limit = { has_dlc = "No Step Back" }
+    set_technology = {
+      gwtank_chassis = 1
+      basic_light_tank_chassis = 1
+      engine_tech_1 = 1
+      armor_tech_1 = 1
+    }
+  }
+
+  if = {
+    limit = { has_dlc = "Man the Guns" }
+    set_technology = {
+      early_ship_hull_light = 1
+      basic_ship_hull_light = 1
+      early_ship_hull_cruiser = 1
+      basic_ship_hull_cruiser = 1
+      early_ship_hull_heavy = 1
+      basic_ship_hull_heavy = 1
+      early_ship_hull_submarine = 1
+      basic_battery = 1
+      basic_light_battery = 1
+      basic_torpedo = 1
+      basic_depth_charges = 1
+    }
+  }
+}
+
+bsm_unique_light_tankette_design = {
+  if = {
+    limit = { has_dlc = "No Step Back" }
+    create_equipment_variant = {
+      name = "Scout Tankette"
+      type = light_tank_chassis_0
+      parent_version = 0
+      modules = {
+        main_armament_slot = tank_heavy_machine_gun
+        turret_type_slot = tank_light_one_man_tank_turret
+        suspension_type_slot = tank_bogie_suspension
+        armor_type_slot = tank_riveted_armor
+        engine_type_slot = tank_gasoline_engine
+      }
+      upgrades = {
+        tank_nsb_engine_upgrade = 1
+        tank_nsb_armor_upgrade = 1
+      }
+    }
+  }
+
+  if = {
+    limit = { not = { has_dlc = "No Step Back" } }
+    create_equipment_variant = {
+      name = "Scout Tankette"
+      type = light_tank_equipment_1
+      parent_version = 0
+      upgrades = {
+        tank_gun_upgrade = 1
+        tank_armor_upgrade = 1
+        tank_engine_upgrade = 1
+        tank_reliability_upgrade = 1
+      }
+    }
+  }
+}
+
+bsm_unique_air_patrol_design = {
+  if = {
+    limit = { has_dlc = "By Blood Alone" }
+    create_equipment_variant = {
+      name = "Patrol Fighter"
+      type = small_plane_airframe_0
+      modules = {
+        fixed_main_weapon_slot = light_mg_2x
+        engine_type_slot = engine_1_1x
+        special_type_slot_1 = empty
+      }
+    }
+    create_equipment_variant = {
+      name = "Close Support"
+      type = small_plane_cas_airframe_0
+      modules = {
+        fixed_main_weapon_slot = bomb_locks
+        engine_type_slot = engine_1_1x
+        special_type_slot_1 = lmg_defense_turret
+      }
+    }
+    create_equipment_variant = {
+      name = "Field Bomber"
+      type = medium_plane_airframe_0
+      modules = {
+        fixed_main_weapon_slot = medium_bomb_bay
+        engine_type_slot = engine_1_2x
+        special_type_slot_1 = lmg_defense_turret
+      }
+    }
+  }
+}
+
+bsm_unique_screen_ship_design = {
+  if = {
+    limit = { has_dlc = "Man the Guns" }
+    create_equipment_variant = {
+      name = "Patrol Class"
+      type = ship_hull_light_1
+      parent_version = 0
+      modules = {
+        fixed_ship_battery_slot = ship_light_battery_1
+        fixed_ship_anti_air_slot = ship_anti_air_1
+        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+        fixed_ship_radar_slot = empty
+        fixed_ship_engine_slot = light_ship_engine_1
+        fixed_ship_torpedo_slot = ship_torpedo_1
+        mid_1_custom_slot = empty
+        rear_1_custom_slot = ship_depth_charge_1
+      }
+    }
+    create_equipment_variant = {
+      name = "Cruiser Class"
+      type = ship_hull_cruiser_1
+      parent_version = 0
+      modules = {
+        fixed_ship_battery_slot = ship_light_medium_battery_1
+        fixed_ship_anti_air_slot = ship_anti_air_1
+        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+        fixed_ship_radar_slot = empty
+        fixed_ship_engine_slot = cruiser_ship_engine_1
+        fixed_ship_armor_slot = ship_armor_cruiser_1
+        mid_1_custom_slot = empty
+        rear_1_custom_slot = ship_light_medium_battery_1
+      }
+    }
+    create_equipment_variant = {
+      name = "Battleline Class"
+      type = ship_hull_heavy_1
+      parent_version = 0
+      modules = {
+        fixed_ship_battery_slot = ship_heavy_battery_1
+        fixed_ship_anti_air_slot = ship_anti_air_1
+        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+        fixed_ship_radar_slot = empty
+        fixed_ship_engine_slot = heavy_ship_engine_1
+        fixed_ship_secondaries_slot = empty
+        fixed_ship_armor_slot = ship_armor_bb_1
+        front_1_custom_slot = empty
+        mid_1_custom_slot = empty
+        rear_1_custom_slot = ship_heavy_battery_1
+      }
+    }
+    create_equipment_variant = {
+      name = "Submarine Class"
+      type = ship_hull_submarine_1
+      parent_version = 0
+      modules = {
+        fixed_ship_torpedo_slot = ship_torpedo_sub_1
+        fixed_ship_engine_slot = sub_ship_engine_1
+        rear_1_custom_slot = empty
+      }
+    }
+  }
+}
+
+MYS_bsm_unit_designs = {
+  bsm_unique_unit_design_1936_tech = yes
+  bsm_unique_light_tankette_design = yes
+  bsm_unique_air_patrol_design = yes
+  bsm_unique_screen_ship_design = yes
+}
+
+MAC_bsm_unit_designs = {
+  bsm_unique_unit_design_1936_tech = yes
+  bsm_unique_light_tankette_design = yes
+  bsm_unique_air_patrol_design = yes
+  bsm_unique_screen_ship_design = yes
+}
+
+TEX_bsm_unit_designs = {
+  bsm_unique_unit_design_1936_tech = yes
+  bsm_unique_light_tankette_design = yes
+  bsm_unique_air_patrol_design = yes
+  bsm_unique_screen_ship_design = yes
+}
+
+CLF_bsm_unit_designs = {
+  bsm_unique_unit_design_1936_tech = yes
+  bsm_unique_light_tankette_design = yes
+  bsm_unique_air_patrol_design = yes
+  bsm_unique_screen_ship_design = yes
+}
+
+HLW_bsm_unit_designs = {
+  bsm_unique_unit_design_1936_tech = yes
+  bsm_unique_light_tankette_design = yes
+  bsm_unique_air_patrol_design = yes
+}
+
+NYY_bsm_unit_designs = {
+  bsm_unique_unit_design_1936_tech = yes
+  bsm_unique_light_tankette_design = yes
+  bsm_unique_air_patrol_design = yes
+  bsm_unique_screen_ship_design = yes
+}
+
+NEV_bsm_unit_designs = {
+  bsm_unique_unit_design_1936_tech = yes
+  bsm_unique_light_tankette_design = yes
+  bsm_unique_air_patrol_design = yes
+  bsm_unique_screen_ship_design = yes
+}
+
+DIS_bsm_unit_designs = {
+  bsm_unique_unit_design_1936_tech = yes
+  bsm_unique_light_tankette_design = yes
+  bsm_unique_air_patrol_design = yes
+  bsm_unique_screen_ship_design = yes
+}
+
+# 第2世代(1936)巡洋艦/戦艦/装甲艦の標準バリアント。
+# 基本ヘルパー(bsm_unique_screen_ship_design)が第1世代のみ生成するため、
+# 第2世代艦をOOBに持つ主要国(DEU/GBR等)の欠落補完に使用。
+bsm_default_advanced_ship_designs = {
+  if = {
+    limit = { has_dlc = "Man the Guns" }
+    set_technology = {
+      basic_ship_hull_light = 1
+      basic_ship_hull_submarine = 1
+      basic_ship_hull_cruiser = 1
+      basic_ship_hull_heavy = 1
+      panzerschiffe = 1
+    }
+    create_equipment_variant = {
+      name = "Destroyer Mk.II Class"
+      type = ship_hull_light_2
+      parent_version = 0
+      modules = {
+        fixed_ship_battery_slot = ship_light_battery_1
+        fixed_ship_anti_air_slot = ship_anti_air_1
+        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+        fixed_ship_radar_slot = empty
+        fixed_ship_engine_slot = light_ship_engine_1
+        fixed_ship_torpedo_slot = ship_torpedo_1
+        mid_1_custom_slot = empty
+        rear_1_custom_slot = ship_depth_charge_1
+      }
+    }
+    create_equipment_variant = {
+      name = "Submarine Mk.II Class"
+      type = ship_hull_submarine_2
+      parent_version = 0
+      modules = {
+        fixed_ship_torpedo_slot = ship_torpedo_sub_1
+        fixed_ship_engine_slot = sub_ship_engine_1
+        rear_1_custom_slot = empty
+      }
+    }
+    create_equipment_variant = {
+      name = "Cruiser Mk.II Class"
+      type = ship_hull_cruiser_2
+      parent_version = 0
+      modules = {
+        fixed_ship_battery_slot = ship_light_medium_battery_1
+        fixed_ship_anti_air_slot = ship_anti_air_1
+        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+        fixed_ship_radar_slot = empty
+        fixed_ship_engine_slot = cruiser_ship_engine_1
+        fixed_ship_armor_slot = ship_armor_cruiser_1
+        mid_1_custom_slot = empty
+        rear_1_custom_slot = ship_light_medium_battery_1
+      }
+    }
+    create_equipment_variant = {
+      name = "Capital Mk.II Class"
+      type = ship_hull_heavy_2
+      parent_version = 0
+      modules = {
+        fixed_ship_battery_slot = ship_heavy_battery_1
+        fixed_ship_anti_air_slot = ship_anti_air_1
+        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+        fixed_ship_radar_slot = empty
+        fixed_ship_engine_slot = heavy_ship_engine_1
+        fixed_ship_secondaries_slot = ship_secondaries_1
+        fixed_ship_armor_slot = ship_armor_bb_1
+        front_1_custom_slot = ship_heavy_battery_1
+        mid_1_custom_slot = empty
+        rear_1_custom_slot = ship_heavy_battery_1
+      }
+    }
+    create_equipment_variant = {
+      name = "Panzerschiff Class"
+      type = ship_hull_cruiser_panzerschiff
+      parent_version = 0
+      modules = {
+        fixed_ship_battery_slot = ship_heavy_battery_1
+        fixed_ship_anti_air_slot = ship_anti_air_1
+        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+        fixed_ship_radar_slot = empty
+        fixed_ship_engine_slot = cruiser_ship_engine_1
+        fixed_ship_armor_slot = ship_armor_cruiser_1
+        front_1_custom_slot = empty
+        mid_1_custom_slot = empty
+        rear_1_custom_slot = empty
+      }
+    }
+  }
+}

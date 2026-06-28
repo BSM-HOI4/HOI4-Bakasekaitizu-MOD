@@ -960,6 +960,19 @@ country_event = {
 			set_cosmetic_tag = MAC_pepsi
 		}
 	}
+
+	# フォールバック: どちらの陣営フラグも無い場合に必ず有効な選択肢を 1 つ用意する
+	# (全 option が trigger 不成立だと「No valid option」アサートで停止するため)
+	option = {
+		name = MCD.24.c  #事態はひとまず鎮静化した
+		trigger = {
+			NOT = { has_country_flag = MAC_pepsi_flag }
+			NOT = { has_country_flag = MAC_coca_flag }
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
 }
 
 country_event = {

@@ -1,10 +1,11 @@
 scripted_diplomatic_actions = {
 	bsm_fabricate_claim_action = {
-		# name = "DIPLOMACY_BSM_FABRICATE_CLAIM_NAME" # Using ID for localization to avoid syntax error
+		# ボタン名/説明はアクションID(bsm_fabricate_claim_action / _desc)をlocキーにして表示される
 		icon = "GFX_goal_generic_major_power_challenge"
 
 		visible = {
-			NOT = { check_variable = { ROOT = FROM } }
+			# 自分自身は対象にできない
+			NOT = { tag = FROM }
 			NOT = { has_war_with = FROM }
 
 			custom_trigger_tooltip = {
@@ -20,6 +21,9 @@ scripted_diplomatic_actions = {
 		cost_string = "BSM_FABRICATE_CLAIM_DIPLO_COST"
 
 		complete_effect = {
+			# 対象国(FROM)を event_target として保存し、自国でイベントを発火する。
+			# 無印 country_event だとイベント内 FROM が自国になるため、対象国は event_target で渡す。
+			FROM = { save_event_target_as = bsm_fabricate_claim_target }
 			country_event = {
 				id = bsm_fabricate_claim_events.1
 				days = 1
