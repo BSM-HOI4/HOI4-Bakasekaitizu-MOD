@@ -433,7 +433,7 @@ bsm_ea_spend_reserve_for_crisis = {
 					limit = {
 						has_variable = bsm_nc_stability
 						check_variable = { bsm_nc_stability < 30 }
-						check_variable = { PREV.t_reserve >= 25 }
+						NOT = { check_variable = { PREV.t_reserve < 25 } }
 					}
 					subtract_from_temp_variable = { PREV.t_reserve = 25 }
 					add_to_variable = { bsm_nc_stability = 10 }
@@ -444,7 +444,7 @@ bsm_ea_spend_reserve_for_crisis = {
 					limit = {
 						has_variable = Unified_Currency
 						check_variable = { Unified_Currency < 0 }
-						check_variable = { PREV.t_reserve >= 50 }
+						NOT = { check_variable = { PREV.t_reserve < 50 } }
 					}
 					subtract_from_temp_variable = { PREV.t_reserve = 50 }
 					add_to_variable = { Unified_Currency = 50 }
@@ -454,7 +454,7 @@ bsm_ea_spend_reserve_for_crisis = {
 					limit = {
 						has_variable = bsm_nc_inflation
 						check_variable = { bsm_nc_inflation > 20 }
-						check_variable = { PREV.t_reserve >= 40 }
+						NOT = { check_variable = { PREV.t_reserve < 40 } }
 					}
 					subtract_from_temp_variable = { PREV.t_reserve = 40 }
 					subtract_from_variable = { bsm_nc_inflation = 5 }
@@ -470,7 +470,7 @@ bsm_ea_spend_reserve_for_crisis = {
 		if = {
 			limit = {
 				check_variable = { t_pressure > 75 }
-				check_variable = { t_reserve >= 100 }
+				NOT = { check_variable = { t_reserve < 100 } }
 			}
 			subtract_from_temp_variable = { t_reserve = 100 }
 			var:t_leader = {
@@ -504,7 +504,7 @@ bsm_ea_spend_reserve_for_investment = {
 		}
 		if = {
 			limit = {
-				check_variable = { t_reserve >= bsm_ea_invest_amount }
+				NOT = { check_variable = { t_reserve < bsm_ea_invest_amount } }
 			}
 			subtract_from_temp_variable = { t_reserve = bsm_ea_invest_amount }
 			event_target:bsm_ea_ai_target = {
