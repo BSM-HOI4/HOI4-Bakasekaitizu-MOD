@@ -381,6 +381,8 @@ bsm_ea_leave_sphere_action = {
 			limit = { has_country_flag = is_economic_alliance_leader }
 			clr_country_flag = is_economic_alliance_leader
 		}
+		# 脱退クールダウン: 離脱した陣営トークンを記録し、同じ陣営への再加入のみ拒否する
+		set_variable = { bsm_ea_recently_left_token = var:bsm_ea_token }
 		add_timed_idea = { idea = recently_left_economic_alliance days = 365 }
 		add_political_power = -50
 	}
@@ -409,35 +411,117 @@ bsm_ea_generate_new_token = {
 # 入力: FROM = 招待国
 # ------------------------------------------
 bsm_ea_form_sphere_action = {
-	# 1. Generate Token
-	bsm_ea_generate_new_token = yes
-	# 2. Pay Costs
-	add_political_power = -100
-	add_to_variable = { Unified_Currency = -100 }
-	# 3. Create Sphere (Leader init)
-	bsm_ea_create_sphere = yes
-	# 4. トークンを保存してFROMに渡す
-	set_temp_variable = { t_saved_token = var:bsm_ea_token }
-	FROM = {
-		set_temp_variable = { bsm_ea_token = PREV.t_saved_token }
-		bsm_ea_join_sphere = yes
+	# 既に盟主なら新規結成しない（陣営同士の合流は bsm_ea_merge_sphere_action を使用）
+	if = {
+		limit = { has_variable = bsm_ea_is_leader }
+		log = "[BSM EA] form_sphere_action aborted: [THIS.GetName] is already a leader."
 	}
-	# 5. Legacy Flags / Relations Support
-	set_country_flag = is_economic_alliance_leader
-	set_country_flag = is_economic_alliance_member
-	FROM = {
+	else = {
+		# 1. Generate Token
+		bsm_ea_generate_new_token = yes
+		# 2. Pay Costs
+		add_political_power = -100
+		add_to_variable = { Unified_Currency = -100 }
+		# 3. Create Sphere (Leader init)
+		bsm_ea_create_sphere = yes
+		# 4. トークンを保存してFROMに渡す
+		set_temp_variable = { t_saved_token = var:bsm_ea_token }
+		FROM = {
+			set_temp_variable = { bsm_ea_token = PREV.t_saved_token }
+			bsm_ea_join_sphere = yes
+		}
+		# 5. Legacy Flags / Relations Support
+		set_country_flag = is_economic_alliance_leader
 		set_country_flag = is_economic_alliance_member
-	}
-	# Relations
-	add_opinion_modifier = {
-		target = FROM
-		modifier = bsm_economic_alliance_relation_boost
-	}
-	FROM = {
+		FROM = {
+			set_country_flag = is_economic_alliance_member
+		}
+		# Relations
 		add_opinion_modifier = {
-			target = ROOT
+			target = FROM
 			modifier = bsm_economic_alliance_relation_boost
 		}
+		FROM = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = bsm_economic_alliance_relation_boost
+			}
+		}
+	}
+}
+
+# ------------------------------------------
+# アクション: 経済陣営の統合 (merge)
+# 入力: ROOT = 存続側盟主, FROM = 被統合側盟主
+# FROM の陣営を解散し、その全メンバーを ROOT の陣営へ移籍させる
+# ------------------------------------------
+bsm_ea_merge_sphere_action = {
+	# 存続トークン(S)と被統合トークン(D)を確定（盟主が率いる陣営トークンを使用）
+	set_temp_variable = { t_merge_survivor = bsm_ea_leader_of }
+	set_temp_variable = { t_merge_dissolved = FROM.bsm_ea_leader_of }
+
+	if = {
+		limit = {
+			has_variable = bsm_ea_is_leader
+			FROM = { has_variable = bsm_ea_is_leader }
+			NOT = { check_variable = { t_merge_survivor = t_merge_dissolved } }
+		}
+		# コスト
+		add_political_power = -200
+		add_to_variable = { Unified_Currency = -200 }
+
+		# 移籍ごとの加盟ニュースを抑制
+		set_global_flag = bsm_ea_news_suppressed
+
+		# 被統合陣営のメンバーをスナップショット（走査中の配列変化対策）
+		clear_temp_array = t_merge_members
+		for_each_loop = {
+			array = global.bsm_ea_member_list_@var:t_merge_dissolved
+			value = v_dm
+			add_to_temp_array = { t_merge_members = var:v_dm }
+		}
+
+		# Pass 1: 被統合盟主(FROM)以外を先に移籍
+		for_each_loop = {
+			array = t_merge_members
+			value = v_dm
+			if = {
+				limit = { NOT = { var:v_dm = { tag = FROM } } }
+				var:v_dm = {
+					set_temp_variable = { bsm_ea_token = PREV.t_merge_dissolved }
+					bsm_ea_leave_sphere = yes
+					set_temp_variable = { bsm_ea_token = PREV.t_merge_survivor }
+					bsm_ea_join_sphere = yes
+					# 存続側盟主との関係強化
+					save_event_target_as = bsm_ea_temp_member
+					add_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost }
+				}
+				add_opinion_modifier = { target = event_target:bsm_ea_temp_member modifier = bsm_economic_alliance_relation_boost }
+			}
+		}
+
+		# Pass 2: 被統合盟主(FROM)を最後に移籍 → D は無人化して解散
+		FROM = {
+			set_temp_variable = { bsm_ea_token = PREV.t_merge_dissolved }
+			bsm_ea_leave_sphere = yes
+			# この時点で所属陣営0なら議長等の役職アイデアを除去
+			bsm_ea_cleanup_my_roles = yes
+			set_temp_variable = { bsm_ea_token = PREV.t_merge_survivor }
+			bsm_ea_join_sphere = yes
+			set_country_flag = is_economic_alliance_member
+			clr_country_flag = is_economic_alliance_leader
+			add_opinion_modifier = { target = ROOT modifier = bsm_economic_alliance_relation_boost }
+		}
+		add_opinion_modifier = { target = FROM modifier = bsm_economic_alliance_relation_boost }
+
+		# 抑制解除
+		clr_global_flag = bsm_ea_news_suppressed
+
+		# 存続陣営の再計算
+		set_temp_variable = { bsm_ea_calc_token = t_merge_survivor }
+		bsm_ea_calc_sphere_power = yes
+
+		log = "[BSM EA] Merged sphere [?t_merge_dissolved] into [?t_merge_survivor] (leader [THIS.GetName])."
 	}
 }
 
@@ -625,6 +709,14 @@ bsm_ea_sort_sphere_list = {
 			set_temp_variable = { t_best_leader = global.bsm_ea_member_list_@var:t_best_token^0 }
 			var:t_best_leader = {
 				set_variable = { bsm_ea_rank = PREV.t_rank_counter }
+				# 順位メダル frame (1=金 2=銀 3=銅 4=無)
+				set_variable = {
+					var = bsm_ea_rank_medal_frame
+					value = {
+						value = PREV.t_rank_counter
+						clamp = { min = 1 max = 4 }
+					}
+				}
 			}
 			add_to_array = { global.bsm_ea_sorted_sphere_list = var:t_best_leader }
 		}
@@ -672,6 +764,17 @@ bsm_ea_build_seat_diagram_arrays = {
 		var:v_mem = {
 			set_variable = { bsm_ea_legend_frame = PREV.t_member_frame }
 			set_temp_variable = { PREV.t_member_seats = bsm_ea_member_seats }
+			# 影響力メーター用セグメント (0..10点灯 -> frame 1..11)
+			set_variable = {
+				var = bsm_ea_influence_seg
+				value = {
+					value = bsm_ea_influence_pct
+					divide = 10
+					round = yes
+					add = 1
+					clamp = { min = 1 max = 11 }
+				}
+			}
 		}
 		clamp_temp_variable = { var = t_member_seats min = 0 max = 640 }
 		while_loop_effect = {

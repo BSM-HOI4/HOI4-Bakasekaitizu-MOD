@@ -1,0 +1,133 @@
+# =====================================================================
+# BSM 法律: 金融法(bsm_finance_law) / 労働法(bsm_labor_law)
+# 「法と政府」欄(idea_categories government)に追加した新スロット。
+# 各法は bsm_gdp_factor(modifier_definitions/_bsm_econ_modifiers.txt)を介して
+# 実質GDP(bsm_econ_update_gdp)に直接効く。各国は default 段階で開始する。
+# 暫定バランス: 数値は仮置き。
+# =====================================================================
+
+ideas = {
+	bsm_finance_law = {
+		law = yes
+		use_list_view = yes
+
+		# 統制金融: 国家主導。安定・PPは増えるが成長(GDP)は鈍る。
+		bsm_state_finance = {
+			cost = 150
+			removal_cost = -1
+			available = {
+				OR = {
+					has_war = yes
+					has_war_support > 0.15
+				}
+			}
+			modifier = {
+				bsm_gdp_factor = -0.05
+				political_power_factor = 0.10
+				consumer_goods_factor = 0.05
+				stability_factor = 0.05
+			}
+			cancel_if_invalid = no
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					has_war = yes
+					factor = 3
+				}
+			}
+		}
+
+		# 混合金融: 標準。各国の初期値。
+		bsm_mixed_finance = {
+			cost = 150
+			removal_cost = -1
+			default = yes
+			modifier = {
+			}
+			cancel_if_invalid = no
+		}
+
+		# 自由金融: 市場主導。GDP成長を押し上げるが安定が下がる。
+		bsm_free_finance = {
+			cost = 150
+			removal_cost = -1
+			available = {
+				has_stability > 0.40
+			}
+			modifier = {
+				bsm_gdp_factor = 0.10
+				production_speed_industrial_complex_factor = 0.05
+				consumer_goods_factor = -0.05
+				stability_factor = -0.05
+			}
+			cancel_if_invalid = no
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					has_stability > 0.60
+					factor = 2
+				}
+			}
+		}
+	}
+
+	bsm_labor_law = {
+		law = yes
+		use_list_view = yes
+
+		# 強制労働: 産出を絞り出す。短期GDPと戦争支持は上がるが安定が大きく下がる。
+		bsm_forced_labor = {
+			cost = 150
+			removal_cost = -1
+			available = {
+				OR = {
+					has_war = yes
+					has_war_support > 0.30
+				}
+			}
+			modifier = {
+				bsm_gdp_factor = 0.05
+				industrial_capacity_factory = 0.05
+				war_support_factor = 0.05
+				stability_factor = -0.10
+			}
+			cancel_if_invalid = no
+			ai_will_do = {
+				factor = 1
+				modifier = {
+					has_war = yes
+					factor = 2
+				}
+			}
+		}
+
+		# 標準労働: 各国の初期値。
+		bsm_standard_labor = {
+			cost = 150
+			removal_cost = -1
+			default = yes
+			modifier = {
+			}
+			cancel_if_invalid = no
+		}
+
+		# 労働者保護: 生産性とGDP・安定が上がるが、消費財コストとPPがかかる。
+		bsm_worker_protection = {
+			cost = 150
+			removal_cost = -1
+			available = {
+				has_stability > 0.50
+			}
+			modifier = {
+				bsm_gdp_factor = 0.08
+				stability_factor = 0.08
+				consumer_goods_factor = 0.05
+				political_power_factor = -0.05
+			}
+			cancel_if_invalid = no
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+}

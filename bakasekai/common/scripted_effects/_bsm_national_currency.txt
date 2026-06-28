@@ -15,13 +15,15 @@
 # 19 = THB (バーツ)        20 = NGN (ナイラ)         21 = ZAR (ランド)
 # 22 = KES (東アフリカシリング) 23 = COP (コロンビアペソ) 24 = ILS (シェケル)
 # 25 = TWD (台湾ドル)      26 = PHP (フィリピンペソ) 27 = MYR (リンギット)
-# 28 = MAN (満州国円)      29 = Generic (汎用通貨)
+# 28 = MAN (満州国円)
+# 30 = 固有国家通貨 (上記に該当しない全国家。表示は bsm_nc_tok=token:nc_<TAG> で nc_<TAG>_name/_sym を解決)
 
 # ==========================================
 # 初期化: on_startup から every_country 内で呼び出し
 # ==========================================
 bsm_nc_init_currency = {
 	set_variable = { bsm_nc_id = 0 }
+	set_variable = { bsm_nc_tok = 0 }
 	set_variable = { bsm_nc_base_rate = 1.0 }
 	set_variable = { bsm_nc_rate = 1.0 }
 	set_variable = { bsm_nc_rate_prev = 1.0 }
@@ -48,11 +50,14 @@ bsm_nc_inherit_overlord_currency = {
 		}
 		set_temp_variable = { t_ov_id = 0 }
 		set_temp_variable = { t_ov_base = 1.0 }
+		set_temp_variable = { t_ov_tok = 0 }
 		overlord = {
 			set_temp_variable = { PREV.t_ov_id = bsm_nc_id }
 			set_temp_variable = { PREV.t_ov_base = bsm_nc_base_rate }
+			set_temp_variable = { PREV.t_ov_tok = bsm_nc_tok }
 		}
 		set_variable = { bsm_nc_id = t_ov_id }
+		set_variable = { bsm_nc_tok = t_ov_tok }
 		set_variable = { bsm_nc_base_rate = t_ov_base }
 		set_variable = { bsm_nc_original_id = t_ov_id }
 		set_variable = { bsm_nc_rate = t_ov_base }
@@ -61,64 +66,13 @@ bsm_nc_inherit_overlord_currency = {
 }
 
 # ==========================================
-# 経済同盟内: generic通貨国へ最強通貨を流通させる
-# 入力: t_token (temp) = 陣営トークン
-# このスコープ(通常は盟主)の temp 変数を使うため単一国スコープで実行する
+# [退役 2026-06-20] bsm_nc_apply_strongest_for_sphere / bsm_nc_leader_apply_strongest
+# 旧仕様は EA陣営内の id=29(generic) メンバーを陣営内最強通貨へ自動吸収していたが、
+# 全国家が固有通貨(id=30)を持つ新設計では吸収対象(generic)が存在せず、
+# かつ固有通貨を自動で上書きするのは主目的(各国固有通貨)に反し、脱退時の復元も無いため退役。
+# 意図的な通貨共有は opt-in の通貨同盟(EA goal_03 / bsm_nc_currency_union_*)に一本化。
+# effect 定義と on_actions の呼び出しパス(開始時/月次)も併せて削除済み。
 # ==========================================
-bsm_nc_apply_strongest_for_sphere = {
-	# var: のスコープ内では PREV.temp の読み取りが効かないため global 変数で集計する
-	# 1. メンバー内で最強(=base_rate最小)の通貨を探す (generic/UC直結は除外)
-	set_variable = { global.bsm_nc_best_rate = 20000 }
-	set_variable = { global.bsm_nc_best_id = 29 }
-	set_variable = { global.bsm_nc_has_strong = 0 }
-	for_each_loop = {
-		array = global.bsm_ea_member_list_@var:t_token
-		value = v_nc_smem
-		var:v_nc_smem = {
-			if = {
-				limit = {
-					NOT = { check_variable = { bsm_nc_id = 0 } }
-					NOT = { check_variable = { bsm_nc_id = 29 } }
-					check_variable = { bsm_nc_base_rate < global.bsm_nc_best_rate }
-				}
-				set_variable = { global.bsm_nc_best_rate = bsm_nc_base_rate }
-				set_variable = { global.bsm_nc_best_id = bsm_nc_id }
-				set_variable = { global.bsm_nc_has_strong = 1 }
-			}
-		}
-	}
-	# 2. generic通貨のメンバーへ最強通貨を適用
-	if = {
-		limit = { check_variable = { global.bsm_nc_has_strong = 1 } }
-		for_each_loop = {
-			array = global.bsm_ea_member_list_@var:t_token
-			value = v_nc_gmem
-			var:v_nc_gmem = {
-				if = {
-					limit = { check_variable = { bsm_nc_id = 29 } }
-					set_variable = { bsm_nc_id = global.bsm_nc_best_id }
-					set_variable = { bsm_nc_base_rate = global.bsm_nc_best_rate }
-					set_variable = { bsm_nc_rate = global.bsm_nc_best_rate }
-					set_variable = { bsm_nc_rate_prev = global.bsm_nc_best_rate }
-				}
-			}
-		}
-	}
-}
-
-# ==========================================
-# 盟主が自陣営に最強通貨を流通させる (every_country 内で呼び出し)
-# ==========================================
-bsm_nc_leader_apply_strongest = {
-	if = {
-		limit = {
-			has_variable = bsm_ea_is_leader
-			has_variable = bsm_ea_leader_of
-		}
-		set_temp_variable = { t_token = bsm_ea_leader_of }
-		bsm_nc_apply_strongest_for_sphere = yes
-	}
-}
 
 # ==========================================
 # 通貨同盟: 初期化/解除/収斂管理
@@ -425,7 +379,6 @@ bsm_nc_assign_currency = {
 				tag = LIT
 				tag = PRT
 				tag = FIN
-				tag = POL
 				tag = CRO
 				tag = SLV
 				tag = BUL
@@ -810,11 +763,25 @@ bsm_nc_assign_currency = {
 		set_variable = { bsm_nc_id = 28 }
 		set_variable = { bsm_nc_base_rate = 120.0 }
 	}
-	# --- 29: Generic (汎用通貨) rate=100 ---
-	# 上記に含まれない全国家
+	# --- 30: 固有国家通貨 (上記主要通貨に含まれない全国家へ個別通貨) ---
+	# トークン nc_<TAG>      : common/synchronized_dynamic_tokens/_bsm_nc_tokens.txt
+	# 表示名/記号 nc_<TAG>_* : localisation/japanese/_bsm_national_currency_auto_l_japanese.yml (自動生成)
 	else = {
-		set_variable = { bsm_nc_id = 29 }
-		set_variable = { bsm_nc_base_rate = 100.0 }
+		set_variable = { bsm_nc_id = 30 }
+		# 為替レート基準値は資本のある大陸から流用
+		if = { limit = { capital_scope = { is_on_continent = europe } }            set_variable = { bsm_nc_base_rate = 7.0 } }
+		else_if = { limit = { capital_scope = { is_on_continent = north_america } } set_variable = { bsm_nc_base_rate = 25.0 } }
+		else_if = { limit = { capital_scope = { is_on_continent = south_america } } set_variable = { bsm_nc_base_rate = 2500.0 } }
+		else_if = { limit = { capital_scope = { is_on_continent = middle_east } }   set_variable = { bsm_nc_base_rate = 50.0 } }
+		else_if = { limit = { capital_scope = { is_on_continent = asia } }          set_variable = { bsm_nc_base_rate = 900.0 } }
+		else_if = { limit = { capital_scope = { is_on_continent = africa } }        set_variable = { bsm_nc_base_rate = 500.0 } }
+		else_if = { limit = { capital_scope = { is_on_continent = australia } }     set_variable = { bsm_nc_base_rate = 3.0 } }
+		else = { set_variable = { bsm_nc_base_rate = 100.0 } }
+		# タグから固有通貨トークンを動的割当 (token:nc_<TAG>)
+		meta_effect = {
+			text = { set_variable = { bsm_nc_tok = token:nc_[TAG] } }
+			TAG = "[THIS.GetTag]"
+		}
 	}
 }
 

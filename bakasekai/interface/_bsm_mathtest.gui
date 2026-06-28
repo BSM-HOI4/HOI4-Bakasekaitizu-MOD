@@ -1,0 +1,148 @@
+guiTypes = {
+	containerWindowType = {
+		name = "bsm_mathtest_window"
+		position = { x = 240 y = 120 }
+		size = { width = 648 height = 452 }
+		moveable = yes
+
+		background = {
+			name = "bg"
+			quadTextureSprite = "GFX_tiled_window_transparent"
+		}
+
+		instantTextBoxType = {
+			name = "mt_title"
+			position = { x = 16 y = 10 }
+			font = "hoi_18mbs"
+			text = "bsm_mathtest_title"
+			maxWidth = 560 maxHeight = 24 format = left
+		}
+		buttonType = {
+			name = "close_button"
+			position = { x = -34 y = 6 }
+			quadTextureSprite = "GFX_closebutton"
+			orientation = UPPER_RIGHT
+			clicksound = click_close
+			oversound = ui_menu_over
+		}
+
+		# ----- 動的表示 (ACC / B / ヘルプ) -----
+		instantTextBoxType = {
+			name = "mt_acc_disp"
+			position = { x = 16 y = 40 }
+			font = "hoi_18mbs"
+			text = "bsm_mathtest_acc_disp"
+			maxWidth = 600 maxHeight = 24 format = left
+		}
+		instantTextBoxType = {
+			name = "mt_operand_disp"
+			position = { x = 16 y = 64 }
+			font = "hoi_18mbs"
+			text = "bsm_mathtest_operand_disp"
+			maxWidth = 600 maxHeight = 24 format = left
+		}
+		instantTextBoxType = {
+			name = "mt_help"
+			position = { x = 16 y = 90 }
+			font = "hoi_16mbs"
+			text = "bsm_mathtest_help"
+			maxWidth = 616 maxHeight = 22 format = left
+		}
+
+		# =========================== 四則演算 (y=118) ===========================
+		instantTextBoxType = { name = "lbl_arith" position = { x = 10 y = 123 } font = "hoi_16mbs" text = "Arith" maxWidth = 90 maxHeight = 22 format = left }
+		buttonType = { name = "op_add" position = { x = 104 y = 118 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_add_l" position = { x = 104 y = 123 } font = "hoi_16mbs" text = "+ add" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_sub" position = { x = 194 y = 118 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_sub_l" position = { x = 194 y = 123 } font = "hoi_16mbs" text = "- sub" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_mul" position = { x = 284 y = 118 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_mul_l" position = { x = 284 y = 123 } font = "hoi_16mbs" text = "x mul" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_div" position = { x = 374 y = 118 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_div_l" position = { x = 374 y = 123 } font = "hoi_16mbs" text = "/ div" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+
+		# =========================== 冪 / 対数 (y=156) ===========================
+		instantTextBoxType = { name = "lbl_pow" position = { x = 10 y = 161 } font = "hoi_16mbs" text = "Pow/Log" maxWidth = 90 maxHeight = 22 format = left }
+		buttonType = { name = "op_pow" position = { x = 104 y = 156 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_pow_l" position = { x = 104 y = 161 } font = "hoi_16mbs" text = "pow ^B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_root" position = { x = 194 y = 156 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_root_l" position = { x = 194 y = 161 } font = "hoi_16mbs" text = "root B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_sqrt" position = { x = 284 y = 156 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_sqrt_l" position = { x = 284 y = 161 } font = "hoi_16mbs" text = "sqrt=r2" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_log" position = { x = 374 y = 156 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_log_l" position = { x = 374 y = 161 } font = "hoi_16mbs" text = "log B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_exp" position = { x = 464 y = 156 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_exp_l" position = { x = 464 y = 161 } font = "hoi_16mbs" text = "e^A(pow)" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+
+		# =========================== 三角関数 (y=194) ===========================
+		instantTextBoxType = { name = "lbl_trig" position = { x = 10 y = 199 } font = "hoi_16mbs" text = "Trig(rad)" maxWidth = 90 maxHeight = 22 format = left }
+		buttonType = { name = "op_sin" position = { x = 104 y = 194 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_sin_l" position = { x = 104 y = 199 } font = "hoi_16mbs" text = "sin" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_cos" position = { x = 194 y = 194 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_cos_l" position = { x = 194 y = 199 } font = "hoi_16mbs" text = "cos" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_tan" position = { x = 284 y = 194 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_tan_l" position = { x = 284 y = 199 } font = "hoi_16mbs" text = "tan" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+
+		# =========================== その他 (y=232) ===========================
+		instantTextBoxType = { name = "lbl_misc" position = { x = 10 y = 237 } font = "hoi_16mbs" text = "Misc" maxWidth = 90 maxHeight = 22 format = left }
+		buttonType = { name = "op_mod" position = { x = 104 y = 232 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_mod_l" position = { x = 104 y = 237 } font = "hoi_16mbs" text = "mod B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_min" position = { x = 194 y = 232 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_min_l" position = { x = 194 y = 237 } font = "hoi_16mbs" text = "min B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_max" position = { x = 284 y = 232 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_max_l" position = { x = 284 y = 237 } font = "hoi_16mbs" text = "max B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_clamp" position = { x = 374 y = 232 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_clamp_l" position = { x = 374 y = 237 } font = "hoi_16mbs" text = "clmp0-100" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_round" position = { x = 464 y = 232 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_round_l" position = { x = 464 y = 237 } font = "hoi_16mbs" text = "round" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+
+		# =========================== 比較 (y=270) ===========================
+		instantTextBoxType = { name = "lbl_cmp" position = { x = 10 y = 275 } font = "hoi_16mbs" text = "Compare" maxWidth = 90 maxHeight = 22 format = left }
+		buttonType = { name = "op_gt" position = { x = 104 y = 270 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_gt_l" position = { x = 104 y = 275 } font = "hoi_16mbs" text = "> B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_lt" position = { x = 194 y = 270 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_lt_l" position = { x = 194 y = 275 } font = "hoi_16mbs" text = "< B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_eq" position = { x = 284 y = 270 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_eq_l" position = { x = 284 y = 275 } font = "hoi_16mbs" text = "= B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+
+		# =========================== オペランド B 設定 (y=316) ===========================
+		instantTextBoxType = { name = "lbl_setb" position = { x = 10 y = 321 } font = "hoi_16mbs" text = "Set B" maxWidth = 90 maxHeight = 22 format = left }
+		buttonType = { name = "set_op_half" position = { x = 104 y = 316 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_op_half_l" position = { x = 104 y = 321 } font = "hoi_16mbs" text = "B=0.5" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_op_2" position = { x = 194 y = 316 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_op_2_l" position = { x = 194 y = 321 } font = "hoi_16mbs" text = "B=2" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_op_3" position = { x = 284 y = 316 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_op_3_l" position = { x = 284 y = 321 } font = "hoi_16mbs" text = "B=3" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_op_10" position = { x = 374 y = 316 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_op_10_l" position = { x = 374 y = 321 } font = "hoi_16mbs" text = "B=10" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_op_pi" position = { x = 464 y = 316 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_op_pi_l" position = { x = 464 y = 321 } font = "hoi_16mbs" text = "B=pi" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_op_e" position = { x = 554 y = 316 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_op_e_l" position = { x = 554 y = 321 } font = "hoi_16mbs" text = "B=e" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+
+		# =========================== オペランド B 調整 (y=354) ===========================
+		instantTextBoxType = { name = "lbl_adjb" position = { x = 10 y = 359 } font = "hoi_16mbs" text = "Adj B" maxWidth = 90 maxHeight = 22 format = left }
+		buttonType = { name = "op_b_inc" position = { x = 104 y = 354 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_b_inc_l" position = { x = 104 y = 359 } font = "hoi_16mbs" text = "B +1" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_b_dec" position = { x = 194 y = 354 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_b_dec_l" position = { x = 194 y = 359 } font = "hoi_16mbs" text = "B -1" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_b_x10" position = { x = 284 y = 354 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_b_x10_l" position = { x = 284 y = 359 } font = "hoi_16mbs" text = "B x10" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "op_b_d10" position = { x = 374 y = 354 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "op_b_d10_l" position = { x = 374 y = 359 } font = "hoi_16mbs" text = "B /10" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+
+		# =========================== ACC 設定 (y=400) ===========================
+		instantTextBoxType = { name = "lbl_setacc" position = { x = 10 y = 405 } font = "hoi_16mbs" text = "Set ACC" maxWidth = 90 maxHeight = 22 format = left }
+		buttonType = { name = "set_acc_0" position = { x = 104 y = 400 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_acc_0_l" position = { x = 104 y = 405 } font = "hoi_16mbs" text = "A=0" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_acc_1" position = { x = 194 y = 400 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_acc_1_l" position = { x = 194 y = 405 } font = "hoi_16mbs" text = "A=1" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_acc_16" position = { x = 284 y = 400 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_acc_16_l" position = { x = 284 y = 405 } font = "hoi_16mbs" text = "A=16" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_acc_100" position = { x = 374 y = 400 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_acc_100_l" position = { x = 374 y = 405 } font = "hoi_16mbs" text = "A=100" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_acc_pi" position = { x = 464 y = 400 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_acc_pi_l" position = { x = 464 y = 405 } font = "hoi_16mbs" text = "A=pi" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+		buttonType = { name = "set_acc_from_op" position = { x = 554 y = 400 } quadTextureSprite = "GFX_sort_button_83x29" clicksound = click_default }
+		instantTextBoxType = { name = "set_acc_from_op_l" position = { x = 554 y = 405 } font = "hoi_16mbs" text = "A=B" maxWidth = 83 maxHeight = 22 format = centre alwaystransparent = yes }
+	}
+}

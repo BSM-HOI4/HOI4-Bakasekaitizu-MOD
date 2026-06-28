@@ -82,13 +82,19 @@ bsm_prestige_assign_rank = {
 	}
 
 	# 世界ランキング順位(1=最高威信)= 自分より威信が高い国の数 + 1。GUIの丸バッジに表示。
-	set_variable = { global.bsm_pos_threshold = bsm_prestige }
-	set_variable = {
-		bsm_prestige_position = {
-			value = 1
-			every_collection = {
-				named_collection = bsm_world_countries
-				if = { limit = { value = bsm_prestige  greater_than = global.bsm_pos_threshold }  add = 1 }
+	# パフォーマンス: every_collection を全国(約300)分回すと O(N^2)≈9万回/月。
+	# bsm_prestige_position は topbar GUI / loc / デバッグログの【表示専用】(AI判断・trigger未使用)で、
+	# 実際に出るのはプレイヤー国(ROOT)のみ。人間プレイヤーに限定し O(N) に落とす。
+	if = {
+		limit = { is_ai = no }
+		set_variable = { global.bsm_pos_threshold = bsm_prestige }
+		set_variable = {
+			bsm_prestige_position = {
+				value = 1
+				every_collection = {
+					named_collection = bsm_world_countries
+					if = { limit = { value = bsm_prestige  greater_than = global.bsm_pos_threshold }  add = 1 }
+				}
 			}
 		}
 	}

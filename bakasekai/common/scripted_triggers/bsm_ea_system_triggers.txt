@@ -73,5 +73,81 @@ bsm_ea_can_join_sphere_allowed = {
 	NOT = { has_government = anarchism }
 	NOT = { has_idea = isolation }
 	has_stability > 0
-	NOT = { has_idea = recently_left_economic_alliance }
+	# 脱退クールダウンは「直前に離脱した同じ陣営」への再加入のみ拒否する
+	NOT = {
+		AND = {
+			has_idea = recently_left_economic_alliance
+			check_variable = { bsm_ea_recently_left_token = FROM.bsm_ea_sphere }
+		}
+	}
+}
+
+# ------------------------------------------
+# 経済同盟への参加可否を「傀儡レベル(freedom_level)」で判定
+#   独立国(freedom_level=1.0相当) または 自治度の高い従属国のみ参加可能。
+#   BSMの自治ティア(min_freedom_level): 連邦王国/帝国保護国=0.8, 自治領/帝国提携国/外様大名=0.6-0.7,
+#     藩=0.5, 連邦管理地域/帝国構成国/譜代=0.3, 令制国=0.25, 外地/天領=0.1, 都道府県系=0.02-0.08
+#   閾値 0.5: 自治領/提携国(0.6)以上を許可。値を変えれば許容ラインを調整可能。
+# ------------------------------------------
+bsm_ea_autonomy_allows = {
+	custom_trigger_tooltip = {
+		tooltip = BSM_EA_AUTONOMY_REQ_TT
+		OR = {
+			is_subject = no
+			# freedom_level トリガーは廃止されたため、min_freedom_level > 0.5 に相当する
+			# 自治ティアを has_autonomy_state で列挙(autonomous_states/*.txt から自動抽出)
+			OR = {
+				has_autonomy_state = release_leased_territory
+				has_autonomy_state = HOL_personal_union
+				has_autonomy_state = TAJ_autonomy_administrative_region
+				has_autonomy_state = TUR_eyalet_province
+				has_autonomy_state = autonomy_fifty_first_state_iraq
+				has_autonomy_state = autonomy_fifty_second_state_afghanistan
+				has_autonomy_state = autonomy_occupation_zone_IRQ
+				has_autonomy_state = autonomy_union_state
+				has_autonomy_state = bsm_eu4_tributary
+				has_autonomy_state = danish_crown_holding
+				has_autonomy_state = associated_state
+				has_autonomy_state = autonomy_china_warlord_regime
+				has_autonomy_state = autonomy_dominion
+				has_autonomy_state = autonomy_italy_associate
+				has_autonomy_state = autonomy_satellite
+				has_autonomy_state = autonomy_transnistria_governate
+				has_autonomy_state = autonomy_ulster_breakaway_state
+				has_autonomy_state = autonomy_wtt_imperial_subject
+				has_autonomy_state = bsm_eu4_real_union
+				has_autonomy_state = commonwealth_realm
+				has_autonomy_state = imperial_protected_state
+				has_autonomy_state = joint_special_economic_zone
+				has_autonomy_state = nominal_puppet_state
+				has_autonomy_state = autonomy_Soviet_Sattelite_State
+				has_autonomy_state = autonomy_associated_state
+				has_autonomy_state = autonomy_associated_state_colored
+				has_autonomy_state = autonomy_client_state
+				has_autonomy_state = autonomy_supervised_state
+				has_autonomy_state = autonomy_wtt_imperial_associate
+				has_autonomy_state = bsm_jpn_tozama
+				has_autonomy_state = bsm_eu4_protectorate
+				has_autonomy_state = SOV_satellite_state
+				has_autonomy_state = USA_commonwealth
+				has_autonomy_state = autonomous_puppet_state
+				has_autonomy_state = autonomous_state
+				has_autonomy_state = autonomy_Soviet_Supervised_State
+				has_autonomy_state = autonomy_autonomous_reichskommissariat
+				has_autonomy_state = autonomy_colony
+				has_autonomy_state = autonomy_sea_warlord_subject
+				has_autonomy_state = autonomy_terrorist_branch
+				has_autonomy_state = autonomy_uar_state
+				has_autonomy_state = dominion
+				has_autonomy_state = imperial_associated_state
+				has_autonomy_state = mandated_territory_A
+				has_autonomy_state = personal_union
+				has_autonomy_state = protected_state
+				has_autonomy_state = reichssatellitestate
+				has_autonomy_state = tributary_state
+				has_autonomy_state = trust_territory
+				has_autonomy_state = vassal_state
+			}
+		}
+	}
 }

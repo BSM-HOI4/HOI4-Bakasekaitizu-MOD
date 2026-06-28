@@ -1,0 +1,262 @@
+# Decision Category GUI Pattern Template
+# Creates a GUI integrated with a decision category
+# Placeholders:
+# - SYSTEM_NAME: Your system name
+# - CATEGORY_NAME: Decision category name
+
+### DECISION CATEGORY FILE (common/decisions/categories/bsm_SYSTEM_NAME_categories.txt) ###
+
+bsm_SYSTEM_NAME_category = {
+	icon = GFX_decision_category_SYSTEM_NAME
+
+	visible = {
+		has_country_flag = SYSTEM_NAME_enabled
+	}
+
+	allowed = {
+		always = yes
+	}
+
+	visible_when_empty = yes
+	priority = 50
+
+	# Link to scripted GUI
+	scripted_gui = bsm_SYSTEM_NAME_gui
+}
+
+### SCRIPTED GUI FILE (common/scripted_guis/bsm_SYSTEM_NAME_sgui.txt) ###
+
+scripted_gui = {
+	bsm_SYSTEM_NAME_gui = {
+		context_type = decision_category
+		window_name = "bsm_SYSTEM_NAME_gui"
+
+		visible = {
+			has_country_flag = SYSTEM_NAME_enabled
+		}
+
+		effects = {
+			main_action_button_click = {
+				# Your main action
+				add_political_power = -25
+				custom_effect = yes
+			}
+
+			option_1_button_click = {
+				# Option 1 effect
+			}
+
+			option_2_button_click = {
+				# Option 2 effect
+			}
+		}
+
+		triggers = {
+			main_action_button_click_enabled = {
+				has_political_power > 24
+			}
+
+			option_1_button_visible = {
+				has_country_flag = option_1_available
+			}
+
+			option_2_button_visible = {
+				has_country_flag = option_2_available
+			}
+		}
+
+		properties = {
+			status_icon = {
+				frame = status_value  # Variable controlling icon frame
+			}
+		}
+
+		ai_enabled = {
+			always = no
+		}
+	}
+}
+
+### GUI FILE (interface/bsm_SYSTEM_NAME.gui) ###
+
+guiTypes = {
+	containerWindowType = {
+		name = "bsm_SYSTEM_NAME_gui"
+		position = { x = 0 y = 0 }
+		size = { width = 550 height = 100%% }
+
+		# Header section
+		containerWindowType = {
+			name = "header"
+			position = { x = 10 y = 10 }
+			size = { width = 530 height = 60 }
+
+			background = {
+				name = "header_bg"
+				quadTextureSprite = "GFX_header_bg"
+			}
+
+			iconType = {
+				name = "system_icon"
+				spriteType = "GFX_SYSTEM_NAME_icon"
+				position = { x = 10 y = 10 }
+			}
+
+			instantTextBoxType = {
+				name = "title"
+				position = { x = 60 y = 15 }
+				font = "hoi_24header"
+				text = "SYSTEM_NAME_title"
+				format = left
+				maxWidth = 400
+			}
+
+			iconType = {
+				name = "status_icon"
+				spriteType = "GFX_status_indicators"
+				position = { x = 480 y = 15 }
+				frame = 1
+			}
+		}
+
+		# Info section
+		containerWindowType = {
+			name = "info_section"
+			position = { x = 10 y = 80 }
+			size = { width = 530 height = 100 }
+
+			background = {
+				name = "info_bg"
+				quadTextureSprite = "GFX_tiled_window_thin_border2"
+			}
+
+			instantTextBoxType = {
+				name = "info_text"
+				position = { x = 10 y = 10 }
+				font = "hoi_18mbs"
+				text = "SYSTEM_NAME_info"
+				format = left
+				maxWidth = 510
+				maxHeight = 80
+			}
+		}
+
+		# Action buttons section
+		containerWindowType = {
+			name = "actions"
+			position = { x = 10 y = 190 }
+			size = { width = 530 height = 200 }
+
+			# Main action button
+			buttonType = {
+				name = "main_action_button"
+				position = { x = 10 y = 10 }
+				quadTextureSprite = "GFX_button_258x34"
+
+				buttonText = "main_action_button_text"
+				buttonFont = "hoi_18mbs"
+
+				clicksound = click_default
+				oversound = ui_menu_over
+
+				pdx_tooltip = "main_action_tooltip"
+			}
+
+			# Option buttons
+			containerWindowType = {
+				name = "options"
+				position = { x = 10 y = 60 }
+
+				buttonType = {
+					name = "option_1_button"
+					position = { x = 0 y = 0 }
+					quadTextureSprite = "GFX_button_123x34"
+
+					buttonText = "option_1_text"
+					buttonFont = "hoi_18mbs"
+
+					clicksound = click_default
+					oversound = ui_menu_over
+				}
+
+				buttonType = {
+					name = "option_2_button"
+					position = { x = 130 y = 0 }
+					quadTextureSprite = "GFX_button_123x34"
+
+					buttonText = "option_2_text"
+					buttonFont = "hoi_18mbs"
+
+					clicksound = click_default
+					oversound = ui_menu_over
+				}
+			}
+		}
+
+		# Stats/metrics section
+		containerWindowType = {
+			name = "metrics"
+			position = { x = 10 y = 400 }
+			size = { width = 530 height = 150 }
+
+			background = {
+				name = "metrics_bg"
+				quadTextureSprite = "GFX_tiled_window_thin_border2"
+			}
+
+			instantTextBoxType = {
+				name = "metric_1_label"
+				position = { x = 10 y = 10 }
+				font = "hoi_18mbs"
+				text = "metric_1_label"
+				format = left
+				maxWidth = 200
+			}
+
+			instantTextBoxType = {
+				name = "metric_1_value"
+				position = { x = 220 y = 10 }
+				font = "hoi_18mbs"
+				text = "METRIC_1_VALUE"  # Scripted loc
+				format = right
+				maxWidth = 100
+			}
+
+			# Add more metrics as needed
+		}
+	}
+}
+
+### LOCALISATION FILE (localisation/japanese/bsm_SYSTEM_NAME_l_japanese.yml) ###
+
+l_japanese:
+ SYSTEM_NAME_title:0 "SYSTEM_NAME"
+ SYSTEM_NAME_info:0 "システムの説明文"
+
+ main_action_button_text:0 "メインアクション"
+ main_action_tooltip:0 "クリックしてアクションを実行\n§Y政治力: -25§!"
+
+ option_1_text:0 "オプション1"
+ option_2_text:0 "オプション2"
+
+ metric_1_label:0 "メトリック1:"
+
+### GFX FILE (interface/SYSTEM_NAME_gfx.gfx) ###
+
+spriteTypes = {
+	spriteType = {
+		name = "GFX_decision_category_SYSTEM_NAME"
+		texturefile = "gfx/interface/decisions/decision_category_SYSTEM_NAME.dds"
+	}
+
+	spriteType = {
+		name = "GFX_SYSTEM_NAME_icon"
+		texturefile = "gfx/interface/SYSTEM_NAME/icon.dds"
+	}
+
+	spriteType = {
+		name = "GFX_status_indicators"
+		texturefile = "gfx/interface/SYSTEM_NAME/status_indicators.dds"
+		noOfFrames = 5
+	}
+}
