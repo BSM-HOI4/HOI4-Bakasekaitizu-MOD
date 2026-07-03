@@ -450,20 +450,10 @@ on_actions = {
     on_weekly = {
         effect = {
             every_country = {
-                #文明度の上昇
-                set_variable = {
-                    Cultural_Degree_Last_Week_gain = modifier@weekly_Cultural_Degree
-                }
-                add_to_variable = {
-                    Cultural_Degree = modifier@weekly_Cultural_Degree
-                }
-                #国家統合力に文明度を追加
-                set_variable = {
-                    National_Unity_Power_Last_Week_gain = Cultural_Degree
-                }
-                add_to_variable = {
-                    National_Unity_Power = Cultural_Degree
-                }
+                #文明度の上昇（宗教・宗主国補正込み）
+                bsm_calc_cultural_degree_weekly = yes
+                #国家統合力（文明度基礎 + 戦時/宗教/宗主国補正込みdaily gain）
+                bsm_calc_national_unity_power_weekly = yes
                 # ステラリス要素 - 特性スロット更新
                 bsm_stellaris_update_trait_slots = yes
                 # 伝統コスト更新

@@ -1,0 +1,198 @@
+
+# ==========================================
+# BSM 自治度(宗主国)ファクター共通判定
+# prefix: bsm_at_
+# 用途: 共通通貨(Unified Currency)/文明度(Cultural Degree)/統合力(National Unity Power)の
+#       宗主国ファクター計算で共有する自治度Tier判定ロジック。
+#       元は _bsm_Unified_Currency.txt に個別実装されていたものを抽出・共通化した。
+# 呼び出し後に得られる値:
+#   temp_autonomy_penalty     : 従属国側ペナルティ (is_subject=yes の場合のみ非0、Tier1 -0.30 ～ Tier6 -0.02)
+#   temp_autonomy_bonus_total : 宗主国側ボーナス合計 (each subject 0.01～0.08 の合算)
+# 通貨システム固有の利益分配(ucs_distribute_profit)による補正は、この共通effectの外で
+# 呼び出し側が適用すること(このeffectは自治度Tierの基礎値のみを返す)。
+# ==========================================
+bsm_calc_autonomy_penalty = {
+	# ----------------------------------------------------------------
+	# 従属国側の処理
+	# ----------------------------------------------------------------
+	set_temp_variable = { temp_autonomy_penalty = 0 }
+	if = {
+		limit = { is_subject = yes }
+
+		# ============================================================
+		# 従属国ペナルティ（Vanilla / SSW / EoaNB / Workshop 19mod 統合）
+		# 自由度が低い（宗主国の統制が強い）ほどペナルティ大
+		# Tier1(-0.30) > Tier2(-0.24) > Tier3(-0.18) > Tier4(-0.10) > Tier5(-0.05) > Tier6(-0.02)
+		# ============================================================
+		set_temp_variable = { temp_autonomy_penalty = -0.15 } # デフォルト（未定義の従属状態）
+
+		# ----------------------------------------------------------
+		# Tier 1: 完全支配 (-0.30)  freedom ≈ 0.0
+		# 宗主国が経済・軍事を完全掌握。独自の経済活動がほぼ不可能
+		# ----------------------------------------------------------
+		if = {
+			limit = {
+				OR = {
+					has_autonomy_state = autonomy_integrated_puppet               # Vanilla / EoaNB
+					has_autonomy_state = autonomy_collaboration_government        # EoaNB / GW / Endsieg / vr2
+					has_autonomy_state = integrated_puppet_government             # SSW
+					has_autonomy_state = crown_dependency                         # SSW
+					has_autonomy_state = autonomy_aat_defense_council_member      # GW / Endsieg / WA / TotalWar
+					has_autonomy_state = autonomy_eu_member                       # GW (欧州統合防衛評議会)
+					has_autonomy_state = autonomy_SSR                             # TotalWar (ソビエト社会主義共和国)
+					has_autonomy_state = autonomy_military_district               # TNO
+					has_autonomy_state = autonomy_military_government             # TNO
+					has_autonomy_state = autonomy_occupied_territory              # TNO (接頭辞付き)
+					has_autonomy_state = autonomy_italy_governate                 # TNO
+					has_autonomy_state = autonomy_antarctic_territory             # TNO
+					has_autonomy_state = Territorium                              # BSM2.0
+				}
+			}
+			set_temp_variable = { temp_autonomy_penalty = -0.30 }
+		}
+		# ----------------------------------------------------------
+		# Tier 2: 高統制 (-0.24)  freedom 0.1-0.3
+		# 主権は限定的。貿易・人員を大幅に宗主国へ供出
+		# ----------------------------------------------------------
+		else_if = {
+			limit = {
+				OR = {
+					has_autonomy_state = autonomy_puppet                          # Vanilla / EoaNB
+					has_autonomy_state = constituent_autonomous_province          # SSW
+					has_autonomy_state = overseas_territory                       # SSW
+					has_autonomy_state = viceroyalty                              # SSW
+					has_autonomy_state = captaincy_general                        # SSW
+					has_autonomy_state = mandated_territory_C                     # SSW
+					has_autonomy_state = autonomy_reichskommissariat              # WTT系多mod (~0.2)
+					has_autonomy_state = autonomy_volkskommissariat               # GW (0.2)
+					has_autonomy_state = autonomy_wtt_imperial_protectorate       # WTT系多mod (~0.2)
+					has_autonomy_state = autonomy_austro_hungarian_subject        # GW (0.2)
+					has_autonomy_state = autonomy_reichsprotektorat               # TNO (0.2)
+					has_autonomy_state = autonomy_ibrgovernate                    # TNO (0.25)
+					has_autonomy_state = autonomy_liberated_government            # TNO (0.25)
+				}
+			}
+			set_temp_variable = { temp_autonomy_penalty = -0.24 }
+		}
+		# ----------------------------------------------------------
+		# Tier 3: 中統制 (-0.18)  freedom 0.3-0.5
+		# 一定の自治を持つが、宗主国への経済的依存が大きい
+		# ----------------------------------------------------------
+		else_if = {
+			limit = {
+				OR = {
+					has_autonomy_state = autonomy_colony                          # Vanilla / EoaNB
+					has_autonomy_state = constituent_state                        # SSW
+					has_autonomy_state = colony                                   # SSW
+					has_autonomy_state = colonies_federation                      # SSW
+					has_autonomy_state = colony_and_protected_territory           # SSW
+					has_autonomy_state = condominium                              # SSW
+					has_autonomy_state = real_union                               # SSW
+					has_autonomy_state = personal_union_colony                    # SSW
+					has_autonomy_state = personal_union_protected_territory       # SSW
+					has_autonomy_state = occupied_puppet_government               # SSW
+					has_autonomy_state = protected_territory                      # SSW
+					has_autonomy_state = mandated_territory_B                     # SSW
+					has_autonomy_state = leased_territory                         # SSW
+					has_autonomy_state = autonomy_reichsprotectorate              # WTT系多mod (~0.5)
+					has_autonomy_state = autonomy_integrated_reichskommissariat   # TNO (0.4)
+				}
+			}
+			set_temp_variable = { temp_autonomy_penalty = -0.18 }
+		}
+		# ----------------------------------------------------------
+		# Tier 4: 低統制 (-0.10)  freedom 0.5-0.65
+		# 実質的な自治あり。宗主国への依存は政治・軍事面が主
+		# ----------------------------------------------------------
+		else_if = {
+			limit = {
+				OR = {
+					has_autonomy_state = autonomy_supervised_state                # EoaNB / GW (0.65)
+					has_autonomy_state = autonomous_puppet_state                  # SSW
+					has_autonomy_state = vassal_state                             # SSW
+					has_autonomy_state = tributary_state                         # SSW
+					has_autonomy_state = autonomous_state                         # SSW
+					has_autonomy_state = personal_union                           # SSW
+					has_autonomy_state = protected_state                          # SSW
+					has_autonomy_state = trust_territory                          # SSW
+					has_autonomy_state = mandated_territory_A                     # SSW
+					has_autonomy_state = autonomy_wtt_imperial_associate          # WTT系多mod (~0.6)
+					has_autonomy_state = autonomy_autonomous_reichskommissariat   # TNO (0.6)
+					has_autonomy_state = autonomy_Soviet_Supervised_State         # TotalWar (0.6)
+				}
+			}
+			set_temp_variable = { temp_autonomy_penalty = -0.10 }
+		}
+		# ----------------------------------------------------------
+		# Tier 5: 緩やか (-0.05)  freedom 0.65-0.8
+		# 名目上の従属。経済的自律性は高いが政治的な縛りあり
+		# ----------------------------------------------------------
+		else_if = {
+			limit = {
+				OR = {
+					has_autonomy_state = autonomy_dominion                        # Vanilla / EoaNB
+					has_autonomy_state = nominal_puppet_state                     # SSW
+					has_autonomy_state = joint_special_economic_zone              # SSW
+					has_autonomy_state = associated_state                         # SSW
+					has_autonomy_state = autonomy_satellite                       # WTT系多mod (0.80)
+					has_autonomy_state = autonomy_wtt_imperial_subject            # WTT系多mod (~0.8)
+					has_autonomy_state = autonomy_client_state                    # TNO (0.75)
+					has_autonomy_state = autonomy_transnistria_governate          # TNO (0.80)
+					has_autonomy_state = autonomy_Soviet_Sattelite_State          # TotalWar (0.75)
+					has_autonomy_state = autonomy_associated_state                # MD (0.75)
+				}
+			}
+			set_temp_variable = { temp_autonomy_penalty = -0.05 }
+		}
+		# ----------------------------------------------------------
+		# Tier 6: 名目的 (-0.02)  freedom 0.8+
+		# ほぼ独立国と同等。経済への影響は最小限
+		# ----------------------------------------------------------
+		else_if = {
+			limit = {
+				OR = {
+					has_autonomy_state = autonomy_personal_union                  # EoaNB (0.8)
+					has_autonomy_state = release_leased_territory                 # SSW
+					has_autonomy_state = autonomy_ulster_breakaway_state          # TNO (0.8)
+					has_autonomy_state = autonomy_china_warlord_regime            # TNO (0.80)
+					has_autonomy_state = autonomy_union_state                     # MD (0.85)
+					has_autonomy_state = autonomy_wtt_imperial_subject            # if freedom>0.8
+				}
+			}
+			set_temp_variable = { temp_autonomy_penalty = -0.02 }
+		}
+	}
+
+	# ----------------------------------------------------------------
+	# 宗主国側の処理
+	# ----------------------------------------------------------------
+	set_temp_variable = { temp_autonomy_bonus_total = 0 }
+
+	every_subject_country = {
+		# 各従属国からの搾取/利益計算
+		# 自治度が低いほど搾取できる (ボーナス大)
+		set_temp_variable = { temp_this_subject_contribution = 0.05 }
+
+		if = {
+			limit = { has_autonomy_state = autonomy_integrated_puppet }
+			set_temp_variable = { temp_this_subject_contribution = 0.08 }
+		}
+		else_if = {
+			limit = { has_autonomy_state = autonomy_puppet }
+			set_temp_variable = { temp_this_subject_contribution = 0.05 }
+		}
+		else_if = {
+			limit = { has_autonomy_state = autonomy_colony }
+			set_temp_variable = { temp_this_subject_contribution = 0.03 }
+		}
+		else_if = {
+			limit = { has_autonomy_state = autonomy_dominion }
+			set_temp_variable = { temp_this_subject_contribution = 0.01 }
+		}
+
+		# 宗主国の合計に加算
+		PREV = {
+			add_to_temp_variable = { temp_autonomy_bonus_total = PREV.temp_this_subject_contribution }
+		}
+	}
+}

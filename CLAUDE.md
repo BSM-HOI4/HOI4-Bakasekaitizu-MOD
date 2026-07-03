@@ -10,6 +10,21 @@ Do not modify any `.wav` or `.ogg` files.
 
 This is **HOI4-Bakasekaitizu-MOD** (バカ世界地図MOD), a comprehensive Hearts of Iron IV modification based on the "Foolish World Map Project" from Chakuwiki. It's a total conversion mod that reimagines the world with alternative history, geography, and countries.
 
+## シンボルインデックス（Grep総当たり禁止）
+
+定義の場所を探すときは、mod全体をGrepする前に必ずインデックスを引く:
+
+- `bakasekai/hoi4_index.tsv` — event / focus / idea / decision / scripted_effect / scripted_trigger / equipment / oob_variant の `type \t name \t path \t line`
+- `bakasekai/hoi4_loc_keys.tsv` — localisation キー一覧（キー存在確認はここで済ませ、yml本文は翻訳作業時のみ読む）
+
+例: `grep -P '^event\tjapan' bakasekai/hoi4_index.tsv` → 該当ファイルの該当行だけ読む。
+
+再生成（common/events/localisation を編集したら実行）:
+```
+python3 ~/Desktop/HOI4_modding/tools/hoi4_index.py bakasekai
+```
+`gfx/ map/ music/ sound/ portraits/ interface/` は探索対象外（アセットのみ）。定義ブロックの抽出には hoi4-searcher スキルを併用する。
+
 ## Key Development Information
 
 ### Performance Optimization Commands
