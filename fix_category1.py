@@ -1,7 +1,7 @@
 import os
 
 def fix_bom_and_loc():
-    base = '/Users/eightman/Desktop/HOI4_modding/bsm_test/bakasekai/localisation/japanese'
+    base = '/Users/eightman/dev/hoi4/bsm_test/bakasekai/localisation/japanese'
     
     # 1. bsm_ea_news_l_japanese.yml - add BOM
     p1 = os.path.join(base, 'bsm_ea_news_l_japanese.yml')
