@@ -1083,6 +1083,7 @@ bsm_nc_calc_uc_modifier = {
 # bsm_nc_filter_mode:
 #   0=同盟内, 1=世界
 #   2=アジア 3=欧州 4=北米 5=南米 6=アフリカ 7=中東 8=大洋州
+#   9=危機, 10=投資候補
 # ==========================================
 bsm_nc_prepare_rate_list = {
 	clear_array = global.bsm_nc_rate_display_list
@@ -1110,65 +1111,107 @@ bsm_nc_prepare_rate_list = {
 	else_if = {
 		# --- 1: 世界 (全通貨使用国) ---
 		limit = { check_variable = { bsm_nc_filter_mode = 1 } }
-		every_country = {
-			limit = { bsm_nc_show_in_list = yes }
+		every_collection_element = {
+			collection = collection:bsm_nc_world_currency_users
 			add_to_array = { global.bsm_nc_rate_display_list = THIS }
 		}
 	}
 	else_if = {
 		# --- 2: アジア ---
 		limit = { check_variable = { bsm_nc_filter_mode = 2 } }
-		every_country = {
-			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = asia } }
+		every_collection_element = {
+			collection = collection:bsm_nc_currency_users_asia
 			add_to_array = { global.bsm_nc_rate_display_list = THIS }
 		}
 	}
 	else_if = {
 		# --- 3: 欧州 ---
 		limit = { check_variable = { bsm_nc_filter_mode = 3 } }
-		every_country = {
-			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = europe } }
+		every_collection_element = {
+			collection = collection:bsm_nc_currency_users_europe
 			add_to_array = { global.bsm_nc_rate_display_list = THIS }
 		}
 	}
 	else_if = {
 		# --- 4: 北米 ---
 		limit = { check_variable = { bsm_nc_filter_mode = 4 } }
-		every_country = {
-			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = north_america } }
+		every_collection_element = {
+			collection = collection:bsm_nc_currency_users_north_america
 			add_to_array = { global.bsm_nc_rate_display_list = THIS }
 		}
 	}
 	else_if = {
 		# --- 5: 南米 ---
 		limit = { check_variable = { bsm_nc_filter_mode = 5 } }
-		every_country = {
-			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = south_america } }
+		every_collection_element = {
+			collection = collection:bsm_nc_currency_users_south_america
 			add_to_array = { global.bsm_nc_rate_display_list = THIS }
 		}
 	}
 	else_if = {
 		# --- 6: アフリカ ---
 		limit = { check_variable = { bsm_nc_filter_mode = 6 } }
-		every_country = {
-			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = africa } }
+		every_collection_element = {
+			collection = collection:bsm_nc_currency_users_africa
 			add_to_array = { global.bsm_nc_rate_display_list = THIS }
 		}
 	}
 	else_if = {
 		# --- 7: 中東 ---
 		limit = { check_variable = { bsm_nc_filter_mode = 7 } }
-		every_country = {
-			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = middle_east } }
+		every_collection_element = {
+			collection = collection:bsm_nc_currency_users_middle_east
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 8: 大洋州 ---
+		limit = { check_variable = { bsm_nc_filter_mode = 8 } }
+		every_collection_element = {
+			collection = collection:bsm_nc_currency_users_oceania
+			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		}
+	}
+	else_if = {
+		# --- 9: 危機 (Collection側で和集合化するため重複なし) ---
+		limit = { check_variable = { bsm_nc_filter_mode = 9 } }
+		every_collection_element = {
+			collection = collection:bsm_nc_dashboard_crisis_countries
 			add_to_array = { global.bsm_nc_rate_display_list = THIS }
 		}
 	}
 	else = {
-		# --- 8: 大洋州 ---
-		every_country = {
-			limit = { bsm_nc_show_in_list = yes capital_scope = { is_on_continent = australia } }
-			add_to_array = { global.bsm_nc_rate_display_list = THIS }
+		# --- 10: 投資候補 (自国EA内、投資必要度の降順) ---
+		clear_array = global.bsm_nc_investment_candidate_list
+		clear_array = global.bsm_nc_investment_score_list
+		if = {
+			limit = { has_variable = bsm_ea_sphere }
+			set_temp_variable = { t_nc_token = bsm_ea_sphere }
+			for_each_loop = {
+				array = global.bsm_ea_member_list_@var:t_nc_token
+				value = v_nc_mem
+				var:v_nc_mem = {
+					if = {
+						limit = { check_variable = { bsm_ea_investment_need_score > 0 } }
+						add_to_array = { global.bsm_nc_investment_candidate_list = THIS }
+						add_to_array = { global.bsm_nc_investment_score_list = bsm_ea_investment_need_score }
+					}
+				}
+			}
 		}
+		while_loop_effect = {
+			limit = { check_variable = { global.bsm_nc_investment_score_list^num > 0 } }
+			find_highest_in_array = {
+				array = global.bsm_nc_investment_score_list
+				value = t_nc_best_score
+				index = t_nc_best_index
+			}
+			add_to_array = { global.bsm_nc_rate_display_list = global.bsm_nc_investment_candidate_list^t_nc_best_index }
+			remove_from_array = { array = global.bsm_nc_investment_candidate_list index = t_nc_best_index }
+			remove_from_array = { array = global.bsm_nc_investment_score_list index = t_nc_best_index }
+		}
+		clear_array = global.bsm_nc_investment_candidate_list
+		clear_array = global.bsm_nc_investment_score_list
 	}
 
 	# ソート用: レート順 (安定度降順)
@@ -1188,6 +1231,25 @@ bsm_nc_prepare_rate_list = {
 		array = global.bsm_nc_rate_display_list
 		value = v_nc_rel
 		var:v_nc_rel = {
+			set_variable = { bsm_nc_gui_reserve_support = 0 }
+			if = {
+				limit = {
+					has_variable = bsm_ea_sphere
+					check_variable = { global.bsm_ea_member_list_@var:bsm_ea_sphere^num > 0 }
+					OR = {
+						check_variable = { bsm_nc_stability < 30 }
+						check_variable = { Unified_Currency < 0 }
+					}
+				}
+				set_temp_variable = { t_nc_gui_token = bsm_ea_sphere }
+				set_temp_variable = { t_nc_gui_leader = global.bsm_ea_member_list_@var:t_nc_gui_token^0 }
+				var:t_nc_gui_leader = {
+					if = {
+						limit = { check_variable = { bsm_ea_reserve_uc > 24 } }
+						PREV = { set_variable = { bsm_nc_gui_reserve_support = 1 } }
+					}
+				}
+			}
 			set_variable = { bsm_nc_rel_rate = bsm_nc_rate }
 			divide_variable = { bsm_nc_rel_rate = global.bsm_nc_calc_root_rate }
 			set_variable = { bsm_nc_rel_rate_inv = global.bsm_nc_calc_root_rate }

@@ -1094,6 +1094,27 @@ bsm_nc_currency_users_europe = {
 	}
 }
 
+bsm_nc_currency_users_north_america = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CURRENCY_USERS_NORTH_AMERICA
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = north_america }
+		}
+	}
+}
+
+bsm_nc_currency_users_south_america = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_CURRENCY_USERS_SOUTH_AMERICA
+	operators = {
+		limit = {
+			capital_scope = { is_on_continent = south_america }
+		}
+	}
+}
+
+# 既存の南北アメリカ統合集合 (既存参照との互換性維持)
 bsm_nc_currency_users_americas = {
 	input = collection:bsm_nc_world_currency_users
 	name = COLLECTION_BSM_NC_CURRENCY_USERS_AMERICAS
@@ -1133,6 +1154,21 @@ bsm_nc_currency_users_oceania = {
 	operators = {
 		limit = {
 			capital_scope = { is_on_continent = australia }
+		}
+	}
+}
+
+# ダッシュボード危機表示 (弱通貨 / 高インフレ / UC赤字の和集合)
+bsm_nc_dashboard_crisis_countries = {
+	input = collection:bsm_nc_world_currency_users
+	name = COLLECTION_BSM_NC_DASHBOARD_CRISIS_COUNTRIES
+	operators = {
+		limit = {
+			OR = {
+				check_variable = { bsm_nc_strength_cat = 2 }
+				check_variable = { bsm_nc_inflation > 15 }
+				check_variable = { Unified_Currency < 0 }
+			}
 		}
 	}
 }
