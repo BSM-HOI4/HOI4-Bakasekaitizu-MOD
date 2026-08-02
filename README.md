@@ -103,3 +103,18 @@ This mod would not be possible without the original "Baka Sekai Chizu" project a
 Thank you to everyone involved. For a detailed list of contributors, please see the credit file.
 
 ➡️ **[credit.md](bakasekai/credit.md)**
+
+## 📄 権利・利用条件 / Rights and Usage
+
+本リポジトリは **All Rights Reserved** です。オープンソースライセンスは
+付与されていません。GitHub利用規約で認められる閲覧・fork等を除き、内容の
+利用、改変、再配布には関係する権利者の事前許可が必要です。
+
+This repository is **All Rights Reserved** and is not distributed under an
+open-source license. Except for the limited use permitted through GitHub's
+functionality under its Terms of Service, prior permission from the relevant
+copyright holder is required to use, modify, or redistribute its contents.
+
+Paradox Interactive、Chakuwiki原作、その他第三者由来の素材は、それぞれの
+権利者の条件に従います。詳細は [LICENSE](LICENSE) と
+[credit.md](bakasekai/credit.md) を参照してください。

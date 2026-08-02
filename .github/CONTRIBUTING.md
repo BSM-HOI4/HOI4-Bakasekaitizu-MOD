@@ -70,6 +70,17 @@ imgui show profiler      # Open performance profiler
 
 ## Submitting Changes
 
+### Rights and permissions
+
+- Contributors retain copyright in their own contributions.
+- This repository is All Rights Reserved; submitting a contribution does not
+  place the repository or the contribution under an open-source license.
+- Submit only material you created or have permission to contribute.
+- Clearly identify third-party code, text, images, audio, fonts, and other
+  assets together with their source and applicable terms.
+- Maintainers may request separate written permission before incorporating or
+  distributing a contribution outside GitHub.
+
 1. **Commit Messages:**
    - Use imperative mood
    - Include scope prefix: `focus:`, `events:`, `localisation:`, `perf:`
