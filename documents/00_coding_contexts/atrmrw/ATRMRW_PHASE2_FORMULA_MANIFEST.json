@@ -1,0 +1,86 @@
+{
+  "status": "approved_historical_core",
+  "source_repository": "SSW_mod",
+  "source_commit": "4bcb07d5c11f3c78c3383db393abc9bbbf4dbdc1",
+  "formulas": [
+    {
+      "formula_id": "atrmrw_hp_v1_ssw_4bcb",
+      "source_path": "tools/naval/HPCLC.py:calculate_base_strength_v3",
+      "implementation": "tools/atrmrw/calculations.py:calculate_base_strength",
+      "approval": "user-approved hull type mapping",
+      "rounding": "unrounded calculation; output adapter decides final HOI4 precision"
+    },
+    {
+      "formula_id": "atrmrw_org_v1_ssw_4bcb",
+      "source_path": "tools/naval/HPCLC.py:calculate_base_org_v3",
+      "implementation": "tools/atrmrw/calculations.py:calculate_base_org",
+      "approval": "same hull type mapping as HP"
+    },
+    {
+      "formula_id": "atrmrw_gun_v1_ssw_4bcb_tracked_config",
+      "source_path": "tools/clc/gun_clc.py + tools/clc/gun_calc_config.json",
+      "implementation": "tools/atrmrw/calculations.py:calculate_gun",
+      "config": "tools/atrmrw/gun_calc_config_ssw_4bcb.json",
+      "source_config_sha256": "bf5c7f164e89013a916195a155aa8c49f8b185517b44d2767e7c12c3b4b460ce",
+      "config_sha256": "8ac721425d0c6aabb11bb47c57339a06b2e7914dc84da4fef6018ad5be5e3070",
+      "config_transformation": "removed underscore-prefixed explanatory metadata only; all numeric coefficients and role thresholds preserved",
+      "approval": "fixed tracked config selected by user",
+      "intentional_fix": "mount_count must be greater than zero"
+    },
+    {
+      "formula_id": "atrmrw_range_v1",
+      "source_path": "SSW naval policy and nsdb_tool.py",
+      "implementation": "tools/atrmrw/calculations.py:target_naval_range",
+      "formula": "endurance_nm * 1.852 / 2"
+    },
+    {
+      "formula_id": "atrmrw_speed_v1",
+      "source_path": "SSW naval policy",
+      "implementation": "tools/atrmrw/calculations.py:target_naval_speed",
+      "formula": "(maximum_speed_kn + cruising_speed_kn) / 2; fallback cruising=maximum*0.80"
+    },
+    {
+      "formula_id": "atrmrw_module_composition_v1",
+      "source_path": "ATRMRW_PHASE2_DATA_MODEL_PROPOSAL.md",
+      "implementation": "tools/atrmrw/composition.py:calibrate_reference",
+      "formula": "final=(base+A)*(1+M); freeze base after reference variant calibration",
+      "runtime_calibration_status": "pending_HOI4_1.19.2_controlled_experiment"
+    },
+    {
+      "formula_id": "atrmrw_visible_batch_v1",
+      "source_path": "ATRMRW_PHASE3_JAPAN_MODULE_SOURCE_LEDGER.json",
+      "implementation": "tools/atrmrw/compile_japan_module_stats.py:aggregate_stats",
+      "formula": "source effective stat * represented historical count^0.8; exact aircraft capacities are composed additively",
+      "scope": "Japan five-class static prototype"
+    },
+    {
+      "formula_id": "atrmrw_endurance_module_share_v1",
+      "source_path": "ATRMRW user decision 2A(C)",
+      "implementation": "tools/atrmrw/compile_japan_module_stats.py:historical_stats",
+      "formula": "editable endurance module receives 50% of historical target range; remaining contribution is frozen hull base",
+      "reason": "keep solved hull base non-negative while making endurance replacement materially change range"
+    },
+    {
+      "formula_id": "atrmrw_power_reference_v1",
+      "source_path": "SSW SM_ENPOWER_JAP_150000 at commit 4bcb07d5",
+      "implementation": "tools/atrmrw/compile_japan_module_stats.py:historical_stats",
+      "formula": "new power module stats = 150000 shp reference stats * historical surface shp / 150000",
+      "scope": "historical prototype propulsion power only"
+    }
+  ],
+  "hull_type_multipliers": {
+    "small_craft": 0.3,
+    "light": 0.5,
+    "submarine": 0.5,
+    "frigate": 0.8,
+    "support": 0.8,
+    "cruiser": 1.5,
+    "carrier": 1.5,
+    "capital": 2.0
+  },
+  "deferred": [
+    "historical fuel module balance and conversion cost",
+    "fictional and super-technology propulsion",
+    "LG/HG unallocated ratio normalization decision"
+  ]
+}
