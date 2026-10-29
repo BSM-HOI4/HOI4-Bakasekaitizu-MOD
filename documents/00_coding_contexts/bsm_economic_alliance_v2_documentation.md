@@ -203,7 +203,10 @@ set_global_flag = ea_ai_global_expansion
 - `on_weekly`: `bsm_update_economic_alliance_power_share`（影響力/バフ/ランキング）+ 投票週次更新。
 - `on_monthly`: `bsm_ea_monthly_update`（信頼度/クールダウン/役職同期/方針適用/UC徴収/AI駆動）。
 
-> **重要**: HOI4 の `on_monthly` / `on_weekly` / `on_daily` は**月/週/日に1回のみ発火**（per-country ではない）。根拠: 同 on_actions 内の `global.passed_month` 加算や、既存のクールダウン-30（非冪等）が壊れていない。したがって月次の**非冪等処理（搾取徴収・AI投資）は1回で正しく動作する**。新しい非冪等処理を月次に足す場合もこの前提に依存してよい。
+> **重要（2026-10-01 訂正。旧記述「月/週/日に1回のみ発火」は誤り）**: HOI4 の `on_daily` / `on_weekly` / `on_monthly` は**全国家ごとに個別発火**する（ROOT = 各国。公式Wiki [On actions](https://hoi4.paradoxwikis.com/On_actions)）。`on_weekly` は全国が同じ日（`num_days` が7の倍数の日）に発火する。`on_daily_TAG` / `on_weekly_TAG` / `on_monthly_TAG` は、その TAG が存在する場合にその国でだけ発火する。
+> - ここに直接置いた世界共通処理（`global.*` の加算、全陣営ループなど）は**1周期に存在国数（開始時約100）回**実行される。中で `every_country` を回すと国数²回になる。
+> - 現行実装（develop be54fbff7 時点）の `bsm_update_economic_alliance_power_share`・投票週次更新・`bsm_ea_monthly_update` はこの形のため、搾取徴収・クールダウン・投票期限・AI投資が国数倍で進む（既知の不具合、未修正）。
+> - 非冪等の処理や世界共通の処理を足すときは、1周期に1回だけ実行される場所に置く。例: システム国 `XXX` の `on_monthly_XXX` / `on_weekly_XXX`（XXX が存在しないと発火しない点に注意）、または `global.num_days` を使った1回化ガード。
 
 ---
 
