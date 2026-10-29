@@ -1,7 +1,7 @@
 import re
 import os
 
-base = '/Users/eightman/Desktop/HOI4_modding/bsm_test/bakasekai/'
+base = '/Users/eightman/dev/hoi4/bsm_test/bakasekai/'
 
 def fix_bsm_jpn():
     p = os.path.join(base, 'common/ideas/BSM_jpn.txt')
