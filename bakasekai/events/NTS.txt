@@ -1,0 +1,102 @@
+add_namespace = nts
+
+# Sindh separates from Bombay Presidency
+country_event = {
+  id = nts.1
+  title = nts.1.t
+  desc = nts.1.d
+  picture = GFX_report_event_generic_read_write
+  is_triggered_only = yes
+
+  option = {
+    name = nts.1.a
+    news_event = { id = nts.1b hours = 1 }
+  }
+}
+
+news_event = {
+  id = nts.1b
+  title = nts.1b.t
+  desc = nts.1b.d
+  picture = GFX_news_event_generic_sign_treaty1
+  is_triggered_only = yes
+  major = yes
+
+  option = {
+    name = nts.1b.a
+  }
+}
+
+# Ahmad Yar Khan Kalat autonomy demand
+country_event = {
+  id = nts.2
+  title = nts.2.t
+  desc = nts.2.d
+  picture = GFX_report_event_generic_read_write
+  is_triggered_only = yes
+
+  option = {
+    name = nts.2.a
+    ai_chance = {
+      factor = 60
+    }
+    add_stability = 0.02
+    set_country_flag = NTS_kalat_autonomy
+    444 = {
+      add_state_modifier = {
+        modifier = {
+          local_factories = -0.15
+          recruitable_population_factor = -0.10
+        }
+      }
+    }
+  }
+  option = {
+    name = nts.2.b
+    ai_chance = {
+      factor = 40
+    }
+    add_stability = -0.05
+  }
+}
+
+# Skvortsov arrives after the purge
+country_event = {
+  id = nts.4
+  title = nts.4.t
+  desc = nts.4.d
+  picture = GFX_report_event_generic_read_write
+  is_triggered_only = yes
+
+  option = {
+    name = nts.4.a
+    add_political_power = 50
+    set_country_flag = NTS_skvortsov_visible
+  }
+}
+
+# Iqbal dies — plains agreement table point lost
+country_event = {
+  id = nts.5
+  title = nts.5.t
+  desc = nts.5.d
+  picture = GFX_report_event_generic_read_write
+  fire_only_once = yes
+
+  trigger = {
+    tag = NTS
+    has_completed_focus = NTS_iqbal_draft
+    date > 1938.4.1
+    date < 1938.5.1
+  }
+
+  mean_time_to_happen = {
+    days = 10
+  }
+
+  option = {
+    name = nts.5.a
+    set_country_flag = NTS_iqbal_dead
+    add_political_power = -25
+  }
+}

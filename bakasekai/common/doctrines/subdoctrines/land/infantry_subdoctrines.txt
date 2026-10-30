@@ -756,3 +756,93 @@ great_war_infantry = {
 
     }
 }
+
+# New doctrine available in HOI4 1.19.4. Existing BSM doctrine IDs are preserved.
+peoples_war = {
+    track = infantry
+    name = SUBDOCTRINE_PEOPLES_WAR
+    description = SUBDOCTRINE_PEOPLES_WAR_DESC
+    icon = GFX_doctrine_peoples_war_medium
+
+    xp_cost = 50
+    xp_type = army
+
+    # BSM replaces the vanilla INS focus tree and uses suffixed ideology keys.
+    available = {
+        has_government = communism_ideology
+    }
+    visible = {
+        has_dlc = "No Compromise, No Surrender"
+    }
+    ai_will_do = {
+
+        base = 1
+        modifier = {
+            factor = 95
+            original_tag = PRC
+        }
+
+        modifier = {
+            factor = 2
+            is_major = no
+        }
+
+    }
+
+    # EFFECTS
+    enable_tactic = tactic_guerrilla_tactics
+
+    militia = {
+        soft_attack = 0.1
+        defense = 0.2
+    }
+
+    rewards = {
+        revolutionary_base_area = {
+        #1
+            mastery = 50
+            militia = {
+                defense = 0.1
+                supply_consumption = -0.02
+            }
+            category_light_infantry = {
+                max_organisation = 5
+            }
+
+        }
+
+        destruction_over_land_gains = {
+        #2
+            mastery = 50
+            category_light_infantry = {
+                default_morale = 0.1
+            }
+            militia = {
+                equipment_capture_factor = 0.01
+            }
+			field_guns = {
+				soft_attack = 0.1
+                breakthrough = 0.1
+			}
+        }
+
+        quick_decision_offensive_warfare = {
+        #3
+            mastery = 50
+            militia = {
+               initiative = 0.015
+               max_organisation = 10
+               breakthrough = 0.2
+            }
+        }
+
+        people_not_things = {
+        #4
+            mastery = 50
+            category_light_infantry = {
+                soft_attack = 0.1
+                max_strength = 0.15
+            }
+        }
+    }
+}

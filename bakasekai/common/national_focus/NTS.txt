@@ -1,0 +1,1422 @@
+focus_tree = {
+  id = NTS_focus
+  country = {
+    factor = 0
+    modifier = {
+      add = 10
+      tag = NTS
+    }
+  }
+  default = no
+  continuous_focus_position = {
+    x = 50
+    y = 2200
+  }
+
+  focus = {
+    id = NTS_name_conference
+    icon = GFX_focus_AFG_kabul_conference
+    x = 20
+    y = 0
+    cost = 10
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_init_tables = yes
+      if = {
+        limit = {
+          NOT = { has_idea = NTS_provisional_constitution }
+          NOT = { has_country_flag = NTS_name_settled }
+        }
+        add_ideas = NTS_provisional_constitution
+      }
+      set_country_flag = NTS_conference_open
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = NTS_missing_register
+    icon = GFX_focus_AFG_revive_the_1923_constitution
+    x = 20
+    y = 1
+    cost = 5
+    prerequisite = {
+      focus = NTS_name_conference
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_political_power = -25
+    }
+  }
+
+  focus = {
+    id = NTS_sindh_separates
+    icon = GFX_goal_generic_build_navy
+    x = 20
+    y = 2
+    cost = 5
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_political_power = 10
+      country_event = {
+        id = nts.1
+        hours = 1
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_ipi_november
+    icon = GFX_goal_generic_major_war
+    x = 46
+    y = 2
+    cost = 5
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_ideas = NTS_ipi_fire
+    }
+  }
+
+  focus = {
+    id = NTS_karakalpak_transfer
+    icon = GFX_focus_AFG_develop_uzbekistan
+    x = 20
+    y = 3
+    cost = 5
+    prerequisite = {
+      focus = NTS_sindh_separates
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      set_country_flag = NTS_karakalpak_choice_open
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = NTS_name_settled
+    icon = GFX_goal_generic_national_unity
+    x = 20
+    y = 10
+    cost = 10
+    prerequisite = {
+      focus = NTS_karakalpak_transfer
+    }
+    available = {
+      NTS_can_settle_name = yes
+      NTS_has_ready_path = yes
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_settle_name_by_ready_path = yes
+    }
+  }
+
+  focus = {
+    id = NTS_poets_chair
+    icon = GFX_goal_support_democracy
+    x = 1
+    y = 2
+    cost = 10
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_almaata = yes
+      set_country_flag = NTS_ready_poets
+      add_ideas = secularism
+    }
+  }
+
+  focus = {
+    id = NTS_iqbal_draft
+    icon = GFX_goal_generic_improve_relations
+    x = 1
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_poets_chair
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_plains = yes
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = NTS_refuse_arrests
+    icon = GFX_goal_generic_dangerous_deal
+    x = 1
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = NTS_iqbal_draft
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      create_wargoal = {
+        type = topple_government
+        target = SOV
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_long_name_first
+    icon = GFX_goal_generic_national_unity
+    x = 1
+    y = 5
+    cost = 10
+    prerequisite = {
+      focus = NTS_iqbal_draft
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      set_cosmetic_tag = long_NTS
+      set_country_flag = NTS_self_long_name
+    }
+  }
+
+  focus = {
+    id = NTS_longer_name
+    icon = GFX_goal_generic_national_unity
+    x = 1
+    y = 6
+    cost = 10
+    prerequisite = {
+      focus = NTS_long_name_first
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      set_cosmetic_tag = more_long_NTS
+    }
+  }
+
+  focus = {
+    id = NTS_party_seals
+    icon = GFX_goal_support_communism
+    x = 4
+    y = 2
+    cost = 10
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_almaata = yes
+      NTS_add_table_point_tashkent = yes
+      NTS_add_table_point_periphery = yes
+      set_country_flag = NTS_ready_party
+    }
+  }
+
+  focus = {
+    id = NTS_accept_purge
+    icon = GFX_goal_generic_political_pressure
+    x = 4
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_party_seals
+    }
+    mutually_exclusive = {
+      focus = NTS_refuse_purge
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_purge_local_secretaries = yes
+    }
+  }
+
+  focus = {
+    id = NTS_refuse_purge
+    icon = GFX_goal_generic_dangerous_deal
+    x = 5
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_party_seals
+    }
+    mutually_exclusive = {
+      focus = NTS_accept_purge
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      create_wargoal = {
+        type = puppet_wargoal_focus
+        target = SOV
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_bukhara_name
+    icon = GFX_goal_generic_improve_relations
+    x = 3
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = NTS_party_seals
+    }
+    mutually_exclusive = {
+      focus = NTS_karakalpak_name
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_tashkent = yes
+      set_country_flag = NTS_bukhara_name
+    }
+  }
+
+  focus = {
+    id = NTS_karakalpak_name
+    icon = GFX_focus_AFG_develop_uzbekistan
+    x = 5
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = NTS_party_seals
+    }
+    mutually_exclusive = {
+      focus = NTS_bukhara_name
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_tashkent = yes
+      set_country_flag = NTS_karakalpak_name
+    }
+  }
+
+  focus = {
+    id = NTS_hashim_regency
+    icon = GFX_focus_AFG_support_king_zahir
+    x = 8
+    y = 2
+    cost = 10
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_kabul = yes
+      set_country_flag = NTS_ready_court
+      set_country_flag = Support_For_Sunni
+    }
+  }
+
+  focus = {
+    id = NTS_zahir_stamp
+    icon = GFX_focus_AFG_retire_the_uncles
+    x = 8
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_hashim_regency
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_stability = -0.05
+      add_political_power = 100
+      NTS_add_table_point_kabul = yes
+    }
+  }
+
+  focus = {
+    id = NTS_momand_names
+    icon = GFX_focus_AFG_pashtun_empire
+    x = 7
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = NTS_zahir_stamp
+    }
+    mutually_exclusive = {
+      focus = NTS_bughra_east
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_kabul = yes
+      set_country_flag = NTS_path_fascism_momand
+    }
+  }
+
+  focus = {
+    id = NTS_bughra_east
+    icon = GFX_focus_AFG_sinkang_intervention
+    x = 9
+    y = 4
+    cost = 15
+    prerequisite = {
+      focus = NTS_zahir_stamp
+    }
+    mutually_exclusive = {
+      focus = NTS_momand_names
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      create_wargoal = {
+        type = take_state_focus
+        target = CHN
+        generator = { 617 619 }
+      }
+      NTS_add_table_point_kabul = yes
+    }
+  }
+
+  focus = {
+    id = NTS_fazl_dies
+    icon = GFX_goal_generic_political_pressure
+    x = 12
+    y = 2
+    cost = 10
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_plains = yes
+      set_country_flag = NTS_ready_plains
+      set_country_flag = Support_For_Sunni
+    }
+  }
+
+  focus = {
+    id = NTS_sikandar_union
+    icon = GFX_goal_support_democracy
+    x = 12
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_fazl_dies
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_plains = yes
+    }
+  }
+
+  focus = {
+    id = NTS_ghaffar_servants
+    icon = GFX_focus_AFG_concessions_to_pashtuns
+    x = 12
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = NTS_sikandar_union
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_plains = yes
+      set_country_flag = NTS_ghaffar_aligned
+    }
+  }
+
+  focus = {
+    id = NTS_hari_singh
+    icon = GFX_goal_generic_neutrality_focus
+    x = 11
+    y = 5
+    cost = 10
+    prerequisite = {
+      focus = NTS_ghaffar_servants
+    }
+    mutually_exclusive = {
+      focus = NTS_sheikh_abdullah
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_plains = yes
+      set_country_flag = NTS_hari_singh_path
+    }
+  }
+
+  focus = {
+    id = NTS_sheikh_abdullah
+    icon = GFX_goal_support_democracy
+    x = 13
+    y = 5
+    cost = 10
+    prerequisite = {
+      focus = NTS_ghaffar_servants
+    }
+    mutually_exclusive = {
+      focus = NTS_hari_singh
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      NTS_add_table_point_plains = yes
+      set_country_flag = NTS_sheikh_abdullah_path
+    }
+  }
+
+  focus = {
+    id = NTS_name_the_railway
+    icon = GFX_focus_AST_new_south_wales_government_railways
+    x = 30
+    y = 2
+    cost = 10
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      set_country_flag = NTS_railway_named
+      405 = {
+        add_building_construction = {
+          type = infrastructure
+          level = 1
+          instant_build = yes
+        }
+      }
+      583 = {
+        add_building_construction = {
+          type = infrastructure
+          level = 1
+          instant_build = yes
+        }
+      }
+      440 = {
+        add_building_construction = {
+          type = infrastructure
+          level = 1
+          instant_build = yes
+        }
+      }
+      267 = {
+        add_building_construction = {
+          type = infrastructure
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_cotton_count
+    icon = GFX_focus_CHL_enlarge_the_textile_industries
+    x = 26
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_name_the_railway
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_ideas = NTS_counted_cotton
+      585 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+      830 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+      823 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+      742 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_emba_oil
+    icon = GFX_focus_PER_form_oil_company
+    x = 30
+    y = 3
+    cost = 15
+    prerequisite = {
+      focus = NTS_name_the_railway
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      406 = {
+        add_resource = {
+          type = oil
+          amount = 8
+        }
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = synthetic_refinery
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_frunze_metal
+    icon = GFX_goal_generic_construct_mil_factory
+    x = 34
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_name_the_railway
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      586 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = arms_factory
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_wait_for_zabuli
+    icon = GFX_focus_AFG_afghan_bank
+    x = 28
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = NTS_cotton_count
+      focus = NTS_emba_oil
+    }
+    mutually_exclusive = {
+      focus = NTS_bank_now
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      set_country_flag = NTS_zabuli_1938
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = NTS_bank_now
+    icon = GFX_focus_CHL_strengthen_the_central_bank
+    x = 31
+    y = 4
+    cost = 5
+    prerequisite = {
+      focus = NTS_cotton_count
+      focus = NTS_emba_oil
+    }
+    mutually_exclusive = {
+      focus = NTS_wait_for_zabuli
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_stability = -0.05
+      set_country_flag = NTS_bank_now
+    }
+  }
+
+  focus = {
+    id = NTS_punjab_shops
+    icon = GFX_goal_generic_construct_civ_factory
+    x = 34
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = NTS_name_the_railway
+    }
+    available = {
+      check_variable = {
+        var = NTS_pts_plains
+        value = 1
+        compare = greater_than_equals
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      440 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_attock_wells
+    icon = GFX_goal_generic_oil_refinery
+    x = 34
+    y = 5
+    cost = 10
+    prerequisite = {
+      focus = NTS_punjab_shops
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      440 = {
+        add_resource = {
+          type = oil
+          amount = 2
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_caspian_boats
+    icon = GFX_focus_PER_bolster_the_caspian
+    x = 30
+    y = 5
+    cost = 10
+    prerequisite = {
+      focus = NTS_emba_oil
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      navy_experience = 15
+    }
+  }
+
+  focus = {
+    id = NTS_royal_army
+    icon = GFX_focus_AFG_royal_guard
+    x = 42
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      army_experience = 25
+      NTS_add_table_point_kabul = yes
+    }
+  }
+
+  focus = {
+    id = NTS_call_daoud
+    icon = GFX_goal_generic_army_tanks
+    x = 42
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = NTS_royal_army
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_stability = -0.03
+    }
+  }
+
+  focus = {
+    id = NTS_ipi_regulars
+    icon = GFX_goal_generic_army_doctrines
+    x = 45
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_ipi_november
+    }
+    mutually_exclusive = {
+      focus = NTS_ipi_servants
+      focus = NTS_ipi_landlords
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      remove_ideas = NTS_ipi_fire
+      army_experience = 15
+    }
+  }
+
+  focus = {
+    id = NTS_ipi_servants
+    icon = GFX_focus_AFG_concessions_to_pashtuns
+    x = 46
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_ipi_november
+    }
+    mutually_exclusive = {
+      focus = NTS_ipi_regulars
+      focus = NTS_ipi_landlords
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      remove_ideas = NTS_ipi_fire
+      NTS_add_table_point_plains = yes
+    }
+  }
+
+  focus = {
+    id = NTS_ipi_landlords
+    icon = GFX_goal_generic_cavalry
+    x = 47
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_ipi_november
+    }
+    mutually_exclusive = {
+      focus = NTS_ipi_regulars
+      focus = NTS_ipi_servants
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      remove_ideas = NTS_ipi_fire
+      NTS_add_table_point_plains = yes
+    }
+  }
+
+  focus = {
+    id = NTS_numbered_divisions
+    icon = GFX_goal_generic_position_armies
+    x = 46
+    y = 5
+    cost = 10
+    prerequisite = {
+      focus = NTS_ipi_november
+    }
+    available = {
+      OR = {
+        has_country_flag = NTS_ready_party
+        has_country_flag = NTS_purge_accepted
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      army_experience = 50
+    }
+  }
+
+  focus = {
+    id = NTS_skvortsov_bureau
+    icon = GFX_goal_support_communism
+    x = 46
+    y = 6
+    cost = 10
+    prerequisite = {
+      focus = NTS_numbered_divisions
+    }
+    available = {
+      has_country_flag = NTS_purge_accepted
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_political_power = 25
+      country_event = {
+        id = nts.4
+        hours = 1
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_quetta_fighters
+    icon = GFX_goal_generic_air_fighter
+    x = 50
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_ipi_november
+    }
+    mutually_exclusive = {
+      focus = NTS_quetta_cas
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      air_experience = 25
+    }
+  }
+
+  focus = {
+    id = NTS_quetta_cas
+    icon = GFX_goal_generic_air_bomber
+    x = 51
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_ipi_november
+    }
+    mutually_exclusive = {
+      focus = NTS_quetta_fighters
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      air_experience = 25
+    }
+  }
+
+  focus = {
+    id = NTS_karachi_escorts
+    icon = GFX_focus_PER_establish_the_navy
+    x = 54
+    y = 3
+    cost = 10
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      navy_experience = 20
+      443 = {
+        add_building_construction = {
+          type = dockyard
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_kalat_name
+    icon = GFX_focus_AFG_future_of_balochistan
+    x = 54
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = NTS_karachi_escorts
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      country_event = {
+        id = nts.2
+        hours = 1
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_foreign_desk
+    icon = GFX_focus_generic_diplomatic_treaty
+    x = 8
+    y = 6
+    cost = 10
+    prerequisite = {
+      focus = NTS_missing_register
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_political_power = 50
+      set_country_flag = NTS_foreign_desk_open
+    }
+  }
+
+  focus = {
+    id = NTS_seek_recognition
+    icon = GFX_goal_generic_improve_relations
+    x = 6
+    y = 7
+    cost = 10
+    prerequisite = {
+      focus = NTS_foreign_desk
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          IND = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = IND
+          modifier = NTS_recognition_sought
+        }
+      }
+      if = {
+        limit = {
+          IRN = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = IRN
+          modifier = NTS_recognition_sought
+        }
+      }
+      if = {
+        limit = {
+          CHN = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = CHN
+          modifier = NTS_recognition_sought
+        }
+      }
+      if = {
+        limit = {
+          JAP = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = JAP
+          modifier = NTS_recognition_sought
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_cotton_moscow_trade
+    icon = GFX_focus_FIN_approach_the_soviets
+    x = 5
+    y = 8
+    cost = 10
+    prerequisite = {
+      focus = NTS_seek_recognition
+    }
+    mutually_exclusive = {
+      focus = NTS_break_with_moscow
+    }
+    available = {
+      OR = {
+        has_completed_focus = NTS_cotton_count
+        has_country_flag = NTS_ready_party
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_political_power = 25
+      if = {
+        limit = {
+          SOV = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = SOV
+          modifier = NTS_cotton_trade
+        }
+      }
+      if = {
+        limit = {
+          RUS = { exists = yes }
+          NOT = {
+            SOV = { exists = yes }
+          }
+        }
+        reverse_add_opinion_modifier = {
+          target = RUS
+          modifier = NTS_cotton_trade
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_break_with_moscow
+    icon = GFX_focus_FIN_antagonize_the_soviets
+    x = 7
+    y = 8
+    cost = 10
+    prerequisite = {
+      focus = NTS_seek_recognition
+    }
+    mutually_exclusive = {
+      focus = NTS_cotton_moscow_trade
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          SOV = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = SOV
+          modifier = NTS_moscow_break
+        }
+      }
+      if = {
+        limit = {
+          RUS = { exists = yes }
+          NOT = {
+            SOV = { exists = yes }
+          }
+        }
+        reverse_add_opinion_modifier = {
+          target = RUS
+          modifier = NTS_moscow_break
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_approach_long_alliance
+    icon = GFX_goal_generic_alliance
+    x = 10
+    y = 7
+    cost = 10
+    prerequisite = {
+      focus = NTS_foreign_desk
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          BKK = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = BKK
+          modifier = NTS_long_alliance_talks
+        }
+      }
+      if = {
+        limit = {
+          SJK = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = SJK
+          modifier = NTS_long_alliance_talks
+        }
+      }
+      set_country_flag = NTS_approached_bkk
+    }
+  }
+
+  focus = {
+    id = NTS_accept_long_invitation
+    icon = GFX_goal_generic_major_alliance
+    x = 9
+    y = 8
+    cost = 10
+    prerequisite = {
+      focus = NTS_approach_long_alliance
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          BKK = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = BKK
+          modifier = NTS_long_alliance_talks
+        }
+      }
+      if = {
+        limit = {
+          SJK = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = SJK
+          modifier = NTS_long_alliance_talks
+        }
+      }
+      set_country_flag = NTS_ready_long_alliance
+    }
+  }
+
+  focus = {
+    id = NTS_sjk_writes_our_name
+    icon = GFX_focus_BRA_sway_the_neighbors
+    x = 11
+    y = 8
+    cost = 10
+    prerequisite = {
+      focus = NTS_approach_long_alliance
+    }
+    available = {
+      NOT = {
+        has_completed_focus = NTS_longer_name
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      set_cosmetic_tag = more_long_NTS
+      set_country_flag = NTS_sjk_wrote_name
+    }
+  }
+
+  focus = {
+    id = NTS_wes_sand_stance
+    icon = GFX_goal_generic_dangerous_deal
+    x = 8
+    y = 7
+    cost = 10
+    prerequisite = {
+      focus = NTS_foreign_desk
+    }
+    prerequisite = {
+      focus = NTS_approach_long_alliance
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          WES = { exists = yes }
+          has_country_flag = NTS_name_settled
+        }
+        add_stability = 0.05
+      }
+      if = {
+        limit = {
+          WES = { exists = yes }
+          NOT = {
+            has_country_flag = NTS_name_settled
+          }
+        }
+        add_war_support = 0.05
+        add_opinion_modifier = {
+          target = WES
+          modifier = NTS_wes_sand_watch
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_iran_quiet_border
+    icon = GFX_goal_generic_military_deal
+    x = 5
+    y = 9
+    cost = 10
+    prerequisite = {
+      focus = NTS_seek_recognition
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          IRN = { exists = yes }
+        }
+        diplomatic_relation = {
+          country = IRN
+          relation = non_aggression_pact
+          active = yes
+        }
+        reverse_add_opinion_modifier = {
+          target = IRN
+          modifier = NTS_quiet_border
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_kashmir_dossier
+    icon = GFX_goal_generic_demand_territory
+    x = 7
+    y = 9
+    cost = 10
+    prerequisite = {
+      focus = NTS_seek_recognition
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_political_power = 50
+      if = {
+        limit = {
+          IND = { owns_state = 441 }
+        }
+        set_country_flag = NTS_kashmir_desk
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_kitada_channel
+    icon = GFX_focus_PER_fascist_reach_out_to_japan
+    x = 9
+    y = 9
+    cost = 10
+    prerequisite = {
+      focus = NTS_foreign_desk
+    }
+    available = {
+      OR = {
+        has_completed_focus = NTS_bughra_east
+        has_country_flag = NTS_ready_court
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          JAP = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = JAP
+          modifier = NTS_kitada_channel
+        }
+        add_equipment_to_stockpile = {
+          type = infantry_equipment_0
+          amount = 500
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = NTS_stan_good_neighbor
+    icon = GFX_focus_BRA_good_neighbor_policy
+    x = 5
+    y = 10
+    cost = 10
+    prerequisite = {
+      focus = NTS_iran_quiet_border
+    }
+    ai_will_do = {
+      factor = 1
+    }
+    completion_reward = {
+      add_political_power = 25
+      if = {
+        limit = {
+          IND = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = IND
+          modifier = NTS_recognition_sought
+        }
+      }
+      if = {
+        limit = {
+          IRN = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = IRN
+          modifier = NTS_recognition_sought
+        }
+      }
+      if = {
+        limit = {
+          CHN = { exists = yes }
+        }
+        reverse_add_opinion_modifier = {
+          target = CHN
+          modifier = NTS_recognition_sought
+        }
+      }
+    }
+  }
+}

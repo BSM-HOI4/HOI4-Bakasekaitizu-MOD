@@ -224,20 +224,30 @@ guiTypes = {
 	### SINGLE PLAYER MENU
 	containerWindowType = {
 		name = "mainmenu_single_player"
-		position = { x=-50 y =-0}
-		size = { width = 900 height = 700}
+		position = { x=0 y=0 }
+		size = { width = 520 height = 300 }
 		Orientation = CENTER
 		Origo = center	
 				
 		background = {
 			name = "Background"		
-			quadTextureSprite ="GFX_sp_window"
+			quadTextureSprite ="GFX_bsm_win95_sp_compact"
 		}
 		
+    instantTextboxType = {
+      name = "bsm_singleplayer_title"
+      position = { x = 12 y = 5 }
+      font = "hoi_24header"
+      text = "FE_SINGLE_PLAYER"
+      maxWidth = 465
+      maxHeight = 24
+      format = left
+    }
+
 		iconType = {
 			name = "sp_continue_flag_left"
 			quadTextureSprite ="GFX_flag_small2_not_masked"
-			position = { x= 35 y = 60 }
+			position = { x = 32 y = 76 }
 			Orientation = "UPPER_LEFT"
 			alwaystransparent = yes
 		}
@@ -245,7 +255,7 @@ guiTypes = {
 		iconType = {
 			name = "sp_continue_flag_left_overlay"
 			quadTextureSprite ="GFX_flag_small2_not_masked"
-			position = { x= 35 y = 60 }
+			position = { x = 32 y = 76 }
 			Orientation = "UPPER_LEFT"
 			alwaystransparent = yes
 		}
@@ -253,7 +263,7 @@ guiTypes = {
 		iconType = {
 			name = "sp_continue_flag_right"
 			quadTextureSprite ="GFX_flag_small2_not_masked"
-			position = { x= 35 y = 60 }
+			position = { x = 32 y = 76 }
 			Orientation = "UPPER_LEFT"
 			alwaystransparent = yes
 		}
@@ -261,7 +271,7 @@ guiTypes = {
 		iconType = {
 			name = "sp_continue_flag_right_overlay"
 			quadTextureSprite ="GFX_flag_small2_not_masked"
-			position = { x= 35 y = 60 }
+			position = { x = 32 y = 76 }
 			Orientation = "UPPER_LEFT"
 			alwaystransparent = yes
 		}
@@ -269,30 +279,32 @@ guiTypes = {
 
 		ButtonType = {
 			name = "sp_continue_button"
-			position = { x = 100 y = 130 }
-			quadTextureSprite ="GFX_sp_spp"
+			position = { x = 26 y = 70 }
+			quadTextureSprite ="GFX_bsm_win95_sp_button"
 			buttonText = "FE_CONTINUE"
-			buttonFont = "bsm_30_blk"
+			buttonFont = "bsm_24_blk"
 			clicksound = click_default
 			oversound = ui_menu_over
 		}
 
 		ButtonType = {
 			name = "sp_new_button"
-			position = { x = 540 y = 129 }
-			quadTextureSprite ="GFX_sp_a"
+			position = { x = 26 y = 128 }
+			quadTextureSprite ="GFX_bsm_win95_sp_button"
 			buttonText = "FE_NEW"
-			buttonFont = "bsm_30_blk"
+      shortcut = "n"
+      pdx_tooltip = "BSM_MENU_OPEN_NEW_GAME"
+			buttonFont = "bsm_24_blk"
 			clicksound = click_default
 			oversound = ui_menu_over
 		}
 
 		ButtonType = {
 			name = "sp_load_button"
-			position = {  x = 100 y = 400 }
-			quadTextureSprite ="GFX_sp_load"
+			position = { x = 26 y = 186 }
+			quadTextureSprite ="GFX_bsm_win95_sp_button"
 			buttonText = "MENU_BAR_LOAD"
-			buttonFont = "bsm_30_blk"
+			buttonFont = "bsm_24_blk"
 			clicksound = click_default
 			oversound = ui_menu_over
 		}
@@ -300,413 +312,469 @@ guiTypes = {
 		ButtonType = {
 			name = "sp_tutorial_button"
 			position = { x = 16 y = 11538 }
-			quadTextureSprite ="GFX_sp_load"
+			quadTextureSprite ="GFX_bsm_win95_sp_button"
 			buttonText = "FE_TUTORIAL"
-			buttonFont = "bsm_30_blk"
+			buttonFont = "bsm_24_blk"
 			clicksound = click_default
 			oversound = ui_menu_over
 		}
 
 		ButtonType = {
 			name = "sp_back_button"
-			position = { x = 800 y = 47 }
-			quadTextureSprite ="GFX_sp_window_back"
+			position = { x = 492 y = 7 }
+			quadTextureSprite ="GFX_bsm_win95_sp_close"
 			# buttonText = "BACK"
 			pdx_tooltip = "BACK"
-			buttonFont = "bsm_30_blk"
+			buttonFont = "bsm_24_blk"
 			clicksound = click_close
 			oversound = ui_menu_over
 			shortcut = "ESCAPE"
 		}
 	}
 
-	### MAIN MENU PANEL (bottom)
+  ### Compact Start-style menu (source blue artwork is rendered at 64%).
+  containerWindowType = {
+    name = "mainmenu_panel_bottom"
+    position = { x = 8 y = -8 }
+    size = { width = 426 height = 384 }
+    Orientation = lower_left
+    Origo = lower_left
+    positionType = {
+      name = "subscription_size"
+      position = { x = 426 y = 384 }
+    }
+    iconType = {
+      name = "bsm_mainmenu_original_chrome"
+      position = { x = 0 y = 0 }
+      spriteType = "GFX_tiled_window_opbg"
+      scale = 0.64
+      alwaysTransparent = yes
+    }
+    instantTextboxType = {
+      name = "version_label2"
+      position = { x = 74 y = 17 }
+      font = "bsm_menu_title"
+      text = "ALPHA_bsm"
+      pdx_tooltip = "ALPHA_desc"
+      maxWidth = 324
+      maxHeight = 22
+      fixedsize = yes
+      format = left
+      alwaysTransparent = yes
+    }
+    instantTextboxType = {
+      name = "version_label"
+      position = { x = 74 y = 41 }
+      font = "bsm_shinonome_w"
+      text = ""
+      maxWidth = 324
+      maxHeight = 27
+      fixedsize = yes
+      format = left
+      alwaysTransparent = yes
+    }
+    positionType = {
+      name = "version_label_subscription_position"
+      position = { x = 74 y = 41 }
+    }
+    buttonType = {
+      name = "single_player_button"
+      position = { x = 12 y = 84 }
+      quadTextureSprite = "GFX_bsm_win95_menu_action"
+      buttonText = "FE_SINGLE_PLAYER"
+      buttonFont = "bsm_16mbs_blk"
+      clicksound = click_default
+      oversound = ui_menu_over
+      shortcut = "s"
+      pdx_tooltip = "BSM_MENU_OPEN_SINGLE_PLAYER"
+    }
+    buttonType = {
+      name = "multi_player_button"
+      position = { x = 12 y = 116 }
+      quadTextureSprite = "GFX_bsm_win95_menu_action"
+      buttonText = "FE_MULTI_PLAYER"
+      buttonFont = "bsm_16mbs_blk"
+      clicksound = click_default
+      oversound = ui_menu_over
+    }
+    buttonType = {
+      name = "settings_button"
+      position = { x = 12 y = 148 }
+      quadTextureSprite = "GFX_bsm_win95_menu_action"
+      buttonText = "OPTIONS"
+      buttonFont = "bsm_16mbs_blk"
+      clicksound = click_default
+      oversound = ui_menu_over
+    }
+    buttonType = {
+      name = "career_profile_button"
+      position = { x = 12 y = 180 }
+      quadTextureSprite = "GFX_bsm_win95_menu_action"
+      buttonText = "MENU_BAR_CAREER_PROFILE"
+      buttonFont = "bsm_16mbs_blk"
+      clicksound = click_default
+      oversound = ui_menu_over
+    }
+    buttonType = {
+      name = "nudge_button"
+      position = { x = 12 y = 212 }
+      quadTextureSprite = "GFX_bsm_win95_menu_action"
+      buttonText = "Nudge!"
+      buttonFont = "bsm_16mbs_blk"
+      clicksound = click_default
+      oversound = ui_menu_over
+    }
+    buttonType = {
+      name = "friends_button"
+      position = { x = 12 y = 244 }
+      quadTextureSprite = "GFX_bsm_win95_menu_action"
+      buttonText = "MENU_BAR_FRIENDS"
+      buttonFont = "bsm_16mbs_blk"
+      clicksound = click_default
+      oversound = ui_menu_over
+    }
+    buttonType = {
+      name = "credits_button"
+      position = { x = 12 y = 276 }
+      quadTextureSprite = "GFX_bsm_win95_menu_action"
+      buttonText = "FE_CREDITS"
+      buttonFont = "bsm_16mbs_blk"
+      clicksound = click_default
+      oversound = ui_menu_over
+    }
+    iconType = {
+      name = "single_player_button_warn"
+      position = { x = 176 y = 89 }
+      spriteType = "GFX_missing_dlc_warning_sign"
+      scale = 0.5
+    }
+    iconType = {
+      name = "career_profile_button_star"
+      position = { x = 190 y = 186 }
+      spriteType = "GFX_icon_best_in_career"
+      scale = 0.2
+      centerposition = yes
+      alwaysTransparent = yes
+    }
+    buttonType = {
+      name = "exit_button"
+      position = { x = 216 y = 346 }
+      quadTextureSprite = "GFX_bsm_win95_menu_action"
+      buttonText = "FE_EXIT"
+      buttonFont = "bsm_16mbs_blk"
+      clicksound = click_default
+      oversound = ui_menu_over
+    }
+    iconType = {
+      name = "subscription_divider"
+      position = { x = 14 y = 306 }
+      spriteType = "GFX_main_lobby_divider"
+      scale = 0.6
+      alwaysTransparent = yes
+    }
+    containerWindowType = {
+      name = "subscription_widget"
+      position = { x = 12 y = 309 }
+      size = { width = 182 height = 26 }
+      buttonType = {
+        name = "show_subscription"
+        position = { x = 0 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_menu_link"
+        buttonText = "BSM_MENU_SUBSCRIPTION"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "SUBSCRIPTION_WIDGET"
+      }
+    }
+    containerWindowType = {
+      name = "subscription_widget_simp_chinese"
+      position = { x = 12 y = 309 }
+      size = { width = 182 height = 26 }
+      hide = yes
+      buttonType = {
+        name = "show_subscription"
+        position = { x = 0 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_menu_link"
+        buttonText = "BSM_MENU_SUBSCRIPTION"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "SUBSCRIPTION_WIDGET"
+        web_link = "https://cn.heartsofiron.com/add-ons"
+      }
+    }
+    containerWindowType = {
+      name = "subscription_widget_subscribed"
+      position = { x = 12 y = 309 }
+      size = { width = 182 height = 26 }
+      buttonType = {
+        name = "show_subscription"
+        position = { x = 0 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_menu_link"
+        buttonText = "BSM_MENU_SUBSCRIBED"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "SUBSCRIPTION_WIDGET"
+      }
+    }
+    buttonType = {
+      name = "homepage_button"
+      position = { x = 216 y = 84 }
+      quadTextureSprite = "GFX_bsm_win95_menu_link"
+      pdx_tooltip = "MENU_HOMEPAGE"
+      clicksound = click_default
+    }
+    instantTextboxType = {
+      name = "MENU_HOMEPAGE_txt"
+      position = { x = 228 y = 90 }
+      font = "bsm_shinonome"
+      text = "BSM_MENU_SHORT_HOME"
+      maxWidth = 158
+      maxHeight = 16
+      fixedsize = yes
+      format = left
+      alwaysTransparent = yes
+    }
+    buttonType = {
+      name = "forum_button"
+      position = { x = 216 y = 116 }
+      quadTextureSprite = "GFX_bsm_win95_menu_link"
+      pdx_tooltip = "MENU_FORUM"
+      clicksound = click_default
+      web_link = "http://forum.paradoxplaza.com/forum/forumdisplay.php?844-Hearts-of-Iron-IV"
+    }
+    instantTextboxType = {
+      name = "MENU_FORUM_txt"
+      position = { x = 228 y = 122 }
+      font = "bsm_shinonome"
+      text = "BSM_MENU_SHORT_FORUM"
+      maxWidth = 158
+      maxHeight = 16
+      fixedsize = yes
+      format = left
+      alwaysTransparent = yes
+    }
+    buttonType = {
+      name = "facebook_button"
+      position = { x = 216 y = 148 }
+      quadTextureSprite = "GFX_bsm_win95_menu_link"
+      pdx_tooltip = "MENU_FACEBOOK"
+      clicksound = click_default
+      web_link = "https://www.facebook.com/Heartsofiron"
+    }
+    instantTextboxType = {
+      name = "MENU_FACEBOOK_txt"
+      position = { x = 228 y = 154 }
+      font = "bsm_shinonome"
+      text = "BSM_MENU_SHORT_FACEBOOK"
+      maxWidth = 158
+      maxHeight = 16
+      fixedsize = yes
+      format = left
+      alwaysTransparent = yes
+    }
+    buttonType = {
+      name = "twitter_button"
+      position = { x = 216 y = 180 }
+      quadTextureSprite = "GFX_bsm_win95_menu_link"
+      pdx_tooltip = "MENU_TWITTER"
+      clicksound = click_default
+      web_link = "https://twitter.com/bakasekaihoi4"
+    }
+    instantTextboxType = {
+      name = "MENU_TWITTER_txt"
+      position = { x = 228 y = 186 }
+      font = "bsm_shinonome"
+      text = "BSM_MENU_SHORT_MOD_X"
+      maxWidth = 158
+      maxHeight = 16
+      fixedsize = yes
+      format = left
+      alwaysTransparent = yes
+    }
+    buttonType = {
+      name = "privacy_policy_button"
+      position = { x = 216 y = 212 }
+      quadTextureSprite = "GFX_bsm_win95_menu_link"
+      pdx_tooltip = "MENU_PRIVACY_POLICY"
+      clicksound = click_default
+    }
+    instantTextboxType = {
+      name = "MENU_PRIVACY_POLICY_tst"
+      position = { x = 228 y = 218 }
+      font = "bsm_shinonome"
+      text = "BSM_MENU_SHORT_PRIVACY"
+      maxWidth = 158
+      maxHeight = 16
+      fixedsize = yes
+      format = left
+      alwaysTransparent = yes
+    }
+  }
 
-	containerWindowType = {
-		name ="mainmenu_panel_bottom"
-		position = { x=0 y =485}
-		size = { width = 650 height = 825 }
-		# Orientation = LEFT
-		# Origo = left		
-
-		positionType = {
-			name = "subscription_size"
-			position = { x = 320 y = 563 }
-		}
-				
-		background = {
-			name = "Background"		
-			quadTextureSprite ="GFX_tiled_window_opbg"
-		}
-			
-		ButtonType = {
-			name = "single_player_button"
-			position = { x = 10 y = 120 }
-			quadTextureSprite ="GFX_single_b"
-			font = "vic_18_black"			
-			text = "FE_SINGLE_PLAYER"				
-			clicksound = click_default			
-			oversound = ui_menu_over
-		}
-
-		ButtonType = {
-			name = "multi_player_button"
-			position = { x = 10 y = 170}
-			quadTextureSprite ="GFX_multi_b"
-			font = "vic_18_black"			
-			text = "FE_MULTI_PLAYER"			
-			clicksound = click_default
-			oversound = ui_menu_over
-		}
-
-		@warn_icon_x = 370
-		iconType = {
-			name = "single_player_button_warn"
-			position = { x = @warn_icon_x y = 40 }
-			spriteType = "GFX_missing_dlc_warning_sign"
-		}
-
-		instantTextBoxType = {
-			name ="version_label"
-			position = { x = 110 y = 70 }
-			# textureFile = "GFX_vtxtbg_b"
-			font = "main_30"
-			borderSize = {x = 0 y = 0}
-			# text = "ALPHA_bsm"	
-			format = left
-			maxWidth = 500
-			maxHeight = 30	
-		}
-		instantTextBoxType = {
-			name ="version_label2"
-			position = { x = 110 y = 40 }
-
-			textureFile = ""
-			font = "hoi_30"
-			borderSize = {x = 0 y = 0}
-			text = "ALPHA_bsm"	
-			pdx_tooltip = "ALPHA_desc"
-			format = left
-			maxWidth = 250
-			maxHeight = 20	
-		}
-
-		positionType = {
-			name = "version_label_subscription_position"
-			position = { x = 35 y = 524 }
-		}
-		
-		
-		ButtonType = {
-			name = "settings_button"
-			position = { x = 10 y = 220 }
-			quadTextureSprite ="GFX_setting_b"	
-			buttonText = "OPTIONS"
-			buttonFont = "vic_18_black"
-			clicksound = click_default
-			oversound = ui_menu_over
-		}
-		
-		buttonType = {
-			name = "career_profile_button"
-			position = { x = 10 y = 270 }
-			quadTextureSprite ="GFX_cp_b"
-			buttonText = "MENU_BAR_CAREER_PROFILE"
-			buttonFont = "vic_18_black"
-			clicksound = click_default
-			oversound = ui_menu_over
-		}
-		
-		iconType = {
-			name = "career_profile_button_star"
-			position = { x = 10 y = 270 }
-			spriteType = "GFX_icon_best_in_career"
-			centerposition = yes
-			# orientation = upper_right
-			alwaysTransparent = yes
-		}
-		
-		buttonType = {
-			name = "friends_button"
-			position = { x = 10 y = 360 }
-			quadTextureSprite ="GFX_multi_b"
-			buttonText = "MENU_BAR_FRIENDS"
-			buttonFont = "vic_18_black"
-			clicksound = click_default
-			oversound = ui_menu_over
-		}
-
-		ButtonType = {
-			name = "credits_button"
-			position = {  x = 10 y = 410 }
-			quadTextureSprite ="GFX_cre_b"	
-			buttonText = "FE_CREDITS"
-			buttonFont = "vic_18_black"
-			clicksound = click_default
-			oversound = ui_menu_over
-		}
-		
-		ButtonType = {
-			name = "nudge_button"
-			position = { x = 10 y = 310 }
-			quadTextureSprite ="GFX_nagge_b"	
-			buttonText = "Nudge!"
-			buttonFont = "vic_18_black"
-		}
-
-		ButtonType = {
-			name = "exit_button"
-			position = { x = 325 y = 540 }
-			quadTextureSprite ="GFX_quit_b"
-			font = "hoi_30"			
-			text = "FE_EXIT"			
-			clicksound = click_default
-			oversound = ui_menu_over
-			
-		}
-
-		# ButtonType = {
-		# 	name = "start_button"
-		# 	position = { x = 0 y = 600 }
-		# 	quadTextureSprite ="GFX_start"
-		# 	font = "hoi_30"			
-		# 	text = ""			
-		# 	clicksound = click_default
-		# 	oversound = ui_menu_over
-			
-		# }
-
-		iconType = {
-			name = "subscription_divider"
-			position = { x = 4 y = 336 }
-			spriteType = "GFX_main_lobby_divider"
-		}
-
-		containerWindowType = {
-			name = "subscription_widget"
-			position = { x = 10 y = 352 }
-			size = { width = 288 height = 108 }
-
-			ButtonType = {
-				name = "show_subscription"
-				position = { x = 0 y = 0 }
-				quadTextureSprite ="GFX_subscription_widget"
-				buttonText = "SUBSCRIPTION_WIDGET"
-				buttonFont = "hoi_24header"
-				multiline = yes
-			}
-		}
-
-		containerWindowType = {
-			name = "subscription_widget_simp_chinese"
-			position = { x = 10 y = 352 }
-			size = { width = 288 height = 108 }
-			hide = yes
-
-			ButtonType = {
-				name = "show_subscription"
-				position = { x = 0 y = 0 }
-				quadTextureSprite ="GFX_subscription_widget_chinese"
-				buttonText = "SUBSCRIPTION_WIDGET_SIMP_CHINESE"
-				buttonFont = "hoi_24header"
-				multiline = yes
-				web_link = "https://cn.heartsofiron.com/add-ons"
-			}
-		}
-
-		containerWindowType = {
-			name = "subscription_widget_subscribed"
-			position = { x = 10 y = 352 }
-			size = { width = 288 height = 108 }
-
-			ButtonType = {
-				name = "show_subscription"
-				position = { x = 0 y = 0 }
-				quadTextureSprite ="GFX_subscription_widget_active"
-				frame = 1
-				buttonText = "SUBSCRIPTION_WIDGET_SUBSCRIBED"
-				buttonFont = "hoi_24header"
-				multiline = yes
-			}
-		}
-		ButtonType = {
-            name = "homepage_button"
-            position = { x=320 y=120 }
-            quadTextureSprite ="homepage"
-            clicksound = click_default
-            pdx_tooltip = "MENU_HOMEPAGE"
-			
-        }
-		instantTextBoxType = {
-			name ="MENU_HOMEPAGE_txt"
-			position = { x = 365 y = 120 }
-			# textureFile = "GFX_vtxtbg_b"
-			font = "vic_18_black"
-			borderSize = {x = 0 y = 0}
-			text = "MENU_HOMEPAGE"	
-			format = left
-			maxWidth = 300
-			maxHeight = 20	
-		}
-        ButtonType = {
-            name = "forum_button"
-            position = { x=320 y=170 }
-            quadTextureSprite ="forum"
-            clicksound = click_default
-            pdx_tooltip = "MENU_FORUM"
-            web_link = "http://forum.paradoxplaza.com/forum/forumdisplay.php?844-Hearts-of-Iron-IV"
-        }
-		instantTextBoxType = {
-			name ="MENU_FORUM_txt"
-			position = { x = 365 y = 170 }
-			# textureFile = "GFX_vtxtbg_b"
-			font = "vic_18_black"
-			borderSize = {x = 0 y = 0}
-			text = "MENU_FORUM"	
-			format = left
-			maxWidth = 300
-			maxHeight = 20	
-		}
-        ButtonType = {
-            name = "facebook_button"
-            position = { x=320 y=220 }
-            quadTextureSprite ="facebook"
-            clicksound = click_default
-            pdx_tooltip = "MENU_FACEBOOK"
-            web_link = "https://www.facebook.com/Heartsofiron"
-        }
-		instantTextBoxType = {
-			name ="MENU_FACEBOOK_txt"
-			position = { x = 365 y = 220 }
-			# textureFile = "GFX_vtxtbg_b"
-			font = "vic_18_black"
-			borderSize = {x = 0 y = 0}
-			text = "MENU_FACEBOOK"	
-			format = left
-			maxWidth = 300
-			maxHeight = 20	
-		}
-        ButtonType = {
-            name = "twitter_button"
-            position = { x=320 y=270 }
-            quadTextureSprite ="twitter"
-            #clicksound = click_default
-            pdx_tooltip = "MENU_TWITTER"
-            web_link = "https://twitter.com/bakasekaihoi4"
-        }
-		instantTextBoxType = {
-			name ="MENU_TWITTER_txt"
-			position = { x = 365 y = 270 }
-			# textureFile = "GFX_vtxtbg_b"
-			font = "vic_18_black"
-			borderSize = {x = 0 y = 0}
-			text = "MENU_TWITTER"	
-			format = left
-			maxWidth = 300
-			maxHeight = 20	
-		}
-        ButtonType = {
-            name = "privacy_policy_button"
-            position = { x=320 y=320 }
-            quadTextureSprite ="privacy"
-            #clicksound = click_default
-            pdx_tooltip = "MENU_PRIVACY_POLICY"
-        }
-		instantTextBoxType = {
-			name ="MENU_PRIVACY_POLICY_tst"
-			position = { x = 365 y = 320 }
-			# textureFile = "GFX_vtxtbg_b"
-			font = "vic_18_black"
-			borderSize = {x = 0 y = 0}
-			text = "MENU_PRIVACY_POLICY"	
-			format = left
-			maxWidth = 300
-			maxHeight = 20	
-		}
-	}
-	
-	# containerWindowType = {
-	# 	name = "mainmenu_social_buttons"
-	# 	position = { x=365 y=730 }	
-	# 	size = { width = 240 height = 250 }
-	# 	# Orientation = LEFT	
-	# 	# origo = left
-		
-	# 	positionType = {
-	# 		name = "position_without_social_gui"
-	# 		position = { x = 0 y = 175 }
-	# 	}
-
-	# 	positionType = {
-	# 		name = "subscription_position"
-	# 		position = { x = -50 y = 109 }
-	# 	}
-
-	# 	positionType = {
-	# 		name = "subscription_position_without_social_gui"
-	# 		position = { x = 0 y = 239 }
-	# 	}
-		
-	# 	containerWindowType = {
-	# 		name = "social_view_interface_window"
-	# 		position = { x = 250 y = 0  }
-	# 		size = { width = 60 height = 40 }
-			
-	# 		buttonType = {
-	# 			name = "toggle_button"
-	# 			quadTextureSprite = "GFX_sort_button_83x29" ## Orig: 60x29
-	# 			position = { x=0 y=0  }
-	# 			buttonFont = "hoi_16mbs"
-	# 		}
-				
-	# 		iconType = {
-	# 			name = "button_toggle_socialview_icon"
-	# 			spriteType = "GFX_socialview_icon"
-	# 			position = { x=0 y=0 }
-	# 			alwaystransparent = yes
-	# 		}
-				
-	# 		instantTextBoxType={
-	# 			name = "friends_online"
-	# 			font = "cg_16b"
-	# 			position = { x=20 y=15 }
-	# 			text = "0"
-	# 			maxWidth = 30
-	# 			maxHeight = 16
-	# 			alwaysTransparent = yes
-	# 			format = center
-	# 		}
-				
-	# 		iconType = {
-	# 			name = "new_message"
-	# 			position = { x=42 y =5 }
-	# 			spriteType = "GFX_new_message_icon"
-	# 			pdx_tooltip = "SOCIAL_NEW_MESSAGE"
-	# 		}
-				
-	# 		iconType = {
-	# 			name = "new_friend"
-	# 			position = { x=42 y=17 }
-	# 			spriteType = "GFX_new_friend_icon"
-	# 			pdx_tooltip = "SOCIAL_NEW_FRIEND"
-	# 		}
-	# 	}
-		
-	# 	ButtonType = {
-	# 		name = "homepage_button"
-	# 		position = { x=0 y=0 }
-	# 		quadTextureSprite ="homepage"
-	# 		#clicksound = click_default
-	# 		pdx_tooltip = "MENU_HOMEPAGE"
-	# 	}
-	# 	ButtonType = {
-	# 		name = "privacy_policy_button"
-	# 		position = { x=0 y=50 }
-	# 		quadTextureSprite ="privacy"
-	# 		#clicksound = click_default
-	# 		pdx_tooltip = "MENU_PRIVACY_POLICY"
-	# 	}
-	# }
+  # The engine also creates this native group; do not leave it to vanilla fallback.
+  # Align it with the bottom-anchored main menu's right column (local y=260).
+  containerWindowType = {
+    name = "mainmenu_social_buttons"
+    position = { x = 224 y = -68 }
+    size = { width = 182 height = 64 }
+    Orientation = lower_left
+    Origo = lower_left
+    clipping = yes
+    background = {
+      name = "Background"
+      quadTextureSprite = "GFX_bsm_win95_links_toolbar"
+    }
+    positionType = {
+      name = "position_without_social_gui"
+      position = { x = 224 y = -68 }
+    }
+    positionType = {
+      name = "subscription_position"
+      position = { x = 224 y = -68 }
+    }
+    positionType = {
+      name = "subscription_position_without_social_gui"
+      position = { x = 224 y = -68 }
+    }
+    containerWindowType = {
+      name = "first_row"
+      position = { x = 5 y = 4 }
+      size = { width = 112 height = 26 }
+      buttonType = {
+        name = "homepage_button"
+        position = { x = 0 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_link_button"
+        buttonText = "BSM_MENU_LINK_HOME"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "MENU_HOMEPAGE"
+        clicksound = click_default
+      }
+      buttonType = {
+        name = "forum_button"
+        position = { x = 28 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_link_button"
+        buttonText = "BSM_MENU_LINK_FORUM"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "MENU_FORUM"
+        clicksound = click_default
+        web_link = "http://forum.paradoxplaza.com/forum/forumdisplay.php?844-Hearts-of-Iron-IV"
+      }
+      buttonType = {
+        name = "discord_button"
+        position = { x = 56 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_link_button"
+        buttonText = "BSM_MENU_LINK_DISCORD"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "MENU_DISCORD"
+        clicksound = click_default
+        web_link = "https://discord.gg/hoi4"
+      }
+      buttonType = {
+        name = "privacy_policy_button"
+        position = { x = 84 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_link_button"
+        buttonText = "BSM_MENU_LINK_PRIVACY"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "MENU_PRIVACY_POLICY"
+        clicksound = click_default
+      }
+    }
+    containerWindowType = {
+      name = "second_row"
+      position = { x = 5 y = 34 }
+      size = { width = 140 height = 26 }
+      buttonType = {
+        name = "bluesky_button"
+        position = { x = 0 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_link_button"
+        buttonText = "BSM_MENU_LINK_BLUESKY"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "MENU_BLUESKY"
+        clicksound = click_default
+        web_link = "https://bsky.app/profile/hoi.paradoxinteractive.com"
+      }
+      buttonType = {
+        name = "twitter_button"
+        position = { x = 28 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_link_button"
+        buttonText = "BSM_MENU_LINK_X"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "MENU_X"
+        clicksound = click_default
+        web_link = "https://x.com/hoi_game"
+      }
+      buttonType = {
+        name = "facebook_button"
+        position = { x = 56 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_link_button"
+        buttonText = "BSM_MENU_LINK_FACEBOOK"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "MENU_FACEBOOK"
+        clicksound = click_default
+        web_link = "https://www.facebook.com/Heartsofiron"
+      }
+      buttonType = {
+        name = "instagram_button"
+        position = { x = 84 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_link_button"
+        buttonText = "BSM_MENU_LINK_INSTAGRAM"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "MENU_INSTAGRAM"
+        clicksound = click_default
+        web_link = "https://www.instagram.com/hearts_of_iron_pdx"
+      }
+      buttonType = {
+        name = "youtube_button"
+        position = { x = 112 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_link_button"
+        buttonText = "BSM_MENU_LINK_YOUTUBE"
+        buttonFont = "bsm_shinonome"
+        pdx_tooltip = "MENU_YOUTUBE"
+        clicksound = click_default
+        web_link = "https://www.youtube.com/@HeartsOfIronOfficial"
+      }
+    }
+    containerWindowType = {
+      name = "social_view_interface_window"
+      position = { x = 122 y = 4 }
+      size = { width = 56 height = 26 }
+      buttonType = {
+        name = "toggle_button"
+        position = { x = 0 y = 0 }
+        quadTextureSprite = "GFX_bsm_win95_friends_button"
+        pdx_tooltip = "MENU_BAR_FRIENDS"
+      }
+      iconType = {
+        name = "button_toggle_socialview_icon"
+        spriteType = "GFX_socialview_icon"
+        position = { x = 3 y = 7 }
+        scale = 0.35
+        alwaysTransparent = yes
+      }
+      instantTextboxType = {
+        name = "friends_online"
+        position = { x = 22 y = 6 }
+        font = "bsm_shinonome"
+        text = "0"
+        maxWidth = 24
+        maxHeight = 14
+        fixedsize = yes
+        format = center
+        alwaysTransparent = yes
+      }
+      iconType = {
+        name = "new_message"
+        position = { x = 46 y = 2 }
+        spriteType = "GFX_new_message_icon"
+        scale = 0.5
+        pdx_tooltip = "SOCIAL_NEW_MESSAGE"
+      }
+      iconType = {
+        name = "new_friend"
+        position = { x = 46 y = 14 }
+        spriteType = "GFX_new_friend_icon"
+        scale = 0.5
+        pdx_tooltip = "SOCIAL_NEW_FRIEND"
+      }
+    }
+  }
 
 	## This position needs updated
 	containerWindowType = {

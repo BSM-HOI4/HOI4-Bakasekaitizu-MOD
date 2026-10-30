@@ -1,0 +1,70 @@
+NTS_border_disputes = {
+
+  NTS_kashmir_maintain_claim = {
+    icon = generic_diplomatic_treaty
+    visible = {
+      441 = { is_claimed_by = ROOT }
+      NOT = { has_country_flag = NTS_kashmir_policy }
+    }
+    fire_only_once = yes
+    complete_effect = {
+      set_country_flag = NTS_kashmir_policy
+    }
+    ai_will_do = { factor = 1 }
+  }
+
+  NTS_kashmir_war_goal = {
+    icon = generic_prepare_for_war
+    visible = {
+      NOT = { has_country_flag = NTS_kashmir_policy }
+    }
+    available = {
+      IND = { exists = yes }
+      NOT = { has_war_with = IND }
+      NOT = { controls_state = 441 }
+    }
+    fire_only_once = yes
+    complete_effect = {
+      create_wargoal = {
+        target = IND
+        type = take_state_focus
+        generator = { 441 }
+      }
+      set_country_flag = NTS_kashmir_policy
+      set_country_flag = NTS_kashmir_war_goal
+    }
+    ai_will_do = { factor = 0 }
+  }
+
+  NTS_integrate_kashmir = {
+    icon = generic_nationalism
+    visible = {
+      has_country_flag = NTS_kashmir_war_goal
+      OR = {
+        owns_state = 441
+        controls_state = 441
+      }
+      NOT = { 441 = { is_core_of = ROOT } }
+    }
+    cost = 50
+    fire_only_once = yes
+    complete_effect = {
+      441 = { add_core_of = NTS }
+    }
+    ai_will_do = { factor = 1 }
+  }
+
+  NTS_kashmir_withdraw_claim = {
+    icon = generic_diplomacy
+    visible = {
+      441 = { is_claimed_by = ROOT }
+      NOT = { has_country_flag = NTS_kashmir_policy }
+    }
+    fire_only_once = yes
+    complete_effect = {
+      441 = { remove_claim_by = NTS }
+      set_country_flag = NTS_kashmir_policy
+    }
+    ai_will_do = { factor = 1 }
+  }
+}

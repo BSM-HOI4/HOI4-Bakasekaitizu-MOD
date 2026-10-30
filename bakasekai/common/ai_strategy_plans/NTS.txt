@@ -1,0 +1,306 @@
+# ナントカスタン(NTS) AIストラテジープラン
+# WES.txt / sew_strategy_plans.txt の構造に合わせた国別プラン
+# 幹(NTS_name_conference→NTS_missing_register)は全プラン共通で先頭
+# enable は政権人気(has_government)と机フラグ(has_country_flag)で分岐
+
+######################################
+# プラン1: 詩人の仮称(民主寄り)
+######################################
+
+NTS_plan_poets = {
+  name = "詩人の仮称"
+  desc = "ジャンソグロフとセイフッリンの議長席から、イクバルの文面を経て長名同盟と外交承認へ進む路線。"
+
+  allowed = {
+    original_tag = NTS
+  }
+  enable = {
+    OR = {
+      has_government = democratic_ideology
+      has_country_flag = NTS_ready_poets
+    }
+  }
+  abort = {
+    NOT = { original_tag = NTS }
+  }
+
+  ai_national_focuses = {
+    NTS_name_conference
+    NTS_missing_register
+    NTS_poets_chair
+    NTS_iqbal_draft
+    NTS_long_name_first
+    NTS_foreign_desk
+    NTS_seek_recognition
+    NTS_approach_long_alliance
+    NTS_accept_long_invitation
+    NTS_sjk_writes_our_name
+    NTS_name_the_railway
+    NTS_cotton_count
+    NTS_karachi_escorts
+    NTS_sindh_separates
+    NTS_ipi_november
+    NTS_karakalpak_transfer
+    NTS_name_settled
+    NTS_iran_quiet_border
+    NTS_stan_good_neighbor
+    NTS_kashmir_dossier
+    NTS_wes_sand_stance
+    NTS_kalat_name
+  }
+
+  research = {
+    infantry_weapons = 50.0
+    industry = 30.0
+    support_tech = 20.0
+    land_doctrine = 15.0
+    artillery = 10.0
+    air_equipment = 10.0
+    naval_equipment = 5.0
+    armor = -80.0
+  }
+
+  ideas = {
+  }
+
+  traits = {
+  }
+
+  weight = {
+    factor = 1.0
+    modifier = {
+      factor = 1.5
+      has_government = democratic_ideology
+    }
+    modifier = {
+      factor = 2.0
+      has_country_flag = NTS_ready_poets
+    }
+  }
+
+  focus_factors = {
+  }
+}
+
+######################################
+# プラン2: 印のある連合(共産寄り)
+######################################
+
+NTS_plan_party = {
+  name = "印のある連合"
+  desc = "五人の第一書記が党印を持ち寄り、粛清と番号師団、スクヴォルツォフの設計局、綿のモスクワ通商へ進む路線。"
+
+  allowed = {
+    original_tag = NTS
+  }
+  enable = {
+    OR = {
+      has_government = communism_ideology
+      has_country_flag = NTS_ready_party
+    }
+  }
+  abort = {
+    NOT = { original_tag = NTS }
+  }
+
+  ai_national_focuses = {
+    NTS_name_conference
+    NTS_missing_register
+    NTS_party_seals
+    NTS_accept_purge
+    NTS_bukhara_name
+    NTS_sindh_separates
+    NTS_ipi_november
+    NTS_karakalpak_transfer
+    NTS_name_settled
+    NTS_numbered_divisions
+    NTS_skvortsov_bureau
+    NTS_name_the_railway
+    NTS_cotton_count
+    NTS_frunze_metal
+    NTS_foreign_desk
+    NTS_seek_recognition
+    NTS_cotton_moscow_trade
+    NTS_wes_sand_stance
+  }
+
+  research = {
+    infantry_weapons = 50.0
+    industry = 35.0
+    support_tech = 20.0
+    land_doctrine = 20.0
+    artillery = 15.0
+    air_equipment = 5.0
+    naval_equipment = -50.0
+    armor = -60.0
+  }
+
+  ideas = {
+  }
+
+  traits = {
+  }
+
+  weight = {
+    factor = 1.0
+    modifier = {
+      factor = 1.5
+      has_government = communism_ideology
+    }
+    modifier = {
+      factor = 2.0
+      has_country_flag = NTS_ready_party
+    }
+  }
+
+  focus_factors = {
+  }
+}
+
+######################################
+# プラン3: 宮廷文書(中道寄り)
+######################################
+
+NTS_plan_court = {
+  name = "宮廷文書"
+  desc = "ハシムの摂政からザーヒルの印を整え、国王の軍と北田公使ルート、国民銀行へ進む路線。"
+
+  allowed = {
+    original_tag = NTS
+  }
+  enable = {
+    OR = {
+      has_government = neutrality_ideology
+      has_government = fascism_ideology
+      has_country_flag = NTS_ready_court
+    }
+  }
+  abort = {
+    NOT = { original_tag = NTS }
+  }
+
+  ai_national_focuses = {
+    NTS_name_conference
+    NTS_missing_register
+    NTS_hashim_regency
+    NTS_zahir_stamp
+    NTS_royal_army
+    NTS_momand_names
+    NTS_foreign_desk
+    NTS_kitada_channel
+    NTS_sindh_separates
+    NTS_ipi_november
+    NTS_karakalpak_transfer
+    NTS_name_settled
+    NTS_name_the_railway
+    NTS_cotton_count
+    NTS_emba_oil
+    NTS_wait_for_zabuli
+    NTS_bank_now
+    NTS_call_daoud
+    NTS_wes_sand_stance
+  }
+
+  research = {
+    infantry_weapons = 50.0
+    industry = 25.0
+    support_tech = 20.0
+    land_doctrine = 15.0
+    artillery = 10.0
+    air_equipment = 10.0
+    naval_equipment = 5.0
+    armor = -80.0
+  }
+
+  ideas = {
+  }
+
+  traits = {
+  }
+
+  weight = {
+    factor = 1.0
+    modifier = {
+      factor = 1.5
+      has_government = neutrality_ideology
+    }
+    modifier = {
+      factor = 2.0
+      has_country_flag = NTS_ready_court
+    }
+  }
+
+  focus_factors = {
+  }
+}
+
+######################################
+# プラン4: 平原の拒否(平原机)
+######################################
+
+NTS_plan_plains = {
+  name = "平原の拒否"
+  desc = "ファズルの死からシカンダルの地主連合が平原机を固め、パンジャーブ工房とカシミール台帳へ進む路線。"
+
+  allowed = {
+    original_tag = NTS
+  }
+  enable = {
+    has_country_flag = NTS_ready_plains
+  }
+  abort = {
+    NOT = { original_tag = NTS }
+  }
+
+  ai_national_focuses = {
+    NTS_name_conference
+    NTS_missing_register
+    NTS_fazl_dies
+    NTS_sikandar_union
+    NTS_ghaffar_servants
+    NTS_name_the_railway
+    NTS_punjab_shops
+    NTS_sindh_separates
+    NTS_ipi_november
+    NTS_karakalpak_transfer
+    NTS_name_settled
+    NTS_foreign_desk
+    NTS_seek_recognition
+    NTS_kashmir_dossier
+    NTS_iran_quiet_border
+    NTS_stan_good_neighbor
+    NTS_attock_wells
+  }
+
+  research = {
+    infantry_weapons = 50.0
+    industry = 30.0
+    support_tech = 15.0
+    land_doctrine = 10.0
+    artillery = 10.0
+    air_equipment = 5.0
+    naval_equipment = 5.0
+    armor = -80.0
+  }
+
+  ideas = {
+  }
+
+  traits = {
+  }
+
+  weight = {
+    factor = 1.0
+    modifier = {
+      factor = 2.0
+      has_country_flag = NTS_ready_plains
+    }
+    modifier = {
+      factor = 1.5
+      has_government = democratic_ideology
+    }
+  }
+
+  focus_factors = {
+  }
+}

@@ -1,0 +1,316 @@
+# ナントカスタン(NTS) AIストラテジー
+# 外交枝・カシミール主張・ブグラ東進に連動する国別戦略
+# 対象国: IND / CHN / SOV / RUS / BKK / SJK / WES / IRN
+
+# カシミール警戒: 州441に主張を持つ間はインドへの対抗姿勢
+NTS_kashmir_watch = {
+  enable = {
+    original_tag = NTS
+    IND = { exists = yes }
+    441 = { is_claimed_by = ROOT }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = antagonize
+    id = "IND"
+    value = 50
+  }
+  ai_strategy = {
+    type = contain
+    id = "IND"
+    value = 40
+  }
+}
+
+# 中国: ブグラ東進前は弱い封じ込めのみ
+NTS_china_watch = {
+  enable = {
+    original_tag = NTS
+    CHN = { exists = yes }
+    NOT = { has_completed_focus = NTS_bughra_east }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = contain
+    id = "CHN"
+    value = 20
+  }
+}
+
+# 中国: ブグラの戦争目標取得後は新疆方面へ征服寄り
+NTS_china_expansion = {
+  enable = {
+    original_tag = NTS
+    CHN = { exists = yes }
+    has_completed_focus = NTS_bughra_east
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = conquer
+    id = "CHN"
+    value = 100
+  }
+  ai_strategy = {
+    type = antagonize
+    id = "CHN"
+    value = 60
+  }
+}
+
+# モスクワ: 綿通商を結んだ後はソ連系と協調
+NTS_moscow_friend = {
+  enable = {
+    original_tag = NTS
+    has_completed_focus = NTS_cotton_moscow_trade
+    OR = {
+      SOV = { exists = yes }
+      RUS = { exists = yes }
+    }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = befriend
+    id = "SOV"
+    value = 150
+  }
+  ai_strategy = {
+    type = befriend
+    id = "RUS"
+    value = 100
+  }
+}
+
+# モスクワ: 決裂後は敵対。拒否の戦争目標は政治側が出す
+NTS_moscow_enemy = {
+  enable = {
+    original_tag = NTS
+    has_completed_focus = NTS_break_with_moscow
+    OR = {
+      SOV = { exists = yes }
+      RUS = { exists = yes }
+    }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = antagonize
+    id = "SOV"
+    value = 120
+  }
+  ai_strategy = {
+    type = antagonize
+    id = "RUS"
+    value = 60
+  }
+}
+
+# 長名同盟: 接触後はBKK/SJKと協調、同盟願望
+NTS_long_alliance_friend = {
+  enable = {
+    original_tag = NTS
+    has_country_flag = NTS_approached_bkk
+    OR = {
+      BKK = { exists = yes }
+      SJK = { exists = yes }
+    }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = befriend
+    id = "BKK"
+    value = 150
+  }
+  ai_strategy = {
+    type = alliance
+    id = "BKK"
+    value = 100
+  }
+  ai_strategy = {
+    type = befriend
+    id = "SJK"
+    value = 100
+  }
+  ai_strategy = {
+    type = alliance
+    id = "SJK"
+    value = 50
+  }
+}
+
+# 長名同盟: 招待を受けた後は同盟願望を引き上げる
+NTS_long_alliance_join = {
+  enable = {
+    original_tag = NTS
+    has_country_flag = NTS_ready_long_alliance
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = alliance
+    id = "BKK"
+    value = 150
+  }
+  ai_strategy = {
+    type = alliance
+    id = "SJK"
+    value = 150
+  }
+}
+
+# 砂: 国名未確定のまま砂への態度を取ったときだけ警戒する
+NTS_sand_watch = {
+  enable = {
+    original_tag = NTS
+    WES = { exists = yes }
+    has_completed_focus = NTS_wes_sand_stance
+    NOT = { has_country_flag = NTS_name_settled }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = antagonize
+    id = "WES"
+    value = 80
+  }
+}
+
+# イラン: 不可侵条約を結んだ後は協調
+NTS_iran_calm = {
+  enable = {
+    original_tag = NTS
+    IRN = { exists = yes }
+    has_completed_focus = NTS_iran_quiet_border
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = befriend
+    id = "IRN"
+    value = 100
+  }
+}
+
+# 基本兵力: 歩兵主体、騎兵は維持、装甲は番号局解禁まで抑止
+NTS_base_force = {
+  enable = {
+    original_tag = NTS
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = role_ratio
+    id = infantry
+    value = 80
+  }
+  ai_strategy = {
+    type = role_ratio
+    id = cavalry
+    value = 10
+  }
+  ai_strategy = {
+    type = role_ratio
+    id = garrison
+    value = 10
+  }
+  ai_strategy = {
+    type = role_ratio
+    id = armor
+    value = -80
+  }
+
+  # 中央アジア〜パンジャーブの防衛を厚くする
+  ai_strategy = {
+    type = area_priority
+    id = asia
+    value = 100
+  }
+  ai_strategy = {
+    type = area_priority
+    id = middle_east
+    value = 50
+  }
+  ai_strategy = {
+    type = area_priority
+    id = caspian_sea_area
+    value = 50
+  }
+
+  # 装備は歩兵・支援優先、装甲は低く
+  ai_strategy = {
+    type = equipment_production_factor
+    id = infantry
+    value = 50
+  }
+  ai_strategy = {
+    type = equipment_production_factor
+    id = artillery
+    value = 15
+  }
+  ai_strategy = {
+    type = equipment_production_factor
+    id = fighter
+    value = 30
+  }
+  ai_strategy = {
+    type = equipment_production_factor
+    id = cas
+    value = 15
+  }
+
+  # 海軍は護衛・駆逐優先、戦艦無視。空軍は戦闘機とCAS
+  ai_strategy = {
+    type = unit_ratio
+    id = screen_ship
+    value = 40
+  }
+  ai_strategy = {
+    type = unit_ratio
+    id = convoy
+    value = 15
+  }
+  ai_strategy = {
+    type = unit_ratio
+    id = capital_ship
+    value = -80
+  }
+  ai_strategy = {
+    type = unit_ratio
+    id = submarine
+    value = -50
+  }
+  ai_strategy = {
+    type = unit_ratio
+    id = fighter
+    value = 60
+  }
+  ai_strategy = {
+    type = unit_ratio
+    id = cas
+    value = 30
+  }
+}
+
+# 番号師団後だけ装甲を少し解禁する
+NTS_numbered_armor = {
+  enable = {
+    original_tag = NTS
+    has_completed_focus = NTS_numbered_divisions
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = role_ratio
+    id = armor
+    value = 90
+  }
+  ai_strategy = {
+    type = template_prio
+    id = light_armor
+    value = 50
+  }
+}

@@ -33,6 +33,8 @@ replace_path="common/special_projects"
 replace_path="common/names"
 replace_path="common/national_focus"
 replace_path="common/on_actions"
+# Keep operations paired with this total conversion's focuses and scripted effects.
+replace_path="common/operations"
 replace_path="common/units/names"
 replace_path="common/units/names_divisions"
 replace_path="common/units/names_ships"
