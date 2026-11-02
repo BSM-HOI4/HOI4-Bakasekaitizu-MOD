@@ -7,6 +7,21 @@ only its declared content opening. Semantic illustrations opt out explicitly.
 from PIL import Image, ImageDraw
 
 
+def pictogram_patch(source, box):
+    """Lift a native coloured/bright glyph off its dark metal button face.
+
+    Callers explicitly review the inner glyph rectangle, excluding frame edges.
+    Keep original foreground RGB and alpha rather than repainting its meaning.
+    """
+    patch = source.crop(box).convert('RGBA')
+    pixels = []
+    for r, g, b, a in patch.getdata():
+        foreground = max(r, g, b) >= 105 or (max(r, g, b) > 60 and max(r, g, b) - min(r, g, b) > 25)
+        pixels.append((r, g, b, a if foreground else 0))
+    patch.putdata(pixels)
+    return patch
+
+
 def bevel(draw, rect, edges='TLRB', sunken=False):
     x, y, r, b = rect
     # Win95 has four different bevel tones, not two repeated outline strokes.
@@ -61,6 +76,15 @@ def render_material(source, frames, profile):
                     hatch.line((start, b - y, start + b - y, 0), fill=layer['hatch'], width=4)
                 frame.paste(tile, (x, y))
             bevel(draw, (x, y, r, b), layer.get('edges', ''), layer.get('sunken', False))
+        if box := spec.get('relief'):
+            # State atlases encode level bars separately from their brown frame.
+            # Keep that exact pattern in a neutral silver inset, in every frame.
+            x, y, r, b = box
+            if not (2 <= x < r <= fw - 2 and 2 <= y < b <= height - 2):
+                raise ValueError(f'Invalid state relief: {box}')
+            patch = source.crop((index * fw + x, y, index * fw + r, b)).convert('L')
+            patch = patch.point(lambda v: 128 + v // 2).convert('RGBA')
+            frame.paste(patch, (x, y))
         for rect in spec.get('cutouts', []):
             x, y, r, b = rect
             if not (2 <= x < r <= fw - 2 and 2 <= y < b <= height - 2):
@@ -69,10 +93,21 @@ def render_material(source, frames, profile):
             draw.rectangle((x, y, r - 1, b - 1), fill=(0, 0, 0, 0))
         for symbol in spec.get('symbols', []):
             x, y, r, b = symbol['rect']
-            if symbol['kind'] != 'cross' or not (0 <= x < r <= fw and 0 <= y < b <= height):
+            kind = symbol['kind']
+            if kind not in ('cross', 'plus', 'minus', 'arrow_up', 'arrow_down') or not (0 <= x < r <= fw and 0 <= y < b <= height):
                 raise ValueError(f'Invalid material status symbol: {symbol}')
-            draw.line((x, y, r - 1, b - 1), fill=symbol['color'], width=2)
-            draw.line((x, b - 1, r - 1, y), fill=symbol['color'], width=2)
+            color = symbol['color']
+            cx, cy = (x + r) // 2, (y + b) // 2
+            if kind == 'cross':
+                draw.line((x, y, r - 1, b - 1), fill=color, width=2)
+                draw.line((x, b - 1, r - 1, y), fill=color, width=2)
+            elif kind in ('plus', 'minus'):
+                draw.line((x, cy, r - 1, cy), fill=color, width=2)
+                if kind == 'plus':
+                    draw.line((cx, y, cx, b - 1), fill=color, width=2)
+            else:
+                tip, base = (y, b - 1) if kind == 'arrow_up' else (b - 1, y)
+                draw.polygon(((cx, tip), (x, base), (r - 1, base)), fill=color)
         if spec.get('restricted'):
             # Native frames 3/4 add this diagonal cue independently of on/off.
             draw.polygon(((fw - 3, 3), (fw - 3, height - 3), (3, height - 3)), fill='#a0a0a0')

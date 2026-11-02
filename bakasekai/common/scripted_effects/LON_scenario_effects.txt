@@ -1,0 +1,163 @@
+# Only one constitutional outcome can be applied, including duplicate queued responses.
+LON_ts_repair_bridge = {
+  set_country_flag = LON_london_bridge_exists
+  set_country_flag = LON_ts_bridge_settled
+  set_variable = {
+    var = LON_london_bridge_condition
+    value = 0
+  }
+  clr_country_flag = LON_bridge_critical_warning_sent
+  remove_ideas = LON_ts_bridge_disruption
+}
+LON_ts_establish_ireland = {
+  if = {
+    limit = {
+      tag = LON
+      NOT = {
+        country_exists = IRE
+      }
+      owns_state = 134
+      owns_state = 135
+      controls_state = 134
+      controls_state = 135
+      has_war = no
+    }
+    134 = {
+      add_core_of = IRE
+    }
+    135 = {
+      add_core_of = IRE
+    }
+    release = IRE
+    IRE = {
+      set_capital = {
+        state = 135
+      }
+      set_politics = {
+        ruling_party = democratic_ideology
+        elections_allowed = yes
+      }
+      add_ideas = LON_ts_irish_reconstruction
+      set_country_flag = LON_ts_reborn
+      if = {
+        limit = {
+          NOT = {
+            has_country_flag = LON_ts_guard_raised
+          }
+        }
+        set_country_flag = LON_ts_guard_raised
+        load_oob = "IRE_ts_guard"
+      }
+      add_political_power = 100
+      set_stability = 0.6
+      set_war_support = 0.25
+    }
+    113 = {
+      add_core_of = IRE
+    }
+  }
+}
+LON_ts_finish_conference = {
+  set_country_flag = LON_ts_settled
+  clr_country_flag = LON_ts_conference_pending
+  remove_ideas = LON_ts_disputed_administration
+  add_stability = 0.05
+}
+LON_ts_make_accord = {
+  if = {
+    limit = {
+      tag = LON
+      NOT = {
+        has_country_flag = LON_ts_settled
+      }
+    }
+    LON_ts_finish_conference = yes
+    set_country_flag = LON_ts_accord
+    add_ideas = LON_ts_three_party_accord
+    IRE = {
+      add_ideas = LON_ts_three_party_accord
+    }
+    if = {
+      limit = {
+        country_exists = GBR
+      }
+      GBR = {
+        add_ideas = LON_ts_three_party_accord
+      }
+    }
+  }
+}
+LON_ts_make_republic = {
+  if = {
+    limit = {
+      tag = LON
+      NOT = {
+        has_country_flag = LON_ts_settled
+      }
+    }
+    LON_ts_finish_conference = yes
+    set_country_flag = LON_ts_republic
+    add_ideas = LON_ts_representative_charter
+    if = {
+      limit = {
+        country_exists = GBR
+      }
+      GBR = {
+        country_event = {
+          id = LON.44
+          days = 7
+        }
+      }
+    }
+  }
+}
+LON_ts_make_city = {
+  if = {
+    limit = {
+      tag = LON
+      NOT = {
+        has_country_flag = LON_ts_settled
+      }
+    }
+    LON_ts_finish_conference = yes
+    set_country_flag = LON_ts_city
+    add_ideas = LON_ts_representative_charter
+  }
+}
+LON_ts_make_hardline = {
+  if = {
+    limit = {
+      tag = LON
+      NOT = {
+        has_country_flag = LON_ts_settled
+      }
+    }
+    LON_ts_finish_conference = yes
+    set_country_flag = LON_ts_hardline
+    add_war_support = 0.1
+    IRE = {
+      country_event = {
+        id = LON.41
+        days = 3
+      }
+    }
+  }
+}
+LON_ts_free_city = {
+  if = {
+    limit = {
+      LON = {
+        is_subject_of = GBR
+      }
+    }
+    set_autonomy = {
+      target = LON
+      autonomous_state = autonomy_free
+    }
+    LON = {
+      set_country_flag = LON_ts_independent
+      remove_ideas = LON_ts_british_oversight
+      add_stability = 0.05
+    }
+  }
+}

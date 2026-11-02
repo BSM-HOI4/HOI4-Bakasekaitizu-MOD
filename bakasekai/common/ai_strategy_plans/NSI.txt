@@ -1,0 +1,159 @@
+# NSI 北センチネル AIストラテジープラン
+# 既存樹を壊さず、潮位／古層／拒絶の分岐を足す。
+
+######################################
+# プラン1: 完全拒絶＋古層
+######################################
+
+NSI_plan_closed_depth = {
+  name = "閉じた回路"
+  desc = "外来船を撃退し、潮位を抑えつつ地下古層の超技術だけを起こす。"
+
+  allowed = {
+    original_tag = NSI
+  }
+  enable = {
+    OR = {
+      has_completed_focus = NSI_repel_the_sails
+      has_completed_focus = NSI_closed_circuit
+      has_idea = NSI_beach_fires
+    }
+  }
+  abort = {
+    NOT = { original_tag = NSI }
+  }
+
+  ai_national_focuses = {
+    NSI_Sinkou
+    NSI_strange_sails
+    NSI_read_the_tide
+    NSI_repel_the_sails
+    NSI_weigh_the_beach
+    NSI_tribal_council
+    NSI_andaman_question
+    NSI_two_flags
+    NSI_stone_blueprints
+    NSI_coral_alloy
+    NSI_tide_engine
+    NSI_silent_arrows
+    NSI_closed_circuit
+    NSI_stone_thunder
+    NSI_awakening_wrath
+  }
+
+  research = {
+    infantry_weapons = 40.0
+    support_tech = 20.0
+    industry = 15.0
+    naval_equipment = -40.0
+    armor = -100.0
+    air_equipment = -80.0
+  }
+
+  weight = {
+    factor = 1.0
+    modifier = {
+      factor = 1.5
+      has_completed_focus = NSI_repel_the_sails
+    }
+  }
+}
+
+######################################
+# プラン2: 漂着観測
+######################################
+
+NSI_plan_salvage = {
+  name = "拾い物の暦"
+  desc = "条件付き観測で漂着技術を取り、潮位を中間に保ち港とGMIへ繋ぐ。"
+
+  allowed = {
+    original_tag = NSI
+  }
+  enable = {
+    OR = {
+      has_completed_focus = NSI_salvage_gospel
+      has_idea = NSI_wreck_calendar
+    }
+  }
+  abort = {
+    NOT = { original_tag = NSI }
+  }
+
+  ai_national_focuses = {
+    NSI_Sinkou
+    NSI_strange_sails
+    NSI_read_the_tide
+    NSI_salvage_gospel
+    NSI_words_from_the_water
+    NSI_weigh_the_beach
+    NSI_tribal_council
+    NSI_andaman_question
+    NSI_two_flags
+    NSI_port_blair_yard
+    NSI_reef_flotilla
+    NSI_tide_riders
+    NSI_stone_blueprints
+    NSI_tide_engine
+    NSI_open_the_vault
+    NSI_calendar_of_wrecks
+  }
+
+  research = {
+    infantry_weapons = 35.0
+    industry = 25.0
+    naval_equipment = 30.0
+    support_tech = 20.0
+    armor = -100.0
+  }
+
+  weight = {
+    factor = 1.0
+    modifier = {
+      factor = 1.5
+      has_completed_focus = NSI_salvage_gospel
+    }
+  }
+}
+
+######################################
+# プラン3: 既定（孤立維持）
+######################################
+
+NSI_plan_default = {
+  name = "古来の孤立"
+  desc = "既存の部族会議・地下都市・信仰を進め、外界接触は様子見。"
+
+  allowed = {
+    original_tag = NSI
+  }
+  enable = {
+    always = yes
+  }
+  abort = {
+    NOT = { original_tag = NSI }
+  }
+
+  ai_national_focuses = {
+    NSI_Sinkou
+    NSI_tribal_council
+    NSI_elder_wisdom
+    NSI_isolation_laws
+    NSI_strange_sails
+    NSI_read_the_tide
+    NSI_andaman_question
+    NSI_two_flags
+  }
+
+  research = {
+    infantry_weapons = 40.0
+    support_tech = 20.0
+    industry = 20.0
+    armor = -100.0
+    naval_equipment = -50.0
+  }
+
+  weight = {
+    factor = 0.5
+  }
+}

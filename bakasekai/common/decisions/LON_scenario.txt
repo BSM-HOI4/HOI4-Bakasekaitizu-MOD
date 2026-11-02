@@ -1,0 +1,164 @@
+LON_ts_three_sovereignties_category = {
+  LON_ts_resume_constitution = {
+    icon = GFX_decision_empty
+    visible = {
+      tag = LON
+      has_completed_focus = LON_ts_constitution
+      NOT = { country_exists = IRE }
+      NOT = { has_country_flag = LON_ts_settled }
+    }
+    available = {
+      has_war = no
+      owns_state = 113
+      owns_state = 119
+      owns_state = 134
+      owns_state = 135
+      controls_state = 113
+      controls_state = 119
+      controls_state = 134
+      controls_state = 135
+      has_country_flag = LON_ts_bridge_settled
+    }
+    cost = 0
+    days_re_enable = 30
+    complete_effect = {
+      country_event = { id = LON.36 hours = 6 }
+    }
+    ai_will_do = { factor = 5 }
+  }
+  LON_ts_reconvene_conference = {
+    icon = GFX_decision_empty
+    visible = {
+      tag = LON
+      has_country_flag = LON_ts_conference_pending
+      country_exists = IRE
+    }
+    available = {
+      has_war = no
+      IRE = { has_war = no }
+      country_exists = GBR
+      GBR = { has_war = no }
+    }
+    cost = 25
+    days_re_enable = 90
+    complete_effect = {
+      IRE = {
+        country_event = { id = LON.37 hours = 6 }
+      }
+    }
+    ai_will_do = { factor = 5 }
+  }
+  LON_ts_renew_independence = {
+    icon = GFX_decision_empty
+    visible = {
+      tag = LON
+      has_country_flag = LON_ts_settled
+      is_subject_of = GBR
+      has_completed_focus = LON_ts_independence
+      NOT = { has_country_flag = LON_ts_independence_pending }
+    }
+    available = {
+      has_war = no
+      country_exists = GBR
+      GBR = { has_war = no }
+    }
+    cost = 25
+    days_re_enable = 365
+    complete_effect = {
+      country_event = { id = LON.42 hours = 6 }
+    }
+    ai_will_do = { factor = 2 }
+  }
+  LON_ts_ire_offer_london_ceasefire = {
+    icon = GFX_decision_empty
+    visible = {
+      tag = IRE
+      has_war_with = LON
+    }
+    available = {
+      LON = {
+        NOT = { has_country_flag = LON_ts_ceasefire_ire_london_pending }
+      }
+    }
+    cost = 50
+    days_re_enable = 180
+    complete_effect = {
+      LON = {
+        set_country_flag = LON_ts_ceasefire_ire_london_pending
+        country_event = { id = LON.50 hours = 6 }
+      }
+    }
+    ai_will_do = { factor = 1 }
+  }
+  LON_ts_london_offer_britain_ceasefire = {
+    icon = GFX_decision_empty
+    visible = {
+      tag = LON
+      has_war_with = GBR
+    }
+    available = {
+      GBR = {
+        NOT = { has_country_flag = LON_ts_ceasefire_london_britain_pending }
+      }
+    }
+    cost = 50
+    days_re_enable = 180
+    complete_effect = {
+      GBR = {
+        set_country_flag = LON_ts_ceasefire_london_britain_pending
+        country_event = { id = LON.51 hours = 6 }
+      }
+    }
+    ai_will_do = { factor = 1 }
+  }
+  LON_ts_ire_offer_britain_ceasefire = {
+    icon = GFX_decision_empty
+    visible = {
+      tag = IRE
+      has_war_with = GBR
+    }
+    available = {
+      GBR = {
+        NOT = { has_country_flag = LON_ts_ceasefire_ire_britain_pending }
+      }
+    }
+    cost = 50
+    days_re_enable = 180
+    complete_effect = {
+      GBR = {
+        set_country_flag = LON_ts_ceasefire_ire_britain_pending
+        country_event = { id = LON.52 hours = 6 }
+      }
+    }
+    ai_will_do = { factor = 1 }
+  }
+  LON_ts_ire_negotiate_northern_ireland = {
+    icon = GFX_decision_empty
+    visible = {
+      tag = IRE
+      OR = {
+        GBR = { owns_state = 119 }
+        LON = { owns_state = 119 }
+      }
+    }
+    available = {
+      has_war = no
+      country_exists = LON
+      country_exists = GBR
+      LON = { has_war = no }
+      GBR = {
+        has_war = no
+        NOT = { has_country_flag = LON_ts_north_pending }
+      }
+    }
+    cost = 75
+    days_re_enable = 365
+    complete_effect = {
+      GBR = {
+        set_country_flag = LON_ts_north_pending
+        country_event = { id = LON.53 hours = 6 }
+      }
+    }
+    ai_will_do = { factor = 1 }
+  }
+}

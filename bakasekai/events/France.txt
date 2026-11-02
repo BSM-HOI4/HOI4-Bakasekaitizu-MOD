@@ -1,1 +1,192 @@
-﻿
+add_namespace = fra_scenario
+
+# 帝政国民投票
+country_event = {
+  id = fra_scenario.1
+  title = fra_scenario.1.t
+  desc = fra_scenario.1.d
+  picture = GFX_report_event_election_vote
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.1.a
+    add_stability = 0.05
+    add_popularity = {
+      ideology = constitutional_monarchy
+      popularity = 0.05
+    }
+  }
+}
+
+# 第三共和制の復帰
+country_event = {
+  id = fra_scenario.2
+  title = fra_scenario.2.t
+  desc = fra_scenario.2.d
+  picture = GFX_report_event_election_vote
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.2.a
+    add_stability = 0.05
+  }
+}
+
+# パリのクーデタ
+country_event = {
+  id = fra_scenario.3
+  title = fra_scenario.3.t
+  desc = fra_scenario.3.d
+  picture = GFX_report_event_gathering_protest
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.3.a
+    add_stability = -0.05
+    add_war_support = 0.05
+  }
+}
+
+# 新コミューン
+country_event = {
+  id = fra_scenario.4
+  title = fra_scenario.4.t
+  desc = fra_scenario.4.d
+  picture = GFX_report_event_gathering_protest
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.4.a
+    add_popularity = {
+      ideology = communism_ideology
+      popularity = 0.05
+    }
+  }
+}
+
+# 王冠統合の同意要請（FRA -> PAL）
+country_event = {
+  id = fra_scenario.10
+  title = fra_scenario.10.t
+  desc = fra_scenario.10.d
+  picture = GFX_report_event_generic_sign_treaty1
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.10.a
+    set_country_flag = PAL_accepts_union
+    FRA_pal_consent_add = yes
+    FRA = {
+      set_country_flag = FRA_pal_union_approved
+      annex_country = {
+        target = PAL
+        transfer_troops = yes
+      }
+    }
+  }
+
+  option = {
+    name = fra_scenario.10.b
+    FRA = {
+      set_country_flag = FRA_pal_union_refused
+      FRA_crown_toward_paris = yes
+    }
+  }
+}
+
+# 王冠分離の同意要請（FRA -> PAL）
+country_event = {
+  id = fra_scenario.11
+  title = fra_scenario.11.t
+  desc = fra_scenario.11.d
+  picture = GFX_report_event_generic_sign_treaty1
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.11.a
+    remove_state_core = 16
+    give_guarantee = FRA
+    FRA = {
+      set_country_flag = FRA_pal_separated
+      give_guarantee = PAL
+    }
+  }
+
+  option = {
+    name = fra_scenario.11.b
+    FRA = {
+      set_country_flag = FRA_pal_separation_refused
+    }
+  }
+}
+
+# 対ESP握手の通告（FRA -> ESP）
+country_event = {
+  id = fra_scenario.12
+  title = fra_scenario.12.t
+  desc = fra_scenario.12.d
+  picture = GFX_report_event_generic_handshake
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.12.a
+    ESP_rapport_plus_small = yes
+  }
+}
+
+# 冷たい共存の通告（FRA -> ESP）
+country_event = {
+  id = fra_scenario.13
+  title = fra_scenario.13.t
+  desc = fra_scenario.13.d
+  picture = GFX_report_event_generic_read_write
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.13.a
+  }
+}
+
+# アンドラ共治の同意要請（FRA -> ESP）
+country_event = {
+  id = fra_scenario.14
+  title = fra_scenario.14.t
+  desc = fra_scenario.14.d
+  picture = GFX_report_event_generic_sign_treaty1
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.14.a
+    set_country_flag = ESP_andorra_consent
+    ESP_rapport_plus_small = yes
+  }
+
+  option = {
+    name = fra_scenario.14.b
+    ESP_rapport_minus_small = yes
+  }
+}
+
+# 大西洋の綱引き（方針不一致で関係が中央へ）
+country_event = {
+  id = fra_scenario.20
+  title = fra_scenario.20.t
+  desc = fra_scenario.20.d
+  picture = GFX_report_event_generic_sign_treaty1
+
+  is_triggered_only = yes
+
+  option = {
+    name = fra_scenario.20.a
+    ESP_rapport_pull_to_center = yes
+  }
+}

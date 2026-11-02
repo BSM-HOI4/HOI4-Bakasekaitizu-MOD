@@ -1,145 +1,444 @@
+# Three sovereignties: political settlement and financial development run in parallel.
 focus_tree = {
-    id = LON_focus_tree
-
-    # この国家方針ツリーをロンドン（LON）に割り当てる
-    country = {
-        factor = 0
-        modifier = {
-            add = 10
-            tag = LON
-        }
+  id = LON_focus_tree
+  country = {
+    factor = 0
+    modifier = {
+      add = 10
+      tag = LON
     }
-
-    # 初期表示位置
-    initial_show_position = {
-        x = 0
-        y = 0
+  }
+  initial_show_position = {
+    x = 0
+    y = 0
+  }
+  focus = {
+    id = LON_fundamentals
+    icon = GFX_goal_generic_major_war
+    x = 6
+    y = 0
+    cost = 10
+    completion_reward = {
+      add_political_power = 100
+      random_owned_controlled_state = {
+        limit = {
+          free_building_slots = {
+            building = industrial_complex
+            size = 1
+          }
+        }
+        add_building_construction = {
+          type = industrial_complex
+          level = 2
+          instant_build = yes
+        }
+      }
     }
-
-    # -------------------------------------------------
-    # 1. 基盤構築
-    # -------------------------------------------------
-    focus = {
-        id = LON_fundamentals
-        icon = GFX_goal_generic_major_war
-        x = 0
-        y = 0
-        cost = 10
-        completion_reward = {
-            add_political_power = 100
-            random_owned_controlled_state = {
-                limit = {
-                    free_building_slots = {
-                        building = industrial_complex
-                        size = 1
-                    }
-                }
-                add_building_construction = {
-                    type = industrial_complex
-                    level = 2
-                    instant_build = yes
-                }
-            }
-        }
-        ai_will_do = {
-            factor = 10
-        }
+    ai_will_do = {
+      factor = 12
     }
-
-    # -------------------------------------------------
-    # 2. 金融覇権
-    # -------------------------------------------------
-    focus = {
-        id = LON_financial_hub
-        icon = GFX_goal_generic_consumer_goods
-        x = -2
-        y = 1
-        prerequisite = { focus = LON_fundamentals }
-        cost = 10
-        completion_reward = {
-            add_ideas = LON_international_financial_center
-            add_political_power = 50
-            add_research_slot = 1
-        }
-        ai_will_do = {
-            factor = 8
-        }
+  }
+  focus = {
+    id = LON_financial_hub
+    icon = GFX_goal_generic_consumer_goods
+    x = 12
+    y = 1
+    cost = 10
+    prerequisite = {
+      focus = LON_fundamentals
     }
-
-    # -------------------------------------------------
-    # 3. 英連邦外交
-    # -------------------------------------------------
-    focus = {
-        id = LON_commonwealth_relations
-        icon = GFX_goal_generic_allies_build_infantry
-        x = 2
-        y = 1
-        prerequisite = { focus = LON_fundamentals }
-        cost = 10
-        completion_reward = {
-            add_opinion_modifier = {
-                target = GBR
-                modifier = LON_stronger_commonwealth_ties
-            }
-            add_opinion_modifier = {
-                target = AST
-                modifier = LON_commonwealth_cooperation
-            }
-            add_political_power = 25
-        }
-        ai_will_do = {
-            factor = 7
-        }
+    completion_reward = {
+      add_ideas = LON_international_financial_center
+      add_political_power = 50
+      add_research_slot = 1
     }
-
-    # -------------------------------------------------
-    # 4. ケルト統一への道
-    # -------------------------------------------------
-    focus = {
-        id = LON_celtic_unification
-        icon = GFX_goal_generic_allies_build_infantry
-        x = 0
-        y = 2
-        prerequisite = { focus = LON_financial_hub }
-        prerequisite = { focus = LON_commonwealth_relations }
-        cost = 15
-        available = {
-            is_neighbor_of = IRE
-        }
-        completion_reward = {
-            every_state = {
-                limit = {
-                    is_owned_by = IRE
-                }
-                add_claim_by = LON
-            }
-            add_war_support = 0.05
-            add_political_power = 75
-            country_event = { id = LON.18 hours = 6 }
-        }
-        ai_will_do = {
-            factor = 6
-        }
+    ai_will_do = {
+      factor = 8
     }
-
-    # -------------------------------------------------
-    # 5. 世界影響力
-    # -------------------------------------------------
-    focus = {
-        id = LON_global_influence
-        icon = GFX_goal_generic_major_alliance
-        x = 0
-        y = 3
-        prerequisite = { focus = LON_celtic_unification }
-        cost = 15
-        completion_reward = {
-            add_ideas = LON_global_financial_network
-            add_political_power = 150
-            unlock_decision_category_tooltip = LON_world_investment_category
-            # activate_decision = LON_world_investment_category
-        }
-        ai_will_do = {
-            factor = 9
-        }
+  }
+  focus = {
+    id = LON_commonwealth_relations
+    icon = GFX_goal_generic_allies_build_infantry
+    x = 16
+    y = 1
+    cost = 10
+    prerequisite = {
+      focus = LON_fundamentals
     }
+    completion_reward = {
+      if = {
+        limit = {
+          country_exists = GBR
+        }
+        add_opinion_modifier = {
+          target = GBR
+          modifier = LON_stronger_commonwealth_ties
+        }
+      }
+      if = {
+        limit = {
+          country_exists = AST
+        }
+        add_opinion_modifier = {
+          target = AST
+          modifier = LON_commonwealth_cooperation
+        }
+      }
+      add_political_power = 25
+    }
+    ai_will_do = {
+      factor = 8
+    }
+  }
+  focus = {
+    id = LON_ts_census
+    icon = GFX_goal_generic_political_pressure
+    x = 0
+    y = 1
+    cost = 5
+    prerequisite = {
+      focus = LON_fundamentals
+    }
+    available = {
+      has_war = no
+      owns_state = 113
+      owns_state = 119
+      owns_state = 134
+      owns_state = 135
+      NOT = {
+        country_exists = IRE
+      }
+      NOT = {
+        has_country_flag = LON_ts_started
+      }
+    }
+    completion_reward = {
+      country_event = {
+        id = LON.30
+        hours = 6
+      }
+    }
+    ai_will_do = {
+      factor = 20
+    }
+  }
+  focus = {
+    id = LON_ts_bridge_conference
+    icon = GFX_goal_generic_construction
+    x = 0
+    y = 2
+    cost = 5
+    prerequisite = {
+      focus = LON_ts_census
+    }
+    available = {
+      has_war = no
+      has_country_flag = LON_ts_assembly_completed
+    }
+    completion_reward = {
+      country_event = {
+        id = LON.32
+        hours = 6
+      }
+    }
+    ai_will_do = {
+      factor = 20
+    }
+  }
+  focus = {
+    id = LON_ts_constitution
+    icon = GFX_goal_generic_political_pressure
+    x = 0
+    y = 3
+    cost = 5
+    prerequisite = {
+      focus = LON_ts_bridge_conference
+    }
+    available = {
+      has_war = no
+      has_country_flag = LON_ts_bridge_settled
+      owns_state = 113
+      owns_state = 119
+      owns_state = 134
+      owns_state = 135
+      controls_state = 113
+      controls_state = 119
+      controls_state = 134
+      controls_state = 135
+      NOT = {
+        country_exists = IRE
+      }
+    }
+    completion_reward = {
+      country_event = {
+        id = LON.36
+        hours = 6
+      }
+    }
+    ai_will_do = {
+      factor = 20
+    }
+  }
+  focus = {
+    id = LON_ts_bridge_engineers
+    icon = GFX_goal_generic_construction2
+    x = 12
+    y = 2
+    cost = 5
+    prerequisite = {
+      focus = LON_financial_hub
+    }
+    completion_reward = {
+      add_political_power = 25
+      add_stability = 0.03
+      subtract_from_variable = {
+        var = LON_london_bridge_condition
+        value = 15
+      }
+      clamp_variable = {
+        var = LON_london_bridge_condition
+        min = 0
+      }
+      if = {
+        limit = {
+          check_variable = {
+            var = LON_london_bridge_condition
+            value = 0
+          }
+        }
+        set_country_flag = LON_london_bridge_exists
+      }
+      if = {
+        limit = {
+          check_variable = {
+            var = LON_london_bridge_condition
+            value = 70
+            compare = less_than
+          }
+        }
+        remove_ideas = LON_ts_bridge_disruption
+      }
+    }
+    ai_will_do = {
+      factor = 8
+    }
+  }
+  focus = {
+    id = LON_global_influence
+    icon = GFX_goal_generic_major_alliance
+    x = 14
+    y = 3
+    cost = 15
+    prerequisite = {
+      focus = LON_financial_hub
+    }
+    prerequisite = {
+      focus = LON_commonwealth_relations
+    }
+    completion_reward = {
+      add_ideas = LON_global_financial_network
+      add_political_power = 150
+      unlock_decision_category_tooltip = LON_international_investment_category
+    }
+    ai_will_do = {
+      factor = 8
+    }
+  }
+  focus = {
+    id = LON_ts_credit_exports
+    icon = GFX_goal_generic_trade
+    x = 14
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = LON_global_influence
+    }
+    completion_reward = {
+      add_political_power = 75
+      add_stability = 0.03
+    }
+    ai_will_do = {
+      factor = 8
+    }
+  }
+  focus = {
+    id = LON_celtic_unification
+    icon = GFX_goal_generic_allies_build_infantry
+    x = -12
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = LON_ts_constitution
+    }
+    available = {
+      has_country_flag = LON_ts_settled
+      country_exists = IRE
+      NOT = {
+        has_war_with = IRE
+      }
+      has_war = no
+    }
+    completion_reward = {
+      country_event = {
+        id = LON.18
+        hours = 6
+      }
+    }
+    ai_will_do = {
+      factor = 8
+    }
+  }
+  focus = {
+    id = LON_ts_accord_charter
+    icon = GFX_goal_generic_national_unity
+    x = -8
+    y = 4
+    cost = 5
+    prerequisite = {
+      focus = LON_ts_constitution
+    }
+    available = {
+      has_country_flag = LON_ts_settled
+      has_country_flag = LON_ts_accord
+      has_war = no
+    }
+    completion_reward = {
+      add_political_power = 75
+      add_stability = 0.05
+    }
+    ai_will_do = {
+      factor = 8
+    }
+  }
+  focus = {
+    id = LON_ts_republic_trade
+    icon = GFX_goal_generic_trade
+    x = -4
+    y = 4
+    cost = 5
+    prerequisite = {
+      focus = LON_ts_constitution
+    }
+    available = {
+      has_country_flag = LON_ts_settled
+      has_country_flag = LON_ts_republic
+      has_war = no
+    }
+    completion_reward = {
+      add_political_power = 75
+      if = {
+        limit = {
+          country_exists = IRE
+          NOT = {
+            has_war_with = IRE
+          }
+        }
+        add_opinion_modifier = {
+          target = IRE
+          modifier = LON_celtic_cooperation
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 8
+    }
+  }
+  focus = {
+    id = LON_ts_city_charter
+    icon = GFX_goal_generic_national_unity
+    x = 0
+    y = 4
+    cost = 5
+    prerequisite = {
+      focus = LON_ts_constitution
+    }
+    available = {
+      has_country_flag = LON_ts_settled
+      has_country_flag = LON_ts_city
+      has_war = no
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_stability = 0.05
+    }
+    ai_will_do = {
+      factor = 8
+    }
+  }
+  focus = {
+    id = LON_ts_hardline_mandate
+    icon = GFX_goal_generic_major_war
+    x = 4
+    y = 4
+    cost = 5
+    prerequisite = {
+      focus = LON_ts_constitution
+    }
+    available = {
+      has_country_flag = LON_ts_settled
+      has_country_flag = LON_ts_hardline
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_war_support = 0.05
+      army_experience = 10
+    }
+    ai_will_do = {
+      factor = 8
+    }
+  }
+  focus = {
+    id = LON_ts_independence
+    icon = GFX_goal_generic_political_pressure
+    x = 8
+    y = 4
+    cost = 10
+    prerequisite = {
+      focus = LON_ts_constitution
+    }
+    available = {
+      has_country_flag = LON_ts_settled
+      is_subject_of = GBR
+      country_exists = GBR
+      has_war = no
+    }
+    completion_reward = {
+      country_event = {
+        id = LON.42
+        hours = 6
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+  }
+  focus = {
+    id = LON_ts_two_londons
+    icon = GFX_goal_generic_major_war
+    x = 4
+    y = 5
+    cost = 10
+    prerequisite = {
+      focus = LON_ts_hardline_mandate
+    }
+    available = {
+      has_country_flag = LON_ts_settled
+      has_country_flag = LON_ts_hardline
+      country_exists = GBR
+      GBR = {
+        owns_state = 126
+      }
+      is_subject = no
+      has_war = no
+    }
+    completion_reward = {
+      country_event = {
+        id = LON.45
+        hours = 6
+      }
+    }
+    ai_will_do = {
+      factor = 3
+    }
+  }
 }

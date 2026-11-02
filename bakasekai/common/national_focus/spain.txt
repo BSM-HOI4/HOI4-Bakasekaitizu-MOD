@@ -1,1 +1,2736 @@
-﻿
+focus_tree = {
+  # 政治・外交の各枝は共通の親を持つ。政治／産業／軍事の分野間は独立。
+  id = esp_focus
+  country = {
+    factor = 0
+    modifier = {
+      add = 10
+      tag = ESP
+    }
+    modifier = {
+      add = 10
+      original_tag = ESP
+    }
+  }
+  default = no
+  continuous_focus_position = {
+    x = 50
+    y = 3000
+  }
+
+  ##############################################
+  # 幹
+  ##############################################
+  focus = {
+    id = ESP_exile_government
+    x = 36
+    y = 0
+    icon = GFX_focus_generic_diplomatic_treaty
+    cost = 10
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          NOT = { has_idea = ESP_government_in_exile }
+        }
+        add_ideas = ESP_government_in_exile
+      }
+      add_political_power = 100
+    }
+  }
+
+  focus = {
+    id = ESP_caracas_charter
+    relative_position_id = ESP_exile_government
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_exile_government
+    }
+    icon = GFX_focus_generic_treaty
+    cost = 5
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      ESP_add_proof_legitimacy = yes
+      add_political_power = 50
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_the_lost_map
+    relative_position_id = ESP_caracas_charter
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_caracas_charter
+    }
+    icon = GFX_goal_generic_more_territorial_claims
+    cost = 5
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      country_event = {
+        id = esp_scenario.1
+        hours = 1
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_spanish_registry
+    relative_position_id = ESP_the_lost_map
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_the_lost_map
+    }
+    icon = GFX_focus_generic_self_management
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 75
+      hidden_effect = {
+        recruit_character = ESP_jose_miaja
+        recruit_character = ESP_vicente_rojo
+        recruit_character = ESP_miguel_buiza
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_four_proofs
+    relative_position_id = ESP_spanish_registry
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = ESP_spanish_registry
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 7
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      ESP_init_four_proofs = yes
+      set_country_flag = {
+        flag = ESP_four_proofs_active
+      }
+      custom_effect_tooltip = ESP_proofs_tt
+    }
+  }
+
+  focus = {
+    id = ESP_two_homelands_focus
+    relative_position_id = ESP_four_proofs
+    x = -10
+    y = 1
+    prerequisite = {
+      focus = ESP_four_proofs
+    }
+    icon = GFX_focus_generic_support_the_left_right
+    cost = 7
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      add_ideas = ESP_two_homelands
+      add_political_power = 50
+    }
+  }
+
+  ##############################################
+  # 政治：共和国再編列
+  ##############################################
+  focus = {
+    id = ESP_second_republic
+    relative_position_id = ESP_two_homelands_focus
+    x = -4
+    y = 1
+    prerequisite = {
+      focus = ESP_two_homelands_focus
+    }
+    icon = GFX_goal_support_democracy
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_royalist_emissaries
+      focus = ESP_falange_exiles
+      focus = ESP_passion_flower
+    }
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      set_politics = {
+        ruling_party = democratic_ideology
+        elections_allowed = yes
+      }
+      add_popularity = {
+        ideology = democratic_ideology
+        popularity = 0.15
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = ESP_azana_presidency
+    relative_position_id = ESP_second_republic
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_second_republic
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 5
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      promote_character = {
+        character = ESP_manuel_azana
+        ideology = socialism
+      }
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_moderate_coalition
+    relative_position_id = ESP_azana_presidency
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = ESP_azana_presidency
+    }
+    icon = GFX_goal_generic_multipartism
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_united_front_again
+    }
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      add_stability = 0.1
+      add_political_power = 50
+      recruit_character = ESP_indalecio_prieto
+    }
+  }
+
+  focus = {
+    id = ESP_united_front_again
+    relative_position_id = ESP_azana_presidency
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = ESP_azana_presidency
+    }
+    icon = GFX_goal_support_communism
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_moderate_coalition
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.1
+      }
+      add_war_support = 0.05
+      recruit_character = ESP_jose_diaz
+    }
+  }
+
+  focus = {
+    id = ESP_constitution_in_exile
+    relative_position_id = ESP_moderate_coalition
+    x = -4
+    y = 0
+    prerequisite = {
+      focus = ESP_azana_presidency
+    }
+    icon = GFX_focus_AFG_revive_the_1923_constitution
+    cost = 5
+
+    available = {
+      OR = {
+        has_completed_focus = ESP_moderate_coalition
+        has_completed_focus = ESP_united_front_again
+      }
+    }
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      ESP_add_proof_legitimacy = yes
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_elections_abroad
+    relative_position_id = ESP_constitution_in_exile
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_constitution_in_exile
+    }
+    icon = GFX_goal_generic_multipartism
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      ESP_add_proof_legitimacy = yes
+      country_event = {
+        id = esp_scenario.2
+        hours = 1
+      }
+    }
+  }
+
+  ##############################################
+  # 政治：王政復古列
+  ##############################################
+  focus = {
+    id = ESP_royalist_emissaries
+    relative_position_id = ESP_two_homelands_focus
+    x = -8
+    y = 1
+    prerequisite = {
+      focus = ESP_two_homelands_focus
+    }
+    icon = GFX_focus_generic_monarchy_1
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_second_republic
+      focus = ESP_falange_exiles
+      focus = ESP_passion_flower
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = neutrality_ideology
+        popularity = 0.15
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = ESP_alfonso_in_rome
+    relative_position_id = ESP_royalist_emissaries
+    x = -8
+    y = 1
+    prerequisite = {
+      focus = ESP_royalist_emissaries
+    }
+    icon = GFX_focus_LIT_king_of_poland
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_carlist_compact
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      set_politics = {
+        ruling_party = neutrality_ideology
+        elections_allowed = no
+      }
+      promote_character = {
+        character = ESP_alfonso_xiii
+        ideology = oligarchism
+      }
+      add_popularity = {
+        ideology = neutrality_ideology
+        popularity = 0.05
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = ESP_carlist_compact
+    relative_position_id = ESP_royalist_emissaries
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_royalist_emissaries
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_alfonso_in_rome
+    }
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      set_politics = {
+        ruling_party = neutrality_ideology
+        elections_allowed = no
+      }
+      promote_character = {
+        character = ESP_manuel_fal_conde
+        ideology = oligarchism
+      }
+      add_popularity = {
+        ideology = neutrality_ideology
+        popularity = 0.1
+      }
+      add_war_support = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_infante_juan
+    relative_position_id = ESP_alfonso_in_rome
+    x = -5
+    y = 1
+    prerequisite = {
+      focus = ESP_alfonso_in_rome
+    }
+    icon = GFX_focus_generic_monarchy_1
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_stability = 0.05
+      promote_character = {
+        character = ESP_juan_de_borbon
+        ideology = oligarchism
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_two_crowns
+    relative_position_id = ESP_carlist_compact
+    x = -5
+    y = 1
+    prerequisite = {
+      focus = ESP_carlist_compact
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      country_event = {
+        id = esp_scenario.3
+        hours = 1
+      }
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_crown_over_sea
+    relative_position_id = ESP_royalist_emissaries
+    x = -4
+    y = 1
+    prerequisite = {
+      focus = ESP_royalist_emissaries
+    }
+    icon = GFX_focus_generic_monarchy_1
+    cost = 7
+
+    available = {
+      OR = {
+        has_completed_focus = ESP_infante_juan
+        has_completed_focus = ESP_two_crowns
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP_add_proof_legitimacy = yes
+      ESP_add_proof_legitimacy = yes
+      set_politics = {
+        ruling_party = neutrality_ideology
+        elections_allowed = no
+      }
+      promote_character = {
+        character = ESP_juan_de_borbon
+        ideology = oligarchism
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_regency_atlantic
+    relative_position_id = ESP_crown_over_sea
+    x = -5
+    y = 1
+    prerequisite = {
+      focus = ESP_crown_over_sea
+    }
+    icon = GFX_goal_generic_alliance
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_stability = 0.1
+      add_political_power = 75
+    }
+  }
+
+  ##############################################
+  # 政治：ファランヘ列
+  ##############################################
+  focus = {
+    id = ESP_falange_exiles
+    relative_position_id = ESP_two_homelands_focus
+    x = -12
+    y = 1
+    prerequisite = {
+      focus = ESP_two_homelands_focus
+    }
+    icon = GFX_goal_support_fascism
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_second_republic
+      focus = ESP_royalist_emissaries
+      focus = ESP_passion_flower
+    }
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = fascism_ideology
+        popularity = 0.15
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = ESP_jons_legacy
+    relative_position_id = ESP_falange_exiles
+    x = -8
+    y = 1
+    prerequisite = {
+      focus = ESP_falange_exiles
+    }
+    icon = GFX_focus_generic_military_dictatorship
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = fascism_ideology
+        popularity = 0.05
+      }
+      add_war_support = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_primo_rivera_shadow
+    relative_position_id = ESP_jons_legacy
+    x = -5
+    y = 1
+    prerequisite = {
+      focus = ESP_jons_legacy
+    }
+    icon = GFX_goal_generic_political_pressure
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      country_event = {
+        id = esp_scenario.4
+        hours = 1
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = ESP_national_syndicate
+    relative_position_id = ESP_primo_rivera_shadow
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_primo_rivera_shadow
+    }
+    icon = GFX_goal_generic_production
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = fascism_ideology
+        popularity = 0.05
+      }
+      random_owned_controlled_state = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_hispanidad
+    relative_position_id = ESP_national_syndicate
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_national_syndicate
+    }
+    icon = GFX_focus_YUG_pan_slavic_congress
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = fascism_ideology
+        popularity = 0.05
+      }
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_caudillo_candidate
+    relative_position_id = ESP_hispanidad
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_hispanidad
+    }
+    icon = GFX_focus_generic_military_dictatorship
+    cost = 7
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      set_politics = {
+        ruling_party = fascism_ideology
+        elections_allowed = no
+      }
+      promote_character = {
+        character = ESP_manuel_fal_conde
+        ideology = falangism
+      }
+    }
+  }
+
+  ##############################################
+  # 政治：人民戦線・共産列
+  ##############################################
+  focus = {
+    id = ESP_passion_flower
+    relative_position_id = ESP_two_homelands_focus
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_two_homelands_focus
+    }
+    icon = GFX_goal_generic_red_army
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_second_republic
+      focus = ESP_royalist_emissaries
+      focus = ESP_falange_exiles
+    }
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.15
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = ESP_jose_diaz_line
+    relative_position_id = ESP_passion_flower
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_passion_flower
+    }
+    icon = GFX_goal_support_communism
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.05
+      }
+      add_political_power = 25
+      recruit_character = ESP_jose_diaz
+    }
+  }
+
+  focus = {
+    id = ESP_militia_fleets
+    relative_position_id = ESP_jose_diaz_line
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = ESP_jose_diaz_line
+    }
+    icon = GFX_goal_generic_build_navy
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_manpower = 5000
+      navy_experience = 15
+    }
+  }
+
+  focus = {
+    id = ESP_union_of_exiles
+    relative_position_id = ESP_militia_fleets
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_militia_fleets
+    }
+    icon = GFX_goal_support_fourth_int
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_manpower = 5000
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_red_spain_america
+    relative_position_id = ESP_union_of_exiles
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_union_of_exiles
+    }
+    icon = GFX_focus_por_latin_american_communism
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      ESP_add_proof_recognition = yes
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.05
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_pozas_rearguard
+    relative_position_id = ESP_red_spain_america
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_red_spain_america
+    }
+    icon = GFX_goal_generic_army_artillery
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      set_politics = {
+        ruling_party = communism_ideology
+        elections_allowed = no
+      }
+      promote_character = {
+        character = ESP_dolores_ibarruri
+        ideology = stalinism
+      }
+      army_experience = 15
+    }
+  }
+
+  ##############################################
+  # 政治：カリブ連邦列
+  ##############################################
+  focus = {
+    id = ESP_caribbean_assembly
+    relative_position_id = ESP_two_homelands_focus
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = ESP_two_homelands_focus
+    }
+    icon = GFX_focus_generic_diplomatic_treaty
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_operation_return
+    }
+    ai_will_do = {
+      factor = 2
+    }
+    completion_reward = {
+      add_stability = 0.05
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = ESP_lopez_pact
+    relative_position_id = ESP_caribbean_assembly
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_caribbean_assembly
+    }
+    icon = GFX_goal_generic_alliance
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_stability = 0.1
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_spanish_venezuela
+    relative_position_id = ESP_lopez_pact
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = ESP_lopez_pact
+    }
+    icon = GFX_goal_generic_more_territorial_claims
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      307 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_antilles_league
+    relative_position_id = ESP_spanish_venezuela
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_spanish_venezuela
+    }
+    icon = GFX_goal_generic_positive_trade_relations
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_political_power = 75
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_new_carthage
+    relative_position_id = ESP_antilles_league
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_antilles_league
+    }
+    icon = GFX_goal_generic_construct_naval_dockyard
+    cost = 7
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      navy_experience = 20
+      695 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = naval_base
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_map_spain
+    relative_position_id = ESP_new_carthage
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_new_carthage
+    }
+    text = ESP_map_spain_focus
+    icon = GFX_goal_generic_national_unity
+    cost = 10
+
+    mutually_exclusive = {
+      focus = ESP_operation_return
+      focus = ESP_reconquista_plan
+    }
+    ai_will_do = {
+      factor = 2
+    }
+    completion_reward = {
+      remove_ideas = ESP_government_in_exile
+      remove_ideas = ESP_two_homelands
+      add_ideas = ESP_map_spain
+      country_event = {
+        id = esp_scenario.5
+        hours = 1
+      }
+      add_stability = 0.1
+    }
+  }
+
+  ##############################################
+  # 産業列
+  ##############################################
+  focus = {
+    id = ESP_orinoco_derricks
+    x = 63
+    y = 0
+    icon = GFX_goal_generic_oil_refinery
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      add_resource = {
+        type = oil
+        amount = 8
+        state = 489
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_isla_refinery_focus
+    relative_position_id = ESP_orinoco_derricks
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = ESP_orinoco_derricks
+    }
+    icon = GFX_goal_generic_oil_refinery
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      695 = {
+        add_building_construction = {
+          type = fuel_silo
+          level = 1
+          instant_build = yes
+        }
+      }
+      set_country_flag = ESP_isla_refinery_unlocked
+    }
+  }
+
+  focus = {
+    id = ESP_fuel_for_fleet
+    relative_position_id = ESP_isla_refinery_focus
+    x = -3
+    y = 1
+    prerequisite = {
+      focus = ESP_isla_refinery_focus
+    }
+    icon = GFX_goal_generic_naval_effort2
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      ESP_add_proof_fleet = yes
+      add_fuel = 2000
+    }
+  }
+
+  focus = {
+    id = ESP_caracas_workshops
+    x = 76
+    y = 0
+    icon = GFX_focus_generic_industry_1
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      307 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_exile_shipwrights
+    relative_position_id = ESP_caracas_workshops
+    x = -4
+    y = 1
+    prerequisite = {
+      focus = ESP_caracas_workshops
+    }
+    icon = GFX_goal_generic_construct_naval_dockyard
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      489 = {
+        add_building_construction = {
+          type = naval_base
+          level = 1
+          instant_build = yes
+        }
+      }
+      set_country_flag = ESP_astilleros_caribe_unlocked
+    }
+  }
+
+  focus = {
+    id = ESP_convoy_flag
+    relative_position_id = ESP_caracas_workshops
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_caracas_workshops
+    }
+    icon = GFX_goal_generic_trade
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_equipment_to_stockpile = {
+        type = convoy
+        amount = 30
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_university_in_exile
+    x = 86
+    y = 0
+    icon = GFX_focus_research
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_tech_bonus = {
+        name = exile_scholars_bonus
+        bonus = 0.5
+        uses = 2
+        category = industry
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_imprenta_madrid
+    relative_position_id = ESP_university_in_exile
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_university_in_exile
+    }
+    icon = GFX_focus_generic_concessions
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_stability = 0.05
+      set_country_flag = ESP_imprenta_exilio_unlocked
+    }
+  }
+
+  focus = {
+    id = ESP_bolivar_gold
+    x = 92
+    y = 0
+    icon = GFX_goal_generic_gold
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 50
+      set_country_flag = ESP_krone_standard_unlocked
+    }
+  }
+
+  focus = {
+    id = ESP_krone_standard
+    relative_position_id = ESP_bolivar_gold
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_bolivar_gold
+    }
+    icon = GFX_goal_generic_banking
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_ideas = ESP_krone_backing
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = ESP_antilles_market
+    x = 80
+    y = 1
+    prerequisite = {
+      focus = ESP_caracas_workshops
+    }
+    icon = GFX_goal_generic_trade
+    cost = 5
+
+    available = {
+      has_completed_focus = ESP_antilles_league
+    }
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      random_owned_controlled_state = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+      add_stability = 0.05
+    }
+  }
+
+  ##############################################
+  # 軍事列
+  ##############################################
+  focus = {
+    id = ESP_fleet_review
+    x = 103
+    y = 0
+    icon = GFX_goal_generic_navy_battleship
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      navy_experience = 20
+    }
+  }
+
+  focus = {
+    id = ESP_buiza_flag
+    relative_position_id = ESP_fleet_review
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = ESP_fleet_review
+    }
+    icon = GFX_focus_generic_navy_battleship2
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      ESP_add_proof_fleet = yes
+      navy_experience = 15
+    }
+  }
+
+  focus = {
+    id = ESP_curacao_squadron
+    relative_position_id = ESP_buiza_flag
+    x = -3
+    y = 1
+    prerequisite = {
+      focus = ESP_buiza_flag
+    }
+    icon = GFX_goal_generic_navy_cruiser
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      navy_experience = 15
+      695 = {
+        add_building_construction = {
+          type = naval_base
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_refitted_libertad
+    relative_position_id = ESP_curacao_squadron
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_curacao_squadron
+    }
+    icon = GFX_goal_generic_navy_cruiser
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      navy_experience = 15
+      add_tech_bonus = {
+        name = refit_bonus
+        bonus = 0.5
+        uses = 1
+        category = naval_equipment
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_submarine_wolves
+    relative_position_id = ESP_buiza_flag
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = ESP_buiza_flag
+    }
+    icon = GFX_goal_generic_navy_submarine
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP_add_proof_fleet = yes
+      add_tech_bonus = {
+        name = submarine_bonus
+        bonus = 0.75
+        uses = 1
+        category = naval_equipment
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_miaja_staff
+    x = 116
+    y = 0
+    icon = GFX_goal_generic_army_doctrines
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      army_experience = 20
+      add_manpower = 2000
+    }
+  }
+
+  focus = {
+    id = ESP_rojo_academy
+    relative_position_id = ESP_miaja_staff
+    x = 2
+    y = 1
+    prerequisite = {
+      focus = ESP_miaja_staff
+    }
+    icon = GFX_focus_generic_military_mission
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      army_experience = 15
+      add_manpower = 2000
+    }
+  }
+
+  focus = {
+    id = ESP_legion_in_exile
+    relative_position_id = ESP_miaja_staff
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = ESP_miaja_staff
+    }
+    icon = GFX_goal_generic_special_forces
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_manpower = 5000
+      army_experience = 10
+    }
+  }
+
+  focus = {
+    id = ESP_amphibious_doctrine
+    relative_position_id = ESP_rojo_academy
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_rojo_academy
+    }
+    icon = GFX_goal_generic_amphibious_assault
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_tech_bonus = {
+        name = amphibious_bonus
+        bonus = 0.75
+        uses = 2
+        category = naval_equipment
+      }
+      navy_experience = 10
+    }
+  }
+
+  focus = {
+    id = ESP_landing_battalions
+    relative_position_id = ESP_amphibious_doctrine
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_amphibious_doctrine
+    }
+    icon = GFX_goal_generic_special_forces
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_manpower = 3000
+      army_experience = 15
+      set_technology = {
+        marines = 1
+      }
+      load_oob = ESP_marines_oob
+    }
+  }
+
+  focus = {
+    id = ESP_generalstaff_return
+    relative_position_id = ESP_landing_battalions
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_landing_battalions
+    }
+    icon = GFX_goal_generic_major_war
+    cost = 7
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      army_experience = 15
+      navy_experience = 15
+      set_country_flag = ESP_return_staff_ready
+    }
+  }
+
+  focus = {
+    id = ESP_air_exile_wings
+    x = 130
+    y = 0
+    icon = GFX_goal_generic_air_fighter
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      air_experience = 20
+    }
+  }
+
+  focus = {
+    id = ESP_caribbean_patrol
+    relative_position_id = ESP_air_exile_wings
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_air_exile_wings
+    }
+    icon = GFX_goal_generic_air_naval_bomber
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      air_experience = 15
+      695 = {
+        add_building_construction = {
+          type = air_base
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_long_range_ferry
+    relative_position_id = ESP_caribbean_patrol
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_caribbean_patrol
+    }
+    icon = GFX_goal_generic_air_bomber
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP_add_proof_fleet = yes
+      add_tech_bonus = {
+        name = ferry_bonus
+        bonus = 0.5
+        uses = 1
+        category = air_equipment
+      }
+    }
+  }
+
+  ##############################################
+  # 橋頭堡列
+  ##############################################
+  focus = {
+    id = ESP_mediterranean_claws
+    x = 138
+    y = 0
+    text = ESP_mediterranean_claws_focus
+    icon = GFX_goal_generic_fortification
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_ideas = ESP_mediterranean_claws
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_ceuta_arsenal_focus
+    relative_position_id = ESP_mediterranean_claws
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_mediterranean_claws
+    }
+    icon = GFX_goal_generic_construct_mil_factory
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      1101 = {
+        add_building_construction = {
+          type = arms_factory
+          level = 1
+          instant_build = yes
+        }
+      }
+      set_country_flag = ESP_ceuta_arsenal_unlocked
+    }
+  }
+
+  focus = {
+    id = ESP_melilla_watch
+    relative_position_id = ESP_ceuta_arsenal_focus
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_ceuta_arsenal_focus
+    }
+    icon = GFX_goal_generic_radar
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      1098 = {
+        add_building_construction = {
+          type = air_base
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_strait_fortress
+    relative_position_id = ESP_melilla_watch
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_melilla_watch
+    }
+    icon = GFX_focus_generic_coastal_fort
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP_add_proof_bridgehead = yes
+      1101 = {
+        add_building_construction = {
+          type = coastal_bunker
+          level = 2
+          instant_build = yes
+          province = {
+            all_provinces = yes
+            limit_to_coastal = yes
+          }
+        }
+      }
+      1098 = {
+        add_building_construction = {
+          type = coastal_bunker
+          level = 2
+          instant_build = yes
+          province = {
+            all_provinces = yes
+            limit_to_coastal = yes
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_puppet_staffs
+    relative_position_id = ESP_strait_fortress
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_strait_fortress
+    }
+    icon = GFX_goal_generic_army_doctrines
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP_add_proof_bridgehead = yes
+      army_experience = 10
+    }
+  }
+
+  focus = {
+    id = ESP_absorb_the_claws
+    relative_position_id = ESP_puppet_staffs
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = ESP_puppet_staffs
+    }
+    icon = GFX_goal_generic_construction
+    cost = 7
+
+    mutually_exclusive = {
+      focus = ESP_keep_the_claws
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      hidden_effect = {
+        if = {
+          limit = {
+            CEU = { exists = yes }
+          }
+          annex_country = {
+            target = CEU
+            transfer_troops = yes
+          }
+        }
+        if = {
+          limit = {
+            PML = { exists = yes }
+          }
+          annex_country = {
+            target = PML
+            transfer_troops = yes
+          }
+        }
+      }
+      add_state_core = 1101
+      add_state_core = 1098
+      ESP_add_proof_bridgehead = yes
+    }
+  }
+
+  focus = {
+    id = ESP_keep_the_claws
+    relative_position_id = ESP_puppet_staffs
+    x = 2
+    y = 1
+    prerequisite = {
+      focus = ESP_puppet_staffs
+    }
+    icon = GFX_focus_generic_military_mission
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_absorb_the_claws
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP_add_proof_bridgehead = yes
+      add_political_power = 50
+    }
+  }
+
+  ##############################################
+  # 外交列
+  ##############################################
+  focus = {
+    id = ESP_league_petition
+    relative_position_id = ESP_four_proofs
+    x = 2
+    y = 1
+    prerequisite = {
+      focus = ESP_four_proofs
+    }
+    icon = GFX_goal_generic_peaceful_diplomacy
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP_add_proof_recognition = yes
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_mexican_hand
+    relative_position_id = ESP_league_petition
+    x = 8
+    y = 1
+    prerequisite = {
+      focus = ESP_league_petition
+    }
+    icon = GFX_goal_generic_positive_trade_relations
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_equipment_to_stockpile = {
+        type = infantry_equipment
+        amount = 2000
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_washington_briefing
+    relative_position_id = ESP_mexican_hand
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = ESP_mexican_hand
+    }
+    icon = GFX_focus_generic_diplomatic_treaty
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 75
+    }
+  }
+
+  focus = {
+    id = ESP_caribbean_recognition
+    relative_position_id = ESP_washington_briefing
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = ESP_washington_briefing
+    }
+    icon = GFX_goal_generic_alliance
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP_add_proof_recognition = yes
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_guiana_border
+    relative_position_id = ESP_four_proofs
+    x = 6
+    y = 1
+    prerequisite = {
+      focus = ESP_four_proofs
+    }
+    icon = GFX_goal_generic_more_territorial_claims
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_stability = 0.05
+      add_political_power = 25
+    }
+  }
+
+  ##############################################
+  # 対仏関係列（大西洋の関係）
+  ##############################################
+  focus = {
+    id = ESP_atlantic_temperature
+    relative_position_id = ESP_four_proofs
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = ESP_four_proofs
+    }
+    icon = GFX_focus_generic_treaty
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          NOT = {
+            has_country_flag = ESP_four_proofs_active
+          }
+        }
+        ESP_init_four_proofs = yes
+      }
+      add_political_power = 25
+      custom_effect_tooltip = ESP_rapport_tt
+    }
+  }
+
+  focus = {
+    id = ESP_fra_handshake
+    relative_position_id = ESP_atlantic_temperature
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = ESP_atlantic_temperature
+    }
+    icon = GFX_goal_generic_peaceful_diplomacy
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_fra_cold_war
+    }
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      ESP_rapport_plus_large = yes
+      custom_effect_tooltip = ESP_rapport_tt
+      set_country_flag = {
+        flag = ESP_chose_friendship
+      }
+      hidden_effect = {
+        if = {
+          limit = {
+            FRA = { has_country_flag = FRA_chose_hostility }
+          }
+          FRA = {
+            country_event = {
+              id = esp_scenario.20
+              days = 1
+            }
+          }
+        }
+        else = {
+          FRA = {
+            country_event = {
+              id = esp_scenario.10
+              days = 1
+            }
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_fra_cold_war
+    relative_position_id = ESP_atlantic_temperature
+    x = 8
+    y = 1
+    prerequisite = {
+      focus = ESP_atlantic_temperature
+    }
+    icon = GFX_goal_generic_dangerous_deal
+    cost = 5
+
+    mutually_exclusive = {
+      focus = ESP_fra_handshake
+    }
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      ESP_rapport_minus_large = yes
+      set_country_flag = ESP_chose_hostility
+      hidden_effect = {
+        if = {
+          limit = {
+            FRA = { has_country_flag = FRA_chose_friendship }
+          }
+          FRA = {
+            country_event = {
+              id = esp_scenario.20
+              days = 1
+            }
+          }
+        }
+        else = {
+          FRA = {
+            country_event = {
+              id = esp_scenario.11
+              days = 1
+            }
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_paris_consulate
+    relative_position_id = ESP_fra_handshake
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = ESP_fra_handshake
+    }
+    icon = GFX_goal_generic_improve_relations
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP_rapport_plus_small = yes
+      ESP_add_proof_recognition = yes
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_iberian_joint_charter
+    relative_position_id = ESP_paris_consulate
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = ESP_paris_consulate
+    }
+    icon = GFX_focus_generic_diplomatic_treaty
+    cost = 7
+
+    mutually_exclusive = {
+      focus = ESP_operation_return
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP_rapport_plus_large = yes
+      set_country_flag = ESP_charter_signed
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_atlantic_entente
+    relative_position_id = ESP_iberian_joint_charter
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_iberian_joint_charter
+    }
+    icon = GFX_goal_generic_alliance
+    cost = 7
+
+    available = {
+      OR = {
+        has_completed_focus = ESP_curacao_joint_refine
+        has_completed_focus = ESP_strait_condominium
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP_rapport_plus_large = yes
+      add_political_power = 100
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_caracas_ultimatum
+    relative_position_id = ESP_fra_cold_war
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = ESP_fra_cold_war
+    }
+    icon = GFX_goal_generic_forceful_treaty
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP_rapport_minus_large = yes
+      add_war_support = 0.05
+      hidden_effect = {
+        FRA = {
+          country_event = {
+            id = esp_scenario.12
+            days = 1
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_recognition_by_war
+    relative_position_id = ESP_caracas_ultimatum
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = ESP_caracas_ultimatum
+    }
+    icon = GFX_goal_generic_territory_or_war
+    cost = 7
+
+    available = {
+      NOT = {
+        has_completed_focus = ESP_iberian_joint_charter
+      }
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP_add_proof_recognition = yes
+      set_country_flag = ESP_war_path_recognition
+      add_war_support = 0.1
+    }
+  }
+
+  ##############################################
+  # 対仏産業枝
+  ##############################################
+  focus = {
+    id = ESP_orinoco_for_machine
+    x = 65
+    y = 1
+    prerequisite = {
+      focus = ESP_orinoco_derricks
+    }
+    icon = GFX_goal_generic_oil_refinery
+    cost = 5
+
+    available = {
+      has_completed_focus = ESP_fra_handshake
+    }
+
+    mutually_exclusive = {
+      focus = ESP_oil_embargo_fra
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP_rapport_plus_small = yes
+      307 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_curacao_joint_refine
+    relative_position_id = ESP_orinoco_for_machine
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = ESP_orinoco_for_machine
+    }
+    icon = GFX_goal_generic_oil_refinery
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP_rapport_plus_small = yes
+      add_fuel = 1000
+      695 = {
+        add_building_construction = {
+          type = fuel_silo
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_oil_embargo_fra
+    x = 62
+    y = 2
+    prerequisite = {
+      focus = ESP_isla_refinery_focus
+    }
+    icon = GFX_goal_generic_dangerous_deal
+    cost = 5
+
+    available = {
+      has_completed_focus = ESP_fra_cold_war
+    }
+
+    mutually_exclusive = {
+      focus = ESP_orinoco_for_machine
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP_rapport_minus_small = yes
+      add_fuel = 1500
+    }
+  }
+
+  focus = {
+    id = ESP_war_refinery
+    relative_position_id = ESP_oil_embargo_fra
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_oil_embargo_fra
+    }
+    icon = GFX_goal_generic_oil_refinery
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP_add_proof_fleet = yes
+      489 = {
+        add_building_construction = {
+          type = fuel_silo
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  ##############################################
+  # 対仏軍事枝
+  ##############################################
+  focus = {
+    id = ESP_joint_caribbean_patrol
+    x = 105
+    y = 1
+    prerequisite = {
+      focus = ESP_fleet_review
+    }
+    icon = GFX_goal_generic_naval_effort2
+    cost = 5
+
+    available = {
+      has_completed_focus = ESP_fra_handshake
+    }
+
+    mutually_exclusive = {
+      focus = ESP_anti_fra_asw
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP_rapport_plus_small = yes
+      navy_experience = 15
+    }
+  }
+
+  focus = {
+    id = ESP_strait_condominium
+    relative_position_id = ESP_joint_caribbean_patrol
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = ESP_joint_caribbean_patrol
+    }
+    icon = GFX_goal_generic_navy_cruiser
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP_rapport_plus_small = yes
+      ESP_add_proof_bridgehead = yes
+    }
+  }
+
+  focus = {
+    id = ESP_anti_fra_asw
+    x = 102
+    y = 3
+    prerequisite = {
+      focus = ESP_submarine_wolves
+    }
+    icon = GFX_goal_generic_navy_anti_submarine
+    cost = 5
+
+    available = {
+      has_completed_focus = ESP_fra_cold_war
+    }
+
+    mutually_exclusive = {
+      focus = ESP_joint_caribbean_patrol
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP_rapport_minus_small = yes
+      add_tech_bonus = {
+        name = asw_bonus
+        bonus = 0.75
+        uses = 1
+        category = naval_equipment
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_bridgehead_deterrence
+    relative_position_id = ESP_anti_fra_asw
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_anti_fra_asw
+    }
+    icon = GFX_focus_generic_coastal_fort
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP_rapport_minus_small = yes
+      ESP_add_proof_bridgehead = yes
+      add_war_support = 0.05
+    }
+  }
+
+  ##############################################
+  # アンドラ列
+  ##############################################
+  focus = {
+    id = ESP_andorra_post
+    relative_position_id = ESP_atlantic_temperature
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_atlantic_temperature
+    }
+    icon = GFX_focus_generic_military_mission
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_urgell_seat
+    relative_position_id = ESP_andorra_post
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_andorra_post
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP_add_proof_legitimacy = yes
+      hidden_effect = {
+        if = {
+          limit = {
+            ADR = { exists = yes }
+          }
+          ADR = {
+            recruit_character = ADR_Justi_Guitart_i_Vilardebo
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_coprincipality_talks
+    relative_position_id = ESP_urgell_seat
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = ESP_urgell_seat
+    }
+    icon = GFX_goal_generic_peaceful_diplomacy
+    cost = 5
+
+    available = {
+      has_completed_focus = ESP_fra_handshake
+    }
+    mutually_exclusive = {
+      focus = ESP_andorra_nail
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP_rapport_plus_small = yes
+      hidden_effect = {
+        FRA = {
+          country_event = {
+            id = esp_scenario.15
+            days = 1
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_restore_adr
+    relative_position_id = ESP_coprincipality_talks
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_coprincipality_talks
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 7
+
+    available = {
+      FRA = {
+        has_country_flag = FRA_andorra_consent
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      hidden_effect = {
+        FRA = {
+          release = ADR
+        }
+      }
+      if = {
+        limit = {
+          ADR = { exists = yes }
+        }
+        give_guarantee = ADR
+        FRA = {
+          give_guarantee = ADR
+        }
+      }
+      ESP_rapport_plus_small = yes
+    }
+  }
+
+  focus = {
+    id = ESP_andorra_nail
+    relative_position_id = ESP_urgell_seat
+    x = 7
+    y = 1
+    prerequisite = {
+      focus = ESP_urgell_seat
+    }
+    icon = GFX_focus_generic_coastal_fort
+    cost = 5
+
+    available = {
+      has_completed_focus = ESP_fra_cold_war
+    }
+    mutually_exclusive = {
+      focus = ESP_coprincipality_talks
+    }
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      ESP_rapport_minus_small = yes
+      army_experience = 10
+    }
+  }
+
+  focus = {
+    id = ESP_pyrenees_listening
+    relative_position_id = ESP_andorra_nail
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_andorra_nail
+    }
+    icon = GFX_goal_generic_radar
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      ESP_add_proof_bridgehead = yes
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_valley_market
+    relative_position_id = ESP_andorra_post
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = ESP_andorra_post
+    }
+    icon = GFX_goal_generic_trade
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_stability = 0.05
+    }
+  }
+
+  ##############################################
+  # 復帰列
+  ##############################################
+  focus = {
+    id = ESP_reconquista_plan
+    relative_position_id = ESP_generalstaff_return
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_generalstaff_return
+    }
+    icon = GFX_goal_generic_major_war
+    cost = 7
+
+    mutually_exclusive = {
+      focus = ESP_map_spain
+    }
+    available = {
+      NOT = {
+        has_completed_focus = ESP_map_spain
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_war_support = 0.05
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = ESP_maquis_network
+    relative_position_id = ESP_reconquista_plan
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_reconquista_plan
+    }
+    icon = GFX_focus_generic_forest_brothers
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      army_experience = 10
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_pyrenees_line
+    relative_position_id = ESP_maquis_network
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = ESP_maquis_network
+    }
+    icon = GFX_goal_generic_position_armies
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      army_experience = 10
+      ESP_add_proof_bridgehead = yes
+    }
+  }
+
+  focus = {
+    id = ESP_iberian_uprising
+    relative_position_id = ESP_pyrenees_line
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = ESP_pyrenees_line
+    }
+    icon = GFX_goal_generic_occupy_states_ongoing_war
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      country_event = {
+        id = esp_scenario.6
+        hours = 1
+      }
+      add_war_support = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_balearic_stepping
+    relative_position_id = ESP_iberian_uprising
+    x = -4
+    y = 1
+    prerequisite = {
+      focus = ESP_iberian_uprising
+    }
+    icon = GFX_goal_generic_naval_effort2
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_state_core = 177
+      navy_experience = 10
+    }
+  }
+
+  focus = {
+    id = ESP_canary_anchor
+    relative_position_id = ESP_balearic_stepping
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_balearic_stepping
+    }
+    icon = GFX_goal_generic_navy_cruiser
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_state_core = 178
+      navy_experience = 10
+    }
+  }
+
+  focus = {
+    id = ESP_lisbon_question
+    relative_position_id = ESP_iberian_uprising
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = ESP_iberian_uprising
+    }
+    icon = GFX_goal_generic_demand_territory
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      country_event = {
+        id = esp_scenario.7
+        hours = 1
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = ESP_french_gate
+    relative_position_id = ESP_lisbon_question
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_lisbon_question
+    }
+    icon = GFX_goal_generic_territory_or_war
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP_rapport_minus_small = yes
+      add_war_support = 0.05
+    }
+  }
+
+  focus = {
+    id = ESP_operation_return
+    relative_position_id = ESP_iberian_uprising
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_iberian_uprising
+    }
+    icon = GFX_goal_generic_territory_or_war
+    cost = 10
+
+    mutually_exclusive = {
+      focus = ESP_map_spain
+      focus = ESP_iberian_joint_charter
+    }
+    available = {
+      ESP_proof_all_ready = yes
+      NOT = {
+        has_completed_focus = ESP_iberian_joint_charter
+        has_completed_focus = ESP_map_spain
+      }
+      FRA = {
+        exists = yes
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_war_support = 0.1
+      create_wargoal = {
+        type = annex_everything
+        target = FRA
+      }
+    }
+  }
+
+  focus = {
+    id = ESP_madrid_or_nothing
+    relative_position_id = ESP_operation_return
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_operation_return
+    }
+    icon = GFX_goal_generic_occupy_states_ongoing_war
+    cost = 7
+
+    available = {
+      controls_state = 41
+    }
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      country_event = {
+        id = esp_scenario.8
+        hours = 1
+      }
+      add_stability = 0.1
+      add_war_support = 0.1
+    }
+  }
+
+  focus = {
+    id = ESP_iberia_restored
+    relative_position_id = ESP_madrid_or_nothing
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = ESP_madrid_or_nothing
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 10
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      remove_ideas = ESP_government_in_exile
+      remove_ideas = ESP_two_homelands
+      add_ideas = ESP_madrid_on_the_map
+      add_stability = 0.1
+      add_political_power = 150
+    }
+  }
+}

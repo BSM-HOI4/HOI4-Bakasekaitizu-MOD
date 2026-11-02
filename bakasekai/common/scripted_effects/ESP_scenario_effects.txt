@@ -1,0 +1,150 @@
+# ESP 帰還の四証・対FRA rapport 系scripted effects
+# ESP_FRA_rapport の正本は ESP 国変数。FRA 側からは ESP = { ESP_rapport_* = yes } で動かす。
+
+ESP_add_proof_fleet = {
+  add_to_variable = {
+    var = ESP_proof_fleet
+    value = 1
+  }
+  clamp_variable = {
+    var = ESP_proof_fleet
+    min = 0
+    max = 3
+  }
+  if = {
+    limit = {
+      check_variable = {
+        var = ESP_proof_fleet
+        value = 1
+        compare = greater_than_or_equals
+      }
+      NOT = { has_idea = ESP_proof_fleet_idea }
+    }
+    add_ideas = ESP_proof_fleet_idea
+  }
+}
+
+ESP_add_proof_bridgehead = {
+  add_to_variable = {
+    var = ESP_proof_bridgehead
+    value = 1
+  }
+  clamp_variable = {
+    var = ESP_proof_bridgehead
+    min = 0
+    max = 3
+  }
+}
+
+ESP_add_proof_legitimacy = {
+  add_to_variable = {
+    var = ESP_proof_legitimacy
+    value = 1
+  }
+  clamp_variable = {
+    var = ESP_proof_legitimacy
+    min = 0
+    max = 3
+  }
+}
+
+ESP_add_proof_recognition = {
+  add_to_variable = {
+    var = ESP_proof_recognition
+    value = 1
+  }
+  clamp_variable = {
+    var = ESP_proof_recognition
+    min = 0
+    max = 3
+  }
+}
+
+ESP_init_four_proofs = {
+  set_variable = {
+    var = ESP_proof_fleet
+    value = 0
+  }
+  set_variable = {
+    var = ESP_proof_bridgehead
+    value = 0
+  }
+  set_variable = {
+    var = ESP_proof_legitimacy
+    value = 0
+  }
+  set_variable = {
+    var = ESP_proof_recognition
+    value = 0
+  }
+  set_variable = {
+    var = ESP_FRA_rapport
+    value = 0
+  }
+}
+
+# rapport は -100 〜 +100
+ESP_rapport_plus_small = {
+  add_to_variable = {
+    var = ESP_FRA_rapport
+    value = 10
+  }
+  clamp_variable = {
+    var = ESP_FRA_rapport
+    min = -100
+    max = 100
+  }
+}
+
+ESP_rapport_plus_large = {
+  add_to_variable = {
+    var = ESP_FRA_rapport
+    value = 25
+  }
+  clamp_variable = {
+    var = ESP_FRA_rapport
+    min = -100
+    max = 100
+  }
+}
+
+ESP_rapport_minus_small = {
+  add_to_variable = {
+    var = ESP_FRA_rapport
+    value = -10
+  }
+  clamp_variable = {
+    var = ESP_FRA_rapport
+    min = -100
+    max = 100
+  }
+}
+
+ESP_rapport_minus_large = {
+  add_to_variable = {
+    var = ESP_FRA_rapport
+    value = -25
+  }
+  clamp_variable = {
+    var = ESP_FRA_rapport
+    min = -100
+    max = 100
+  }
+}
+
+# 片側だけ友好/敵対を選んだとき、中央へ引き戻す
+ESP_rapport_pull_to_center = {
+  set_variable = {
+    var = ESP_FRA_rapport
+    value = 0
+  }
+}
+
+# ツールチップ表示用（数値は変更しない）
+ESP_show_rapport_tt = {
+  custom_effect_tooltip = ESP_rapport_tt
+}
+
+ESP_show_proofs_tt = {
+  custom_effect_tooltip = ESP_proofs_tt
+}

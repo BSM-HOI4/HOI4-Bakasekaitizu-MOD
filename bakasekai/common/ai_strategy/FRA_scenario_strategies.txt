@@ -1,0 +1,118 @@
+# FRA 対ESP・PAL・イベリアAI戦略
+
+FRA_esp_friend = {
+  enable = {
+    original_tag = FRA
+    ESP = { exists = yes }
+    OR = {
+      has_completed_focus = FRA_spain_handshake
+      has_country_flag = FRA_chose_friendship
+      ESP = {
+        check_variable = {
+          var = ESP_FRA_rapport
+          value = 60
+          compare = greater_than_equals
+        }
+      }
+    }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = befriend
+    id = "ESP"
+    value = 120
+  }
+  ai_strategy = {
+    type = antagonize
+    id = "ESP"
+    value = -80
+  }
+}
+
+FRA_esp_hostile = {
+  enable = {
+    original_tag = FRA
+    ESP = { exists = yes }
+    OR = {
+      has_completed_focus = FRA_spain_cold_file
+      has_country_flag = FRA_chose_hostility
+      has_completed_focus = FRA_caribbean_expedition
+      ESP = {
+        check_variable = {
+          var = ESP_FRA_rapport
+          value = -60
+          compare = less_than_equals
+        }
+      }
+    }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = antagonize
+    id = "ESP"
+    value = 100
+  }
+  ai_strategy = {
+    type = contain
+    id = "ESP"
+    value = 80
+  }
+  ai_strategy = {
+    type = conquer
+    id = "ESP"
+    value = 40
+  }
+}
+
+FRA_protect_pal = {
+  enable = {
+    original_tag = FRA
+    PAL = { exists = yes }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = protect
+    id = "PAL"
+    value = 150
+  }
+  ai_strategy = {
+    type = befriend
+    id = "PAL"
+    value = 100
+  }
+}
+
+FRA_protect_adr = {
+  enable = {
+    original_tag = FRA
+    ADR = { exists = yes }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = protect
+    id = "ADR"
+    value = 80
+  }
+}
+
+FRA_iberia_front = {
+  enable = {
+    original_tag = FRA
+    has_completed_focus = FRA_iberian_administration
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = area_priority
+    id = europe
+    value = 50
+  }
+  ai_strategy = {
+    type = garrison
+    value = 40
+  }
+}
