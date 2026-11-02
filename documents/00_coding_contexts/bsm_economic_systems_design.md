@@ -122,7 +122,7 @@ set_variable = { var = bsm_price_steel
 | `bsm_fut_expiry^i` | 満期（`num_days` + N） |
 | `bsm_fut_res^i` | 対象資源トークン（または資源IDのフラット配列） |
 
-満期決済（on_monthly、月次は全体1回発火なので非冪等でOK）:
+満期決済（`on_monthly`。国ごとに発火するので、ROOT 自国の契約だけを処理すれば各国で月1回になる。`every_country` で包むと国数倍になる → §9-7）:
 
 ```txt
 # payoff = (満期スポット − 約定価格) × 数量。負＝損失
@@ -215,7 +215,7 @@ AS・Tradition が既にあるため、**重複しない**追加候補のみ。
 4. **`global_resource_extracted@` は累積値** → フロー化は前月との差分。
 5. **`every_collection`(数式) は検証済✅(2026-06-19)** — COUNT=98 / SUM `world_fac`=2009 が反復版と一致し、per-element 変数の直読も可。`every_collection_element`+temp フォールバックは不要（effect 側で反復したい時のみ）。
 6. **`@ROOT` の集約内スコープ解決も検証済✅** — `sum_opinion@ROOT=-490`(非0)。威信の Σopinion が成立。なお `element_value` は scope コレクションでは 0（値コレクション用と思われる→使わない）。
-7. **on_monthly/on_weekly は全体で1回発火**（EA文書§11）→ 先物満期決済など非冪等処理は1回で正しく動く。
+7. **on_daily/on_weekly/on_monthly は全国家ごとに個別発火**（ROOT=各国。EA文書§11、2026-10-01 訂正）→ 国単位の処理は `every_country` で包まず ROOT に対して書く。世界平均や `global.*` の加算など世界共通・非冪等の処理は、1周期に1回だけ実行される場所（`on_monthly_XXX` 等）に置く。
 
 ---
 
