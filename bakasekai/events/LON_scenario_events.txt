@@ -1,0 +1,1386 @@
+# Recheck consent, peace and ownership when queued choices actually execute.
+add_namespace = LON
+country_event = {
+  id = LON.30
+  title = LON.30.t
+  desc = LON.30.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+    NOT = {
+      has_country_flag = LON_ts_started
+    }
+  }
+  immediate = {
+    set_country_flag = LON_ts_started
+    add_ideas = LON_ts_disputed_administration
+  }
+  option = {
+    name = LON.30.a
+    ai_chance = {
+      factor = 75
+    }
+    add_political_power = -25
+    set_country_flag = LON_ts_representation
+    country_event = {
+      id = LON.31
+      days = 14
+    }
+  }
+  option = {
+    name = LON.30.b
+    ai_chance = {
+      factor = 25
+    }
+    add_political_power = 25
+    add_stability = -0.05
+    set_country_flag = LON_ts_coercion
+    country_event = {
+      id = LON.31
+      days = 14
+    }
+  }
+}
+country_event = {
+  id = LON.31
+  title = LON.31.t
+  desc = LON.31.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  trigger = {
+    tag = LON
+    NOT = {
+      has_country_flag = LON_ts_assembly_opened
+    }
+  }
+  immediate = {
+    set_country_flag = LON_ts_assembly_opened
+  }
+  option = {
+    name = LON.31.a
+    ai_chance = {
+      factor = 100
+    }
+    country_event = {
+      id = LON.11
+      days = 7
+    }
+  }
+}
+country_event = {
+  id = LON.32
+  title = LON.32.t
+  desc = LON.32.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+    has_country_flag = LON_ts_assembly_completed
+    NOT = {
+      has_country_flag = LON_ts_bridge_settled
+    }
+    NOT = {
+      has_country_flag = LON_ts_bridge_pending
+    }
+  }
+  immediate = {
+    set_variable = {
+      var = LON_london_bridge_condition
+      value = 40
+    }
+    add_ideas = LON_ts_bridge_disruption
+  }
+  option = {
+    name = LON.32.a
+    ai_chance = {
+      factor = 65
+    }
+    trigger = {
+      country_exists = GBR
+      NOT = {
+        has_war_with = GBR
+      }
+    }
+    set_country_flag = LON_ts_bridge_pending
+    GBR = {
+      country_event = {
+        id = LON.33
+        days = 3
+      }
+    }
+  }
+  option = {
+    name = LON.32.b
+    ai_chance = {
+      factor = 20
+    }
+    add_political_power = -50
+    add_ideas = LON_ts_city_debt
+    LON_ts_repair_bridge = yes
+  }
+  option = {
+    name = LON.32.c
+    ai_chance = {
+      factor = 15
+    }
+    add_political_power = -75
+    add_ideas = LON_ts_representative_charter
+    set_country_flag = LON_ts_representation
+    LON_ts_repair_bridge = yes
+  }
+  option = {
+    name = LON.32.d
+    ai_chance = {
+      factor = 5
+    }
+    set_country_flag = LON_ts_bridge_settled
+    add_ideas = LON_ts_bridge_disruption
+    add_stability = -0.05
+    set_variable = {
+      var = LON_london_bridge_condition
+      value = 80
+    }
+  }
+}
+country_event = {
+  id = LON.33
+  title = LON.33.t
+  desc = LON.33.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = GBR
+  }
+  option = {
+    name = LON.33.a
+    ai_chance = {
+      factor = 75
+    }
+    trigger = {
+      country_exists = LON
+      NOT = {
+        has_war_with = LON
+      }
+      LON = {
+        has_country_flag = LON_ts_bridge_pending
+      }
+    }
+    add_political_power = -50
+    LON = {
+      add_ideas = LON_ts_british_oversight
+      LON_ts_repair_bridge = yes
+      clr_country_flag = LON_ts_bridge_pending
+      country_event = {
+        id = LON.35
+        days = 1
+      }
+    }
+  }
+  option = {
+    name = LON.33.b
+    ai_chance = {
+      factor = 25
+    }
+    LON = {
+      clr_country_flag = LON_ts_bridge_pending
+      country_event = {
+        id = LON.34
+        days = 1
+      }
+    }
+  }
+}
+country_event = {
+  id = LON.34
+  title = LON.34.t
+  desc = LON.34.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+  }
+  option = {
+    name = LON.34.a
+    ai_chance = {
+      factor = 65
+    }
+    add_political_power = -50
+    add_ideas = LON_ts_city_debt
+    LON_ts_repair_bridge = yes
+  }
+  option = {
+    name = LON.34.b
+    ai_chance = {
+      factor = 35
+    }
+    add_political_power = -75
+    add_ideas = LON_ts_representative_charter
+    set_country_flag = LON_ts_representation
+    LON_ts_repair_bridge = yes
+  }
+}
+country_event = {
+  id = LON.35
+  title = LON.35.t
+  desc = LON.35.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+  }
+  option = {
+    name = LON.35.a
+    ai_chance = {
+      factor = 100
+    }
+  }
+}
+country_event = {
+  id = LON.36
+  title = LON.36.t
+  desc = LON.36.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+    has_country_flag = LON_ts_assembly_completed
+    has_country_flag = LON_ts_bridge_settled
+    has_war = no
+    owns_state = 113
+    owns_state = 119
+    owns_state = 134
+    owns_state = 135
+    controls_state = 113
+    controls_state = 119
+    controls_state = 134
+    controls_state = 135
+    NOT = {
+      country_exists = IRE
+    }
+    NOT = {
+      has_country_flag = LON_ts_settled
+    }
+  }
+  option = {
+    name = LON.36.a
+    ai_chance = {
+      factor = 50
+    }
+    if = {
+      limit = {
+        tag = LON
+        has_country_flag = LON_ts_assembly_completed
+        has_country_flag = LON_ts_bridge_settled
+        has_war = no
+        owns_state = 113
+        owns_state = 119
+        owns_state = 134
+        owns_state = 135
+        controls_state = 113
+        controls_state = 119
+        controls_state = 134
+        controls_state = 135
+        NOT = {
+          country_exists = IRE
+        }
+        NOT = {
+          has_country_flag = LON_ts_settled
+        }
+      }
+      set_country_flag = LON_ts_propose_accord
+      set_country_flag = LON_ts_conference_pending
+      LON_ts_establish_ireland = yes
+      IRE = {
+        country_event = {
+          id = LON.37
+          days = 3
+        }
+      }
+    }
+  }
+  option = {
+    name = LON.36.b
+    ai_chance = {
+      factor = 25
+    }
+    if = {
+      limit = {
+        tag = LON
+        has_country_flag = LON_ts_assembly_completed
+        has_country_flag = LON_ts_bridge_settled
+        has_war = no
+        owns_state = 113
+        owns_state = 119
+        owns_state = 134
+        owns_state = 135
+        controls_state = 113
+        controls_state = 119
+        controls_state = 134
+        controls_state = 135
+        NOT = {
+          country_exists = IRE
+        }
+        NOT = {
+          has_country_flag = LON_ts_settled
+        }
+      }
+      set_country_flag = LON_ts_propose_republic
+      set_country_flag = LON_ts_conference_pending
+      LON_ts_establish_ireland = yes
+      IRE = {
+        country_event = {
+          id = LON.37
+          days = 3
+        }
+      }
+    }
+  }
+  option = {
+    name = LON.36.c
+    ai_chance = {
+      factor = 20
+    }
+    if = {
+      limit = {
+        tag = LON
+        has_country_flag = LON_ts_assembly_completed
+        has_country_flag = LON_ts_bridge_settled
+        has_war = no
+        owns_state = 113
+        owns_state = 119
+        owns_state = 134
+        owns_state = 135
+        controls_state = 113
+        controls_state = 119
+        controls_state = 134
+        controls_state = 135
+        NOT = {
+          country_exists = IRE
+        }
+        NOT = {
+          has_country_flag = LON_ts_settled
+        }
+      }
+      set_country_flag = LON_ts_propose_city
+      set_country_flag = LON_ts_conference_pending
+      LON_ts_establish_ireland = yes
+      IRE = {
+        country_event = {
+          id = LON.37
+          days = 3
+        }
+      }
+    }
+  }
+  option = {
+    name = LON.36.d
+    ai_chance = {
+      factor = 5
+    }
+    if = {
+      limit = {
+        tag = LON
+        has_country_flag = LON_ts_assembly_completed
+        has_country_flag = LON_ts_bridge_settled
+        has_war = no
+        owns_state = 113
+        owns_state = 119
+        owns_state = 134
+        owns_state = 135
+        controls_state = 113
+        controls_state = 119
+        controls_state = 134
+        controls_state = 135
+        NOT = {
+          country_exists = IRE
+        }
+        NOT = {
+          has_country_flag = LON_ts_settled
+        }
+      }
+      LON_ts_establish_ireland = yes
+      LON_ts_make_hardline = yes
+    }
+  }
+}
+country_event = {
+  id = LON.37
+  title = LON.37.t
+  desc = LON.37.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = IRE
+    LON = {
+      has_country_flag = LON_ts_conference_pending
+    }
+  }
+  immediate = {
+    clr_country_flag = LON_ts_approved
+  }
+  option = {
+    name = LON.37.a
+    ai_chance = {
+      factor = 70
+    }
+    set_country_flag = LON_ts_approved
+    if = {
+      limit = {
+        country_exists = GBR
+      }
+      GBR = {
+        country_event = {
+          id = LON.38
+          days = 3
+        }
+      }
+    }
+    else = {
+      LON = {
+        country_event = {
+          id = LON.39
+          days = 1
+        }
+      }
+    }
+  }
+  option = {
+    name = LON.37.b
+    ai_chance = {
+      factor = 25
+    }
+    LON = {
+      country_event = {
+        id = LON.40
+        days = 3
+      }
+    }
+  }
+  option = {
+    name = LON.37.c
+    ai_chance = {
+      factor = 5
+    }
+    LON = {
+      clr_country_flag = LON_ts_conference_pending
+      LON_ts_make_hardline = yes
+    }
+  }
+}
+country_event = {
+  id = LON.38
+  title = LON.38.t
+  desc = LON.38.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = GBR
+  }
+  immediate = {
+    clr_country_flag = LON_ts_approved
+  }
+  option = {
+    name = LON.38.a
+    ai_chance = {
+      factor = 75
+    }
+    trigger = {
+      country_exists = LON
+      country_exists = IRE
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      IRE = {
+        has_war = no
+      }
+    }
+    set_country_flag = LON_ts_approved
+    LON = {
+      country_event = {
+        id = LON.39
+        days = 1
+      }
+    }
+  }
+  option = {
+    name = LON.38.b
+    ai_chance = {
+      factor = 25
+    }
+    LON = {
+      country_event = {
+        id = LON.40
+        days = 1
+      }
+    }
+  }
+}
+country_event = {
+  id = LON.39
+  title = LON.39.t
+  desc = LON.39.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+    country_exists = IRE
+    has_country_flag = LON_ts_conference_pending
+    has_war = no
+    IRE = {
+      has_war = no
+      has_country_flag = LON_ts_approved
+    }
+    OR = {
+      NOT = {
+        country_exists = GBR
+      }
+      GBR = {
+        has_war = no
+        has_country_flag = LON_ts_approved
+      }
+    }
+    NOT = {
+      has_country_flag = LON_ts_settled
+    }
+  }
+  option = {
+    name = LON.39.a
+    ai_chance = {
+      factor = 100
+    }
+    if = {
+      limit = {
+        has_country_flag = LON_ts_propose_republic
+      }
+      LON_ts_make_republic = yes
+    }
+    else_if = {
+      limit = {
+        has_country_flag = LON_ts_propose_city
+      }
+      LON_ts_make_city = yes
+    }
+    else = {
+      LON_ts_make_accord = yes
+    }
+  }
+}
+country_event = {
+  id = LON.40
+  title = LON.40.t
+  desc = LON.40.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+    NOT = {
+      has_country_flag = LON_ts_settled
+    }
+  }
+  option = {
+    name = LON.40.a
+    ai_chance = {
+      factor = 85
+    }
+    trigger = {
+      country_exists = IRE
+      NOT = {
+        has_war_with = IRE
+      }
+      NOT = {
+        has_country_flag = LON_ts_compromise_offered
+      }
+    }
+    set_country_flag = LON_ts_compromise_offered
+    clr_country_flag = LON_ts_propose_republic
+    clr_country_flag = LON_ts_propose_city
+    set_country_flag = LON_ts_propose_accord
+    IRE = {
+      country_event = {
+        id = LON.37
+        days = 3
+      }
+    }
+  }
+  option = {
+    name = LON.40.b
+    ai_chance = {
+      factor = 15
+    }
+    LON_ts_make_hardline = yes
+  }
+}
+country_event = {
+  id = LON.41
+  title = LON.41.t
+  desc = LON.41.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = IRE
+  }
+  option = {
+    name = LON.41.a
+    ai_chance = {
+      factor = 80
+    }
+    add_stability = 0.05
+  }
+  option = {
+    name = LON.41.b
+    ai_chance = {
+      factor = 20
+    }
+    trigger = {
+      country_exists = LON
+      NOT = {
+        has_war_with = LON
+      }
+      is_subject = no
+      LON = {
+        owns_state = 113
+      }
+    }
+    if = {
+      limit = {
+        country_exists = LON
+        NOT = {
+          has_war_with = LON
+        }
+        is_subject = no
+        LON = {
+          owns_state = 113
+        }
+      }
+      declare_war_on = {
+        target = LON
+        type = annex_everything
+      }
+    }
+  }
+}
+country_event = {
+  id = LON.42
+  title = LON.42.t
+  desc = LON.42.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+    is_subject_of = GBR
+    NOT = {
+      has_country_flag = LON_ts_independence_pending
+    }
+  }
+  option = {
+    name = LON.42.a
+    ai_chance = {
+      factor = 100
+    }
+    set_country_flag = LON_ts_independence_pending
+    GBR = {
+      country_event = {
+        id = LON.43
+        days = 7
+      }
+    }
+  }
+}
+country_event = {
+  id = LON.43
+  title = LON.43.t
+  desc = LON.43.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = GBR
+  }
+  option = {
+    name = LON.43.a
+    ai_chance = {
+      factor = 75
+    }
+    trigger = {
+      LON = {
+        is_subject_of = GBR
+      }
+      NOT = {
+        has_war_with = LON
+      }
+    }
+    LON_ts_free_city = yes
+    LON = {
+      clr_country_flag = LON_ts_independence_pending
+    }
+  }
+  option = {
+    name = LON.43.b
+    ai_chance = {
+      factor = 25
+    }
+    LON = {
+      clr_country_flag = LON_ts_independence_pending
+      country_event = {
+        id = LON.46
+        days = 1
+      }
+    }
+  }
+}
+country_event = {
+  id = LON.44
+  title = LON.44.t
+  desc = LON.44.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = GBR
+  }
+  option = {
+    name = LON.44.a
+    ai_chance = {
+      factor = 20
+    }
+    trigger = {
+      country_exists = LON
+      country_exists = IRE
+      owns_state = 126
+      controls_state = 126
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      IRE = {
+        has_war = no
+      }
+      LON = {
+        owns_state = 113
+        controls_state = 113
+        has_country_flag = LON_ts_republic
+      }
+    }
+    if = {
+      limit = {
+        country_exists = LON
+        country_exists = IRE
+        owns_state = 126
+        controls_state = 126
+        has_war = no
+        LON = {
+          has_war = no
+        }
+        IRE = {
+          has_war = no
+        }
+        LON = {
+          owns_state = 113
+          controls_state = 113
+          has_country_flag = LON_ts_republic
+        }
+      }
+      126 = {
+        add_core_of = LON
+      }
+      LON = {
+        transfer_state = 126
+        set_capital = {
+          state = 126
+        }
+        set_country_flag = LON_ts_relocated
+        add_timed_idea = {
+          idea = LON_ts_relocation
+          days = 365
+        }
+      }
+      IRE = {
+        transfer_state = 113
+        set_capital = {
+          state = 113
+        }
+      }
+    }
+  }
+  option = {
+    name = LON.44.b
+    ai_chance = {
+      factor = 80
+    }
+    add_political_power = 25
+  }
+}
+country_event = {
+  id = LON.45
+  title = LON.45.t
+  desc = LON.45.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+    has_country_flag = LON_ts_hardline
+    is_subject = no
+    has_war = no
+    NOT = {
+      has_country_flag = LON_ts_london_demand_sent
+    }
+  }
+  option = {
+    name = LON.45.a
+    ai_chance = {
+      factor = 65
+    }
+    trigger = {
+      country_exists = GBR
+      GBR = {
+        owns_state = 126
+        controls_state = 126
+      }
+      NOT = {
+        has_war_with = GBR
+      }
+    }
+    set_country_flag = LON_ts_london_demand_sent
+    GBR = {
+      country_event = {
+        id = LON.48
+        days = 3
+      }
+    }
+  }
+  option = {
+    name = LON.45.b
+    ai_chance = {
+      factor = 35
+    }
+    add_stability = 0.03
+  }
+}
+country_event = {
+  id = LON.46
+  title = LON.46.t
+  desc = LON.46.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+  }
+  option = {
+    name = LON.46.a
+    ai_chance = {
+      factor = 75
+    }
+    add_stability = 0.03
+  }
+  option = {
+    name = LON.46.b
+    ai_chance = {
+      factor = 25
+    }
+    trigger = {
+      is_subject_of = GBR
+      NOT = {
+        has_war_with = GBR
+      }
+    }
+    GBR = {
+      LON_ts_free_city = yes
+      country_event = {
+        id = LON.47
+        days = 3
+      }
+    }
+  }
+}
+country_event = {
+  id = LON.47
+  title = LON.47.t
+  desc = LON.47.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = GBR
+  }
+  option = {
+    name = LON.47.a
+    ai_chance = {
+      factor = 75
+    }
+    add_stability = -0.03
+  }
+  option = {
+    name = LON.47.b
+    ai_chance = {
+      factor = 25
+    }
+    trigger = {
+      country_exists = LON
+      NOT = {
+        has_war_with = LON
+      }
+      LON = {
+        is_subject = no
+      }
+    }
+    if = {
+      limit = {
+        country_exists = LON
+        NOT = {
+          has_war_with = LON
+        }
+        LON = {
+          is_subject = no
+        }
+      }
+      declare_war_on = {
+        target = LON
+        type = annex_everything
+      }
+    }
+  }
+}
+country_event = {
+  id = LON.48
+  title = LON.48.t
+  desc = LON.48.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = GBR
+  }
+  option = {
+    name = LON.48.a
+    ai_chance = {
+      factor = 95
+    }
+    LON = {
+      country_event = {
+        id = LON.49
+        days = 1
+      }
+    }
+  }
+  option = {
+    name = LON.48.b
+    ai_chance = {
+      factor = 5
+    }
+    trigger = {
+      owns_state = 126
+      controls_state = 126
+      country_exists = LON
+      LON = {
+        is_subject = no
+        has_country_flag = LON_ts_london_demand_sent
+      }
+      NOT = {
+        has_war_with = LON
+      }
+    }
+    if = {
+      limit = {
+        owns_state = 126
+        controls_state = 126
+        country_exists = LON
+        LON = {
+          is_subject = no
+          has_country_flag = LON_ts_london_demand_sent
+        }
+        NOT = {
+          has_war_with = LON
+        }
+      }
+      LON_ts_free_city = yes
+      126 = {
+        add_core_of = LON
+      }
+      LON = {
+        transfer_state = 126
+        set_capital = {
+          state = 126
+        }
+      }
+    }
+  }
+}
+country_event = {
+  id = LON.49
+  title = LON.49.t
+  desc = LON.49.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+  }
+  option = {
+    name = LON.49.a
+    ai_chance = {
+      factor = 80
+    }
+    add_stability = -0.03
+  }
+  option = {
+    name = LON.49.b
+    ai_chance = {
+      factor = 20
+    }
+    trigger = {
+      country_exists = GBR
+      NOT = {
+        has_war_with = GBR
+      }
+      is_subject = no
+      GBR = {
+        owns_state = 126
+      }
+    }
+    if = {
+      limit = {
+        country_exists = GBR
+        NOT = {
+          has_war_with = GBR
+        }
+        is_subject = no
+        GBR = {
+          owns_state = 126
+        }
+      }
+      GBR = {
+        LON_ts_free_city = yes
+      }
+      declare_war_on = {
+        target = GBR
+        type = annex_everything
+      }
+    }
+  }
+}
+country_event = {
+  id = LON.50
+  title = LON.50.t
+  desc = LON.50.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+  }
+  immediate = {
+    clr_country_flag = LON_ts_ceasefire_ire_london_pending
+  }
+  option = {
+    name = LON.50.a
+    ai_chance = {
+      factor = 75
+    }
+    trigger = {
+      has_war_with = IRE
+    }
+    white_peace = IRE
+  }
+  option = {
+    name = LON.50.b
+    ai_chance = {
+      factor = 25
+    }
+  }
+}
+country_event = {
+  id = LON.51
+  title = LON.51.t
+  desc = LON.51.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = GBR
+  }
+  immediate = {
+    clr_country_flag = LON_ts_ceasefire_london_britain_pending
+  }
+  option = {
+    name = LON.51.a
+    ai_chance = {
+      factor = 75
+    }
+    trigger = {
+      has_war_with = LON
+    }
+    white_peace = LON
+  }
+  option = {
+    name = LON.51.b
+    ai_chance = {
+      factor = 25
+    }
+  }
+}
+country_event = {
+  id = LON.52
+  title = LON.52.t
+  desc = LON.52.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = GBR
+  }
+  immediate = {
+    clr_country_flag = LON_ts_ceasefire_ire_britain_pending
+  }
+  option = {
+    name = LON.52.a
+    ai_chance = {
+      factor = 75
+    }
+    trigger = {
+      has_war_with = IRE
+    }
+    white_peace = IRE
+  }
+  option = {
+    name = LON.52.b
+    ai_chance = {
+      factor = 25
+    }
+  }
+}
+country_event = {
+  id = LON.53
+  title = LON.53.t
+  desc = LON.53.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = GBR
+  }
+  immediate = {
+    clr_country_flag = LON_ts_north_transfer_consent
+    LON = {
+      clr_country_flag = LON_ts_north_transfer_consent
+    }
+  }
+  option = {
+    name = LON.53.a
+    ai_chance = {
+      factor = 60
+    }
+    trigger = {
+      country_exists = IRE
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      IRE = {
+        has_war = no
+      }
+    }
+    if = {
+      limit = {
+        owns_state = 119
+        controls_state = 119
+      }
+      set_country_flag = LON_ts_north_transfer_consent
+      IRE = {
+        country_event = {
+          id = LON.55
+          days = 3
+        }
+      }
+    }
+    else_if = {
+      limit = {
+        LON = {
+          owns_state = 119
+          controls_state = 119
+        }
+      }
+      LON = {
+        country_event = {
+          id = LON.54
+          days = 3
+        }
+      }
+    }
+    else = {
+      clr_country_flag = LON_ts_north_pending
+    }
+  }
+  option = {
+    name = LON.53.b
+    clr_country_flag = LON_ts_north_pending
+    ai_chance = {
+      factor = 40
+    }
+  }
+}
+country_event = {
+  id = LON.54
+  title = LON.54.t
+  desc = LON.54.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = LON
+  }
+  option = {
+    name = LON.54.a
+    ai_chance = {
+      factor = 55
+    }
+    trigger = {
+      owns_state = 119
+      controls_state = 119
+      country_exists = IRE
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      IRE = {
+        has_war = no
+      }
+      GBR = {
+        has_war = no
+      }
+    }
+    set_country_flag = LON_ts_north_transfer_consent
+    IRE = {
+      country_event = {
+        id = LON.55
+        days = 3
+      }
+    }
+  }
+  option = {
+    name = LON.54.b
+    GBR = {
+      clr_country_flag = LON_ts_north_pending
+    }
+    ai_chance = {
+      factor = 45
+    }
+  }
+}
+country_event = {
+  id = LON.55
+  title = LON.55.t
+  desc = LON.55.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  timeout_days = 14
+  trigger = {
+    tag = IRE
+  }
+  option = {
+    name = LON.55.a
+    ai_chance = {
+      factor = 85
+    }
+    trigger = {
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      IRE = {
+        has_war = no
+      }
+      OR = {
+        GBR = {
+          owns_state = 119
+          controls_state = 119
+          has_country_flag = LON_ts_north_transfer_consent
+        }
+        LON = {
+          owns_state = 119
+          controls_state = 119
+          has_country_flag = LON_ts_north_transfer_consent
+        }
+      }
+      GBR = {
+        has_war = no
+      }
+    }
+    if = {
+      limit = {
+        has_war = no
+        LON = {
+          has_war = no
+        }
+        IRE = {
+          has_war = no
+        }
+        OR = {
+          GBR = {
+            owns_state = 119
+            controls_state = 119
+            has_country_flag = LON_ts_north_transfer_consent
+          }
+          LON = {
+            owns_state = 119
+            controls_state = 119
+            has_country_flag = LON_ts_north_transfer_consent
+          }
+        }
+        GBR = {
+          has_war = no
+        }
+      }
+      GBR = {
+        clr_country_flag = LON_ts_north_pending
+      }
+      119 = {
+        add_core_of = IRE
+      }
+      transfer_state = 119
+      GBR = {
+        clr_country_flag = LON_ts_north_transfer_consent
+      }
+      LON = {
+        clr_country_flag = LON_ts_north_transfer_consent
+      }
+    }
+    GBR = {
+      clr_country_flag = LON_ts_north_pending
+      clr_country_flag = LON_ts_north_transfer_consent
+    }
+    LON = {
+      clr_country_flag = LON_ts_north_transfer_consent
+    }
+  }
+  option = {
+    name = LON.55.b
+    GBR = {
+      clr_country_flag = LON_ts_north_pending
+    }
+    ai_chance = {
+      factor = 15
+    }
+    GBR = {
+      clr_country_flag = LON_ts_north_transfer_consent
+    }
+    LON = {
+      clr_country_flag = LON_ts_north_transfer_consent
+    }
+  }
+}

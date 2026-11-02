@@ -863,3 +863,90 @@ expeditionary_warfare = {
         }
     }
 }
+
+# New doctrine available in HOI4 1.19.4. Existing BSM doctrine IDs are preserved.
+dispersed_operations = {
+    track = operations
+    name = SUBDOCTRINE_DISPERSED_OPERATIONS
+    description = SUBDOCTRINE_DISPERSED_OPERATIONS_DESC
+    icon = GFX_doctrine_dispersed_operations_medium
+
+    xp_cost = 100
+    xp_type = army
+
+    available = {
+
+    }
+
+    visible = {
+        has_dlc = "Thunder at Our Gates"
+    }
+
+    ai_will_do = {
+        base = 1
+        modifier = {
+            factor = 40
+            original_tag = SOV
+        }
+    }
+
+    # EFFECTS
+    enemy_army_bonus_air_superiority_factor = -0.10
+    land_reinforce_rate = 0.05
+
+    rewards = {
+
+        camouflage_discipline = {
+        #1
+            enemy_army_bonus_air_superiority_factor = -0.15
+			logistics_company = {
+				battalion_mult = {
+					category = category_all_infantry
+					entrenchment = 0.1
+					add = yes
+				}
+			}
+        }
+
+        hardened_logistics = {
+        #2
+            logistics_company = {
+                max_organisation = 5
+            }
+			no_supply_grace = 24
+        }
+
+       local_air_defense = {
+        #3
+            anti_air_battery = {
+                air_attack = 0.20
+            }
+            anti_air = {
+                air_attack = 0.20
+            }
+            category_self_propelled_anti_air_regimental_support = {
+                air_attack = 0.20
+            }
+        }
+
+        scattered_formations = {
+        #4
+			cas_damage_reduction = 0.05
+        }
+
+        independent_operations = {
+        #5
+            category_all_infantry = {
+				initiative = 0.01
+                breakthrough = 0.1
+                max_organisation = 5
+            }
+			category_all_armor = {
+				initiative = 0.01
+                breakthrough = 0.1
+                max_organisation = 2
+			}
+			out_of_supply_factor = -0.15
+        }
+    }
+}

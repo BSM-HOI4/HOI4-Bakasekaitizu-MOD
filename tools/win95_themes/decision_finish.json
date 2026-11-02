@@ -1,0 +1,493 @@
+{
+  "gui_files": [],
+  "sprites": {
+    "GFX_decision_item_bg": "row"
+  },
+  "material_profiles": {
+    "GFX_event_header_bg": {
+      "bounds": [
+        0,
+        4,
+        515,
+        74
+      ],
+      "layers": [
+        {
+          "rect": [
+            4,
+            8,
+            511,
+            33
+          ],
+          "fill": "#000080"
+        }
+      ]
+    },
+    "GFX_category_header_bg": {
+      "fill": "#c0c0c0",
+      "layers": [
+        {
+          "rect": [
+            62,
+            3,
+            513,
+            50
+          ],
+          "fill": "#000080"
+        },
+        {
+          "rect": [
+            6,
+            5,
+            58,
+            48
+          ],
+          "fill": "#ffffff",
+          "edges": "TLRB",
+          "sunken": true
+        }
+      ]
+    },
+    "GFX_event_item_bg": {
+      "fill": "#ffffff",
+      "sunken": true
+    },
+    "GFX_decision_item_bg": {
+      "fill": "#ffffff",
+      "sunken": true,
+      "frames": [
+        {},
+        {
+          "fill": "#edf6e8",
+          "layers": [
+            {
+              "rect": [
+                2,
+                2,
+                510,
+                38
+              ],
+              "edges": "TLRB",
+              "sunken": true
+            },
+            {
+              "rect": [
+                3,
+                3,
+                10,
+                37
+              ],
+              "fill": "#008000"
+            }
+          ]
+        },
+        {
+          "fill": "#fff0f0",
+          "layers": [
+            {
+              "rect": [
+                2,
+                2,
+                510,
+                38
+              ],
+              "edges": "TLRB",
+              "sunken": true
+            },
+            {
+              "rect": [
+                3,
+                3,
+                10,
+                37
+              ],
+              "fill": "#b00000"
+            }
+          ],
+          "symbols": [
+            {
+              "kind": "cross",
+              "rect": [
+                4,
+                17,
+                9,
+                22
+              ],
+              "color": "#ffffff"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "font_overrides": [
+    {
+      "gui": "countrydecisionview.gui",
+      "root": "countrydecisionview",
+      "widget": "decisionview_title",
+      "source": "hoi_24header",
+      "shade": "white"
+    },
+    {
+      "gui": "countrydecisionview.gui",
+      "root": "event_header",
+      "widget": "name_text",
+      "source": "hoi_20bs",
+      "shade": "white"
+    },
+    {
+      "gui": "countrydecisionview.gui",
+      "root": "category_header",
+      "widget": "name_text",
+      "source": "hoi_20bs",
+      "shade": "white"
+    },
+    {
+      "gui": "countrydecisionview.gui",
+      "root": "event_header",
+      "widget": "events_popup_text",
+      "source": "hoi_16mbs",
+      "shade": "black"
+    },
+    {
+      "gui": "countrydecisionview.gui",
+      "root": "event_header",
+      "widget": "news_popup_text",
+      "source": "hoi_16mbs",
+      "shade": "black"
+    },
+    {
+      "gui": "countrydecisionview.gui",
+      "root": "event_header",
+      "widget": "minor_events_popup_text",
+      "source": "hoi_16mbs",
+      "shade": "black"
+    }
+  ],
+  "light_roots": [
+    "decision_item",
+    "targeted_decision_item",
+    "timed_decision_item",
+    "on_map_decision_locator_item"
+  ],
+  "notes": [
+    "Decision-only finish: 515x83 event header uses a complete rectangular panel at y4..74, retaining four transparent top rows and nine below to match native placement. The runtime slot stays 74px.",
+    "Category body and decision/state icons are not flattened. The 3 native decision background frames remain neutral/green/red, with green/red status stripes and an explicit red warning cross. Native select/timer/progress sprites and their frame order are unchanged.",
+    "Short checkbox captions are local to countrydecisionview.gui; native tooltip keys remain. Root templates retain their engine-sized width=3 and original heights."
+  ],
+  "documented_layout_fixes": {
+    "replace/countrydecisionview.gui": [
+      {
+        "root": "countrydecisionview",
+        "widget": "decisionview_title",
+        "properties": {
+          "position": [
+            16,
+            10
+          ],
+          "maxWidth": 470,
+          "maxHeight": 30
+        }
+      },
+      {
+        "root": "category_header",
+        "widget": "icon_header_bg",
+        "properties": {
+          "position": [
+            -4,
+            3
+          ]
+        }
+      },
+      {
+        "root": "category_header",
+        "widget": "icon",
+        "properties": {
+          "position": [
+            10,
+            12
+          ]
+        }
+      },
+      {
+        "root": "category_header",
+        "widget": "name_text",
+        "properties": {
+          "position": [
+            74,
+            18
+          ],
+          "maxHeight": 24,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "category_header",
+        "widget": "track_decisions_checkbox",
+        "properties": {
+          "position": [
+            447,
+            17
+          ]
+        }
+      },
+      {
+        "root": "category_header",
+        "widget": "category_collapse_btn",
+        "properties": {
+          "position": [
+            475,
+            16
+          ]
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "name_text",
+        "properties": {
+          "position": [
+            12,
+            9
+          ],
+          "maxWidth": 480,
+          "maxHeight": 24
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "minor_event_checkbox_window",
+        "properties": {
+          "position": [
+            348,
+            40
+          ],
+          "Orientation": "upper_left"
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "popup_minor_events_checkbox",
+        "properties": {
+          "position": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "minor_events_popup_text",
+        "properties": {
+          "position": [
+            30,
+            3
+          ],
+          "maxWidth": 130,
+          "maxHeight": 22,
+          "text": "BSM_W95_DECISION_POPUP_MINOR",
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "event_checkbox_window",
+        "properties": {
+          "position": [
+            12,
+            40
+          ],
+          "Orientation": "upper_left"
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "popup_events_checkbox",
+        "properties": {
+          "position": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "events_popup_text",
+        "properties": {
+          "position": [
+            30,
+            3
+          ],
+          "maxWidth": 130,
+          "maxHeight": 22,
+          "text": "BSM_W95_DECISION_POPUP_EVENTS",
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "news_checkbox_window",
+        "properties": {
+          "position": [
+            180,
+            40
+          ],
+          "Orientation": "upper_left"
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "popup_news_checkbox",
+        "properties": {
+          "position": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "root": "event_header",
+        "widget": "news_popup_text",
+        "properties": {
+          "position": [
+            30,
+            3
+          ],
+          "maxWidth": 130,
+          "maxHeight": 22,
+          "text": "BSM_W95_DECISION_POPUP_NEWS",
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "event_item",
+        "widget": "name_text",
+        "properties": {
+          "position": [
+            50,
+            7
+          ],
+          "maxWidth": 324,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "event_item",
+        "widget": "timer_text",
+        "properties": {
+          "position": [
+            382,
+            7
+          ],
+          "maxWidth": 116,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "decision_item",
+        "widget": "name_text",
+        "properties": {
+          "position": [
+            63,
+            7
+          ],
+          "maxWidth": 268,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "decision_item",
+        "widget": "cost_and_timer_text",
+        "properties": {
+          "position": [
+            337,
+            7
+          ],
+          "maxWidth": 94,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "targeted_decision_item",
+        "widget": "name_text",
+        "properties": {
+          "position": [
+            62,
+            7
+          ],
+          "maxWidth": 218,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "targeted_decision_item",
+        "widget": "timer_text",
+        "properties": {
+          "position": [
+            356,
+            7
+          ],
+          "maxWidth": 71,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "targeted_decision_item",
+        "widget": "cost_and_timer_text",
+        "properties": {
+          "position": [
+            286,
+            7
+          ],
+          "maxWidth": 64,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "timed_decision_item",
+        "widget": "name_text",
+        "properties": {
+          "position": [
+            62,
+            7
+          ],
+          "maxWidth": 240,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "timed_decision_item",
+        "widget": "timer_text",
+        "properties": {
+          "position": [
+            390,
+            7
+          ],
+          "maxWidth": 67,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      },
+      {
+        "root": "timed_decision_item",
+        "widget": "cost_and_timer_text",
+        "properties": {
+          "position": [
+            310,
+            7
+          ],
+          "maxWidth": 75,
+          "maxHeight": 20,
+          "multiline": "no"
+        }
+      }
+    ]
+  }
+}

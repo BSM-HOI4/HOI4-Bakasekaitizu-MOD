@@ -1,0 +1,147 @@
+# ナントカスタン(NTS) 師団テンプレートAI
+# generic.txt / templates_WES.txt と衝突しないよう NTS_ 接頭でグループ化
+# 目標: 国境歩兵師団(9inf+eng+recon) / 砂漠騎兵旅団(6cav+recon)
+# 装甲は NTS_numbered_divisions 完了(NTS_purge_accepted)まで優先度を抑える
+
+infantry_NTS = {
+  available_for = {
+    NTS
+  }
+  role = infantry
+  upgrade_prio = {
+    factor = 4
+    modifier = {
+      factor = 1
+    }
+  }
+
+  NTS_border_infantry = {
+    upgrade_prio = {
+      factor = 3
+      modifier = {
+        factor = 1
+      }
+    }
+
+    can_upgrade_in_field = {
+      has_equipment = { infantry_equipment < 2000 }
+    }
+
+    target_template = {
+      support = {
+        engineer = 1
+        recon = 1
+      }
+      regiments = {
+        infantry = 9
+      }
+    }
+
+    replace_at_match = 1.0
+    target_min_match = 0.6
+  }
+
+  NTS_mountain_infantry = {
+    upgrade_prio = {
+      factor = 2
+      modifier = {
+        factor = 1
+      }
+    }
+
+    target_template = {
+      support = {
+        recon = 1
+      }
+      regiments = {
+        infantry = 6
+      }
+    }
+
+    replace_at_match = 1.0
+    target_min_match = 0.6
+  }
+}
+
+cavalry_NTS = {
+  available_for = {
+    NTS
+  }
+  role = cavalry
+  upgrade_prio = {
+    factor = 2
+    modifier = {
+      factor = 1
+    }
+  }
+
+  NTS_desert_cavalry = {
+    upgrade_prio = {
+      factor = 2
+      modifier = {
+        factor = 1
+      }
+    }
+
+    target_template = {
+      support = {
+        recon = 1
+      }
+      regiments = {
+        cavalry = 6
+      }
+    }
+
+    replace_at_match = 1.0
+    target_min_match = 0.6
+  }
+}
+
+# 装甲: 番号局(粛清受諾)まで解禁しない。研究もプラン側で抑えている
+armor_NTS = {
+  available_for = {
+    NTS
+  }
+  role = armor
+  upgrade_prio = {
+    factor = 0
+    modifier = {
+      factor = 2
+      OR = {
+        has_country_flag = NTS_purge_accepted
+        has_completed_focus = NTS_numbered_divisions
+      }
+    }
+  }
+
+  NTS_numbered_light_armor = {
+    upgrade_prio = {
+      factor = 0
+      modifier = {
+        factor = 1
+        has_completed_focus = NTS_numbered_divisions
+      }
+      modifier = {
+        factor = 3
+        OR = {
+          has_tech = basic_light_tank
+          has_tech = basic_light_tank_chassis
+        }
+      }
+    }
+
+    target_template = {
+      support = {
+        engineer = 1
+        mot_recon = 1
+      }
+      regiments = {
+        light_armor = 5
+        motorized = 4
+      }
+    }
+
+    replace_at_match = 1.5
+    target_min_match = 0.5
+  }
+}

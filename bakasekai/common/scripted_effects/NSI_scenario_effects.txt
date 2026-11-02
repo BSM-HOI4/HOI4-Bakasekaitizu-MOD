@@ -1,0 +1,50 @@
+# NSI 潮位／古層深度 系scripted effects
+# NSI_tide_gauge: 外界が島に寄せる圧力（0-10）
+# NSI_depth: 地下に眠る古層との共振深度（0-10）
+
+NSI_init_tide = {
+  set_variable = {
+    var = NSI_tide_gauge
+    value = 0
+  }
+  set_variable = {
+    var = NSI_depth
+    value = 0
+  }
+}
+
+NSI_tide_up = {
+  add_to_variable = {
+    var = NSI_tide_gauge
+    value = 1
+  }
+  clamp_variable = {
+    var = NSI_tide_gauge
+    min = 0
+    max = 10
+  }
+}
+
+NSI_tide_down = {
+  add_to_variable = {
+    var = NSI_tide_gauge
+    value = -1
+  }
+  clamp_variable = {
+    var = NSI_tide_gauge
+    min = 0
+    max = 10
+  }
+}
+
+NSI_depth_up = {
+  add_to_variable = {
+    var = NSI_depth
+    value = 1
+  }
+  clamp_variable = {
+    var = NSI_depth
+    min = 0
+    max = 10
+  }
+}

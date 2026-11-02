@@ -1,0 +1,304 @@
+# ESP カリブ亡命 AIストラテジープラン
+# 幹は亡命政府→四証まで共通。政治分岐で enable。
+
+######################################
+# プラン1: 共和国再編
+######################################
+
+ESP_plan_republic = {
+  name = "共和国再編"
+  desc = "アサーニャの亡命共和国から在外選挙・四証・対仏交渉または復帰へ。"
+
+  allowed = {
+    original_tag = ESP
+  }
+  enable = {
+    OR = {
+      has_government = democratic_ideology
+      has_completed_focus = ESP_second_republic
+    }
+  }
+  abort = {
+    NOT = { original_tag = ESP }
+  }
+
+  ai_national_focuses = {
+    ESP_exile_government
+    ESP_caracas_charter
+    ESP_the_lost_map
+    ESP_spanish_registry
+    ESP_four_proofs
+    ESP_two_homelands_focus
+    ESP_second_republic
+    ESP_azana_presidency
+    ESP_moderate_coalition
+    ESP_constitution_in_exile
+    ESP_elections_abroad
+    ESP_fleet_review
+    ESP_buiza_flag
+    ESP_miaja_staff
+    ESP_orinoco_derricks
+    ESP_isla_refinery_focus
+    ESP_atlantic_temperature
+    ESP_fra_handshake
+    ESP_mediterranean_claws
+    ESP_amphibious_doctrine
+    ESP_landing_battalions
+    ESP_generalstaff_return
+    ESP_league_petition
+    ESP_caribbean_recognition
+  }
+
+  research = {
+    infantry_weapons = 50.0
+    industry = 30.0
+    support_tech = 20.0
+    naval_equipment = 40.0
+    land_doctrine = 20.0
+    air_equipment = 15.0
+    artillery = 10.0
+    armor = -70.0
+  }
+
+  weight = {
+    factor = 1.0
+    modifier = {
+      factor = 1.5
+      has_government = democratic_ideology
+    }
+  }
+}
+
+######################################
+# プラン2: 王政復古
+######################################
+
+ESP_plan_royalist = {
+  name = "海を越えた王冠"
+  desc = "王党派の使者から戴冠・摂政評議会、艦隊と橋頭堡で復帰を図る。"
+
+  allowed = {
+    original_tag = ESP
+  }
+  enable = {
+    OR = {
+      has_government = neutrality_ideology
+      has_completed_focus = ESP_royalist_emissaries
+    }
+  }
+  abort = {
+    NOT = { original_tag = ESP }
+  }
+
+  ai_national_focuses = {
+    ESP_exile_government
+    ESP_caracas_charter
+    ESP_the_lost_map
+    ESP_spanish_registry
+    ESP_four_proofs
+    ESP_two_homelands_focus
+    ESP_royalist_emissaries
+    ESP_alfonso_in_rome
+    ESP_infante_juan
+    ESP_crown_over_sea
+    ESP_regency_atlantic
+    ESP_fleet_review
+    ESP_buiza_flag
+    ESP_mediterranean_claws
+    ESP_strait_fortress
+    ESP_amphibious_doctrine
+    ESP_landing_battalions
+    ESP_generalstaff_return
+    ESP_reconquista_plan
+  }
+
+  research = {
+    infantry_weapons = 45.0
+    naval_equipment = 45.0
+    industry = 25.0
+    support_tech = 20.0
+    land_doctrine = 25.0
+    armor = -80.0
+  }
+
+  weight = {
+    factor = 1.0
+    modifier = {
+      factor = 1.5
+      has_government = neutrality_ideology
+    }
+  }
+}
+
+######################################
+# プラン3: ファランヘ
+######################################
+
+ESP_plan_falange = {
+  name = "亡命ファランヘ"
+  desc = "国民シンジカリスモとイスパニダーから総統候補、強硬な対仏へ。"
+
+  allowed = {
+    original_tag = ESP
+  }
+  enable = {
+    OR = {
+      has_government = fascism_ideology
+      has_completed_focus = ESP_falange_exiles
+    }
+  }
+  abort = {
+    NOT = { original_tag = ESP }
+  }
+
+  ai_national_focuses = {
+    ESP_exile_government
+    ESP_caracas_charter
+    ESP_the_lost_map
+    ESP_spanish_registry
+    ESP_four_proofs
+    ESP_two_homelands_focus
+    ESP_falange_exiles
+    ESP_jons_legacy
+    ESP_primo_rivera_shadow
+    ESP_national_syndicate
+    ESP_hispanidad
+    ESP_caudillo_candidate
+    ESP_fleet_review
+    ESP_submarine_wolves
+    ESP_atlantic_temperature
+    ESP_fra_cold_war
+    ESP_mediterranean_claws
+    ESP_absorb_the_claws
+  }
+
+  research = {
+    infantry_weapons = 50.0
+    industry = 35.0
+    naval_equipment = 30.0
+    land_doctrine = 25.0
+    armor = -50.0
+  }
+
+  weight = {
+    factor = 0.8
+    modifier = {
+      factor = 1.8
+      has_government = fascism_ideology
+    }
+  }
+}
+
+######################################
+# プラン4: 人民戦線
+######################################
+
+ESP_plan_popular = {
+  name = "赤いスペイン・アメリカ"
+  desc = "イバルリとディアスの再建から民兵船団・承認の別経路へ。"
+
+  allowed = {
+    original_tag = ESP
+  }
+  enable = {
+    OR = {
+      has_government = communism_ideology
+      has_completed_focus = ESP_passion_flower
+    }
+  }
+  abort = {
+    NOT = { original_tag = ESP }
+  }
+
+  ai_national_focuses = {
+    ESP_exile_government
+    ESP_caracas_charter
+    ESP_the_lost_map
+    ESP_spanish_registry
+    ESP_four_proofs
+    ESP_two_homelands_focus
+    ESP_passion_flower
+    ESP_jose_diaz_line
+    ESP_militia_fleets
+    ESP_union_of_exiles
+    ESP_red_spain_america
+    ESP_pozas_rearguard
+    ESP_fleet_review
+    ESP_miaja_staff
+    ESP_landing_battalions
+  }
+
+  research = {
+    infantry_weapons = 55.0
+    industry = 30.0
+    support_tech = 25.0
+    naval_equipment = 25.0
+    armor = -90.0
+  }
+
+  weight = {
+    factor = 0.8
+    modifier = {
+      factor = 1.8
+      has_government = communism_ideology
+    }
+  }
+}
+
+######################################
+# プラン5: カリブ連邦
+######################################
+
+ESP_plan_caribbean = {
+  name = "地図上のスペイン"
+  desc = "半島復帰を封じ、アンティル議会と連邦市場へ永住する。"
+
+  allowed = {
+    original_tag = ESP
+  }
+  enable = {
+    has_completed_focus = ESP_caribbean_assembly
+  }
+  abort = {
+    OR = {
+      NOT = { original_tag = ESP }
+      has_completed_focus = ESP_operation_return
+    }
+  }
+
+  ai_national_focuses = {
+    ESP_exile_government
+    ESP_caracas_charter
+    ESP_the_lost_map
+    ESP_spanish_registry
+    ESP_four_proofs
+    ESP_two_homelands_focus
+    ESP_caribbean_assembly
+    ESP_lopez_pact
+    ESP_spanish_venezuela
+    ESP_antilles_league
+    ESP_new_carthage
+    ESP_map_spain
+    ESP_orinoco_derricks
+    ESP_isla_refinery_focus
+    ESP_antilles_market
+    ESP_atlantic_temperature
+    ESP_fra_handshake
+  }
+
+  research = {
+    industry = 50.0
+    infantry_weapons = 30.0
+    naval_equipment = 35.0
+    air_equipment = 15.0
+    armor = -100.0
+  }
+
+  weight = {
+    factor = 0.6
+    modifier = {
+      factor = 2.0
+      has_completed_focus = ESP_caribbean_assembly
+    }
+  }
+}

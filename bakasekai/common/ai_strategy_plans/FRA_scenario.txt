@@ -1,0 +1,288 @@
+# FRA イベリア併合・共同君主 AIストラテジープラン
+# 幹は two_capitals → empire_question まで共通。
+
+######################################
+# プラン1: 帝政継続
+######################################
+
+FRA_plan_empire = {
+  name = "西方の皇帝"
+  desc = "ナポレオン六世の立憲帝政を完遂し、イベリア統治と王冠の配分を進める。"
+
+  allowed = {
+    original_tag = FRA
+  }
+  enable = {
+    OR = {
+      has_government = constitutional_monarchy
+      has_completed_focus = FRA_bonaparte_charter
+    }
+  }
+  abort = {
+    NOT = { original_tag = FRA }
+  }
+
+  ai_national_focuses = {
+    FRA_two_capitals
+    FRA_crown_parliament
+    FRA_iberian_patrimony
+    FRA_imperial_review
+    FRA_empire_question
+    FRA_crown_scales_focus
+    FRA_bonaparte_charter
+    FRA_napoleon_court
+    FRA_plebiscite_1937
+    FRA_imperial_decrees
+    FRA_iberian_administration
+    FRA_madrid_palace
+    FRA_autonomy_charter
+    FRA_iberian_governate
+    FRA_catalan_autonomy
+    FRA_paris_two_crowns
+    FRA_lisbon_cortes
+    FRA_spain_question
+    FRA_spain_handshake
+    FRA_darlan_fleet
+    FRA_grand_armee_review
+  }
+
+  research = {
+    infantry_weapons = 40.0
+    industry = 40.0
+    armor = 25.0
+    air_equipment = 25.0
+    naval_equipment = 30.0
+    land_doctrine = 25.0
+  }
+
+  weight = {
+    factor = 1.2
+    modifier = {
+      factor = 1.5
+      has_government = constitutional_monarchy
+    }
+  }
+}
+
+######################################
+# プラン2: 共和国
+######################################
+
+FRA_plan_republic = {
+  name = "共和国の復帰"
+  desc = "ダラディエ／ブルムから第三共和政を実体化し、イベリアと対ESPを整理する。"
+
+  allowed = {
+    original_tag = FRA
+  }
+  enable = {
+    OR = {
+      has_government = democratic_ideology
+      has_completed_focus = FRA_republican_opposition
+    }
+  }
+  abort = {
+    NOT = { original_tag = FRA }
+  }
+
+  ai_national_focuses = {
+    FRA_two_capitals
+    FRA_crown_parliament
+    FRA_iberian_patrimony
+    FRA_imperial_review
+    FRA_empire_question
+    FRA_republican_opposition
+    FRA_daladier_path
+    FRA_third_republic_return
+    FRA_social_republic
+    FRA_iberian_administration
+    FRA_autonomy_charter
+    FRA_spain_question
+    FRA_spain_handshake
+    FRA_dover_question
+    FRA_channel_entente
+  }
+
+  research = {
+    infantry_weapons = 40.0
+    industry = 45.0
+    air_equipment = 30.0
+    naval_equipment = 25.0
+    armor = 20.0
+  }
+
+  weight = {
+    factor = 1.0
+    modifier = {
+      factor = 1.6
+      has_government = democratic_ideology
+    }
+  }
+}
+
+######################################
+# プラン3: 国家主義
+######################################
+
+FRA_plan_nationalist = {
+  name = "国民の再統合"
+  desc = "アクシオン・フランセーズからペタン摂政・クーデタへ。イベリアは直轄寄り。"
+
+  allowed = {
+    original_tag = FRA
+  }
+  enable = {
+    OR = {
+      has_government = fascism_ideology
+      has_completed_focus = FRA_action_francaise
+    }
+  }
+  abort = {
+    NOT = { original_tag = FRA }
+  }
+
+  ai_national_focuses = {
+    FRA_two_capitals
+    FRA_crown_parliament
+    FRA_iberian_patrimony
+    FRA_imperial_review
+    FRA_empire_question
+    FRA_action_francaise
+    FRA_maurras_circle
+    FRA_bucard_shirts
+    FRA_petain_regency
+    FRA_national_integral
+    FRA_coup_de_paris
+    FRA_french_state_new
+    FRA_iberian_administration
+    FRA_direct_departements
+    FRA_andalusian_question
+    FRA_spain_question
+    FRA_spain_cold_file
+    FRA_exile_spain_watch
+  }
+
+  research = {
+    infantry_weapons = 50.0
+    land_doctrine = 35.0
+    industry = 30.0
+    armor = 30.0
+    naval_equipment = 20.0
+  }
+
+  weight = {
+    factor = 0.9
+    modifier = {
+      factor = 1.8
+      has_government = fascism_ideology
+    }
+  }
+}
+
+######################################
+# プラン4: 共産
+######################################
+
+FRA_plan_commune = {
+  name = "人民委員会"
+  desc = "トレーズ／ニコから人民戦線・赤いイベリア連帯へ。"
+
+  allowed = {
+    original_tag = FRA
+  }
+  enable = {
+    OR = {
+      has_government = communism_ideology
+      has_completed_focus = FRA_cgt_underground
+    }
+  }
+  abort = {
+    NOT = { original_tag = FRA }
+  }
+
+  ai_national_focuses = {
+    FRA_two_capitals
+    FRA_crown_parliament
+    FRA_iberian_patrimony
+    FRA_imperial_review
+    FRA_empire_question
+    FRA_cgt_underground
+    FRA_thorez_party
+    FRA_popular_front
+    FRA_peoples_commissariats
+    FRA_red_iberia_link
+    FRA_iberian_administration
+    FRA_autonomy_charter
+    FRA_spain_question
+  }
+
+  research = {
+    infantry_weapons = 50.0
+    industry = 40.0
+    support_tech = 25.0
+    armor = 15.0
+  }
+
+  weight = {
+    factor = 0.8
+    modifier = {
+      factor = 1.8
+      has_government = communism_ideology
+    }
+  }
+}
+
+######################################
+# プラン5: 技術官僚
+######################################
+
+FRA_plan_technocrat = {
+  name = "専門家憲章"
+  desc = "ギョーマの非政治国家。産業と計画を優先し外交は穏健。"
+
+  allowed = {
+    original_tag = FRA
+  }
+  enable = {
+    OR = {
+      has_completed_focus = FRA_guillaumat_technocrats
+      has_country_flag = FRA_politics_settled
+    }
+    has_government = neutrality_ideology
+  }
+  abort = {
+    NOT = { original_tag = FRA }
+  }
+
+  ai_national_focuses = {
+    FRA_two_capitals
+    FRA_crown_parliament
+    FRA_iberian_patrimony
+    FRA_imperial_review
+    FRA_empire_question
+    FRA_guillaumat_technocrats
+    FRA_planification
+    FRA_apolitical_state
+    FRA_experts_charter
+    FRA_iberian_mines
+    FRA_pyrennees_rail
+    FRA_five_year_plan
+    FRA_spain_question
+    FRA_spain_handshake
+  }
+
+  research = {
+    industry = 60.0
+    electronics = 40.0
+    infantry_weapons = 30.0
+    armor = 20.0
+  }
+
+  weight = {
+    factor = 0.7
+    modifier = {
+      factor = 2.0
+      has_completed_focus = FRA_guillaumat_technocrats
+    }
+  }
+}

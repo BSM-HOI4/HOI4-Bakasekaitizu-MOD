@@ -1,0 +1,103 @@
+# ESP 帰還の四証・対FRA rapport のscripted triggers
+# ESP_FRA_rapport の正本は ESP 国変数。FRA scope からも ESP = {} 経由で評価する。
+
+ESP_fleet_proof_ready = {
+  ESP = {
+    check_variable = {
+      var = ESP_proof_fleet
+      value = 2
+      compare = greater_than_or_equals
+    }
+  }
+}
+
+ESP_bridgehead_proof_ready = {
+  ESP = {
+    check_variable = {
+      var = ESP_proof_bridgehead
+      value = 2
+      compare = greater_than_or_equals
+    }
+  }
+}
+
+ESP_legitimacy_proof_ready = {
+  ESP = {
+    check_variable = {
+      var = ESP_proof_legitimacy
+      value = 2
+      compare = greater_than_or_equals
+    }
+  }
+}
+
+ESP_recognition_proof_ready = {
+  ESP = {
+    check_variable = {
+      var = ESP_proof_recognition
+      value = 2
+      compare = greater_than_or_equals
+    }
+  }
+}
+
+ESP_proof_all_ready = {
+  ESP = {
+    check_variable = {
+      var = ESP_proof_fleet
+      value = 2
+      compare = greater_than_or_equals
+    }
+    check_variable = {
+      var = ESP_proof_bridgehead
+      value = 2
+      compare = greater_than_or_equals
+    }
+    check_variable = {
+      var = ESP_proof_legitimacy
+      value = 2
+      compare = greater_than_or_equals
+    }
+    check_variable = {
+      var = ESP_proof_recognition
+      value = 2
+      compare = greater_than_or_equals
+    }
+  }
+}
+
+# rapport 閾値。+60友好確定 / -60敵対確定 / その間は冷たい共存
+ESP_rapport_friendly = {
+  ESP = {
+    check_variable = {
+      var = ESP_FRA_rapport
+      value = 60
+      compare = greater_than_or_equals
+    }
+  }
+}
+
+ESP_rapport_hostile = {
+  ESP = {
+    check_variable = {
+      var = ESP_FRA_rapport
+      value = -60
+      compare = less_than_or_equals
+    }
+  }
+}
+
+ESP_rapport_cold = {
+  ESP = {
+    check_variable = {
+      var = ESP_FRA_rapport
+      value = -60
+      compare = greater_than
+    }
+    check_variable = {
+      var = ESP_FRA_rapport
+      value = 60
+      compare = less_than
+    }
+  }
+}

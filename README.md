@@ -23,7 +23,7 @@ From a giant Korea and an Australia shaped like the island of Shikoku, to a Cana
 *   **🔧 ユニークなゲームシステム (Unique Gameplay Systems):**
     *   **元首ガチャ (Head of State Gacha):** 新しい国家元首をランダムに獲得...？
     *   **スーパーイベント (Super Events):** 世界の行く末を揺るがす大規模なイベントが発生。
-    *   その他、収穫システムや鉱山開発など、独自のシステムを多数実装。
+    *   その他、鉱山開発など、独自のシステムを多数実装。
 *   **🎌 日本語完全対応 (Full Japanese Support):** Modは日本語で開発されています。
 
 ## ⚙️ 必須環境とインストール / Requirements & Installation
@@ -32,7 +32,7 @@ From a giant Korea and an Australia shaped like the island of Shikoku, to a Cana
 **Please ensure you meet the following requirements before playing.**
 
 ### 要件 / Requirements
-*   **Hearts of Iron IV Version:** `1.13.*`
+*   **Hearts of Iron IV Version:** `1.19.*`
 
 
 ### インストール方法 / Installation
@@ -53,13 +53,13 @@ The easiest way to install and stay up to date.
 GitHubから最新版をダウンロードしてプレイしたい方向けです。
 For those who want to play the latest version from the GitHub releases.
 
-1.  [リリースページ](https://github.com/toliner/HOI4-Bakasekaitizu-MOD/releases)から最新版の`.zip`ファイルをダウンロードします。
+1.  [リリースページ](https://github.com/BSM-HOI4/HOI4-Bakasekaitizu-MOD/releases)から最新版の`.zip`ファイルをダウンロードします。
 2.  ダウンロードしたzipファイルを解凍します。
 3.  以下のMod用フォルダに、解凍したフォルダを配置します。
     *   Windows: `C:\Users\<ユーザー名>\Documents\Paradox Interactive\Hearts of Iron IV\mod`
 4.  HoI4のランチャーを起動し、プレイセットで「バカ世界地図」と「Japanese Language mod」の両方を有効にします。
 
-1.  Download the latest `.zip` file from the [Releases Page](https://github.com/toliner/HOI4-Bakasekaitizu-MOD/releases).
+1.  Download the latest `.zip` file from the [Releases Page](https://github.com/BSM-HOI4/HOI4-Bakasekaitizu-MOD/releases).
 2.  Extract the downloaded zip file.
 3.  Place the extracted folder inside your HoI4 mod directory:
     *   Windows: `C:\Users\<YourUser>\Documents\Paradox Interactive\Hearts of Iron IV\mod`

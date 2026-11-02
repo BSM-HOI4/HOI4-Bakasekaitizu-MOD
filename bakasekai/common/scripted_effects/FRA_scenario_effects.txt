@@ -1,0 +1,145 @@
+# FRA 二つの王冠・対ESP rapport 系scripted effects
+# ESP_FRA_rapport の正本は ESP 国変数。FRA からは ESP = { ESP_rapport_* = yes } で動かす。
+# PAL_crown_consent の正本は PAL 国変数。FRA からは PAL = { FRA_pal_consent_* = yes } で動かす。
+
+FRA_init_crown_seat = {
+  set_variable = {
+    var = FRA_crown_seat
+    value = 0
+  }
+}
+
+# crown_seat: 負=パリ宮廷優位 / 正=リスボン宮廷優位
+FRA_crown_toward_paris = {
+  add_to_variable = {
+    var = FRA_crown_seat
+    value = -10
+  }
+  clamp_variable = {
+    var = FRA_crown_seat
+    min = -100
+    max = 100
+  }
+}
+
+FRA_crown_toward_paris_large = {
+  add_to_variable = {
+    var = FRA_crown_seat
+    value = -25
+  }
+  clamp_variable = {
+    var = FRA_crown_seat
+    min = -100
+    max = 100
+  }
+}
+
+FRA_crown_toward_lisbon = {
+  add_to_variable = {
+    var = FRA_crown_seat
+    value = 10
+  }
+  clamp_variable = {
+    var = FRA_crown_seat
+    min = -100
+    max = 100
+  }
+}
+
+FRA_crown_toward_lisbon_large = {
+  add_to_variable = {
+    var = FRA_crown_seat
+    value = 25
+  }
+  clamp_variable = {
+    var = FRA_crown_seat
+    min = -100
+    max = 100
+  }
+}
+
+# PAL 側受容度（PAL scope で呼ぶ）
+FRA_pal_consent_add = {
+  add_to_variable = {
+    var = PAL_crown_consent
+    value = 10
+  }
+  clamp_variable = {
+    var = PAL_crown_consent
+    min = 0
+    max = 100
+  }
+}
+
+# イベリア解放タグをイベリア総督府として従属化（FRA scope）
+FRA_release_cat_governate = {
+  if = {
+    limit = {
+      CAT = { exists = no }
+    }
+    release = CAT
+  }
+  if = {
+    limit = {
+      CAT = { exists = yes }
+    }
+    set_autonomy = {
+      target = CAT
+      autonomy_state = autonomy_ibrgovernate
+    }
+  }
+}
+
+FRA_release_nav_governate = {
+  if = {
+    limit = {
+      NAV = { exists = no }
+    }
+    release = NAV
+  }
+  if = {
+    limit = {
+      NAV = { exists = yes }
+    }
+    set_autonomy = {
+      target = NAV
+      autonomy_state = autonomy_ibrgovernate
+    }
+  }
+}
+
+FRA_release_glc_governate = {
+  if = {
+    limit = {
+      GLC = { exists = no }
+    }
+    release = GLC
+  }
+  if = {
+    limit = {
+      GLC = { exists = yes }
+    }
+    set_autonomy = {
+      target = GLC
+      autonomy_state = autonomy_ibrgovernate
+    }
+  }
+}
+
+FRA_release_adu_governate = {
+  if = {
+    limit = {
+      ADU = { exists = no }
+    }
+    release = ADU
+  }
+  if = {
+    limit = {
+      ADU = { exists = yes }
+    }
+    set_autonomy = {
+      target = ADU
+      autonomy_state = autonomy_ibrgovernate
+    }
+  }
+}

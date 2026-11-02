@@ -1,1 +1,3021 @@
-﻿
+focus_tree = {
+  # 政治・外交の各枝は共通の親を持つ。政治／産業／軍事の分野間は独立。
+  id = fra_focus
+  country = {
+    factor = 0
+    modifier = {
+      add = 10
+      tag = FRA
+    }
+    modifier = {
+      add = 10
+      original_tag = FRA
+    }
+  }
+  default = no
+  continuous_focus_position = {
+    x = 50
+    y = 3500
+  }
+
+  ##############################################
+  # 幹
+  ##############################################
+  focus = {
+    id = FRA_two_capitals
+    x = 32
+    y = 0
+    icon = GFX_focus_generic_diplomatic_treaty
+    cost = 10
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          NOT = { has_idea = FRA_two_crowns }
+        }
+        add_ideas = FRA_two_crowns
+      }
+      add_political_power = 100
+    }
+  }
+
+  focus = {
+    id = FRA_crown_parliament
+    relative_position_id = FRA_two_capitals
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_two_capitals
+    }
+    icon = GFX_goal_generic_multipartism
+    cost = 5
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      FRA_init_crown_seat = yes
+      set_country_flag = {
+        flag = FRA_crown_seat_active
+      }
+      add_political_power = 50
+      custom_effect_tooltip = FRA_crown_seat_tt
+    }
+  }
+
+  focus = {
+    id = FRA_iberian_patrimony
+    relative_position_id = FRA_crown_parliament
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = FRA_crown_parliament
+    }
+    icon = GFX_goal_generic_more_territorial_claims
+    cost = 5
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      add_ideas = FRA_iberian_burden
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_imperial_review
+    relative_position_id = FRA_iberian_patrimony
+    x = -8
+    y = 1
+    prerequisite = {
+      focus = FRA_iberian_patrimony
+    }
+    icon = GFX_goal_generic_major_war
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      army_experience = 15
+      navy_experience = 15
+      air_experience = 15
+    }
+  }
+
+  focus = {
+    id = FRA_empire_question
+    relative_position_id = FRA_imperial_review
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = FRA_imperial_review
+    }
+    icon = GFX_focus_generic_support_the_left_right
+    cost = 7
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_crown_scales_focus
+    relative_position_id = FRA_empire_question
+    x = 8
+    y = 1
+    prerequisite = {
+      focus = FRA_empire_question
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 7
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      add_political_power = 50
+      set_country_flag = FRA_crown_scales_open
+    }
+  }
+
+  ##############################################
+  # 帝政継続列
+  ##############################################
+  focus = {
+    id = FRA_bonaparte_charter
+    relative_position_id = FRA_empire_question
+    x = -8
+    y = 1
+    prerequisite = {
+      focus = FRA_empire_question
+    }
+    icon = GFX_focus_generic_monarchy_1
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_republican_opposition
+      focus = FRA_action_francaise
+      focus = FRA_cgt_underground
+      focus = FRA_guillaumat_technocrats
+    }
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = constitutional_monarchy
+        popularity = 0.1
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_napoleon_court
+    relative_position_id = FRA_bonaparte_charter
+    x = -15
+    y = 1
+    prerequisite = {
+      focus = FRA_bonaparte_charter
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 5
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      add_political_power = 75
+      FRA_crown_toward_paris = yes
+    }
+  }
+
+  focus = {
+    id = FRA_plebiscite_1937
+    relative_position_id = FRA_napoleon_court
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_napoleon_court
+    }
+    icon = GFX_goal_generic_multipartism
+    cost = 5
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      country_event = {
+        id = fra_scenario.1
+        hours = 1
+      }
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = FRA_imperial_decrees
+    relative_position_id = FRA_plebiscite_1937
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_plebiscite_1937
+    }
+    icon = GFX_focus_generic_treaty
+    cost = 5
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      add_stability = 0.1
+      FRA_crown_toward_paris = yes
+    }
+  }
+
+  focus = {
+    id = FRA_order_of_crown
+    relative_position_id = FRA_imperial_decrees
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_imperial_decrees
+    }
+    icon = GFX_goal_generic_army_doctrines
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      army_experience = 15
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_court_parties
+    relative_position_id = FRA_order_of_crown
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_order_of_crown
+    }
+    icon = GFX_goal_generic_political_pressure
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      add_stability = 0.05
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_second_empire_style
+    relative_position_id = FRA_court_parties
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_court_parties
+    }
+    icon = GFX_focus_generic_self_management
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      add_stability = 0.05
+      FRA_crown_toward_paris = yes
+    }
+  }
+
+  focus = {
+    id = FRA_emperor_two_seas
+    relative_position_id = FRA_second_empire_style
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_second_empire_style
+    }
+    icon = GFX_goal_generic_naval_effort2
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      navy_experience = 20
+      add_tech_bonus = {
+        name = imperial_navy_bonus
+        bonus = 0.5
+        uses = 1
+        category = naval_equipment
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_bonapartist_supreme
+    relative_position_id = FRA_emperor_two_seas
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_emperor_two_seas
+    }
+    icon = GFX_focus_generic_monarchy_1
+    cost = 10
+
+    ai_will_do = {
+      factor = 10
+    }
+    completion_reward = {
+      add_ideas = FRA_code_west
+      add_stability = 0.1
+      set_country_flag = FRA_politics_settled
+    }
+  }
+
+  ##############################################
+  # 共和列
+  ##############################################
+  focus = {
+    id = FRA_republican_opposition
+    relative_position_id = FRA_empire_question
+    x = -4
+    y = 1
+    prerequisite = {
+      focus = FRA_empire_question
+    }
+    icon = GFX_goal_support_democracy
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_bonaparte_charter
+      focus = FRA_action_francaise
+      focus = FRA_cgt_underground
+      focus = FRA_guillaumat_technocrats
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = democratic_ideology
+        popularity = 0.15
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_daladier_path
+    relative_position_id = FRA_republican_opposition
+    x = -15
+    y = 1
+    prerequisite = {
+      focus = FRA_republican_opposition
+    }
+    icon = GFX_goal_generic_multipartism
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_blum_coalition
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_stability = 0.05
+      add_political_power = 25
+      set_country_flag = {
+        flag = FRA_chose_daladier
+      }
+      promote_character = {
+        character = FRA_edouard_daladier
+        ideology = socialism
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_blum_coalition
+    relative_position_id = FRA_republican_opposition
+    x = -7
+    y = 1
+    prerequisite = {
+      focus = FRA_republican_opposition
+    }
+    icon = GFX_goal_support_communism
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_daladier_path
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.05
+      }
+      add_stability = 0.05
+      set_country_flag = {
+        flag = FRA_chose_blum
+      }
+      promote_character = {
+        character = FRA_leon_blum
+        ideology = socialism
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_third_republic_return
+    relative_position_id = FRA_republican_opposition
+    x = -11
+    y = 1
+    prerequisite = {
+      focus = FRA_republican_opposition
+    }
+    icon = GFX_focus_prc_social_democracy
+    cost = 5
+
+    available = {
+      OR = {
+        has_completed_focus = FRA_daladier_path
+        has_completed_focus = FRA_blum_coalition
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      set_politics = {
+        ruling_party = democratic_ideology
+        elections_allowed = yes
+      }
+      if = {
+        limit = {
+          has_country_flag = FRA_chose_daladier
+        }
+        promote_character = {
+          character = FRA_edouard_daladier
+          ideology = socialism
+        }
+      }
+      else_if = {
+        limit = {
+          has_country_flag = FRA_chose_blum
+        }
+        promote_character = {
+          character = FRA_leon_blum
+          ideology = socialism
+        }
+      }
+      country_event = {
+        id = fra_scenario.2
+        hours = 1
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_social_republic
+    relative_position_id = FRA_third_republic_return
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_third_republic_return
+    }
+    icon = GFX_goal_generic_production
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_stability = 0.05
+      random_owned_controlled_state = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_auriol_presidency
+    relative_position_id = FRA_social_republic
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_social_republic
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_stability = 0.05
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_republic_confirmed
+    relative_position_id = FRA_auriol_presidency
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_auriol_presidency
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 7
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_ideas = FRA_republic_returned
+      set_country_flag = FRA_politics_settled
+    }
+  }
+
+  ##############################################
+  # 王党・国家主義列
+  ##############################################
+  focus = {
+    id = FRA_action_francaise
+    relative_position_id = FRA_empire_question
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_empire_question
+    }
+    icon = GFX_goal_support_fascism
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_bonaparte_charter
+      focus = FRA_republican_opposition
+      focus = FRA_cgt_underground
+      focus = FRA_guillaumat_technocrats
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = fascism_ideology
+        popularity = 0.15
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_maurras_circle
+    relative_position_id = FRA_action_francaise
+    x = -7
+    y = 1
+    prerequisite = {
+      focus = FRA_action_francaise
+    }
+    icon = GFX_focus_generic_soviet_politics
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = fascism_ideology
+        popularity = 0.05
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_bucard_shirts
+    relative_position_id = FRA_maurras_circle
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_maurras_circle
+    }
+    icon = GFX_focus_generic_military_dictatorship
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_manpower = 3000
+      add_popularity = {
+        ideology = fascism_ideology
+        popularity = 0.05
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_petain_regency
+    relative_position_id = FRA_bucard_shirts
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_bucard_shirts
+    }
+    icon = GFX_focus_generic_military_dictatorship
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_war_support = 0.05
+      army_experience = 10
+    }
+  }
+
+  focus = {
+    id = FRA_national_integral
+    relative_position_id = FRA_petain_regency
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_petain_regency
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_stability = 0.05
+      FRA_crown_toward_paris = yes
+    }
+  }
+
+  focus = {
+    id = FRA_coup_de_paris
+    relative_position_id = FRA_national_integral
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_national_integral
+    }
+    icon = GFX_goal_generic_dangerous_deal
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      country_event = {
+        id = fra_scenario.3
+        hours = 1
+      }
+      FRA_crown_toward_paris = yes
+    }
+  }
+
+  focus = {
+    id = FRA_french_state_new
+    relative_position_id = FRA_coup_de_paris
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_coup_de_paris
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 7
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      set_politics = {
+        ruling_party = fascism_ideology
+        elections_allowed = no
+      }
+      promote_character = {
+        character = FRA_philippe_petain
+        ideology = rexism
+      }
+      FRA_crown_toward_paris_large = yes
+      set_country_flag = {
+        flag = FRA_politics_settled
+      }
+    }
+  }
+
+  ##############################################
+  # 共産列
+  ##############################################
+  focus = {
+    id = FRA_cgt_underground
+    relative_position_id = FRA_empire_question
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = FRA_empire_question
+    }
+    icon = GFX_goal_generic_red_army
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_bonaparte_charter
+      focus = FRA_republican_opposition
+      focus = FRA_action_francaise
+      focus = FRA_guillaumat_technocrats
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.15
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_thorez_party
+    relative_position_id = FRA_cgt_underground
+    x = -7
+    y = 1
+    prerequisite = {
+      focus = FRA_cgt_underground
+    }
+    icon = GFX_goal_support_communism
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_nicod_marxists
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.05
+      }
+      add_political_power = 25
+      set_country_flag = {
+        flag = FRA_chose_thorez
+      }
+      promote_character = {
+        character = FRA_maurice_thorez
+        ideology = stalinism
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_nicod_marxists
+    relative_position_id = FRA_cgt_underground
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = FRA_cgt_underground
+    }
+    icon = GFX_focus_generic_soviet_politics
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_thorez_party
+    }
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.05
+      }
+      add_war_support = 0.05
+      set_country_flag = {
+        flag = FRA_chose_nicod
+      }
+      promote_character = {
+        character = FRA_rene_nicod
+        ideology = marxism
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_popular_front
+    relative_position_id = FRA_cgt_underground
+    x = -3
+    y = 1
+    prerequisite = {
+      focus = FRA_cgt_underground
+    }
+    icon = GFX_goal_support_fourth_int
+    cost = 5
+
+    available = {
+      OR = {
+        has_completed_focus = FRA_thorez_party
+        has_completed_focus = FRA_nicod_marxists
+      }
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_stability = 0.05
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.05
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_peoples_commissariats
+    relative_position_id = FRA_popular_front
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_popular_front
+    }
+    icon = GFX_goal_generic_production
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      set_politics = {
+        ruling_party = communism_ideology
+        elections_allowed = no
+      }
+      add_popularity = {
+        ideology = communism_ideology
+        popularity = 0.05
+      }
+      if = {
+        limit = {
+          has_country_flag = FRA_chose_thorez
+        }
+        promote_character = {
+          character = FRA_maurice_thorez
+          ideology = stalinism
+        }
+      }
+      else_if = {
+        limit = {
+          has_country_flag = FRA_chose_nicod
+        }
+        promote_character = {
+          character = FRA_rene_nicod
+          ideology = marxism
+        }
+      }
+      else = {
+        promote_character = {
+          character = FRA_maurice_thorez
+          ideology = stalinism
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_red_iberia_link
+    relative_position_id = FRA_peoples_commissariats
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_peoples_commissariats
+    }
+    icon = GFX_focus_por_latin_american_communism
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_stability = 0.05
+      add_manpower = 5000
+    }
+  }
+
+  focus = {
+    id = FRA_paris_commune_new
+    relative_position_id = FRA_red_iberia_link
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_red_iberia_link
+    }
+    icon = GFX_goal_generic_major_war
+    cost = 7
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      country_event = {
+        id = fra_scenario.4
+        hours = 1
+      }
+      set_country_flag = FRA_politics_settled
+    }
+  }
+
+  ##############################################
+  # 中道技術官僚列
+  ##############################################
+  focus = {
+    id = FRA_guillaumat_technocrats
+    relative_position_id = FRA_empire_question
+    x = 12
+    y = 1
+    prerequisite = {
+      focus = FRA_empire_question
+    }
+    icon = GFX_focus_generic_self_management
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_bonaparte_charter
+      focus = FRA_republican_opposition
+      focus = FRA_action_francaise
+      focus = FRA_cgt_underground
+    }
+    ai_will_do = {
+      factor = 2
+    }
+    completion_reward = {
+      add_popularity = {
+        ideology = neutrality_ideology
+        popularity = 0.1
+      }
+      add_political_power = 50
+      set_country_flag = FRA_grandes_ecoles_unlocked
+    }
+  }
+
+  focus = {
+    id = FRA_merit_council
+    relative_position_id = FRA_guillaumat_technocrats
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = FRA_guillaumat_technocrats
+    }
+    icon = GFX_goal_generic_army_doctrines
+    cost = 5
+
+    ai_will_do = {
+      factor = 2
+    }
+    completion_reward = {
+      add_political_power = 50
+      army_experience = 10
+    }
+  }
+
+  focus = {
+    id = FRA_planification
+    relative_position_id = FRA_merit_council
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_merit_council
+    }
+    icon = GFX_goal_generic_construct_civilian
+    cost = 5
+
+    ai_will_do = {
+      factor = 2
+    }
+    completion_reward = {
+      add_tech_bonus = {
+        name = planification_bonus
+        bonus = 0.5
+        uses = 2
+        category = industry
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_apolitical_state
+    relative_position_id = FRA_planification
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_planification
+    }
+    icon = GFX_goal_generic_political_pressure
+    cost = 5
+
+    ai_will_do = {
+      factor = 2
+    }
+    completion_reward = {
+      set_politics = {
+        ruling_party = neutrality_ideology
+        elections_allowed = no
+      }
+      promote_character = {
+        character = FRA_denis_guillaumat
+        ideology = centrism
+      }
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = FRA_experts_charter
+    relative_position_id = FRA_apolitical_state
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_apolitical_state
+    }
+    icon = GFX_focus_generic_treaty
+    cost = 7
+
+    ai_will_do = {
+      factor = 2
+    }
+    completion_reward = {
+      add_political_power = 100
+      add_stability = 0.05
+      promote_character = {
+        character = FRA_denis_guillaumat
+        ideology = centrism
+      }
+      set_country_flag = {
+        flag = FRA_politics_settled
+      }
+    }
+  }
+
+  ##############################################
+  # イベリア統治列
+  ##############################################
+  focus = {
+    id = FRA_iberian_administration
+    relative_position_id = FRA_iberian_patrimony
+    x = 8
+    y = 1
+    prerequisite = {
+      focus = FRA_iberian_patrimony
+    }
+    icon = GFX_focus_generic_self_management
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_madrid_palace
+    relative_position_id = FRA_iberian_administration
+    x = 11
+    y = 1
+    prerequisite = {
+      focus = FRA_iberian_administration
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      add_stability = 0.05
+      41 = {
+        add_extra_state_shared_building_slots = 1
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_direct_departements
+    relative_position_id = FRA_madrid_palace
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = FRA_madrid_palace
+    }
+    icon = GFX_goal_generic_political_pressure
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_autonomy_charter
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_stability = -0.05
+      add_political_power = 50
+      FRA_crown_toward_paris = yes
+    }
+  }
+
+  focus = {
+    id = FRA_autonomy_charter
+    relative_position_id = FRA_madrid_palace
+    x = 8
+    y = 1
+    prerequisite = {
+      focus = FRA_madrid_palace
+    }
+    icon = GFX_focus_generic_diplomatic_treaty
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_direct_departements
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_stability = 0.05
+      add_political_power = 50
+      FRA_crown_toward_lisbon = yes
+    }
+  }
+
+  focus = {
+    id = FRA_iberian_governate
+    relative_position_id = FRA_autonomy_charter
+    x = 9
+    y = 1
+    prerequisite = {
+      focus = FRA_autonomy_charter
+    }
+    icon = GFX_focus_generic_monarchy_1
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_stability = 0.05
+      set_country_flag = {
+        flag = FRA_iberian_governate_ready
+      }
+      custom_effect_tooltip = FRA_iberian_governate_tt
+    }
+  }
+
+  focus = {
+    id = FRA_catalan_autonomy
+    relative_position_id = FRA_iberian_governate
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_iberian_governate
+    }
+    icon = GFX_goal_generic_more_territorial_claims
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_stability = 0.05
+      FRA_release_cat_governate = yes
+      custom_effect_tooltip = FRA_release_cat_tt
+    }
+  }
+
+  focus = {
+    id = FRA_basque_statute
+    relative_position_id = FRA_catalan_autonomy
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_catalan_autonomy
+    }
+    icon = GFX_goal_generic_more_territorial_claims
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_stability = 0.05
+      FRA_release_nav_governate = yes
+      custom_effect_tooltip = FRA_release_nav_tt
+    }
+  }
+
+  focus = {
+    id = FRA_galician_cortes
+    relative_position_id = FRA_basque_statute
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_basque_statute
+    }
+    icon = GFX_goal_generic_more_territorial_claims
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_stability = 0.05
+      FRA_release_glc_governate = yes
+      custom_effect_tooltip = FRA_release_glc_tt
+    }
+  }
+
+  focus = {
+    id = FRA_andalusian_question
+    relative_position_id = FRA_direct_departements
+    x = 9
+    y = 1
+    prerequisite = {
+      focus = FRA_direct_departements
+    }
+    icon = GFX_goal_generic_political_pressure
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_stability = -0.05
+      every_owned_state = {
+        limit = {
+          is_core_of = ADU
+        }
+        add_compliance = 10
+      }
+      custom_effect_tooltip = FRA_andalusian_direct_tt
+    }
+  }
+
+  focus = {
+    id = FRA_iberia_integrated
+    relative_position_id = FRA_madrid_palace
+    x = 12
+    y = 1
+    prerequisite = {
+      focus = FRA_madrid_palace
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 7
+
+    available = {
+      OR = {
+        has_completed_focus = FRA_galician_cortes
+        has_completed_focus = FRA_iberian_governate
+        has_completed_focus = FRA_andalusian_question
+      }
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      remove_ideas = FRA_iberian_burden
+      add_stability = 0.1
+      add_political_power = 100
+    }
+  }
+
+  ##############################################
+  # PAL連携列（二つの王冠）
+  ##############################################
+  focus = {
+    id = FRA_paris_two_crowns
+    relative_position_id = FRA_crown_scales_focus
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = FRA_crown_scales_focus
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      if = {
+        limit = {
+          NOT = {
+            has_country_flag = FRA_crown_seat_active
+          }
+        }
+        FRA_init_crown_seat = yes
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_lisbon_cortes
+    relative_position_id = FRA_paris_two_crowns
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_paris_two_crowns
+    }
+    icon = GFX_goal_generic_multipartism
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      FRA_crown_toward_lisbon = yes
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_palis_envoy
+    relative_position_id = FRA_lisbon_cortes
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_lisbon_cortes
+    }
+    icon = GFX_goal_generic_intelligence_exchange
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      FRA_crown_toward_lisbon = yes
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_crown_in_lisbon
+    relative_position_id = FRA_palis_envoy
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = FRA_palis_envoy
+    }
+    icon = GFX_focus_generic_monarchy_1
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      FRA_crown_toward_lisbon_large = yes
+    }
+  }
+
+  focus = {
+    id = FRA_madeira_station
+    relative_position_id = FRA_crown_in_lisbon
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = FRA_crown_in_lisbon
+    }
+    icon = GFX_goal_generic_naval_effort2
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      FRA_crown_toward_lisbon = yes
+      navy_experience = 15
+    }
+  }
+
+  focus = {
+    id = FRA_dual_coronation
+    relative_position_id = FRA_madeira_station
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = FRA_madeira_station
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 7
+
+    mutually_exclusive = {
+      focus = FRA_pal_separation
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      FRA_crown_toward_lisbon_large = yes
+      add_stability = 0.05
+      set_country_flag = FRA_dual_coronation_done
+    }
+  }
+
+  focus = {
+    id = FRA_union_of_crowns
+    relative_position_id = FRA_dual_coronation
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_dual_coronation
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 10
+
+    available = {
+      FRA_crown_at_lisbon = yes
+      PAL = {
+        exists = yes
+        is_subject = no
+      }
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      hidden_effect = {
+        PAL = {
+          country_event = {
+            id = fra_scenario.10
+            days = 1
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_pal_separation
+    relative_position_id = FRA_madeira_station
+    x = 2
+    y = 1
+    prerequisite = {
+      focus = FRA_madeira_station
+    }
+    icon = GFX_goal_generic_peaceful_diplomacy
+    cost = 7
+
+    mutually_exclusive = {
+      focus = FRA_dual_coronation
+    }
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      hidden_effect = {
+        PAL = {
+          country_event = {
+            id = fra_scenario.11
+            days = 1
+          }
+        }
+      }
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_lisbon_joint_fleet
+    relative_position_id = FRA_pal_separation
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_pal_separation
+    }
+    icon = GFX_goal_generic_navy_cruiser
+    cost = 5
+
+    available = {
+      OR = {
+        has_completed_focus = FRA_dual_coronation
+        has_completed_focus = FRA_pal_separation
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      navy_experience = 20
+      add_tech_bonus = {
+        name = lisbon_fleet_bonus
+        bonus = 0.5
+        uses = 1
+        category = naval_equipment
+      }
+    }
+  }
+
+  ##############################################
+  # 産業列
+  ##############################################
+  focus = {
+    id = FRA_iberian_mines
+    x = 75
+    y = 0
+    icon = GFX_goal_generic_production
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      add_tech_bonus = {
+        name = mines_bonus
+        bonus = 0.5
+        uses = 1
+        category = industry
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_rio_tinto_concessions
+    relative_position_id = FRA_iberian_mines
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_iberian_mines
+    }
+    icon = GFX_goal_generic_trade
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_political_power = 50
+      173 = {
+        add_extra_state_shared_building_slots = 1
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_asturias_coal
+    relative_position_id = FRA_rio_tinto_concessions
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_rio_tinto_concessions
+    }
+    icon = GFX_focus_generic_industry_1
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_resource = {
+        type = coal
+        amount = 8
+        state = 790
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_basque_steel
+    relative_position_id = FRA_asturias_coal
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_asturias_coal
+    }
+    icon = GFX_focus_generic_industry_2
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_resource = {
+        type = steel
+        amount = 8
+        state = 792
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_pyrennees_rail
+    x = 81
+    y = 0
+    icon = GFX_focus_generic_railroad
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      172 = {
+        add_building_construction = {
+          type = infrastructure
+          level = 1
+          instant_build = yes
+        }
+      }
+      793 = {
+        add_building_construction = {
+          type = infrastructure
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_madrid_workshops
+    relative_position_id = FRA_pyrennees_rail
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_pyrennees_rail
+    }
+    icon = GFX_focus_generic_industry_1
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      41 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_renault_contracts
+    relative_position_id = FRA_madrid_workshops
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_madrid_workshops
+    }
+    icon = GFX_focus_generic_tank_production
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      41 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = arms_factory
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_colonial_ports
+    x = 89
+    y = 0
+    icon = GFX_goal_generic_construct_naval_dockyard
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_equipment_to_stockpile = {
+        type = convoy
+        amount = 30
+      }
+      708 = {
+        add_building_construction = {
+          type = naval_base
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_five_year_plan
+    relative_position_id = FRA_renault_contracts
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_renault_contracts
+    }
+    icon = GFX_goal_generic_production
+    cost = 7
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_tech_bonus = {
+        name = five_year_bonus
+        bonus = 0.5
+        uses = 2
+        category = industry
+      }
+      random_owned_controlled_state = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = industrial_complex
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_channel_trade
+    x = 91
+    y = 1
+    prerequisite = {
+      focus = FRA_colonial_ports
+    }
+    icon = GFX_goal_generic_trade
+    cost = 5
+
+
+    available = {
+      OR = {
+        has_completed_focus = FRA_channel_entente
+        has_completed_focus = FRA_channel_rivalry
+      }
+      has_completed_focus = FRA_dover_question
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_equipment_to_stockpile = {
+        type = convoy
+        amount = 20
+      }
+    }
+  }
+
+  ##############################################
+  # 対ESP産業枝
+  ##############################################
+  focus = {
+    id = FRA_machine_for_orinoco
+    x = 87
+    y = 1
+    prerequisite = {
+      focus = FRA_colonial_ports
+    }
+    icon = GFX_goal_generic_oil_refinery
+    cost = 5
+
+    available = {
+      has_completed_focus = FRA_spain_handshake
+    }
+
+    mutually_exclusive = {
+      focus = FRA_embargo_exile_oil
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_plus_small = yes
+      }
+      add_fuel = 1000
+    }
+  }
+
+  focus = {
+    id = FRA_curacao_joint_slot
+    relative_position_id = FRA_machine_for_orinoco
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_machine_for_orinoco
+    }
+    icon = GFX_goal_generic_oil_refinery
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_plus_small = yes
+      }
+      add_fuel = 1000
+    }
+  }
+
+  focus = {
+    id = FRA_embargo_exile_oil
+    x = 81
+    y = 4
+    prerequisite = {
+      focus = FRA_five_year_plan
+    }
+    icon = GFX_goal_generic_dangerous_deal
+    cost = 5
+
+    available = {
+      has_completed_focus = FRA_spain_cold_file
+    }
+
+    mutually_exclusive = {
+      focus = FRA_machine_for_orinoco
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_minus_small = yes
+      }
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = FRA_iberian_autarky
+    relative_position_id = FRA_embargo_exile_oil
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_embargo_exile_oil
+    }
+    icon = GFX_focus_generic_industry_3
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_minus_small = yes
+      }
+      169 = {
+        add_extra_state_shared_building_slots = 1
+        add_building_construction = {
+          type = arms_factory
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  ##############################################
+  # 軍事列
+  ##############################################
+  focus = {
+    id = FRA_grand_armee_review
+    x = 101
+    y = 0
+    icon = GFX_goal_generic_major_war
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      army_experience = 20
+    }
+  }
+
+  focus = {
+    id = FRA_gamelin_doctrine
+    relative_position_id = FRA_grand_armee_review
+    x = -4
+    y = 1
+    prerequisite = {
+      focus = FRA_grand_armee_review
+    }
+    icon = GFX_goal_generic_army_doctrines
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_degaulle_armor
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      army_experience = 15
+      add_tech_bonus = {
+        name = gamelin_bonus
+        bonus = 0.5
+        uses = 1
+        category = land_doctrine
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_degaulle_armor
+    relative_position_id = FRA_grand_armee_review
+    x = 4
+    y = 1
+    prerequisite = {
+      focus = FRA_grand_armee_review
+    }
+    icon = GFX_goal_generic_army_tanks
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_gamelin_doctrine
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      army_experience = 15
+      add_tech_bonus = {
+        name = armor_bonus
+        bonus = 0.75
+        uses = 1
+        category = armor
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_maginot_extension
+    relative_position_id = FRA_gamelin_doctrine
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_gamelin_doctrine
+    }
+    icon = GFX_goal_fortify_the_westwall
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      28 = {
+        add_building_construction = {
+          type = bunker
+          level = 2
+          instant_build = yes
+          province = {
+            all_provinces = yes
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_pyrenees_line
+    relative_position_id = FRA_maginot_extension
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_maginot_extension
+    }
+    icon = GFX_focus_generic_coastal_fort
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      172 = {
+        add_building_construction = {
+          type = bunker
+          level = 2
+          instant_build = yes
+        }
+      }
+      806 = {
+        add_building_construction = {
+          type = bunker
+          level = 2
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_alpine_forts
+    relative_position_id = FRA_pyrenees_line
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_pyrenees_line
+    }
+    text = FRA_alpine_forts_focus
+    icon = GFX_goal_generic_fortification
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      735 = {
+        add_building_construction = {
+          type = bunker
+          level = 2
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_colonial_army
+    relative_position_id = FRA_grand_armee_review
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_grand_armee_review
+    }
+    icon = GFX_goal_generic_army_motorized
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_manpower = 5000
+      army_experience = 10
+    }
+  }
+
+  focus = {
+    id = FRA_darlan_fleet
+    x = 117
+    y = 0
+    icon = GFX_goal_generic_navy_battleship
+    cost = 5
+
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      navy_experience = 20
+    }
+  }
+
+  focus = {
+    id = FRA_atlantic_squadron
+    relative_position_id = FRA_darlan_fleet
+    x = -2
+    y = 1
+    prerequisite = {
+      focus = FRA_darlan_fleet
+    }
+    icon = GFX_goal_generic_navy_cruiser
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      navy_experience = 15
+      835 = {
+        add_building_construction = {
+          type = naval_base
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_mediterranean_squadron
+    relative_position_id = FRA_darlan_fleet
+    x = 6
+    y = 1
+    prerequisite = {
+      focus = FRA_darlan_fleet
+    }
+    icon = GFX_goal_generic_naval_effort2
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      navy_experience = 15
+    }
+  }
+
+  focus = {
+    id = FRA_vuillemin_air
+    x = 129
+    y = 0
+    icon = GFX_goal_generic_air_fighter
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      air_experience = 20
+    }
+  }
+
+  focus = {
+    id = FRA_air_reserve
+    relative_position_id = FRA_vuillemin_air
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_vuillemin_air
+    }
+    icon = GFX_goal_generic_air_production
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      air_experience = 15
+      add_tech_bonus = {
+        name = air_reserve_bonus
+        bonus = 0.5
+        uses = 1
+        category = air_equipment
+      }
+    }
+  }
+
+  ##############################################
+  # 対ESP軍事枝
+  ##############################################
+  focus = {
+    id = FRA_joint_antilles_patrol
+    x = 111
+    y = 1
+    prerequisite = {
+      focus = FRA_darlan_fleet
+    }
+    icon = GFX_goal_generic_naval_effort2
+    cost = 5
+
+    available = {
+      has_completed_focus = FRA_spain_handshake
+    }
+
+    mutually_exclusive = {
+      focus = FRA_exile_asw_race
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_plus_small = yes
+      }
+      navy_experience = 15
+    }
+  }
+
+  focus = {
+    id = FRA_strait_shared_watch
+    relative_position_id = FRA_joint_antilles_patrol
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_joint_antilles_patrol
+    }
+    icon = GFX_goal_generic_navy_cruiser
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_plus_small = yes
+      }
+      navy_experience = 10
+    }
+  }
+
+  focus = {
+    id = FRA_exile_asw_race
+    x = 119
+    y = 1
+    prerequisite = {
+      focus = FRA_darlan_fleet
+    }
+    icon = GFX_goal_generic_navy_anti_submarine
+    cost = 5
+
+    available = {
+      has_completed_focus = FRA_spain_cold_file
+    }
+
+    mutually_exclusive = {
+      focus = FRA_joint_antilles_patrol
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_minus_small = yes
+      }
+      add_tech_bonus = {
+        name = fra_asw_bonus
+        bonus = 0.75
+        uses = 1
+        category = naval_equipment
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_antilles_blockade_plan
+    relative_position_id = FRA_exile_asw_race
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_exile_asw_race
+    }
+    icon = GFX_goal_generic_navy_submarine
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      navy_experience = 15
+      add_war_support = 0.05
+    }
+  }
+
+  ##############################################
+  # 対ESP関係列（スペイン問題）
+  ##############################################
+  focus = {
+    id = FRA_spain_question
+    relative_position_id = FRA_crown_scales_focus
+    x = 13
+    y = -1
+    prerequisite = {
+      focus = FRA_iberian_administration
+    }
+    icon = GFX_focus_generic_anti_fascist_diplomacy
+    cost = 5
+
+    ai_will_do = {
+      factor = 8
+    }
+    completion_reward = {
+      add_political_power = 25
+      ESP = {
+        custom_effect_tooltip = ESP_rapport_tt
+      }
+      custom_effect_tooltip = FRA_crown_seat_tt
+    }
+  }
+
+  focus = {
+    id = FRA_spain_handshake
+    relative_position_id = FRA_spain_question
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = FRA_spain_question
+    }
+    icon = GFX_goal_generic_peaceful_diplomacy
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_spain_cold_file
+    }
+    ai_will_do = {
+      factor = 7
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_plus_large = yes
+        custom_effect_tooltip = ESP_rapport_tt
+      }
+      set_country_flag = {
+        flag = FRA_chose_friendship
+      }
+      hidden_effect = {
+        if = {
+          limit = {
+            ESP = { has_country_flag = ESP_chose_hostility }
+          }
+          ESP = {
+            country_event = {
+              id = fra_scenario.20
+              days = 1
+            }
+          }
+        }
+        else = {
+          ESP = {
+            country_event = {
+              id = fra_scenario.12
+              days = 1
+            }
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_spain_cold_file
+    relative_position_id = FRA_spain_question
+    x = 7
+    y = 1
+    prerequisite = {
+      focus = FRA_spain_question
+    }
+    icon = GFX_goal_generic_intelligence_exchange
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_spain_handshake
+    }
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_minus_large = yes
+      }
+      set_country_flag = FRA_chose_hostility
+      hidden_effect = {
+        if = {
+          limit = {
+            ESP = { has_country_flag = ESP_chose_friendship }
+          }
+          ESP = {
+            country_event = {
+              id = fra_scenario.20
+              days = 1
+            }
+          }
+        }
+        else = {
+          ESP = {
+            country_event = {
+              id = fra_scenario.13
+              days = 1
+            }
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_caracas_recognition
+    relative_position_id = FRA_spain_handshake
+    x = 9
+    y = 1
+    prerequisite = {
+      focus = FRA_spain_handshake
+    }
+    icon = GFX_goal_generic_improve_relations
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_plus_small = yes
+        ESP_add_proof_recognition = yes
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_iberian_joint_charter_fra
+    relative_position_id = FRA_caracas_recognition
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_caracas_recognition
+    }
+    icon = GFX_focus_generic_diplomatic_treaty
+    cost = 7
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_plus_large = yes
+      }
+      set_country_flag = FRA_charter_signed
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = FRA_atlantic_entente_fra
+    relative_position_id = FRA_iberian_joint_charter_fra
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_iberian_joint_charter_fra
+    }
+    icon = GFX_goal_generic_alliance
+    cost = 7
+
+    available = {
+      OR = {
+        has_completed_focus = FRA_curacao_joint_slot
+        has_completed_focus = FRA_strait_shared_watch
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_plus_large = yes
+      }
+      add_political_power = 100
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = FRA_exile_spain_watch
+    relative_position_id = FRA_spain_cold_file
+    x = 9
+    y = 1
+    prerequisite = {
+      focus = FRA_spain_cold_file
+    }
+    icon = GFX_goal_generic_intelligence_exchange
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_minus_small = yes
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_caribbean_expedition
+    relative_position_id = FRA_exile_spain_watch
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_exile_spain_watch
+    }
+    icon = GFX_goal_generic_territory_or_war
+    cost = 7
+
+    available = {
+      NOT = {
+        has_completed_focus = FRA_iberian_joint_charter_fra
+      }
+      ESP = {
+        exists = yes
+      }
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_minus_large = yes
+      }
+      create_wargoal = {
+        type = annex_everything
+        target = ESP
+      }
+    }
+  }
+
+  ##############################################
+  # アンドラ列
+  ##############################################
+  focus = {
+    id = FRA_andorra_valley
+    relative_position_id = FRA_spain_question
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = FRA_spain_question
+    }
+    icon = GFX_focus_generic_military_mission
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_imperial_coprince
+    relative_position_id = FRA_andorra_valley
+    x = 5
+    y = 1
+    prerequisite = {
+      focus = FRA_andorra_valley
+    }
+    icon = GFX_focus_generic_monarchy_1
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_stability = 0.05
+    }
+  }
+
+  focus = {
+    id = FRA_coprincipality_offer
+    relative_position_id = FRA_imperial_coprince
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = FRA_imperial_coprince
+    }
+    icon = GFX_goal_generic_peaceful_diplomacy
+    cost = 5
+
+    available = {
+      has_completed_focus = FRA_spain_handshake
+    }
+    mutually_exclusive = {
+      focus = FRA_andorra_fort
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      hidden_effect = {
+        ESP = {
+          country_event = {
+            id = fra_scenario.14
+            days = 1
+          }
+        }
+      }
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_release_adr
+    relative_position_id = FRA_coprincipality_offer
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_coprincipality_offer
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 7
+
+    available = {
+      OR = {
+        ESP = {
+          has_country_flag = ESP_andorra_consent
+        }
+        has_country_flag = FRA_andorra_consent
+      }
+      ADR = {
+        exists = no
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      release = ADR
+      if = {
+        limit = {
+          ADR = { exists = yes }
+        }
+        give_guarantee = ADR
+        ESP = {
+          give_guarantee = ADR
+        }
+      }
+      ESP = {
+        ESP_rapport_plus_small = yes
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_andorra_fort
+    relative_position_id = FRA_imperial_coprince
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = FRA_imperial_coprince
+    }
+    icon = GFX_focus_generic_coastal_fort
+    cost = 5
+
+    available = {
+      has_completed_focus = FRA_spain_cold_file
+    }
+    mutually_exclusive = {
+      focus = FRA_coprincipality_offer
+    }
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_minus_small = yes
+      }
+      925 = {
+        add_building_construction = {
+          type = bunker
+          level = 2
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_pyrenees_listen_post
+    relative_position_id = FRA_andorra_fort
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_andorra_fort
+    }
+    icon = GFX_goal_generic_radar
+    cost = 5
+
+    ai_will_do = {
+      factor = 3
+    }
+    completion_reward = {
+      ESP = {
+        ESP_rapport_minus_small = yes
+      }
+      army_experience = 10
+    }
+  }
+
+  focus = {
+    id = FRA_valley_customs
+    relative_position_id = FRA_andorra_valley
+    x = 9
+    y = 1
+    prerequisite = {
+      focus = FRA_andorra_valley
+    }
+    icon = GFX_goal_generic_trade
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_stability = 0.05
+    }
+  }
+
+  ##############################################
+  # 外交列
+  ##############################################
+  focus = {
+    id = FRA_dover_question
+    relative_position_id = FRA_imperial_review
+    x = -12
+    y = 1
+    prerequisite = {
+      focus = FRA_imperial_review
+    }
+    icon = GFX_goal_generic_fortification
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_ideas = FRA_dover_cliff
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_channel_entente
+    relative_position_id = FRA_dover_question
+    x = -13
+    y = 1
+    prerequisite = {
+      focus = FRA_dover_question
+    }
+    icon = GFX_goal_generic_alliance
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_channel_rivalry
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_stability = 0.05
+      add_political_power = 50
+    }
+  }
+
+  focus = {
+    id = FRA_channel_rivalry
+    relative_position_id = FRA_dover_question
+    x = -9
+    y = 1
+    prerequisite = {
+      focus = FRA_dover_question
+    }
+    icon = GFX_goal_generic_navy_anti_submarine
+    cost = 5
+
+    mutually_exclusive = {
+      focus = FRA_channel_entente
+    }
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      navy_experience = 15
+      835 = {
+        add_building_construction = {
+          type = coastal_bunker
+          level = 2
+          instant_build = yes
+          province = {
+            all_provinces = yes
+            limit_to_coastal = yes
+          }
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_rhineland_watch
+    relative_position_id = FRA_imperial_review
+    x = -8
+    y = 1
+    prerequisite = {
+      focus = FRA_imperial_review
+    }
+    icon = GFX_goal_generic_position_armies
+    cost = 5
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      army_experience = 15
+    }
+  }
+
+  focus = {
+    id = FRA_alsace_memory
+    relative_position_id = FRA_rhineland_watch
+    x = -9
+    y = 1
+    prerequisite = {
+      focus = FRA_rhineland_watch
+    }
+    icon = GFX_goal_generic_more_territorial_claims
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_war_support = 0.05
+      add_political_power = 25
+    }
+  }
+
+  focus = {
+    id = FRA_italian_border
+    relative_position_id = FRA_alsace_memory
+    x = 4
+    y = 0
+    prerequisite = {
+      focus = FRA_rhineland_watch
+    }
+    icon = GFX_goal_generic_position_armies
+    cost = 5
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_political_power = 50
+      735 = {
+        add_building_construction = {
+          type = infrastructure
+          level = 1
+          instant_build = yes
+        }
+      }
+    }
+  }
+
+  focus = {
+    id = FRA_monaco_status
+    relative_position_id = FRA_imperial_review
+    x = 3
+    y = 1
+    prerequisite = {
+      focus = FRA_imperial_review
+    }
+    icon = GFX_goal_generic_banking
+    cost = 5
+
+    ai_will_do = {
+      factor = 4
+    }
+    completion_reward = {
+      add_political_power = 50
+      add_stability = 0.05
+    }
+  }
+
+  ##############################################
+  # 終局列
+  ##############################################
+  focus = {
+    id = FRA_empire_of_west
+    relative_position_id = FRA_crown_scales_focus
+    x = 8
+    y = 0
+    prerequisite = {
+      focus = FRA_empire_question
+    }
+    icon = GFX_goal_generic_national_unity
+    cost = 10
+
+    available = {
+      has_country_flag = FRA_politics_settled
+    }
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_stability = 0.1
+      add_political_power = 100
+    }
+  }
+
+  focus = {
+    id = FRA_iberian_coronation
+    relative_position_id = FRA_empire_of_west
+    x = 5
+    y = 1
+    prerequisite = {
+      focus = FRA_empire_of_west
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 7
+
+    available = {
+      has_completed_focus = FRA_iberia_integrated
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_stability = 0.1
+      add_war_support = 0.05
+    }
+  }
+
+  focus = {
+    id = FRA_twin_thrones_final
+    relative_position_id = FRA_empire_of_west
+    x = 1
+    y = 1
+    prerequisite = {
+      focus = FRA_empire_of_west
+    }
+    icon = GFX_focus_generic_monarchy_1
+    cost = 7
+
+    available = {
+      OR = {
+        has_completed_focus = FRA_union_of_crowns
+        has_completed_focus = FRA_dual_coronation
+      }
+    }
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_ideas = FRA_crown_scales
+      add_stability = 0.1
+    }
+  }
+
+  focus = {
+    id = FRA_continent_master
+    relative_position_id = FRA_iberian_coronation
+    x = -1
+    y = 1
+    prerequisite = {
+      focus = FRA_iberian_coronation
+    }
+    icon = GFX_goal_generic_more_territorial_claims
+    cost = 7
+
+    ai_will_do = {
+      factor = 5
+    }
+    completion_reward = {
+      add_stability = 0.1
+      add_political_power = 100
+    }
+  }
+
+  focus = {
+    id = FRA_new_charlemagne
+    relative_position_id = FRA_continent_master
+    x = 0
+    y = 1
+    prerequisite = {
+      focus = FRA_continent_master
+    }
+    icon = GFX_focus_generic_monarchy_2
+    cost = 10
+
+    ai_will_do = {
+      factor = 6
+    }
+    completion_reward = {
+      add_political_power = 150
+      add_stability = 0.1
+      add_war_support = 0.1
+    }
+  }
+}

@@ -2,80 +2,107 @@ add_namespace = LON
 
 # ケルト統一イベント
 country_event = {
-    id = LON.18
-    title = LON.18.t
-    desc = LON.18.desc
-    picture = GFX_event_empty
-    
-    is_triggered_only = yes
-    
-    option = {
-        name = LON.18.a # 平和的統合を推進
-        ai_chance = {
-            factor = 70
-        }
-        add_stability = 0.05
-        add_political_power = 50
-        if = {
-            limit = { country_exists = IRE }
-            IRE = {
-                country_event = { id = LON.19 hours = 24 }
-            }
-        }
+  id = LON.18
+  title = LON.18.t
+  desc = LON.18.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  trigger = {
+    tag = LON
+    country_exists = IRE
+    has_war = no
+    IRE = {
+      has_war = no
     }
-    
-    option = {
-        name = LON.18.b # より強硬な手段を検討
-        ai_chance = {
-            factor = 30
-        }
-        add_war_support = 0.10
-        add_political_power = 25
-        if = {
-            limit = { country_exists = IRE }
-            add_opinion_modifier = {
-                target = IRE
-                modifier = LON_celtic_pressure
-            }
-        }
+    NOT = {
+      has_country_flag = LON_ts_federal_invitation_sent
     }
+  }
+  immediate = {
+    set_country_flag = LON_ts_federal_invitation_sent
+  }
+  option = {
+    name = LON.18.a
+    ai_chance = {
+      factor = 70
+    }
+    add_stability = 0.05
+    add_political_power = 50
+    if = {
+      limit = {
+        country_exists = IRE
+      }
+      IRE = {
+        country_event = {
+          id = LON.19
+          hours = 24
+        }
+      }
+    }
+  }
+  option = {
+    name = LON.18.b
+    ai_chance = {
+      factor = 30
+    }
+    add_war_support = 0.10
+    add_political_power = 25
+    if = {
+      limit = {
+        country_exists = IRE
+      }
+      add_opinion_modifier = {
+        target = IRE
+        modifier = LON_celtic_pressure
+      }
+    }
+  }
 }
 
 # アイルランド側の応答イベント
 country_event = {
-    id = LON.19
-    title = LON.19.t
-    desc = LON.19.desc
-    picture = GFX_event_empty
-    
-    is_triggered_only = yes
-    
-    option = {
-        name = LON.19.a # 協力を受け入れる
-        ai_chance = {
-            factor = 50
-        }
-        add_opinion_modifier = {
-            target = LON
-            modifier = LON_celtic_cooperation
-        }
-        FROM = {
-            add_opinion_modifier = {
-                target = ROOT
-                modifier = LON_celtic_cooperation
-            }
-        }
+  id = LON.19
+  title = LON.19.t
+  desc = LON.19.desc
+  picture = GFX_event_empty
+  is_triggered_only = yes
+  trigger = {
+    tag = IRE
+    country_exists = LON
+    has_war = no
+    LON = {
+      has_war = no
     }
-    
-    option = {
-        name = LON.19.b # 独立を維持する
-        ai_chance = {
-            factor = 50
-        }
-        add_stability = 0.03
-        add_opinion_modifier = {
-            target = LON
-            modifier = LON_celtic_resistance
-        }
+  }
+  option = {
+    name = LON.19.a
+    add_ideas = LON_ts_federal_compact
+    LON = {
+      add_ideas = LON_ts_federal_compact
     }
+    ai_chance = {
+      factor = 50
+    }
+    add_opinion_modifier = {
+      target = LON
+      modifier = LON_celtic_cooperation
+    }
+    FROM = {
+      add_opinion_modifier = {
+        target = ROOT
+        modifier = LON_celtic_cooperation
+      }
+    }
+  }
+  option = {
+    name = LON.19.b
+    ai_chance = {
+      factor = 50
+    }
+    add_stability = 0.03
+    add_opinion_modifier = {
+      target = LON
+      modifier = LON_celtic_resistance
+    }
+  }
 }

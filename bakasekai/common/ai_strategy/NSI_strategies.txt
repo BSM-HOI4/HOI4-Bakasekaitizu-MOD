@@ -1,0 +1,86 @@
+# NSI 孤立・GMI・外界AI戦略
+
+NSI_isolation_default = {
+  enable = {
+    original_tag = NSI
+    has_idea = nsi_ancient_isolation
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = alliance
+    id = "RAJ"
+    value = -200
+  }
+  ai_strategy = {
+    type = alliance
+    id = "IND"
+    value = -200
+  }
+  ai_strategy = {
+    type = befriend
+    id = "RAJ"
+    value = -50
+  }
+}
+
+NSI_protect_gmi = {
+  enable = {
+    original_tag = NSI
+    GMI = { exists = yes }
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = protect
+    id = "GMI"
+    value = 200
+  }
+  ai_strategy = {
+    type = befriend
+    id = "GMI"
+    value = 100
+  }
+}
+
+NSI_repel_outsiders = {
+  enable = {
+    original_tag = NSI
+    has_completed_focus = NSI_repel_the_sails
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = antagonize
+    id = "RAJ"
+    value = 40
+  }
+  ai_strategy = {
+    type = contain
+    id = "IND"
+    value = 30
+  }
+}
+
+NSI_no_armor_air = {
+  enable = {
+    original_tag = NSI
+  }
+  abort_when_not_enabled = yes
+
+  ai_strategy = {
+    type = role_ratio
+    id = armor
+    value = -100
+  }
+  ai_strategy = {
+    type = role_ratio
+    id = aviation_cas
+    value = -80
+  }
+  ai_strategy = {
+    type = role_ratio
+    id = aviation_fighter
+    value = -80
+  }
+}

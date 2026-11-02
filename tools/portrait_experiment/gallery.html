@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portrait Lab — 1990年代風ポートレート比較</title>
+<style>
+  :root { color-scheme: light; font: 14px/1.6 system-ui, sans-serif; color: #111; background: #008080; }
+  * { box-sizing: border-box; }
+  body { max-width: 1180px; margin: 24px auto; padding: 0 12px; }
+  main { padding: 4px 16px 20px; background: #c0c0c0; border: 2px solid; border-color: white #222 #222 white; box-shadow: 3px 3px #004848; }
+  h1 { margin: 0 -12px 12px; padding: 5px 10px; font-size: 18px; color: white; background: #000080; }
+  h2 { font-size: 16px; margin: 22px 0 8px; }
+  p { margin: 8px 0; }
+  a { color: #000080; text-underline-offset: 3px; }
+  button, select { font: inherit; color: #111; }
+  button { padding: 5px 12px; background: #c0c0c0; border: 2px solid; border-color: white #333 #333 white; cursor: pointer; }
+  button:active, button[aria-pressed="true"] { border-color: #333 white white #333; background: #ddd; }
+  button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid #000080; outline-offset: 3px; }
+  select { min-width: 150px; max-width: 100%; padding: 4px; background: white; border: 2px inset #eee; }
+  .notice { padding: 8px 10px; background: #ffffe1; border: 1px solid #808000; }
+  .controls { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 18px; padding: 14px 0; }
+  label { display: grid; gap: 4px; }
+  .presets, .views, .links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 12px; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  figure { margin: 0; min-width: 0; border: 2px inset white; background: #c0c0c0; }
+  figcaption { padding: 6px 10px; border-bottom: 1px solid #888; font-weight: 600; background: #ddd; }
+  .imagewell { padding: 16px; min-height: 260px; overflow: auto; display: flex; align-items: start; justify-content: safe center; }
+  .portrait { display: block; flex: none; max-width: none; image-rendering: pixelated; border: 1px solid #444; box-sizing: content-box; }
+  .facts { font-variant-numeric: tabular-nums; min-height: 26px; }
+  .path { font: 12px/1.6 ui-monospace, monospace; overflow-wrap: anywhere; }
+  table { width: 100%; border-collapse: collapse; background: #eee; }
+  th, td { padding: 8px; text-align: left; border: 1px solid #888; }
+  th { background: #ddd; }
+  details { margin-top: 20px; }
+  summary { cursor: pointer; font-weight: 600; }
+  .small { font-size: 12px; }
+  @media(max-width: 640px) { body { margin: 8px auto; } main { padding: 4px 10px 14px; } h1 { margin: 0 -6px 10px; } .stage { grid-template-columns: 1fr; } select { min-width: 120px; } }
+</style>
+<main>
+  <h1>Portrait Lab / 1990年代風・ローカル比較</h1>
+  <p class="notice">比較用の模式画面です。実ゲームのスクリーンショットではありません。2026-10-29に選択設定を通常肖像793枚へ本番適用しました。ここでの比較には保存した原本と候補画像を使っています。</p>
+  <p>同じ人物のまま、縮小・減色・ディザだけを比較します。全18条件に加え、縮小だけ／減色だけの対照画像を選べます。</p>
+  <div class="controls">
+    <label>人物<select id="sample"></select></label>
+    <label>内部解像度<select id="resolution"><option value="104x140" selected>104 × 140（2/3）</option><option value="78x105">78 × 105（1/2）</option><option value="52x70">52 × 70（1/3）</option><option value="156x210">156 × 210（減色のみ）</option></select></label>
+    <label>RGB色数上限<select id="colors"><option value="256" selected>256色</option><option value="64">64色</option><option value="32">32色</option><option value="rgb">フルカラー（縮小のみ）</option></select></label>
+    <label>ディザ<select id="dither"><option value="none">なし</option><option value="fs" selected>Floyd–Steinberg</option></select></label>
+  </div>
+  <div class="presets"><span>選択候補：</span><button type="button" data-preset="P">104×140 / 256色 / FS</button><span>比較用：</span><button type="button" data-preset="A">A 細部優先</button><button type="button" data-preset="B">B バランス</button><button type="button" data-preset="C">C ディザあり</button></div>
+  <div class="views"><span>表示：</span><button type="button" data-zoom="1" aria-pressed="true">1× / 156×210</button><button type="button" data-zoom="2">2×</button><button type="button" data-zoom="4">4×</button><button type="button" data-zoom="0.55">国家カード ≈0.55×</button><button type="button" data-zoom="0.42">少数国詳細 ≈0.42×</button><label>表示補間<select id="sampling"><option value="pixelated">最近傍</option><option value="auto">ブラウザー標準</option></select></label></div>
+  <p class="facts" id="facts" aria-live="polite"></p>
+  <div class="stage">
+    <figure><figcaption>原本（比較用PNG）</figcaption><div class="imagewell"><img class="portrait" id="original" alt="原本の肖像" width="156" height="210"></div></figure>
+    <figure><figcaption id="result-caption">候補B</figcaption><div class="imagewell"><img class="portrait" id="result" alt="変換した肖像" width="156" height="210"></div></figure>
+  </div>
+  <p class="small">1×はPNGの156×210画素に対応。4×は各出力画素を4倍で表示します。内部104×140→156×210は1.5倍のためブロック幅が不均一です。小数倍率・ブラウザー補間は実ゲームでの表示を保証しません。</p>
+  <p id="subject-note"></p>
+  <p class="path" id="source-path"></p>
+  <div class="links"><a id="download" download>候補PNG</a> · <a id="working" download>内部解像度PNG</a> · <a id="matrix">この人物の18条件</a> · <a id="face">選択候補と対照の顔3倍比較</a> · <a href="comparisons/preferred.png">選択候補の全6名比較</a> · <a href="comparisons/shortlist.png">初期3候補の比較</a></div>
+  <h2>選択候補と比較用の設定</h2>
+  <p><strong>選択候補：104×140・256色・Floyd–Steinberg。</strong> 2026-10-29にユーザーの第一候補として記録した設定です。顔の細部と階調を残す方向。比較用に同解像度・256色・ディザなし、初期候補A/B/Cも保存しています。</p>
+  <table>
+    <thead><tr><th>候補</th><th>設定</th><th>比較する点</th></tr></thead>
+    <tbody>
+      <tr><td>A / 細部優先</td><td>104×140・64色・なし</td><td>小さな顔・眼鏡・刺繍を残しやすい。156×210への拡大は非整数倍率。</td></tr>
+      <tr><td>B / バランス</td><td>78×105・64色・なし</td><td>2×の均一な画素。粒状感を足さず、面で1990年代風の印象を作る。</td></tr>
+      <tr><td>C / ディザあり</td><td>78×105・64色・FS</td><td>Bと同じパレット。肌の階調を補間する粒と、眼鏡・装飾へのノイズを比較。</td></tr>
+    </tbody>
+  </table>
+  <details><summary>処理と保存物</summary>
+    <p>BOX縮小（premultiplied alpha）→人物ごとのMedian Cutパレット作成→同一パレットへ減色（なし／Floyd–Steinberg）→最近傍で156×210へ戻します。出力のalphaは原本と全画素一致。色数はalphaを除くRGBの上限です。</p>
+    <p>顔・衣服・背景の描き替え、輪郭補正、色調補正、シャープ化はありません。正確な原本は<code>originals/</code>、低解像度の作業画像は<code>working/</code>、156×210の候補は<code>variants/</code>に保存しています。</p>
+    <div class="links"><a href="PRODUCTION_APPLY_2026-10-29.md">本番適用・復元手順</a> · <a href="README.md">結果と再現手順</a> · <a href="source_selection.json">原本と実使用参照</a> · <a href="audit/source_audit.json">寸法・alpha監査</a> · <a href="metrics.csv">色数一覧</a> · <a href="verification.json">検証結果</a> · <a href="comparisons/controls.png">対照画像</a> · <a href="comparisons/ui_scales_approx.png">UI倍率の近似比較</a></div>
+  </details>
+</main>
+<script type="application/json" id="data">__EXPERIMENT_DATA__</script>
+<script>
+  'use strict';
+  const data = JSON.parse(document.getElementById('data').textContent);
+  const presets = [data.config.preferred, ...data.config.shortlist];
+  const byId = id => document.getElementById(id);
+  const controls = ['sample', 'resolution', 'colors', 'dither', 'sampling'];
+  let zoom = 1;
+  for (const sample of data.config.samples) {
+    byId('sample').add(new Option(sample.name_ja + ' / ' + sample.id, sample.id));
+  }
+  function update() {
+    const native = byId('resolution').value === '156x210';
+    if (native) { byId('colors').value = '64'; byId('dither').value = 'none'; }
+    const rgb = byId('colors').value === 'rgb';
+    if (rgb) byId('dither').value = 'none';
+    byId('colors').disabled = native;
+    byId('dither').disabled = native || rgb;
+    const sample = data.config.samples.find(s => s.id === byId('sample').value);
+    const suffix = rgb ? 'rgb' : 'c' + byId('colors').value.padStart(3, '0') + '_' + byId('dither').value;
+    const key = 'r' + byId('resolution').value + '_' + suffix;
+    const record = data.records.find(r => r.sample === sample.id && r.key === key);
+    if (!record) throw new Error('Unknown experiment variant: ' + key);
+    const src = 'variants/' + sample.id + '/' + key + '.png';
+    byId('original').src = 'originals/' + sample.id + '.decoded.png';
+    byId('result').src = src;
+    byId('original').alt = sample.name_ja + 'の原本';
+    byId('result').alt = sample.name_ja + ' / ' + key;
+    for (const id of ['original', 'result']) {
+      const img = byId(id);
+      img.style.width = Math.round(156 * zoom) + 'px';
+      img.style.height = Math.round(210 * zoom) + 'px';
+      img.style.imageRendering = byId('sampling').value;
+    }
+    const preset = presets.find(p => p.key === key);
+    byId('result-caption').textContent = preset ? (preset.id === 'P' ? '選択候補' : '比較用' + preset.id) + ' / ' + key : '比較条件 / ' + key;
+    byId('facts').textContent = record.size.join('×') + ' → 156×210 / RGB実測 ' + record.rgb_colors + '色 / alpha 原本と一致';
+    byId('subject-note').textContent = sample.name_ja + '：' + sample.reason;
+    byId('source-path').textContent = '原本：' + sample.source;
+    byId('download').href = src;
+    byId('working').href = 'working/' + sample.id + '/' + key + '.png';
+    byId('matrix').href = 'comparisons/' + sample.id + '_matrix.png';
+    byId('face').href = 'comparisons/' + sample.id + '_preferred_face_3x.png';
+    document.querySelectorAll('[data-preset]').forEach(b => b.setAttribute('aria-pressed', String(Boolean(preset && b.dataset.preset === preset.id))));
+  }
+  controls.forEach(id => byId(id).addEventListener('change', update));
+  document.querySelectorAll('[data-preset]').forEach(button => button.addEventListener('click', () => {
+    const candidate = presets.find(p => p.id === button.dataset.preset);
+    const match = candidate.key.match(/^r(\d+x\d+)_c(\d+)_(none|fs)$/);
+    byId('resolution').value = match[1];
+    byId('colors').value = String(Number(match[2]));
+    byId('dither').value = match[3];
+    update();
+  }));
+  document.querySelectorAll('[data-zoom]').forEach(button => button.addEventListener('click', () => {
+    zoom = Number(button.dataset.zoom);
+    if (zoom < 1) byId('sampling').value = 'auto';
+    document.querySelectorAll('[data-zoom]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+    update();
+  }));
+  update();
+</script>
+</html>
