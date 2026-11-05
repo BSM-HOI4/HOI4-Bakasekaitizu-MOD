@@ -1,0 +1,171 @@
+GBR_bsm_diplomacy = {
+  GBR_bsm_retry_talks = {
+    icon = generic_political_actions
+    visible = {
+      has_completed_focus = GBR_bsm_two_londons
+    }
+    available = {
+      country_exists = LON
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      NOT = {
+        LON = {
+          has_country_flag = LON_ts_started
+        }
+      }
+    }
+    cost = 25
+    days_re_enable = 90
+    complete_effect = {
+      LON = {
+        country_event = {
+          id = GBR_bsm.1
+          days = 1
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  GBR_bsm_retry_conference = {
+    icon = generic_political_actions
+    visible = {
+      has_completed_focus = GBR_bsm_two_londons
+    }
+    available = {
+      country_exists = LON
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      LON = {
+        has_country_flag = LON_ts_assembly_completed
+        has_country_flag = LON_ts_bridge_settled
+        NOT = {
+          has_country_flag = LON_ts_settled
+        }
+        NOT = {
+          has_country_flag = LON_ts_conference_pending
+        }
+      }
+      NOT = {
+        country_exists = IRE
+      }
+    }
+    cost = 25
+    days_re_enable = 90
+    complete_effect = {
+      LON = {
+        country_event = {
+          id = GBR_bsm.2
+          days = 1
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  GBR_bsm_retry_finance = {
+    icon = generic_political_actions
+    visible = {
+      has_completed_focus = GBR_bsm_city_credit
+    }
+    available = {
+      country_exists = LON
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      NOT = {
+        LON = {
+          has_idea = GBR_bsm_cooperation
+        }
+      }
+    }
+    cost = 25
+    days_re_enable = 90
+    complete_effect = {
+      LON = {
+        country_event = {
+          id = GBR_bsm.6
+          days = 1
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  GBR_bsm_retry_north = {
+    icon = generic_political_actions
+    visible = {
+      has_completed_focus = GBR_bsm_north
+    }
+    available = {
+      country_exists = LON
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      country_exists = IRE
+      IRE = {
+        has_war = no
+      }
+    }
+    cost = 25
+    days_re_enable = 90
+    complete_effect = {
+      LON = {
+        country_event = {
+          id = GBR_bsm.8
+          days = 1
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  GBR_bsm_retry_return = {
+    icon = generic_political_actions
+    visible = {
+      has_completed_focus = GBR_bsm_return_london
+    }
+    available = {
+      country_exists = LON
+      has_war = no
+      LON = {
+        has_war = no
+      }
+      has_country_flag = GBR_bsm_capital_ready
+      owns_state = 126
+      controls_state = 126
+      country_exists = IRE
+      IRE = {
+        has_war = no
+      }
+      LON = {
+        has_country_flag = LON_ts_republic
+        owns_state = 113
+        controls_state = 113
+      }
+    }
+    cost = 25
+    days_re_enable = 90
+    complete_effect = {
+      LON = {
+        country_event = {
+          id = GBR_bsm.5
+          days = 1
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+}

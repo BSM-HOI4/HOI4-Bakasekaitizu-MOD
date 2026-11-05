@@ -71,16 +71,14 @@ country_event = {
 	option = {
 		name = bsm_ind.2b.a
 		# 要求を受諾する
-		FROM = {
-			if = {
-				limit = {
-					is_subject = yes
-				}
-				set_autonomy = {
-					target = FROM
-					autonomy_state = dominion
-				}
+		if = {
+			limit = { FROM = { is_subject_of = ROOT } }
+			set_autonomy = {
+				target = FROM
+				autonomy_state = dominion
 			}
+		}
+		FROM = {
 			add_opinion_modifier = { target = GBR modifier = medium_increase }
 			add_political_power = 50
 		}
@@ -111,6 +109,17 @@ country_event = {
 	option = {
 		name = bsm_ind.2c.a
 		# 独立を認める
+		if = {
+			limit = { FROM = { is_subject_of = ROOT } }
+			end_puppet = FROM
+		}
+		FROM = {
+			if = {
+				limit = { is_subject = no }
+				drop_cosmetic_tag = yes
+				set_country_flag = IND_independent
+			}
+		}
 		FROM = {
 			add_political_power = 100
 			add_stability = 0.05
@@ -177,10 +186,10 @@ country_event = {
 		# 枢軸国の支援を受け入れる
 		if = {
 			limit = {
-				GER = { exists = yes has_government = fascism_ideology }
+				DEU = { exists = yes has_government = fascism_ideology }
 				is_in_faction = no
 			}
-			GER = { country_event = { id = bsm_ind.4b days = 7 } }
+			DEU = { country_event = { id = bsm_ind.4b days = 7 } }
 		}
 		add_political_power = 50
 		ai_chance = { factor = 40 }
@@ -194,7 +203,7 @@ country_event = {
 	}
 }
 
-# bsm_ind.4b - GERへの通知
+# bsm_ind.4b - DEUへの通知
 country_event = {
 	id = bsm_ind.4b
 	title = bsm_ind.4b.t
@@ -420,14 +429,14 @@ country_event = {
 	option = {
 		name = bsm_ind.15.a
 		# 分割を受け入れる準備をする
-		# → RAJ_partition_preparation フォーカスのルートへ（バニラ復元に伴い旧IND_accept_partitionから変更）
+		# IND_accept_partition の方針へ続く
 		add_political_power = 25
 		ai_chance = { factor = 60 }
 	}
 	option = {
 		name = bsm_ind.15.b
 		# 統一インドを守る
-		# → RAJ_partition_preparation フォーカスの反対ルートへ（バニラ復元に伴い旧IND_resist_partitionから変更）
+		# IND_resist_partition の方針へ続く
 		add_stability = -0.05
 		add_war_support = 0.05
 		ai_chance = { factor = 40 }
@@ -504,20 +513,10 @@ country_event = {
 		if = {
 			limit = { PAK = { exists = no } }
 			release = PAK
-		}
-		if = {
-			limit = { PAK = { exists = yes } }
-			PAK = {
-				set_politics = {
-					ruling_party = neutrality_ideology
-					last_election = "1947.8.14"
-					elections_allowed = yes
-				}
-				add_political_power = 100
-				if = {
-					limit = { NOT = { has_idea = RAJ_marginalized_muslim_community_happy } }
-					add_ideas = RAJ_marginalized_muslim_community_happy
-				}
+			# Only the newly released state receives the transition support.
+			if = {
+				limit = { PAK = { exists = yes } }
+				PAK = { add_political_power = 100 }
 			}
 		}
 	}
@@ -578,18 +577,18 @@ country_event = {
 		add_war_support = 0.05
 		add_political_power = 50
 		if = {
-			limit = { PAK = { exists = yes } }
-			PAK = { add_opinion_modifier = { target = IND modifier = large_decrease } }
+			limit = { NTS = { exists = yes } }
+			NTS = { add_opinion_modifier = { target = IND modifier = large_decrease } }
 		}
 		ai_chance = { factor = 60 }
 	}
 	option = {
 		name = bsm_ind.21.b
-		# パキスタンと交渉する
+		# ナントカスタンと交渉する
 		if = {
-			limit = { PAK = { exists = yes } }
-			PAK = { add_opinion_modifier = { target = IND modifier = medium_increase } }
-			add_opinion_modifier = { target = PAK modifier = medium_increase }
+			limit = { NTS = { exists = yes } }
+			NTS = { add_opinion_modifier = { target = IND modifier = medium_increase } }
+			add_opinion_modifier = { target = NTS modifier = medium_increase }
 		}
 		add_political_power = 75
 		ai_chance = { factor = 40 }
@@ -609,8 +608,13 @@ country_event = {
 
 	option = {
 		name = bsm_ind.25.a
+		trigger = {
+			is_subject = no
+			NOT = { has_war_with = IND }
+			NOT = { check_variable = { bsm_ea_sphere > 0 } }
+			IND = { has_country_flag = IND_SAEC_founded }
+		}
 		# SAECへの加盟を受け入れる
-		IND = { set_temp_variable = { bsm_ea_token = IND.IND_saec_token } }
 		ROOT = {
 			set_temp_variable = { bsm_ea_token = IND.IND_saec_token }
 			bsm_ea_join_sphere = yes
@@ -640,12 +644,18 @@ country_event = {
 
 	option = {
 		name = bsm_ind.26.a
+		trigger = {
+			is_subject = no
+			NOT = { has_war_with = IND }
+			NOT = { check_variable = { bsm_ea_sphere > 0 } }
+			IND = { has_country_flag = IND_SAEC_founded }
+		}
 		# SAECへ参加する
 		ROOT = {
 			set_temp_variable = { bsm_ea_token = IND.IND_saec_token }
 			bsm_ea_join_sphere = yes
 		}
-		IND = { add_opinion_modifier = { target = FROM modifier = medium_increase } }
+		IND = { add_opinion_modifier = { target = ROOT modifier = medium_increase } }
 		add_opinion_modifier = { target = IND modifier = medium_increase }
 		ai_chance = { factor = 50 }
 	}
